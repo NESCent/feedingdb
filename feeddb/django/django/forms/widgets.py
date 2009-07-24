@@ -215,7 +215,10 @@ class Input(Widget):
             # Only add the 'value' attribute if a value is non-empty.
             final_attrs['value'] = force_unicode(value)
         if readonly:
-            return mark_safe(u'%s' % final_attrs['value'])	
+            if value != '':
+	            return mark_safe(u'%s' % final_attrs['value'])
+            else:
+                return ''		
         return mark_safe(u'<input%s />' % flatatt(final_attrs))
 
 class TextInput(Input):
@@ -378,6 +381,11 @@ class CheckboxInput(Widget):
         if value not in ('', True, False, None):
             # Only add the 'value' attribute if a value is non-empty.
             final_attrs['value'] = force_unicode(value)
+        if readonly: 
+            if final_attrs.has_key('value'):
+	            return mark_safe(u'%s' % final_attrs['value'])
+            else:
+                return ''		
         return mark_safe(u'<input%s />' % flatatt(final_attrs))
 
     def value_from_datadict(self, data, files, name):
@@ -675,7 +683,7 @@ class MultiWidget(Widget):
                 widget_value = None
             if id_:
                 final_attrs = dict(final_attrs, id='%s_%s' % (id_, i))
-            output.append(widget.render(name + '_%s' % i, widget_value, final_attrs))
+            output.append(widget.render(name + '_%s' % i, widget_value, readonly, final_attrs))
         return mark_safe(self.format_output(output))
 
     def id_for_label(self, id_):

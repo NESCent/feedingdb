@@ -727,6 +727,53 @@ table#change-history tbody th {
     text-align: right;
 }
 
+/* navigation */
+
+.bullet {list-style-type: square;}
+
+.navigation {
+	float: left;
+	width: 190px;
+	background-color: #EDF3FE;
+/*	border-right: 1px solid #bbb;	
+	height:650px;*/
+	
+}
+.navigation h2 {
+	color: #333;
+	font: 1.2em;
+/*	background-color: #ED0000; */
+	margin: 0;
+	margin-top: 1.5em;
+	margin-bottom: 0.2em;
+	padding-left: 5px;
+	padding-bottom:0.1em;
+	padding-top:0.3em;
+/*	border-top: 1px solid #bbb;*/
+}
+.navigation ul {
+	margin-top:0px;
+	padding-left: 1px;
+	list-style-type: square;
+	
+}
+.navigation li {
+	list-style-type: square;
+}
+.navigation li a {
+	font-size: 1.1em;
+	color: #444;
+	display: block;
+	padding: 1px 0px 0px 15px;
+	text-decoration: none;
+	width: 175px;
+}
+.navigation li a:hover {
+	background: #b5b5EB;
+	color: #000000;	
+}
+
+
 /* SIDEBAR */
 
 #content-related h3 {

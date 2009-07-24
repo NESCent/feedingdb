@@ -161,6 +161,7 @@ h1,h2,h3 {padding-top: 6px; color:#585858; margin-bottom: 4px;}
 .navigation {
 	float: left;
 	width: 153px;
+	background-color: #909db2;
 	/*height:650px;*/
 	
 }
