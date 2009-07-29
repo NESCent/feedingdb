@@ -407,7 +407,6 @@ class BoundField(StrAndUnicode):
             name = self.html_name
         else:
             name = self.html_initial_name
-        print "From forms.forms.BoundField: ", widget, ": ", readonly
         return widget.render(name, data, readonly=readonly, attrs=attrs)
 
     def as_text(self, attrs=None, **kwargs):

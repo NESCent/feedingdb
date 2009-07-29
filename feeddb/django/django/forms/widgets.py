@@ -233,7 +233,7 @@ class PasswordInput(Input):
 
     def render(self, name, value,readonly=False, attrs=None):
         if not self.render_value: value=None
-        return super(PasswordInput, self).render(name, value, attrs)
+        return super(PasswordInput, self).render(name, value, readonly, attrs)
 
 class HiddenInput(Input):
     input_type = 'hidden'
@@ -266,7 +266,7 @@ class FileInput(Input):
     needs_multipart_form = True
 
     def render(self, name, value, readonly=False, attrs=None):
-        return super(FileInput, self).render(name, None, attrs=attrs)
+        return super(FileInput, self).render(name, None, readonly, attrs=attrs)
 
     def value_from_datadict(self, data, files, name):
         "File widgets take data from FILES, not POST"
@@ -311,7 +311,7 @@ class DateInput(Input):
 
     def render(self, name, value,readonly=False, attrs=None):
         value = self._format_value(value)
-        return super(DateInput, self).render(name, value, attrs)
+        return super(DateInput, self).render(name, value, readonly, attrs)
 
     def _has_changed(self, initial, data):
         return super(DateInput, self)._has_changed(self._format_value(initial), data)
@@ -335,7 +335,7 @@ class DateTimeInput(Input):
 
     def render(self, name, value,readonly=False, attrs=None):
         value = self._format_value(value)
-        return super(DateTimeInput, self).render(name, value, attrs)
+        return super(DateTimeInput, self).render(name, value, readonly, attrs)
 
     def _has_changed(self, initial, data):
         return super(DateTimeInput, self)._has_changed(self._format_value(initial), data)
@@ -358,7 +358,7 @@ class TimeInput(Input):
 
     def render(self, name, value,readonly=False, attrs=None):
         value = self._format_value(value)
-        return super(TimeInput, self).render(name, value, attrs)
+        return super(TimeInput, self).render(name, value, readonly, attrs)
 
     def _has_changed(self, initial, data):
         return super(TimeInput, self)._has_changed(self._format_value(initial), data)
@@ -382,10 +382,10 @@ class CheckboxInput(Widget):
             # Only add the 'value' attribute if a value is non-empty.
             final_attrs['value'] = force_unicode(value)
         if readonly: 
-            if final_attrs.has_key('value'):
-	            return mark_safe(u'%s' % final_attrs['value'])
-            else:
-                return ''		
+            #if final_attrs.has_key('value'):
+            #return mark_safe(u'%s' % final_attrs['value'])
+            #else:
+            return value		
         return mark_safe(u'<input%s />' % flatatt(final_attrs))
 
     def value_from_datadict(self, data, files, name):
@@ -472,7 +472,7 @@ class NullBooleanSelect(Select):
             value = {True: u'2', False: u'3', u'2': u'2', u'3': u'3'}[value]
         except KeyError:
             value = u'1'
-        return super(NullBooleanSelect, self).render(name, value, attrs, choices)
+        return super(NullBooleanSelect, self).render(name, value, readonly, attrs, choices)
 
     def value_from_datadict(self, data, files, name):
         value = data.get(name, None)
@@ -492,7 +492,9 @@ class SelectMultiple(Select):
     def render(self, name, value,readonly=False, attrs=None, choices=()):
         if value is None: value = []
         final_attrs = self.build_attrs(attrs, name=name)
-        
+        if readonly:
+            output= self.get_selected_value(choices, value)
+            return mark_safe(output)      
         output = [u'<select multiple="multiple"%s>' % flatatt(final_attrs)]
         options = self.render_options(choices, value)
         if options:
@@ -571,6 +573,8 @@ class RadioFieldRenderer(StrAndUnicode):
 
     def render(self,readonly=False):
         """Outputs a <ul> for this set of radio fields."""
+        if readonly:
+            return self.value
         return mark_safe(u'<ul>\n%s\n</ul>' % u'\n'.join([u'<li>%s</li>'
                 % force_unicode(w) for w in self]))
 
@@ -593,7 +597,7 @@ class RadioSelect(Select):
         return self.renderer(name, str_value, final_attrs, choices)
 
     def render(self, name, value,readonly=False, attrs=None, choices=()):
-        return self.get_renderer(name, value, attrs, choices).render()
+        return self.get_renderer(name, value, attrs, choices).render(readonly)
 
     def id_for_label(self, id_):
         # RadioSelect is represented by multiple <input type="radio"> fields,
@@ -607,6 +611,8 @@ class RadioSelect(Select):
 
 class CheckboxSelectMultiple(SelectMultiple):
     def render(self, name, value,readonly=False, attrs=None, choices=()):
+        if readonly:
+            return value
         if value is None: value = []
         has_id = attrs and 'id' in attrs
         final_attrs = self.build_attrs(attrs, name=name)

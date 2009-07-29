@@ -31,8 +31,11 @@ class FilteredSelectMultiple(forms.SelectMultiple):
         self.is_stacked = is_stacked
         super(FilteredSelectMultiple, self).__init__(attrs, choices)
 
-    def render(self, name, value, attrs=None, choices=(),readonly=False):
-        output = [super(FilteredSelectMultiple, self).render(name, value, attrs, choices)]
+    def render(self, name, value, readonly=False, attrs=None, choices=()):
+        output = [super(FilteredSelectMultiple, self).render(name, value, readonly, attrs, choices)]
+        if readonly:
+            return mark_safe(u''.join(output))
+
         output.append(u'<script type="text/javascript">addEvent(window, "load", function(e) {')
         # TODO: "id_" is hard-coded here. This should instead use the correct
         # API to determine the ID dynamically.
@@ -88,12 +91,12 @@ class AdminFileWidget(forms.FileInput):
     def __init__(self, attrs={}):
         super(AdminFileWidget, self).__init__(attrs)
 
-    def render(self, name, value, attrs=None,readonly=False):
+    def render(self, name, value, readonly=False, attrs=None):
         output = []
         if value and hasattr(value, "url"):
             output.append('%s <a target="_blank" href="%s">%s</a> <br />%s ' % \
                 (_('Currently:'), value.url, value, _('Change:')))
-        output.append(super(AdminFileWidget, self).render(name, value, attrs))
+        output.append(super(AdminFileWidget, self).render(name, value, readonly, attrs))
         return mark_safe(u''.join(output))
 
 class ForeignKeyRawIdWidget(forms.TextInput):
@@ -105,7 +108,7 @@ class ForeignKeyRawIdWidget(forms.TextInput):
         self.rel = rel
         super(ForeignKeyRawIdWidget, self).__init__(attrs)
 
-    def render(self, name, value, attrs=None,readonly=False):
+    def render(self, name, value,readonly=False, attrs=None):
         if attrs is None:
             attrs = {}
         related_url = '../../../%s/%s/' % (self.rel.to._meta.app_label, self.rel.to._meta.object_name.lower())
@@ -116,7 +119,7 @@ class ForeignKeyRawIdWidget(forms.TextInput):
             url = ''
         if not attrs.has_key('class'):
             attrs['class'] = 'vForeignKeyRawIdAdminField' # The JavaScript looks for this hook.
-        output = [super(ForeignKeyRawIdWidget, self).render(name, value, attrs)]
+        output = [super(ForeignKeyRawIdWidget, self).render(name, value, readonly, attrs)]
         # TODO: "id_" is hard-coded here. This should instead use the correct
         # API to determine the ID dynamically.
         output.append('<a href="%s%s" class="related-lookup" id="lookup_id_%s" onclick="return showRelatedObjectLookupPopup(this);"> ' % \
@@ -158,13 +161,13 @@ class ManyToManyRawIdWidget(ForeignKeyRawIdWidget):
     def __init__(self, rel, attrs=None):
         super(ManyToManyRawIdWidget, self).__init__(rel, attrs)
 
-    def render(self, name, value, attrs=None,readonly=False):
+    def render(self, name, value, readonly=False, attrs=None):
         attrs['class'] = 'vManyToManyRawIdAdminField'
         if value:
             value = ','.join([str(v) for v in value])
         else:
             value = ''
-        return super(ManyToManyRawIdWidget, self).render(name, value, attrs)
+        return super(ManyToManyRawIdWidget, self).render(name, value, readonly, attrs)
 
     def url_parameters(self):
         return self.base_url_parameters()
