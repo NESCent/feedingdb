@@ -1,0 +1,8 @@
+view changed to readonly view
+
+--This line, and those below, will be ignored--
+
+M    base_site.html
+M    change_list_results.html
+M    change_form.html
+M    base.html
