@@ -228,10 +228,22 @@ class RelatedFieldWidgetWrapper(forms.Widget):
             related_url = reverse('admin:%s_%s_add' % info, current_app=self.admin_site.name)
         except NoReverseMatch:
             related_url = '../../../%s/%s/add/' % info
+
+        view_url=''
+        if value!='' and value != None: 
+            view_url = u'../../../%s/%s/' % info
+            view_url += str(value)
+
+        
+
         self.widget.choices = self.choices
         output = [self.widget.render(name, value, readonly, *args, **kwargs)]
         if readonly:
-            return mark_safe(u''.join(output))
+            str_return=u''.join(output)
+            if rel_to in self.admin_site._registry and view_url!='': # If the related object has an admin interface:
+                str_return=u'<a href="%s" class="viewlink">' %  (view_url) + str_return + '</a>'  
+            return mark_safe(str_return)
+
         if rel_to in self.admin_site._registry: # If the related object has an admin interface:
             # TODO: "id_" is hard-coded here. This should instead use the correct
             # API to determine the ID dynamically.

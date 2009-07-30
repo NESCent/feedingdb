@@ -53,29 +53,23 @@
     <!-- END Header -->
     <!-- menu sidebar -->
     <table style="padding:0; margin:0; border:none; width:100%;">
-    <tr><td width="180">
+    <tr><td  style="padding:0; margin:0; border:none; width:190px;background-color: #EDF3FE;">
    
 <div class="navigation">
 {% if user.is_authenticated %}
-<h2>Channel</h2>
-<ul>
-<li><a href="search_channel_results.html">My Channels</a></li>
-<li><a href="search_channel.html">Search</a></li>
-<li><a href="add_channel.html">Add</a></li>
-</ul> 
 
 <h2>Trial</h2>
 <ul>
-<li><a href="search_trial_results.html">My Trials</a></li>
-<li><a href="search_trial.html">Search</a></li>
-<li><a href="add_trial.html">Add</a></li>
+<li><a href="/admin/feed/trial/?created_by={{user.pk}}">My Trials</a></li>
+<li><a href="/admin/feed/trial/">Search</a></li>
+<li><a href="/admin/feed/trial/add">Add</a></li>
 </ul> 
 
 <h2>Recording Session</h2>
 <ul>
-<li><a href="search_rs_results.html">My Recording Sessions</a></li>
-<li><a href="search_rs.html">Search</a></li>
-<li><a href="add_rs.html">Add</a></li>
+<li><a href="/admin/feed/session/?created_by={{user.pk}}">My Recording Sessions</a></li>
+<li><a href="/admin/feed/session/">Search</a></li>
+<li><a href="/admin/feed/session/add">Add</a></li>
 </ul> 
 
 
@@ -147,7 +141,7 @@
     </td>
     </tr>
     </table>
-    {% block footer %}<div id="footer"></div>{% endblock %}
+    {% block footer %}<div id="footer"><a href="http://www.nescent.org">National Evolutionary Synthesis Center (NESCent) </a></div>{% endblock %}
 </div>
 <!-- END Container -->
 

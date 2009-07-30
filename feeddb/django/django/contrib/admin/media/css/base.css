@@ -243,6 +243,7 @@ td, th {
     font-size: 11px;
     line-height: 13px;
     border-bottom: 1px solid #eee;
+    border: 1px solid #eee;
     vertical-align: top;
     padding: 5px;
     font-family: "Lucida Grande", Verdana, Arial, sans-serif;
@@ -550,18 +551,12 @@ a.deletelink:hover {
     font-weight: bold;
     font-family: Arial,Helvetica,sans-serif;
     padding-left: 0;
-    float: right;
-    position: relative;
-    margin-top: -2.4em;
-    margin-bottom: -2em;
 }
 
-.form-row .object-tools {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    float: none;
-    height: 2em;
-    padding-left: 3.5em;
+.object-tools-top {
+    margin-top: -2.4em;
+    margin-bottom: -2em; 
+    float: right;
 }
 
 .object-tools li {
@@ -579,8 +574,8 @@ a.deletelink:hover {
 
 .object-tools a:link, .object-tools a:visited {
     display: block;
-    float: left;
     color: white;
+    float: left;
     padding: .1em 14px .1em 8px;
     height: 14px;
     background: #999 url(../img/admin/tool-right.gif) 100% 0 no-repeat;
@@ -625,10 +620,16 @@ table#change-history tbody th {
     width: 100%;
     min-width: 760px;
     padding: 0;
+    border: 1px solid #417690;
+    margin: 0 auto 0 auto; /*this is what centers the pages in the middle of the screen */
+    width: 100%;
+   
 }
 
 #content {
     margin: 10px 15px;
+    min-height: 500px;
+
 }
 
 #header {
@@ -648,10 +649,16 @@ table#change-history tbody th {
 }
 
 #footer {
+    background: #417690;
     clear: both;
     padding: 10px;
+    color: #fff;
+    text-align:center;
 }
 
+#footer a:link, #footer a:visited {
+    color: white;
+}
 /* COLUMN TYPES */
 
 .colMS {
@@ -732,41 +739,52 @@ table#change-history tbody th {
 .bullet {list-style-type: square;}
 
 .navigation {
-	float: left;
+		
+	background: url(../img/admin/menutop.jpg) top right no-repeat;
 	width: 190px;
 	background-color: #EDF3FE;
-/*	border-right: 1px solid #bbb;	
+                        padding:0;
+ 	font-size: 1.1em;
+	float: left;
+	text-align: right;
+	height:100%;
+padding-top:50px;
+/*	
+	
+	border-right: 1px solid #bbb;	
 	height:650px;*/
 	
 }
 .navigation h2 {
 	color: #333;
 	font: 1.2em;
-/*	background-color: #ED0000; */
 	margin: 0;
 	margin-top: 1.5em;
 	margin-bottom: 0.2em;
 	padding-left: 5px;
 	padding-bottom:0.1em;
+	padding-right: 15px;
 	padding-top:0.3em;
 /*	border-top: 1px solid #bbb;*/
 }
 .navigation ul {
 	margin-top:0px;
 	padding-left: 1px;
-	list-style-type: square;
+	padding-right: 10px;
+    list-style-type: none;
 	
 }
 .navigation li {
-	list-style-type: square;
+	padding-right: 10px;
+    list-style-type: none;
 }
 .navigation li a {
-	font-size: 1.1em;
+	font-size: 1.0em;
 	color: #444;
 	display: block;
-	padding: 1px 0px 0px 15px;
+	padding: 1px 18px 0px 15px;
 	text-decoration: none;
-	width: 175px;
+	width: 157px;
 }
 .navigation li a:hover {
 	background: #b5b5EB;

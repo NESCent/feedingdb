@@ -799,6 +799,7 @@ class ModelAdmin(BaseModelAdmin):
                 for formset in formsets:
                     self.save_formset( request, form, formset, change=False)
                 self.log_addition(request, new_object)
+
                 return self.response_add(request, new_object)
         else:
             # Prepare the dict of initial data from the request.
@@ -897,6 +898,7 @@ class ModelAdmin(BaseModelAdmin):
 
                 change_message = self.construct_change_message(request, form, formsets)
                 self.log_change(request, new_object, change_message)
+ 
                 return self.response_change(request, new_object)
 
         else:
@@ -1158,6 +1160,7 @@ class ModelAdmin(BaseModelAdmin):
         }
         context.update(extra_context or {})
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
+
         return render_to_response(self.delete_confirmation_template or [
             "admin/%s/%s/delete_confirmation.html" % (app_label, opts.object_name.lower()),
             "admin/%s/delete_confirmation.html" % app_label,

@@ -413,7 +413,7 @@ class Select(Widget):
         final_attrs = self.build_attrs(attrs, name=name)
         print self, ": ", readonly
         if readonly:
-            output=	self.get_selected_value(choices, [value])
+            output = self.get_selected_value(choices, [value])
             return mark_safe(output)            	   
         output = [u'<select%s>' % flatatt(final_attrs)]
         options = self.render_options(choices, [value])
@@ -425,7 +425,7 @@ class Select(Widget):
     def get_selected_value(self, choices, selected_choices):
         def get_value(option_value, option_label):
             option_value = force_unicode(option_value)
-            if option_value in selected_choices:
+            if option_value in selected_choices and option_label!='---------':
                 return u'%s' % conditional_escape(force_unicode(option_label))
             return ''
 

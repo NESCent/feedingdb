@@ -53,8 +53,8 @@
      	 <li><a href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/{{inline_admin_form.original.id}}/" >{% trans "View" %}</a></li>
 
         {% if has_change_permission %}
-				<li><a href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/{{inline_admin_form.original.id}}/edit/" >{% trans "Edit" %}</a></li>
- 				<li><a href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/{{inline_admin_form.original.id}}/delete/" >{% trans "Delete" %}</a></li>
+				<li><a class="changelink" href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" >{% trans "Edit" %}</a></li>
+ 				<li><a class="deletelink" href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" >{% trans "Delete" %}</a></li>
         {% endif %}
 
 		</ul>
@@ -67,15 +67,17 @@
    </table>
 
  {% if has_change_permission %}
-<table><tr>
-<td class="form-row" width="50">
+<p>
+<table width="100%"><tr>
+<td class="form_row">
 <ul class="object-tools">
- 	<li><a href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/add/?{{ opts.object_name.lower }}={{object_id}}" >{% trans "Add" %}</a></li>
+ 	<li><a class="addlink" href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/add/?{{ opts.object_name.lower }}={{object_id}}" >{% trans "Add " %}{{inline_admin_formset.opts.verbose_name.lower}}</a></li>
 </ul>
 </td>
 </tr>
 </table>
-        {% endif %}
+</p>     
+   {% endif %}
 
 </fieldset>
   </div>

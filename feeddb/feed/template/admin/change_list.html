@@ -40,7 +40,7 @@
   <div id="content-main">
     {% block object-tools %}
       {% if has_add_permission %}
-        <ul class="object-tools">
+        <ul class="object-tools object-tools-top">
           <li>
             <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
               {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}

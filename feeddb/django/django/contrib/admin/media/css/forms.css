@@ -4,9 +4,10 @@
 
 .form-row {
     overflow: hidden;
-    padding: 8px 12px;
+    padding: 3px 10px;
     font-size: 11px;
     border-bottom: 1px solid #eee;
+ 
 }
 
 .form-row img, .form-row input {
@@ -30,6 +31,7 @@ label {
     font-weight: normal !important;
     color: #666;
     font-size: 12px;
+    text-align: right;
 }
 
 .required label, label.required {
