@@ -277,7 +277,7 @@ fieldset.monospace textarea {
 }
 
 .inline-related.tabular fieldset.module table {
-    width: 100%;
+    width: 100%; 
 }
 
 .last-related fieldset {

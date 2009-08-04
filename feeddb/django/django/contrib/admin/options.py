@@ -20,6 +20,8 @@ from django.utils.text import capfirst, get_text_list
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
+from feeddb.feed.models import  *
+
 try:
     set
 except NameError:
@@ -814,6 +816,9 @@ class ModelAdmin(BaseModelAdmin):
                     initial[k] = initial[k].split(",")
             form = ModelForm(initial=initial)
             form.created_by_id = request.user.pk
+            
+            self.filter_values(request, form,model)
+ 
             prefixes = {}
             for FormSet in self.get_formsets(request):
                 prefix = FormSet.get_default_prefix()
@@ -937,6 +942,13 @@ class ModelAdmin(BaseModelAdmin):
         context.update(extra_context or {})
         return self.render_change_form(request, context, change=True, obj=obj)
     change_view = transaction.commit_on_success(change_view)
+    
+    def filter_values(self, request, form, model):
+        if  model == Subject:
+            form.fields["study"].queryset = Study.objects.filter(created_by=request.user)
+        if  model == EmgChannel:
+            form.fields["sensor"].queryset = EmgSensor.objects.filter(emgsetup=request.GET['emgsetup'])
+            #print form.fields["emgsetup"].choices.choice
 
     def view_view(self, request, object_id, extra_context=None):
         "The 'View' admin view for this model."
