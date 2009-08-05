@@ -651,7 +651,7 @@ class ModelAdmin(BaseModelAdmin):
             "admin/view.html"
         ], context, context_instance=context_instance)
 
-    def response_add(self, request, obj, post_url_continue='../%s/'):
+    def response_add(self, request, obj, post_url_continue='../%s/edit/'):
         """
         Determines the HttpResponse for the add_view stage.
         """
@@ -680,7 +680,14 @@ class ModelAdmin(BaseModelAdmin):
             # Figure out where to redirect. If the user has change permission,
             # redirect to the change-list page for this object. Otherwise,
             # redirect to the admin index.
-            if self.has_change_permission(request, None):
+            rel_obj=None
+            rel_obj_id = None
+            for k in request.GET:
+                rel_obj = k
+                rel_obj_id = request.GET[k]
+            if rel_obj != None:
+                post_url = '../../%s/%s' % (rel_obj, rel_obj_id)
+            elif self.has_change_permission(request, None):
                 post_url = '../'
             else:
                 post_url = '../../../'
@@ -708,8 +715,17 @@ class ModelAdmin(BaseModelAdmin):
             self.message_user(request, msg + ' ' + (_("You may add another %s below.") % force_unicode(opts.verbose_name)))
             return HttpResponseRedirect("../add/")
         else:
+            rel_obj=None
+            rel_obj_id = None
+            for k in request.GET:
+                rel_obj = k
+                rel_obj_id = request.GET[k]
+            if rel_obj != None:
+                post_url = '../../../%s/%s' % (rel_obj, rel_obj_id)
+            else:
+                post_url = '../../'
             self.message_user(request, msg)
-            return HttpResponseRedirect("../")
+            return HttpResponseRedirect(post_url)
 
     def response_action(self, request, queryset):
         """
@@ -770,7 +786,7 @@ class ModelAdmin(BaseModelAdmin):
         
         if not self.has_add_permission(request):
             raise PermissionDenied
-
+ 
         ModelForm = self.get_form(request)
         formsets = []
         if request.method == 'POST':
@@ -817,7 +833,9 @@ class ModelAdmin(BaseModelAdmin):
             form = ModelForm(initial=initial)
             form.created_by_id = request.user.pk
             
-            self.filter_values(request, form,model)
+            #filtering choices
+            self.filter_form_values(request, form,model,None)
+            
  
             prefixes = {}
             for FormSet in self.get_formsets(request):
@@ -833,6 +851,7 @@ class ModelAdmin(BaseModelAdmin):
 
         inline_admin_formsets = []
         for inline, formset in zip(self.inline_instances, formsets):
+            self.filter_formset_values(request,formset,model,None)
             fieldsets = list(inline.get_fieldsets(request))
             inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
             inline_admin_formsets.append(inline_admin_formset)
@@ -908,6 +927,8 @@ class ModelAdmin(BaseModelAdmin):
 
         else:
             form = ModelForm(instance=obj)
+            #filtering choices
+            self.filter_form_values(request, form,model,obj)
             prefixes = {}
             for FormSet in self.get_formsets(request, obj):
                 prefix = FormSet.get_default_prefix()
@@ -922,11 +943,14 @@ class ModelAdmin(BaseModelAdmin):
 
         inline_admin_formsets = []
         for inline, formset in zip(self.inline_instances, formsets):
+            self.filter_formset_values(request,formset,model,obj)
             fieldsets = list(inline.get_fieldsets(request, obj))
             inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
+            
             inline_admin_formsets.append(inline_admin_formset)
             media = media + inline_admin_formset.media
 
+        
         context = {
             'title': _('Change %s') % force_unicode(opts.verbose_name),
             'adminform': adminForm,
@@ -943,13 +967,68 @@ class ModelAdmin(BaseModelAdmin):
         return self.render_change_form(request, context, change=True, obj=obj)
     change_view = transaction.commit_on_success(change_view)
     
-    def filter_values(self, request, form, model):
+    def filter_form_values(self, request, form, model, obj):
+        #general set all choices from the user own data
+        if form.fields.has_key("study"):
+            form.fields["study"].queryset = Study.objects.filter(created_by=request.user)
+        if form.fields.has_key("experiment"):
+            form.fields["experiment"].queryset = Experiment.objects.filter(created_by=request.user)
+        if form.fields.has_key("subject"):
+            form.fields["subject"].queryset = Subject.objects.filter(created_by=request.user)
+        if form.fields.has_key("setup"):
+            form.fields["setup"].queryset = Setup.objects.filter(created_by=request.user)
+        if form.fields.has_key("emgsetup"):
+            form.fields["emgsetup"].queryset = EmgSetup.objects.filter(created_by=request.user)
+        if form.fields.has_key("sonosetup"):
+            form.fields["sonosetup"].queryset = SonoSetup.objects.filter(created_by=request.user)
+        if form.fields.has_key("channel"):
+            form.fields["channel"].queryset = Channel.objects.filter(created_by=request.user)
+        if form.fields.has_key("emgchannel"):
+            form.fields["emgchannel"].queryset = EmgChannel.objects.filter(created_by=request.user)
+        if form.fields.has_key("sonochannel"):
+            form.fields["sonochannel"].queryset = SonoChannel.objects.filter(created_by=request.user)
+        if form.fields.has_key("session"):
+            form.fields["session"].queryset = Session.objects.filter(created_by=request.user)
+        if form.fields.has_key("trial"):
+            form.fields["trial"].queryset = Trial.objects.filter(created_by=request.user)
+
         if  model == Subject:
             form.fields["study"].queryset = Study.objects.filter(created_by=request.user)
-        if  model == EmgChannel:
-            form.fields["sensor"].queryset = EmgSensor.objects.filter(emgsetup=request.GET['emgsetup'])
-            #print form.fields["emgsetup"].choices.choice
+        elif  model == Trial:
+            form.fields["session"].queryset = Session.objects.filter(created_by=request.user)
+        elif  model == EmgChannel:
+            if request.GET.has_key("emgsetup"):
+                form.fields["sensor"].queryset = EmgSensor.objects.filter(setup=request.GET['emgsetup'])
+                form.fields["setup"].initial=request.GET['emgsetup']
+        elif  model == SonoChannel:
+            if request.GET.has_key("sonosetup"):
+                form.fields["crystal1"].queryset = SonoSensor.objects.filter(setup=request.GET['sonosetup'])
+                form.fields["crystal2"].queryset = SonoSensor.objects.filter(setup=request.GET['sonosetup'])
+                form.fields["setup"].initial=request.GET['sonosetup']
+        elif  model == EmgSensor:
+            if request.GET.has_key("emgsetup"):
+                form.fields["setup"].initial=request.GET['emgsetup']
+        elif  model == SonoSensor:
+            if request.GET.has_key("sonosetup"):
+                form.fields["setup"].initial=request.GET['sonosetup']
+            else:
+                pass
+        elif  model == Session:
+            if obj !=None and form.fields.has_key("channel"): 
+                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment = obj.experiment.id)
+            elif request.GET.has_key("experiment") and form.fields.has_key("channel"): 
+                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=request.GET['experiment'])
+            if form.fields.has_key("experiment"):
+                form.fields["experiment"].queryset = Experiment.objects.filter(created_by=request.user)
+        elif  model == ChannelLineup:
+            if request.GET.has_key("session") and form.fields.has_key("channel"): 
+                sess = Session.objects.get(id=  request.GET['session'])
+                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=sess.experiment.id)
 
+    def filter_formset_values(self, request, formset, model, obj):
+        for form in formset.forms:
+            self.filter_form_values(request, form, model, obj)
+    
     def view_view(self, request, object_id, extra_context=None):
         "The 'View' admin view for this model."
         model = self.model
@@ -1155,10 +1234,19 @@ class ModelAdmin(BaseModelAdmin):
             obj.delete()
 
             self.message_user(request, _('The %(name)s "%(obj)s" was deleted successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj_display)})
-
-            if not self.has_change_permission(request, None):
-                return HttpResponseRedirect("../../../../")
-            return HttpResponseRedirect("../../")
+            
+            rel_obj=None
+            rel_obj_id = None
+            for k in request.GET:
+                rel_obj = k
+                rel_obj_id = request.GET[k]
+            if rel_obj != None:
+                post_url = '../../../%s/%s' % (rel_obj, rel_obj_id)
+            elif not self.has_change_permission(request, None):
+                post_url = '../../../../'
+            else:
+                post_url = '../../'
+            return HttpResponseRedirect(post_url)
 
         context = {
             "title": _("Are you sure?"),
@@ -1282,6 +1370,8 @@ class InlineModelAdmin(BaseModelAdmin):
             exclude = []
         else:
             exclude = list(self.exclude)
+        
+               
         # if exclude is an empty list we use None, since that's the actual
         # default
         defaults = {

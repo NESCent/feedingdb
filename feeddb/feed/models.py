@@ -6,7 +6,7 @@ import datetime
 # base model for the whole project
 
 class FeedBaseModel(models.Model):
-    created_by = models.ForeignKey(User,editable=False, blank=True, null=True)
+    created_by = models.ForeignKey(User, related_name="%(class)s_related", editable=False,  blank=True, null=True)
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField(editable=False)
    
@@ -45,7 +45,7 @@ class Behavior(CvTerm):
 class Taxon(CvTerm):
     genus = models.CharField(max_length=255)
     species = models.CharField(max_length=255)
-    common_name = models.CharField(max_length=255)
+    common_name = models.CharField(max_length=255, blank = True, null=True)
     def __unicode__(self):
         return self.genus+" "+ self.species 
     class Meta:
@@ -80,6 +80,15 @@ class Behavior(CvTerm):
     pass
 
 class Restraint(CvTerm):
+    pass
+
+class Emgunit(CvTerm):
+    pass
+
+class Sonounit(CvTerm):
+    pass
+
+class Emgfiltering(CvTerm):
     pass
 
 #object models    
@@ -140,22 +149,93 @@ class Experiment(FeedBaseModel):
     impl_notes = models.TextField("Implantation Notes", blank = True, null=True)
     def __unicode__(self):
         return self.description    
-    
+
+class Setup(FeedBaseModel):
+    experiment = models.ForeignKey(Experiment)
+    technique = models.ForeignKey(Technique)     
+    notes = models.TextField("Notes about all sensors and channels in this setup", blank = True, null=True)
+    class Meta:
+        verbose_name = "setup"
+    def __unicode__(self):
+        return "%s setup" % (self.technique)  
+
+class EmgSetup(Setup):
+    preamplifier = models.CharField(max_length=255, blank = True, null=True)
+    class Meta:
+        verbose_name = "emgsetup"
+    def __unicode__(self):
+        return "%s setup with preamplifier: %s" % (self.technique, self.preamplifier)  
+
+class SonoSetup(Setup):
+    sonomicrometer = models.CharField(max_length=255, blank = True, null=True)
+    class Meta:
+        verbose_name = "sonosetup"
+    def __unicode__(self):
+        return "%s setup with sonomicrometer: %s" % (self.technique, self.sonomicrometer)  
 
 class Sensor(FeedBaseModel):
-    technique = models.ForeignKey(Technique)    
-    experiment = models.ForeignKey(Experiment)    
+    setup = models.ForeignKey(Setup)
     name = models.CharField(max_length=255)
     notes = models.TextField( blank = True, null=True)
-    muscle = models.ForeignKey(Muscle )
+    def __unicode__(self):
+        return self.name  
+
+class EmgSensor(Sensor):
+    muscle = models.ForeignKey(Muscle)
     side = models.ForeignKey(Side, verbose_name="Side of muscle" )
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="Depth axis", blank = True, null=True )
     axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="Anterior posterior axis", blank = True, null=True )
     axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="Dorsal ventral axis", blank = True, null=True )
     eletrode_type = models.ForeignKey(EletrodeType, verbose_name="Eletrode type", blank = True, null=True )
     def __unicode__(self):
-        return ' '.join([self.name, "(", self.muscle.label, ", ", self.side.label, ")"])  
-                
+        return 'EMG Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.muscle.label, self.side.label)  
+
+    class Meta:
+        verbose_name = "emgsensor"
+
+
+class SonoSensor(Sensor):
+    muscle = models.ForeignKey(Muscle )
+    side = models.ForeignKey(Side, verbose_name="Side of muscle" )
+    axisdepth = models.ForeignKey(DepthAxis, verbose_name="Depth axis", blank = True, null=True )
+    axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="Anterior posterior axis", blank = True, null=True )
+    axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="Dorsal ventral axis", blank = True, null=True )
+    def __unicode__(self):
+        return 'Sono Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.muscle.label, self.side.label)  
+
+    class Meta:
+        verbose_name = "sonosensor"
+    
+class Channel(FeedBaseModel):
+    setup = models.ForeignKey(Setup)
+    name = models.CharField(max_length = 255)
+    rate = models.IntegerField()
+    notes = models.TextField("Notes about the channel",  blank = True, null=True)
+
+    def __unicode__(self):
+        return self.name + " (rate: " + str(self.rate) + ")"     
+
+class EmgChannel(Channel):
+    sensor = models.ForeignKey(EmgSensor)    
+    emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG unit")
+    emg_filtering = models.ForeignKey(Emgfiltering, verbose_name="EMG filtering")
+    
+    def __unicode__(self):
+        return 'EMG Channel: %s (Muscle: %s, Side: %s) '  % (self.name, self.sensor.muscle.label, self.sensor.side.label)  
+    class Meta:
+        verbose_name = "emgchannel"
+
+class SonoChannel(Channel):
+    sono_unit = models.ForeignKey(Sonounit, verbose_name="EMG unit")
+    crystal1 = models.ForeignKey(SonoSensor, related_name="crystals1_related")
+    crystal2 = models.ForeignKey(SonoSensor, related_name="crystals2_related")
+
+    def __unicode__(self):
+        return 'Sono Channel: %s (Muscle: %s, Side: %s, Crystal1: %s, Crystal2: %s) '  % (self.name, self.crystal1.muscle.label, self.crystal1.side.label, self.crystal1.name, self.crystal2.name)  
+
+    class Meta:
+        verbose_name = "sonochannel"
+               
 class Session(FeedBaseModel):
     experiment = models.ForeignKey(Experiment)    
     accession = models.CharField(max_length=255, blank = True, null=True)
@@ -166,6 +246,7 @@ class Session(FeedBaseModel):
     subj_restraint = models.ForeignKey(Restraint,verbose_name="Subject Restraint")
     subj_anesthesia_sedation = models.CharField("Subject Anesthesia Sedation", max_length=255,  blank = True, null=True)
     subj_notes = models.TextField("Subject Notes", blank = True, null=True)
+    channels  = models.ManyToManyField(Channel, through='ChannelLineup')
 
     def __unicode__(self):
         return "Session %s" % str(self.position)           
@@ -190,12 +271,29 @@ class Trial(FeedBaseModel):
     behavior_secondary = models.CharField("Secondary Behavior", max_length=255,blank = True, null=True)
     behavior_notes = models.TextField("Behavior Notes", blank = True, null=True)
     waveform_picture = models.FileField("Wave Form Picture",upload_to="pictures" ,  blank = True, null=True)
+    #data_file  = models.FileField("Data File",upload_to="data" ,  blank = True, null=True)
 
     def __unicode__(self):
         return "Trail %s" % str(self.position)          
-'''
-class Channel(FeedBaseModel):
-    name = models.CharField(max_length = 255)
+
+class Illustration(FeedBaseModel):
+    picture = models.FileField("Wave Form Picture",upload_to="illustrations" ,  blank = True, null=True)
+    notes = models.TextField(blank = True, null=True)
+    subject  = models.ForeignKey(Subject,  blank = True, null=True)
+    setup  = models.ForeignKey(Setup,  blank = True, null=True)
+    experiment  = models.ForeignKey(Experiment,  blank = True, null=True)
+
+    
+
+
+class ChannelLineup(FeedBaseModel):
+    session = models.ForeignKey(Session)
+    channel = models.ForeignKey(Channel)
+    position = models.IntegerField()
+    
+    class Meta:
+        ordering = ["position"]
+        verbose_name = "channellineup"
     def __unicode__(self):
-        return name          
-'''
+        return str(self.position) 
+       

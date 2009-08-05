@@ -244,12 +244,13 @@ class RelatedFieldWidgetWrapper(forms.Widget):
                 str_return=u'<a href="%s" class="viewlink">' %  (view_url) + str_return + '</a>'  
             return mark_safe(str_return)
 
-        if rel_to in self.admin_site._registry: # If the related object has an admin interface:
+        #if rel_to in self.admin_site._registry: # If the related object has an admin interface:
             # TODO: "id_" is hard-coded here. This should instead use the correct
             # API to determine the ID dynamically.
-            output.append(u'<a href="%s" class="add-another" id="add_id_%s" onclick="return showAddAnotherPopup(this);"> ' % \
-                (related_url, name))
-            output.append(u'<img src="%simg/admin/icon_addlink.gif" width="10" height="10" alt="%s"/></a>' % (settings.ADMIN_MEDIA_PREFIX, _('Add Another')))
+            # disable the add button
+            #output.append(u'<a href="%s" class="add-another" id="add_id_%s" onclick="return showAddAnotherPopup(this);"> ' % \
+            #    (related_url, name))
+            #output.append(u'<img src="%simg/admin/icon_addlink.gif" width="10" height="10" alt="%s"/></a>' % (settings.ADMIN_MEDIA_PREFIX, _('Add Another')))
         return mark_safe(u''.join(output))
 
     def build_attrs(self, extra_attrs=None, **kwargs):

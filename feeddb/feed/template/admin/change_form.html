@@ -23,7 +23,7 @@
 
 {% block content %}<div id="content-main">
 {% block object-tools %}
-<ul class="object-tools">
+<ul class="object-tools object-tools-top">
 	{% if change %}
 		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" >{% trans "View" %}</a></li>
 		{% if has_delete_permission %}
