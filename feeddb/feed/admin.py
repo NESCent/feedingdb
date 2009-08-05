@@ -1,6 +1,7 @@
 from feeddb.feed.models import *
 from django.contrib import admin
 from django import forms
+#from feeddb.feed import extension
 
 class StudyPrivateInline(admin.StackedInline):
     model = StudyPrivate
