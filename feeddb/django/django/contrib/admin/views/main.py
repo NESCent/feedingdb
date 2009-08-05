@@ -46,6 +46,7 @@ class ChangeList(object):
         self.list_per_page = list_per_page
         self.list_editable = list_editable
         self.model_admin = model_admin
+        self.request = request
 
         # Get search parameters from the query string.
         try:

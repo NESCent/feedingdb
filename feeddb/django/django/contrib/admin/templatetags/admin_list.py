@@ -245,11 +245,31 @@ def results(cl):
             yield list(items_for_result(cl, res, form))
     else:
         for res in cl.result_list:
-            yield list(items_for_result(cl, res, None))
+            lst= list(items_for_result(cl, res, None))
+            view_url = cl.url_for_result(res)
+            change_url = "%sedit" % view_url
+            delete_url = "%sdelete" % view_url
+            view_action = u'<li><a href="%s">view</a></li>' % view_url
+            change_action = u'<li><a href="%s">edit</a></li>' % change_url
+            delete_action = u'<li><a href="%s">delete</a></li>' % delete_url
+
+            if cl.model_admin.has_change_permission (cl.request, res):
+                view_action = u'%s%s'  % (view_action, change_action)
+            if cl.model_admin.has_delete_permission (cl.request, res):
+                view_action = u'%s%s'  % (view_action, delete_action)		
+            lst.append(mark_safe(u'<td class="form-row"><ul class="object-tools">%s</ul></td>' % view_action)) 	
+            yield lst
 
 def result_list(cl):
+    header_list = list(result_headers(cl))
+    act =   {"text": "action",
+               "sortable": False,
+               "url": "",
+               "class_attrib": ""}
+
+    header_list.append(act)
     return {'cl': cl,
-            'result_headers': list(result_headers(cl)),
+            'result_headers': header_list,
             'results': list(results(cl))}
 result_list = register.inclusion_tag("admin/change_list_results.html")(result_list)
 

@@ -61,28 +61,24 @@ class StudyAdmin(admin.ModelAdmin):
     inlines = [StudyPrivateInline]
     view_inlines = [SubjectInline, ExperimentInline]
     search_fields = ('name',)
-    list_display = ('name','accession','start','end','bookkeeping', 'funding_agency','approval_secured', 'view')
-    list_display_links = ('view',)
+    list_display = ('name','accession','start','end','bookkeeping', 'funding_agency','approval_secured')
 
 class ExperimentAdmin(admin.ModelAdmin):
     inlines = [IllustrationInline]
     view_inlines = [IllustrationViewInline, EmgSetupInline, SonoSetupInline,SessionInline]
     search_fields = ('decription',)
-    list_display = ('subject','study','start','end','bookkeeping', 'subj_devstage','subj_tooth', 'view')
-    list_display_links = ('view',)
+    list_display = ('subject','study','start','end','bookkeeping', 'subj_devstage','subj_tooth')
     list_filter = ('study', 'subject')
     
 class SubjectAdmin(admin.ModelAdmin):
     search_fields = ('name', 'breed','taxon', 'source','sex','notes')
-    list_display = ('name', 'taxon', 'breed','sex', 'source','view')
-    list_display_links = ('view',)
+    list_display = ('name', 'taxon', 'breed','sex', 'source')
     list_filter = ('study', 'taxon','sex')
     ordering = ('name',)
 
 class TrialAdmin(admin.ModelAdmin):
     search_fields = ('accession', 'bookkeeping','behavior_primary', 'food_type')
-    list_display = ('position', 'accession', 'bookkeeping','behavior_primary', 'food_type','food_size', 'session','view')
-    list_display_links = ('position','view')
+    list_display = ('position', 'accession', 'bookkeeping','behavior_primary', 'food_type','food_size', 'session')
     list_filter = ('behavior_primary', 'food_type','session')
     ordering = ('position',)
 
@@ -122,27 +118,23 @@ class SonoChannelInline(admin.TabularInline):
 class EmgSetupAdmin(admin.ModelAdmin):
     inlines = [ IllustrationInline]
     view_inlines = [IllustrationViewInline, EmgSensorInline, EmgChannelInline]
-    list_display = ('technique', 'preamplifier','experiment','view')
-    list_display_links = ('view',)
+    list_display = ('technique', 'preamplifier','experiment')
     list_filter = ('technique', 'experiment')
     ordering = ('preamplifier',)
 
 class SonoSetupAdmin(admin.ModelAdmin):
     inlines = [ IllustrationInline]
     view_inlines = [IllustrationViewInline, SonoSensorInline, SonoChannelInline]
-    list_display = ('technique', 'sonomicrometer','experiment', 'view')
-    list_display_links = ('view',)
+    list_display = ('technique', 'sonomicrometer','experiment')
     list_filter = ('technique', 'experiment')
     ordering = ('sonomicrometer',)
 
 class EmgChannelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'rate', 'sensor','emg_unit', 'emg_filtering','view')
-    list_display_links = ('view',)
+    list_display = ('name', 'rate', 'sensor','emg_unit', 'emg_filtering')
     ordering = ('sensor',)
 
 class SonoChannelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'rate', 'crystal1','crystal2','sono_unit', 'view')
-    list_display_links = ('view',)
+    list_display = ('name', 'rate', 'crystal1','crystal2','sono_unit')
     ordering = ('crystal1',)
 
 class ChannelLineupInline(admin.TabularInline):
@@ -158,36 +150,30 @@ class SessionAdmin(admin.ModelAdmin):
     inlines = [ChannelLineupInline]
     view_inlines = [ChannelLineupViewInline, TrialInline ]
     search_fields = ('accession', 'bookkeeping','subj_restraint','subj_anesthesia_sedation','subj_notes')
-    list_display = ('position', 'bookkeeping', 'accession', 'experiment','start', 'end','subj_restraint','subj_anesthesia_sedation','view')
-    list_display_links = ('position','view')
+    list_display = ('position', 'bookkeeping', 'accession', 'experiment','start', 'end','subj_restraint','subj_anesthesia_sedation')
     list_filter = ('experiment', 'subj_restraint')
     ordering = ('position',)
 
 class EmgSensorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv','eletrode_type', 'view')
-    list_display_links = ('view',)
+    list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv','eletrode_type')
     ordering = ('name', 'muscle',)
 
 class SonoSensorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv', 'view')
-    list_display_links = ('view',)
+    list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv')
     ordering = ('name', 'muscle',)
 
 class ChannelLineupAdmin(admin.ModelAdmin):
-    list_display = ('position', 'session','channel','view')
-    list_display_links = ('view',)
+    list_display = ('position', 'session','channel')
     list_filter = ('session',)
     ordering = ('session','position',)
 
 class TermAdmin(admin.ModelAdmin):
-    list_display = ('label', 'controlled','deprecated','view')
-    list_display_links = ('view',)
+    list_display = ('label', 'controlled','deprecated')
     list_filter = ('controlled','deprecated')
     ordering = ('label',)
     
 class TaxonAdmin(admin.ModelAdmin):
-    list_display = ('genus','species','common_name', 'controlled','deprecated','view')
-    list_display_links = ('view',)
+    list_display = ('genus','species','common_name', 'controlled','deprecated')
     list_filter = ('genus','controlled','deprecated')
     ordering = ('genus','species')
 

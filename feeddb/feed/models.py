@@ -18,9 +18,6 @@ class FeedBaseModel(models.Model):
             self.created_at = datetime.date.today()
         self.updated_at = datetime.datetime.today()
         super(FeedBaseModel, self).save()
-    def _view_link(self):
-        return "view"
-    view = property(_view_link)
 
 #cvterms
 class CvTerm(FeedBaseModel):

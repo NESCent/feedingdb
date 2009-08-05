@@ -13,10 +13,7 @@
 
 {% block breadcrumbs %}{% if not is_popup %}
 <div class="breadcrumbs">
-     <a href="../../../">{% trans "Home" %}</a> &rsaquo;
-     <a href="../../">{{ app_label|capfirst|escape }}</a> &rsaquo; 
-     {% if has_change_permission %}<a href="../">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %} &rsaquo; 
-     {% if add %}{% trans "Add" %} {{ opts.verbose_name }}{% else %}{{ original|truncatewords:"18" }}{% endif %}
+{% include "admin/includes/object_path.html" %}
 </div>
 {% endif %}{% endblock %}
 
@@ -34,10 +31,7 @@
         <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
   {% if has_absolute_url %}<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>{% endif%}
 {% endif %}
-     {% if has_add_permission %}
-          <li>
-            <a href="/admin/{{opts.app_label}}/{{ opts.verbose_name }}/add/" class="addlink">{% trans "Add" %}</a></li>
-      {% endif %}
+
 </ul>
 {% endblock %}
 <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% block form_top %}{% endblock %}
