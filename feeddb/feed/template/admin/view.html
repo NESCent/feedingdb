@@ -1,5 +1,7 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_modify adminmedia %}
+
+
 {% block extrahead %}{{ block.super }}
 <script type="text/javascript" src="../../../jsi18n/"></script>
 {{ media }}
@@ -46,7 +48,7 @@
 {% endif %}
 
 {% for fieldset in adminform %}
-  {% include "admin/includes/fieldset_view.html" %}
+  {% include "admin/includes/fieldset_view.html"  %}
 {% endfor %}
 
 {% block after_field_sets %}{% endblock %}

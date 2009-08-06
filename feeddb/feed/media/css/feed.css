@@ -1,4 +1,10 @@
 
+/* login body */
+
+.login {
+ width: 100%;
+}
+
 /* OBJECT TOOLS */
 
 .object-tools-top {
@@ -153,5 +159,6 @@ padding-top:50px;
 	background: #b5b5EB;
 	color: #000000;	
 }
-
-
+.table_header {
+    text-align: center;
+}

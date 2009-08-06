@@ -1,4 +1,6 @@
 {% load i18n %}
+{% load display i18n %}
+
 <div class="inline-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
 {{ inline_admin_formset.formset.management_form }}
@@ -41,7 +43,7 @@
             {% for field in line %}
               <td class="{{ field.field.name }}">
               {{ field.field.errors.as_ul }}
-              {{ field.field.display }}
+              {% display_readonly field inline_admin_form %}
               </td>
             {% endfor %}
           {% endfor %}
@@ -68,8 +70,8 @@
 
  {% if has_change_permission %}
 <p>
-<table width="100%"><tr>
-<td class="form_row">
+<table width="50"><tr>
+<td class="form-row">
 <ul class="object-tools">
     <li><a class="addlink" href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/add/?{{ opts.object_name.lower }}={{object_id}}" >{% trans "Add " %}{{inline_admin_formset.opts.verbose_name.lower}}</a></li>
 </ul>

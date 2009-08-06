@@ -211,7 +211,7 @@ def feed_result_list(cl):
     act =   {"text": "action",
                "sortable": False,
                "url": "",
-               "class_attrib": ""}
+               "class_attrib": mark_safe(" class='table_header'")}
 
     header_list.append(act)
     return {'cl': cl,

@@ -23,6 +23,7 @@ from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
 from feeddb.feed.models import  *
 
+
 class FeedModelAdmin(admin.ModelAdmin):
     view_inlines = []
 

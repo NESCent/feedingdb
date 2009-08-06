@@ -1,3 +1,5 @@
+{% load display i18n %}
+
 <fieldset class="module aligned {{ fieldset.classes }}">
   {% if fieldset.name %}<h2>{{ fieldset.name }}</h2>{% endif %}
   {% if fieldset.description %}<div class="description">{{ fieldset.description|safe }}</div>{% endif %}
@@ -6,7 +8,7 @@
       {{ line.errors }}
       {% for field in line %}
       <div{% if not line.fields|length_is:"1" %} class="field-box"{% endif %}>
-          {{ field.label_tag }}{{ field.field.display }}
+          {{ field.label_tag }}{% display_readonly field adminform %}
       </div>
       {% endfor %}
       </div>
