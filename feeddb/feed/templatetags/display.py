@@ -14,16 +14,17 @@ from django.template import Library, Node, TemplateSyntaxError, Variable, Variab
 register = Library()
 
 def display_readonly(field, adminform):
-    
+    if field.field.name == "sex":
+        print dir(field.field.field.widget)
     values =[]
     value = adminform.form.initial.get(field.field.name)
+    if hasattr(value, "append"):
+        values =value
+    else:
+        values.append(value)
+
     real_value=""
     if field.field.field.widget.__class__.__name__ == "RelatedFieldWidgetWrapper":
-        
-        if hasattr(value, "append"):
-            values =value
-        else:
-            values.append(value)
         for choice in field.field.field.widget.widget.choices:
             modelname = field.field.field.widget.rel.to._meta.object_name.lower()
             for value in values:
@@ -32,6 +33,11 @@ def display_readonly(field, adminform):
                         real_value += u'<a href="/admin/%s/%s/%s">%s</a><br/>' % ("feed", field.field.field.widget.rel.to._meta.object_name.lower(), value, choice[1])
                     else:
                         real_value += u'%s<br/>' % choice[1]
+    elif hasattr( field.field.field.widget, "choices"):
+        for choice in field.field.field.widget.choices:
+            for value in values:
+                if value == choice[0]:
+                    real_value += u'%s<br/>' % choice[1]
     else:
         real_value = value
          
