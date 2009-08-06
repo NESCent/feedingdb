@@ -1,7 +1,7 @@
 from feeddb.feed.models import *
 from django.contrib import admin
 from django import forms
-#from feeddb.feed import extension
+from feeddb.feed.extension.modeladmin import FeedModelAdmin
 
 class StudyPrivateInline(admin.StackedInline):
     model = StudyPrivate
@@ -58,32 +58,32 @@ class SubjectStackInline(admin.StackedInline):
     model = Subject
     extra = 1
 
-class StudyAdmin(admin.ModelAdmin):
+class StudyAdmin(FeedModelAdmin):
     inlines = [StudyPrivateInline]
     view_inlines = [SubjectInline, ExperimentInline]
     search_fields = ('name',)
     list_display = ('name','accession','start','end','bookkeeping', 'funding_agency','approval_secured')
 
-class ExperimentAdmin(admin.ModelAdmin):
+class ExperimentAdmin(FeedModelAdmin):
     inlines = [IllustrationInline]
     view_inlines = [IllustrationViewInline, EmgSetupInline, SonoSetupInline,SessionInline]
     search_fields = ('decription',)
     list_display = ('subject','study','start','end','bookkeeping', 'subj_devstage','subj_tooth')
     list_filter = ('study', 'subject')
     
-class SubjectAdmin(admin.ModelAdmin):
+class SubjectAdmin(FeedModelAdmin):
     search_fields = ('name', 'breed','taxon', 'source','sex','notes')
     list_display = ('name', 'taxon', 'breed','sex', 'source')
     list_filter = ('study', 'taxon','sex')
     ordering = ('name',)
 
-class TrialAdmin(admin.ModelAdmin):
+class TrialAdmin(FeedModelAdmin):
     search_fields = ('accession', 'bookkeeping','behavior_primary', 'food_type')
     list_display = ('position', 'accession', 'bookkeeping','behavior_primary', 'food_type','food_size', 'session')
     list_filter = ('behavior_primary', 'food_type','session')
     ordering = ('position',)
 
-class IllustrationAdmin(admin.ModelAdmin):
+class IllustrationAdmin(FeedModelAdmin):
     search_fields = ('notes', 'experiment','setup', 'subject')
     list_display = ('picture', 'notes')
     list_filter = ('experiment', 'subject')
@@ -116,25 +116,25 @@ class SonoChannelInline(admin.TabularInline):
     excludes = ['notes']   
     extra = 0
 
-class EmgSetupAdmin(admin.ModelAdmin):
+class EmgSetupAdmin(FeedModelAdmin):
     inlines = [ IllustrationInline]
     view_inlines = [IllustrationViewInline, EmgSensorInline, EmgChannelInline]
     list_display = ('technique', 'preamplifier','experiment')
     list_filter = ('technique', 'experiment')
     ordering = ('preamplifier',)
 
-class SonoSetupAdmin(admin.ModelAdmin):
+class SonoSetupAdmin(FeedModelAdmin):
     inlines = [ IllustrationInline]
     view_inlines = [IllustrationViewInline, SonoSensorInline, SonoChannelInline]
     list_display = ('technique', 'sonomicrometer','experiment')
     list_filter = ('technique', 'experiment')
     ordering = ('sonomicrometer',)
 
-class EmgChannelAdmin(admin.ModelAdmin):
+class EmgChannelAdmin(FeedModelAdmin):
     list_display = ('name', 'rate', 'sensor','emg_unit', 'emg_filtering')
     ordering = ('sensor',)
 
-class SonoChannelAdmin(admin.ModelAdmin):
+class SonoChannelAdmin(FeedModelAdmin):
     list_display = ('name', 'rate', 'crystal1','crystal2','sono_unit')
     ordering = ('crystal1',)
 
@@ -147,7 +147,7 @@ class ChannelLineupViewInline(admin.TabularInline):
     extra = 0 
 
 
-class SessionAdmin(admin.ModelAdmin):
+class SessionAdmin(FeedModelAdmin):
     inlines = [ChannelLineupInline]
     view_inlines = [ChannelLineupViewInline, TrialInline ]
     search_fields = ('accession', 'bookkeeping','subj_restraint','subj_anesthesia_sedation','subj_notes')
@@ -155,25 +155,25 @@ class SessionAdmin(admin.ModelAdmin):
     list_filter = ('experiment', 'subj_restraint')
     ordering = ('position',)
 
-class EmgSensorAdmin(admin.ModelAdmin):
+class EmgSensorAdmin(FeedModelAdmin):
     list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv','eletrode_type')
     ordering = ('name', 'muscle',)
 
-class SonoSensorAdmin(admin.ModelAdmin):
+class SonoSensorAdmin(FeedModelAdmin):
     list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv')
     ordering = ('name', 'muscle',)
 
-class ChannelLineupAdmin(admin.ModelAdmin):
+class ChannelLineupAdmin(FeedModelAdmin):
     list_display = ('position', 'session','channel')
     list_filter = ('session',)
     ordering = ('session','position',)
 
-class TermAdmin(admin.ModelAdmin):
+class TermAdmin(FeedModelAdmin):
     list_display = ('label', 'controlled','deprecated')
     list_filter = ('controlled','deprecated')
     ordering = ('label',)
     
-class TaxonAdmin(admin.ModelAdmin):
+class TaxonAdmin(FeedModelAdmin):
     list_display = ('genus','species','common_name', 'controlled','deprecated')
     list_filter = ('genus','controlled','deprecated')
     ordering = ('genus','species')

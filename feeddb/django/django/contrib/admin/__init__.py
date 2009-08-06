@@ -53,6 +53,7 @@ def autodiscover():
 
         # Step 3: import the app's admin file. If this has errors we want them
         # to bubble up.
+        print app
         import_module("%s.admin" % app)
     # autodiscover was successful, reset loading flag.
     LOADING = False

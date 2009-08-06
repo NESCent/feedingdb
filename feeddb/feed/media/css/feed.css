@@ -1,61 +1,10 @@
 
 /* OBJECT TOOLS */
 
-.object-tools {
-    font-size: 10px;
-    font-weight: bold;
-    font-family: Arial,Helvetica,sans-serif;
-    padding-left: 0;
-}
-
 .object-tools-top {
     margin-top: -2.4em;
     margin-bottom: -2em; 
     float: right;
-}
-
-.object-tools li {
-    display: block;
-    float: left;
-    background: url(../img/admin/tool-left.gif) 0 0 no-repeat;
-    padding: 0 0 0 8px;
-    margin-left: 2px;
-    height: 16px;
-}
-
-.object-tools li:hover {
-    background: url(../img/admin/tool-left_over.gif) 0 0 no-repeat;
-}
-
-.object-tools a:link, .object-tools a:visited {
-    display: block;
-    color: white;
-    float: left;
-    padding: .1em 14px .1em 8px;
-    height: 14px;
-    background: #999 url(../img/admin/tool-right.gif) 100% 0 no-repeat;
-}
-
-.object-tools a:hover, .object-tools li:hover a {
-    background: #5b80b2 url(../img/admin/tool-right_over.gif) 100% 0 no-repeat;
-}
-
-.object-tools a.viewsitelink, .object-tools a.golink {
-    background: #999 url(../img/admin/tooltag-arrowright.gif) top right no-repeat;
-    padding-right: 28px;
-}
-
-.object-tools a.viewsitelink:hover, .object-tools a.golink:hover {
-    background: #5b80b2 url(../img/admin/tooltag-arrowright_over.gif) top right no-repeat;
-}
-
-.object-tools a.addlink {
-    background: #999 url(../img/admin/tooltag-add.gif) top right no-repeat;
-    padding-right: 28px;
-}
-
-.object-tools a.addlink:hover {
-    background: #5b80b2 url(../img/admin/tooltag-add_over.gif) top right no-repeat;
 }
 
 /* OBJECT HISTORY */
@@ -148,47 +97,6 @@ table#change-history tbody th {
     width: 500px;
 }
 
-/* HEADER */
-
-#header {
-    background: #417690;
-    color: #ffc;
-    overflow: hidden;
-}
-
-#header a:link, #header a:visited {
-    color: white;
-}
-
-#header a:hover {
-    text-decoration: underline;
-}
-
-#branding h1 {
-    padding: 0 190px;
-    font-size: 18px;
-    margin: 8px 0;
-    font-weight: normal;
-    color: #f4f379;
-}
-
-#branding h2 {
-    padding: 0 10px;
-    font-size: 14px;
-    margin: -8px 0 8px 0;
-    font-weight: normal;
-    color: #ffc;
-}
-
-#user-tools {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 1.2em 10px;
-    font-size: 11px;
-    text-align: right;
-}
-
 /* navigation */
 
 .bullet {list-style-type: square;}
@@ -246,21 +154,4 @@ padding-top:50px;
 	color: #000000;	
 }
 
-
-/* SIDEBAR */
-
-#content-related h3 {
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 3px;
-}
-
-#content-related h4 {
-    font-size: 11px;
-}
-
-#content-related .module h2 {
-    background: #eee url(../img/admin/nav-bg.gif) bottom left repeat-x;
-    color: #666;
-}
 
