@@ -22,7 +22,7 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
 from feeddb.feed.models import  *
-
+from feeddb.feed.extension.widgets import FeedRelatedFieldWidgetWrapper
 
 class FeedModelAdmin(admin.ModelAdmin):
     view_inlines = []
@@ -730,3 +730,26 @@ class FeedModelAdmin(admin.ModelAdmin):
             'admin/%s/change_list.html' % app_label,
             'admin/change_list.html'
         ], context, context_instance=context_instance)
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        request = kwargs.pop("request", None)
+
+        if db_field.choices:
+            return self.formfield_for_choice_field(db_field, request, **kwargs)
+
+        if isinstance(db_field, (models.ForeignKey, models.ManyToManyField)):
+            if db_field.__class__ in self.formfield_overrides:
+                kwargs = dict(self.formfield_overrides[db_field.__class__], **kwargs)
+
+            # Get the correct formfield.
+            if isinstance(db_field, models.ForeignKey):
+                formfield = self.formfield_for_foreignkey(db_field, request, **kwargs)
+            elif isinstance(db_field, models.ManyToManyField):
+                formfield = self.formfield_for_manytomany(db_field, request, **kwargs)
+
+            if formfield and db_field.name not in self.raw_id_fields:
+                formfield.widget = FeedRelatedFieldWidgetWrapper(formfield.widget, db_field.rel, self.admin_site)
+
+            return formfield
+        else:
+            return super(FeedModelAdmin, self).formfield_for_dbfield(db_field, **kwargs)
