@@ -157,38 +157,20 @@ def feed_items_for_result(cl, result, form):
                 result_repr = escape(field_val)
         if force_unicode(result_repr) == '':
             result_repr = mark_safe('&nbsp;')
-        # If list_display_links not defined, add the link tag to the first field
-        if field_name in cl.list_display_links:
-            table_tag = {True:'th', False:'td'}[first]
-            first = False
-            url = cl.url_for_result(result)
-            # Convert the pk to something that can be used in Javascript.
-            # Problem cases are long ints (23L) and non-ASCII strings.
-            if cl.to_field:
-                attr = str(cl.to_field)
-            else:
-                attr = pk
-            value = result.serializable_value(attr)
-            result_id = repr(force_unicode(value))[1:]
-            yield mark_safe(u'<%s class="form-row"><ul class="object-tools"><li><a href="%s"%s>%s</a></li></ul></%s>' % \
-                (table_tag,  url, (cl.is_popup and ' onclick="opener.dismissRelatedLookupPopup(window, %s); return false;"' % result_id or ''), conditional_escape(result_repr), table_tag))
+
+        if form and field_name in form.fields:
+            bf = form[field_name]
+            result_repr = mark_safe(force_unicode(bf.errors) + force_unicode(bf))
         else:
-            # By default the fields come from ModelAdmin.list_editable, but if we pull
-            # the fields out of the form instead of list_editable custom admins
-            # can provide fields on a per request basis
-            if form and field_name in form.fields:
-                bf = form[field_name]
-                result_repr = mark_safe(force_unicode(bf.errors) + force_unicode(bf))
-            else:
-                result_repr = conditional_escape(result_repr)
-            yield mark_safe(u'<td%s>%s</td>' % (row_class, result_repr))
+            result_repr = conditional_escape(result_repr)
+        yield mark_safe(u'<td%s>%s</td>' % (row_class, result_repr))
     if form:
         yield mark_safe(force_unicode(form[cl.model._meta.pk.name]))
 
 def feed_results(cl):
     if cl.formset:
         for res, form in zip(cl.result_list, cl.formset.forms):
-            yield list(items_for_result(cl, res, form))
+            yield list(feed_items_for_result(cl, res, form))
     else:
         for res in cl.result_list:
             lst= list(feed_items_for_result(cl, res, None))
@@ -211,7 +193,7 @@ def feed_result_list(cl):
     act =   {"text": "action",
                "sortable": False,
                "url": "",
-               "class_attrib": mark_safe(" class='table_header'")}
+               "class_attrib": mark_safe(" class='action_header'")}
 
     header_list.append(act)
     return {'cl': cl,
