@@ -23,7 +23,9 @@
 {% block object-tools %}
 <ul class="object-tools object-tools-top">
 	{% if change %}
+                               {% ifequal opts.app_label "feed" %}
 		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" >{% trans "View" %}</a></li>
+                               {% endifequal %}
 		{% if has_delete_permission %}
 			<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" >{% trans "Delete" %}</a></li>
 		{% endif %}
