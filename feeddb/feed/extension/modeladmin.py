@@ -741,7 +741,6 @@ class FeedModelAdmin(admin.ModelAdmin):
             if db_field.__class__ in self.formfield_overrides:
                 kwargs = dict(self.formfield_overrides[db_field.__class__], **kwargs)
 
-            # Get the correct formfield.
             if isinstance(db_field, models.ForeignKey):
                 formfield = self.formfield_for_foreignkey(db_field, request, **kwargs)
             elif isinstance(db_field, models.ManyToManyField):
@@ -751,5 +750,69 @@ class FeedModelAdmin(admin.ModelAdmin):
                 formfield.widget = FeedRelatedFieldWidgetWrapper(formfield.widget, db_field.rel, self.admin_site)
 
             return formfield
-        else:
-            return super(FeedModelAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+
+        for klass in db_field.__class__.mro():
+            if klass in self.formfield_overrides:
+                kwargs = dict(self.formfield_overrides[klass], **kwargs)
+                return db_field.formfield(**kwargs)
+
+        return db_field.formfield(**kwargs)
+
+class FeedStackedInline(admin.StackedInline):
+    template = 'admin/edit_inline/stacked.html'
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        request = kwargs.pop("request", None)
+
+        if db_field.choices:
+            return self.formfield_for_choice_field(db_field, request, **kwargs)
+
+        if isinstance(db_field, (models.ForeignKey, models.ManyToManyField)):
+            if db_field.__class__ in self.formfield_overrides:
+                kwargs = dict(self.formfield_overrides[db_field.__class__], **kwargs)
+
+            if isinstance(db_field, models.ForeignKey):
+                formfield = self.formfield_for_foreignkey(db_field, request, **kwargs)
+            elif isinstance(db_field, models.ManyToManyField):
+                formfield = self.formfield_for_manytomany(db_field, request, **kwargs)
+
+            if formfield and db_field.name not in self.raw_id_fields:
+                formfield.widget = FeedRelatedFieldWidgetWrapper(formfield.widget, db_field.rel, self.admin_site)
+
+            return formfield
+
+        for klass in db_field.__class__.mro():
+            if klass in self.formfield_overrides:
+                kwargs = dict(self.formfield_overrides[klass], **kwargs)
+                return db_field.formfield(**kwargs)
+
+        return db_field.formfield(**kwargs)
+
+
+class FeedTabularInline(admin.TabularInline):
+    template = 'admin/edit_inline/tabular.html'
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        request = kwargs.pop("request", None)
+
+        if db_field.choices:
+            return self.formfield_for_choice_field(db_field, request, **kwargs)
+
+        if isinstance(db_field, (models.ForeignKey, models.ManyToManyField)):
+            if db_field.__class__ in self.formfield_overrides:
+                kwargs = dict(self.formfield_overrides[db_field.__class__], **kwargs)
+
+            if isinstance(db_field, models.ForeignKey):
+                formfield = self.formfield_for_foreignkey(db_field, request, **kwargs)
+            elif isinstance(db_field, models.ManyToManyField):
+                formfield = self.formfield_for_manytomany(db_field, request, **kwargs)
+
+            if formfield and db_field.name not in self.raw_id_fields:
+                formfield.widget = FeedRelatedFieldWidgetWrapper(formfield.widget, db_field.rel, self.admin_site)
+
+            return formfield
+
+        for klass in db_field.__class__.mro():
+            if klass in self.formfield_overrides:
+                kwargs = dict(self.formfield_overrides[klass], **kwargs)
+                return db_field.formfield(**kwargs)
+
+        return db_field.formfield(**kwargs)

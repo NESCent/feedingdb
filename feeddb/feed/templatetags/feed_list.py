@@ -198,11 +198,11 @@ def feed_results(cl):
             view_action = u'<li><a href="%s">view</a></li>' % view_url
             change_action = u'<li><a href="%s">edit</a></li>' % change_url
             delete_action = u'<li><a href="%s">delete</a></li>' % delete_url
-
-            if cl.model_admin.has_change_permission (cl.request, res):
-                view_action = u'%s%s'  % (view_action, change_action)
-            if cl.model_admin.has_delete_permission (cl.request, res):
-                view_action = u'%s%s'  % (view_action, delete_action)		
+            if hasattr(cl, "request"):
+                if cl.model_admin.has_change_permission (cl.request, res):
+                    view_action = u'%s%s'  % (view_action, change_action)
+                if cl.model_admin.has_delete_permission (cl.request, res):
+                    view_action = u'%s%s'  % (view_action, delete_action)		
             lst.append(mark_safe(u'<td class="form-row"><ul class="object-tools">%s</ul></td>' % view_action)) 	
             yield lst
 

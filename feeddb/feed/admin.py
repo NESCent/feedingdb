@@ -1,56 +1,56 @@
 from feeddb.feed.models import *
 from django.contrib import admin
 from django import forms
-from feeddb.feed.extension.modeladmin import FeedModelAdmin
+from feeddb.feed.extension.modeladmin import FeedModelAdmin, FeedTabularInline
 
 class StudyPrivateInline(admin.StackedInline):
     model = StudyPrivate
     extra = 1
     max_num = 1
 
-class ExperimentInline(admin.TabularInline):
+class ExperimentInline(FeedTabularInline):
     model = Experiment
     extra = 0
     fields = ['bookkeeping','accession','subject']
 
-class SensorInline(admin.TabularInline):
+class SensorInline(FeedTabularInline):
     model = Sensor
     extra = 0
     fields = ['name','technique']
 
-class SessionInline(admin.TabularInline):
+class SessionInline(FeedTabularInline):
     model = Session
     extra = 0
     excludes = ['subj_notes']
 
-class IllustrationInline(admin.TabularInline):
+class IllustrationInline(FeedTabularInline):
     model = Illustration
     extra = 1
     fields = ('picture', 'notes')
 
-class IllustrationViewInline(admin.TabularInline):
+class IllustrationViewInline(FeedTabularInline):
     model = Illustration
     extra = 0
     fields = ('picture', 'notes')
 
-class EmgSetupInline(admin.TabularInline):
+class EmgSetupInline(FeedTabularInline):
     model = EmgSetup
     extra = 0
     class Meta:
         verbose_name = "emgsetup"
 
-class SonoSetupInline(admin.TabularInline):
+class SonoSetupInline(FeedTabularInline):
     model = SonoSetup
     extra = 0
     class Meta:
         verbose_name = "sonosetup"
 
-class TrialInline(admin.TabularInline):
+class TrialInline(FeedTabularInline):
     model = Trial
     extra = 0
     fields = ['position', 'accession','claimed_duration','bookkeeping','behavior_primary','food_type']
 
-class SubjectInline(admin.TabularInline):
+class SubjectInline(FeedTabularInline):
     model = Subject
     extra = 0
 
@@ -89,29 +89,29 @@ class IllustrationAdmin(FeedModelAdmin):
     list_filter = ('experiment', 'subject')
     ordering = ('picture',)
 
-class EmgSensorInline(admin.TabularInline):
+class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
     excludes = ['notes']   
     extra = 0
 
-class SonoSensorInline(admin.TabularInline):
+class SonoSensorInline(FeedTabularInline):
     model = SonoSensor
     excludes = ['notes']   
     extra = 0
 
-class ChannelInline(admin.TabularInline):
+class ChannelInline(FeedTabularInline):
     model = Channel
     excludes = ['notes']   
     extra = 0
 
 
-class EmgChannelInline(admin.TabularInline):
+class EmgChannelInline(FeedTabularInline):
     model = EmgChannel
     excludes = ['notes']   
     extra = 0
 
 
-class SonoChannelInline(admin.TabularInline):
+class SonoChannelInline(FeedTabularInline):
     model = SonoChannel
     excludes = ['notes']   
     extra = 0
@@ -138,11 +138,11 @@ class SonoChannelAdmin(FeedModelAdmin):
     list_display = ('name', 'rate', 'crystal1','crystal2','sono_unit')
     ordering = ('crystal1',)
 
-class ChannelLineupInline(admin.TabularInline):
+class ChannelLineupInline(FeedTabularInline):
     model = ChannelLineup
     extra = 3    
 
-class ChannelLineupViewInline(admin.TabularInline):
+class ChannelLineupViewInline(FeedTabularInline):
     model = ChannelLineup
     extra = 0 
 

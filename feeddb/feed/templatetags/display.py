@@ -10,12 +10,11 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import get_date_formats, get_partial_date_formats, ugettext as _
 from django.utils.encoding import smart_unicode, smart_str, force_unicode
 from django.template import Library, Node, TemplateSyntaxError, Variable, VariableDoesNotExist
+from django.contrib.admin.widgets import RelatedFieldWidgetWrapper, AdminFileWidget
 
 register = Library()
 
 def display_readonly(field, adminform):
-    if field.field.name == "sex":
-        print dir(field.field.field.widget)
     values =[]
     value = adminform.form.initial.get(field.field.name)
     if hasattr(value, "append"):
@@ -24,7 +23,7 @@ def display_readonly(field, adminform):
         values.append(value)
 
     real_value=""
-    if field.field.field.widget.__class__.__name__ == "RelatedFieldWidgetWrapper":
+    if isinstance(field.field.field.widget, RelatedFieldWidgetWrapper):
         for choice in field.field.field.widget.widget.choices:
             modelname = field.field.field.widget.rel.to._meta.object_name.lower()
             for value in values:
@@ -38,6 +37,8 @@ def display_readonly(field, adminform):
             for value in values:
                 if value == choice[0]:
                     real_value += u'%s<br/>' % choice[1]
+    elif isinstance(field.field.field.widget, AdminFileWidget):
+        real_value = u'<a href="/static/%s">%s</a><br/>' % (value, value)
     else:
         real_value = value
          

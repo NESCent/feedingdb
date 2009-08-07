@@ -285,9 +285,9 @@ class Illustration(FeedBaseModel):
 
 class ChannelLineup(FeedBaseModel):
     session = models.ForeignKey(Session)
-    channel = models.ForeignKey(Channel)
     position = models.IntegerField()
-    
+    channel = models.ForeignKey(Channel)
+
     class Meta:
         ordering = ["position"]
         verbose_name = "channellineup"
