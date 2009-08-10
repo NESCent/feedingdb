@@ -113,6 +113,8 @@ class StudyPrivate(FeedBaseModel):
     funding = models.CharField(max_length=255, blank = True, null=True)
     approval = models.CharField(max_length=255, blank = True, null=True)
     notes = models.TextField( blank = True, null=True)
+    class Meta:
+        verbose_name = "Study - Private Information"
 
 class Subject(FeedBaseModel):
     GENDER_CHOICES = (

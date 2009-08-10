@@ -9,6 +9,7 @@ body {
     font-family: "Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
     color: #333;
     background: #fff;
+    width: 100%;
 }
 
 /* LINKS */
@@ -622,7 +623,7 @@ table#change-history tbody th {
 
 #container {
     position: relative;
-    width: 100%;
+    width: 80%;
     min-width: 760px;
     padding: 0;
 }
@@ -673,7 +674,7 @@ table#change-history tbody th {
 }
 
 .popup .colM {
-    width: 95%;
+    width: 100%;
 }
 
 .subcol {
