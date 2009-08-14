@@ -40,7 +40,7 @@ class Notes(Textarea):
         final_attrs = self.build_attrs(attrs, name=name)
         output = []
         output.append(u'<a href="javascript: toggle(\'notes_%s\',\'img_%s\'); "><img id=\'img_%s\' src=\'/static/img/admin/icon_changelink.gif\' /></a>' % (final_attrs["id"],final_attrs["id"],final_attrs["id"]))
-        output.append(u'<div style=\'display: none;\' id=\'notes_%s\'>' % final_attrs["id"])
+        output.append(u'<div style=\'z-index: 10000; display: none;\' id=\'notes_%s\'>' % final_attrs["id"])
         output.append(u'<textarea%s>%s</textarea>' % (flatatt(final_attrs),
                 conditional_escape(force_unicode(value))))
         output.append("</div>")

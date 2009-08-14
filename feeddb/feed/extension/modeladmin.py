@@ -282,7 +282,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             if rel_obj != None:
                 post_url = '../../../%s/%s' % (rel_obj, rel_obj_id)
             else:
-                post_url = '../'
+                post_url = request.path
             self.message_user(request, msg)
             return HttpResponseRedirect(post_url)
 

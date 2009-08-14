@@ -148,6 +148,11 @@ class EmgSensorInline(FeedTabularInline):
 
 class SonoSensorInline(FeedTabularInline):
     model = SonoSensor
+    extra = 1
+    form = SonoSensorForm
+
+class SonoSensorViewInline(FeedTabularInline):
+    model = SonoSensor
     excludes = ['notes']   
     extra = 0
 
@@ -167,14 +172,18 @@ class EmgChannelInline(FeedTabularInline):
     excludes = ['notes']   
     extra = 1
 
-
 class SonoChannelInline(FeedTabularInline):
+    model = SonoChannel
+    extra =1
+    form = SonoChannelForm
+
+class SonoChannelViewInline(FeedTabularInline):
     model = SonoChannel
     extra = 0
 
 class EmgElectrodeInline(FeedTabularInline):
     model = EmgElectrode
-    extra = 1    
+    extra = 8   
     form = EmgElectrodeForm
 
 class EmgElectrodeViewInline(FeedTabularInline):
@@ -192,8 +201,8 @@ class EmgSetupAdmin(FeedModelAdmin):
 
 
 class SonoSetupAdmin(FeedModelAdmin):
-    inlines = [ IllustrationInline]
-    view_inlines = [IllustrationViewInline, SonoSensorInline, SonoChannelInline]
+    inlines = [ IllustrationInline,SonoSensorInline,SonoChannelInline]
+    view_inlines = [IllustrationViewInline, SonoSensorViewInline, SonoChannelViewInline]
     list_display = ('technique', 'sonomicrometer','experiment')
     list_filter = ('technique', 'experiment')
     ordering = ('sonomicrometer',)

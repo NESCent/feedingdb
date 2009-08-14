@@ -50,6 +50,16 @@ class SubjectForm(forms.ModelForm):
     class Meta:
         model = Subject
 
+class SonoSensorForm(forms.ModelForm):
+    notes = CharField(label ="Notes", widget=Notes(), required=False)
+    class Meta:
+        model = SonoSensor
+
+class SonoChannelForm(forms.ModelForm):
+    notes = CharField(label ="Notes", widget=Notes(), required=False)
+    class Meta:
+        model = SonoChannel
+
 class TrialForm(forms.ModelForm):
     subj_notes = CharField(label ="Subject Notes", widget=Notes(), required=False)
     subj_treatment = CharField(label ="Subject Treatment",widget=Notes(), required=False)

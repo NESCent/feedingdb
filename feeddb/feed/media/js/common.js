@@ -4,14 +4,14 @@ function toggle(id, img_id){
      if (el){
  
          if(el.style.display == "none") {
-               el.style.display="inline";
+               el.style.display="block";
                el.style.position="absolute";
-           
-               img.src= "/static/img/admin/icon-yes.gif"
+               el.style.zindex = 1000;
+               img.src= "/static/img/admin/icon-yes.gif";
              
          }else{
                el.style.display = "none";
-                img.src= "/static/img/admin/icon_changelink.gif"
+                img.src= "/static/img/admin/icon_changelink.gif";
          }
      }
 }
