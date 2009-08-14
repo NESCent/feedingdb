@@ -58,7 +58,6 @@ class FeedTabularInline(admin.TabularInline):
         return db_field.formfield(**kwargs)
 
 class FeedModelAdmin(admin.ModelAdmin):
-    change_form_template = "admin/tabbed_change_form.html"
     view_inlines = []
 
     # Custom templates (designed to be over-ridden in subclasses)
@@ -199,11 +198,17 @@ class FeedModelAdmin(admin.ModelAdmin):
             'root_path': self.admin_site.root_path,
         })
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
+        if context.get('tabbed'):
+            return render_to_response(self.view_form_template or [
+                "admin/%s/%s/tabbed_view.html" % (app_label, opts.object_name.lower()),
+                "admin/%s/tabbed_view.html" % app_label,
+                "admin/tabbed_view.html"
+            ], context, context_instance=context_instance)
         return render_to_response(self.view_form_template or [
-            "admin/%s/%s/tabbed_view.html" % (app_label, opts.object_name.lower()),
-            "admin/%s/tabbed_view.html" % app_label,
-            "admin/tabbed_view.html"
-        ], context, context_instance=context_instance)
+                "admin/%s/%s/view.html" % (app_label, opts.object_name.lower()),
+                "admin/%s/view.html" % app_label,
+                "admin/view.html"
+            ], context, context_instance=context_instance)
 
     def response_add(self, request, obj, post_url_continue='../%s/edit/'):
         """
@@ -373,6 +378,41 @@ class FeedModelAdmin(admin.ModelAdmin):
         context.update(extra_context or {})
         return self.render_change_form(request, context, form_url=form_url, add=True)
     add_view = transaction.commit_on_success(add_view)
+
+    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+        opts = self.model._meta
+        app_label = opts.app_label
+        ordered_objects = opts.get_ordered_objects()
+        context.update({
+            'add': add,
+            'change': change,
+            'has_add_permission': self.has_add_permission(request),
+            'has_change_permission': self.has_change_permission(request, obj),
+            'has_delete_permission': self.has_delete_permission(request, obj),
+            'has_file_field': True, # FIXME - this should check if form or formsets have a FileField,
+            'has_absolute_url': hasattr(self.model, 'get_absolute_url'),
+            'ordered_objects': ordered_objects,
+            'form_url': mark_safe(form_url),
+            'opts': opts,
+            'content_type_id': ContentType.objects.get_for_model(self.model).id,
+            'save_as': self.save_as,
+            'save_on_top': self.save_on_top,
+            'root_path': self.admin_site.root_path,
+        })
+        context_instance = template.RequestContext(request, current_app=self.admin_site.name)
+        if context.get('tabbed'):
+            return render_to_response(self.change_form_template or [
+                "admin/%s/%s/tabbed_change_form.html" % (app_label, opts.object_name.lower()),
+                "admin/%s/tabbed_change_form.html" % app_label,
+                "admin/tabbed_change_form.html"
+            ], context, context_instance=context_instance)
+
+        return render_to_response(self.change_form_template or [
+             "admin/%s/%s/change_form.html" % (app_label, opts.object_name.lower()),
+            "admin/%s/change_form.html" % app_label,
+            "admin/change_form.html"
+        ], context, context_instance=context_instance)
+
 
     def change_view(self, request, object_id, extra_context=None):
         "The 'change' admin view for this model."
@@ -835,6 +875,83 @@ class FeedStackedInline(admin.StackedInline):
                 return db_field.formfield(**kwargs)
 
         return db_field.formfield(**kwargs)
+
+class ExperimentModelAdmin(FeedModelAdmin):
+    def __init__(self, model, admin_site):
+        super(ExperimentModelAdmin, self).__init__(model,admin_site)
+
+    def change_view(self, request, object_id, extra_context=None):
+        model = self.model
+        opts = model._meta
+
+        try:
+            obj = self.queryset(request).get(pk=unquote(object_id))
+        except model.DoesNotExist:
+            # Don't raise Http404 just yet, because we haven't checked
+            # permissions yet. We don't want an unauthenticated user to be able
+            # to determine whether a given object exists.
+            obj = None
+        
+        if not self.has_change_permission(request, obj):
+            raise PermissionDenied
+
+        if obj is None:
+            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
+
+        response = super(ExperimentModelAdmin, self).change_view(request, object_id, extra_context)
+        if request.method != 'POST':
+            return response
+
+        has_emg = False
+        emgsetup = None
+        has_sono = False
+        sonosetup=None
+
+        for s in obj.setup_set.all():
+            if hasattr(s,"emgsetup"):
+                has_emg = True
+                emgsetup = s
+            if hasattr(s, "sonosetup"):
+                has_sono = True
+                sonosetup = s
+
+        emg  = request.POST.get('technique_emg')
+        
+        if emg != None and emg == "on":
+            if not has_emg:
+                tech = Technique.objects.get(label = "EMG")
+                setup = Setup()
+                setup.technique=tech
+                setup.experiment = obj
+                emgsetup = EmgSetup()
+                emgsetup.experiment = obj
+                emgsetup.technique=tech
+                setup.emgsetup=emgsetup
+                emgsetup.created_by = request.user
+                setup.created_by = request.user
+                setup.save()
+                emgsetup.save()
+        if emg == None and has_emg: 
+            emgsetup.delete()
+         
+        sono  = request.POST.get('technique_sono')
+        if sono != None and sono == "on":
+            if not has_sono:
+                tech = Technique.objects.get(label = "Sono")
+                setup = Setup();
+                setup.technique=tech
+                setup.experiment = obj
+                sonosetup = SonoSetup()
+                sonosetup.experiment = obj
+                sonosetup.technique=tech
+                setup.sonosetup = sonosetup
+                sonosetup.created_by = request.user
+                setup.created_by = request.user
+                setup.save()
+                sonosetup.save()
+        if sono == None and has_sono: 
+            sonosetup.delete()
+        return response 
 
 class SessionModelAdmin(FeedModelAdmin):
     def __init__(self, model, admin_site):

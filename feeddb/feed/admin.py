@@ -2,7 +2,7 @@ from feeddb.feed.models import *
 from django.contrib import admin
 from django import forms
 from django.forms import models
-from feeddb.feed.extension.modeladmin import FeedModelAdmin, FeedTabularInline, SessionModelAdmin
+from feeddb.feed.extension.modeladmin import FeedModelAdmin, FeedTabularInline, SessionModelAdmin, ExperimentModelAdmin
 from feeddb.feed.extension.forms import *
 
 class StudyPrivateInline(admin.StackedInline):
@@ -106,13 +106,13 @@ class StudyAdmin(FeedModelAdmin):
     tabbed = True
 
 
-class ExperimentAdmin(FeedModelAdmin):
+class ExperimentAdmin(ExperimentModelAdmin):
     inlines = [IllustrationInline]
     view_inlines = [IllustrationViewInline]
     search_fields = ('decription',)
     list_display = ('subject','study','start','end','bookkeeping', 'subj_devstage','subj_tooth')
     list_filter = ('study', 'subject')
-    tabbed = True
+
 
 
 class SubjectAdmin(FeedModelAdmin):
