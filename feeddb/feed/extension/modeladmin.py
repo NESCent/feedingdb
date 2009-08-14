@@ -546,6 +546,12 @@ class FeedModelAdmin(admin.ModelAdmin):
                 form.fields["crystal1"].queryset = SonoSensor.objects.filter(setup=request.GET['sonosetup'])
                 form.fields["crystal2"].queryset = SonoSensor.objects.filter(setup=request.GET['sonosetup'])
                 form.fields["setup"].initial=request.GET['sonosetup']
+       
+        elif model == SonoSetup:
+            if form.fields.has_key("crystal1"):
+                form.fields["crystal1"].queryset = SonoSensor.objects.filter(setup=obj)
+                form.fields["crystal2"].queryset = SonoSensor.objects.filter(setup=obj)
+
         elif  model == EmgSensor:
             if request.GET.has_key("emgsetup"):
                 form.fields["setup"].initial=request.GET['emgsetup']
