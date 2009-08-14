@@ -1,7 +1,7 @@
 div.TabView div.Tabs
 {
   height: 28px;
-  overflow: hidden;
+/*  overflow: hidden; */
   background: url('../images/tabs_back.jpg') repeat-x; 
   padding-left:10px;
   
@@ -44,14 +44,14 @@ div.TabView div.Tabs a.Active
   	border-right:1px solid #445;
   	border-top:1px solid #445;
  	border-bottom:1px solid #f3f6fa;
-  	background:#f3f6fa;
+  	background:#ffffff;
 }
 div.TabView div.Pages
 {
   clear: both;
   border: 0px solid #404040;
-  overflow: hidden;
-  width: 100%;
+/*  overflow: hidden; */
+
 
 }
 
@@ -59,7 +59,7 @@ div.TabView div.Pages div.Page
 {
  
   padding-top: 10px;
-  overflow: hidden;
+/*  overflow: hidden; */
 }
 
 div.TabView div.Pages div.Page div.Pad

@@ -30,7 +30,7 @@ table#change-history tbody th {
     width: 100%;
     min-width: 760px;
     padding: 0;
-    border: 1px solid #417690;
+    border: 0px solid #417690;
     margin: 0 auto 0 auto; /*this is what centers the pages in the middle of the screen */
     width: 100%;
    
@@ -146,4 +146,8 @@ padding-top:50px;
 .action_header {
     text-align: center;
     width: 250px;
+}
+
+.td {
+   border-right: 1px solid b5b5EB;
 }

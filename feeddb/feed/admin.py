@@ -12,9 +12,16 @@ class StudyPrivateInline(admin.StackedInline):
 
 class ExperimentInline(FeedTabularInline):
     model = Experiment
-    extra = 0
-    fields = ['bookkeeping','accession','subject']
+    extra = 1
+    form = ExperimentForm
     tabbed = True
+    tab_name = "Experiments"
+
+class ExperimentViewInline(FeedTabularInline):
+    model = Experiment
+    extra = 0
+    tabbed = True
+    fields = ['bookkeeping','accession','subject','subj_devstage','subj_age', 'subj_weight', 'subj_tooth']
     tab_name = "Experiments"
 
 class SensorInline(FeedTabularInline):
@@ -61,26 +68,43 @@ class SonoSetupInline(FeedTabularInline):
     class Meta:
         verbose_name = "sonosetup"
 
-class TrialInline(FeedTabularInline):
+class TrialInline(admin.StackedInline):
+    model = Trial
+    extra = 1
+    tabbed = True
+    tab_name="Trials"
+
+class TrialViewInline(FeedTabularInline):
     model = Trial
     extra = 0
     fields = ['position', 'accession','claimed_duration','bookkeeping','behavior_primary','food_type']
+    tabbed = True
+    tab_name="Trials"
 
 class SubjectInline(FeedTabularInline):
     model = Subject
-    extra = 0
-    tabbed = False
+    extra = 1
+    form = SubjectForm
+    tabbed = True
+    tab_name="Subjects"
+
+class SubjectViewInline(FeedTabularInline):
+    model = Subject
+    extra = 2
+    tabbed = True
+    tab_name="Subjects"
 
 class SubjectStackInline(admin.StackedInline):
     model = Subject
     extra = 1
 
 class StudyAdmin(FeedModelAdmin):
-    inlines = [StudyPrivateInline]
-    view_inlines = [SubjectInline, ExperimentInline]
+    inlines = [StudyPrivateInline,SubjectInline, ExperimentInline]
+    view_inlines = [SubjectViewInline, ExperimentViewInline]
     search_fields = ('name',)
     list_display = ('name','accession','start','end','bookkeeping', 'funding_agency','approval_secured')
     tabbed = True
+
 
 class ExperimentAdmin(FeedModelAdmin):
     inlines = [IllustrationInline]
@@ -165,8 +189,6 @@ class EmgSetupAdmin(FeedModelAdmin):
     list_display = ('technique', 'preamplifier','experiment')
     list_filter = ('technique', 'experiment')
     ordering = ('preamplifier',)
-    class Meta:
-        tab_name = "EMG"
 
 
 class SonoSetupAdmin(FeedModelAdmin):
@@ -187,21 +209,24 @@ class SonoChannelAdmin(FeedModelAdmin):
 class ChannelLineupInline(FeedTabularInline):
     model = ChannelLineup
     extra = 3    
+    tabbed = True
+    tab_name="Channel Lineups"
 
 class ChannelLineupViewInline(FeedTabularInline):
     model = ChannelLineup
     extra = 0 
-
-
-
+    tabbed = True
+    tab_name="Channel Lineups"
 
 class SessionAdmin(SessionModelAdmin):
-    inlines = [ChannelLineupInline]
-    view_inlines = [ChannelLineupViewInline, TrialInline ]
+    inlines = [ChannelLineupInline, TrialInline]
+    view_inlines = [ChannelLineupViewInline, TrialViewInline ]
     search_fields = ('accession', 'bookkeeping','subj_restraint','subj_anesthesia_sedation','subj_notes')
     list_display = ('position', 'bookkeeping', 'accession', 'experiment','start', 'end','subj_restraint','subj_anesthesia_sedation')
     list_filter = ('experiment', 'subj_restraint')
     ordering = ('position',)
+    tabbed = True
+    tab_name = "Session"
 
 class EmgSensorAdmin(FeedModelAdmin):
     list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv','eletrode_type')

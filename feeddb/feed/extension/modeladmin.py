@@ -57,12 +57,8 @@ class FeedTabularInline(admin.TabularInline):
 
         return db_field.formfield(**kwargs)
 
-class SessionInline(FeedTabularInline):
-    model = Session
-    extra = 1
-
-
 class FeedModelAdmin(admin.ModelAdmin):
+    change_form_template = "admin/tabbed_change_form.html"
     view_inlines = []
 
     # Custom templates (designed to be over-ridden in subclasses)
@@ -204,9 +200,9 @@ class FeedModelAdmin(admin.ModelAdmin):
         })
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
         return render_to_response(self.view_form_template or [
-            "admin/%s/%s/view.html" % (app_label, opts.object_name.lower()),
-            "admin/%s/view.html" % app_label,
-            "admin/view.html"
+            "admin/%s/%s/tabbed_view.html" % (app_label, opts.object_name.lower()),
+            "admin/%s/tabbed_view.html" % app_label,
+            "admin/tabbed_view.html"
         ], context, context_instance=context_instance)
 
     def response_add(self, request, obj, post_url_continue='../%s/edit/'):
@@ -462,6 +458,8 @@ class FeedModelAdmin(admin.ModelAdmin):
             'adminform': adminForm,
             'object_id': object_id,
             'original': obj,
+            'tabbed': self.tabbed,
+            'tab_name': self.tab_name,
             'is_popup': request.REQUEST.has_key('_popup'),
             'media': mark_safe(media),
             'inline_admin_formsets': inline_admin_formsets,

@@ -44,7 +44,7 @@
 <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% block form_top %}{% endblock %}
 {% if tabbed %}
 <div class="TabView" id="TabView">
-    <div class="Tabs" style="width: 100%;">
+    <div class="Tabs" >
        <a>{% ifequal tab_name None %}{{ opts.object_name }}{% else %}{{ tab_name }}{% endifequal %}</a>
       {% for inline_admin_formset in inline_admin_formsets %}
           {% if inline_admin_formset.opts.tabbed%}
@@ -53,7 +53,7 @@
       {% endfor %}
    </div>
 
-  <div class="Pages" style="width: 800px;" id="pages">
+  <div class="Pages" id="pages">
     <div class="Page">
        <div class="Pad">
 {% endif %}
