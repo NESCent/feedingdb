@@ -1,7 +1,9 @@
 from feeddb.feed.models import *
 from django.contrib import admin
 from django import forms
-from feeddb.feed.extension.modeladmin import FeedModelAdmin, FeedTabularInline
+from django.forms import models
+from feeddb.feed.extension.modeladmin import FeedModelAdmin, FeedTabularInline, SessionModelAdmin
+from feeddb.feed.extension.forms import *
 
 class StudyPrivateInline(admin.StackedInline):
     model = StudyPrivate
@@ -12,6 +14,8 @@ class ExperimentInline(FeedTabularInline):
     model = Experiment
     extra = 0
     fields = ['bookkeeping','accession','subject']
+    tabbed = True
+    tab_name = "Experiments"
 
 class SensorInline(FeedTabularInline):
     model = Sensor
@@ -20,7 +24,14 @@ class SensorInline(FeedTabularInline):
 
 class SessionInline(FeedTabularInline):
     model = Session
+    extra = 1
+    excludes = ['subj_notes']
+
+class SessionViewInline(FeedTabularInline):
+    model = Session
     extra = 0
+    tab_name = "Sessions"
+    tabbed = True
     excludes = ['subj_notes']
 
 class IllustrationInline(FeedTabularInline):
@@ -36,12 +47,17 @@ class IllustrationViewInline(FeedTabularInline):
 class EmgSetupInline(FeedTabularInline):
     model = EmgSetup
     extra = 0
+    tab_name = "EMG"
+    tabbed = True
+
     class Meta:
         verbose_name = "emgsetup"
-
+        
 class SonoSetupInline(FeedTabularInline):
     model = SonoSetup
     extra = 0
+    tab_name = "Sono"
+    tabbed = True
     class Meta:
         verbose_name = "sonosetup"
 
@@ -53,6 +69,7 @@ class TrialInline(FeedTabularInline):
 class SubjectInline(FeedTabularInline):
     model = Subject
     extra = 0
+    tabbed = False
 
 class SubjectStackInline(admin.StackedInline):
     model = Subject
@@ -63,14 +80,17 @@ class StudyAdmin(FeedModelAdmin):
     view_inlines = [SubjectInline, ExperimentInline]
     search_fields = ('name',)
     list_display = ('name','accession','start','end','bookkeeping', 'funding_agency','approval_secured')
+    tabbed = True
 
 class ExperimentAdmin(FeedModelAdmin):
     inlines = [IllustrationInline]
-    view_inlines = [IllustrationViewInline, EmgSetupInline, SonoSetupInline,SessionInline]
+    view_inlines = [IllustrationViewInline]
     search_fields = ('decription',)
     list_display = ('subject','study','start','end','bookkeeping', 'subj_devstage','subj_tooth')
     list_filter = ('study', 'subject')
-    
+    tabbed = True
+
+
 class SubjectAdmin(FeedModelAdmin):
     search_fields = ('name', 'breed','taxon', 'source','sex','notes')
     list_display = ('name', 'taxon', 'breed','sex', 'source')
@@ -89,10 +109,18 @@ class IllustrationAdmin(FeedModelAdmin):
     list_filter = ('experiment', 'subject')
     ordering = ('picture',)
 
-class EmgSensorInline(FeedTabularInline):
+
+class EmgSensorViewInline(FeedTabularInline):
     model = EmgSensor
     excludes = ['notes']   
     extra = 0
+    form = EmgSensorForm
+
+class EmgSensorInline(FeedTabularInline):
+    model = EmgSensor
+    excludes = ['notes']   
+    extra = 1
+    form = EmgSensorForm
 
 class SonoSensorInline(FeedTabularInline):
     model = SonoSensor
@@ -104,24 +132,42 @@ class ChannelInline(FeedTabularInline):
     excludes = ['notes']   
     extra = 0
 
-
-class EmgChannelInline(FeedTabularInline):
+class EmgChannelViewInline(FeedTabularInline):
     model = EmgChannel
     excludes = ['notes']   
     extra = 0
 
 
+class EmgChannelInline(FeedTabularInline):
+    model = EmgChannel
+    excludes = ['notes']   
+    extra = 1
+
+
 class SonoChannelInline(FeedTabularInline):
     model = SonoChannel
-    excludes = ['notes']   
     extra = 0
 
+class EmgElectrodeInline(FeedTabularInline):
+    model = EmgElectrode
+    extra = 1    
+    form = EmgElectrodeForm
+
+class EmgElectrodeViewInline(FeedTabularInline):
+    model = EmgElectrode
+    excludes = ['notes']
+    extra = 0 
+    form = EmgElectrodeForm
+
 class EmgSetupAdmin(FeedModelAdmin):
-    inlines = [ IllustrationInline]
-    view_inlines = [IllustrationViewInline, EmgSensorInline, EmgChannelInline]
+    inlines = [ IllustrationInline, EmgElectrodeInline]
+    view_inlines = [IllustrationViewInline, EmgElectrodeViewInline]
     list_display = ('technique', 'preamplifier','experiment')
     list_filter = ('technique', 'experiment')
     ordering = ('preamplifier',)
+    class Meta:
+        tab_name = "EMG"
+
 
 class SonoSetupAdmin(FeedModelAdmin):
     inlines = [ IllustrationInline]
@@ -147,7 +193,9 @@ class ChannelLineupViewInline(FeedTabularInline):
     extra = 0 
 
 
-class SessionAdmin(FeedModelAdmin):
+
+
+class SessionAdmin(SessionModelAdmin):
     inlines = [ChannelLineupInline]
     view_inlines = [ChannelLineupViewInline, TrialInline ]
     search_fields = ('accession', 'bookkeeping','subj_restraint','subj_anesthesia_sedation','subj_notes')

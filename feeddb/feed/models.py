@@ -115,7 +115,8 @@ class StudyPrivate(FeedBaseModel):
     notes = models.TextField( blank = True, null=True)
     class Meta:
         verbose_name = "Study - Private Information"
-
+'''
+'''
 class Subject(FeedBaseModel):
     GENDER_CHOICES = (
         (u'M', u'Male'),
@@ -128,7 +129,7 @@ class Subject(FeedBaseModel):
     breed = models.CharField(max_length=255, blank = True, null=True)   
     sex = models.CharField(max_length=2, choices = GENDER_CHOICES, blank = True, null=True) 
     source = models.CharField(max_length=255, blank = True, null=True) 
-    notes = models.TextField(blank = True, null=True)
+    notes = models.TextField(blank = True, null=True, help_text="notes about the research subject")
     def __unicode__(self):
         return self.name        
         
@@ -186,12 +187,13 @@ class EmgSensor(Sensor):
     axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="Anterior posterior axis", blank = True, null=True )
     axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="Dorsal ventral axis", blank = True, null=True )
     eletrode_type = models.ForeignKey(EletrodeType, verbose_name="Eletrode type", blank = True, null=True )
+
     def __unicode__(self):
         return 'EMG Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.muscle.label, self.side.label)  
 
     class Meta:
         verbose_name = "emgsensor"
-
+        ordering = ["id"]
 
 class SonoSensor(Sensor):
     muscle = models.ForeignKey(Muscle )
@@ -224,6 +226,7 @@ class EmgChannel(Channel):
     class Meta:
         verbose_name = "emgchannel"
 
+
 class SonoChannel(Channel):
     sono_unit = models.ForeignKey(Sonounit, verbose_name="EMG unit")
     crystal1 = models.ForeignKey(SonoSensor, related_name="crystals1_related")
@@ -242,9 +245,10 @@ class Session(FeedBaseModel):
     end = models.DateTimeField(blank = True, null=True)
     position = models.IntegerField()
     bookkeeping = models.CharField("Book Keeping", max_length=255,blank = True, null=True)
+    subj_notes = models.TextField("Subject Notes", blank = True, null=True)    
     subj_restraint = models.ForeignKey(Restraint,verbose_name="Subject Restraint")
     subj_anesthesia_sedation = models.CharField("Subject Anesthesia Sedation", max_length=255,  blank = True, null=True)
-    subj_notes = models.TextField("Subject Notes", blank = True, null=True)
+    
     channels  = models.ManyToManyField(Channel, through='ChannelLineup')
 
     def __unicode__(self):
@@ -282,9 +286,6 @@ class Illustration(FeedBaseModel):
     setup  = models.ForeignKey(Setup,  blank = True, null=True)
     experiment  = models.ForeignKey(Experiment,  blank = True, null=True)
 
-    
-
-
 class ChannelLineup(FeedBaseModel):
     session = models.ForeignKey(Session)
     position = models.IntegerField()
@@ -295,4 +296,75 @@ class ChannelLineup(FeedBaseModel):
         verbose_name = "channellineup"
     def __unicode__(self):
         return str(self.position) 
-       
+
+class EmgElectrode(FeedBaseModel):
+    setup = models.ForeignKey(Setup)
+    name = models.CharField(max_length=255)
+    notes = models.TextField( blank = True, null=True)
+    muscle = models.ForeignKey(Muscle)
+    side = models.ForeignKey(Side, verbose_name="Side of muscle" )
+    axisdepth = models.ForeignKey(DepthAxis, verbose_name="Depth axis", blank = True, null=True )
+    axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="Anterior posterior axis", blank = True, null=True )
+    axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="Dorsal ventral axis", blank = True, null=True )
+    eletrode_type = models.ForeignKey(EletrodeType, verbose_name="Eletrode type", blank = True, null=True )
+    rate = models.IntegerField()
+    emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG unit")
+    emg_filtering = models.ForeignKey(Emgfiltering, verbose_name="EMG filtering")
+
+    def __unicode__(self):
+        return self.name  
+   
+    def save(self):
+        super(EmgElectrode, self).save()
+        try:
+            sensor = EmgSensor.objects.get(name = self.name, setup= self.setup)
+        except EmgSensor.DoesNotExist:        
+            sensor = EmgSensor()
+            sensor.setup = self.setup
+        sensor.created_by = self.created_by
+        sensor.created_at = self.created_at
+        sensor.updated_at = self.updated_at
+        sensor.name = self.name
+        sensor.notes = self.notes
+        sensor.muscle = self.muscle
+        sensor.side = self.side
+        sensor.axisdepth = self.axisdepth
+        sensor.axisap = self.axisap
+        sensor.axisdv = self.axisdv
+        sensor.eletrode_type  =self.eletrode_type
+        sensor.save()
+        try:
+            channel = EmgChannel.objects.get(name = self.name, setup= self.setup)
+        except EmgChannel.DoesNotExist:        
+            channel = EmgChannel()
+            channel.setup = self.setup
+            channel.sensor = sensor
+        channel.created_by = self.created_by
+        channel.created_at = self.created_at
+        channel.updated_at = self.updated_at
+        channel.name = self.name
+        channel.rate = self.rate
+        channel.emg_unit = self.emg_unit
+        channel.emg_filtering = self.emg_filtering
+        channel.notes= self.notes
+        channel.save()
+
+    def delete(self):
+        super(EmgElectrode, self).delete()
+        sensor = None
+        try:
+            sensor = EmgSensor.objects.get(name = self.name, setup= self.setup)
+        except EmgSensor.DoesNotExist:        
+            pass
+        if sensor!=None:
+            sensor.delete()
+        channel = None
+        try:
+            channel = EmgChannel.objects.get(name = self.name, setup= self.setup)
+        except EmgChannel.DoesNotExist:        
+            pass
+        if channel != None:
+            channel.save()
+    class Meta:
+        verbose_name = "emgelectrode"
+        verbose_name_plural = "Electrodes" 

@@ -10,6 +10,10 @@ from django.utils.translation import ugettext as _
 from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
 from django.conf import settings
+from django.utils.html import escape, conditional_escape
+from django.utils.translation import ugettext
+from django.utils.encoding import StrAndUnicode, force_unicode
+from django.forms.widgets import Textarea
 
 class FeedRelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
     def __init__(self, widget, rel, admin_site):
@@ -27,3 +31,17 @@ class FeedRelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
         output = [self.widget.render(name, value, *args, **kwargs)]
         return mark_safe(u''.join(output))
 
+class Notes(Textarea):
+    def __init__(self, attrs=None):
+        super(Notes, self).__init__(attrs)
+
+    def render(self, name, value, attrs=None):
+        if value is None: value = ''
+        final_attrs = self.build_attrs(attrs, name=name)
+        output = []
+        output.append(u'<a href="javascript: toggle(\'notes_%s\',\'img_%s\'); "><img id=\'img_%s\' src=\'/static/img/admin/icon_changelink.gif\' /></a>' % (final_attrs["id"],final_attrs["id"],final_attrs["id"]))
+        output.append(u'<div style=\'display: none;\' id=\'notes_%s\'>' % final_attrs["id"])
+        output.append(u'<textarea%s>%s</textarea>' % (flatatt(final_attrs),
+                conditional_escape(force_unicode(value))))
+        output.append("</div>")
+        return mark_safe(u' '.join(output))

@@ -23,6 +23,44 @@ from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
 from feeddb.feed.models import  *
 from feeddb.feed.extension.widgets import FeedRelatedFieldWidgetWrapper
+from feeddb.feed.extension.forms import *
+
+class FeedTabularInline(admin.TabularInline):
+    template = 'admin/edit_inline/tabular.html'
+    tabbed = False
+    tab_name = None
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        request = kwargs.pop("request", None)
+
+        if db_field.choices:
+            return self.formfield_for_choice_field(db_field, request, **kwargs)
+
+        if isinstance(db_field, (models.ForeignKey, models.ManyToManyField)):
+            if db_field.__class__ in self.formfield_overrides:
+                kwargs = dict(self.formfield_overrides[db_field.__class__], **kwargs)
+
+            if isinstance(db_field, models.ForeignKey):
+                formfield = self.formfield_for_foreignkey(db_field, request, **kwargs)
+            elif isinstance(db_field, models.ManyToManyField):
+                formfield = self.formfield_for_manytomany(db_field, request, **kwargs)
+
+            if formfield and db_field.name not in self.raw_id_fields:
+                formfield.widget = FeedRelatedFieldWidgetWrapper(formfield.widget, db_field.rel, self.admin_site)
+
+            return formfield
+
+        for klass in db_field.__class__.mro():
+            if klass in self.formfield_overrides:
+                kwargs = dict(self.formfield_overrides[klass], **kwargs)
+                return db_field.formfield(**kwargs)
+
+        return db_field.formfield(**kwargs)
+
+class SessionInline(FeedTabularInline):
+    model = Session
+    extra = 1
+
 
 class FeedModelAdmin(admin.ModelAdmin):
     view_inlines = []
@@ -32,6 +70,10 @@ class FeedModelAdmin(admin.ModelAdmin):
 
     # Actions
     actions = None
+
+    # tabbed view?
+    tabbed = False
+    tab_name = None
 
     def __init__(self, model, admin_site):
         super(FeedModelAdmin, self).__init__(model,admin_site)
@@ -433,34 +475,31 @@ class FeedModelAdmin(admin.ModelAdmin):
     
     def filter_form_values(self, request, form, model, obj):
         #general set all choices from the user own data
-        if form.fields.has_key("study"):
-            form.fields["study"].queryset = Study.objects.filter(created_by=request.user)
-        if form.fields.has_key("experiment"):
-            form.fields["experiment"].queryset = Experiment.objects.filter(created_by=request.user)
-        if form.fields.has_key("subject"):
-            form.fields["subject"].queryset = Subject.objects.filter(created_by=request.user)
-        if form.fields.has_key("setup"):
-            form.fields["setup"].queryset = Setup.objects.filter(created_by=request.user)
-        if form.fields.has_key("emgsetup"):
-            form.fields["emgsetup"].queryset = EmgSetup.objects.filter(created_by=request.user)
-        if form.fields.has_key("sonosetup"):
-            form.fields["sonosetup"].queryset = SonoSetup.objects.filter(created_by=request.user)
-        if form.fields.has_key("channel"):
-            form.fields["channel"].queryset = Channel.objects.filter(created_by=request.user)
-        if form.fields.has_key("emgchannel"):
-            form.fields["emgchannel"].queryset = EmgChannel.objects.filter(created_by=request.user)
-        if form.fields.has_key("sonochannel"):
-            form.fields["sonochannel"].queryset = SonoChannel.objects.filter(created_by=request.user)
-        if form.fields.has_key("session"):
-            form.fields["session"].queryset = Session.objects.filter(created_by=request.user)
-        if form.fields.has_key("trial"):
-            form.fields["trial"].queryset = Trial.objects.filter(created_by=request.user)
+        if not request.user.is_superuser:
+            if form.fields.has_key("study"):
+                form.fields["study"].queryset = Study.objects.filter(created_by=request.user)
+            if form.fields.has_key("experiment"):
+                form.fields["experiment"].queryset = Experiment.objects.filter(created_by=request.user)
+            if form.fields.has_key("subject"):
+                form.fields["subject"].queryset = Subject.objects.filter(created_by=request.user)
+            if form.fields.has_key("setup"):
+                form.fields["setup"].queryset = Setup.objects.filter(created_by=request.user)
+            if form.fields.has_key("emgsetup"):
+                form.fields["emgsetup"].queryset = EmgSetup.objects.filter(created_by=request.user)
+            if form.fields.has_key("sonosetup"):
+                form.fields["sonosetup"].queryset = SonoSetup.objects.filter(created_by=request.user)
+            if form.fields.has_key("channel"):
+                form.fields["channel"].queryset = Channel.objects.filter(created_by=request.user)
+            if form.fields.has_key("emgchannel"):
+                form.fields["emgchannel"].queryset = EmgChannel.objects.filter(created_by=request.user)
+            if form.fields.has_key("sonochannel"):
+                form.fields["sonochannel"].queryset = SonoChannel.objects.filter(created_by=request.user)
+            if form.fields.has_key("session"):
+                form.fields["session"].queryset = Session.objects.filter(created_by=request.user)
+            if form.fields.has_key("trial"):
+                form.fields["trial"].queryset = Trial.objects.filter(created_by=request.user)
 
-        if  model == Subject:
-            form.fields["study"].queryset = Study.objects.filter(created_by=request.user)
-        elif  model == Trial:
-            form.fields["session"].queryset = Session.objects.filter(created_by=request.user)
-        elif  model == EmgChannel:
+        if  model == EmgChannel:
             if request.GET.has_key("emgsetup"):
                 form.fields["sensor"].queryset = EmgSensor.objects.filter(setup=request.GET['emgsetup'])
                 form.fields["setup"].initial=request.GET['emgsetup']
@@ -482,8 +521,6 @@ class FeedModelAdmin(admin.ModelAdmin):
                 form.fields["channel"].queryset = Channel.objects.filter(setup__experiment = obj.experiment.id)
             elif request.GET.has_key("experiment") and form.fields.has_key("channel"): 
                 form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=request.GET['experiment'])
-            if form.fields.has_key("experiment"):
-                form.fields["experiment"].queryset = Experiment.objects.filter(created_by=request.user)
         elif  model == ChannelLineup:
             if request.GET.has_key("session") and form.fields.has_key("channel"): 
                 sess = Session.objects.get(id=  request.GET['session'])
@@ -544,6 +581,8 @@ class FeedModelAdmin(admin.ModelAdmin):
             'object_id': object_id,
             'original': obj,
             'is_popup': request.REQUEST.has_key('_popup'),
+            'tabbed': self.tabbed,
+            'tab_name': self.tab_name,
             'media': mark_safe(media),
             'inline_admin_formsets': inline_admin_formsets,
             'errors': helpers.AdminErrorList(form, formsets),
@@ -710,21 +749,33 @@ class FeedModelAdmin(admin.ModelAdmin):
             action_form.fields['action'].choices = self.get_action_choices(request)
         else:
             action_form = None
-
+        
+        experiment = None
+        v= request.GET.get("experiment")
+        if v!=None:
+            experiment = Experiment.objects.get(pk = v) 
         context = {
             'title': cl.title,
             'is_popup': cl.is_popup,
             'cl': cl,
             'media': media,
             'has_add_permission': self.has_add_permission(request),
+            'has_change_permission': self.has_change_permission(request, experiment),
             'root_path': self.admin_site.root_path,
             'app_label': app_label,
             'action_form': action_form,
             'actions_on_top': self.actions_on_top,
             'actions_on_bottom': self.actions_on_bottom,
+            'change': False,
+            'add': False,
+            'view': True,
+            'experiment': experiment,
         }
         context.update(extra_context or {})
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
+        
+        
+     
         return render_to_response(self.change_list_template or [
             'admin/%s/%s/change_list.html' % (app_label, opts.object_name.lower()),
             'admin/%s/change_list.html' % app_label,
@@ -787,32 +838,91 @@ class FeedStackedInline(admin.StackedInline):
 
         return db_field.formfield(**kwargs)
 
+class SessionModelAdmin(FeedModelAdmin):
+    def __init__(self, model, admin_site):
+        super(SessionModelAdmin, self).__init__(model,admin_site)
 
-class FeedTabularInline(admin.TabularInline):
-    template = 'admin/edit_inline/tabular.html'
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        request = kwargs.pop("request", None)
+    def get_urls(self):
+        from django.conf.urls.defaults import patterns, url
 
-        if db_field.choices:
-            return self.formfield_for_choice_field(db_field, request, **kwargs)
+        def wrap(view):
+            def wrapper(*args, **kwargs):
+                return self.admin_site.admin_view(view)(*args, **kwargs)
+            return update_wrapper(wrapper, view)
 
-        if isinstance(db_field, (models.ForeignKey, models.ManyToManyField)):
-            if db_field.__class__ in self.formfield_overrides:
-                kwargs = dict(self.formfield_overrides[db_field.__class__], **kwargs)
+        info = self.model._meta.app_label, self.model._meta.module_name
 
-            if isinstance(db_field, models.ForeignKey):
-                formfield = self.formfield_for_foreignkey(db_field, request, **kwargs)
-            elif isinstance(db_field, models.ManyToManyField):
-                formfield = self.formfield_for_manytomany(db_field, request, **kwargs)
+        urlpatterns = patterns('',
+            url(r'^$',
+                wrap(self.changelist_view),
+                name='%s_%s_changelist' % info),
+            url(r'^edit/$',
+                wrap(self.editlist_view),
+                name='%s_%s_editlist' % info),
+            url(r'^add/$',
+                wrap(self.add_view),
+                name='%s_%s_add' % info),
+            url(r'^(.+)/history/$',
+                wrap(self.history_view),
+                name='%s_%s_history' % info),
+            url(r'^(.+)/delete/$',
+                wrap(self.delete_view),
+                name='%s_%s_delete' % info),
+            url(r'^(.+)/edit/$',
+                wrap(self.change_view),
+                name='%s_%s_change' % info),    
+            url(r'^(.+)/$',
+                wrap(self.view_view),
+                name='%s_%s_view' % info),
+        )
+        return urlpatterns
 
-            if formfield and db_field.name not in self.raw_id_fields:
-                formfield.widget = FeedRelatedFieldWidgetWrapper(formfield.widget, db_field.rel, self.admin_site)
+    def editlist_view(self, request, extra_context=None):
+        if request.GET.get("experiment") ==None:
+            raise Http404("No experiment specified")
+        
+        model = Experiment
+        object_id = request.GET.get("experiment")
+        opts = model._meta
 
-            return formfield
+        try:
+            obj = Experiment.objects.get(pk=unquote(object_id))
+        except model.DoesNotExist:
+            # Don't raise Http404 just yet, because we haven't checked
+            # permissions yet. We don't want an unauthenticated user to be able
+            # to determine whether a given object exists.
+            obj = None
+        
+        if not self.has_change_permission(request, obj):
+            raise PermissionDenied
 
-        for klass in db_field.__class__.mro():
-            if klass in self.formfield_overrides:
-                kwargs = dict(self.formfield_overrides[klass], **kwargs)
-                return db_field.formfield(**kwargs)
+        if obj is None:
+            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
+        messages =[]
+        if request.method == 'POST':
+            formsets=[]
+            FormSet  = inlineformset_factory(Experiment, Session, SessionForm, can_delete=True)
+            sessionformset = FormSet(request.POST, request.FILES, instance=obj )
+            formsets.append(sessionformset)
+            if all_valid(formsets):
+                for formset in formsets:
+                    formset.save()
+            messages.append("Successfully updated the data!")
+       
+      
+        form = SessionForm(instance=obj)
+        FormSet  = inlineformset_factory(Experiment, Session, SessionForm, can_delete=True)
+        sessionformset =FormSet(instance=obj)
+        context={
+            'experiment': obj,
+            'object_id': object_id,
+            'change': True,
+            'add': False,
+            'view': False,
+            'sessionformset': sessionformset,
+            'app_label': 'feed',
+            'messages': messages,
+        }
+        context_instance = template.RequestContext(request, current_app=self.admin_site.name)
+        return render_to_response("admin/feed/session/edit_sessions.html", context, context_instance=context_instance)
 
-        return db_field.formfield(**kwargs)

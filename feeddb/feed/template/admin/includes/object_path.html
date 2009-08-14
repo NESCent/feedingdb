@@ -1,5 +1,5 @@
-{% if adminform %}
-{% ifequal adminform.form.instance.id None %}
+
+{% ifequal object_id None %}
      <!--  add new object -->
 {% else %}
      {% ifequal opts.verbose_name "trial" %}
@@ -26,6 +26,10 @@
          <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.experiment.study.id}}"> {{adminform.form.instance.experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
          <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.experiment.id}}"> {{adminform.form.instance.experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
      {% endifequal %}
+     {% if sessionformset %}
+         <a href="/admin/{{ app_label}}/study/{{experiment.study.id}}"> {{experiment.study.name|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+         <a href="/admin/{{ app_label}}/experiment/{{experiment.id}}"> {{experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+     {% endif %}
      {% ifequal opts.verbose_name "experiment" %}
          <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.study.id}}"> {{adminform.form.instance.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
      {% endifequal %}
@@ -62,4 +66,4 @@
      {% endifequal %}
     {{adminform.form.instance|capfirst|escape|truncatewords:"18" }}
 {% endifequal %}
-{% endif %}
+
