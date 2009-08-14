@@ -1,0 +1,140 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_modify feedmedia %}
+
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" src="../../../jsi18n/"></script>
+{{ media }}
+<script type="text/javascript" src="{% app_static_prefix %}js/tabview.js"></script>
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/forms.css" />
+<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/tabview.css" />
+{% endblock %}
+
+{% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+
+{% block breadcrumbs %}
+{% if not is_popup %}
+<div class="breadcrumbs">
+{% include "admin/includes/object_path.html" %}
+</div>
+{% endif %}{% endblock %}
+
+{% block content %}<div id="content-main">
+{% block object-tools %}
+<ul class="object-tools object-tools-top">
+	{% if change %}
+                               {% ifequal opts.app_label "feed" %}
+		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" >{% trans "View" %}</a></li>
+                               {% endifequal %}
+		{% if has_delete_permission %}
+			<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" >{% trans "Delete" %}</a></li>
+		{% endif %}
+	{% endif %}	
+	{% if change %}{% if not is_popup %}
+  		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/history/" class="historylink">{% trans "History" %}</a></li>
+  		<!-- {% if has_absolute_url %}
+			<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>
+		{% endif%} -->
+    {% endif %}{% endif %}
+</ul>
+{% endblock %}
+{% if errors %}
+    <p class="errornote">
+    {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+    </p>
+    <ul class="errorlist">{% for error in adminform.form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+{% endif %}
+<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% block form_top %}{% endblock %}
+{% if tabbed %}
+    <div class="TabView" id="TabView">
+       <div class="Tabs" style="width: 100%;">
+       <a>{% ifequal tab_name None %}{{ opts.object_name }}{% else %}{{ tab_name }}{% endifequal %}</a>
+         {% for inline_admin_formset in inline_admin_formsets %}
+          {% if inline_admin_formset.opts.tabbed%}
+         <a>{% ifequal inline_admin_formset.opts.tab_name None %}{{ inline_admin_formset.opts.verbose_name }}{% else %}{{ inline_admin_formset.opts.tab_name }}{% endifequal %}</a>
+          {% endif %}
+      {% endfor %}
+      </div>
+
+  <div class="Pages" style="width: 800px;" id="pages">
+    <div class="Page">
+       <div class="Pad">
+{% endif %}
+
+{% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+{% if save_on_top %}{% submit_row %}{% endif %}
+
+
+{% for fieldset in adminform %}
+  {% include "admin/includes/fieldset.html" %}
+{% endfor %}
+
+{% block after_field_sets %}{% endblock %}
+
+{% if tabbed %}
+{% for inline_admin_formset in inline_admin_formsets %}
+{% if  not inline_admin_formset.opts.tabbed %}
+
+{% include inline_admin_formset.opts.template %}
+
+{% endif %}
+{% endfor %}
+
+{% endif %}
+{% if tabbed %}
+{% submit_row %}
+</div></div>
+{% endif %}
+
+{% if not object_id %}
+<div style="display: none;">
+{% endif %}
+
+{% for inline_admin_formset in inline_admin_formsets %}
+{% if tabbed and inline_admin_formset.opts.tabbed %}
+    <div class="Page">
+       <div class="Pad">
+    {% include inline_admin_formset.opts.template %}
+{% submit_row %}
+</div></div>
+{% else %}
+   {% if not tabbed  %}
+{% include inline_admin_formset.opts.template %}
+
+{% endif %}
+{% endif %}
+{% endfor %}
+
+{% if not object_id %}
+</div>
+{% endif %}
+
+{% if tabbed %}
+
+</div>
+</div>
+{% endif  %}
+
+{% block after_related_objects %}{% endblock %}
+
+
+
+{% if adminform and add %}
+   <script type="text/javascript">document.getElementById("{{ adminform.first_field.auto_id }}").focus();</script>
+{% endif %}
+
+{# JavaScript for prepopulated fields #}
+{% prepopulated_fields_js %}
+
+{% if not tabbed %}
+{% submit_row %}
+{% endif %}
+</form></div>
+<script type="text/javascript">
+    tabview_switch_by_name('TabView','{% ifequal tab_name None %}{{ opts.object_name }}{% else %}{{ tab_name }}{% endifequal %}');
+</script>
+{% endblock %}
