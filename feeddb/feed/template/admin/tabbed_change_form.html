@@ -74,17 +74,12 @@
 {% endfor %}
 
 {% block after_field_sets %}{% endblock %}
+    {% for inline_admin_formset in inline_admin_formsets %}
+          {% if  not inline_admin_formset.opts.tabbed %}
+                   {% include inline_admin_formset.opts.template %}
+          {% endif %}
+    {% endfor %}
 
-{% if tabbed %}
-{% for inline_admin_formset in inline_admin_formsets %}
-{% if  not inline_admin_formset.opts.tabbed %}
-
-{% include inline_admin_formset.opts.template %}
-
-{% endif %}
-{% endfor %}
-
-{% endif %}
 {% if tabbed %}
 {% submit_row %}
 </div></div>
@@ -102,7 +97,7 @@
 {% submit_row %}
 </div></div>
 {% else %}
-   {% if not tabbed  %}
+   {% if not tabbed and inline_admin_formset.opts.tabbed  %}
 {% include inline_admin_formset.opts.template %}
 
 {% endif %}
