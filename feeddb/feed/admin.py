@@ -44,7 +44,7 @@ class SessionViewInline(FeedTabularInline):
 class IllustrationInline(FeedTabularInline):
     model = Illustration
     extra = 1
-    fields = ('picture', 'notes')
+    fields = ('picture','notes')
 
 class IllustrationViewInline(FeedTabularInline):
     model = Illustration
@@ -90,7 +90,7 @@ class SubjectInline(FeedTabularInline):
 
 class SubjectViewInline(FeedTabularInline):
     model = Subject
-    extra = 2
+    extra = 0
     tabbed = True
     tab_name="Subjects"
 
@@ -106,6 +106,7 @@ class StudyAdmin(FeedModelAdmin):
     tabbed = True
 
 
+
 class ExperimentAdmin(ExperimentModelAdmin):
     inlines = [IllustrationInline]
     view_inlines = [IllustrationViewInline]
@@ -116,6 +117,8 @@ class ExperimentAdmin(ExperimentModelAdmin):
 
 
 class SubjectAdmin(FeedModelAdmin):
+    inlines = [IllustrationInline]
+    view_inlines = [IllustrationViewInline]
     search_fields = ('name', 'breed','taxon', 'source','sex','notes')
     list_display = ('name', 'taxon', 'breed','sex', 'source')
     list_filter = ('study', 'taxon','sex')
@@ -245,6 +248,9 @@ class SonoSensorAdmin(FeedModelAdmin):
     list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv')
     ordering = ('name', 'muscle',)
 
+class EmgElectrodeAdmin(FeedModelAdmin):
+    pass
+
 class ChannelLineupAdmin(FeedModelAdmin):
     list_display = ('position', 'session','channel')
     list_filter = ('session',)
@@ -276,7 +282,7 @@ admin.site.register(Sonounit,TermAdmin)
 admin.site.register(Emgfiltering,TermAdmin)
 admin.site.register(Experiment, ExperimentAdmin)
 admin.site.register(Subject,SubjectAdmin)
-admin.site.register(Sensor)
+admin.site.register(Sensor,FeedModelAdmin)
 admin.site.register(Study,StudyAdmin)
 admin.site.register(Session,SessionAdmin)
 admin.site.register(Trial,TrialAdmin)
@@ -288,4 +294,6 @@ admin.site.register(ChannelLineup, ChannelLineupAdmin)
 admin.site.register(Illustration,IllustrationAdmin)
 admin.site.register(EmgChannel,EmgChannelAdmin)
 admin.site.register(SonoChannel,SonoChannelAdmin)
-admin.site.register(Channel)
+admin.site.register(Channel, FeedModelAdmin)
+admin.site.register(EmgElectrode,EmgElectrodeAdmin )
+

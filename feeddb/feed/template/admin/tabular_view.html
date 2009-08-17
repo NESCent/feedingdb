@@ -14,7 +14,12 @@
          <th {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
         {% endif %}
      {% endfor %}
+
+     {% for r in registry %}
+        {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
      <th>{% trans "Action" %}</th>
+        {% endifequal %}
+{% endfor %}
      </tr></thead>
 
      {% for inline_admin_form in inline_admin_formset %}
@@ -52,21 +57,28 @@
 
 	  <td class="form-row" width="250">
          <ul class="object-tools">
+
+{% for r in registry %}
+        {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
+
      	 <li><a href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/{{inline_admin_form.original.id}}/" >{% trans "View" %}</a></li>
-
-        {% if has_change_permission %}
-				<li><a class="changelink" href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" >{% trans "Edit" %}</a></li>
- 				<li><a class="deletelink" href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" >{% trans "Delete" %}</a></li>
-        {% endif %}
-
-		</ul>
-		</td >
+      	 {% if has_change_permission %}
+		<li><a class="changelink" href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" >{% trans "Edit" %}</a></li>
+ 		<li><a class="deletelink" href="/admin/{{opts.app_label}}/{{inline_admin_formset.opts.verbose_name.lower}}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" >{% trans "Delete" %}</a></li>
+       	{% endif %}
+        {% endifequal %}
+{% endfor %}
+	</ul>
+        </td >
 
         </tr>
 
      {% endfor %}
 
    </table>
+
+{% for r in registry %}
+        {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
 
  {% if has_change_permission %}
 <p>
@@ -80,7 +92,8 @@
 </table>
 </p >     
    {% endif %}
-
+        {% endifequal %}
+{% endfor %}
 </fieldset>
   </div>
 

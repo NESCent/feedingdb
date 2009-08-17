@@ -536,22 +536,29 @@ class FeedModelAdmin(admin.ModelAdmin):
                 form.fields["session"].queryset = Session.objects.filter(created_by=request.user)
             if form.fields.has_key("trial"):
                 form.fields["trial"].queryset = Trial.objects.filter(created_by=request.user)
-
         if  model == EmgChannel:
             if request.GET.has_key("emgsetup"):
                 form.fields["sensor"].queryset = EmgSensor.objects.filter(setup=request.GET['emgsetup'])
                 form.fields["setup"].initial=request.GET['emgsetup']
+        elif  model == EmgElectrode:
+            if request.GET.has_key("emgsetup"):
+                form.fields["setup"].initial=request.GET['emgsetup']
+        elif  model == Illustration:
+            if request.GET.has_key("emgsetup"):
+                form.fields["setup"].initial=request.GET['emgsetup']
+            if request.GET.has_key("sonosetup"):
+                form.fields["setup"].initial=request.GET['sonosetup']
+            if request.GET.has_key("subject"):
+                form.fields["subject"].initial=request.GET['subject']
         elif  model == SonoChannel:
             if request.GET.has_key("sonosetup"):
                 form.fields["crystal1"].queryset = SonoSensor.objects.filter(setup=request.GET['sonosetup'])
                 form.fields["crystal2"].queryset = SonoSensor.objects.filter(setup=request.GET['sonosetup'])
                 form.fields["setup"].initial=request.GET['sonosetup']
-       
         elif model == SonoSetup:
             if form.fields.has_key("crystal1"):
                 form.fields["crystal1"].queryset = SonoSensor.objects.filter(setup=obj)
                 form.fields["crystal2"].queryset = SonoSensor.objects.filter(setup=obj)
-
         elif  model == EmgSensor:
             if request.GET.has_key("emgsetup"):
                 form.fields["setup"].initial=request.GET['emgsetup']
@@ -619,6 +626,11 @@ class FeedModelAdmin(admin.ModelAdmin):
             inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
             inline_admin_formsets.append(inline_admin_formset)
             media = media + inline_admin_formset.media
+
+        registry = []
+        for r in self.admin_site._registry:
+            registry.append(r._meta.verbose_name.lower())
+
         context = {
             'title': _('View %s') % force_unicode(opts.verbose_name),
             'adminform': adminForm,
@@ -632,7 +644,9 @@ class FeedModelAdmin(admin.ModelAdmin):
             'errors': helpers.AdminErrorList(form, formsets),
             'root_path': self.admin_site.root_path,
             'app_label': opts.app_label,
+            'registry': registry,
         }
+        
         context.update(extra_context or {})
         return self.render_view_view(request, context, obj=obj)
     
