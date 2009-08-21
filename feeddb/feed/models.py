@@ -57,17 +57,20 @@ class Side(CvTerm):
 
 class DepthAxis(CvTerm):
     class Meta:
-        verbose_name_plural = "Depth axes"
+        verbose_name = "depth point"
+        verbose_name_plural = "depth axis"
 
 
 class AnteriorPosteriorAxis(CvTerm):
     class Meta:
-        verbose_name_plural = "Anterior posterior axes"
+        verbose_name = "anterior-posterior point"
+        verbose_name_plural = "anterior-posterior axis"
 
 
 class DorsalVentralAxis(CvTerm):
     class Meta:
-        verbose_name_plural = "Dorsal ventral axes"
+        verbose_name = "dorsal-ventral point"
+        verbose_name_plural = "dorsal-ventral axis"
 
 
 class EletrodeType(CvTerm):
@@ -92,7 +95,7 @@ class Emgfiltering(CvTerm):
 class Study(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
     name = models.CharField(max_length=255)
-    bookkeeping = models.CharField("Book keeping",max_length=255, blank = True, null=True)
+    bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True)
     start = models.DateTimeField(blank = True, null=True)
     end = models.DateTimeField( blank = True, null=True)
     funding_agency = models.CharField(max_length=255, blank = True, null=True)
@@ -139,14 +142,14 @@ class Experiment(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
     start = models.DateTimeField( blank = True, null=True)
     end = models.DateTimeField(blank = True, null=True)
-    bookkeeping = models.CharField("Book Keeping", max_length=255,blank = True, null=True)
+    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     description = models.TextField()
-    subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="Subject Development Stage")
-    subj_age = models.DecimalField("Subject Age",max_digits=19, decimal_places=5, blank = True, null=True)
-    subj_weight = models.DecimalField("Subject Weight",max_digits=19, decimal_places=5, blank = True, null=True)
-    subj_tooth = models.CharField("Subject Tooth",max_length=255, blank = True, null=True)
-    subject_notes = models.TextField("Subject Notes", blank = True, null=True)
-    impl_notes = models.TextField("Implantation Notes", blank = True, null=True)
+    subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="subject development stage")
+    subj_age = models.DecimalField("subject age",max_digits=19, decimal_places=5, blank = True, null=True)
+    subj_weight = models.DecimalField("subject weight",max_digits=19, decimal_places=5, blank = True, null=True)
+    subj_tooth = models.CharField("subject teeth",max_length=255, blank = True, null=True)
+    subject_notes = models.TextField("subject notes", blank = True, null=True)
+    impl_notes = models.TextField("implantation notes", blank = True, null=True)
     def __unicode__(self):
         return self.description    
 
@@ -162,14 +165,14 @@ class Setup(FeedBaseModel):
 class EmgSetup(Setup):
     preamplifier = models.CharField(max_length=255, blank = True, null=True)
     class Meta:
-        verbose_name = "emgsetup"
+        verbose_name = "EMG setup"
     def __unicode__(self):
         return "%s setup with preamplifier: %s" % (self.technique, self.preamplifier)  
 
 class SonoSetup(Setup):
     sonomicrometer = models.CharField(max_length=255, blank = True, null=True)
     class Meta:
-        verbose_name = "sonosetup"
+        verbose_name = "Sono setup"
     def __unicode__(self):
         return "%s setup with sonomicrometer: %s" % (self.technique, self.sonomicrometer)  
 
@@ -182,30 +185,30 @@ class Sensor(FeedBaseModel):
 
 class EmgSensor(Sensor):
     muscle = models.ForeignKey(Muscle)
-    side = models.ForeignKey(Side, verbose_name="Side of muscle" )
-    axisdepth = models.ForeignKey(DepthAxis, verbose_name="Depth axis", blank = True, null=True )
-    axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="Anterior posterior axis", blank = True, null=True )
-    axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="Dorsal ventral axis", blank = True, null=True )
-    eletrode_type = models.ForeignKey(EletrodeType, verbose_name="Eletrode type", blank = True, null=True )
+    side = models.ForeignKey(Side, verbose_name="side of muscle" )
+    axisdepth = models.ForeignKey(DepthAxis, verbose_name="depth point", blank = True, null=True )
+    axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="anterior-posterior point", blank = True, null=True )
+    axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="dorsal-ventral point", blank = True, null=True )
+    eletrode_type = models.ForeignKey(EletrodeType, verbose_name="electrode type", blank = True, null=True )
 
     def __unicode__(self):
         return 'EMG Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.muscle.label, self.side.label)  
 
     class Meta:
-        verbose_name = "emgsensor"
+        verbose_name = "EMG sensor"
         ordering = ["id"]
 
 class SonoSensor(Sensor):
     muscle = models.ForeignKey(Muscle )
-    side = models.ForeignKey(Side, verbose_name="Side of muscle" )
-    axisdepth = models.ForeignKey(DepthAxis, verbose_name="Depth axis", blank = True, null=True )
-    axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="Anterior posterior axis", blank = True, null=True )
-    axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="Dorsal ventral axis", blank = True, null=True )
+    side = models.ForeignKey(Side, verbose_name="side of muscle" )
+    axisdepth = models.ForeignKey(DepthAxis, verbose_name="depth point", blank = True, null=True )
+    axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="anterior-posterior point", blank = True, null=True )
+    axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="dorsal-ventral point", blank = True, null=True )
     def __unicode__(self):
         return 'Sono Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.muscle.label, self.side.label)  
 
     class Meta:
-        verbose_name = "sonosensor"
+        verbose_name = "Sono sensor"
     
 class Channel(FeedBaseModel):
     setup = models.ForeignKey(Setup)
@@ -224,7 +227,7 @@ class EmgChannel(Channel):
     def __unicode__(self):
         return 'EMG Channel: %s (Muscle: %s, Side: %s) '  % (self.name, self.sensor.muscle.label, self.sensor.side.label)  
     class Meta:
-        verbose_name = "emgchannel"
+        verbose_name = "EMG channel"
 
 
 class SonoChannel(Channel):
@@ -244,10 +247,10 @@ class Session(FeedBaseModel):
     start = models.DateTimeField( blank = True, null=True)
     end = models.DateTimeField(blank = True, null=True)
     position = models.IntegerField()
-    bookkeeping = models.CharField("Book Keeping", max_length=255,blank = True, null=True)
-    subj_notes = models.TextField("Subject Notes", blank = True, null=True)    
-    subj_restraint = models.ForeignKey(Restraint,verbose_name="Subject Restraint")
-    subj_anesthesia_sedation = models.CharField("Subject Anesthesia Sedation", max_length=255,  blank = True, null=True)
+    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
+    subj_notes = models.TextField("subject notes", blank = True, null=True)    
+    subj_restraint = models.ForeignKey(Restraint,verbose_name="subject restraint")
+    subj_anesthesia_sedation = models.CharField("subject anesthesia / sedation", max_length=255,  blank = True, null=True)
     
     channels  = models.ManyToManyField(Channel, through='ChannelLineup')
 
@@ -263,24 +266,24 @@ class Trial(FeedBaseModel):
     position = models.IntegerField()
     start = models.DateTimeField( blank = True, null=True)
     end = models.DateTimeField(blank = True, null=True)
-    claimed_duration = models.DecimalField("Claimed duration",max_digits=8, decimal_places=4, blank = True, null=True)    
-    bookkeeping = models.CharField("Book Keeping", max_length=255,blank = True, null=True)
-    subj_treatment = models.TextField("Subject Treatment",blank = True, null=True)
-    subj_notes = models.TextField("Subject Notes", blank = True, null=True)
-    food_type = models.CharField("Food Type", max_length=255,blank = True, null=True)
-    food_size = models.CharField("Food Size", max_length=255,blank = True, null=True)
-    food_property = models.CharField("Food Property", max_length=255,blank = True, null=True)
-    behavior_primary = models.ForeignKey(Behavior,verbose_name="Primary Behavior")
-    behavior_secondary = models.CharField("Secondary Behavior", max_length=255,blank = True, null=True)
-    behavior_notes = models.TextField("Behavior Notes", blank = True, null=True)
-    waveform_picture = models.FileField("Wave Form Picture",upload_to="pictures" ,  blank = True, null=True)
+    claimed_duration = models.DecimalField("claimed duration",max_digits=8, decimal_places=4, blank = True, null=True)    
+    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
+    subj_treatment = models.TextField("subject treatment",blank = True, null=True)
+    subj_notes = models.TextField("subject notes", blank = True, null=True)
+    food_type = models.CharField("food type", max_length=255,blank = True, null=True)
+    food_size = models.CharField("food size", max_length=255,blank = True, null=True)
+    food_property = models.CharField("food property", max_length=255,blank = True, null=True)
+    behavior_primary = models.ForeignKey(Behavior,verbose_name="primary behavior")
+    behavior_secondary = models.CharField("secondary behavior", max_length=255,blank = True, null=True)
+    behavior_notes = models.TextField("behavior notes", blank = True, null=True)
+    waveform_picture = models.FileField("waveform picture",upload_to="pictures" ,  blank = True, null=True)
     #data_file  = models.FileField("Data File",upload_to="data" ,  blank = True, null=True)
 
     def __unicode__(self):
         return "Trail %s" % str(self.position)          
 
 class Illustration(FeedBaseModel):
-    picture = models.FileField("Wave Form Picture",upload_to="illustrations" ,  blank = True, null=True)
+    picture = models.FileField("picture",upload_to="illustrations" ,  blank = True, null=True)
     notes = models.TextField(blank = True, null=True)
     subject  = models.ForeignKey(Subject,  blank = True, null=True)
     setup  = models.ForeignKey(Setup,  blank = True, null=True)
@@ -293,7 +296,7 @@ class ChannelLineup(FeedBaseModel):
 
     class Meta:
         ordering = ["position"]
-        verbose_name = "channellineup"
+        verbose_name = "channel lineup"
     def __unicode__(self):
         return str(self.position) 
 
@@ -302,11 +305,11 @@ class EmgElectrode(FeedBaseModel):
     name = models.CharField(max_length=255)
     notes = models.TextField( blank = True, null=True)
     muscle = models.ForeignKey(Muscle)
-    side = models.ForeignKey(Side, verbose_name="Side of muscle" )
-    axisdepth = models.ForeignKey(DepthAxis, verbose_name="Depth axis", blank = True, null=True )
-    axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="Anterior posterior axis", blank = True, null=True )
-    axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="Dorsal ventral axis", blank = True, null=True )
-    eletrode_type = models.ForeignKey(EletrodeType, verbose_name="Eletrode type", blank = True, null=True )
+    side = models.ForeignKey(Side, verbose_name="side of muscle" )
+    axisdepth = models.ForeignKey(DepthAxis, verbose_name="depth point", blank = True, null=True )
+    axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="anterior-posterior point", blank = True, null=True )
+    axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="dorsal-ventral point", blank = True, null=True )
+    eletrode_type = models.ForeignKey(EletrodeType, verbose_name="eletrode type", blank = True, null=True )
     rate = models.IntegerField()
     emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG unit")
     emg_filtering = models.ForeignKey(Emgfiltering, verbose_name="EMG filtering")
@@ -366,5 +369,5 @@ class EmgElectrode(FeedBaseModel):
         if channel != None:
             channel.save()
     class Meta:
-        verbose_name = "emgelectrode"
-        verbose_name_plural = "Electrodes" 
+        verbose_name = "EMG electrode"
+        verbose_name_plural = "electrodes" 
