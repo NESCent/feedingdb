@@ -241,7 +241,7 @@ class SessionAdmin(SessionModelAdmin):
     tab_name = "Session"
 
 class EmgSensorAdmin(FeedModelAdmin):
-    list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv','eletrode_type')
+    list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv','electrode_type')
     ordering = ('name', 'muscle',)
 
 class SonoSensorAdmin(FeedModelAdmin):
@@ -273,7 +273,7 @@ admin.site.register(Side,TermAdmin)
 admin.site.register(DepthAxis,TermAdmin)
 admin.site.register(AnteriorPosteriorAxis,TermAdmin)
 admin.site.register(DorsalVentralAxis,TermAdmin)
-admin.site.register(EletrodeType,TermAdmin)
+admin.site.register(ElectrodeType,TermAdmin)
 admin.site.register(DevelopmentStage,TermAdmin)
 admin.site.register(Behavior,TermAdmin)
 admin.site.register(Restraint,TermAdmin)

@@ -73,8 +73,9 @@ class DorsalVentralAxis(CvTerm):
         verbose_name_plural = "dorsal-ventral axis"
 
 
-class EletrodeType(CvTerm):
-    pass
+class ElectrodeType(CvTerm):
+    class Meta:
+        db_table = 'feed_eletrodetype'  #FIXME: table name in the DB
 
 class Behavior(CvTerm):
     pass
@@ -189,7 +190,7 @@ class EmgSensor(Sensor):
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="depth point", blank = True, null=True )
     axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="anterior-posterior point", blank = True, null=True )
     axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="dorsal-ventral point", blank = True, null=True )
-    eletrode_type = models.ForeignKey(EletrodeType, verbose_name="electrode type", blank = True, null=True )
+    electrode_type = models.ForeignKey(ElectrodeType, verbose_name="electrode type", blank = True, null=True )
 
     def __unicode__(self):
         return 'EMG Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.muscle.label, self.side.label)  
@@ -309,7 +310,7 @@ class EmgElectrode(FeedBaseModel):
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="depth point", blank = True, null=True )
     axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="anterior-posterior point", blank = True, null=True )
     axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="dorsal-ventral point", blank = True, null=True )
-    eletrode_type = models.ForeignKey(EletrodeType, verbose_name="eletrode type", blank = True, null=True )
+    electrode_type = models.ForeignKey(ElectrodeType, verbose_name="electrode type", blank = True, null=True )
     rate = models.IntegerField()
     emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG unit")
     emg_filtering = models.ForeignKey(Emgfiltering, verbose_name="EMG filtering")
@@ -334,7 +335,7 @@ class EmgElectrode(FeedBaseModel):
         sensor.axisdepth = self.axisdepth
         sensor.axisap = self.axisap
         sensor.axisdv = self.axisdv
-        sensor.eletrode_type  =self.eletrode_type
+        sensor.electrode_type  =self.electrode_type
         sensor.save()
         try:
             channel = EmgChannel.objects.get(name = self.name, setup= self.setup)
