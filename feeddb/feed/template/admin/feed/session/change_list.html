@@ -14,15 +14,21 @@
 <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/tabview.css" />
 {% endblock %}
 
-{% block content_title %}<h1>View Experiment</h1>{% endblock %}
+{% block content_title %}<h1>{% if experiment %}View Experiment{% else %} Select session to change {% endif %}</h1>{% endblock %}
     {% block object-tools %}
       {% if has_change_permission %}
         <ul class="object-tools object-tools-top">
           <li>
-            <a href="edit/?experiment={{experiment.pk}}" class="changelink">Edit</a>
-          </li>
+                {% if experiment %}
+                       <a href="edit/?experiment={{experiment.pk}}" class="changelink">Edit</a>
+                {% else %} 
+                        <a href="add" class="addlink">Add Session</a>
+{% endif %}
+</li>
         </ul>
-      {% endif %}
+    {% endif %}
+
+
     {% endblock %}
 
 {% block tabs %}{% include "admin/feed/experiment/experiment_tab.html" %}{% endblock %}
@@ -32,10 +38,17 @@
           {% feed_result_list cl %}
           {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
                 {% if has_add_permission %}
-        <ul class="object-tools object-tools-top">
-          <li>
-            <a href="add/?experiment={{experiment.pk}}" class="addlink">Add Session</a>
-          </li>
-        </ul>
+{% if experiment %}
+<p>
+<table width="50"><tr>
+<td class="form-row">
+<ul class="object-tools">
+    <li><a href="add/?experiment={{experiment.pk}}" class="addlink">Add Session</a></li>
+</ul>
+</td>
+</tr>
+</table>
+</p>
+  {% endif %}
       {% endif %}
       {% endblock %}

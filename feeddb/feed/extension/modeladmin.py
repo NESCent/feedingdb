@@ -286,6 +286,17 @@ class FeedModelAdmin(admin.ModelAdmin):
             self.message_user(request, msg)
             return HttpResponseRedirect(post_url)
 
+    """
+    overwrite the function to set the created_by for any associated records before saving
+
+    """ 
+    def save_formset(self, request, form, formset, change):
+        for f in formset.forms:
+            if f.instance:
+                f.instance.created_by = request.user
+        formset.save()
+        
+
     def add_view(self, request, form_url='', extra_context=None):
         "The 'add' admin view for this model."
         model = self.model
@@ -540,6 +551,9 @@ class FeedModelAdmin(admin.ModelAdmin):
             if request.GET.has_key("emgsetup"):
                 form.fields["sensor"].queryset = EmgSensor.objects.filter(setup=request.GET['emgsetup'])
                 form.fields["setup"].initial=request.GET['emgsetup']
+        elif  model == Experiment:
+            if form.fields.has_key("subject") and obj:
+                form.fields["subject"].queryset = Subject.objects.filter(study=obj.study)
         elif  model == EmgElectrode:
             if request.GET.has_key("emgsetup"):
                 form.fields["setup"].initial=request.GET['emgsetup']

@@ -15,3 +15,8 @@ function toggle(id, img_id){
          }
      }
 }
+
+//this function is here as a placeholder for the same function in the i18n javascripts
+function gettext(v1,v2,v3){
+      return v1;
+}
