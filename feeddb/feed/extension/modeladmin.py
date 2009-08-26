@@ -547,6 +547,45 @@ class FeedModelAdmin(admin.ModelAdmin):
                 form.fields["session"].queryset = Session.objects.filter(created_by=request.user)
             if form.fields.has_key("trial"):
                 form.fields["trial"].queryset = Trial.objects.filter(created_by=request.user)
+
+        #disable corresponding foriegn key select box if the data object is already specified in the url
+        if request.GET.has_key("study"):
+            if form.fields.has_key("study"):
+                form.fields["study"].widget.widget.attrs['disabled']=""
+
+        if request.GET.has_key("experiment"):
+            if form.fields.has_key("experiment"):
+                form.fields["experiment"].widget.widget.attrs['disabled']=""
+
+        if request.GET.has_key("subject"):
+            if form.fields.has_key("subject"):
+                form.fields["subject"].widget.widget.attrs['disabled']=""
+
+        if request.GET.has_key("emgsetup"):
+            if form.fields.has_key("setup"):
+                form.fields["setup"].widget.widget.attrs['disabled']=""
+
+        if request.GET.has_key("sonosetup"):
+            if form.fields.has_key("setup"):
+                form.fields["setup"].widget.widget.attrs['disabled']=""
+
+        if request.GET.has_key("session"):
+            if form.fields.has_key("session"):
+                form.fields["session"].widget.widget.attrs['disabled']=""
+
+        if request.GET.has_key("trial"):
+            if form.fields.has_key("trial"):
+                form.fields["trial"].widget.widget.attrs['disabled']=""
+
+        if request.GET.has_key("emgchannel"):
+            if form.fields.has_key("emgchannel"):
+                form.fields["emgchannel"].widget.widget.attrs['disabled']=""
+
+        if request.GET.has_key("sonochannel"):
+            if form.fields.has_key("sonochannel"):
+                form.fields["sonochannel"].widget.widget.attrs['disabled']=""
+
+        #context-based filter
         if  model == EmgChannel:
             if request.GET.has_key("emgsetup"):
                 form.fields["sensor"].queryset = EmgSensor.objects.filter(setup=request.GET['emgsetup'])
