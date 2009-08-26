@@ -105,7 +105,7 @@ class SubjectStackInline(admin.StackedInline):
     extra = 1
 
 class StudyAdmin(FeedModelAdmin):
-    inlines = [StudyPrivateInline,SubjectInline, ExperimentInline]
+    inlines = [StudyPrivateInline,SubjectInline]
     view_inlines = [StudyPrivateViewInline, SubjectViewInline, ExperimentViewInline]
     search_fields = ('name',)
     list_display = ('name','accession','start','end','bookkeeping', 'funding_agency','approval_secured')
