@@ -1056,8 +1056,8 @@ class ExperimentModelAdmin(FeedModelAdmin):
                     setup.created_by = request.user
                     setup.save()
                     sonosetup.save()
-            else:
-                response = super(ExperimentModelAdmin, self).add_view(request, form_url, extra_context)
+        else:
+            response = super(ExperimentModelAdmin, self).add_view(request, form_url, extra_context)
 
         return response 
 
