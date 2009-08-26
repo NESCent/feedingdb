@@ -228,13 +228,13 @@ class ChannelLineupInline(FeedTabularInline):
     model = ChannelLineup
     extra = 3    
     tabbed = True
-    tab_name="Channel Lineups"
+    tab_name="Channel Lineup"
 
 class ChannelLineupViewInline(FeedTabularInline):
     model = ChannelLineup
     extra = 0 
     tabbed = True
-    tab_name="Channel Lineups"
+    tab_name="Channel Lineup"
 
 class SessionAdmin(SessionModelAdmin):
     inlines = [ChannelLineupInline, TrialInline]

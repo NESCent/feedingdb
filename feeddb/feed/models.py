@@ -14,9 +14,10 @@ class FeedBaseModel(models.Model):
         abstract = True
 
     def save(self):
+        now = datetime.datetime.today()
         if not self.id:
-            self.created_at = datetime.date.today()
-        self.updated_at = datetime.datetime.today()
+            self.created_at = now
+        self.updated_at = now
         super(FeedBaseModel, self).save()
 
 #cvterms
@@ -300,7 +301,8 @@ class ChannelLineup(FeedBaseModel):
 
     class Meta:
         ordering = ["position"]
-        verbose_name = "channel lineup"
+        verbose_name = "Channel Position"
+        verbose_name_plural = "Channel Lineup"
     def __unicode__(self):
         return str(self.position) 
 
