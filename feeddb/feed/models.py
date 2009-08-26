@@ -153,7 +153,7 @@ class Experiment(FeedBaseModel):
     subject_notes = models.TextField("subject notes", blank = True, null=True)
     impl_notes = models.TextField("implantation notes", blank = True, null=True)
     def __unicode__(self):
-        return self.description    
+        return "Experiment: %s" % str(self.pk)    
 
 class Setup(FeedBaseModel):
     experiment = models.ForeignKey(Experiment)
