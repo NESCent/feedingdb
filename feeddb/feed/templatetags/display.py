@@ -46,10 +46,10 @@ def display_readonly(field, adminform):
                 if value == choice[0]:
                     real_value += u'%s<br/>' % choice[1]
     elif isinstance(field.field.field.widget, AdminFileWidget):
-        if is_image(value):
-            real_value = u'<a href="/static/%s" title="click to view full size image"><img width="100" src="/static/%s"/></a><br/>' % (value, value)
-        else:
-            real_value = u'<a href="/static/%s">%s</a><br/>' % (value, value)
+        #if is_image(value):
+        #    real_value = u'<a href="/static/%s" title="click to view full size image"><img width="100" src="/static/%s"/></a><br/>' % (value, value)
+        #else:
+        real_value = u'<a href="/static/%s">%s</a><br/>' % (value, value)
     elif value ==None:
             real_value=""
     else:     

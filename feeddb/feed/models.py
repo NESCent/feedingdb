@@ -257,7 +257,7 @@ class Session(FeedBaseModel):
     channels  = models.ManyToManyField(Channel, through='ChannelLineup')
 
     def __unicode__(self):
-        return self.accession           
+        return "Session %s" % str(self.position)           
 
     class Meta:
         ordering = ["position"]
