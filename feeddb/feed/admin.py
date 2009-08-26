@@ -10,6 +10,11 @@ class StudyPrivateInline(admin.StackedInline):
     extra = 1
     max_num = 1
 
+class StudyPrivateViewInline(admin.StackedInline):
+    model = StudyPrivate
+    extra = 0
+    max_num = 1
+
 class ExperimentInline(FeedTabularInline):
     model = Experiment
     extra = 1
@@ -68,9 +73,10 @@ class SonoSetupInline(FeedTabularInline):
     class Meta:
         verbose_name = "sonosetup"
 
-class TrialInline(admin.StackedInline):
+class TrialInline(FeedTabularInline):
     model = Trial
     extra = 1
+    form = TrialForm
     tabbed = True
     tab_name="Trials"
 
@@ -100,7 +106,7 @@ class SubjectStackInline(admin.StackedInline):
 
 class StudyAdmin(FeedModelAdmin):
     inlines = [StudyPrivateInline,SubjectInline, ExperimentInline]
-    view_inlines = [SubjectViewInline, ExperimentViewInline]
+    view_inlines = [StudyPrivateViewInline, SubjectViewInline, ExperimentViewInline]
     search_fields = ('name',)
     list_display = ('name','accession','start','end','bookkeeping', 'funding_agency','approval_secured')
     tabbed = True

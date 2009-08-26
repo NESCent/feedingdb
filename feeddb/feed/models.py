@@ -118,6 +118,7 @@ class StudyPrivate(FeedBaseModel):
     notes = models.TextField( blank = True, null=True)
     class Meta:
         verbose_name = "Study - Private Information"
+        verbose_name_plural = "Study - Private Information"
 '''
 '''
 class Subject(FeedBaseModel):
@@ -256,7 +257,7 @@ class Session(FeedBaseModel):
     channels  = models.ManyToManyField(Channel, through='ChannelLineup')
 
     def __unicode__(self):
-        return "Session %s" % str(self.position)           
+        return self.accession           
 
     class Meta:
         ordering = ["position"]
@@ -271,12 +272,14 @@ class Trial(FeedBaseModel):
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     subj_treatment = models.TextField("subject treatment",blank = True, null=True)
     subj_notes = models.TextField("subject notes", blank = True, null=True)
-    food_type = models.CharField("food type", max_length=255,blank = True, null=True)
-    food_size = models.CharField("food size", max_length=255,blank = True, null=True)
-    food_property = models.CharField("food property", max_length=255,blank = True, null=True)
+
     behavior_primary = models.ForeignKey(Behavior,verbose_name="primary behavior")
     behavior_secondary = models.CharField("secondary behavior", max_length=255,blank = True, null=True)
     behavior_notes = models.TextField("behavior notes", blank = True, null=True)
+
+    food_type = models.CharField("food type", max_length=255,blank = True, null=True)
+    food_size = models.CharField("food size", max_length=255,blank = True, null=True)
+    food_property = models.CharField("food property", max_length=255,blank = True, null=True)
     waveform_picture = models.FileField("waveform picture",upload_to="pictures" ,  blank = True, null=True)
     #data_file  = models.FileField("Data File",upload_to="data" ,  blank = True, null=True)
 
@@ -371,5 +374,5 @@ class EmgElectrode(FeedBaseModel):
         if channel != None:
             channel.save()
     class Meta:
-        verbose_name = "EMG electrode"
-        verbose_name_plural = "electrodes" 
+        verbose_name = "EMG Electrode"
+        verbose_name_plural = "EMG Electrodes" 

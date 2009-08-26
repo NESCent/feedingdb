@@ -27,7 +27,7 @@ class EmgSensorForm(forms.ModelForm):
          model = EmgSensor
 
 class SessionForm(forms.ModelForm):
-    subj_notes = CharField(widget=Notes(), required=False)
+    subj_notes = CharField(label = "Subject Notes", widget=Notes(), required=False)
     class Meta:
         model = Session
         exclude = ('channels',)
@@ -61,14 +61,21 @@ class SonoChannelForm(forms.ModelForm):
         model = SonoChannel
 
 class TrialForm(forms.ModelForm):
+    bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
+    accession = CharField(label = "Accession", widget=forms.TextInput(attrs={'size': 5}), required=False)
+    position = IntegerField(label = "Position", widget=forms.TextInput(attrs={'size': 3}))
+    claimed_duration = DecimalField(label = "Claimed Duration", widget=forms.TextInput(attrs={'size': 5}), required=False)
     subj_notes = CharField(label ="Subject Notes", widget=Notes(), required=False)
     subj_treatment = CharField(label ="Subject Treatment",widget=Notes(), required=False)
+
     behavior_notes = CharField(label ="Behavior Notes",widget=Notes(), required=False)
-    bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
-    accession = CharField(label = "Accession", widget=forms.TextInput(attrs={'size': 10}), required=False)
-    position = IntegerField(label = "Position", widget=forms.TextInput(attrs={'size': 3}))
-    food_property = CharField(label = "Food Property", widget=forms.TextInput(attrs={'size': 10}), required=False)
-    food_size = CharField(label = "Food Size", widget=forms.TextInput(attrs={'size': 10}), required=False)
-    food_type = CharField(label = "Food Type", widget=forms.TextInput(attrs={'size': 10}), required=False)
+    behavior_secondary = CharField(label = "Secondary Behavior", widget=forms.TextInput(attrs={'size': 10}), required=False)
+    behavior_notes = CharField(label = "Behavior Notes", widget=Notes(), required=False)
+
+    food_property = CharField(label = "Food Property", widget=forms.TextInput(attrs={'size': 5}), required=False)
+    food_size = CharField(label = "Food Size", widget=forms.TextInput(attrs={'size': 5}), required=False)
+    food_type = CharField(label = "Food Type", widget=forms.TextInput(attrs={'size': 5}), required=False)
+
     class Meta:
         model = Trial
+        exclude = ('waveform_picture',)

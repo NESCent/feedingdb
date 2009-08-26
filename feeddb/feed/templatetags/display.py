@@ -14,6 +14,14 @@ from django.contrib.admin.widgets import RelatedFieldWidgetWrapper, AdminFileWid
 
 register = Library()
 
+def is_image(file):
+    img_exts = [".jpeg",".png",".gif",".jpg",".bmp"]
+    for ext in img_exts:
+        if file.url.find(ext) !=-1: 
+            return True
+
+    return False
+
 def display_readonly(field, adminform):
     values =[]
     value = adminform.form.initial.get(field.field.name)
@@ -38,11 +46,26 @@ def display_readonly(field, adminform):
                 if value == choice[0]:
                     real_value += u'%s<br/>' % choice[1]
     elif isinstance(field.field.field.widget, AdminFileWidget):
-        real_value = u'<a href="/static/%s">%s</a><br/>' % (value, value)
-    else:
+        if is_image(value):
+            real_value = u'<a href="/static/%s" title="click to view full size image"><img width="100" src="/static/%s"/></a><br/>' % (value, value)
+        else:
+            real_value = u'<a href="/static/%s">%s</a><br/>' % (value, value)
+    elif value ==None:
+            real_value=""
+    else:     
         real_value = value
          
     return {'value': mark_safe(real_value)}
 display_readonly = register.inclusion_tag("admin/includes/field.html")(display_readonly)
 
 
+def display_classname(obj):
+    if hasattr(obj, "original"):
+        classname = obj.original.__class__.__name__.lower()
+    elif hasattr(obj, "formset"):
+        classname = obj.formset.model.__name__.lower()
+    else:
+        classname = obj.__class__.__name__.lower()
+    
+    return classname
+display_classname = register.simple_tag(display_classname)
