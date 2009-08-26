@@ -32,6 +32,7 @@ class SessionForm(forms.ModelForm):
         model = Session
         exclude = ('channels',)
 
+
 class ExperimentForm(forms.ModelForm):
     subject_notes = CharField(label ="Subject Notes", widget=Notes(), required=False)
     description = CharField(label ="Description",widget=Notes(), required=False)

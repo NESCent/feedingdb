@@ -40,5 +40,7 @@ class PositionBaseInlineFormSet(BaseInlineFormSet):
                         #check consecutiveness
                         if positions[i]-positions[i-1]!=1:
                             form_errors.append("positions are not consecutive between %s and %s." % (str(positions[i-1]), str(positions[i])) )
+        for e in form_errors:
+            print e
         if form_errors:
             raise ValidationError(form_errors)

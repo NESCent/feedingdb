@@ -47,6 +47,7 @@
     {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
     </p>
     <ul class="errorlist">{% for error in adminform.form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+
 {% endif %}
 <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% block form_top %}{% endblock %}
 {% if tabbed %}
@@ -129,7 +130,10 @@
 {% submit_row %}
 {% endif %}
 </form></div>
+
+{% if tabbed %}
 <script type="text/javascript">
-    tabview_switch_by_name('TabView','{% ifequal tab_name None %}{{ opts.object_name }}{% else %}{{ tab_name }}{% endifequal %}');
+    tabview_switch_by_name('TabView','{% ifequal active_tab_name None %}{% ifequal tab_name None %}{{ opts.object_name }}{% else %}{{ tab_name }}{% endifequal %}{% else %}{{ active_tab_name }}{% endifequal %}');
 </script>
+{% endif %}
 {% endblock %}

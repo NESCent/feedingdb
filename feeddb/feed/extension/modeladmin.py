@@ -24,6 +24,8 @@ from django.utils.encoding import force_unicode
 from feeddb.feed.models import  *
 from feeddb.feed.extension.widgets import FeedRelatedFieldWidgetWrapper
 from feeddb.feed.extension.forms import *
+from feeddb.feed.extension.formsets import PositionBaseInlineFormSet
+from django.forms.util import ValidationError
 
 class FeedTabularInline(admin.TabularInline):
     template = 'admin/edit_inline/tabular.html'
@@ -503,7 +505,21 @@ class FeedModelAdmin(admin.ModelAdmin):
             inline_admin_formsets.append(inline_admin_formset)
             media = media + inline_admin_formset.media
 
-        
+        active_tab_name = self.tab_name
+        for fs in inline_admin_formsets:
+            error_count = 0
+            for err in fs.formset.errors: 
+                if err: error_count = error_count+1
+            for err in fs.formset.non_form_errors(): 
+                if err: error_count = error_count+1
+
+            if error_count>0:
+                if fs.opts.tab_name: 
+                    active_tab_name = fs.opts.tab_name
+                else:
+                    active_tab_name = fs.opts.verbose_name
+
+
         context = {
             'title': _('Change %s') % force_unicode(opts.verbose_name),
             'adminform': adminForm,
@@ -511,6 +527,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             'original': obj,
             'tabbed': self.tabbed,
             'tab_name': self.tab_name,
+            'active_tab_name': active_tab_name,
             'is_popup': request.REQUEST.has_key('_popup'),
             'media': mark_safe(media),
             'inline_admin_formsets': inline_admin_formsets,
@@ -1161,20 +1178,37 @@ class SessionModelAdmin(FeedModelAdmin):
         if obj is None:
             raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
         messages =[]
+        errors =[]
         if request.method == 'POST':
             formsets=[]
-            FormSet  = inlineformset_factory(Experiment, Session, SessionForm, can_delete=True)
+            FormSet  = inlineformset_factory(Experiment, Session, SessionForm, PositionBaseInlineFormSet, can_delete=True)
             sessionformset = FormSet(request.POST, request.FILES, instance=obj )
             formsets.append(sessionformset)
             if all_valid(formsets):
                 for formset in formsets:
                     formset.save()
-            messages.append("Successfully updated the data!")
-       
-      
-        form = SessionForm(instance=obj)
-        FormSet  = inlineformset_factory(Experiment, Session, SessionForm, can_delete=True)
-        sessionformset =FormSet(instance=obj)
+                messages.append("Successfully updated the data!")
+            else:
+                errors.append(sessionformset.non_form_errors())
+            form = SessionForm(instance=obj)
+            
+            context={
+                    'experiment': obj,
+                    'object_id': object_id,
+                     'change': True,
+                     'add': False,
+                     'view': False,
+                     'sessionformset': sessionformset,
+                     'app_label': 'feed',
+                     'messages': messages,
+                     'errors': errors,
+            }
+            context_instance = template.RequestContext(request, current_app=self.admin_site.name)
+            return render_to_response("admin/feed/session/edit_sessions.html", context, context_instance=context_instance)
+        else:
+            form = SessionForm(instance=obj)
+            FormSet  = inlineformset_factory(Experiment, Session, SessionForm, PositionBaseInlineFormSet, can_delete=True)
+            sessionformset =FormSet(instance=obj)
         context={
             'experiment': obj,
             'object_id': object_id,
@@ -1187,4 +1221,4 @@ class SessionModelAdmin(FeedModelAdmin):
         }
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
         return render_to_response("admin/feed/session/edit_sessions.html", context, context_instance=context_instance)
-
+    editlist_view = transaction.commit_on_success(editlist_view)
