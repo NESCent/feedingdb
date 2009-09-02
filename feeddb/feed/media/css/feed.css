@@ -120,29 +120,27 @@ padding-top:50px;
 	padding-top:0.3em;
 /*	border-top: 1px solid #bbb;*/
 }
+
 .navigation ul {
 	margin-top:0px;
-	padding-left: 1px;
-	padding-right: 10px;
-    list-style-type: none;
-	
+	padding-left: 0px;
+	padding-right: 15px;
 }
 .navigation li {
-	padding-right: 10px;
-    list-style-type: none;
+    padding-left: 10px;
+    padding-right: 0px;
+    display: inline;    
 }
 .navigation li a {
 	font-size: 1.0em;
 	color: #444;
-	display: block;
-	padding: 1px 18px 0px 15px;
 	text-decoration: none;
-	width: 157px;
 }
 .navigation li a:hover {
 	background: #b5b5EB;
 	color: #000000;	
 }
+
 .action_header {
     text-align: center;
     width: 250px;
