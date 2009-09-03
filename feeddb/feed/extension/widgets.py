@@ -29,6 +29,9 @@ class FeedRelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
             related_url = '%s%s/%s/add/' % info
         self.widget.choices = self.choices
         output = [self.widget.render(name, value, *args, **kwargs)]
+        if self.widget.attrs.has_key('disabled'):
+             output.append('<input type="hidden" name="%s" value="%s" />' % (name, value))
+
         return mark_safe(u''.join(output))
 
 class Notes(Textarea):
