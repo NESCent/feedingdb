@@ -1045,17 +1045,109 @@ class ExperimentModelAdmin(FeedModelAdmin):
 
     def add_view(self, request, form_url='', extra_context=None):
         "The 'add' admin view for this model."
-        response = super(ExperimentModelAdmin, self).add_view(request, form_url, extra_context)
+        model = self.model
+        opts = model._meta
+        
+        if not self.has_add_permission(request):
+            raise PermissionDenied
  
+        ModelForm = self.get_form(request)
+        formsets = []
+        if request.method == 'POST':
+            form = ModelForm(request.POST, request.FILES)
+            form.created_by_id = request.user.pk
+            
+            if form.is_valid():
+                form_validated = True
+                new_object = self.save_form(request, form, change=False)
+                new_object.created_by = request.user
+                
+            else:
+                form_validated = False
+                new_object = self.model()
+            prefixes = {}
+            for FormSet in self.get_formsets(request):
+                prefix = FormSet.get_default_prefix()
+                prefixes[prefix] = prefixes.get(prefix, 0) + 1
+                if prefixes[prefix] != 1:
+                    prefix = "%s-%s" % (prefix, prefixes[prefix])
+                formset = FormSet(data=request.POST, files=request.FILES,
+                                  instance=new_object,
+                                  save_as_new=request.POST.has_key("_saveasnew"),
+                                  prefix=prefix)
+                formsets.append(formset)
+            if all_valid(formsets) and form_validated:
+                self.save_model(request, new_object, form, change=False)
+                form.save_m2m()
+                for formset in formsets:
+                    self.save_formset( request, form, formset, change=False)
+                self.log_addition(request, new_object)
+                self.add_techniques(request,new_object)
+                return self.response_add(request, new_object)
+        else:
+            # Prepare the dict of initial data from the request.
+            # We have to special-case M2Ms as a list of comma-separated PKs.
+            initial = dict(request.GET.items())
+            for k in initial:
+                try:
+                    f = opts.get_field(k)
+                except models.FieldDoesNotExist:
+                    continue
+                if isinstance(f, models.ManyToManyField):
+                    initial[k] = initial[k].split(",")
+            form = ModelForm(initial=initial)
+            form.created_by_id = request.user.pk
+            
+            #filtering choices
+            self.filter_form_values(request, form,model,None)
+            
+ 
+            prefixes = {}
+            for FormSet in self.get_formsets(request):
+                prefix = FormSet.get_default_prefix()
+                prefixes[prefix] = prefixes.get(prefix, 0) + 1
+                if prefixes[prefix] != 1:
+                    prefix = "%s-%s" % (prefix, prefixes[prefix])
+                formset = FormSet(instance=self.model(), prefix=prefix)
+                formsets.append(formset)
+
+        adminForm = helpers.AdminForm(form, list(self.get_fieldsets(request)), self.prepopulated_fields)
+        media = self.media + adminForm.media
+
+        inline_admin_formsets = []
+        for inline, formset in zip(self.inline_instances, formsets):
+            self.filter_formset_values(request,formset,model,None)
+            fieldsets = list(inline.get_fieldsets(request))
+            inline_admin_formset = helpers.InlineAdminFormSet(inline, formset, fieldsets)
+            inline_admin_formsets.append(inline_admin_formset)
+            media = media + inline_admin_formset.media
+
+        context = {
+            'title': _('Add %s') % force_unicode(opts.verbose_name),
+            'adminform': adminForm,
+            'is_popup': request.REQUEST.has_key('_popup'),
+            'show_delete': False,
+            'media': mark_safe(media),
+            'inline_admin_formsets': inline_admin_formsets,
+            'errors': helpers.AdminErrorList(form, formsets),
+            'root_path': self.admin_site.root_path,
+            'app_label': opts.app_label,
+        }
+        context.update(extra_context or {})
+        return self.render_change_form(request, context, form_url=form_url, add=True)
+    add_view = transaction.commit_on_success(add_view)
+
+    def add_techniques(self, request, new_experiment):
+        "handle techniques for this experiment."
         if request.method == 'POST':
                 emg  = request.POST.get('technique_emg')
                 if emg != None and emg == "on":
                     tech = Technique.objects.get(label = "EMG")
                     setup = Setup()
                     setup.technique=tech
-                    setup.experiment = new_object
+                    setup.experiment = new_experiment
                     emgsetup = EmgSetup()
-                    emgsetup.experiment = new_object
+                    emgsetup.experiment = new_experiment
                     emgsetup.technique=tech
                     setup.emgsetup=emgsetup
                     emgsetup.created_by = request.user
@@ -1067,16 +1159,15 @@ class ExperimentModelAdmin(FeedModelAdmin):
                     tech = Technique.objects.get(label = "Sono")
                     setup = Setup();
                     setup.technique=tech
-                    setup.experiment = new_object
+                    setup.experiment = new_experiment
                     sonosetup = SonoSetup()
-                    sonosetup.experiment = new_object
+                    sonosetup.experiment = new_experiment
                     sonosetup.technique=tech
                     setup.sonosetup = sonosetup
                     sonosetup.created_by = request.user
                     setup.created_by = request.user
                     setup.save()
                     sonosetup.save()
-        return response 
 
 class SessionModelAdmin(FeedModelAdmin):
     def __init__(self, model, admin_site):
