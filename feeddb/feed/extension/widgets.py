@@ -13,7 +13,7 @@ from django.conf import settings
 from django.utils.html import escape, conditional_escape
 from django.utils.translation import ugettext
 from django.utils.encoding import StrAndUnicode, force_unicode
-from django.forms.widgets import Textarea
+from django.forms.widgets import Textarea, HiddenInput
 
 class FeedRelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
     def __init__(self, widget, rel, admin_site):
@@ -45,3 +45,6 @@ class Notes(Textarea):
                 conditional_escape(force_unicode(value))))
         output.append("</div>")
         return mark_safe(u' '.join(output))
+
+
+
