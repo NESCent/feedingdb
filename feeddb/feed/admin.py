@@ -27,7 +27,7 @@ class ExperimentViewInline(FeedTabularInline):
     model = Experiment
     extra = 0
     tabbed = True
-    fields = ['bookkeeping','accession','subject','subj_devstage','subj_age', 'subj_weight', 'subj_tooth']
+    fields = ['title', 'subject','start','end', 'subj_devstage',]
     tab_name = "Experiments"
 
 class SensorInline(FeedTabularInline):
@@ -86,7 +86,7 @@ class TrialInline(FeedTabularInline):
 class TrialViewInline(FeedTabularInline):
     model = Trial
     extra = 0
-    fields = ['position', 'accession','claimed_duration','bookkeeping','behavior_primary','food_type']
+    fields = ['position', 'title', 'claimed_duration', 'food_type', 'behavior_primary']
     tabbed = True
     tab_name="Trials"
 
