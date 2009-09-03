@@ -287,7 +287,7 @@ class FeedModelAdmin(admin.ModelAdmin):
     def add_view(self, request, form_url='', extra_context=None):
         "The 'add' admin view for this model."
         if request.method == 'POST':
-            return super(FeedModelAdmin,self).add_view(request, form_ur, extra_context)
+            return super(FeedModelAdmin,self).add_view(request, form_url, extra_context)
         
         model = self.model
         opts = model._meta
