@@ -1045,45 +1045,9 @@ class ExperimentModelAdmin(FeedModelAdmin):
 
     def add_view(self, request, form_url='', extra_context=None):
         "The 'add' admin view for this model."
-        model = self.model
-        opts = model._meta
-        
-        if not self.has_add_permission(request):
-            raise PermissionDenied
+        response = super(ExperimentModelAdmin, self).add_view(request, form_url, extra_context)
  
-        ModelForm = self.get_form(request)
-        formsets = []
         if request.method == 'POST':
-            form = ModelForm(request.POST, request.FILES)
-            form.created_by_id = request.user.pk
-            
-            if form.is_valid():
-                form_validated = True
-                new_object = self.save_form(request, form, change=False)
-                new_object.created_by = request.user
-            else:
-                form_validated = False
-                new_object = self.model()
-            prefixes = {}
-            for FormSet in self.get_formsets(request):
-                prefix = FormSet.get_default_prefix()
-                prefixes[prefix] = prefixes.get(prefix, 0) + 1
-                if prefixes[prefix] != 1:
-                    prefix = "%s-%s" % (prefix, prefixes[prefix])
-                formset = FormSet(data=request.POST, files=request.FILES,
-                                  instance=new_object,
-                                  save_as_new=request.POST.has_key("_saveasnew"),
-                                  prefix=prefix)
-                formsets.append(formset)
-            if all_valid(formsets) and form_validated:
-                self.save_model(request, new_object, form, change=False)
-                form.save_m2m()
-                for formset in formsets:
-                    self.save_formset( request, form, formset, change=False)
-                self.log_addition(request, new_object)
-
-                response = self.response_add(request, new_object)
-                
                 emg  = request.POST.get('technique_emg')
                 if emg != None and emg == "on":
                     tech = Technique.objects.get(label = "EMG")
@@ -1112,9 +1076,6 @@ class ExperimentModelAdmin(FeedModelAdmin):
                     setup.created_by = request.user
                     setup.save()
                     sonosetup.save()
-        else:
-            response = super(ExperimentModelAdmin, self).add_view(request, form_url, extra_context)
-
         return response 
 
 class SessionModelAdmin(FeedModelAdmin):
