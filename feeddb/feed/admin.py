@@ -112,8 +112,8 @@ class SubjectStackInline(admin.StackedInline):
 class StudyAdmin(FeedModelAdmin):
     inlines = [StudyPrivateInline,SubjectInline]
     view_inlines = [StudyPrivateViewInline, SubjectViewInline, ExperimentViewInline]
-    search_fields = ('name',)
-    list_display = ('name','accession','start','end','bookkeeping', 'funding_agency','approval_secured')
+    search_fields = ('title', 'description')
+    list_display = ('title','start','end', 'funding_agency','approval_secured',)
     tabbed = True
 
 
@@ -122,7 +122,7 @@ class ExperimentAdmin(ExperimentModelAdmin):
     inlines = [IllustrationInline]
     view_inlines = [IllustrationViewInline]
     search_fields = ('decription',)
-    list_display = ('subject','study','start','end','bookkeeping', 'subj_devstage','subj_tooth')
+    list_display = ('title', 'study', 'subject','start','end', 'subj_devstage',)
     list_filter = ('study', 'subject')
 
 
@@ -137,7 +137,8 @@ class SubjectAdmin(FeedModelAdmin):
 
 class TrialAdmin(FeedModelAdmin):
     search_fields = ('accession', 'bookkeeping','behavior_primary', 'food_type')
-    list_display = ('position', 'accession', 'bookkeeping','behavior_primary', 'food_type','food_size', 'session')
+    list_display = ('title', 'session', 'position', 'claimed_duration', 
+                    'food_type', 'behavior_primary')
     list_filter = ('behavior_primary', 'food_type','session')
     ordering = ('position',)
 
@@ -245,8 +246,8 @@ class ChannelLineupViewInline(FeedTabularInline):
 class SessionAdmin(SessionModelAdmin):
     inlines = [ChannelLineupInline, TrialInline]
     view_inlines = [ChannelLineupViewInline, TrialViewInline ]
-    search_fields = ('accession', 'bookkeeping','subj_restraint','subj_anesthesia_sedation','subj_notes')
-    list_display = ('position', 'bookkeeping', 'accession', 'experiment','start', 'end','subj_restraint','subj_anesthesia_sedation')
+    search_fields = ('subj_restraint','subj_anesthesia_sedation','subj_notes')
+    list_display = ('title', 'experiment','position', 'start', 'end','subj_restraint','subj_anesthesia_sedation')
     list_filter = ('experiment', 'subj_restraint')
     ordering = ('position',)
     tabbed = True

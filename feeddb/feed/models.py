@@ -95,7 +95,7 @@ class Emgfiltering(CvTerm):
 #object models    
 class Study(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
-    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True)
     start = models.DateTimeField(blank = True, null=True)
     end = models.DateTimeField( blank = True, null=True)
@@ -104,9 +104,9 @@ class Study(FeedBaseModel):
     description = models.TextField()
 
     def __unicode__(self):
-        return self.name
+        return self.title
     class Meta:
-        ordering = ["name"]
+        ordering = ["title"]
         verbose_name_plural = "Studies"
 
 class StudyPrivate(FeedBaseModel):
@@ -136,15 +136,16 @@ class Subject(FeedBaseModel):
     source = models.CharField(max_length=255, blank = True, null=True) 
     notes = models.TextField(blank = True, null=True, help_text="notes about the research subject")
     def __unicode__(self):
-        return self.name        
+        return self.name       
         
 class Experiment(FeedBaseModel):
-    study = models.ForeignKey(Study)    
-    subject = models.ForeignKey(Subject)    
     accession = models.CharField(max_length=255, blank = True, null=True)
+    title = models.CharField(max_length=255, default="new Experiment - edit this")
+    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
+    study = models.ForeignKey(Study)    
+    subject = models.ForeignKey(Subject)   
     start = models.DateTimeField( blank = True, null=True)
     end = models.DateTimeField(blank = True, null=True)
-    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     description = models.TextField()
     subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="subject development stage")
     subj_age = models.DecimalField("subject age",max_digits=19, decimal_places=5, blank = True, null=True)
@@ -153,7 +154,7 @@ class Experiment(FeedBaseModel):
     subject_notes = models.TextField("subject notes", blank = True, null=True)
     impl_notes = models.TextField("implantation notes", blank = True, null=True)
     def __unicode__(self):
-        return "Experiment: %s" % str(self.pk)    
+        return self.title
 
 class Setup(FeedBaseModel):
     experiment = models.ForeignKey(Experiment)
@@ -245,12 +246,13 @@ class SonoChannel(Channel):
         verbose_name = "sonochannel"
                
 class Session(FeedBaseModel):
-    experiment = models.ForeignKey(Experiment)    
     accession = models.CharField(max_length=255, blank = True, null=True)
+    title = models.CharField(max_length=255, default="new Recording Session - edit this")
+    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
+    experiment = models.ForeignKey(Experiment)    
+    position = models.IntegerField()
     start = models.DateTimeField( blank = True, null=True)
     end = models.DateTimeField(blank = True, null=True)
-    position = models.IntegerField()
-    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     subj_notes = models.TextField("subject notes", blank = True, null=True)    
     subj_restraint = models.ForeignKey(Restraint,verbose_name="subject restraint")
     subj_anesthesia_sedation = models.CharField("subject anesthesia / sedation", max_length=255,  blank = True, null=True)
@@ -258,34 +260,36 @@ class Session(FeedBaseModel):
     channels  = models.ManyToManyField(Channel, through='ChannelLineup')
 
     def __unicode__(self):
-        return "Session %s" % str(self.position)           
+        return self.title
 
     class Meta:
         ordering = ["position"]
 
 class Trial(FeedBaseModel):
-    session = models.ForeignKey(Session)    
     accession = models.CharField(max_length=255, blank = True, null=True)
+    title = models.CharField(max_length=255, default='new Trial - edit this')
+    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
+    session = models.ForeignKey(Session)    
     position = models.IntegerField()
     start = models.DateTimeField( blank = True, null=True)
     end = models.DateTimeField(blank = True, null=True)
     claimed_duration = models.DecimalField("claimed duration",max_digits=8, decimal_places=4, blank = True, null=True)    
-    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     subj_treatment = models.TextField("subject treatment",blank = True, null=True)
     subj_notes = models.TextField("subject notes", blank = True, null=True)
+
+    food_type = models.CharField("food type", max_length=255,blank = True, null=True)
+    food_size = models.CharField("food size", max_length=255,blank = True, null=True)
+    food_property = models.CharField("food property", max_length=255,blank = True, null=True)
 
     behavior_primary = models.ForeignKey(Behavior,verbose_name="primary behavior")
     behavior_secondary = models.CharField("secondary behavior", max_length=255,blank = True, null=True)
     behavior_notes = models.TextField("behavior notes", blank = True, null=True)
 
-    food_type = models.CharField("food type", max_length=255,blank = True, null=True)
-    food_size = models.CharField("food size", max_length=255,blank = True, null=True)
-    food_property = models.CharField("food property", max_length=255,blank = True, null=True)
     waveform_picture = models.FileField("waveform picture",upload_to="pictures" ,  blank = True, null=True)
     #data_file  = models.FileField("Data File",upload_to="data" ,  blank = True, null=True)
 
     def __unicode__(self):
-        return "Trail %s" % str(self.position)          
+        return self.title          
 
 class Illustration(FeedBaseModel):
     picture = models.FileField("picture",upload_to="illustrations" ,  blank = True, null=True)
