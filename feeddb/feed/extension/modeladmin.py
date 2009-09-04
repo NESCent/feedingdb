@@ -433,6 +433,10 @@ class FeedModelAdmin(admin.ModelAdmin):
     change_view = transaction.commit_on_success(change_view)
     
     def filter_form_values(self, request, form, model, obj):
+        #globally disabled the accession field
+        if form.fields.has_key("accession"):
+            form.fields["accession"].widget.attrs['disabled']=""
+
         #general set all choices from the user own data
         if not request.user.is_superuser:
             if form.fields.has_key("study"):
@@ -1006,8 +1010,11 @@ class SessionModelAdmin(FeedModelAdmin):
             sessionformset = FormSet(request.POST, request.FILES, instance=obj )
             formsets.append(sessionformset)
             if all_valid(formsets):
-                for formset in formsets:
-                    formset.save()
+                for f in sessionformset.forms:
+                    if f.instance:
+                        f.instance.created_by = request.user
+                sessionformset.save()
+
                 messages.append("Successfully updated the data!")
             else:
                 errors.append(sessionformset.non_form_errors())

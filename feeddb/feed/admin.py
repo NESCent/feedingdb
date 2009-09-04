@@ -232,7 +232,7 @@ class SonoChannelAdmin(FeedModelAdmin):
 
 class ChannelLineupInline(FeedTabularInline):
     model = ChannelLineup
-    extra = 3    
+    extra = 8    
     tabbed = True
     tab_name="Channel Lineup"
     formset = PositionBaseInlineFormSet

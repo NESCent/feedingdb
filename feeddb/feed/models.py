@@ -97,8 +97,8 @@ class Study(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255)
     bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True)
-    start = models.DateTimeField(blank = True, null=True)
-    end = models.DateTimeField( blank = True, null=True)
+    start = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
+    end = models.DateTimeField( blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     funding_agency = models.CharField(max_length=255, blank = True, null=True)
     approval_secured = models.CharField(max_length=255, blank = True, null=True)
     description = models.TextField()
@@ -108,7 +108,7 @@ class Study(FeedBaseModel):
     class Meta:
         ordering = ["title"]
         verbose_name_plural = "Studies"
-
+    
 class StudyPrivate(FeedBaseModel):
     study = models.ForeignKey(Study)
     pi = models.CharField(max_length=255)
@@ -144,8 +144,8 @@ class Experiment(FeedBaseModel):
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     study = models.ForeignKey(Study)    
     subject = models.ForeignKey(Subject)   
-    start = models.DateTimeField( blank = True, null=True)
-    end = models.DateTimeField(blank = True, null=True)
+    start = models.DateTimeField( blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
+    end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     description = models.TextField()
     subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="subject development stage")
     subj_age = models.DecimalField("subject age",max_digits=19, decimal_places=5, blank = True, null=True)
@@ -251,8 +251,8 @@ class Session(FeedBaseModel):
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     experiment = models.ForeignKey(Experiment)    
     position = models.IntegerField()
-    start = models.DateTimeField( blank = True, null=True)
-    end = models.DateTimeField(blank = True, null=True)
+    start = models.DateTimeField( blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
+    end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     subj_notes = models.TextField("subject notes", blank = True, null=True)    
     subj_restraint = models.ForeignKey(Restraint,verbose_name="subject restraint")
     subj_anesthesia_sedation = models.CharField("subject anesthesia / sedation", max_length=255,  blank = True, null=True)
@@ -271,8 +271,8 @@ class Trial(FeedBaseModel):
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     session = models.ForeignKey(Session)    
     position = models.IntegerField()
-    start = models.DateTimeField( blank = True, null=True)
-    end = models.DateTimeField(blank = True, null=True)
+    start = models.DateTimeField( blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
+    end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     claimed_duration = models.DecimalField("claimed duration",max_digits=8, decimal_places=4, blank = True, null=True)    
     subj_treatment = models.TextField("subject treatment",blank = True, null=True)
     subj_notes = models.TextField("subject notes", blank = True, null=True)
