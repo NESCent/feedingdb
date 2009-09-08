@@ -312,6 +312,8 @@ class ChannelLineup(FeedBaseModel):
         return str(self.position) 
 
 class EmgElectrode(FeedBaseModel):
+    sensor = models.OneToOneField(EmgSensor, null=True)
+    channel = models.OneToOneField(EmgChannel, null=True)
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length=255)
     notes = models.TextField( blank = True, null=True)
