@@ -227,7 +227,7 @@ class EmgChannel(Channel):
     sensor = models.ForeignKey(EmgSensor)    
     emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG unit")
     emg_filtering = models.ForeignKey(Emgfiltering, verbose_name="EMG filtering")
-    emg_amplification = models.IntegerField(null=True,verbose_name = "amplification")
+    emg_amplification = models.IntegerField(blank=True,null=True,verbose_name = "amplification")
     
     def __unicode__(self):
         return 'EMG Channel: %s (Muscle: %s, Side: %s) '  % (self.name, self.sensor.muscle.label, self.sensor.side.label)  
@@ -327,7 +327,7 @@ class EmgElectrode(FeedBaseModel):
     rate = models.IntegerField()
     emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG unit")
     emg_filtering = models.ForeignKey(Emgfiltering, verbose_name="EMG filtering")
-    emg_amplification = models.IntegerField(null=True,verbose_name = "amplification")
+    emg_amplification = models.IntegerField(blank=True,null=True,verbose_name = "amplification")
 
     def __unicode__(self):
         return self.name  
