@@ -198,7 +198,7 @@ class SonoChannelViewInline(FeedTabularInline):
 
 class EmgElectrodeInline(FeedTabularInline):
     model = EmgElectrode
-    extra = 8   
+    extra = 8
     form = EmgElectrodeForm
 
 class EmgElectrodeViewInline(FeedTabularInline):

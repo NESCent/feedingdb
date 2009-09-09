@@ -10,7 +10,7 @@
    <table>
      <thead><tr>
      {% for field in inline_admin_formset.fields %}
-       {% if not field.is_hidden %}
+       {% if not field.is_hidden  %}
          <th {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
         {% endif %}
      {% endfor %}
@@ -28,7 +28,7 @@
         {% endif %}
         <tr class="{% cycle row1,row2 %} {% if inline_admin_form.original or inline_admin_form.show_url %}has_original{% endif %}">
 
-        <td class="original">
+        <td class="original" >
           
           {% if inline_admin_form.has_auto_field %}{{ inline_admin_form.pk_field.field }}{% endif %}
           {{ inline_admin_form.fk_field.field }}
@@ -36,7 +36,7 @@
           {% for fieldset in inline_admin_form %}
             {% for line in fieldset %}
               {% for field in line %}
-                {% if field.is_hidden %} {{ field.field }} {% endif %}
+               {% if field.is_hidden  %} {{ field.field }} {% endif %}
               {% endfor %}
             {% endfor %}
           {% endfor %}
@@ -46,7 +46,7 @@
         {% for fieldset in inline_admin_form %}
           {% for line in fieldset %}
             {% for field in line %}
-              <td class="{{ field.field.name }}">
+               <td class="{{ field.field.name }}">
               {{ field.field.errors.as_ul }}
               {% display_readonly field inline_admin_form %}
               </td>

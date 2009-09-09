@@ -8,7 +8,7 @@
    <table>
      <thead><tr>
      {% for field in inline_admin_formset.fields %}
-       {% if not field.is_hidden %}
+    {% if not field.is_hidden  %}
          <th {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
         {% endif %}
      {% endfor %}
@@ -39,7 +39,7 @@
         {% for fieldset in inline_admin_form %}
           {% for line in fieldset %}
             {% for field in line %}
-              <td class="{{ field.field.name }}">
+               <td class="{{ field.field.name }}">
               {{ field.field.errors.as_ul }}
               {{ field.field }}
               </td>

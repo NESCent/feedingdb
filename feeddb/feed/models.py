@@ -312,8 +312,8 @@ class ChannelLineup(FeedBaseModel):
         return str(self.position) 
 
 class EmgElectrode(FeedBaseModel):
-    sensor = models.OneToOneField(EmgSensor, null=True)
-    channel = models.OneToOneField(EmgChannel, null=True)
+    sensor = models.OneToOneField(Sensor, null=True,blank=True, editable=False)
+    channel = models.OneToOneField(Channel, null=True, blank=True,editable=False)
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length=255)
     notes = models.TextField( blank = True, null=True)
@@ -331,12 +331,10 @@ class EmgElectrode(FeedBaseModel):
 
     def __unicode__(self):
         return self.name  
-   
+    
     def save(self):
-        super(EmgElectrode, self).save()
-        try:
-            sensor = EmgSensor.objects.get(name = self.name, setup= self.setup)
-        except EmgSensor.DoesNotExist:        
+        sensor = self.sensor
+        if sensor ==None:
             sensor = EmgSensor()
             sensor.setup = self.setup
         sensor.created_by = self.created_by
@@ -351,9 +349,9 @@ class EmgElectrode(FeedBaseModel):
         sensor.axisdv = self.axisdv
         sensor.electrode_type  =self.electrode_type
         sensor.save()
-        try:
-            channel = EmgChannel.objects.get(name = self.name, setup= self.setup)
-        except EmgChannel.DoesNotExist:        
+
+        channel = self.channel
+        if channel == None:
             channel = EmgChannel()
             channel.setup = self.setup
             channel.sensor = sensor
@@ -368,22 +366,19 @@ class EmgElectrode(FeedBaseModel):
         channel.notes= self.notes
         channel.save()
 
+        self.sensor = sensor
+        self.channel = channel
+        super(EmgElectrode, self).save()
+
     def delete(self):
         super(EmgElectrode, self).delete()
-        sensor = None
-        try:
-            sensor = EmgSensor.objects.get(name = self.name, setup= self.setup)
-        except EmgSensor.DoesNotExist:        
-            pass
-        if sensor!=None:
-            sensor.delete()
-        channel = None
-        try:
-            channel = EmgChannel.objects.get(name = self.name, setup= self.setup)
-        except EmgChannel.DoesNotExist:        
-            pass
-        if channel != None:
-            channel.save()
+        if self.channel !=None:
+            self.channel.delete()
+        if self.sensor !=None:
+            self.sensor.delete()
+
+        
+        
     class Meta:
         verbose_name = "EMG Electrode"
         verbose_name_plural = "EMG Electrodes" 

@@ -13,12 +13,18 @@ from feeddb.feed.models import *
 from feeddb.feed.extension.widgets import *
 
 class EmgElectrodeForm(forms.ModelForm):
-     notes = CharField(label="Notes", widget=Notes(), required=False)
-     name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}))
+    notes = CharField(label="Notes", widget=Notes(), required=False)
+    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}))
 
-     class Meta:
-         model = EmgElectrode
+    class Meta:
+        model = EmgElectrode
 
+    def __init__(self, *args, **kwargs):
+        for key, field in self.base_fields.iteritems():
+            if key == "sensor" or key == "channel":
+                field.widget = field.hidden_widget()
+
+        super(EmgElectrodeForm, self).__init__(*args, **kwargs)
 
 class EmgSensorForm(forms.ModelForm):
      notes = CharField(widget=HiddenInput(), required=False)
