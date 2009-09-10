@@ -221,7 +221,7 @@ class Channel(FeedBaseModel):
     notes = models.TextField("Notes about the channel",  blank = True, null=True)
 
     def __unicode__(self):
-        return self.name + " (rate: " + str(self.rate) + ")"     
+        return self.name 
 
 class EmgChannel(Channel):
     sensor = models.ForeignKey(EmgSensor)    
