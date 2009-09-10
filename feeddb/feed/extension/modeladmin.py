@@ -234,7 +234,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             rel_obj = None 
             for k in request.GET:
                 rel_obj = k
-                rel_obj_id = request.GET[k]
+                rel_obj_id = request.GET.get(k)
             if rel_obj != None:
                 post_url = '/admin/feed/%s/%s' % (rel_obj, rel_obj_id)
             else:

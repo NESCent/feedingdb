@@ -203,7 +203,7 @@ class EmgElectrodeInline(FeedTabularInline):
 
 class EmgElectrodeViewInline(FeedTabularInline):
     model = EmgElectrode
-    excludes = ['notes']
+    fields =('name', 'muscle','side', 'axisdepth','axisap', 'axisdv','electrode_type', 'rate', 'emg_unit', 'emg_filtering', 'emg_amplification')
     extra = 0 
     form = EmgElectrodeForm
 
