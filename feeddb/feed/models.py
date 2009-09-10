@@ -37,9 +37,6 @@ class DevelopmentStage(CvTerm):
 class Technique(CvTerm):
     pass
 
-class Behavior(CvTerm):
-    pass
-
 class Taxon(CvTerm):
     genus = models.CharField(max_length=255)
     species = models.CharField(max_length=255)
@@ -225,7 +222,7 @@ class Channel(FeedBaseModel):
 
 class EmgChannel(Channel):
     sensor = models.ForeignKey(EmgSensor)    
-    emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG unit")
+    emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG units")
     emg_filtering = models.ForeignKey(Emgfiltering, verbose_name="EMG filtering")
     emg_amplification = models.IntegerField(blank=True,null=True,verbose_name = "amplification")
     
@@ -236,7 +233,7 @@ class EmgChannel(Channel):
 
 
 class SonoChannel(Channel):
-    sono_unit = models.ForeignKey(Sonounit, verbose_name="EMG unit")
+    sono_unit = models.ForeignKey(Sonounit, verbose_name="EMG units")
     crystal1 = models.ForeignKey(SonoSensor, related_name="crystals1_related")
     crystal2 = models.ForeignKey(SonoSensor, related_name="crystals2_related")
 
@@ -325,7 +322,7 @@ class EmgElectrode(FeedBaseModel):
     electrode_type = models.ForeignKey(ElectrodeType, 
         verbose_name="electrode type", blank = True, null=True )
     rate = models.IntegerField()
-    emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG unit")
+    emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG units")
     emg_filtering = models.ForeignKey(Emgfiltering, verbose_name="EMG filtering")
     emg_amplification = models.IntegerField(blank=True,null=True,verbose_name = "amplification")
 
