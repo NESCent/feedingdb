@@ -230,16 +230,15 @@ class FeedModelAdmin(admin.ModelAdmin):
 
     def delete_view(self, request, object_id, extra_context=None):
         r = super(FeedModelAdmin,self).delete_view(request, object_id, extra_context)
-        if request.POST: # The user has already confirmed the deletion.
+        if request.POST: 
+            rel_obj = None 
             for k in request.GET:
                 rel_obj = k
                 rel_obj_id = request.GET[k]
             if rel_obj != None:
                 post_url = '/admin/feed/%s/%s' % (rel_obj, rel_obj_id)
-            elif self.has_change_permission(request, None):
-                post_url = '../'
             else:
-                post_url = '../../../'
+                post_url = '../../'
             return HttpResponseRedirect(post_url)
         return r
 
