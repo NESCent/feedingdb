@@ -220,7 +220,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             for k in request.GET:
                 rel_obj = k
                 rel_obj_id = request.GET[k]
-            if rel_obj != None:
+            if rel_obj != None and rel_obj!="created_by":
                 post_url = '../../%s/%s' % (rel_obj, rel_obj_id)
             elif self.has_change_permission(request, None):
                 post_url = '../'
@@ -235,7 +235,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             for k in request.GET:
                 rel_obj = k
                 rel_obj_id = request.GET.get(k)
-            if rel_obj != None:
+            if rel_obj != None and rel_obj!="created_by":
                 post_url = '/admin/feed/%s/%s' % (rel_obj, rel_obj_id)
             else:
                 post_url = '../../'
@@ -269,7 +269,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             for k in request.GET:
                 rel_obj = k
                 rel_obj_id = request.GET[k]
-            if rel_obj != None:
+            if rel_obj != None and rel_obj!="created_by":
                 post_url = '../../../%s/%s' % (rel_obj, rel_obj_id)
             else:
                 post_url = request.path
