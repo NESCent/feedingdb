@@ -86,3 +86,4 @@ class TrialForm(forms.ModelForm):
     class Meta:
         model = Trial
         exclude = ('waveform_picture',)
+
