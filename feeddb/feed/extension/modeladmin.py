@@ -6,7 +6,7 @@ from django.forms.models import BaseInlineFormSet
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin import widgets
 from django.contrib.admin import helpers
-from django.contrib.admin.util import unquote, flatten_fieldsets, get_deleted_objects, model_ngettext, model_format_dict
+from django.contrib.admin.util import unquote, flatten_fieldsets, model_ngettext, model_format_dict
 from django.core.exceptions import PermissionDenied
 from django.db import models, transaction
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -27,6 +27,7 @@ from feeddb.feed.extension.forms import *
 from feeddb.feed.extension.formsets import PositionBaseInlineFormSet
 from django.forms.util import ValidationError
 from feeddb.feed.extension.changelist import *
+from feeddb.feed.extension.util import get_feed_deleted_objects
 
 class FeedTabularInline(admin.TabularInline):
     template = 'admin/edit_inline/tabular.html'
@@ -126,6 +127,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         if not p:
             if obj == None:
                 return True
+            print '%s created by: %s' % (obj,  obj.created_by)
             return obj.created_by == request.user
         
         return p 
@@ -229,18 +231,66 @@ class FeedModelAdmin(admin.ModelAdmin):
             return HttpResponseRedirect(post_url)
 
     def delete_view(self, request, object_id, extra_context=None):
-        r = super(FeedModelAdmin,self).delete_view(request, object_id, extra_context)
-        if request.POST: 
+        "The 'delete' admin view for this model."
+        opts = self.model._meta
+        app_label = opts.app_label
+
+        try:
+            obj = self.queryset(request).get(pk=unquote(object_id))
+        except self.model.DoesNotExist:
+            # Don't raise Http404 just yet, because we haven't checked
+            # permissions yet. We don't want an unauthenticated user to be able
+            # to determine whether a given object exists.
+            obj = None
+
+        if not self.has_delete_permission(request, obj):
+            raise PermissionDenied
+
+        if obj is None:
+            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
+
+        # Populate deleted_objects, a data structure of all related objects that
+        # will also be deleted.
+        deleted_objects = [mark_safe(u'%s: <a href="../../%s/">%s</a>' % (escape(force_unicode(capfirst(opts.verbose_name))), object_id, escape(obj))), []]
+        perms_needed = set()
+        get_feed_deleted_objects(deleted_objects, perms_needed, request.user, obj, opts, 1, self.admin_site)
+
+        if request.POST: # The user has already confirmed the deletion.
+            if perms_needed:
+                raise PermissionDenied
+            obj_display = force_unicode(obj)
+            self.log_deletion(request, obj, obj_display)
+            obj.delete()
+
+            self.message_user(request, _('The %(name)s "%(obj)s" was deleted successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj_display)})
+
+            post_url = '../../'
             rel_obj = None 
             for k in request.GET:
                 rel_obj = k
                 rel_obj_id = request.GET.get(k)
             if rel_obj != None and rel_obj!="created_by":
                 post_url = '/admin/feed/%s/%s' % (rel_obj, rel_obj_id)
-            else:
-                post_url = '../../'
+                
             return HttpResponseRedirect(post_url)
-        return r
+
+        context = {
+            "title": _("Are you sure?"),
+            "object_name": force_unicode(opts.verbose_name),
+            "object": obj,
+            "deleted_objects": deleted_objects,
+            "perms_lacking": perms_needed,
+            "opts": opts,
+            "root_path": self.admin_site.root_path,
+            "app_label": app_label,
+        }
+        context.update(extra_context or {})
+        context_instance = template.RequestContext(request, current_app=self.admin_site.name)
+        return render_to_response(self.delete_confirmation_template or [
+            "admin/%s/%s/delete_confirmation.html" % (app_label, opts.object_name.lower()),
+            "admin/%s/delete_confirmation.html" % app_label,
+            "admin/delete_confirmation.html"
+        ], context, context_instance=context_instance)
 
     def response_change(self, request, obj):
         """
