@@ -127,7 +127,6 @@ class FeedModelAdmin(admin.ModelAdmin):
         if not p:
             if obj == None:
                 return True
-            print '%s created by: %s' % (obj,  obj.created_by)
             return obj.created_by == request.user
         
         return p 
