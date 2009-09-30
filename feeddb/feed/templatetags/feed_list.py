@@ -191,10 +191,10 @@ def feed_results(cl):
                     view_action = u'%s%s'  % (view_action, change_action)
                 if cl.model_admin.has_delete_permission (cl.request, res):
                     view_action = u'%s%s'  % (view_action, delete_action)		
-                lst.append(mark_safe(u'<td class="form-row"><ul class="object-tools">%s</ul></td>' % view_action))
+                lst.append(mark_safe(u'<td class="action"><ul class="feed-object-tools">%s</ul></td>' % view_action))
             else:
                 change_action = u'<li><a href="%s">edit</a></li>' % view_url
-                lst.append(mark_safe(u'<td class="form-row"><ul class="object-tools">%s</ul></td>' % change_action))
+                lst.append(mark_safe(u'<td class="action"><ul class="feed-object-tools">%s</ul></td>' % change_action))
             yield lst
 
 def feed_result_list(cl):
