@@ -17,7 +17,7 @@
 
      {% for r in registry %}
         {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
-     <th>{% trans "Action" %}</th>
+     <th class="action_header">{% trans "Action" %}</th>
         {% endifequal %}
 {% endfor %}
      </tr></thead>
@@ -55,20 +55,20 @@
         {% endfor %}
 
 
-	  <td class="form-row" width="250">
-         <ul class="object-tools">
+	  <td class="action">
+         <!-- ul class="object-tools" -->
 
 {% for r in registry %}
         {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
 
-     	 <li><a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" >{% trans "View" %}</a></li>
+     	 <a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><img src="/media/img/admin/icon_calendar.gif" alt="view" title="view"/></a>
       	 {% if has_change_permission %}
-		<li><a class="changelink" href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" >{% trans "Edit" %}</a></li>
- 		<li><a class="deletelink" href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" >{% trans "Delete" %}</a></li>
+	    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" ><img src="/media/img/admin/icon_changelink.gif" alt="edit" title="edit" /></a>
+ 	    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><img src="/media/img/admin/icon_deletelink.gif" alt="delete" title="delete" /></a>
        	{% endif %}
         {% endifequal %}
 {% endfor %}
-	</ul>
+	
         </td >
 
         </tr>

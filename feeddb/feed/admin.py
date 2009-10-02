@@ -122,8 +122,8 @@ class ExperimentAdmin(ExperimentModelAdmin):
     inlines = [IllustrationInline]
     view_inlines = [IllustrationViewInline]
     search_fields = ('decription',)
-    list_display = ('title', 'study', 'subject','start','end', 'subj_devstage',)
-    list_filter = ('study', 'subject')
+    list_display = ('title', 'study', 'subject')
+    #list_filter = ('study', 'subject')
 
 
 
@@ -132,20 +132,20 @@ class SubjectAdmin(FeedModelAdmin):
     view_inlines = [IllustrationViewInline]
     search_fields = ('name', 'breed','taxon', 'source','sex','notes')
     list_display = ('name', 'taxon', 'breed','sex', 'source')
-    list_filter = ('study', 'taxon','sex')
+    #list_filter = ('study', 'taxon','sex')
     ordering = ('name',)
 
 class TrialAdmin(FeedModelAdmin):
     search_fields = ('accession', 'bookkeeping','behavior_primary', 'food_type')
     list_display = ('title', 'session', 'position', 'claimed_duration', 
                     'food_type', 'behavior_primary')
-    list_filter = ('behavior_primary', 'food_type','session')
+    #list_filter = ('behavior_primary', 'food_type','session')
     ordering = ('position',)
 
 class IllustrationAdmin(FeedModelAdmin):
     search_fields = ('notes', 'experiment','setup', 'subject')
     list_display = ('picture', 'notes')
-    list_filter = ('experiment', 'subject')
+    #list_filter = ('experiment', 'subject')
     ordering = ('picture',)
 
 
@@ -246,9 +246,9 @@ class ChannelLineupViewInline(FeedTabularInline):
 class SessionAdmin(SessionModelAdmin):
     inlines = [ChannelLineupInline, TrialInline]
     view_inlines = [ChannelLineupViewInline, TrialViewInline ]
+    form = SessionForm
     search_fields = ('subj_restraint','subj_anesthesia_sedation','subj_notes')
-    list_display = ('title', 'experiment','position', 'start', 'end','subj_restraint','subj_anesthesia_sedation')
-    list_filter = ('experiment', 'subj_restraint')
+    list_display = ('title', 'experiment','position', 'start', 'subj_restraint','subj_anesthesia_sedation')
     ordering = ('position',)
     tabbed = True
     tab_name = "Session"

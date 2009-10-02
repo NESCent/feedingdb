@@ -141,10 +141,7 @@ padding-top:50px;
 	color: #000000;	
 }
 
-.action_header {
-    text-align: center;
-    width: 250px;
-}
+
 
 .td {
    border-right: 1px solid b5b5EB;
@@ -152,14 +149,14 @@ padding-top:50px;
 
 /*my object tool */
 /* OBJECT TOOLS */
-
+/*
 .feed-object-tools {
     font-size: 10px;
     font-weight: bold;
     font-family: Arial,Helvetica,sans-serif;
     padding-left: 0;
-/*    float: right;
-    position: relative; */
+    float: right;
+    position: relative; 
 }
 
 .action .feed-object-tools {
@@ -175,8 +172,9 @@ padding-top:50px;
     float: left; 
     background: url(../img/admin/tool-left.gif) 0 0 no-repeat;
     padding: 0 0 0 8px;
-    margin-left: 2px;
+    margin-left: 0px;
     height: 16px;
+
 }
 
 .feed-object-tools li:hover {
@@ -198,7 +196,7 @@ padding-top:50px;
 
 .feed-object-tools a.viewsitelink, .feed-object-tools a.golink {
   background: #999 url(../img/admin/tooltag-arrowright.gif) top right no-repeat;
-    padding-right: 28px;
+    padding-right: 0px;
 }
 
 .feed-object-tools a.viewsitelink:hover, .feed-object-tools a.golink:hover {
@@ -207,13 +205,42 @@ padding-top:50px;
 
 .feed-object-tools a.addlink {
   background: #999 url(../img/admin/tooltag-add.gif) top right no-repeat;
-    padding-right: 28px;
+    padding-right: 0px;
 }
 
 .feed-object-tools a.addlink:hover {
  background: #5b80b2 url(../img/admin/tooltag-add_over.gif) top right no-repeat;
 }
+*/
+
+.feed-object-tools li {
+    display: block;
+    float: none; 
+    padding-right: 5px;
+    margin-left: 0px;
+
+}
 
 .action {
-width: 100px;
+width: 80px;
+    padding: 0;
+
 }
+
+.action a{
+width: 80px;
+padding: 5px;
+}
+
+.action_header {
+    text-align: center;
+    width: 80px;
+    padding: 0;
+}
+
+/*
+.clickable:hover{
+    background: #5b80b2;
+}
+
+*/

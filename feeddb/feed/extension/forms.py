@@ -33,7 +33,10 @@ class EmgSensorForm(forms.ModelForm):
          model = EmgSensor
 
 class SessionForm(forms.ModelForm):
-    subj_notes = CharField(label = "Subject Notes", widget=Notes(), required=False)
+    subj_notes = CharField(label = "Subject Notes", widget=Notes(attrs={'size': 5}), required=False)
+    accession = CharField(label = "Accession", widget=forms.TextInput(attrs={'size': 5}), required=False)
+    bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
+    position = IntegerField(label = "Position", widget=forms.TextInput(attrs={'size': 3}))
     class Meta:
         model = Session
         exclude = ('channels',)

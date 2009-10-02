@@ -181,20 +181,24 @@ def feed_results(cl):
                 if cl.request.META['QUERY_STRING']:  
                     change_url = '%s/?%s' % (change_url, cl.request.META['QUERY_STRING'])
                     delete_url = '%s/?%s' % (delete_url, cl.request.META['QUERY_STRING'])
-
-            view_action = u'<li><a href="%s">view</a></li>' % view_url
-            change_action = u'<li><a href="%s">edit</a></li>' % change_url
-            delete_action = u'<li><a href="%s">delete</a></li>' % delete_url
-            
+            view_anchor = "<img src='/media/img/admin/icon_calendar.gif' alt='view' title='view'/>"
+            change_anchor = "<img src='/media/img/admin/icon_changelink.gif' alt='edit' title='edit'/>"
+            delete_anchor = "<img src='/media/img/admin/icon_deletelink.gif' alt='delete' title='delete' />"
+            '''
+            view_action = u'<li><a href="%s">%s</a></li>' % (view_url, view_anchor)
+            change_action = u'<li><a href="%s">%s</a></li>' % (change_url, change_anchor)
+            delete_action = u'<li><a href="%s">%s</a></li>' % (delete_url, delete_anchor)
+            '''
+            view_action = u'<a href="%s">%s</a>' % (view_url, view_anchor)
+            change_action = u'<a href="%s">%s</a>' % (change_url, change_anchor)
+            delete_action = u'<a href="%s">%s</a>' % (delete_url, delete_anchor)
             if hasattr(cl, "request"):
                 if cl.model_admin.has_change_permission (cl.request, res):
                     view_action = u'%s%s'  % (view_action, change_action)
                 if cl.model_admin.has_delete_permission (cl.request, res):
                     view_action = u'%s%s'  % (view_action, delete_action)		
-                lst.append(mark_safe(u'<td class="action"><ul class="feed-object-tools">%s</ul></td>' % view_action))
-            else:
-                change_action = u'<li><a href="%s">edit</a></li>' % view_url
-                lst.append(mark_safe(u'<td class="action"><ul class="feed-object-tools">%s</ul></td>' % change_action))
+            #lst.append(mark_safe(u'<td class="action"><ul class="feed-object-tools">%s</ul></td>' % view_action))
+            lst.append(mark_safe(u'<td class="action">%s</td>' % view_action))
             yield lst
 
 def feed_result_list(cl):
