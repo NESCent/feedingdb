@@ -36,7 +36,7 @@ class SessionForm(forms.ModelForm):
     subj_notes = CharField(label = "Subject Notes", widget=Notes(attrs={'size': 5}), required=False)
     accession = CharField(label = "Accession", widget=forms.TextInput(attrs={'size': 5}), required=False)
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
-    position = IntegerField(label = "Position", widget=forms.TextInput(attrs={'size': 3}))
+    position = IntegerField(label = "Position", help_text='the order of the recording session in the experiment', widget=forms.TextInput(attrs={'size': 3}))
     class Meta:
         model = Session
         exclude = ('channels',)

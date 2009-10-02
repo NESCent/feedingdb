@@ -248,7 +248,7 @@ class Session(FeedBaseModel):
     title = models.CharField(max_length=255, default="new Recording Session - edit this")
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     experiment = models.ForeignKey(Experiment)    
-    position = models.IntegerField()
+    position = models.IntegerField(help_text='the order of the recording session in the experiment')
     start = models.DateTimeField( blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     subj_notes = models.TextField("subject notes", blank = True, null=True)    
