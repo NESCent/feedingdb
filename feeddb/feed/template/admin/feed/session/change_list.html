@@ -18,12 +18,14 @@
     {% block object-tools %}
       {% if has_change_permission %}
         <ul class="object-tools object-tools-top">
-          <li>
-                {% if experiment %}
+          
+               {% if experiment %}
+<li>
                        <a href="edit/?experiment={{experiment.pk}}" class="changelink">Edit</a>
                 
-{% endif %}
 </li>
+{% endif %}
+
         </ul>
     {% endif %}
 
