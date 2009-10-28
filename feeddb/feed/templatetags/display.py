@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.admin.views.main import ALL_VAR, EMPTY_CHANGELIST_VALUE
 from django.contrib.admin.views.main import ORDER_VAR, ORDER_TYPE_VAR, PAGE_VAR, SEARCH_VAR
 from django.core.exceptions import ObjectDoesNotExist
@@ -11,6 +10,8 @@ from django.utils.translation import get_date_formats, get_partial_date_formats,
 from django.utils.encoding import smart_unicode, smart_str, force_unicode
 from django.template import Library, Node, TemplateSyntaxError, Variable, VariableDoesNotExist
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper, AdminFileWidget
+from feeddb import settings
+
 
 register = Library()
 
@@ -46,10 +47,11 @@ def display_readonly(field, adminform):
                 if value == choice[0]:
                     real_value += u'%s<br/>' % choice[1]
     elif isinstance(field.field.field.widget, AdminFileWidget):
-        #if is_image(value):
-        #    real_value = u'<a href="/static/%s" title="click to view full size image"><img width="100" src="/static/%s"/></a><br/>' % (value, value)
-        #else:
-        real_value = u'<a href="/static/%s">%s</a><br/>' % (value, value)
+        if is_image(value):
+            real_value = u'<a href="%s%s" title="click to view full size image"><img width="100" src="%s%s"/></a><br/>' % (settings.MEDIA_URL, value, settings.MEDIA_URL,value)
+        else:
+            real_value = u'<a href="%s%s">%s</a><br/>' % (settings.MEDIA_URL,value, value)
+        print real_value
     elif value ==None:
             real_value=""
     else:     

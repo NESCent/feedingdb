@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from feeddb import settings
 import datetime
 
 
@@ -290,11 +291,13 @@ class Trial(FeedBaseModel):
         return self.title          
 
 class Illustration(FeedBaseModel):
-    picture = models.FileField("picture",upload_to="illustrations" ,  blank = True, null=True)
+    picture = models.FileField("picture",upload_to='illustrations',  blank = True, null=True)
     notes = models.TextField(blank = True, null=True)
     subject  = models.ForeignKey(Subject,  blank = True, null=True)
     setup  = models.ForeignKey(Setup,  blank = True, null=True)
     experiment  = models.ForeignKey(Experiment,  blank = True, null=True)
+    
+    
 
 class ChannelLineup(FeedBaseModel):
     session = models.ForeignKey(Session)
@@ -379,3 +382,4 @@ class EmgElectrode(FeedBaseModel):
     class Meta:
         verbose_name = "EMG Electrode"
         verbose_name_plural = "EMG Electrodes" 
+
