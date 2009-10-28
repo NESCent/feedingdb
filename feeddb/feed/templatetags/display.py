@@ -51,7 +51,6 @@ def display_readonly(field, adminform):
             real_value = u'<a href="%s%s" title="click to view full size image"><img width="100" src="%s%s"/></a><br/>' % (settings.MEDIA_URL, value, settings.MEDIA_URL,value)
         else:
             real_value = u'<a href="%s%s">%s</a><br/>' % (settings.MEDIA_URL,value, value)
-        print real_value
     elif value ==None:
             real_value=""
     else:     
