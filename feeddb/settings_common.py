@@ -21,9 +21,11 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-#MEDIA_ROOT = '/Users/vgapeyev/Work/MammFeeding/Django/feeding/feeddb/feed/media'
-MEDIA_ROOT = '/Users/xianhua/Documents'
-STATIC_ROOT =  '/Users/xianhua/feeddb/feed/media'
+#TODO: move these to local settings
+MEDIA_ROOT = '/Users/vgapeyev/Work/MammFeeding/Django/feeding/feeddb_uploads'
+#MEDIA_ROOT = '/Users/xianhua/Documents'
+STATIC_ROOT =  '/Users/vgapeyev/Work/MammFeeding/Django/feeding/feeddb/feed/static'
+#TODO: consider feed/media ---> feed/static
 
 TEMPLATE_DIRS = (
    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -31,7 +33,6 @@ TEMPLATE_DIRS = (
    #"/Users/vgapeyev/Work/MammFeeding/Django/feeding/feeddb/feed/template"
    relpath2abspath('feed/template'),
    relpath2abspath('search/templates')
-
 )
 
 # List of callables that know how to import templates from various sources.

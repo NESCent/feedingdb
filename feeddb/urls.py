@@ -7,6 +7,7 @@ from feeddb import settings
 from django.contrib import admin
 admin.autodiscover()
 
+#TODO: below admin/, static/ --> settings.XXX_PREFIX
 urlpatterns = patterns('',
     # Example:
     # (r'^feeddb/', include('feeddb.foo.urls')),
