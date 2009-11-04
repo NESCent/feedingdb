@@ -19,13 +19,28 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = True
 
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
-#TODO: move these to local settings
-MEDIA_ROOT = '/Users/vgapeyev/Work/MammFeeding/Django/feeding/feeddb_uploads'
-#MEDIA_ROOT = '/Users/xianhua/Documents'
-STATIC_ROOT =  '/Users/vgapeyev/Work/MammFeeding/Django/feeding/feeddb/feed/static'
-#TODO: consider feed/media ---> feed/static
+
+# URL prefix for admin static files -- CSS, JavaScript and images. 
+# Make sure to use a trailing slash.
+# Examples: "http://foo.com/media/", "/media/".
+# FEED: In development, Admin serves this URL magically from site-packages. 
+#          In deployment, Apache must be configured to serve them directly. 
+ADMIN_MEDIA_PREFIX = '/adminstatic/' 
+
+# FEED: STATIC_XXX are home-grown variables. 
+# They point to the store for static files (CSS, JS, images) of feeddb.feed app.
+STATIC_ROOT = relpath2abspath('feed/static')
+STATIC_PREFIX='/static/'
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash if there is a path component (optional in other cases).
+# Examples: "http://media.lawrence.com", "http://example.com/media/"
+# FEED: We use MEDIA_XXX only to store & server the user-uploaded files. 
+#   The MEDIA_ROOT var should be defined in the local settings.py
+MEDIA_URL = '/uploads/'
+
+
+
 
 TEMPLATE_DIRS = (
    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
