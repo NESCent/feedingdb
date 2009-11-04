@@ -10,7 +10,7 @@ from django.utils.translation import get_date_formats, get_partial_date_formats,
 from django.utils.encoding import smart_unicode, smart_str, force_unicode
 from django.template import Library, Node, TemplateSyntaxError, Variable, VariableDoesNotExist
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper, AdminFileWidget
-from feeddb import settings
+from django.conf import settings
 
 
 register = Library()

@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from feeddb import settings
+from django.conf import settings
 
 urlpatterns = patterns('',
     (r'^', 'feeddb.feed.views.index'),
