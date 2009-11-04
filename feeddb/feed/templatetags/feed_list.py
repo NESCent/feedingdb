@@ -77,7 +77,7 @@ def feed_result_headers(cl):
 
 def _boolean_icon(field_val):
     BOOLEAN_MAPPING = {True: 'yes', False: 'no', None: 'unknown'}
-    return mark_safe(u'<img src="%simg/admin/icon-%s.gif" alt="%s" />' % (settings.ADMIN_MEDIA_PREFIX, BOOLEAN_MAPPING[field_val], field_val))
+    return mark_safe(u'<img src="%simg/admin/icon-%s.gif" alt="%s" />' % (settings.STATIC_PREFIX, BOOLEAN_MAPPING[field_val], field_val))
 
 def feed_items_for_result(cl, result, form):
     first = True
@@ -181,9 +181,9 @@ def feed_results(cl):
                 if cl.request.META['QUERY_STRING']:  
                     change_url = '%s/?%s' % (change_url, cl.request.META['QUERY_STRING'])
                     delete_url = '%s/?%s' % (delete_url, cl.request.META['QUERY_STRING'])
-            view_anchor = "<img src='/media/img/admin/icon_calendar.gif' alt='view' title='view'/>"
-            change_anchor = "<img src='/media/img/admin/icon_changelink.gif' alt='edit' title='edit'/>"
-            delete_anchor = "<img src='/media/img/admin/icon_deletelink.gif' alt='delete' title='delete' />"
+            view_anchor = "<img src='%simg/admin/icon_calendar.gif' alt='view' title='view'/>" % settings.STATIC_PREFIX
+            change_anchor = "<img src='%simg/admin/icon_changelink.gif' alt='edit' title='edit'/>" % settings.STATIC_PREFIX
+            delete_anchor = "<img src='%simg/admin/icon_deletelink.gif' alt='delete' title='delete' />" % settings.STATIC_PREFIX
             '''
             view_action = u'<li><a href="%s">%s</a></li>' % (view_url, view_anchor)
             change_action = u'<li><a href="%s">%s</a></li>' % (change_url, change_anchor)

@@ -21,8 +21,6 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     #(r'^feed/', include(admin.site.urls)),
     #(r'^$', include(admin.site.urls)),
-    (r'^ajax/', include('ajax_select.urls')),
-    (r'^search/', include('feeddb.search.urls')),
     #(r'^$', include('feeddb.feed.urls')),
 )
 

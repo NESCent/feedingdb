@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load display i18n %}
+{% load display i18n feedmedia %}
 
 <div class="inline-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
@@ -61,10 +61,10 @@
 {% for r in registry %}
         {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
 
-     	 <a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><img src="/media/img/admin/icon_calendar.gif" alt="view" title="view"/></a>
+     	 <a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><img src="{% app_static_prefix %}img/admin/icon_calendar.gif" alt="view" title="view"/></a>
       	 {% if has_change_permission %}
-	    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" ><img src="/media/img/admin/icon_changelink.gif" alt="edit" title="edit" /></a>
- 	    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><img src="/media/img/admin/icon_deletelink.gif" alt="delete" title="delete" /></a>
+	    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" ><img src="{% app_static_prefix %}img/admin/icon_changelink.gif" alt="edit" title="edit" /></a>
+ 	    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><img src="{% app_static_prefix %}img/admin/icon_deletelink.gif" alt="delete" title="delete" /></a>
        	{% endif %}
         {% endifequal %}
 {% endfor %}
