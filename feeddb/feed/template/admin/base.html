@@ -6,7 +6,7 @@
 <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% load feedmedia %}{% app_static_prefix %}css/ie.css{% endblock %}" /><![endif]-->
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% app_static_prefix %}css/rtl.css{% endblock %}" />{% endif %}
-<link rel="stylesheet" type="text/css" href="/static/css/feed.css" />
+<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/feed.css" />
 <script type="text/javascript" src="{% app_static_prefix %}js/common.js"></script>
 {% block extrahead %}{% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
