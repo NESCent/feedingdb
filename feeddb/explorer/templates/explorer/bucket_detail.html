@@ -1,0 +1,26 @@
+<html>
+
+<body>
+<!-- VG: This is just a test/example that the view function works. -->
+<p>TODO: pretty implementation for this template</p>
+
+<h3>Show and edit details of Bucket {{ bucket.id }}. </h3>
+
+<p>Title: {{ bucket.title }}</p> 
+<p>Description: {{ bucket.description }}</p>
+
+<p>Trials in this bucket: </p>
+<ol>
+{% for t in bucket.trials.all %} 
+  <li><b>Trial:</b> {{ t.title }}</li>
+  <ul>
+    <li><em>Study:</em> {{ t.session.experiment.study.title }}, 
+        <em>Experiment:</em> {{ t.session.experiment.title }}, 
+        <em>Recording session:</em> {{ t.session.title }}, 
+    </li>
+  </ul>
+{% endfor %}
+</ol>
+
+</body>
+</html> 

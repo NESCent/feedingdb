@@ -20,5 +20,6 @@ urlpatterns = patterns('',
     #(r'^feed/', include(admin.site.urls)),
     #(r'^$', include(admin.site.urls)),
     #(r'^$', include('feeddb.feed.urls')),
+    (r'^explorer/', include('feeddb.explorer.urls')),
 )
 
