@@ -1,0 +1,19 @@
+{% extends "explorer/base.html" %}
+ {% block content %}
+ 
+ <h3>List of your buckets</h3>
+<table>
+<tr><th>ID</th><th>Name</th><th>Description</th></tr>
+
+{% for b in buckets %}
+ <tr><td><a  href="/explorer/bucket/{{ b.id}}">{{b.id}}</a></td>
+<td>{{b.id}}</td>
+<td>{{b.name}}</td>
+<td>{{b.description}}</td>
+</tr>
+
+{% endfor %}
+</table>
+
+
+ {% endblock %}

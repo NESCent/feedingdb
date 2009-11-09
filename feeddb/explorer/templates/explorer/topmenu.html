@@ -1,0 +1,13 @@
+<ul>	
+<li><a href="/explorer">Home</a></li>
+
+ {% if user.is_authenticated %}
+<li><a href="/explorer/trial/search">Search Trial</a></li>
+<li><a href="/explorer/bucket">My Buckets</a></li>
+<li><a href="/explorer/logout">Logout</a></li>
+{%else %}
+<li><a href="/explorer/login">Login</a></li>
+
+{% endif %}
+</ul>
+

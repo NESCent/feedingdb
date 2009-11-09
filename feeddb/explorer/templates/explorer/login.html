@@ -1,0 +1,20 @@
+{% extends "explorer/base.html" %}
+{% block content %}
+<h1>Login</h1>
+<form method="post">
+<table>
+<tr>
+    <td class="TdField">Username</td>
+    <td class="TdValue"><input name="username" type="text" size="15" /></td>
+</tr>
+<tr>
+    <td class="TdField">Password</td>
+    <td class="TdValue"><input name="password" type="password" size="15" /></td>
+</tr>
+</table>
+
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}

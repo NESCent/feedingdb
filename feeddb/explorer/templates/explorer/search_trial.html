@@ -1,0 +1,20 @@
+{% extends "explorer/base.html" %}
+{% block content %}
+<h3>Search Trials </h3>
+
+<form action="/explorer/trial/search/" method="POST">
+<table>
+{% for field in form.visible_fields %}
+<tr><td class="TdField">{{ field.label_tag }}</td>
+<td class="TdValue">{{ field }}</td>
+</tr>
+        {% endfor %}
+
+<tr><td></td><td><input type="submit" value="submit" /></td></tr>
+</table>
+ 
+
+</form>
+
+
+{% endblock %}
