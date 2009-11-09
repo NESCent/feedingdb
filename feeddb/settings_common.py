@@ -47,7 +47,7 @@ TEMPLATE_DIRS = (
    # Always use forward slashes, even on Windows.
    #"/Users/vgapeyev/Work/MammFeeding/Django/feeding/feeddb/feed/template"
    relpath2abspath('feed/template'),
-   relpath2abspath('search/templates')
+   relpath2abspath('explorer/templates')
 )
 
 # List of callables that know how to import templates from various sources.
@@ -61,6 +61,10 @@ MIDDLEWARE_CLASSES = (
    'django.middleware.common.CommonMiddleware',
    'django.contrib.sessions.middleware.SessionMiddleware',
    'django.contrib.auth.middleware.AuthenticationMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+"django.core.context_processors.auth",
 )
 
 ROOT_URLCONF = 'feeddb.urls'

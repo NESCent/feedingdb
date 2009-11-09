@@ -1,9 +1,5 @@
-<html>
-
-<body>
-<!-- VG: This is just a test/example that the view function works. -->
-<p>TODO: pretty implementation for this template</p>
-
+{% extends "explorer/base.html" %}
+{% block content %}
 <h3>Show and edit details of Bucket {{ bucket.id }}. </h3>
 
 <p>Title: {{ bucket.title }}</p> 
@@ -22,5 +18,4 @@
 {% endfor %}
 </ol>
 
-</body>
-</html> 
+{% endblock %}
