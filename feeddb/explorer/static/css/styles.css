@@ -160,11 +160,12 @@ fieldset legend {
 	background-color:#dddddd;
 }
 form { }
+/*
 form input, form textarea {
 	border:1px solid #999999;
 	border-bottom-color:#cccccc;
 	border-right-color:#cccccc;
-	padding:5px;
+	padding:0px;
 	color:#666666;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
@@ -174,11 +175,11 @@ form input.formbutton {
 	border:1px solid #2B5B78;
 	color:#ffffff;
 	font-size:12px;
-	padding:6px 14px;
+	padding:6px;
 	font-weight:bold;
 	font-family:Verdana, Arial, Helvetica, sans-serif;
 }
-
+*/
 /* default tables */ 
 
 table {
@@ -187,18 +188,33 @@ table {
 	font-size:12px;
 }
 table tr th, table tr td {
-	padding:2px; 
+	padding:5px; 
 }
 table tr th {
 	background:#4086AA none repeat-x scroll bottom left;
 	color:#ffffff;
-	border-top:3px solid #2B5B78;
+	/*border-top:3px solid #2B5B78;*/
 }
+
+.table_action {
+	background:#4086AA none repeat-x scroll bottom left;
+	color:#ffffff;
+	text-align: left;
+	/*border-top:3px solid #2B5B78;*/
+}
+
 table tr td {
    border:0px solid #dddddd;
 }
 
-
+table caption {
+     text-align:left; 
+     font-size:14px; 
+     font-weight:bold; 
+     background-color:#336699; 
+     color:#FFFFFF; 
+    padding:5px; 
+}
 /* default links */
 a, a:visited { 
 	color:#4086AA;
@@ -351,7 +367,7 @@ float:right;
    padding: 1px 1px 1px 1px;
     text-align: right;
     vertical-align:top; 
-    /*width:200px; */
+    width:200px;
     padding-right: 5px;
   
 }
@@ -375,3 +391,37 @@ float:right;
 	
 }
 
+.bucket_header {
+    background-color: #000055;	
+}
+.bucket_column {
+     /*background-color: #000055;
+     color: #ffffff;*/
+}
+
+.right{
+   float:right;
+   width: 250px;
+   background-color: #FFCC99;
+   border: 1px solid #445;
+   padding: 5px;
+}
+
+
+.left{
+   float:left;
+   padding:5px;
+   width: 650px;
+}
+
+.detail_table {
+ width: 100%;
+}
+
+.message {
+   background-color: #FFCC99;
+   border: 1px solid #445;
+   color: blue;	
+   padding: 5px;
+   font-size:.8em;
+}

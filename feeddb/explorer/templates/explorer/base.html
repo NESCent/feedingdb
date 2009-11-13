@@ -4,6 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>{% block title %}{{ title }}   {% endblock %}</title>
 <link rel="stylesheet" href="/explorer/static/css/styles.css" type="text/css" />
+{% block extra_style %}{% endblock %}
+{% block extra_js %}{% endblock %}
 </head>
 <body>
 <div class="wrapper">
@@ -25,7 +27,7 @@
 	<div class="content">	
 		<div class="page-content">	
 			<!-- CONTENT -->
-                                                                                {% block message %}{{ message }}{% endblock %}
+                                                                                {% block message %}{%if message %}<div class="message">{{ message }}</div>{%endif%}{% endblock %}
 			        {% block content %}{{ content }}{% endblock %}
 			
 			<!-- END CONTENT -->

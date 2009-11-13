@@ -1,15 +1,21 @@
 {% extends "explorer/base.html" %}
- {% block content %}
- 
- <h3>List of your buckets</h3>
+{% block content %}
+<h3>List of my buckets</h3>
 <table>
-<tr><th>ID</th><th>Name</th><th>Description</th></tr>
-
+<tr><th>ID</th>
+<th>Name</th>
+<th>Number of Trials</th>
+<th>Description</th>
+<th>Action</th>
+</tr>
 {% for b in buckets %}
- <tr><td><a  href="/explorer/bucket/{{ b.id}}">{{b.id}}</a></td>
-<td>{{b.id}}</td>
-<td>{{b.name}}</td>
-<td>{{b.description}}</td>
+<tr class="{% cycle 'even'  'odd' %}">
+<td><a  href="/explorer/bucket/{{ b.id}}">{{b.id}}</a></td>
+<td><a  href="/explorer/bucket/{{ b.id}}">{{b.title}}</a></td>
+<td>{{b.trials.all|length}}</td>
+<td>{%if b.description%} {{b.description}}{%endif%}</td>
+<td><a href="javascript: if(confirm('Do you really want to delete this bucket:{{b}}?')==true)window.location.href='/explorer/bucket/{{b.id}}/delete/';">Delete</a>&nbsp;&nbsp;
+<a href="/explorer/bucket/{{b.id}}/download/">Download</a></td>
 </tr>
 
 {% endfor %}

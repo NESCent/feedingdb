@@ -3,7 +3,7 @@ from feeddb.feed.models import *
 
 SPECIES_CHOICES = [('','')]
 MUSCLE_CHOICES=[('','')]
-SENSOR_CHOICES=[]
+SENSOR_CHOICES=[('','')]
 BEHAVIOR_CHOICES=[('','')]
 
 

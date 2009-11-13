@@ -4,17 +4,19 @@
 #  We will only keep the connecting code here. 
 #  All non-trivial computations should be factored out separate modules. 
 
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.generic.list_detail import object_detail
-from feeddb.explorer.models import Bucket
 from django.template import RequestContext, Template
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.views.generic.simple import redirect_to
 from django.contrib.auth import authenticate, login,logout
-from feeddb.explorer.forms import *
 from django.db.models import Q
+from django.utils.html import escape
+from feeddb.explorer.models import *
+from feeddb.feed.models import *
+from feeddb.explorer.forms import *
+
 
 def portal_page(request):
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'content': 'Welcome!'  })
@@ -24,7 +26,7 @@ def portal_page(request):
 def bucket_index(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
-    buckets = Bucket.objects.all()
+    buckets = Bucket.objects.filter(created_by=request.user)
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'buckets': buckets})
     return render_to_response('explorer/bucket_list.html', c,
         mimetype="application/xhtml+xml")
@@ -63,7 +65,7 @@ def trial_search(request):
         if form.is_valid():
             species = form.cleaned_data['species']
             if species!=None and species != "":
-                query = query & Q(session__experiment__study__subject__taxon__id__exact = species)
+                query = query & Q(session__experiment__subject__taxon__id__exact = species)
             muscle = form.cleaned_data['muscle']
             if muscle!=None and muscle != "":
                 query = query & (Q(session__channels__setup__sensor__emgsensor__muscle__id__exact = muscle) | Q(session__channels__setup__sensor__sonosensor__muscle__id__exact = muscle) )
@@ -78,8 +80,9 @@ def trial_search(request):
             if sensor!=None and sensor != "":
                 sensor_query = Q()
                 for tq in sensor:
-                    sensor_query = sensor_query | Q(session__channels__setup__technique__id__exact = tq)
-                query = query & sensor_query
+                    if tq!=None and tq != "":
+                        sensor_query = sensor_query | Q(session__channels__setup__technique__id__exact = tq)
+                        query = query & sensor_query
             results= Trial.objects.filter(query).distinct()  
             
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'form': form, 'trials': results})
@@ -89,10 +92,122 @@ def trial_search(request):
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'form': form})
         return render_to_response('explorer/search_trial.html', c, mimetype="application/xhtml+xml")
 
+def trial_search_put(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+    #check if any trial selected
+    trial_selected = []
+    for item in request.POST.items():
+        if(item[1]=="on"):
+            trial_selected.append(item[0])
+    if len(trial_selected) ==0:
+        c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no trial selected.'})
+        return render_to_response('explorer/base.html', c, mimetype="application/xhtml+xml")
+    #check if new bucket selected
+    bucket = None
+    bucket_selected = request.POST['bucket']
+    if bucket_selected ==None or bucket_selected =="":
+        c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no bucket selected.'})
+        return render_to_response('explorer/base.html', c, mimetype="application/xhtml+xml")
+    if request.POST['bucket']!='add new bucket':
+        bucket = Bucket.objects.get(pk=bucket_selected)
+    else: 
+        new_bucket_name=request.POST['new_bucket_name']
+        if new_bucket_name==None and new_bucket_name =="":
+            c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no new bucket name specified.'})
+            return render_to_response('explorer/base.html', c, mimetype="application/xhtml+xml")
+        else:
+            bucket = Bucket()
+            bucket.created_by = request.user
+            bucket.title = new_bucket_name
+            bucket.save()
+    #add trials to the bucket
+    for trial_id in trial_selected:
+        trial = Trial.objects.get(pk=trial_id)
+        assocs = TrialInBucket.objects.filter(Q(trial__id__exact=trial_id) & Q(bin__id__exact=bucket.id))
+        if len(assocs) ==0:
+            assoc = TrialInBucket(trial=trial, bin = bucket)
+            assoc.save()
+    
+    c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'successfully put the selected trials to the bucket', 'bucket':bucket})
+    return render_to_response('explorer/bucket_detail.html', c, mimetype="application/xhtml+xml")
+
 def trial_detail(request, id): 
-    c = RequestContext(request, {'title': 'FeedDB Explorer', 'content': 'TODO: detailed information about Trial %s, including attributes of all its containers.' % id })
-    return render_to_response('explorer/base.html', c,
-        mimetype="application/xhtml+xml")
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+    try:
+        trial = Trial.objects.get(pk=id)
+    except Trial.DoesNotExist:
+        c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
+        return render_to_response('explorer/error.html', c, mimetype="application/xhtml+xml")
+    c = RequestContext(request, {'title': 'Trial Detail | FeedDB Explorer', 'trial': trial})
+    return render_to_response('explorer/trial_detail.html', c, mimetype="application/xhtml+xml")
+
+def trial_remove(request, id, bucket_id):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+    try:
+        trial = Trial.objects.get(pk=id)
+    except Trial.DoesNotExist:
+        c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
+        return render_to_response('explorer/error.html', c, mimetype="application/xhtml+xml")
+
+    try:
+        bucket = Bucket.objects.get(pk=bucket_id)
+    except Bucket.DoesNotExist:
+        c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Bucket with primary key %(key)r does not exist.' % {'key': escape(bucket_id)}})
+        return render_to_response('explorer/error.html', c, mimetype="application/xhtml+xml")
+    
+    try:
+        assoc = TrialInBucket.objects.filter(Q(trial__id__exact=id) & Q(bin__id__exact=bucket_id))
+    except TrialInBucket.DoesNotExist:
+        c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial: %s is not in the bucket: %s.' % (trial, bucket)})
+        return render_to_response('explorer/error.html', c, mimetype="application/xhtml+xml")
+    
+    assoc.delete()
+    c = RequestContext(request, {'title': 'Trial Detail | FeedDB Explorer', 'trial':trial, 'message':'Trial: %s has been successfully removed from the bucket: %s.' % (trial, bucket)})
+    return render_to_response('explorer/trial_detail.html', c, mimetype="application/xhtml+xml")
+
+def trial_add(request, id):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+    if request.method =='POST':
+        try:
+            trial = Trial.objects.get(pk=id)
+        except Trial.DoesNotExist:
+            c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
+            return render_to_response('explorer/error.html', c, mimetype="application/xhtml+xml")
+        
+        if request.POST['bucket_id']!='add new bucket':
+            bucket_id = request.POST['bucket_id']
+            if bucket_id==None or bucket_id =="":
+                c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no bucket selected.','trial':trial})
+                return render_to_response('explorer/trial_detail.html', c, mimetype="application/xhtml+xml")
+            bucket = Bucket.objects.get(pk=bucket_id)
+        else: 
+            new_bucket_name=request.POST['new_bucket_name']
+            if new_bucket_name==None and new_bucket_name =="":
+                c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no new bucket name specified.','trial':trial})
+                return render_to_response('explorer/trial_detail.html', c, mimetype="application/xhtml+xml")
+            else:
+                bucket = Bucket()
+                bucket.created_by = request.user
+                bucket.title = new_bucket_name
+                bucket.save()
+
+        #check if bucket already contains the trial
+        assocs = TrialInBucket.objects.filter(Q(trial__id__exact=id) & Q(bin__id__exact=bucket.id))
+        if len(assocs) >0:
+            c = RequestContext(request, {'title': 'Trial Detail | FeedDB Explorer', 'trial':trial, 'message':'Trial: %s is already in the bucket: %s.' % (trial, bucket)})
+            return render_to_response('explorer/trial_detail.html', c, mimetype="application/xhtml+xml")
+        #add trials to the bucket
+        assoc = TrialInBucket(trial=trial, bin = bucket)
+        assoc.save()
+        c = RequestContext(request, {'title': 'Trial Detail | FeedDB Explorer', 'trial':trial, 'message':'Trial: %s has been successfully added to the bucket: %s.' % (trial, bucket)})
+        return render_to_response('explorer/trial_detail.html', c, mimetype="application/xhtml+xml")
+
+    c = RequestContext(request, {'title': 'Trial Detail | FeedDB Explorer', 'trial':trial, 'message':'not supported action'})
+    return render_to_response('explorer/error.html', c, mimetype="application/xhtml+xml")
 
 def logout_view(request):
     logout(request)
