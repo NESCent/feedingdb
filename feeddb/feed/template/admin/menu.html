@@ -4,9 +4,23 @@
 
 <h2>Studies</h2>
 <ul>
-<li><a href="/admin/feed/study/">All</a></li>
-<li><a href="/admin/feed/study/?created_by={{user.pk}}">Mine</a></li>
-<li><a href="/admin/feed/study/add">Add</a></li>
+<!-- FIXME Switch from hardwired hrefs to { %url% } tags troughout the project, 
+    as in the "before" and "after" example here:  
+ See http://docs.djangoproject.com/en/dev/ref/contrib/admin/#reversing-admin-urls     --VG
+--> 
+<li><a href="/admin/feed/study/">All-wrong</a></li>
+<li><a href="{%url admin:feed_study_changelist %}">All</a></li>  
+
+<li><a href="/admin/feed/study/?created_by={{user.pk}}">Mine-wrong</a></li>
+<li><a href="????">Mine</a></li>
+{%comment%}
+<!-- The attempts below use correct {%url%} syntax, but neither works -->
+<li><a href="{%url admin:feed_study_changelist created_by=user.pk %}">Mine</a></li>
+<li><a href="{%url admin:feed_study_changelist user.pk %}">Mine</a></li>
+{%endcomment%}
+
+<li><a href="/admin/feed/study/add">Add-wrong</a></li>
+<li><a href="{%url admin:feed_study_add %}">Add</a></li>
 </ul> 
 
 <h2>Experiments</h2>
