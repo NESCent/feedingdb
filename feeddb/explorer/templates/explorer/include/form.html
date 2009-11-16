@@ -1,0 +1,9 @@
+  {% for field in form.visible_fields %}
+            {# Include the hidden fields in the form #}
+            {% if forloop.first %}
+                {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+            {% endif %}
+          <tr><td class="TdField {% if field.field.required %}required{%endif%}">{{ field.label_tag }}</td><td class="TdValue">{{ field }}{%if field.errors%}{{ field.errors }}{%endif%}</td></tr>
+    {% endfor %}
