@@ -27,7 +27,14 @@
 	<div class="content">	
 		<div class="page-content">	
 			<!-- CONTENT -->
-                                                                                {% block message %}{%if message %}<div class="message">{{ message }}</div>{%endif%}{% endblock %}
+                                                                                {% block message %}
+{% if messages %}
+    {% for message in messages %}
+    <p class="message">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
 			        {% block content %}{{ content }}{% endblock %}
 			
 			<!-- END CONTENT -->

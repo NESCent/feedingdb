@@ -1,5 +1,6 @@
 from django import forms
 from feeddb.feed.models import *
+from feeddb.explorer.models import *
 
 SPECIES_CHOICES = [('','')]
 MUSCLE_CHOICES=[('','')]
@@ -29,3 +30,8 @@ class SearchTrailForm (forms.Form):
     primary_behavior=forms.ChoiceField(choices=BEHAVIOR_CHOICES,required=False)
     food_type=forms.CharField(max_length=100,required=False)
  
+class BucketModelForm(forms.ModelForm):
+    class Meta:
+        model = Bucket
+        exclude = ('trials',)
+

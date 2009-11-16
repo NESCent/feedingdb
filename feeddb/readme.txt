@@ -59,7 +59,7 @@ to install django-pagination:
 .. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
 
  ------------------------------------
-|                other supporting modules           |
+|                other supporting modules              |
 \________________________________________/ 
 
 1. jquery

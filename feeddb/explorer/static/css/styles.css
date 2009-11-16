@@ -363,7 +363,6 @@ float:right;
 
 .TdField { 
   background-color: #f7f7f2;
-  font-weight: bold;
    padding: 1px 1px 1px 1px;
     text-align: right;
     vertical-align:top; 
@@ -424,4 +423,8 @@ float:right;
    color: blue;	
    padding: 5px;
    font-size:.8em;
+}
+
+.required{
+    font-weight: bold;	
 }

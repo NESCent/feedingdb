@@ -2,7 +2,7 @@
 {% block content %}
 <h3>Search Trials </h3>
 
-<form action="/explorer/trial/search/" method="POST">
+<form action="{% url explorer.views.trial_search %}" method="POST">
 <table>
 {% for field in form.visible_fields %}
 <tr><td class="TdField">{{ field.label_tag }}</td>

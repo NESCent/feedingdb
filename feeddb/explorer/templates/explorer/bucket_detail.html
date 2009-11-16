@@ -1,21 +1,66 @@
 {% extends "explorer/base.html" %}
+{% load explorer_display %}
+{% block extra_js %}
+<script type="text/javascript" src="/explorer/static/js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="/explorer/static/js/jquery.checkboxes.js"></script>
+{% endblock %}
 {% block content %}
-<h3>Show and edit details of Bucket {{ bucket.id }}. </h3>
 
-<p>Title: {{ bucket.title }}</p> 
-<p>Description: {{ bucket.description }}</p>
+<h3>Bucket Detail</h3>
+<table>
 
-<p>Trials in this bucket: </p>
-<ol>
-{% for t in bucket.trials.all %} 
-  <li><b>Trial:</b> {{ t.title }}</li>
-  <ul>
-    <li><em>Study:</em> {{ t.session.experiment.study.title }}, 
-        <em>Experiment:</em> {{ t.session.experiment.title }}, 
-        <em>Recording session:</em> {{ t.session.title }}, 
-    </li>
-  </ul>
+<form action="{% url explorer.views.bucket_detail form.instance.id %}" method="POST">
+     {% include "explorer/include/form.html" %}
+    <tr><td></td><td><input type="submit" value="Save" /></td></tr>
+</form>
+</table>
+
+<script language="javascript">
+function checkbox_clicked(obj){
+   if(obj.checked){
+	$("#trial_form").checkCheckboxes();	
+   }else{
+           	$("#trial_form").unCheckCheckboxes();
+   }
+}
+
+</script>
+<form action = "{% url explorer.views.bucket_remove_trials form.instance.id %}" method="POST" id="trial_form" name ="trial_form">
+<table>
+<tr>
+<th><input type="checkbox" id="select_all" onclick ="checkbox_clicked(this)" /></th>
+<th>Name</th>
+<th>Species</th>
+<th>Primary Behavior</th>
+<th>Food Type</th>
+<th>Techniques</th>
+<th>Muscle/Bone</th>
+<th class="bucket_header">Buckets</th>
+</tr>
+{% for trial in form.instance.trials.all %}
+<tr class="{% cycle 'even'  'odd' %}">
+<td><input type="checkbox" name="{{trial.id}}" id="{{trial.id}}" class="check_trial" /></td>
+<td><a href="{% url explorer.views.trial_detail trial.id %}">{{trial.title}}</a></td>
+<td>{{trial.session.experiment.subject.taxon.genus}} {{trial.session.experiment.subject.taxon.species}}</td>
+<td>{{trial.behavior_primary}}</td>
+<td>{{trial.food_type}}</td>
+<td>
+{% display_technique trial  %}
+</td>
+<td>{% display_muscle trial  %}</td>
+<td class="bucket_column">
+{% for bucket in trial.bucket_set.all %}
+<a href="/explorer/bucket/{{bucket.id}}">{{bucket}}</a><br/>
 {% endfor %}
-</ol>
+</td>
+</tr>
+{% endfor %}
+
+<tr><th class="table_action" colspan = "8"><input type="submit" value="remove selected records from the bucket" />
+</th>
+</tr>
+</table>
+</form>
+
 
 {% endblock %}
