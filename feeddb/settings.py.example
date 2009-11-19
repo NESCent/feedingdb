@@ -35,7 +35,3 @@ SECRET_KEY = ''
 # FEED: we use this for user-uploaded files only
 MEDIA_ROOT = '/Users/vgapeyev/Work/MammFeeding/Django/feeding/feeddb_uploads'
 
-#this is the absolute path for explorer application web-related files like css stylesheet or images
-# [project root]/exlorer/static
-
-EXPLORER_STATIC_ROOT = ''

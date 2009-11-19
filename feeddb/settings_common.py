@@ -39,7 +39,9 @@ STATIC_PREFIX='/static/'
 #   The MEDIA_ROOT var should be defined in the local settings.py
 MEDIA_URL = '/uploads/'
 
-
+# Absolute path to [project root]/explorer/static, which holds
+# web-related files of the explorer app, like css stylesheets or images. 
+EXPLORER_STATIC_ROOT = relpath2abspath('explorer/static')
 
 
 TEMPLATE_DIRS = (
