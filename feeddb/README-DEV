@@ -1,0 +1,47 @@
+FeedDB - the database for Feeding WG developed under the Django framework. 
+
+This file accumulates instructions for developers. 
+
+
+Python dependencies
+===================
+
+dependencies.pip lists Python modules on which FeedDB depends.  
+
+The easiest way to satisfy and manage the dependencies is by using
+virtualenv and pip.  (virtualenv allows maintaning per-project
+installations of python & packages. pip is a package installer, a
+replacement of easy_install.  The two tools work well together.)
+
+One-time setup of virtualenv
+----------------------------
+
+Install virtualenv: 
+$ easy_install virtualenv  
+
+Create a virtualenv for this project 
+$ virtualenv --no-site-packages ~/pythonvirtualenvs/feeddb
+
+Install the dependencies
+$ source ~/pythonvirtualenvs/feeddb/bin/activate
+(feeddb)$ pip -r dependencies.pip
+
+Working with virtualenv
+-----------------------
+
+Activating and deactivating: 
+$ source ~/pythonvirtualenvs/feeddb/bin/activate
+(feeddb)$ deactivate
+
+Installing and removing a package (by its name from pypi.python.org)
+(feeddb)$ pip install PACKAGE_NAME
+(feeddb)$ pip uninstall PACKAGE_NAME
+
+Making a snapshot of the current virtualenv (for placing in SVN)
+(feeddb)$ pip freeze
+(feeddb)$ pip freeze > dependencies.pip
+
+Installing the package list updated by another developer
+$ svn update dependencies.pip
+(feeddb)$ pip -r dependencies.pip
+
