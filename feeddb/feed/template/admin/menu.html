@@ -4,94 +4,76 @@
 
 <h2>Studies</h2>
 <ul>
-<!-- FIXME Switch from hardwired hrefs to { %url% } tags troughout the project, 
-    as in the "before" and "after" example here:  
- See http://docs.djangoproject.com/en/dev/ref/contrib/admin/#reversing-admin-urls    (VG)
---> 
-<li><a href="/admin/feed/study/">All-wrong</a></li>
 <li><a href="{%url admin:feed_study_changelist %}">All</a></li>  
-
-<li><a href="/admin/feed/study/?created_by={{user.pk}}">Mine-wrong</a></li>
 <li><a href="{%url admin:feed_study_changelist %}?created_by={{user.pk}}">Mine</a></li>
-{%comment%}
-<!-- The attempts below use correct {%url%} syntax, but neither works -->
-<li><a href="{%url admin:feed_study_changelist created_by=user.pk %}">Mine</a></li>
-<li><a href="{%url admin:feed_study_changelist user.pk %}">Mine</a></li>
-{%endcomment%}
-
-<li><a href="/admin/feed/study/add">Add-wrong</a></li>
 <li><a href="{%url admin:feed_study_add %}">Add</a></li>
 </ul> 
 
 <h2>Experiments</h2>
 <ul class="bullet">
-<li><a href="/admin/feed/experiment">All</a></li>
-<li><a href="/admin/feed/experiment/?created_by={{user.pk}}">Mine</a></li>
-<!-- li><a href="/admin/feed/experiment/add">Add</a></li -->
+<li><a href="{%url admin:feed_experiment_changelist %}">All</a></li>
+<li><a href="{%url admin:feed_experiment_changelist %}?created_by={{user.pk}}">Mine</a></li>
 </ul> 
 
 <h2>Recording Sessions</h2>
 <ul>
-<li><a href="/admin/feed/session/">All</a></li>
-<li><a href="/admin/feed/session/?created_by={{user.pk}}">Mine</a></li>
-<!-- li><a href="/admin/feed/session/add">Add</a></li -->
+<li><a href="{%url admin:feed_session_changelist %}">All</a></li>
+<li><a href="{%url admin:feed_session_changelist %}?created_by={{user.pk}}">Mine</a></li>
 </ul> 
 
 <h2>Trials</h2>
 <ul>
-<li><a href="/admin/feed/trial/">All</a></li>
-<li><a href="/admin/feed/trial/?created_by={{user.pk}}">Mine</a></li>
-<!-- li><a href="/admin/feed/trial/add">Add</a></li -->
+<li><a href="{%url admin:feed_trial_changelist %}">All</a></li>
+<li><a href="{%url admin:feed_trial_changelist %}?created_by={{user.pk}}">Mine</a></li>
 </ul> 
 
 
 <h2>Individual Subjects</h2>
 <ul>
-<li><a href="/admin/feed/subject">All</a></li>
-<li><a href="/admin/feed/subject/?created_by={{user.pk}}">Mine</a></li>
-<!-- li><a href="/admin/feed/subject/add">Add</a></li -->
+<li><a href="{%url admin:feed_subject_changelist %}">All</a></li>
+<li><a href="{%url admin:feed_subject_changelist %}?created_by={{user.pk}}">Mine</a></li>
 </ul> 
 
 <br/>
 
 <h2>Species</h2>
 <ul>
-<li><a href="/admin/feed/taxon/">All Taxa</a></li>
+<li><a href="{%url admin:feed_taxon_changelist %}">All Taxa</a></li>
 </ul>
 
 
 <h2>Controlled Terms</h2>
 <ul>
-<li><a href="/admin/feed/technique/">Techniques</a></li>
-<li><a href="/admin/feed/developmentstage/">Development stages</a></li>
-<li><a href="/admin/feed/restraint/">Restraints</a></li>
-<li><a href="/admin/feed/electrodetype/">Electrode types</a></li>
-<li><a href="/admin/feed/muscle/">Muscles</a></li>
-<li><a href="/admin/feed/side/">Sides</a></li>
-<li><a href="/admin/feed/anteriorposterioraxis/">Anterior-posterior axis</a></li>
-<li><a href="/admin/feed/dorsalventralaxis/">Dorsal-ventral axis</a></li>
-<li><a href="/admin/feed/depthaxis/">Depth axis</a></li>
-<li><a href="/admin/feed/behavior/">Behaviors</a></li>
-<li><a href="/admin/feed/emgfiltering/">EMG filtering</a></li>
-<li><a href="/admin/feed/emgunit/">EMG units</a></li>
-<li><a href="/admin/feed/sonounit/">Sono units</a></li>
+<li><a href="{%url admin:feed_technique_changelist %}">Techniques</a></li>
+<li><a href="{%url admin:feed_developmentstage_changelist %}">Development stages</a></li>
+<li><a href="{%url admin:feed_restraint_changelist %}">Restraints</a></li>
+<li><a href="{%url admin:feed_electrodetype_changelist %}">Electrode types</a></li>
+<li><a href="{%url admin:feed_muscle_changelist %}">Muscles</a></li>
+<li><a href="{%url admin:feed_side_changelist %}">Sides</a></li>
+<li><a href="{%url admin:feed_anteriorposterioraxis_changelist %}">Anterior-posterior axis</a></li>
+<li><a href="{%url admin:feed_dorsalventralaxis_changelist %}">Dorsal-ventral axis</a></li>
+<li><a href="{%url admin:feed_depthaxis_changelist %}">Depth axis</a></li>
+<li><a href="{%url admin:feed_behavior_changelist %}">Behaviors</a></li>
+<li><a href="{%url admin:feed_emgfiltering_changelist %}">EMG filtering</a></li>
+<li><a href="{%url admin:feed_emgunit_changelist %}">EMG units</a></li>
+<li><a href="{%url admin:feed_sonounit_changelist %}">Sono units</a></li>
 </ul> 
 
 {% if user.is_superuser %}
 <h2>Group</h2>
 <ul>
-<li><a href="/admin/auth/group/">All</a></li>
-<li><a href="/admin/auth/group/add/">Add</a></li>
+<li><a href="{%url admin:auth_group_changelist %}">All</a></li>
+<li><a href="{%url admin:auth_group_add %}">Add</a></li>
 </ul>
 <h2>User</h2>
 <ul>
-<li><a href="/admin/auth/user/">All</a></li>
-<li><a href="/admin/auth/user/add">Add</a></li>
+<li><a href="{%url admin:auth_user_changelist %}">All</a></li>
+<li><a href="{%url admin:auth_user_add %}">Add</a></li>
 </ul> 
 {% endif %}
 {% else %}
 <ul>
-<li><a href="/admin">Login</a></li>
+<li><a href="{{login_url}}">Login</a></li>
 </ul>
 {% endif %}
 </div>

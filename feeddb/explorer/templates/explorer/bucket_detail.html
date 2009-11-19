@@ -8,7 +8,6 @@
 
 <h3>Bucket Detail</h3>
 <table>
-
 <form action="{% url explorer.views.bucket_detail form.instance.id %}" method="POST">
      {% include "explorer/include/form.html" %}
     <tr><td></td><td><input type="submit" value="Save" /></td></tr>
@@ -50,7 +49,7 @@ function checkbox_clicked(obj){
 <td>{% display_muscle trial  %}</td>
 <td class="bucket_column">
 {% for bucket in trial.bucket_set.all %}
-<a href="/explorer/bucket/{{bucket.id}}">{{bucket}}</a><br/>
+<a href="{% url explorer.views.bucket_detail bucket.id %}">{{bucket}}</a><br/>
 {% endfor %}
 </td>
 </tr>

@@ -10,16 +10,17 @@
 </tr>
 {% for b in buckets %}
 <tr class="{% cycle 'even'  'odd' %}">
-<td><a  href="/explorer/bucket/{{ b.id}}">{{b.id}}</a></td>
-<td><a  href="/explorer/bucket/{{ b.id}}">{{b.title}}</a></td>
+<td><a  href="{% url explorer.views.bucket_detail b.id %}">{{b.id}}</a></td>
+<td><a  href="{% url explorer.views.bucket_detail b.id %}">{{b.title}}</a></td>
 <td>{{b.trials.all|length}}</td>
 <td>{%if b.description%} {{b.description}}{%endif%}</td>
-<td><a href="javascript: if(confirm('Do you really want to delete this bucket:{{b}}?')==true)window.location.href='/explorer/bucket/{{b.id}}/delete/';">Delete</a>&nbsp;&nbsp;
-<a href="/explorer/bucket/{{b.id}}/download/">Download</a></td>
+<td><a href="javascript: if(confirm('Do you really want to delete this bucket:{{b}}?')==true)window.location.href='{% url explorer.views.bucket_delete b.id %}';">Delete</a>&nbsp;&nbsp;
+<a href="{% url explorer.views.bucket_download b.id %}">Download</a></td>
 </tr>
 
 {% endfor %}
 </table>
 
+<a href="{%url explorer.views.bucket_add %}">add bucket</a>
 
  {% endblock %}

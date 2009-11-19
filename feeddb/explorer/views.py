@@ -32,9 +32,30 @@ def bucket_index(request):
         mimetype="application/xhtml+xml")
 
 def bucket_add(request):
-    c = RequestContext(request, {'title': 'FeedDB Explorer', 'content': 'TODO: creating a new bucket'  })
-    return render_to_response('explorer/base.html', c,
-        mimetype="application/xhtml+xml")
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+    message=None
+    
+    if request.method=='POST':
+        bucket = Bucket(created_by=request.user)
+        form = BucketModelForm(request.POST)
+        if form.is_valid():
+            form.instance.created_by = request.user
+            form.save()
+            message = "successfully added the bucket."
+            request.user.message_set.create(message=message)
+            c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
+            return render_to_response('explorer/bucket_detail.html', c,  mimetype="application/xhtml+xml")
+        else:
+            message = "failed to add the bucket."
+    else:
+        bucket = Bucket()
+        form = BucketModelForm(instance=bucket)
+    
+    if message!=None:
+        request.user.message_set.create(message=message)
+    c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
+    return render_to_response('explorer/bucket_add.html', c,  mimetype="application/xhtml+xml")
 
 def bucket_delete(request, id):
     if not request.user.is_authenticated():
