@@ -3,8 +3,7 @@
 
 from django.conf.urls.defaults import *
 from feeddb.explorer.views import * 
-
-EXPLORER_STATIC_ROOT = '/Users/xianhua/feeddb/explorer/static'
+from django.conf import settings 
 
 urlpatterns = patterns('',
   (r'^$', portal_page),
@@ -21,5 +20,5 @@ urlpatterns = patterns('',
   (r'^trial/(?P<id>\d+)/$', trial_detail),
   (r'^trial/(?P<id>\d+)/remove/(?P<bucket_id>\d+)/$', trial_remove),
   (r'^trial/(?P<id>\d+)/put/$', trial_add),
-  (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root':EXPLORER_STATIC_ROOT}),
+  (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root':settings.EXPLORER_STATIC_ROOT}),
 )

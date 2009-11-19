@@ -12,7 +12,7 @@
 <li><a href="{%url admin:feed_study_changelist %}">All</a></li>  
 
 <li><a href="/admin/feed/study/?created_by={{user.pk}}">Mine-wrong</a></li>
-<li><a href="????">Mine</a></li>
+<li><a href="{%url admin:feed_study_changelist %}?created_by={{user.pk}}">Mine</a></li>
 {%comment%}
 <!-- The attempts below use correct {%url%} syntax, but neither works -->
 <li><a href="{%url admin:feed_study_changelist created_by=user.pk %}">Mine</a></li>
