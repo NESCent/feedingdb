@@ -1,0 +1,17 @@
+{% extends "explorer/base.html" %}
+{% load explorer_display %}
+{% block extra_js %}
+<script type="text/javascript" src="/explorer/static/js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="/explorer/static/js/jquery.checkboxes.js"></script>
+{% endblock %}
+{% block content %}
+
+<h3>Add Bucket</h3>
+<table>
+<form action="{% url explorer.views.bucket_add %}" method="POST">
+     {% include "explorer/include/form.html" %}
+    <tr><td></td><td><input type="submit" value="Add" /></td></tr>
+</form>
+</table>
+
+{% endblock %}
