@@ -35,3 +35,31 @@ class BucketModelForm(forms.ModelForm):
         model = Bucket
         exclude = ('trials',)
 
+class StudyModelForm(forms.ModelForm):
+    class Meta:
+        model=Study
+        name = 'Study'
+
+class SubjectModelForm(forms.ModelForm):
+    class Meta:
+        model=Subject
+        exclude = ('study',)
+        name = 'Subject'
+
+class ExperimentModelForm(forms.ModelForm):
+    class Meta:
+        model=Experiment
+        exclude = ('study','subject',)
+        name = 'Experiment'
+
+class SessionModelForm(forms.ModelForm):
+    class Meta:
+        model=Session
+        exclude = ('experiment','channels')
+        name = 'Session'
+
+class TrialModelForm(forms.ModelForm):
+    class Meta:
+        model=Trial
+        exclude = ('session',)
+        name = 'Trial'

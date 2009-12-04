@@ -102,9 +102,38 @@ def bucket_detail(request, id):
     return render_to_response('explorer/bucket_detail.html', c,  mimetype="application/xhtml+xml")
 
 def bucket_download(request, id):
-    c = RequestContext(request, {'title': 'FeedDB Explorer', 'content': 'TODO: Specify all downloading parameters for Bucket %s and get a zip file with the data and metadata.' % id  })
-    return render_to_response('explorer/base.html', c,
-        mimetype="application/xhtml+xml")
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+    message=""
+    try:
+        bucket = Bucket.objects.get(pk=id)
+    except Bucket.DoesNotExist:
+        request.user.message_set.create(message='Bucket with primary key %s does not exist.' % id)
+        c = RequestContext(request, {'title': 'FeedDB Explorer'})
+        return render_to_response('explorer/base.html', c,  mimetype="application/xhtml+xml")
+
+    if request.method=='POST':
+        file_prefix= request.POST['file_prefix']
+        download_choice= request.POST['download_choice']
+        meta_option= request.POST['meta_option']
+        #get selected fields
+        field_selected = []
+        for item in request.POST.items():
+            if(item[1]=="on" and item[0]!="meta_option" and item[0]!="download_choice"):
+                field_selected.append(item[0])
+                message += item[0]+"; "
+
+    if message!=None and message!="":
+        request.user.message_set.create(message=message)
+    meta_forms =[]
+    meta_forms.append(StudyModelForm())
+    meta_forms.append(SubjectModelForm())
+    meta_forms.append(ExperimentModelForm())
+    meta_forms.append(SessionModelForm())
+    meta_forms.append(TrialModelForm())
+    c = RequestContext(request, {'title': 'FeedDB Explorer',  'bucket':bucket, 'meta_forms':meta_forms})
+    return render_to_response('explorer/bucket_download.html', c,  mimetype="application/xhtml+xml")
+
 
 def trial_search(request): 
     if not request.user.is_authenticated():
@@ -300,6 +329,8 @@ def logout_view(request):
     return render_to_response('explorer/index.html', c, mimetype="application/xhtml+xml")
 
 def login_view(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/explorer')
     message = 'Please login'
     if request.method == 'GET':
         next = '/explorer'
@@ -320,7 +351,7 @@ def login_view(request):
                 if not next is None and next !="": 
                     return HttpResponseRedirect(next)
                 else:
-                    return HttpResponseRedirect("/explorer")
+                    return HttpResponseRedirect("/explorer/trial/search")
             else:
                 message = "The account is no longer active. Please try another account." 
         else:
