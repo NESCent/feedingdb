@@ -1,0 +1,76 @@
+{% extends "explorer/base.html" %}
+{% block extra_js %}
+<script type="text/javascript" src="/explorer/static/js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="/explorer/static/js/jquery.checkboxes.js"></script>
+{% endblock %}
+
+{% block content %}
+<script language="javascript">
+function checkbox_clicked(obj){
+   if(obj.checked){
+	$("#meta_form").checkCheckboxes();	
+   }else{
+           	$("#meta_form").unCheckCheckboxes();
+   }
+}
+
+</script>
+
+
+        <h3>Download Data in Bucket: {{bucket}}</h3>
+          <form action="{% url explorer.views.bucket_download bucket.id %}" id="meta_form" name ="meta_form" method="POST">
+                
+<table>
+<tr><td class="TdField">File prefix</td><td class="TdValue"><input name="file_prefix" size="50" /></td></tr>
+<tr><td class="TdField">Choose data to download</td><td class="TdValue">
+                <input type="radio" name="download_choice" checked="checked" onclick="document.getElementById('meta_div').style.display='block';"/>Meta data only<br/>
+                <input type="radio" name="download_choice" onclick="document.getElementById('meta_div').style.display='none';" />Data only<br/>
+                <input type="radio" name="download_choice" onclick="document.getElementById('meta_div').style.display='block';" />Both meta data and data<br/>
+                </td></tr>
+</table>
+                 <div id="meta_div">
+                 <h3>Metadata Option</h3>
+                  <table><tr><td><input type="radio" name="meta_option"  checked="checked" />  store channel meta data in separate files</td></tr>
+                 <tr><td><input type="radio"  name="meta_option" />  store channel meta data with trial meta data</td></tr>
+</table>
+
+                <h3>Select Trial Metadata Fields</h3>
+                <table>
+<tr>
+<th>Source</th>
+                  <th width="166">Field</th>
+                  <th width="180">Column Header</th>
+                  <th width="60">Select
+                  <input type="checkbox"  id="select_all" onclick ="checkbox_clicked(this)" checked="checked" /></th></tr>
+                  
+                 {% for form in meta_forms %}
+                       
+                        {%for field in form %}
+                         {%if forloop.first %}<tr class=" {% cycle 'even'  'odd' %}"><td rowspan="{{form.fields|length}}">{{form.Meta.name}}</td>{%else%}<tr class="{% cycle 'even'  'odd' %}">{%endif%}
+                                      <td>{{form.Meta.name}}: {{field.name}}</td><td><input size="20" name="{{form.Meta.name}}:{{field.label}}" value="{{form.Meta.name}}:{{field.label}}" /></td><td><input name="chk_{{form.Meta.name}}:{{field.name}}" type="checkbox" checked="checked" /></td></tr>
+                          {% endfor %}
+                   
+                  {% endfor %}
+
+                  
+             <tr class="odd"><td rowspan="6">Channel</td><td>Channel: order</td><td><input size="20" name="Channel:order" value="Channel:Order" /></td><td><input name="chk_Channel:order" type="checkbox" checked="checked" /></td></tr>
+                 
+              <tr class="even">
+                                      <td>Channel: name</td><td><input size="20" name="Channel:name" value="Channel:Name" /></td><td><input name="chk_Channel:name" type="checkbox" checked="checked" /></td></tr>
+                 <tr class="odd">
+                                      <td>Channel: technique</td><td><input size="20" name="Channel:technique" value="Channel:Technique" /></td><td><input name="chk_Channel:technique" type="checkbox" checked="checked" /></td></tr>
+              <tr class="even">
+                                      <td>Channel: rate</td><td><input size="20" name="Channel:rate" value="Channel:Rate" /></td><td><input name="chk_Channel:rate" type="checkbox" checked="checked" /></td></tr>
+              <tr class="odd">
+                                      <td>Channel: muscle</td><td><input size="20" name="Channel:muscle" value="Channel:Muscle" /></td><td><input name="chk_Channel:muscle" type="checkbox" checked="checked" /></td></tr>
+                      <tr class="even">
+                                      <td>Channel: side</td><td><input size="20" name="Channel:side" value="Channel:Muscle side" /></td><td><input name="chk_Channel:side" type="checkbox" checked="checked" /></td></tr>
+        
+                  </table>  
+
+                </div>
+                <input type="submit" value="download" />
+          </form>
+
+ {% endblock %}
+
