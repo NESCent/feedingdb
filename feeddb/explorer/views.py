@@ -4,6 +4,8 @@
 #  We will only keep the connecting code here. 
 #  All non-trivial computations should be factored out separate modules. 
 
+import os, tempfile, zipfile, csv
+from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.generic.list_detail import object_detail
 from django.template import RequestContext, Template
@@ -16,7 +18,7 @@ from django.utils.html import escape
 from feeddb.explorer.models import *
 from feeddb.feed.models import *
 from feeddb.explorer.forms import *
-
+from django.conf import settings
 
 def portal_page(request):
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'content': 'Welcome!'  })
@@ -113,16 +115,125 @@ def bucket_download(request, id):
         return render_to_response('explorer/base.html', c,  mimetype="application/xhtml+xml")
 
     if request.method=='POST':
-        file_prefix= request.POST['file_prefix']
+        zipfile_name= request.POST['zipfile_name']
         download_choice= request.POST['download_choice']
-        meta_option= request.POST['meta_option']
+        #meta_option= request.POST['meta_option']
+        quotechar_char='"'
+        #delimiter= request.POST['delimiter']
+        #if delimiter =="tab":
+        #    delimiter_char = '\t'
+        #elif delimiter =="comma":
+        #    delimiter_char = ','
+        #else:
+        delimiter_char = ','
+       
+        
         #get selected fields
         field_selected = []
         for item in request.POST.items():
             if(item[1]=="on" and item[0]!="meta_option" and item[0]!="download_choice"):
                 field_selected.append(item[0])
-                message += item[0]+"; "
+                message += item[0]+"\n"
+        if  (download_choice=="0" or  download_choice=="2") and  len(field_selected) ==0:
+            message = 'no fields selected.'
+            request.user.message_set.create(message=message)
+            c = RequestContext(request, {'title': 'FeedDB Explorer'})
+            return render_to_response('explorer/base.html', c, mimetype="application/xhtml+xml")
+        meta_selected = {}
+        for field in field_selected:
+            parts=field.split(":")
+            if not parts[1] in meta_selected:
+                meta_selected[parts[1]]=[]
+            parameter=parts[1]+":"+parts[2]
+            meta_selected[parts[1]].append([parts[2],request.POST[parameter]])
+        
+        filenames=[]
 
+        # create a temporary folder to store files
+        from time import time
+        tempdir = settings.EXPLORER_TEMPORARY_FOLDER+"/"+str(time()).replace('.', '')
+
+        try:
+            os.makedirs(tempdir)
+        except OSError, err:
+            message = 'failed to create folder for storing downloaded files.'
+            request.user.message_set.create(message=message)
+            c = RequestContext(request, {'title': 'FeedDB Explorer'})
+            return render_to_response('explorer/base.html', c, mimetype="application/xhtml+xml")
+        
+        filename = "%s/trials.csv" % tempdir
+        filenames.append(filename)
+        metaWriter = csv.writer(open(filename,"w"), delimiter=delimiter_char,  doublequote='false' , escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
+        #output trials
+        #output headers
+        headers=["Trial:ID"]
+        for key, value in meta_selected.items():
+            if key!="Channel":
+                for v in value:
+                    headers.append( v[1] )
+        metaWriter.writerow(headers)
+        
+        objects={}
+        for trial in bucket.trials.all():
+            values=[trial.id]
+            objects["Session"]= trial.session
+            objects["Experiment"]=trial.session.experiment
+            objects["Study"]=trial.session.experiment.study
+            objects["Subject"]=trial.session.experiment.subject
+            objects["Trial"]=trial
+            for key, value in meta_selected.items():
+                if key in objects:
+                    for v in value:
+                        s=getattr(objects[key], v[0])
+                        if hasattr(s,'split'): 
+                            ss=s.split('\r\n')
+                            if len(ss)>1:
+                                s=' '.join(ss)
+                        values.append(s) 
+            metaWriter.writerow(values)
+        #output channels
+        #generate channel headers
+        headers=["Channel:ID"]
+        for key, value in meta_selected.items():
+            if key=="Channel":
+                for v in value:
+                    headers.append( v[1] )
+        
+        for trial in bucket.trials.all():
+            filename = "%s/trial_%d_channels.csv" % (tempdir, trial.id)
+            filenames.append(filename)
+            metaWriter = csv.writer(open(filename,"w"), delimiter=delimiter_char, doublequote='false', escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
+            metaWriter.writerow(headers)
+            for lineup in trial.session.channellineup_set.all():
+                ch=lineup.channel
+                values=[ch.id]
+                for key, value in meta_selected.items():
+                    if key=="Channel":
+                        for v in value:
+                            if v[0]=="order":		
+                                values.append(lineup.position)
+                            if v[0]=="name":		
+                                values.append(ch.name)
+                            if v[0]=="technique":		
+                                values.append(ch.setup.technique)
+                            if v[0]=="muscle":
+                                if hasattr(ch, 'emgchannel'):
+                                    values.append(ch.emgchannel.sensor.muscle)
+                                elif hasattr(ch, 'sonochannel'):
+                                    values.append(ch.sonochannel.crystal1.muscle+", "+ch.sonochannel.crystal2.muscle)		
+                            if v[0]=="side":		
+                                if hasattr(ch, 'emgchannel'):
+                                    values.append(ch.emgchannel.sensor.side)
+                                elif hasattr(ch, 'sonochannel'):
+                                    values.append(ch.sonochannel.crystal1.side+", "+ch.sonochannel.crystal2.side)	
+                            if v[0]=="rate":		
+                                values.append(ch.rate)	                             
+                metaWriter.writerow(values)
+        response=send_zipfile(request, filenames,zipfile_name)
+        for file in filenames:
+            os.remove(file)
+        os.rmdir(tempdir)
+        return response
     if message!=None and message!="":
         request.user.message_set.create(message=message)
     meta_forms =[]
@@ -363,5 +474,35 @@ def login_view(request):
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': message, 'next':next })
         return render_to_response('explorer/login.html', c, mimetype="application/xhtml+xml")
 
+def send_file(request, filename):
+    """                                                                         
+    Send a file through Django without loading the whole file into              
+    memory at once. The FileWrapper will turn the file object into an           
+    iterator for chunks of 8KB.                                                 
+    """
+    wrapper = FileWrapper(file(filename))
+    response = HttpResponse(wrapper, content_type='text/plain')
+    response['Content-Length'] = os.path.getsize(filename)
+    response['Content-Disposition'] = 'attachment; filename="%s"' % os.path.basename(filename)
+
+    return response
+
+def send_zipfile(request, files, zipfilename):
+    """                                                                         
+    Create a ZIP file on disk and transmit it in chunks of 8KB,                 
+    without loading the whole file into memory. A similar approach can          
+    be used for large dynamic PDF files.                                        
+    """
+    temp = tempfile.TemporaryFile()
+    archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_DEFLATED)
+    for filename in files:
+        archive.write(filename, os.path.basename(filename))
+    archive.close()
+    wrapper = FileWrapper(temp)
+    response = HttpResponse(wrapper, content_type='application/zip')
+    response['Content-Length'] = temp.tell()
+    response['Content-Disposition'] = 'attachment; filename="%s"' % os.path.basename(zipfilename)
+    temp.seek(0)
+    return response
 
 
