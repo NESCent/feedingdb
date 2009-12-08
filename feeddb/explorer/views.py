@@ -202,7 +202,8 @@ def bucket_download(request, id):
         for trial in bucket.trials.all():
             filename = "%s/trial_%d_channels.csv" % (tempdir, trial.id)
             filenames.append(filename)
-            metaWriter = csv.writer(open(filename,"w"), delimiter=delimiter_char, doublequote='false', escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
+            f = open(filename,"w")
+            metaWriter = csv.writer(f, delimiter=delimiter_char, doublequote='false', escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
             metaWriter.writerow(headers)
             for lineup in trial.session.channellineup_set.all():
                 ch=lineup.channel
@@ -229,10 +230,11 @@ def bucket_download(request, id):
                             if v[0]=="rate":		
                                 values.append(ch.rate)	                             
                 metaWriter.writerow(values)
+            f.close()
         response=send_zipfile(request, filenames,zipfile_name)
-        #for file in filenames:
-        #    os.remove(file)
-        #os.rmdir(tempdir)
+        for file in filenames:
+            os.remove(file)
+        os.rmdir(tempdir)
         return response
     if message!=None and message!="":
         request.user.message_set.create(message=message)
