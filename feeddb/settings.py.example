@@ -35,3 +35,6 @@ SECRET_KEY = ''
 # FEED: we use this for user-uploaded files only
 MEDIA_ROOT = '/Users/vgapeyev/Work/MammFeeding/Django/feeding/feeddb_uploads'
 
+# Absolute path to the directory that holds temporary files for download
+# Note: do not put the "/" at the end of the path
+EXPLORER_TEMPORARY_FOLDER = '/home/temp'
