@@ -50,7 +50,9 @@ function checkbox_clicked(obj){
 <td>{% display_muscle trial  %}</td>
 <td class="bucket_column">
 {% for bucket in trial.bucket_set.all %}
+{%ifequal bucket.created_by.id user.id %}
 <a href="{% url explorer.views.bucket_detail bucket.id %}">{{bucket}}</a><br/>
+{%endifequal%}
 {% endfor %}
 </td>
 </tr>

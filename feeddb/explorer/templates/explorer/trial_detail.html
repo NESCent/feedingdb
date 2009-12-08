@@ -130,8 +130,10 @@ Put this trial into my bucket: <form action="{% url explorer.views.trial_add tri
            
            {% for bucket in trial.bucket_set.all %}
             {%if forloop.first %}This trial is in following bucket(s):<br/><ul> {%endif%}
+            {%ifequal bucket.created_by.id user.id %}
                 <li>{{bucket}} <a title="remove the trial from this bucket" href="javascript: if(confirm('Do you really want to remove this trial from the bucket:{{bucket}}?')==true)window.location.href='{% url explorer.views.trial_remove trial.id bucket.id %}';">Remove</a></li>
-              {%if forloop.last %}</ul> {%endif%}
+            {%endifequal%}  
+            {%if forloop.last %}</ul> {%endif%}
            {% endfor %}
 
            
