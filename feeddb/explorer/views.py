@@ -230,9 +230,9 @@ def bucket_download(request, id):
                                 values.append(ch.rate)	                             
                 metaWriter.writerow(values)
         response=send_zipfile(request, filenames,zipfile_name)
-        for file in filenames:
-            os.remove(file)
-        os.rmdir(tempdir)
+        #for file in filenames:
+        #    os.remove(file)
+        #os.rmdir(tempdir)
         return response
     if message!=None and message!="":
         request.user.message_set.create(message=message)
