@@ -7,6 +7,7 @@
 {% block content %}
 
 <h3>Bucket Detail</h3>
+<a href="{% url explorer.views.bucket_download form.instance.id %}">Download</a>
 <table>
 <form action="{% url explorer.views.bucket_detail form.instance.id %}" method="POST">
      {% include "explorer/include/form.html" %}
