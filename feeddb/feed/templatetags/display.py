@@ -32,7 +32,9 @@ def display_readonly(field, adminform):
         values.append(value)
 
     real_value=""
-    if isinstance(field.field.field.widget, RelatedFieldWidgetWrapper):
+    if value ==None:
+        real_value=""
+    elif isinstance(field.field.field.widget, RelatedFieldWidgetWrapper):
         for choice in field.field.field.widget.widget.choices:
             modelname = field.field.field.widget.rel.to._meta.object_name.lower()
             for value in values:
@@ -47,12 +49,11 @@ def display_readonly(field, adminform):
                 if value == choice[0]:
                     real_value += u'%s<br/>' % choice[1]
     elif isinstance(field.field.field.widget, AdminFileWidget):
-        if is_image(value):
-            real_value = u'<a href="%s%s" title="click to view full size image"><img width="100" src="%s%s"/></a><br/>' % (settings.MEDIA_URL, value, settings.MEDIA_URL,value)
-        else:
-            real_value = u'<a href="%s%s">%s</a><br/>' % (settings.MEDIA_URL,value, value)
-    elif value ==None:
-            real_value=""
+        if value!=None and value!="":
+            if is_image(value):
+                real_value = u'<a href="%s%s" title="click to view full size image"><img width="100" src="%s%s"/></a><br/>' % (settings.MEDIA_URL, value, settings.MEDIA_URL,value)
+            else:
+                real_value = u'<a href="%s%s">%s</a><br/>' % (settings.MEDIA_URL,value, value)
     else:     
         real_value = value
          
