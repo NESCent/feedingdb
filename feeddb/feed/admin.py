@@ -78,7 +78,7 @@ class SonoSetupInline(FeedTabularInline):
 class TrialInline(FeedTabularInline):
     model = Trial
     extra = 1
-    form = TrialForm
+    form = TrialInlineForm
     tabbed = True
     tab_name="Trials"
     formset = PositionBaseInlineFormSet
@@ -136,6 +136,7 @@ class SubjectAdmin(FeedModelAdmin):
     ordering = ('name',)
 
 class TrialAdmin(FeedModelAdmin):
+    form = TrialForm
     search_fields = ('accession', 'bookkeeping','behavior_primary', 'food_type')
     list_display = ('title', 'session', 'position', 'claimed_duration', 
                     'food_type', 'behavior_primary')

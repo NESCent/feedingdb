@@ -70,7 +70,7 @@ class SonoChannelForm(forms.ModelForm):
     class Meta:
         model = SonoChannel
 
-class TrialForm(forms.ModelForm):
+class TrialInlineForm(forms.ModelForm):
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
     accession = CharField(label = "Accession", widget=forms.TextInput(attrs={'size': 5}), required=False)
     position = IntegerField(label = "Position", widget=forms.TextInput(attrs={'size': 3}))
@@ -89,4 +89,16 @@ class TrialForm(forms.ModelForm):
     class Meta:
         model = Trial
         exclude = ('waveform_picture',)
+
+class TrialForm(forms.ModelForm):
+    remove_waveform_picture = forms.BooleanField(required=False)
+
+    def save(self, *args, **kwargs):
+        object = super(TrialForm, self).save(*args, **kwargs)
+        if self.cleaned_data.get('remove_waveform_picture'):
+            object.waveform_picture = ''
+        return object
+
+    class Meta:
+        model = Trial
 

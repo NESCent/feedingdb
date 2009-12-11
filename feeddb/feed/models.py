@@ -285,10 +285,18 @@ class Trial(FeedBaseModel):
     behavior_notes = models.TextField("behavior notes", blank = True, null=True)
 
     waveform_picture = models.FileField("waveform picture",upload_to="pictures" ,  blank = True, null=True)
-    #data_file  = models.FileField("Data File",upload_to="data" ,  blank = True, null=True)
+    data_file  = models.FileField("Data File",upload_to=get_data_upload_to ,  blank = True, null=True)
 
     def __unicode__(self):
         return self.title          
+
+# function to decide the upload_to for trial data file
+# upload_to = [media_root]/data/study_[study id]/experiment_[experiment id]/session_[session id]
+def get_data_upload_to(instance, filename):
+    session=instance.session
+    experiment = session.experiment
+    study = experiment.study
+    return 'data/study_%d/experiment_%d/session_%d' % (study.id, experiment.id,session.id )
 
 class Illustration(FeedBaseModel):
     picture = models.FileField("picture",upload_to='illustrations',  blank = True, null=True)
@@ -297,8 +305,6 @@ class Illustration(FeedBaseModel):
     setup  = models.ForeignKey(Setup,  blank = True, null=True)
     experiment  = models.ForeignKey(Experiment,  blank = True, null=True)
     
-    
-
 class ChannelLineup(FeedBaseModel):
     session = models.ForeignKey(Session)
     position = models.IntegerField()
