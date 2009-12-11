@@ -264,6 +264,15 @@ class Session(FeedBaseModel):
     class Meta:
         ordering = ["position"]
 
+# function to decide the upload_to for trial data file
+# upload_to = [media_root]/data/study_[study id]/experiment_[experiment id]/session_[session id]
+def get_data_upload_to(instance, filename):
+    session=instance.session
+    experiment = session.experiment
+    study = experiment.study
+    return 'data/study_%d/experiment_%d/session_%d' % (study.id, experiment.id,session.id )
+
+
 class Trial(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255, default='new Trial - edit this')
@@ -289,14 +298,6 @@ class Trial(FeedBaseModel):
 
     def __unicode__(self):
         return self.title          
-
-# function to decide the upload_to for trial data file
-# upload_to = [media_root]/data/study_[study id]/experiment_[experiment id]/session_[session id]
-def get_data_upload_to(instance, filename):
-    session=instance.session
-    experiment = session.experiment
-    study = experiment.study
-    return 'data/study_%d/experiment_%d/session_%d' % (study.id, experiment.id,session.id )
 
 class Illustration(FeedBaseModel):
     picture = models.FileField("picture",upload_to='illustrations',  blank = True, null=True)
