@@ -22,14 +22,14 @@ from django.conf import settings
 
 def portal_page(request):
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'content': 'Welcome!'  })
-    return render_to_response('explorer/index.html', c)
+    return render_to_response('explorer/index.html', c, mimetype="text/html")
 
 def bucket_index(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
     buckets = Bucket.objects.filter(created_by=request.user)
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'buckets': buckets})
-    return render_to_response('explorer/bucket_list.html', c)
+    return render_to_response('explorer/bucket_list.html', c, mimetype="text/html")
 
 def bucket_add(request):
     if not request.user.is_authenticated():
