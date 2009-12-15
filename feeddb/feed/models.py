@@ -272,7 +272,6 @@ def get_data_upload_to(instance, filename):
     study = experiment.study
     return 'data/study_%d/experiment_%d/session_%d' % (study.id, experiment.id,session.id )
 
-
 class Trial(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255, default='new Trial - edit this')
