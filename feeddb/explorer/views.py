@@ -29,8 +29,7 @@ def bucket_index(request):
         return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
     buckets = Bucket.objects.filter(created_by=request.user)
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'buckets': buckets})
-    return render_to_response('explorer/bucket_list.html', c,
-        mimetype="text/html")
+    return render_to_response('explorer/bucket_list.html', c)
 
 def bucket_add(request):
     if not request.user.is_authenticated():
@@ -137,7 +136,7 @@ def bucket_download(request, id):
             message = 'no fields selected.'
             request.user.message_set.create(message=message)
             c = RequestContext(request, {'title': 'FeedDB Explorer'})
-            return render_to_response('explorer/base.html', c, mimetype="text/html")
+            return render_to_response('explorer/base.html', c)
         meta_selected = {}
         for field in field_selected:
             parts=field.split(":")
@@ -158,7 +157,7 @@ def bucket_download(request, id):
             message = 'failed to create folder for storing downloaded files.'
             request.user.message_set.create(message=message)
             c = RequestContext(request, {'title': 'FeedDB Explorer'})
-            return render_to_response('explorer/base.html', c, mimetype="text/html")
+            return render_to_response('explorer/base.html', c)
         
         filename = "%s/trials.csv" % tempdir
         filenames.append(filename)
@@ -277,11 +276,11 @@ def trial_search(request):
             results= Trial.objects.filter(query).distinct()  
             
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'form': form, 'trials': results})
-        return render_to_response('explorer/trial_list.html', c, mimetype="text/html")
+        return render_to_response('explorer/trial_list.html', c)
     else:
         form= SearchTrailForm()
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'form': form})
-        return render_to_response('explorer/search_trial.html', c, mimetype="text/html")
+        return render_to_response('explorer/search_trial.html', c)
 
 def trial_search_put(request):
     if not request.user.is_authenticated():
@@ -296,7 +295,7 @@ def trial_search_put(request):
         message = 'no trial selected.'
         request.user.message_set.create(message=message)
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no trial selected.'})
-        return render_to_response('explorer/base.html', c, mimetype="text/html")
+        return render_to_response('explorer/base.html', c)
     #check if new bucket selected
     bucket = None
     bucket_selected = request.POST['bucket']
@@ -304,14 +303,14 @@ def trial_search_put(request):
         message = 'no bucket selected.'
         request.user.message_set.create(message=message)
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no bucket selected.'})
-        return render_to_response('explorer/base.html', c, mimetype="text/html")
+        return render_to_response('explorer/base.html', c)
     if request.POST['bucket']!='add new bucket':
         bucket = Bucket.objects.get(pk=bucket_selected)
     else: 
         new_bucket_name=request.POST['new_bucket_name']
         if new_bucket_name==None and new_bucket_name =="":
             c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no new bucket name specified.'})
-            return render_to_response('explorer/base.html', c, mimetype="text/html")
+            return render_to_response('explorer/base.html', c)
         else:
             bucket = Bucket()
             bucket.created_by = request.user
@@ -362,9 +361,9 @@ def trial_detail(request, id):
         trial = Trial.objects.get(pk=id)
     except Trial.DoesNotExist:
         c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
-        return render_to_response('explorer/error.html', c, mimetype="text/html")
+        return render_to_response('explorer/error.html', c)
     c = RequestContext(request, {'title': 'Trial Detail | FeedDB Explorer', 'trial': trial})
-    return render_to_response('explorer/trial_detail.html', c, mimetype="text/html")
+    return render_to_response('explorer/trial_detail.html', c)
 
 def trial_remove(request, id, bucket_id):
     if not request.user.is_authenticated():
@@ -374,7 +373,7 @@ def trial_remove(request, id, bucket_id):
     except Trial.DoesNotExist:
         request.user.message_set.create(message='Trial with primary key %(key)r does not exist.' % {'key': escape(id)})
         c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
-        return render_to_response('explorer/base.html', c, mimetype="text/html")
+        return render_to_response('explorer/base.html', c)
 
     try:
         bucket = Bucket.objects.get(pk=bucket_id)
@@ -400,7 +399,7 @@ def trial_add(request, id):
             trial = Trial.objects.get(pk=id)
         except Trial.DoesNotExist:
             c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
-            return render_to_response('explorer/error.html', c, mimetype="text/html")
+            return render_to_response('explorer/error.html', c)
         
         if request.POST['bucket_id']!='add new bucket':
             bucket_id = request.POST['bucket_id']
@@ -438,7 +437,7 @@ def logout_view(request):
     logout(request)
     message = 'You have logged out.'
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': message})
-    return render_to_response('explorer/index.html', c, mimetype="text/html")
+    return render_to_response('explorer/index.html', c)
 
 def login_view(request):
     if request.user.is_authenticated():
@@ -449,7 +448,7 @@ def login_view(request):
         if request.GET.has_key('next'):
             next = request.GET['next'] 
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': message, 'next':next})
-        return render_to_response('explorer/login.html', c, mimetype="text/html")
+        return render_to_response('explorer/login.html', c)
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -473,7 +472,7 @@ def login_view(request):
         if request.GET.has_key('next'):
             next = request.GET['next'] 
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': message, 'next':next })
-        return render_to_response('explorer/login.html', c, mimetype="text/html")
+        return render_to_response('explorer/login.html', c)
 
 def send_file(request, filename):
     """                                                                         
