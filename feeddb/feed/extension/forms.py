@@ -91,13 +91,20 @@ class TrialInlineForm(forms.ModelForm):
         exclude = ('waveform_picture',)
 
 class TrialForm(forms.ModelForm):
-    remove_waveform_picture = forms.BooleanField(required=False)
-
-    def save(self, *args, **kwargs):
-        object = super(TrialForm, self).save(*args, **kwargs)
-        if self.cleaned_data.get('remove_waveform_picture'):
-            object.waveform_picture = ''
-        return object
+    #remove_waveform_picture = forms.BooleanField(required=False)
+    #def save(self, *args, **kwargs):
+    #    object = super(TrialForm, self).save(*args, **kwargs)
+    #    if self.cleaned_data.get('remove_waveform_picture'):
+    #        object.waveform_picture = ''
+    #    return object
+    
+    def __init__(self, *args, **kwargs):
+        super(forms.ModelForm, self).__init__(*args, **kwargs)
+        for key, field in self.base_fields.iteritems():
+            if(key =="data_file"):
+                field.widget = field.hidden_widget()
+                field.help_text ="Please upload data file after saving the new trial."
+        
 
     class Meta:
         model = Trial

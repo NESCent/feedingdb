@@ -145,7 +145,7 @@ def bucket_download(request, id):
             parameter=parts[1]+":"+parts[2]
             meta_selected[parts[1]].append([parts[2],request.POST[parameter]])
         
-        filenames=[]
+        filenames={}
 
         # create a temporary folder to store files
         from time import time
@@ -159,79 +159,101 @@ def bucket_download(request, id):
             c = RequestContext(request, {'title': 'FeedDB Explorer'})
             return render_to_response('explorer/base.html', c)
         
-        filename = "%s/trials.csv" % tempdir
-        filenames.append(filename)
-        metaWriter = csv.writer(open(filename,"w"), delimiter=delimiter_char,  doublequote='false' , escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
-        #output trials
-        #output headers
-        headers=["Trial:ID"]
-        for key, value in meta_selected.items():
-            if key!="Channel":
-                for v in value:
-                    headers.append( v[1] )
-        metaWriter.writerow(headers)
-        
-        objects={}
-        for trial in bucket.trials.all():
-            values=[trial.id]
-            objects["Session"]= trial.session
-            objects["Experiment"]=trial.session.experiment
-            objects["Study"]=trial.session.experiment.study
-            objects["Subject"]=trial.session.experiment.subject
-            objects["Trial"]=trial
+        #
+        # create meta data if the user has chosen to do so
+        #
+        if  (download_choice=="0" or  download_choice=="2"):
+            #create trials mate data file and out it into the temp zip file
+            full_filename = "%s/trials.csv" % tempdir
+            filenames["trials.csv"]=full_filename
+
+            metaWriter = csv.writer(open(full_filename,"w"), delimiter=delimiter_char,  doublequote='false' , escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
+            
+            #output trials
+            #output headers
+            headers=["Trial:ID"]
             for key, value in meta_selected.items():
-                if key in objects:
+                if key!="Channel":
                     for v in value:
-                        s=getattr(objects[key], v[0])
-                        if hasattr(s,'split'): 
-                            ss=s.split('\r\n')
-                            if len(ss)>1:
-                                s=' '.join(ss)
-                        values.append(s) 
-            metaWriter.writerow(values)
-        #output channels
-        #generate channel headers
-        headers=["Channel:ID"]
-        for key, value in meta_selected.items():
-            if key=="Channel":
-                for v in value:
-                    headers.append( v[1] )
-        
-        for trial in bucket.trials.all():
-            filename = "%s/trial_%d_channels.csv" % (tempdir, trial.id)
-            filenames.append(filename)
-            f = open(filename,"w")
-            metaWriter = csv.writer(f, delimiter=delimiter_char, doublequote='false', escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
+                        headers.append( v[1] )
             metaWriter.writerow(headers)
-            for lineup in trial.session.channellineup_set.all():
-                ch=lineup.channel
-                values=[ch.id]
+        
+            objects={}
+            for trial in bucket.trials.all():
+                values=[trial.id]
+                objects["Session"]= trial.session
+                objects["Experiment"]=trial.session.experiment
+                objects["Study"]=trial.session.experiment.study
+                objects["Subject"]=trial.session.experiment.subject
+                objects["Trial"]=trial
                 for key, value in meta_selected.items():
-                    if key=="Channel":
+                    if key in objects:
                         for v in value:
-                            if v[0]=="order":		
-                                values.append(lineup.position)
-                            if v[0]=="name":		
-                                values.append(ch.name)
-                            if v[0]=="technique":		
-                                values.append(ch.setup.technique)
-                            if v[0]=="muscle":
-                                if hasattr(ch, 'emgchannel'):
-                                    values.append(ch.emgchannel.sensor.muscle)
-                                elif hasattr(ch, 'sonochannel'):
-                                    values.append(ch.sonochannel.crystal1.muscle+", "+ch.sonochannel.crystal2.muscle)		
-                            if v[0]=="side":		
-                                if hasattr(ch, 'emgchannel'):
-                                    values.append(ch.emgchannel.sensor.side)
-                                elif hasattr(ch, 'sonochannel'):
-                                    values.append(ch.sonochannel.crystal1.side+", "+ch.sonochannel.crystal2.side)	
-                            if v[0]=="rate":		
-                                values.append(ch.rate)	                             
+                            s=getattr(objects[key], v[0])
+                            if hasattr(s,'split'): 
+                                ss=s.split('\r\n')
+                                if len(ss)>1:
+                                    s=' '.join(ss)
+                            values.append(s) 
                 metaWriter.writerow(values)
-            f.close()
-        response=send_zipfile(request, filenames,zipfile_name)
-        for file in filenames:
-            os.remove(file)
+        
+            #output channels
+            #generate channel headers
+            headers=["Channel:ID"]
+            for key, value in meta_selected.items():
+                if key=="Channel":
+                    for v in value:
+                        headers.append( v[1] )
+        
+            for trial in bucket.trials.all():
+                filename = "trial_%d_channels.csv" % trial.id
+                full_filename = "%s/trial_%d_channels.csv" % (tempdir, trial.id)
+                filenames[filename]=full_filename
+
+                f = open(full_filename,"w")
+                metaWriter = csv.writer(f, delimiter=delimiter_char, doublequote='false', escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
+                metaWriter.writerow(headers)
+                for lineup in trial.session.channellineup_set.all():
+                    ch=lineup.channel
+                    values=[ch.id]
+                    for key, value in meta_selected.items():
+                        if key=="Channel":
+                            for v in value:
+                                if v[0]=="order":		
+                                    values.append(lineup.position)
+                                if v[0]=="name":		
+                                    values.append(ch.name)
+                                if v[0]=="technique":		
+                                    values.append(ch.setup.technique)
+                                if v[0]=="muscle":
+                                    if hasattr(ch, 'emgchannel'):
+                                        values.append(ch.emgchannel.sensor.muscle)
+                                    elif hasattr(ch, 'sonochannel'):
+                                        values.append(ch.sonochannel.crystal1.muscle+", "+ch.sonochannel.crystal2.muscle)		
+                                if v[0]=="side":		
+                                    if hasattr(ch, 'emgchannel'):
+                                        values.append(ch.emgchannel.sensor.side)
+                                    elif hasattr(ch, 'sonochannel'):
+                                        values.append(ch.sonochannel.crystal1.side+", "+ch.sonochannel.crystal2.side)	
+                                if v[0]=="rate":		
+                                    values.append(ch.rate)	                             
+                    metaWriter.writerow(values)
+                f.close()
+        #
+        # put data files into the tmp zip
+        #
+        data_files = {}
+        if  (download_choice=="1" or  download_choice=="2") :
+            for trial in bucket.trials.all():
+                #check if there is a data file
+                if(trial.data_file!=None and trial.data_file!=""):
+                    filename = "trial_%d.dat" % trial.id
+                    full_filename = "%s/%s" % (settings.MEDIA_ROOT, trial.data_file)
+                    data_files[filename]=full_filename
+
+        response=send_zipfile(request, filenames,data_files, zipfile_name)
+        for file, full_file in filenames.items():
+            os.remove(full_file)
         os.rmdir(tempdir)
         return response
     if message!=None and message!="":
@@ -487,7 +509,7 @@ def send_file(request, filename):
 
     return response
 
-def send_zipfile(request, files, zipfilename):
+def send_zipfile(request, files, data_files, zipfilename):
     """                                                                         
     Create a ZIP file on disk and transmit it in chunks of 8KB,                 
     without loading the whole file into memory. A similar approach can          
@@ -495,8 +517,11 @@ def send_zipfile(request, files, zipfilename):
     """
     temp = tempfile.TemporaryFile()
     archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_DEFLATED)
-    for filename in files:
-        archive.write(filename, os.path.basename(filename))
+    for file, filename in files.items():
+        archive.write(filename, file)
+    
+    for file, filename in data_files.items():
+        archive.write(filename, file)
     archive.close()
     wrapper = FileWrapper(temp)
     response = HttpResponse(wrapper, content_type='application/zip')

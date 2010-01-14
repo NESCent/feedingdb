@@ -264,13 +264,14 @@ class Session(FeedBaseModel):
     class Meta:
         ordering = ["position"]
 
+
 # function to decide the upload_to for trial data file
 # upload_to = [media_root]/data/study_[study id]/experiment_[experiment id]/session_[session id]
 def get_data_upload_to(instance, filename):
     session=instance.session
     experiment = session.experiment
     study = experiment.study
-    return 'data/study_%d/experiment_%d/session_%d' % (study.id, experiment.id,session.id )
+    return 'data/study_%d/experiment_%d/session_%d/%s' % (study.id, experiment.id,session.id, filename)
 
 class Trial(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
@@ -292,7 +293,7 @@ class Trial(FeedBaseModel):
     behavior_secondary = models.CharField("secondary behavior", max_length=255,blank = True, null=True)
     behavior_notes = models.TextField("behavior notes", blank = True, null=True)
 
-    waveform_picture = models.FileField("waveform picture",upload_to="pictures" ,  blank = True, null=True)
+    waveform_picture = models.FileField("waveform picture",upload_to="pictures",  blank = True, null=True)
     data_file  = models.FileField("Data File",upload_to=get_data_upload_to ,  blank = True, null=True)
 
     def __unicode__(self):
