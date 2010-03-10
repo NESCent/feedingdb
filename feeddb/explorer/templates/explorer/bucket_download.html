@@ -8,11 +8,19 @@
 <script language="javascript">
 function checkbox_clicked(obj){
    if(obj.checked){
-	$("#meta_form").checkCheckboxes();	
+    	$('[INPUT[name^="chk:"]').attr('checked', true);
    }else{
-           	$("#meta_form").unCheckCheckboxes();
+        $('[INPUT[name^="chk:"]').attr('checked', false);
    }
 }
+function select_allchannels_clicked(obj){
+    if(obj.checked){
+    	$('[INPUT[name^="channel:"]').attr('checked', true);
+   }else{
+        $('[INPUT[name^="channel:"]').attr('checked', false);
+   }
+}
+
 
 </script>
 
@@ -21,12 +29,13 @@ function checkbox_clicked(obj){
           <form action="{% url explorer.views.bucket_download bucket.id %}" id="meta_form" name ="meta_form" method="POST">
                 
 <table>
-<tr><td class="TdField">Zip file name</td><td class="TdValue"><input name="zipfile_name" size="50" /></td></tr>
+<tr><td class="TdField">Zip file name</td><td class="TdValue"><input name="zipfile_name" size="50" value="bucket_{{bucket.id}}.zip"/></td></tr>
 <tr><td class="TdField">Choose data to download</td><td class="TdValue">
-                <input type="radio" name="download_choice" value="0" checked="checked" onclick="document.getElementById('meta_div').style.display='block';"/>Meta data only<br/>
-                <input type="radio" name="download_choice" value="1" onclick="document.getElementById('meta_div').style.display='none';" />Data only<br/>
-                <input type="radio" name="download_choice"  value="2"  onclick="document.getElementById('meta_div').style.display='block';" />Both meta data and data<br/>
-                </td></tr>
+				<input type="radio" name="download_choice"  value="0"  checked="checked" onclick="document.getElementById('meta_div').style.display='block';document.getElementById('channels_div').style.display='none';"/>Meta data only<br/>
+                <input type="radio" name="download_choice"  value="1" onclick="document.getElementById('meta_div').style.display='none';document.getElementById('channels_div').style.display='block';" />Data only<br/>
+                <input type="radio" name="download_choice"  value="2"  onclick="document.getElementById('meta_div').style.display='block'; document.getElementById('channels_div').style.display='block';"/>Both meta data and data<br/>
+				
+				</td></tr>
 </table>
                  <div id="meta_div">
                  <!-- h3>CSV format</h3>
@@ -45,7 +54,7 @@ function checkbox_clicked(obj){
 <th>Source</th>
                   <th width="166">Field</th>
                   <th width="180">Column Header</th>
-                  <th width="60">Select
+                  <th width="60">Select All<br/>
                   <input type="checkbox"  id="select_all" onclick ="checkbox_clicked(this)" checked="checked" /></th></tr>
                   
                  {% for form in meta_forms %}
@@ -74,6 +83,53 @@ function checkbox_clicked(obj){
                   </table>  
 
                 </div>
+				
+				 <div id="channels_div" style="display:none;">
+                 <h3>Channel Selection</h3>
+				 <table width="100%">
+                 <tr><td  class="TdValue"><input type="radio"  name="channel_choice"  value ="0" onclick="document.getElementById('channels_sel_div').style.display='none';" checked="checked"/> all channels: all trial files in current bucket will be downloaded as original files. </td></tr>
+                 <tr><td  class="TdValue"><input type="radio"   name="channel_choice"  value ="1" onclick="document.getElementById('channels_sel_div').style.display='block';" /> selected channels: selected channels will be merged side by side into one file for downloading.</td></tr>
+				 </table>
+                 <div id="channels_sel_div" style="display:none;">
+                     <h3>Select Channels</h3>
+                     <p>All channels from all trials in the current bucket will be displayed below and user can select individual channels for each trial for downloading. </p>
+                     <table class="detail_table">
+                <tr>
+                  <th rowspan="2">Trial</th>
+                  <th colspan="6">Channels</th>
+                  <th rowspan="2">Select All <br/><input type="checkbox" id="select_all_channels" onclick ="select_allchannels_clicked(this)" checked="checked"/></th>
+				</tr>
+				<tr>				  
+                <th>Order</th>
+               <th>Name</th>
+                <th>Technique</th>
+                <th>Rate</th>
+                <th>Muscle</th>
+                <th>Muscle Side</th>
+                </tr>
+                {% for trial in bucket.trials.all %} 
+				{% for lineup in trial.session.channellineup_set.all %}
+				{%if forloop.first %}<tr class="{% cycle 'even'  'odd' %}"><td rowspan="{{trial.session.channellineup_set.all|length}}">{{trial.title}}</td>{%else%}<tr class="{% cycle 'even'  'odd' %}">{%endif%}
+
+      <td>{{lineup.position}}</td>
+                 <td>{{lineup.channel.name}}</td>
+                 <td>{{lineup.channel.setup.technique}}</td>
+                  <td>{{lineup.channel.rate}}</td>
+                  {% ifequal lineup.channel.setup.technique.label 'EMG' %}
+                           <td>{{lineup.channel.emgchannel.sensor.muscle}}</td>
+                           <td>{{lineup.channel.emgchannel.sensor.side}}</td>
+                  {%endifequal%}
+                   {% ifequal lineup.channel.setup.technique.label 'Sono' %}
+                           <td>{{lineup.channel.sonochannel.sensor.muscle}}</td>
+                           <td>{{lineup.channel.sonochannel.sensor.side}}</td>
+                  {%endifequal%}
+                <td><input name="channel:{{trial.id}}:{{lineup.position}}" type="checkbox" checked="checked" /></td>  
+</tr>
+{%endfor %}
+{%endfor %}
+                </table>
+                 </div>    
+				</div>
                 <input type="submit" value="download" />
           </form>
 
