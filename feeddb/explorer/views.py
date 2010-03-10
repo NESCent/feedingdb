@@ -114,7 +114,16 @@ def bucket_download(request, id):
 
     if request.method=='POST':
         zipfile_name= request.POST['zipfile_name']
+        if zipfile_name=="":
+            message = 'no zip file name selected.'
+            request.user.message_set.create(message=message)
+            c = RequestContext(request, {'title': 'FeedDB Explorer'})
+            return render_to_response('explorer/base.html', c)
+        if not zipfile_name.endswith(".zip"):   
+            zipfile_name +=".zip"
+             
         download_choice= request.POST['download_choice']
+        channel_choice = request.POST['channel_choice']
         #meta_option= request.POST['meta_option']
         quotechar_char='"'
         #delimiter= request.POST['delimiter']
@@ -129,7 +138,7 @@ def bucket_download(request, id):
         #get selected fields
         field_selected = []
         for item in request.POST.items():
-            if(item[1]=="on" and item[0]!="meta_option" and item[0]!="download_choice"):
+            if(item[1]=="on" and item[0].startswith("chk:")):
                 field_selected.append(item[0])
                 message += item[0]+"\n"
         if  (download_choice=="0" or  download_choice=="2") and  len(field_selected) ==0:
@@ -145,6 +154,23 @@ def bucket_download(request, id):
             parameter=parts[1]+":"+parts[2]
             meta_selected[parts[1]].append([parts[2],request.POST[parameter]])
         
+         #get selected channels
+        channel_selected = []
+        channel_headers=[]
+        for item in request.POST.items():
+            if(item[1]=="on" and item[0].startswith("channel:")):
+                channel_selected.append(item[0])
+                message += item[0]+"\n"
+        if  (channel_choice=="1" and len(channel_selected) ==0):
+            message = 'no channels selected.'
+            request.user.message_set.create(message=message)
+            c = RequestContext(request, {'title': 'FeedDB Explorer'})
+            return render_to_response('explorer/base.html', c)
+        channel_download = []
+        for ch in channel_selected:
+            parts=ch.split(":")
+            channel_download.append([parts[1], parts[2]])
+            channel_headers.append("Trial %s:Channel %s" % (parts[1], parts[2]))
         filenames={}
 
         # create a temporary folder to store files
@@ -243,14 +269,60 @@ def bucket_download(request, id):
         # put data files into the tmp zip
         #
         data_files = {}
-        if  (download_choice=="1" or  download_choice=="2") :
-            for trial in bucket.trials.all():
-                #check if there is a data file
-                if(trial.data_file!=None and trial.data_file!=""):
-                    filename = "trial_%d.dat" % trial.id
-                    full_filename = "%s/%s" % (settings.MEDIA_ROOT, trial.data_file)
-                    data_files[filename]=full_filename
-
+        if  (download_choice=="1" or  download_choice=="2"):
+            # download all trial files
+            if channel_choice=="0": 
+                for trial in bucket.trials.all():
+                    #check if there is a data file
+                    if(trial.data_file!=None and trial.data_file!=""):
+                        filename = "trial_%d.dat" % trial.id
+                        full_filename = "%s/%s" % (settings.MEDIA_ROOT, trial.data_file)
+                        data_files[filename]=full_filename
+            else:
+                # download selected channels
+                filename = "channels.dat"
+                full_filename = "%s/channels.dat" % tempdir
+                filenames[filename]=full_filename
+                f = open(full_filename,"w")
+                metaWriter = csv.writer(f, delimiter=delimiter_char, doublequote='false', escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
+                metaWriter.writerow(channel_headers)
+                trial_readers={}
+                total_trial_number=0
+                for trial in bucket.trials.all():
+                    #check if there is a data file
+                    if(trial.data_file!=None and trial.data_file!=""):
+                        full_filename = "%s/%s" % (settings.MEDIA_ROOT, trial.data_file)
+                        csvfile = open(full_filename)
+                        dialect = csv.Sniffer().sniff(csvfile.read(1024))
+                        csvfile.seek(0)
+                        reader = csv.reader(csvfile, dialect)
+                        trial_readers[str(trial.id)]={"reader":reader,"hasmore":True,"file":csvfile}
+                        total_trial_number += 1
+                        
+                rows ={}
+                newrow=[]
+                finished_file_number=0
+                
+                while finished_file_number<total_trial_number:
+                    rows.clear()
+                    for key in trial_readers:
+                        try:
+                            if trial_readers[key]["hasmore"]:
+                                row = trial_readers[key]["reader"].next()
+                                rows[key] = row
+                        except StopIteration:
+                            finished_file_number += 1
+                            trial_readers[key]["hasmore"]=False
+                            trial_readers[key]["file"].close()
+                            
+                    newrow=[]
+                    for ch in channel_download:
+                        if ch[0] in rows:
+                            newrow.append(rows[ch[0]][int(ch[1])])
+                        else:
+                            newrow.append('')                  
+                    metaWriter.writerow(newrow)      
+                f.close()
         response=send_zipfile(request, filenames,data_files, zipfile_name)
         for file, full_file in filenames.items():
             os.remove(full_file)
