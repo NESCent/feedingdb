@@ -81,6 +81,11 @@ class Behavior(CvTerm):
 class Restraint(CvTerm):
     pass
 
+# VG: initially Unit is only for the "generic" techniques; 
+#  later, we'll probably switch from Emgunit and Sonounit into it's favor 
+class Unit(CvTerm):
+    technique = models.ForeignKey(Technique)
+
 class Emgunit(CvTerm):
     pass
 
@@ -177,9 +182,16 @@ class SonoSetup(Setup):
     def __unicode__(self):
         return "%s setup with sonomicrometer: %s" % (self.technique, self.sonomicrometer)  
 
+class StrainSetup(Setup):
+    class Meta:
+        verbose_name = "Bone strain"
+
 class Sensor(FeedBaseModel):
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length=255)
+    location = models.CharField("Anatomical Location", max_length=255, blank = True, null=True)
+    loc_side = models.ForeignKey(Side, verbose_name="Side of Location", null=True)
+    loc_region = models.CharField("Region of location", max_length=255, blank = True, null=True)
     notes = models.TextField( blank = True, null=True)
     def __unicode__(self):
         return self.name  
@@ -187,6 +199,7 @@ class Sensor(FeedBaseModel):
 class EmgSensor(Sensor):
     muscle = models.ForeignKey(Muscle)
     side = models.ForeignKey(Side, verbose_name="side of muscle" )
+    ##### conceptually, EmgSensor.side overrides Sensor.loc_side
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="depth point", blank = True, null=True )
     axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="anterior-posterior point", blank = True, null=True )
     axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="dorsal-ventral point", blank = True, null=True )
@@ -203,6 +216,7 @@ class EmgSensor(Sensor):
 class SonoSensor(Sensor):
     muscle = models.ForeignKey(Muscle )
     side = models.ForeignKey(Side, verbose_name="side of muscle" )
+    ##### conceptually, SonoSensor.side overrides Sensor.loc_side
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="depth point", blank = True, null=True )
     axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="anterior-posterior point", blank = True, null=True )
     axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="dorsal-ventral point", blank = True, null=True )
@@ -211,11 +225,16 @@ class SonoSensor(Sensor):
 
     class Meta:
         verbose_name = "Sono sensor"
+
+class StrainSensor(Sensor):
+    class Meta:
+        verbose_name = "Strain sensor"
     
 class Channel(FeedBaseModel):
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length = 255)
     rate = models.IntegerField()
+    units = models.ForeignKey(Unit, verbose_name="Units", null=True)
     notes = models.TextField("Notes about the channel",  blank = True, null=True)
 
     def __unicode__(self):
@@ -243,6 +262,11 @@ class SonoChannel(Channel):
 
     class Meta:
         verbose_name = "sonochannel"
+
+class StrainChannel(Channel):
+    class Meta:
+        verbose_name = "Strain channel"
+
                
 class Session(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
@@ -318,6 +342,13 @@ class ChannelLineup(FeedBaseModel):
     def __unicode__(self):
         return str(self.position) 
 
+# EmgElectrode model is a hack combining features of EmgSensor and EmgChannel 
+# into a single data object -- this is specific to EMG. 
+# EmgElectrode is registered with Django Admin, while EmgSensor and EmgChannel
+# still store all the relevant data -- see EmgElectrode.save() override. 
+# VG: Right now, EmgElectrode table also stores a duplicate copy of the data; 
+#   can we avoid this by also overriding a suitable "load" method, so that 
+#   EmgElectrode also *populates* itself from EmgSensor and EmgChannel? 
 class EmgElectrode(FeedBaseModel):
     sensor = models.OneToOneField(Sensor, null=True,blank=True, editable=False)
     channel = models.OneToOneField(Channel, null=True, blank=True,editable=False)
