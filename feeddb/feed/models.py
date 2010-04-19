@@ -184,7 +184,7 @@ class SonoSetup(Setup):
 
 class StrainSetup(Setup):
     class Meta:
-        verbose_name = "Bone strain"
+        verbose_name = "Strain setup"
 
 class Sensor(FeedBaseModel):
     setup = models.ForeignKey(Setup)
