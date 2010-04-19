@@ -70,6 +70,16 @@ class SonoChannelForm(forms.ModelForm):
     class Meta:
         model = SonoChannel
 
+class StrainSensorForm(forms.ModelForm):
+    notes = CharField(label ="Notes", widget=Notes(), required=False)
+    class Meta:
+        model = StrainSensor
+        
+class StrainChannelForm(forms.ModelForm):
+    notes = CharField(label ="Notes", widget=Notes(), required=False)
+    class Meta:
+        model = StrainChannel
+        
 class TrialInlineForm(forms.ModelForm):
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
     accession = CharField(label = "Accession", widget=forms.TextInput(attrs={'size': 5}), required=False)
