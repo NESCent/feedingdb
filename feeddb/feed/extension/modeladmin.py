@@ -868,55 +868,7 @@ class ExperimentModelAdmin(FeedModelAdmin):
         if request.method != 'POST':
             return response
 
-        has_emg = False
-        emgsetup = None
-        has_sono = False
-        sonosetup=None
-
-        for s in obj.setup_set.all():
-            if hasattr(s,"emgsetup"):
-                has_emg = True
-                emgsetup = s
-            if hasattr(s, "sonosetup"):
-                has_sono = True
-                sonosetup = s
-
-        emg  = request.POST.get('technique_emg')
-        
-        if emg != None and emg == "on":
-            if not has_emg:
-                tech = Technique.objects.get(label = "EMG")
-                setup = Setup()
-                setup.technique=tech
-                setup.experiment = obj
-                emgsetup = EmgSetup()
-                emgsetup.experiment = obj
-                emgsetup.technique=tech
-                setup.emgsetup=emgsetup
-                emgsetup.created_by = request.user
-                setup.created_by = request.user
-                setup.save()
-                emgsetup.save()
-        if emg == None and has_emg: 
-            emgsetup.delete()
-         
-        sono  = request.POST.get('technique_sono')
-        if sono != None and sono == "on":
-            if not has_sono:
-                tech = Technique.objects.get(label = "Sono")
-                setup = Setup();
-                setup.technique=tech
-                setup.experiment = obj
-                sonosetup = SonoSetup()
-                sonosetup.experiment = obj
-                sonosetup.technique=tech
-                setup.sonosetup = sonosetup
-                sonosetup.created_by = request.user
-                setup.created_by = request.user
-                setup.save()
-                sonosetup.save()
-        if sono == None and has_sono: 
-            sonosetup.delete()
+        self.add_techniques(request,obj)
         return response 
 
     def add_view(self, request, form_url='', extra_context=None):
@@ -964,35 +916,76 @@ class ExperimentModelAdmin(FeedModelAdmin):
 
     def add_techniques(self, request, new_experiment):
         "handle techniques for this experiment."
-        if request.method == 'POST':
-                emg  = request.POST.get('technique_emg')
-                if emg != None and emg == "on":
-                    tech = Technique.objects.get(label = "EMG")
-                    setup = Setup()
-                    setup.technique=tech
-                    setup.experiment = new_experiment
-                    emgsetup = EmgSetup()
-                    emgsetup.experiment = new_experiment
-                    emgsetup.technique=tech
-                    setup.emgsetup=emgsetup
-                    emgsetup.created_by = request.user
-                    setup.created_by = request.user
-                    setup.save()
-                    emgsetup.save()
-                sono  = request.POST.get('technique_sono')
-                if sono != None and sono == "on":
-                    tech = Technique.objects.get(label = "Sono")
-                    setup = Setup();
-                    setup.technique=tech
-                    setup.experiment = new_experiment
-                    sonosetup = SonoSetup()
-                    sonosetup.experiment = new_experiment
-                    sonosetup.technique=tech
-                    setup.sonosetup = sonosetup
-                    sonosetup.created_by = request.user
-                    setup.created_by = request.user
-                    setup.save()
-                    sonosetup.save()
+        has_emg = False
+        emgsetup = None
+        has_sono = False
+        sonosetup=None
+        has_strain = False
+        strainsetup=None
+        for s in new_experiment.setup_set.all():
+            if hasattr(s,"emgsetup"):
+                has_emg = True
+                emgsetup = s
+            if hasattr(s, "sonosetup"):
+                has_sono = True
+                sonosetup = s
+            if hasattr(s, "strainsetup"):
+                has_sono = True
+                strainsetup = s
+        
+        emg  = request.POST.get('technique_emg')
+        
+        if emg != None and emg == "on":
+            if not has_emg:
+                tech = Technique.objects.get(label = "EMG")
+                setup = Setup()
+                setup.technique=tech
+                setup.experiment = new_experiment
+                emgsetup = EmgSetup()
+                emgsetup.experiment = new_experiment
+                emgsetup.technique=tech
+                setup.emgsetup=emgsetup
+                emgsetup.created_by = request.user
+                setup.created_by = request.user
+                setup.save()
+                emgsetup.save()
+        if emg == None and has_emg: 
+            emgsetup.delete()
+         
+        sono  = request.POST.get('technique_sono')
+        if sono != None and sono == "on":
+            if not has_sono:
+                tech = Technique.objects.get(label = "Sono")
+                setup = Setup();
+                setup.technique=tech
+                setup.experiment = new_experiment
+                sonosetup = SonoSetup()
+                sonosetup.experiment = new_experiment
+                sonosetup.technique=tech
+                setup.sonosetup = sonosetup
+                sonosetup.created_by = request.user
+                setup.created_by = request.user
+                setup.save()
+                sonosetup.save()
+        if sono == None and has_sono: 
+            sonosetup.delete()
+        strain  = request.POST.get('technique_strain')
+        if strain != None and strain == "on":
+            if not has_strain:
+                tech = Technique.objects.get(label = "Bone strain")
+                setup = Setup();
+                setup.technique=tech
+                setup.experiment = new_experiment
+                strainsetup = StrainSetup()
+                strainsetup.experiment = new_experiment
+                strainsetup.technique=tech
+                setup.strainsetup = strainsetup
+                strainsetup.created_by = request.user
+                setup.created_by = request.user
+                setup.save()
+                strainsetup.save()
+        if strain == None and has_strain: 
+            strainsetup.delete()
 
     def changelist_view(self, request, extra_context=None):
         experiment = None
