@@ -172,6 +172,18 @@ class SonoSensorViewInline(FeedTabularInline):
     excludes = ['notes']   
     extra = 0
 
+
+class StrainSensorInline(FeedTabularInline):
+    model = StrainSensor
+    extra = 1
+    form = StrainSensorForm
+
+class StrainSensorViewInline(FeedTabularInline):
+    model = StrainSensor
+    excludes = ['notes']   
+    extra = 0
+
+
 class ChannelInline(FeedTabularInline):
     model = Channel
     excludes = ['notes']   
@@ -197,6 +209,15 @@ class SonoChannelViewInline(FeedTabularInline):
     model = SonoChannel
     extra = 0
 
+class StrainChannelInline(FeedTabularInline):
+    model = StrainChannel
+    extra =1
+    form = StrainChannelForm
+
+class StrainChannelViewInline(FeedTabularInline):
+    model = StrainChannel
+    extra = 0    
+    
 class EmgElectrodeInline(FeedTabularInline):
     model = EmgElectrode
     extra = 8
@@ -223,6 +244,12 @@ class SonoSetupAdmin(FeedModelAdmin):
     list_filter = ('technique', 'experiment')
     ordering = ('sonomicrometer',)
 
+class StrainSetupAdmin(FeedModelAdmin):
+    inlines = [ IllustrationInline,StrainSensorInline,StrainChannelInline]
+    view_inlines = [IllustrationViewInline, StrainSensorViewInline, StrainChannelViewInline]
+    list_display = ('technique', 'experiment')
+    list_filter = ('technique', 'experiment')
+    
 class EmgChannelAdmin(FeedModelAdmin):
     list_display = ('name', 'rate', 'sensor','emg_unit', 'emg_filtering')
     ordering = ('sensor',)
@@ -302,12 +329,15 @@ admin.site.register(Session,SessionAdmin)
 admin.site.register(Trial,TrialAdmin)
 admin.site.register(EmgSetup,EmgSetupAdmin)
 admin.site.register(SonoSetup,SonoSetupAdmin)
+admin.site.register(StrainSetup,StrainSetupAdmin)
 admin.site.register(EmgSensor, EmgSensorAdmin)
 admin.site.register(SonoSensor, SonoSensorAdmin)
+admin.site.register(StrainSensor, StrainSensorAdmin)
 admin.site.register(ChannelLineup, ChannelLineupAdmin)
 admin.site.register(Illustration,IllustrationAdmin)
 admin.site.register(EmgChannel,EmgChannelAdmin)
 admin.site.register(SonoChannel,SonoChannelAdmin)
+admin.site.register(StrainChannel,StrainChannelAdmin)
 admin.site.register(Channel, FeedModelAdmin)
 admin.site.register(EmgElectrode,EmgElectrodeAdmin )
 
