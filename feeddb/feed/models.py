@@ -184,7 +184,19 @@ class SonoSetup(Setup):
 
 class StrainSetup(Setup):
     class Meta:
-        verbose_name = "Strain setup"
+        verbose_name = "Bone Strain setup"
+        
+class ForceSetup(Setup):
+    class Meta:
+        verbose_name = "Bite Force setup" 
+
+class PressureSetup(Setup):
+    class Meta:
+        verbose_name = "Pressure setup" 
+
+class KinematicsSetup(Setup):
+    class Meta:
+        verbose_name = "2D Kinematics setup" 
 
 class Sensor(FeedBaseModel):
     setup = models.ForeignKey(Setup)
@@ -230,6 +242,19 @@ class StrainSensor(Sensor):
     class Meta:
         verbose_name = "Strain sensor"
     
+class ForceSensor(Sensor):
+    class Meta:
+        verbose_name = "Bite Force sensor"
+    
+class PressureSensor(Sensor):
+    class Meta:
+        verbose_name = "Pessure sensor"
+    
+class KinematicsSensor(Sensor):
+    class Meta:
+        verbose_name = "2D Kinematics sensor"
+
+    
 class Channel(FeedBaseModel):
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length = 255)
@@ -261,12 +286,23 @@ class SonoChannel(Channel):
         return 'Sono Channel: %s (Muscle: %s, Side: %s, Crystal1: %s, Crystal2: %s) '  % (self.name, self.crystal1.muscle.label, self.crystal1.side.label, self.crystal1.name, self.crystal2.name)  
 
     class Meta:
-        verbose_name = "sonochannel"
+        verbose_name = "Sono channel"
 
 class StrainChannel(Channel):
     class Meta:
         verbose_name = "Strain channel"
 
+class ForceChannel(Channel):
+    class Meta:
+        verbose_name = "Biite Force channel"
+               
+class PressureChannel(Channel):
+    class Meta:
+        verbose_name = "Pressure channel"
+               
+class KinematicsChannel(Channel):
+    class Meta:
+        verbose_name = "2D Kinematics channel"
                
 class Session(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
