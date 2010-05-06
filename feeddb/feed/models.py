@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 import datetime
+from django.db.models.expressions import F
 
 
 # base model for the whole project
@@ -36,7 +37,20 @@ class DevelopmentStage(CvTerm):
     pass
 
 class Technique(CvTerm):
+    "Presence of specific entries (see KnownTechniques) in this table is required for proper functioning of the application, so it is not really a controlled term."
+    #TODO: change the implementation (or just UI?) to avoid the impression that Technique entries can be edited.   
     pass
+
+class KnownTechniques:
+    "Techniques that are assumed to be in the database."
+    #TODO: complain ASAP if any of these is not in DB
+    emg = Technique.objects.all().filter(label__iexact = 'EMG')
+    sono = Technique.objects.all().filter(label__iexact = 'Sono')
+    strain = Technique.objects.all().filter(label__iexact = 'Bone strain')
+    force = Technique.objects.all().filter(label__iexact = 'Bite force')
+    pressure = Technique.objects.all().filter(label__iexact = 'Pressure')
+    kinematics = Technique.objects.all().filter(label__iexact = 'Kinematics')
+    
 
 class Taxon(CvTerm):
     genus = models.CharField(max_length=255)
@@ -203,7 +217,7 @@ class Sensor(FeedBaseModel):
     name = models.CharField(max_length=255)
     location = models.CharField("Anatomical Location", max_length=255, blank = True, null=True)
     loc_side = models.ForeignKey(Side, verbose_name="Side of Location", null=True)
-    loc_region = models.CharField("Region of location", max_length=255, blank = True, null=True)
+    loc_region = models.CharField("Region of Location", max_length=255, blank = True, null=True)
     notes = models.TextField( blank = True, null=True)
     def __unicode__(self):
         return self.name  
@@ -259,7 +273,6 @@ class Channel(FeedBaseModel):
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length = 255)
     rate = models.IntegerField()
-    units = models.ForeignKey(Unit, verbose_name="Units", null=True)
     notes = models.TextField("Notes about the channel",  blank = True, null=True)
 
     def __unicode__(self):
@@ -267,7 +280,7 @@ class Channel(FeedBaseModel):
 
 class EmgChannel(Channel):
     sensor = models.ForeignKey(EmgSensor)    
-    emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG units")
+    emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG units")    #TODO: switch from Emgunit to Unit
     emg_filtering = models.ForeignKey(Emgfiltering, verbose_name="EMG filtering")
     emg_amplification = models.IntegerField(blank=True,null=True,verbose_name = "amplification")
     
@@ -278,7 +291,7 @@ class EmgChannel(Channel):
 
 
 class SonoChannel(Channel):
-    sono_unit = models.ForeignKey(Sonounit, verbose_name="EMG units")
+    sono_unit = models.ForeignKey(Sonounit, verbose_name="EMG units")    #TODO: switch from Sonounit to Unit
     crystal1 = models.ForeignKey(SonoSensor, related_name="crystals1_related")
     crystal2 = models.ForeignKey(SonoSensor, related_name="crystals2_related")
 
@@ -289,18 +302,26 @@ class SonoChannel(Channel):
         verbose_name = "Sono channel"
 
 class StrainChannel(Channel):
+    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.strain},
+                             verbose_name="Strain units", null=True) 
     class Meta:
         verbose_name = "Strain channel"
 
 class ForceChannel(Channel):
+    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.force},
+                             verbose_name="Bite Force units", null=True) 
     class Meta:
-        verbose_name = "Biite Force channel"
+        verbose_name = "Bite Force channel"
                
 class PressureChannel(Channel):
+    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.pressure},
+                             verbose_name="Pressure units", null=True) 
     class Meta:
         verbose_name = "Pressure channel"
                
 class KinematicsChannel(Channel):
+    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.kinematics},
+                             verbose_name="Kinematics units", null=True) 
     class Meta:
         verbose_name = "2D Kinematics channel"
                
