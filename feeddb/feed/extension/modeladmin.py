@@ -916,6 +916,7 @@ class ExperimentModelAdmin(FeedModelAdmin):
 
     def add_techniques(self, request, new_experiment):
         "handle techniques for this experiment."
+        #FIXME: consider refactoring this into a series of calls to technique-generic functions, to eliminate code repetition
         has_emg = False
         emgsetup = None
         has_sono = False
@@ -935,6 +936,8 @@ class ExperimentModelAdmin(FeedModelAdmin):
         
         emg  = request.POST.get('technique_emg')
         
+        #FIXME: no need to create and save a Setup, just an EmgSetup is sufficient; 
+        #         ditto other techniques -VG 2010-05-06 
         if emg != None and emg == "on":
             if not has_emg:
                 tech = Technique.objects.get(label = "EMG")
@@ -949,8 +952,9 @@ class ExperimentModelAdmin(FeedModelAdmin):
                 setup.created_by = request.user
                 setup.save()
                 emgsetup.save()
-        if emg == None and has_emg: 
-            emgsetup.delete()
+        if emg == None and has_emg:     #FIXME ? shouldn't this check for something like emg == "off" instead? 
+            emgsetup.delete()           #FIXME: the emgsetup here cannot be deleted, since it is undefined
+                                        #  indeed, deletion does not work in the UI
          
         sono  = request.POST.get('technique_sono')
         if sono != None and sono == "on":
