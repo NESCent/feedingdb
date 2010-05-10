@@ -79,6 +79,17 @@ class StrainChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
     class Meta:
         model = StrainChannel
+
+class ForceSensorForm(forms.ModelForm):
+    notes = CharField(label ="Notes", widget=Notes(), required=False)
+    class Meta:
+        model = ForceSensor
+        
+class ForceChannelForm(forms.ModelForm):
+    notes = CharField(label ="Notes", widget=Notes(), required=False)
+    class Meta:
+        model = ForceChannel
+        
         
 class TrialInlineForm(forms.ModelForm):
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
