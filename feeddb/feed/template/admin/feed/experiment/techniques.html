@@ -2,7 +2,8 @@
 <div class="form-row ">
       <div>
               <label>Techniques:</label>
-<input type="checkbox" name = "technique_emg" {% for setup in original.setup_set.all %}{% if setup.emgsetup %}checked{% endif %}{% endfor %}/>EMG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" name = "technique_emg" {% for setup in original.setup_set.all %}{% if setup.emgsetup %}checked{% endif %}{% endfor %}/>EMG
 <input type="checkbox" name = "technique_sono" {% for setup in original.setup_set.all %}{% if setup.sonosetup %}checked{% endif %}{% endfor %}/>Sono
 <input type="checkbox" name = "technique_strain" {% for setup in original.setup_set.all %}{% if setup.strainsetup %}checked{% endif %}{% endfor %}/>Bone strain
+<input type="checkbox" name = "technique_force" {% for setup in original.setup_set.all %}{% if setup.forcesetup %}checked{% endif %}{% endfor %}/>Bite Force
 </fieldset>

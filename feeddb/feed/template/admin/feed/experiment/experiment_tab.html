@@ -1,217 +1,66 @@
 <div class="TabView" id="TabView">
     <div class="Tabs" style="width: 100%;">
-
-{% if change %}
- {% if object_id %}
-{% ifequal opts.object_name|lower "experiment" %}
-
-       <a class="Active" href="/admin/feed/experiment/{{object_id}}/edit">Experiment</a>
-     {% for setup in original.setup_set.all %}
-      {% if setup.emgsetup %}
-       <a href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/edit">EMG</a>
-     {% endif %}
-     {% endfor %}
-    {% for setup in original.setup_set.all %}
-     {% if setup.sonosetup %}
-       <a href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/edit">Sono</a>
-     {% endif %}
-     {% endfor %}
-
-      {% for setup in original.setup_set.all %}
-     {% if setup.strainsetup %}
-       <a href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/edit">Bone Strain</a>
-     {% endif %}
-     {% endfor %}
 	 
-     <a href="/admin/feed/session/edit/?experiment={{object_id}}">Sessions</a>
-
-
-{% endifequal %}
-
-{% ifequal opts.object_name|lower "emgsetup" %}
-       <a  href="/admin/feed/experiment/{{original.experiment.pk}}/edit">Experiment</a>
-       <a class="Active" href="/admin/feed/emgsetup/{{object_id}}/edit">EMG</a>
-     {% for setup in original.experiment.setup_set.all %}
-     {% if setup.sonosetup %}
-       <a href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/edit">Sono</a>
-     {% endif %}
-     {% endfor %}
-	  {% for setup in original.experiment.setup_set.all %}
-     {% if setup.strainsetup %}
-       <a href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/edit">Bone Strain</a>
-     {% endif %}
-     {% endfor %}
+     {% ifequal opts.object_name|lower "experiment" %}
+	     <a class="Active" href="/admin/feed/experiment/{{object_id}}/{% if change %}edit{%endif %}">Experiment</a>
+		 
+	     {% for setup in original.setup_set.all %}
+	       {% if setup.emgsetup %}
+	         <a class='{% ifequal opts.object_name|lower "emgsetup" %}Active{% endifequal %}' href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/{% if change %}edit{%endif %}">EMG</a>
+	       {% endif %}
+	       {% if setup.sonosetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'sonosetup' %}Active{% endifequal %}" href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/{% if change %}edit{%endif %}">Sono</a>
+	       {% endif %}
+	       {% if setup.strainsetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'strainsetup' %}Active{% endifequal %}" href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/{% if change %}edit{%endif %}">Bone Strain</a>
+	       {% endif %}
+	       {% if setup.forcesetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'forcesetup' %}Active{% endifequal %}" href="/admin/feed/forcesetup/{{setup.forcesetup.pk}}/{% if change %}edit{%endif %}">Bite Force</a>
+	       {% endif %}
+	     {% endfor %}
+	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit{%endif %}/?experiment={{object_id}}">Sessions</a>
+     {% endifequal %}
 	 
-     <a href="/admin/feed/session/edit/?experiment={{original.experiment.pk}}">Sessions</a>
-{% endifequal %}
-
-{% ifequal opts.object_name|lower "sonosetup" %}
-       <a  href="/admin/feed/experiment/{{original.experiment.pk}}/edit">Experiment</a>
- {% for setup in original.experiment.setup_set.all %}
-     {% if setup.emgsetup %}
-       <a href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/edit">EMG</a>
+	 {% if sessionformset %}
+	    {% if experiment %}
+     		<a  href="/admin/feed/experiment/{{experiment.pk}}/edit">Experiment</a>
+     		{% for setup in experiment.setup_set.all %}
+      			{% if setup.emgsetup %}
+		         <a class='{% ifequal opts.object_name|lower "emgsetup" %}Active{% endifequal %}' href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/{% if change %}edit{%endif %}">EMG</a>
+		       {% endif %}
+		       {% if setup.sonosetup %}
+		         <a  class="{% ifequal opts.object_name|lower 'sonosetup' %}Active{% endifequal %}" href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/{% if change %}edit{%endif %}">Sono</a>
+		       {% endif %}
+		       {% if setup.strainsetup %}
+		         <a  class="{% ifequal opts.object_name|lower 'strainsetup' %}Active{% endifequal %}" href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/{% if change %}edit{%endif %}">Bone Strain</a>
+		       {% endif %}
+		       {% if setup.forcesetup %}
+		         <a  class="{% ifequal opts.object_name|lower 'forcesetup' %}Active{% endifequal %}" href="/admin/feed/forcesetup/{{setup.forcesetup.pk}}/{% if change %}edit{%endif %}">Bite Force</a>
+		       {% endif %}
+     		{% endfor %}
+	      <a class="Active"  href="/admin/feed/session/edit/?experiment={{experiment.pk}}">Sessions</a>
+  		{% endif %}
+	 {% else %}
+	 	{% ifnotequal opts.object_name|lower "experiment" %}
+	     <a href="/admin/feed/experiment/{{original.experiment.pk}}/{% if change %}edit{%endif %}">Experiment</a>
+		 
+	     {% for setup in original.experiment.setup_set.all %}
+	       {% if setup.emgsetup %}
+	         <a class='{% ifequal opts.object_name|lower "emgsetup" %}Active{% endifequal %}' href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/{% if change %}edit{%endif %}">EMG</a>
+	       {% endif %}
+	       {% if setup.sonosetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'sonosetup' %}Active{% endifequal %}" href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/{% if change %}edit{%endif %}">Sono</a>
+	       {% endif %}
+	       {% if setup.strainsetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'strainsetup' %}Active{% endifequal %}" href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/{% if change %}edit{%endif %}">Bone Strain</a>
+	       {% endif %}
+	       {% if setup.forcesetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'forcesetup' %}Active{% endifequal %}" href="/admin/feed/forcesetup/{{setup.forcesetup.pk}}/{% if change %}edit{%endif %}">Bite Force</a>
+	       {% endif %}
+	     {% endfor %}
+	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit{%endif %}/?experiment={{original.experiment.pk}}">Sessions</a>
+       {% endifnotequal %}
      {% endif %}
-     {% endfor %}    
-   <a class="Active" href="/admin/feed/sonosetup/{{object_id}}/edit">Sono</a>
-    
-	 {% for setup in original.experiment.setup_set.all %}
-     {% if setup.strainsetup %}
-       <a href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/edit">Bone Strain</a>
-     {% endif %}
-     {% endfor %}
-	 
-     <a href="/admin/feed/session/edit/?experiment={{original.experiment.pk}}">Sessions</a>
-{% endifequal %}
-
-{% ifequal opts.object_name|lower "strainsetup" %}
-       <a  href="/admin/feed/experiment/{{original.experiment.pk}}/edit">Experiment</a>
- {% for setup in original.experiment.setup_set.all %}
-     {% if setup.emgsetup %}
-       <a href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/edit">EMG</a>
-     {% endif %}
-     {% endfor %}    
-    
-	 {% for setup in original.experiment.setup_set.all %}
-     {% if setup.sonosetup %}
-       <a href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/edit">Sono</a>
-     {% endif %}
-     {% endfor %}
-	 <a class="Active" href="/admin/feed/strainsetup/{{object_id}}/edit">Bone Strain</a>
-	 
-     <a href="/admin/feed/session/edit/?experiment={{original.experiment.pk}}">Sessions</a>
-{% endifequal %}
-
-
-{% if sessionformset %}
-     {% if experiment %}
-     <a  href="/admin/feed/experiment/{{experiment.pk}}/edit">Experiment</a>
-     {% for setup in experiment.setup_set.all %}
-      {% if setup.emgsetup %}
-       <a href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/edit">EMG</a>
-     {% endif %}
-     {% endfor %}
-    {% for setup in experiment.setup_set.all %}
-     {% if setup.sonosetup %}
-       <a href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/edit">Sono</a>
-     {% endif %}
-     {% endfor %}
-
-	 {% for setup in experiment.setup_set.all %}
-     {% if setup.strainsetup %}
-       <a href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/edit">Bone Strain</a>
-     {% endif %}
-     {% endfor %}
-	 
-     <a class="Active"  href="/admin/feed/session/edit/?experiment={{experiment.pk}}">Sessions</a>
-  {% endif %}
-{% endif %}
-    {% endif %}
-
-{% endif %}
-{% if view %}
-{% ifequal opts.object_name|lower "experiment" %}
-       <a class="Active" href="/admin/feed/experiment/{{object_id}}/">Experiment</a>
-     {% for setup in original.setup_set.all %}
-      {% if setup.emgsetup %}
-       <a href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/">EMG</a>
-     {% endif %}
-     {% endfor %}
-    {% for setup in original.setup_set.all %}
-     {% if setup.sonosetup %}
-       <a href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/">Sono</a>
-     {% endif %}
-     {% endfor %}
-
-	 {% for setup in original.setup_set.all %}
-     {% if setup.strainsetup %}
-       <a href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/">Bone Strain</a>
-     {% endif %}
-     {% endfor %}
-	 
-     <a href="/admin/feed/session/?experiment={{object_id}}">Sessions</a>
-{% endifequal %}
-
-{% ifequal opts.object_name|lower "emgsetup" %}
-       <a  href="/admin/feed/experiment/{{original.experiment.pk}}/">Experiment</a>
-       <a class="Active" href="/admin/feed/emgsetup/{{object_id}}/">EMG</a>
-     {% for setup in original.experiment.setup_set.all %}
-     {% if setup.sonosetup %}
-       <a href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/">Sono</a>
-     {% endif %}
-     {% endfor %}
-	 
-	 {% for setup in original.experiment.setup_set.all %}
-     {% if setup.strainsetup %}
-       <a href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/">Bone Strain</a>
-     {% endif %}
-     {% endfor %}
-	 
-     <a href="/admin/feed/session/?experiment={{original.experiment.pk}}">Sessions</a>
-{% endifequal %}
-
-{% ifequal opts.object_name|lower "sonosetup" %}
-       <a  href="/admin/feed/experiment/{{original.experiment.pk}}/">Experiment</a>
- {% for setup in original.experiment.setup_set.all %}
-     {% if setup.emgsetup %}
-       <a href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/">EMG</a>
-     {% endif %}
-     {% endfor %}    
-   <a class="Active" href="/admin/feed/sonosetup/{{object_id}}/">Sono</a>
-    
-		 {% for setup in original.experiment.setup_set.all %}
-     {% if setup.strainsetup %}
-       <a href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/">Bone Strain</a>
-     {% endif %}
-     {% endfor %}
-	
-     <a href="/admin/feed/session/?experiment={{original.experiment.pk}}">Sessions</a>
-{% endifequal %}
-
-{% ifequal opts.object_name|lower "strainsetup" %}
-       <a  href="/admin/feed/experiment/{{original.experiment.pk}}/">Experiment</a>
- {% for setup in original.experiment.setup_set.all %}
-     {% if setup.emgsetup %}
-       <a href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/">EMG</a>
-     {% endif %}
-     {% endfor %}    
-  
-     {% for setup in original.experiment.setup_set.all %}
-     {% if setup.sonosetup %}
-       <a href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/">Sono</a>
-     {% endif %}
-     {% endfor %}
-	 
-	 <a class="Active" href="/admin/feed/strainsetup/{{object_id}}/">Bone Strain</a>
-     <a href="/admin/feed/session/?experiment={{original.experiment.pk}}">Sessions</a>
-{% endifequal %}
-
-
-{% ifequal cl.opts.verbose_name|lower "session" %}
-     {% if experiment %}
-     <a  href="/admin/feed/experiment/{{experiment.pk}}/">Experiment</a>
-     {% for setup in experiment.setup_set.all %}
-      {% if setup.emgsetup %}
-       <a href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/">EMG</a>
-     {% endif %}
-     {% endfor %}
-    {% for setup in experiment.setup_set.all %}
-     {% if setup.sonosetup %}
-       <a href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/">Sono</a>
-     {% endif %}
-     {% endfor %}
-
-	 {% for setup in experiment.setup_set.all %}
-     {% if setup.strainsetup %}
-       <a href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/">Bone Strain</a>
-     {% endif %}
-     {% endfor %}
-	 
-     <a class="Active"  href="/admin/feed/session/?experiment={{experiment.pk}}">Sessions</a>
-  {% endif %}
-{% endifequal %}
-
-{% endif %}
    </div>
-
 </div>
 
