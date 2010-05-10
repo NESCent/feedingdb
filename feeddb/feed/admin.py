@@ -183,6 +183,15 @@ class StrainSensorViewInline(FeedTabularInline):
     excludes = ['notes']   
     extra = 0
 
+class ForceSensorInline(FeedTabularInline):
+    model = ForceSensor
+    extra = 1
+    form = ForceSensorForm
+
+class ForceSensorViewInline(FeedTabularInline):
+    model = ForceSensor
+    excludes = ['notes']   
+    extra = 0
 
 class ChannelInline(FeedTabularInline):
     model = Channel
@@ -217,7 +226,16 @@ class StrainChannelInline(FeedTabularInline):
 class StrainChannelViewInline(FeedTabularInline):
     model = StrainChannel
     extra = 0    
-    
+
+class ForceChannelInline(FeedTabularInline):
+    model = ForceChannel
+    extra =1
+    form = ForceChannelForm
+
+class ForceChannelViewInline(FeedTabularInline):
+    model = ForceChannel
+    extra = 0  
+        
 class EmgElectrodeInline(FeedTabularInline):
     model = EmgElectrode
     extra = 8
@@ -249,7 +267,13 @@ class StrainSetupAdmin(FeedModelAdmin):
     view_inlines = [IllustrationViewInline, StrainSensorViewInline, StrainChannelViewInline]
     list_display = ('technique', 'experiment')
     list_filter = ('technique', 'experiment')
-    
+
+class ForceSetupAdmin(FeedModelAdmin):
+    inlines = [ IllustrationInline,ForceSensorInline,ForceChannelInline]
+    view_inlines = [IllustrationViewInline, ForceSensorViewInline, ForceChannelViewInline]
+    list_display = ('technique', 'experiment')
+    list_filter = ('technique', 'experiment')
+        
 class EmgChannelAdmin(FeedModelAdmin):
     list_display = ('name', 'rate', 'sensor','emg_unit', 'emg_filtering')
     ordering = ('sensor',)
@@ -302,11 +326,6 @@ class TermAdmin(FeedModelAdmin):
     list_filter = ('controlled','deprecated')
     ordering = ('label',)
     
-class TechniqueTermAdmin(FeedModelAdmin):
-    list_display = ('technique', 'label', 'controlled','deprecated')
-    list_filter = ('technique', 'controlled','deprecated')
-    ordering = ('technique', 'label',)
-
 class TaxonAdmin(FeedModelAdmin):
     list_display = ('genus','species','common_name', 'controlled','deprecated')
     list_filter = ('genus','controlled','deprecated')
@@ -325,8 +344,6 @@ admin.site.register(Behavior,TermAdmin)
 admin.site.register(Restraint,TermAdmin)
 admin.site.register(Emgunit,TermAdmin)
 admin.site.register(Sonounit,TermAdmin)
-admin.site.register(Unit,TechniqueTermAdmin)
-#admin.site.register(Unit)
 admin.site.register(Emgfiltering,TermAdmin)
 admin.site.register(Experiment, ExperimentAdmin)
 admin.site.register(Subject,SubjectAdmin)
@@ -337,14 +354,13 @@ admin.site.register(Trial,TrialAdmin)
 admin.site.register(EmgSetup,EmgSetupAdmin)
 admin.site.register(SonoSetup,SonoSetupAdmin)
 admin.site.register(StrainSetup,StrainSetupAdmin)
+admin.site.register(ForceSetup,ForceSetupAdmin)
 admin.site.register(EmgSensor, EmgSensorAdmin)
 admin.site.register(SonoSensor, SonoSensorAdmin)
-# admin.site.register(StrainSensor, StrainSensorAdmin)
 admin.site.register(ChannelLineup, ChannelLineupAdmin)
 admin.site.register(Illustration,IllustrationAdmin)
 admin.site.register(EmgChannel,EmgChannelAdmin)
 admin.site.register(SonoChannel,SonoChannelAdmin)
-# admin.site.register(StrainChannel,StrainChannelAdmin)
 admin.site.register(Channel, FeedModelAdmin)
-admin.site.register(EmgElectrode,EmgElectrodeAdmin )
+admin.site.register(EmgElectrode,EmgElectrodeAdmin)
 
