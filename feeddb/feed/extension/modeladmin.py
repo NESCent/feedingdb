@@ -913,7 +913,7 @@ class ExperimentModelAdmin(FeedModelAdmin):
                 self.add_techniques(request,new_object)
                 return self.response_add(request, new_object)
         return super(ExperimentModelAdmin,self).add_view(request, form_url,extra_context)
-
+    
     def add_techniques(self, request, new_experiment):
         "handle techniques for this experiment."
         #FIXME: consider refactoring this into a series of calls to technique-generic functions, to eliminate code repetition
@@ -923,6 +923,9 @@ class ExperimentModelAdmin(FeedModelAdmin):
         sonosetup=None
         has_strain = False
         strainsetup=None
+        has_force = False
+        forcesetup=None
+        
         for s in new_experiment.setup_set.all():
             if hasattr(s,"emgsetup"):
                 has_emg = True
@@ -931,66 +934,77 @@ class ExperimentModelAdmin(FeedModelAdmin):
                 has_sono = True
                 sonosetup = s
             if hasattr(s, "strainsetup"):
-                has_sono = True
+                has_strain = True
                 strainsetup = s
+            if hasattr(s, "forcesetup"):
+                has_force = True
+                forcesetup = s    
         
         emg  = request.POST.get('technique_emg')
         
-        #FIXME: no need to create and save a Setup, just an EmgSetup is sufficient; 
-        #         ditto other techniques -VG 2010-05-06 
         if emg != None and emg == "on":
             if not has_emg:
-                tech = Technique.objects.get(label = "EMG")
-                setup = Setup()
-                setup.technique=tech
-                setup.experiment = new_experiment
-                emgsetup = EmgSetup()
-                emgsetup.experiment = new_experiment
-                emgsetup.technique=tech
-                setup.emgsetup=emgsetup
-                emgsetup.created_by = request.user
-                setup.created_by = request.user
-                setup.save()
-                emgsetup.save()
-        if emg == None and has_emg:     #FIXME ? shouldn't this check for something like emg == "off" instead? 
-            emgsetup.delete()           #FIXME: the emgsetup here cannot be deleted, since it is undefined
-                                        #  indeed, deletion does not work in the UI
-         
+                self.add_technique(request,new_experiment,'EMG');
+        if emg == None and has_emg:
+            self.delete_setup(emgsetup)
+            
         sono  = request.POST.get('technique_sono')
         if sono != None and sono == "on":
             if not has_sono:
-                tech = Technique.objects.get(label = "Sono")
-                setup = Setup();
-                setup.technique=tech
-                setup.experiment = new_experiment
-                sonosetup = SonoSetup()
-                sonosetup.experiment = new_experiment
-                sonosetup.technique=tech
-                setup.sonosetup = sonosetup
-                sonosetup.created_by = request.user
-                setup.created_by = request.user
-                setup.save()
-                sonosetup.save()
+                self.add_technique(request,new_experiment,'Sono');
         if sono == None and has_sono: 
-            sonosetup.delete()
+            self.delete_setup(sonosetup)
+            
         strain  = request.POST.get('technique_strain')
         if strain != None and strain == "on":
             if not has_strain:
-                tech = Technique.objects.get(label = "Bone strain")
-                setup = Setup();
-                setup.technique=tech
-                setup.experiment = new_experiment
-                strainsetup = StrainSetup()
-                strainsetup.experiment = new_experiment
-                strainsetup.technique=tech
-                setup.strainsetup = strainsetup
-                strainsetup.created_by = request.user
-                setup.created_by = request.user
-                setup.save()
-                strainsetup.save()
+                self.add_technique(request,new_experiment,'Bone strain');
         if strain == None and has_strain: 
-            strainsetup.delete()
+            self.delete_setup(strainsetup)
+        
+        force  = request.POST.get('technique_force')
+        if force != None and force == "on":
+            if not has_force:
+                self.add_technique(request,new_experiment,'Bite force');
+        if force == None and has_force: 
+            self.delete_setup(forcesetup)    
+            
+    def add_technique(self,request,experiment, technique):
+        tech = Technique.objects.get(label = technique)
+        setup = Setup();
+        setup.technique=tech
+        setup.experiment = experiment
+        tech_setup = None
+        if technique=="EMG":
+            tech_setup = EmgSetup()
+        elif technique=="Sono":
+            tech_setup = SonoSetup()
+        elif technique=="Bone strain":
+            tech_setup = StrainSetup()
+        elif technique=="Bite force":
+            tech_setup = ForceSetup()
 
+        tech_setup.experiment = experiment
+        tech_setup.technique=tech
+        if technique=="EMG":
+            setup.emgsetup = tech_setup
+        elif technique=="Sono":
+            setup.sonosetup = tech_setup
+        elif technique=="Bone strain":
+            setup.strainsetup = tech_setup
+        elif technique=="Bite force":
+            setup.forcesetup = tech_setup    
+        tech_setup.created_by = request.user
+
+        setup.created_by = request.user
+        tech_setup.save()
+    
+    def delete_setup(self,setup):
+        if setup!=None:
+            if hasattr(setup,"setup"):
+                setup.setup.delete()
+            setup.delete()
+            
     def changelist_view(self, request, extra_context=None):
         experiment = None
         v= request.GET.get("experiment")
