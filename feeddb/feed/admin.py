@@ -193,6 +193,25 @@ class ForceSensorViewInline(FeedTabularInline):
     excludes = ['notes']   
     extra = 0
 
+class PressureSensorInline(FeedTabularInline):
+    model = PressureSensor
+    extra = 1
+    form = PressureSensorForm
+
+class PressureSensorViewInline(FeedTabularInline):
+    model = PressureSensor
+    excludes = ['notes']   
+    extra = 0
+class KinematicsSensorInline(FeedTabularInline):
+    model = KinematicsSensor
+    extra = 1
+    form = KinematicsSensorForm
+
+class KinematicsSensorViewInline(FeedTabularInline):
+    model = KinematicsSensor
+    excludes = ['notes']   
+    extra = 0
+        
 class ChannelInline(FeedTabularInline):
     model = Channel
     excludes = ['notes']   
@@ -235,7 +254,25 @@ class ForceChannelInline(FeedTabularInline):
 class ForceChannelViewInline(FeedTabularInline):
     model = ForceChannel
     extra = 0  
-        
+
+class PressureChannelInline(FeedTabularInline):
+    model = PressureChannel
+    extra =1
+    form = PressureChannelForm
+
+class PressureChannelViewInline(FeedTabularInline):
+    model = PressureChannel
+    extra = 0     
+
+class KinematicsChannelInline(FeedTabularInline):
+    model = KinematicsChannel
+    extra =1
+    form = KinematicsChannelForm
+
+class KinematicsChannelViewInline(FeedTabularInline):
+    model = KinematicsChannel
+    extra = 0    
+             
 class EmgElectrodeInline(FeedTabularInline):
     model = EmgElectrode
     extra = 8
@@ -273,7 +310,19 @@ class ForceSetupAdmin(FeedModelAdmin):
     view_inlines = [IllustrationViewInline, ForceSensorViewInline, ForceChannelViewInline]
     list_display = ('technique', 'experiment')
     list_filter = ('technique', 'experiment')
-        
+
+class PressureSetupAdmin(FeedModelAdmin):
+    inlines = [ IllustrationInline,PressureSensorInline,PressureChannelInline]
+    view_inlines = [IllustrationViewInline, PressureSensorViewInline, PressureChannelViewInline]
+    list_display = ('technique', 'experiment')
+    list_filter = ('technique', 'experiment')
+
+class KinematicsSetupAdmin(FeedModelAdmin):
+    inlines = [ IllustrationInline,KinematicsSensorInline,KinematicsChannelInline]
+    view_inlines = [IllustrationViewInline, KinematicsSensorViewInline, KinematicsChannelViewInline]
+    list_display = ('technique', 'experiment')
+    list_filter = ('technique', 'experiment')            
+
 class EmgChannelAdmin(FeedModelAdmin):
     list_display = ('name', 'rate', 'sensor','emg_unit', 'emg_filtering')
     ordering = ('sensor',)
@@ -355,6 +404,8 @@ admin.site.register(EmgSetup,EmgSetupAdmin)
 admin.site.register(SonoSetup,SonoSetupAdmin)
 admin.site.register(StrainSetup,StrainSetupAdmin)
 admin.site.register(ForceSetup,ForceSetupAdmin)
+admin.site.register(PressureSetup,PressureSetupAdmin)
+admin.site.register(KinematicsSetup,KinematicsSetupAdmin)
 admin.site.register(EmgSensor, EmgSensorAdmin)
 admin.site.register(SonoSensor, SonoSensorAdmin)
 admin.site.register(ChannelLineup, ChannelLineupAdmin)
