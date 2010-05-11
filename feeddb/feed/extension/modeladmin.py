@@ -270,7 +270,8 @@ class FeedModelAdmin(admin.ModelAdmin):
                 rel_obj_id = request.GET.get(k)
             if rel_obj != None and rel_obj!="created_by":
                 post_url = '/admin/feed/%s/%s' % (rel_obj, rel_obj_id)
-                
+            if hasattr(obj,'experiment'):
+                post_url='/admin/feed/experiment/%s' % obj.experiment.pk
             return HttpResponseRedirect(post_url)
 
         context = {
@@ -925,6 +926,10 @@ class ExperimentModelAdmin(FeedModelAdmin):
         strainsetup=None
         has_force = False
         forcesetup=None
+        has_pressure=False
+        pressuresetup=None
+        has_kinematics=False
+        kinematicssetup=None
         
         for s in new_experiment.setup_set.all():
             if hasattr(s,"emgsetup"):
@@ -938,8 +943,13 @@ class ExperimentModelAdmin(FeedModelAdmin):
                 strainsetup = s
             if hasattr(s, "forcesetup"):
                 has_force = True
-                forcesetup = s    
-        
+                forcesetup = s  
+            if hasattr(s, "pressuresetup"):
+                has_pressure = True
+                pressuresetup = s       
+            if hasattr(s, "kinematicssetup"):
+                has_kinematics = True
+                kinematicssetup = s               
         emg  = request.POST.get('technique_emg')
         
         if emg != None and emg == "on":
@@ -967,8 +977,22 @@ class ExperimentModelAdmin(FeedModelAdmin):
             if not has_force:
                 self.add_technique(request,new_experiment,'Bite force');
         if force == None and has_force: 
-            self.delete_setup(forcesetup)    
-            
+            self.delete_setup(forcesetup)
+        
+        pressure  = request.POST.get('technique_pressure')
+        if pressure != None and pressure == "on":
+            if not has_pressure:
+                self.add_technique(request,new_experiment,'Pressure');
+        if pressure == None and has_pressure: 
+            self.delete_setup(pressuresetup)        
+        
+        kinematics  = request.POST.get('technique_kinematics')
+        if kinematics != None and kinematics == "on":
+            if not has_kinematics:
+                self.add_technique(request,new_experiment,'Kinematics');
+        if kinematics == None and has_kinematics: 
+            self.delete_setup(kinematicssetup)                  
+
     def add_technique(self,request,experiment, technique):
         tech = Technique.objects.get(label = technique)
         setup = Setup();
@@ -983,7 +1007,11 @@ class ExperimentModelAdmin(FeedModelAdmin):
             tech_setup = StrainSetup()
         elif technique=="Bite force":
             tech_setup = ForceSetup()
-
+        elif technique=="Pressure":
+            tech_setup = PressureSetup()
+        elif technique=="Kinematics":
+            tech_setup = KinematicsSetup()
+            
         tech_setup.experiment = experiment
         tech_setup.technique=tech
         if technique=="EMG":
@@ -994,6 +1022,10 @@ class ExperimentModelAdmin(FeedModelAdmin):
             setup.strainsetup = tech_setup
         elif technique=="Bite force":
             setup.forcesetup = tech_setup    
+        elif technique=="Kinematics":
+            setup.kinematicssetup = tech_setup  
+        elif technique=="Pressure":
+            setup.pressuresetup = tech_setup  
         tech_setup.created_by = request.user
 
         setup.created_by = request.user

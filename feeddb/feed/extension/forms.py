@@ -89,8 +89,26 @@ class ForceChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
     class Meta:
         model = ForceChannel
+class PressureSensorForm(forms.ModelForm):
+    notes = CharField(label ="Notes", widget=Notes(), required=False)
+    class Meta:
+        model = PressureSensor
         
+class PressureChannelForm(forms.ModelForm):
+    notes = CharField(label ="Notes", widget=Notes(), required=False)
+    class Meta:
+        model = PressureChannel        
+
+class KinematicsSensorForm(forms.ModelForm):
+    notes = CharField(label ="Notes", widget=Notes(), required=False)
+    class Meta:
+        model = KinematicsSensor
         
+class KinematicsChannelForm(forms.ModelForm):
+    notes = CharField(label ="Notes", widget=Notes(), required=False)
+    class Meta:
+        model = KinematicsChannel    
+                
 class TrialInlineForm(forms.ModelForm):
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
     accession = CharField(label = "Accession", widget=forms.TextInput(attrs={'size': 5}), required=False)
