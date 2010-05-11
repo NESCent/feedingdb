@@ -17,6 +17,12 @@
 	       {% if setup.forcesetup %}
 	         <a  class="{% ifequal opts.object_name|lower 'forcesetup' %}Active{% endifequal %}" href="/admin/feed/forcesetup/{{setup.forcesetup.pk}}/{% if change %}edit{%endif %}">Bite Force</a>
 	       {% endif %}
+		   {% if setup.pressuresetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'pressuresetup' %}Active{% endifequal %}" href="/admin/feed/pressuresetup/{{setup.pressuresetup.pk}}/{% if change %}edit{%endif %}">Pressure</a>
+	       {% endif %}
+		   {% if setup.kinematicssetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
+	       {% endif %}
 	     {% endfor %}
 	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit{%endif %}/?experiment={{object_id}}">Sessions</a>
      {% endifequal %}
@@ -37,7 +43,13 @@
 		       {% if setup.forcesetup %}
 		         <a  class="{% ifequal opts.object_name|lower 'forcesetup' %}Active{% endifequal %}" href="/admin/feed/forcesetup/{{setup.forcesetup.pk}}/{% if change %}edit{%endif %}">Bite Force</a>
 		       {% endif %}
-     		{% endfor %}
+			   {% if setup.pressuresetup %}
+	             <a  class="{% ifequal opts.object_name|lower 'pressuresetup' %}Active{% endifequal %}" href="/admin/feed/pressuresetup/{{setup.pressuresetup.pk}}/{% if change %}edit{%endif %}">Pressure</a>
+	           {% endif %}
+	    	   {% if setup.kinematicssetup %}
+		         <a  class="{% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
+		       {% endif %}
+	 		{% endfor %}
 	      <a class="Active"  href="/admin/feed/session/edit/?experiment={{experiment.pk}}">Sessions</a>
   		{% endif %}
 	 {% else %}
@@ -57,6 +69,12 @@
 	       {% if setup.forcesetup %}
 	         <a  class="{% ifequal opts.object_name|lower 'forcesetup' %}Active{% endifequal %}" href="/admin/feed/forcesetup/{{setup.forcesetup.pk}}/{% if change %}edit{%endif %}">Bite Force</a>
 	       {% endif %}
+		   {% if setup.pressuresetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'pressuresetup' %}Active{% endifequal %}" href="/admin/feed/pressuresetup/{{setup.pressuresetup.pk}}/{% if change %}edit{%endif %}">Pressure</a>
+	       {% endif %}
+		   {% if setup.kinematicssetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
+	       {% endif %}		   
 	     {% endfor %}
 	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit{%endif %}/?experiment={{original.experiment.pk}}">Sessions</a>
        {% endifnotequal %}

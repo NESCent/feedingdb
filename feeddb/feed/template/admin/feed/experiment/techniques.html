@@ -6,4 +6,6 @@
 <input type="checkbox" name = "technique_sono" {% for setup in original.setup_set.all %}{% if setup.sonosetup %}checked{% endif %}{% endfor %}/>Sono
 <input type="checkbox" name = "technique_strain" {% for setup in original.setup_set.all %}{% if setup.strainsetup %}checked{% endif %}{% endfor %}/>Bone strain
 <input type="checkbox" name = "technique_force" {% for setup in original.setup_set.all %}{% if setup.forcesetup %}checked{% endif %}{% endfor %}/>Bite Force
+<input type="checkbox" name = "technique_pressure" {% for setup in original.setup_set.all %}{% if setup.pressuresetup %}checked{% endif %}{% endfor %}/>Pressure
+<input type="checkbox" name = "technique_kinematics" {% for setup in original.setup_set.all %}{% if setup.kinematicssetup %}checked{% endif %}{% endfor %}/>Kinematics
 </fieldset>
