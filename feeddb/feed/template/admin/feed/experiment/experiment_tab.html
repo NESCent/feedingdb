@@ -24,12 +24,11 @@
 	         <a  class="{% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
 	       {% endif %}
 	     {% endfor %}
-	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit{%endif %}/?experiment={{object_id}}">Sessions</a>
+	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{object_id}}">Sessions</a>
      {% endifequal %}
 	 
-	 {% if sessionformset %}
-	    {% if experiment %}
-     		<a  href="/admin/feed/experiment/{{experiment.pk}}/edit">Experiment</a>
+	 {% if experiment %}
+	 		<a  href="/admin/feed/experiment/{{experiment.pk}}/{% if change %}edit{%endif %}">Experiment</a>
      		{% for setup in experiment.setup_set.all %}
       			{% if setup.emgsetup %}
 		         <a class='{% ifequal opts.object_name|lower "emgsetup" %}Active{% endifequal %}' href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/{% if change %}edit{%endif %}">EMG</a>
@@ -50,8 +49,7 @@
 		         <a  class="{% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
 		       {% endif %}
 	 		{% endfor %}
-	      <a class="Active"  href="/admin/feed/session/edit/?experiment={{experiment.pk}}">Sessions</a>
-  		{% endif %}
+	      <a class="Active"  href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{experiment.pk}}">Sessions</a>
 	 {% else %}
 	 	{% ifnotequal opts.object_name|lower "experiment" %}
 	     <a href="/admin/feed/experiment/{{original.experiment.pk}}/{% if change %}edit{%endif %}">Experiment</a>
@@ -76,7 +74,7 @@
 	         <a  class="{% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
 	       {% endif %}		   
 	     {% endfor %}
-	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit{%endif %}/?experiment={{original.experiment.pk}}">Sessions</a>
+	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{original.experiment.pk}}">Sessions</a>
        {% endifnotequal %}
      {% endif %}
    </div>
