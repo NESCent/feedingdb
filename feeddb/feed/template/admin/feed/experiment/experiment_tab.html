@@ -51,7 +51,8 @@
 	 		{% endfor %}
 	      <a class="Active"  href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{experiment.pk}}">Sessions</a>
 	 {% else %}
-	 	{% ifnotequal opts.object_name|lower "experiment" %}
+	    {% ifnotequal opts.object_name|lower "experiment" %}
+		{% ifnotequal opts.object_name None %}
 	     <a href="/admin/feed/experiment/{{original.experiment.pk}}/{% if change %}edit{%endif %}">Experiment</a>
 		 
 	     {% for setup in original.experiment.setup_set.all %}
@@ -76,6 +77,7 @@
 	     {% endfor %}
 	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{original.experiment.pk}}">Sessions</a>
        {% endifnotequal %}
+	   {% endifnotequal %}
      {% endif %}
    </div>
 </div>
