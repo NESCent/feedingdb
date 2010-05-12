@@ -373,7 +373,12 @@ class TermAdmin(FeedModelAdmin):
     list_display = ('label', 'controlled','deprecated')
     list_filter = ('controlled','deprecated')
     ordering = ('label',)
-    
+
+class UnitAdmin(FeedModelAdmin):
+    list_display = ('technique', 'label', 'controlled','deprecated')
+    list_filter = ('technique', 'controlled','deprecated')
+    ordering = ('label',)
+        
 class TaxonAdmin(FeedModelAdmin):
     list_display = ('genus','species','common_name', 'controlled','deprecated')
     list_filter = ('genus','controlled','deprecated')
@@ -391,6 +396,7 @@ admin.site.register(DevelopmentStage,TermAdmin)
 admin.site.register(Behavior,TermAdmin)
 admin.site.register(Restraint,TermAdmin)
 admin.site.register(Emgunit,TermAdmin)
+admin.site.register(Unit,UnitAdmin)
 admin.site.register(Sonounit,TermAdmin)
 admin.site.register(Emgfiltering,TermAdmin)
 admin.site.register(Experiment, ExperimentAdmin)
