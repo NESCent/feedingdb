@@ -348,7 +348,6 @@ class SessionAdmin(SessionModelAdmin):
     inlines = [ChannelLineupInline, TrialInline]
     view_inlines = [ChannelLineupViewInline, TrialViewInline ]
     form = SessionForm
-    search_fields = ('subj_restraint','subj_anesthesia_sedation','subj_notes')
     list_display = ('title', 'experiment','position', 'start', 'subj_restraint','subj_anesthesia_sedation')
     ordering = ('position',)
     tabbed = True
