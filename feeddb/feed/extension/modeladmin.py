@@ -515,12 +515,28 @@ class FeedModelAdmin(admin.ModelAdmin):
                 form.fields["emgsetup"].queryset = EmgSetup.objects.filter(created_by=request.user)
             if form.fields.has_key("sonosetup"):
                 form.fields["sonosetup"].queryset = SonoSetup.objects.filter(created_by=request.user)
+            if form.fields.has_key("strainsetup"):
+                form.fields["strainsetup"].queryset = StrainSetup.objects.filter(created_by=request.user)
+            if form.fields.has_key("pressuresetup"):
+                form.fields["pressuresetup"].queryset = PressureSetup.objects.filter(created_by=request.user)
+            if form.fields.has_key("forcesetup"):
+                form.fields["forcesetup"].queryset = ForceSetup.objects.filter(created_by=request.user)
+            if form.fields.has_key("kinematicssetup"):
+                form.fields["kinematicssetup"].queryset = KinematicsSetup.objects.filter(created_by=request.user)                
             if form.fields.has_key("channel"):
                 form.fields["channel"].queryset = Channel.objects.filter(created_by=request.user)
             if form.fields.has_key("emgchannel"):
                 form.fields["emgchannel"].queryset = EmgChannel.objects.filter(created_by=request.user)
             if form.fields.has_key("sonochannel"):
                 form.fields["sonochannel"].queryset = SonoChannel.objects.filter(created_by=request.user)
+            if form.fields.has_key("strainchannel"):
+                form.fields["strainchannel"].queryset = StrainChannel.objects.filter(created_by=request.user)
+            if form.fields.has_key("pressurechannel"):
+                form.fields["pressurechannel"].queryset = PressureChannel.objects.filter(created_by=request.user)
+            if form.fields.has_key("forcechannel"):
+                form.fields["forcechannel"].queryset = ForceChannel.objects.filter(created_by=request.user)
+            if form.fields.has_key("kinematicschannel"):
+                form.fields["kinematicschannel"].queryset = KinematicsChannel.objects.filter(created_by=request.user)
             if form.fields.has_key("session"):
                 form.fields["session"].queryset = Session.objects.filter(created_by=request.user)
             if form.fields.has_key("trial"):
@@ -537,14 +553,15 @@ class FeedModelAdmin(admin.ModelAdmin):
         if request.GET.has_key("subject"):
             if form.fields.has_key("subject"):
                 form.fields["subject"].widget.widget.attrs['disabled']=""
-
-        if request.GET.has_key("emgsetup"):
-            if form.fields.has_key("setup"):
-                form.fields["setup"].widget.widget.attrs['disabled']=""
-
-        if request.GET.has_key("sonosetup"):
-            if form.fields.has_key("setup"):
-                form.fields["setup"].widget.widget.attrs['disabled']=""
+                
+        setups = ["emgsetup","sonosetup","pressuresetup","forcesetup","strainsetup","kinematicssetup"]
+        channels = ["emgchannel","sonochannel","pressurechannel","forcechannel","strainchannel","kinematicschannel"]
+        
+        for s in setups:
+            if request.GET.has_key(s):
+                if form.fields.has_key("setup"):
+                    form.fields["setup"].widget.widget.attrs['disabled']=""
+                    form.fields["setup"].initial=request.GET[s]
 
         if request.GET.has_key("session"):
             if form.fields.has_key("session"):
@@ -554,17 +571,45 @@ class FeedModelAdmin(admin.ModelAdmin):
             if form.fields.has_key("trial"):
                 form.fields["trial"].widget.widget.attrs['disabled']=""
 
-        if request.GET.has_key("emgchannel"):
-            if form.fields.has_key("emgchannel"):
-                form.fields["emgchannel"].widget.widget.attrs['disabled']=""
-        if request.GET.has_key("sonochannel"):
-            if form.fields.has_key("sonochannel"):
-                form.fields["sonochannel"].widget.widget.attrs['disabled']=""
+        for s in channels:
+            if request.GET.has_key(s):
+                if form.fields.has_key(s):
+                    form.fields[s].widget.widget.attrs['disabled']=""
+                                
         #context-based filter
         if  model == EmgChannel:
             if request.GET.has_key("emgsetup"):
                 form.fields["sensor"].queryset = EmgSensor.objects.filter(setup=request.GET['emgsetup'])
                 form.fields["setup"].initial=request.GET['emgsetup']
+        elif  model == EmgSensor:
+            if request.GET.has_key("emgsetup"):
+                form.fields["setup"].initial=request.GET['emgsetup']
+
+        elif  model == PressureChannel:
+            if request.GET.has_key("pressuresetup"):
+                form.fields["sensor"].queryset = PressureSensor.objects.filter(setup=request.GET['pressuresetup'])
+        elif model == PressureSetup:
+            if form.fields.has_key("sensor"):
+                form.fields["sensor"].queryset = PressureSensor.objects.filter(setup=obj)
+        elif model == StrainChannel:
+            if request.GET.has_key("strainsetup"):
+                form.fields["sensor"].queryset = StrainSensor.objects.filter(setup=request.GET['strainsetup'])
+        elif model == StrainSetup:
+            if form.fields.has_key("sensor"):
+                form.fields["sensor"].queryset = StrainSensor.objects.filter(setup=obj)
+        elif model == ForceChannel:
+            if request.GET.has_key("forcesetup"):
+                form.fields["sensor"].queryset = ForceSensor.objects.filter(setup=request.GET['forcesetup'])
+        elif model == ForceSetup:
+            if form.fields.has_key("sensor"):
+                form.fields["sensor"].queryset = ForceSensor.objects.filter(setup=obj)
+        elif model == KinematicsChannel:
+            if request.GET.has_key("kinematicssetup"):
+                form.fields["sensor"].queryset = KinematicsSensor.objects.filter(setup=request.GET['kinematicssetup'])
+        elif model == KinematicsSetup:
+            if form.fields.has_key("sensor"):
+                form.fields["sensor"].queryset = KinematicsSensor.objects.filter(setup=obj)
+                                 
         elif  model == Experiment:
             if form.fields.has_key("subject") and obj:
                 form.fields["subject"].queryset = Subject.objects.filter(study=obj.study)
@@ -572,13 +617,14 @@ class FeedModelAdmin(admin.ModelAdmin):
             if request.GET.has_key("emgsetup"):
                 form.fields["setup"].initial=request.GET['emgsetup']
         elif  model == Illustration:
-            if request.GET.has_key("emgsetup"):
-                form.fields["setup"].initial=request.GET['emgsetup']
-            if request.GET.has_key("sonosetup"):
-                form.fields["setup"].initial=request.GET['sonosetup']
-            if request.GET.has_key("subject"):
-                form.fields["subject"].initial=request.GET['subject']
-        elif  model == SonoChannel:
+            for s in setups:
+                if request.GET.has_key(s):
+                    form.fields["setup"].initial=request.GET[s]
+            #if request.GET.has_key("sonosetup"):
+            #    form.fields["setup"].initial=request.GET['sonosetup']
+            #if request.GET.has_key("subject"):
+            #    form.fields["subject"].initial=request.GET['subject']
+        elif model == SonoChannel:
             if request.GET.has_key("sonosetup"):
                 form.fields["crystal1"].queryset = SonoSensor.objects.filter(setup=request.GET['sonosetup'])
                 form.fields["crystal2"].queryset = SonoSensor.objects.filter(setup=request.GET['sonosetup'])
@@ -587,9 +633,6 @@ class FeedModelAdmin(admin.ModelAdmin):
             if form.fields.has_key("crystal1"):
                 form.fields["crystal1"].queryset = SonoSensor.objects.filter(setup=obj)
                 form.fields["crystal2"].queryset = SonoSensor.objects.filter(setup=obj)
-        elif  model == EmgSensor:
-            if request.GET.has_key("emgsetup"):
-                form.fields["setup"].initial=request.GET['emgsetup']
         elif  model == SonoSensor:
             if request.GET.has_key("sonosetup"):
                 form.fields["setup"].initial=request.GET['sonosetup']
