@@ -42,13 +42,13 @@
     {% block object-tools %}
 
      {% if has_add_permission %}
-        <!-- ul class="object-tools object-tools-top">
+        <ul class="object-tools object-tools-top">
           <li>
-            <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink" -->
-              {# % blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans % #}
-            <!-- /a >
+            <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
+              {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
+            </a >
           </li>
-        </ul -->
+        </ul>
       {% endif %}
 
     {% endblock %}
