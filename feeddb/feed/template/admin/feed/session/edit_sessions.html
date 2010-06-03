@@ -30,7 +30,8 @@
                <th>{{ field.label }}</th>
           {% endif %}
      {% endfor %}
-     </tr></thead>
+     <th>Clone</th>
+	 </tr></thead>
      {% for f in sessionformset.management_form %}
           {{ f }}
      {% endfor %}
@@ -43,9 +44,14 @@
                     {{ field }}
                     </td>
                {% else %}
-                    <td valign="bottom">{{ field }}</
+                    {{ field }}
                {% endif %}
           {% endfor %}
+		  <td>
+		  	{% if f.original %}
+			<a href=""><img src="{% app_static_prefix %}img/admin/copy-icon.png" alt="clone" title="clone this as a new row" /></a>
+			{% endif %}
+			</td>
           </tr>
      {% endfor %}
 </table>
