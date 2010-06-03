@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load display i18n feedmedia %}
 <div class="inline-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
 {{ inline_admin_formset.formset.management_form }}
@@ -12,7 +13,7 @@
          <th {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
         {% endif %}
      {% endfor %}
-     {% if inline_admin_formset.formset.can_delete %}<th>{% trans "Delete?" %}</th>{% endif %}
+     {% if inline_admin_formset.formset.can_delete %}<th>{% trans "Delete?" %}</th><th>{% trans "Clone" %}</th>{% endif %}
      </tr></thead>
 
      {% for inline_admin_form in inline_admin_formset %}
@@ -49,8 +50,8 @@
 
         {% if inline_admin_formset.formset.can_delete %}
           <td class="delete">{% if inline_admin_form.original %}{{ inline_admin_form.deletion_field.field }}{% endif %}</td>
+		  <td class="clone">{% if inline_admin_form.original %}<a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_formset %}/{{inline_admin_form.original.pk}}/clone?r=/admin/{{opts.app_label}}/{{ opts.object_name.lower }}/{{object_id}}/edit"><img src="{% app_static_prefix %}img/admin/copy-icon.png" alt="clone" title="clone this as a new row" /></a>{% endif %}</td>
         {% endif %}
-
         </tr>
 
      {% endfor %}
