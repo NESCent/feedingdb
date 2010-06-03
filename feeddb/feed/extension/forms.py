@@ -4,13 +4,14 @@ from django.utils.text import get_text_list, capfirst
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.forms.util import ValidationError, ErrorList
 from django.forms.forms import BaseForm, get_declared_fields, NON_FIELD_ERRORS
-from django.forms.fields import CharField, IntegerField,DecimalField
+from django.forms.fields import CharField, IntegerField,DecimalField, ChoiceField
 from django.forms.widgets import Select, SelectMultiple, HiddenInput, MultipleHiddenInput
 from django.forms.widgets import media_property
 from django.forms.formsets import BaseFormSet, formset_factory, DELETION_FIELD_NAME
 from django import forms
 from feeddb.feed.models import *
 from feeddb.feed.extension.widgets import *
+from django.db import models
 
 class EmgElectrodeForm(forms.ModelForm):
     notes = CharField(label="Notes", widget=Notes(), required=False)
@@ -26,12 +27,52 @@ class EmgElectrodeForm(forms.ModelForm):
 
         super(EmgElectrodeForm, self).__init__(*args, **kwargs)
 
-class EmgSensorForm(forms.ModelForm):
-     notes = CharField(widget=HiddenInput(), required=False)
-     
-     class Meta:
-         model = EmgSensor
+class EmgChannelForm(forms.ModelForm):
+    class Meta:
+        model = EmgChannel
 
+    def __init__(self, *args, **kwargs):
+        for key, field in self.base_fields.iteritems():
+            if key == "setup" or key == "name" or key == "notes":
+                field.widget = field.hidden_widget()
+            if key =="name":
+                field.initial="EMG Channel"    
+
+        super(EmgChannelForm, self).__init__(*args, **kwargs)
+        
+class EmgSensorChannelForm(forms.ModelForm):
+    emg_unit = forms.ModelChoiceField(label = "Emg Unit", required=True,queryset=Emgunit.objects.all())
+    emg_filtering = forms.ModelChoiceField(label="EMG filtering", queryset=Emgfiltering.objects.all())
+    emg_amplification = IntegerField(label = "Amplification",required=False, initial='')
+    
+    class Meta:
+        model = EmgSensor
+
+    def __init__(self, *args, **kwargs):
+        if 'instance' in kwargs:
+            sensor=kwargs['instance']
+            channel = EmgChannel.objects.get(sensor__id__exact = sensor.id)
+            for key, field in self.base_fields.iteritems():
+                if key =="emg_amplification":
+                    field.initial=channel.emg_amplification
+                if key =="emg_unit":
+                    field.initial= channel.emg_unit.id
+                if key =="emg_filtering":
+                    field.initial=channel.emg_filtering.id        
+        else:
+            for key, field in self.base_fields.iteritems():
+                if key =="emg_amplification":
+                    field.initial=None
+                if key =="emg_unit":
+                    field.initial= None
+                if key =="emg_filtering":
+                    field.initial=None        
+        super(EmgSensorChannelForm, self).__init__(*args, **kwargs)
+    
+class EmgSensorForm(EmgSensorChannelForm):
+    notes = CharField(label ="Notes", widget=Notes(), required=False)
+
+         
 class SessionForm(forms.ModelForm):
     subj_notes = CharField(label = "Subject Notes", widget=Notes(attrs={'size': 5}), required=False)
     accession = CharField(label = "Accession", widget=forms.TextInput(attrs={'size': 5}), required=False)
