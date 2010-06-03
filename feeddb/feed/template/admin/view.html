@@ -33,7 +33,11 @@
         <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
   {% if has_absolute_url %}<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>{% endif%}
 {% endif %}
-
+{% if has_change_permission %}
+    {% if cloneable %}
+	<li><a class="clonelink" href="clone/" >{% trans "Clone" %}</a></li>
+	{% endif %}
+{% endif %}	
 </ul>
 {% endblock %}
 <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% block form_top %}{% endblock %}
@@ -52,16 +56,17 @@
 {% endfor %}
 
 {% block after_field_sets %}{% endblock %}
-
+{% block inline_forms %}
 {% for inline_admin_formset in inline_admin_formsets %}
- 
-    {% ifequal inline_admin_formset.ops.template "admin/template/stacked.html" %}
+    {% ifequal inline_admin_formset.opts.template "admin/template/stacked.html" %}
         {% include "admin/stacked_view.html" %}
     {% else %}
        {% include "admin/tabular_view.html" %}
     {% endifequal %}
 {% endfor %}
-
+{% endblock %}
+{% block extra_inline_forms %}
+{% endblock %}
 {% block after_related_objects %}{% endblock %}
 
 <!--% submit_row % -->
