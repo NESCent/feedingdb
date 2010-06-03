@@ -2,7 +2,7 @@ from feeddb.feed.models import *
 from django.contrib import admin
 from django import forms
 from django.forms import models
-from feeddb.feed.extension.modeladmin import FeedModelAdmin, FeedTabularInline, SessionModelAdmin, ExperimentModelAdmin
+from feeddb.feed.extension.modeladmin import *
 from feeddb.feed.extension.forms import *
 from feeddb.feed.extension.formsets import PositionBaseInlineFormSet
 
@@ -159,7 +159,7 @@ class EmgSensorViewInline(FeedTabularInline):
 class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
     excludes = ['notes']   
-    extra = 1
+    extra = 5
     form = EmgSensorForm
 
 class SonoSensorInline(FeedTabularInline):
@@ -222,11 +222,14 @@ class EmgChannelViewInline(FeedTabularInline):
     excludes = ['notes']   
     extra = 0
 
-
-class EmgChannelInline(FeedTabularInline):
+class EmgChannelViewStackInline(admin.StackedInline):
     model = EmgChannel
-    excludes = ['notes']   
+    extra = 0
+    
+class EmgChannelInline(admin.StackedInline):
+    model = EmgChannel
     extra = 1
+    form = EmgChannelForm
 
 class SonoChannelInline(FeedTabularInline):
     model = SonoChannel
@@ -284,9 +287,9 @@ class EmgElectrodeViewInline(FeedTabularInline):
     extra = 0 
     form = EmgElectrodeForm
 
-class EmgSetupAdmin(FeedModelAdmin):
-    inlines = [ IllustrationInline, EmgElectrodeInline]
-    view_inlines = [IllustrationViewInline, EmgElectrodeViewInline]
+class EmgSetupAdmin(EmgSetupModelAdmin):
+    inlines = [ IllustrationInline, EmgSensorInline]
+    view_inlines = [IllustrationViewInline, EmgSensorViewInline]
     list_display = ('technique', 'preamplifier','experiment')
     list_filter = ('technique', 'experiment')
     ordering = ('preamplifier',)
@@ -353,9 +356,8 @@ class SessionAdmin(SessionModelAdmin):
     tabbed = True
     tab_name = "Session"
 
-class EmgSensorAdmin(FeedModelAdmin):
-    list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv','electrode_type')
-    ordering = ('name', 'muscle',)
+class EmgSensorAdmin(EmgSensorModelAdmin):
+    form = EmgSensorChannelForm
 
 class SonoSensorAdmin(FeedModelAdmin):
     list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv')
@@ -419,4 +421,6 @@ admin.site.register(EmgChannel,EmgChannelAdmin)
 admin.site.register(SonoChannel,SonoChannelAdmin)
 admin.site.register(Channel, FeedModelAdmin)
 admin.site.register(EmgElectrode,EmgElectrodeAdmin)
+admin.site.register(StrainSensor,FeedModelAdmin)
+admin.site.register(StrainChannel,FeedModelAdmin)
 
