@@ -276,17 +276,6 @@ class KinematicsChannelViewInline(FeedTabularInline):
     model = KinematicsChannel
     extra = 0    
              
-class EmgElectrodeInline(FeedTabularInline):
-    model = EmgElectrode
-    extra = 8
-    form = EmgElectrodeForm
-
-class EmgElectrodeViewInline(FeedTabularInline):
-    model = EmgElectrode
-    fields =('name', 'muscle','side', 'axisdepth','axisap', 'axisdv','electrode_type', 'rate', 'emg_unit', 'emg_filtering', 'emg_amplification')
-    extra = 0 
-    form = EmgElectrodeForm
-
 class EmgSetupAdmin(EmgSetupModelAdmin):
     inlines = [ IllustrationInline, EmgSensorInline]
     view_inlines = [IllustrationViewInline, EmgSensorViewInline]
@@ -363,9 +352,6 @@ class SonoSensorAdmin(FeedModelAdmin):
     list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv')
     ordering = ('name', 'muscle',)
 
-class EmgElectrodeAdmin(FeedModelAdmin):
-    pass
-
 class ChannelLineupAdmin(FeedModelAdmin):
     list_display = ('position', 'session','channel')
     list_filter = ('session',)
@@ -420,7 +406,6 @@ admin.site.register(Illustration,IllustrationAdmin)
 admin.site.register(EmgChannel,EmgChannelAdmin)
 admin.site.register(SonoChannel,SonoChannelAdmin)
 admin.site.register(Channel, FeedModelAdmin)
-admin.site.register(EmgElectrode,EmgElectrodeAdmin)
 admin.site.register(StrainSensor,FeedModelAdmin)
 admin.site.register(StrainChannel,FeedModelAdmin)
 
