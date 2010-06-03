@@ -25,12 +25,14 @@ def is_image(file):
 
 def display_readonly(field, adminform):
     values =[]
-    value = adminform.form.initial.get(field.field.name)
+    value=field.field.field.initial
+    if value==None:
+        value = adminform.form.initial.get(field.field.name)
+    
     if hasattr(value, "append"):
         values =value
     else:
         values.append(value)
-
     real_value=""
     if value ==None:
         real_value=""
