@@ -15,6 +15,9 @@ class FeedBaseModel(models.Model):
     class Meta:
         abstract = True
 
+    def cloneable(self):
+        return True
+        
     def save(self):
         now = datetime.datetime.today()
         if not self.id:
@@ -22,6 +25,20 @@ class FeedBaseModel(models.Model):
         self.updated_at = now
         super(FeedBaseModel, self).save()
 
+    def clone_back(self, exclude=[]):
+        cloned=None
+        if self.__class__ in exclude:
+            pass
+        else:
+            for f in self._meta.fields:
+                if isinstance(f, models.ForeignKey):
+                    rel_obj = getattr(self,f.name)
+                    if rel_obj!=None and hasattr(rel_obj,'clone'):
+                        setattr(self,f.name,rel_obj.clone(exclude))
+            cloned=self
+            cloned.id=None
+        return cloned
+                             
 #cvterms
 class CvTerm(FeedBaseModel):
     label = models.CharField(max_length=255)
@@ -32,7 +49,9 @@ class CvTerm(FeedBaseModel):
     class Meta:
         ordering = ["label"]
         abstract = True
-
+    def cloneable(self):
+        return False
+        
 class DevelopmentStage(CvTerm):
     pass
 
@@ -291,7 +310,7 @@ class EmgChannel(Channel):
 
 
 class SonoChannel(Channel):
-    sono_unit = models.ForeignKey(Sonounit, verbose_name="EMG units")    #TODO: switch from Sonounit to Unit
+    sono_unit = models.ForeignKey(Sonounit, verbose_name="Sono units")    #TODO: switch from Sonounit to Unit
     crystal1 = models.ForeignKey(SonoSensor, related_name="crystals1_related")
     crystal2 = models.ForeignKey(SonoSensor, related_name="crystals2_related")
 
@@ -476,8 +495,6 @@ class EmgElectrode(FeedBaseModel):
         if self.sensor !=None:
             self.sensor.delete()
 
-        
-        
     class Meta:
         verbose_name = "EMG Electrode"
         verbose_name_plural = "EMG Electrodes" 
