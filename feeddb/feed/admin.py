@@ -349,8 +349,8 @@ class EmgSensorAdmin(EmgSensorModelAdmin):
     form = EmgSensorChannelForm
 
 class SonoSensorAdmin(FeedModelAdmin):
-    list_display = ('name', 'muscle', 'side', 'axisdepth','axisap','axisdv')
-    ordering = ('name', 'muscle',)
+    list_display = ('name', 'location_controlled', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes')
+    ordering = ('name',)
 
 class ChannelLineupAdmin(FeedModelAdmin):
     list_display = ('position', 'session','channel')
@@ -362,10 +362,15 @@ class TermAdmin(FeedModelAdmin):
     list_filter = ('controlled','deprecated')
     ordering = ('label',)
 
+class AnatomicalLocationAdmin(FeedModelAdmin):
+    list_display = ('category', 'label')
+    list_filter = ('category', )
+    ordering = ('category', 'label')
+
 class UnitAdmin(FeedModelAdmin):
-    list_display = ('technique', 'label', 'controlled','deprecated')
-    list_filter = ('technique', 'controlled','deprecated')
-    ordering = ('label',)
+    list_display = ('technique', 'label')
+    list_filter = ('technique',)
+    ordering = ('technique', 'label',)
         
 class TaxonAdmin(FeedModelAdmin):
     list_display = ('genus','species','common_name', 'controlled','deprecated')
@@ -375,10 +380,13 @@ class TaxonAdmin(FeedModelAdmin):
 admin.site.register(Technique,TermAdmin)	
 admin.site.register(Taxon, TaxonAdmin)
 admin.site.register(Muscle,TermAdmin)
+admin.site.register(AnatomicalLocation, AnatomicalLocationAdmin)
 admin.site.register(Side,TermAdmin)
 admin.site.register(DepthAxis,TermAdmin)
 admin.site.register(AnteriorPosteriorAxis,TermAdmin)
 admin.site.register(DorsalVentralAxis,TermAdmin)
+admin.site.register(ProximalDistalAxis,TermAdmin)
+admin.site.register(MedialLateralAxis,TermAdmin)
 admin.site.register(ElectrodeType,TermAdmin)
 admin.site.register(DevelopmentStage,TermAdmin)
 admin.site.register(Behavior,TermAdmin)

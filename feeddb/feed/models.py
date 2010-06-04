@@ -81,8 +81,23 @@ class Taxon(CvTerm):
         ordering = ["genus"]
         verbose_name_plural = "Taxa"
 
+# Muscle is being replaced by AnatomicalLocation
 class Muscle(CvTerm):
     pass
+
+
+class AnatomicalCategories:     # An "enumeration", not a Django model
+    muscle = 1
+    bone = 2
+
+ANATOMICAL_CATEGORIES = (
+        (AnatomicalCategories.muscle, u'Muscle'), 
+        (AnatomicalCategories.bone, u'Bone')
+                                  )
+
+class AnatomicalLocation(CvTerm):
+    category = models.IntegerField(choices=ANATOMICAL_CATEGORIES)
+    #--tmp_muscleid = models.IntegerField(null=True)    #to be dropped after data migration
 
 class Side(CvTerm):
     pass
@@ -103,6 +118,16 @@ class DorsalVentralAxis(CvTerm):
     class Meta:
         verbose_name = "dorsal-ventral point"
         verbose_name_plural = "dorsal-ventral axis"
+
+class ProximalDistalAxis(CvTerm):
+    class Meta:
+        verbose_name = "proximal-distal point"
+        verbose_name_plural = "proximal-distal axis"
+        
+class MedialLateralAxis(CvTerm):
+    class Meta: 
+        verbose_name = "medial-lateral point"
+        verbose_name_plural = "medial-lateral axis"
 
 
 class ElectrodeType(CvTerm):
@@ -234,39 +259,42 @@ class KinematicsSetup(Setup):
 class Sensor(FeedBaseModel):
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length=255)
-    location = models.CharField("Anatomical Location", max_length=255, blank = True, null=True)
-    loc_side = models.ForeignKey(Side, verbose_name="Side of Location", null=True)
-    loc_region = models.CharField("Region of Location", max_length=255, blank = True, null=True)
+
+    location_freetext = models.CharField("Anatomical Location (free text)", max_length=255, blank = True, null=True)
+    #location_controlled  -- a companion field in some Sensor subclasses
+    
+    loc_side = models.ForeignKey(Side, verbose_name="Side", null=False)   
+    loc_ap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="AP", blank = True, null=True )
+    loc_dv = models.ForeignKey(DorsalVentralAxis, verbose_name="DV", blank = True, null=True )
+    loc_pd = models.ForeignKey(ProximalDistalAxis, verbose_name="PD", blank = True, null=True )
+    loc_ml = models.ForeignKey(MedialLateralAxis, verbose_name="ML", blank = True, null=True ) 
+    
     notes = models.TextField( blank = True, null=True)
     def __unicode__(self):
         return self.name  
 
-class EmgSensor(Sensor):
-    muscle = models.ForeignKey(Muscle)
-    side = models.ForeignKey(Side, verbose_name="side of muscle" )
-    ##### conceptually, EmgSensor.side overrides Sensor.loc_side
-    axisdepth = models.ForeignKey(DepthAxis, verbose_name="depth point", blank = True, null=True )
-    axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="anterior-posterior point", blank = True, null=True )
-    axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="dorsal-ventral point", blank = True, null=True )
+class EmgSensor(Sensor):    
+    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=False,    
+                                            limit_choices_to = {'category__exact' : AnatomicalCategories.muscle}) 
+    
+    axisdepth = models.ForeignKey(DepthAxis, verbose_name="Electrode depth", blank = True, null=True )
     electrode_type = models.ForeignKey(ElectrodeType,
-        verbose_name="electrode type", blank = True, null=True )
+        verbose_name="Electrode type", blank = True, null=True )
 
     def __unicode__(self):
-        return 'EMG Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.muscle.label, self.side.label)  
+        return 'EMG Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.location_controlled.label, self.loc_side.label)  
 
     class Meta:
         verbose_name = "EMG sensor"
         ordering = ["id"]
 
 class SonoSensor(Sensor):
-    muscle = models.ForeignKey(Muscle )
-    side = models.ForeignKey(Side, verbose_name="side of muscle" )
-    ##### conceptually, SonoSensor.side overrides Sensor.loc_side
-    axisdepth = models.ForeignKey(DepthAxis, verbose_name="depth point", blank = True, null=True )
-    axisap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="anterior-posterior point", blank = True, null=True )
-    axisdv = models.ForeignKey(DorsalVentralAxis, verbose_name="dorsal-ventral point", blank = True, null=True )
+    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=False,    
+                                            limit_choices_to = {'category__exact' : AnatomicalCategories.muscle}) 
+
+    axisdepth = models.ForeignKey(DepthAxis, verbose_name="Crystal depth", blank = True, null=True )
     def __unicode__(self):
-        return 'Sono Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.muscle.label, self.side.label)  
+        return 'Sono Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.location_controlled.label, self.loc_side.label)  
 
     class Meta:
         verbose_name = "Sono sensor"
