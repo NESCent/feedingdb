@@ -114,15 +114,15 @@ class StudyAdmin(FeedModelAdmin):
     view_inlines = [StudyPrivateViewInline, SubjectViewInline, ExperimentViewInline]
     search_fields = ('title', 'description')
     list_display = ('title','start','end', 'funding_agency','approval_secured',)
+    form = StudyChangeForm    
     tabbed = True
-
-
 
 class ExperimentAdmin(ExperimentModelAdmin):
     inlines = [IllustrationInline]
     view_inlines = [IllustrationViewInline]
     search_fields = ('decription',)
     list_display = ('title', 'study', 'subject')
+    form = ExperimentChangeForm
     #list_filter = ('study', 'subject')
 
 
@@ -141,6 +141,7 @@ class TrialAdmin(FeedModelAdmin):
     list_display = ('title', 'session', 'position', 'claimed_duration', 
                     'food_type', 'behavior_primary')
     #list_filter = ('behavior_primary', 'food_type','session')
+    form = TrialChangeForm
     ordering = ('position',)
 
 class IllustrationAdmin(FeedModelAdmin):
@@ -152,74 +153,72 @@ class IllustrationAdmin(FeedModelAdmin):
 
 class EmgSensorViewInline(FeedTabularInline):
     model = EmgSensor
-    excludes = ['notes']   
+    exclude = ['location_freetext']   
     extra = 0
     form = EmgSensorForm
 
 class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
-    excludes = ['notes']   
+    exclude = ['location_freetext']   
     extra = 5
     form = EmgSensorForm
 
 class SonoSensorInline(FeedTabularInline):
     model = SonoSensor
-    extra = 1
+    extra = 4
+    exclude = ['location_freetext']   
     form = SonoSensorForm
 
 class SonoSensorViewInline(FeedTabularInline):
     model = SonoSensor
-    excludes = ['notes']   
+    exclude = ['location_freetext']       
     extra = 0
 
 
 class StrainSensorInline(FeedTabularInline):
     model = StrainSensor
-    extra = 1
+    extra = 3
     form = StrainSensorForm
 
 class StrainSensorViewInline(FeedTabularInline):
     model = StrainSensor
-    excludes = ['notes']   
     extra = 0
 
 class ForceSensorInline(FeedTabularInline):
     model = ForceSensor
-    extra = 1
+    extra = 3
     form = ForceSensorForm
 
 class ForceSensorViewInline(FeedTabularInline):
     model = ForceSensor
-    excludes = ['notes']   
     extra = 0
 
 class PressureSensorInline(FeedTabularInline):
     model = PressureSensor
-    extra = 1
+    extra = 3
     form = PressureSensorForm
 
 class PressureSensorViewInline(FeedTabularInline):
     model = PressureSensor
-    excludes = ['notes']   
+    exclude = ['notes']   
     extra = 0
 class KinematicsSensorInline(FeedTabularInline):
     model = KinematicsSensor
-    extra = 1
+    extra = 3
     form = KinematicsSensorForm
 
 class KinematicsSensorViewInline(FeedTabularInline):
     model = KinematicsSensor
-    excludes = ['notes']   
     extra = 0
         
 class ChannelInline(FeedTabularInline):
     model = Channel
-    excludes = ['notes']   
+    exclude = ['notes']   
     extra = 0
 
 class EmgChannelViewInline(FeedTabularInline):
     model = EmgChannel
-    excludes = ['notes']   
+    exclude = ['notes']   
     extra = 0
 
 class EmgChannelViewStackInline(admin.StackedInline):
@@ -233,7 +232,7 @@ class EmgChannelInline(admin.StackedInline):
 
 class SonoChannelInline(FeedTabularInline):
     model = SonoChannel
-    extra =1
+    extra =5
     form = SonoChannelForm
 
 class SonoChannelViewInline(FeedTabularInline):
@@ -242,7 +241,7 @@ class SonoChannelViewInline(FeedTabularInline):
 
 class StrainChannelInline(FeedTabularInline):
     model = StrainChannel
-    extra =1
+    extra =9
     form = StrainChannelForm
 
 class StrainChannelViewInline(FeedTabularInline):
@@ -251,7 +250,7 @@ class StrainChannelViewInline(FeedTabularInline):
 
 class ForceChannelInline(FeedTabularInline):
     model = ForceChannel
-    extra =1
+    extra =9
     form = ForceChannelForm
 
 class ForceChannelViewInline(FeedTabularInline):
@@ -260,7 +259,7 @@ class ForceChannelViewInline(FeedTabularInline):
 
 class PressureChannelInline(FeedTabularInline):
     model = PressureChannel
-    extra =1
+    extra =9
     form = PressureChannelForm
 
 class PressureChannelViewInline(FeedTabularInline):
@@ -269,7 +268,7 @@ class PressureChannelViewInline(FeedTabularInline):
 
 class KinematicsChannelInline(FeedTabularInline):
     model = KinematicsChannel
-    extra =1
+    extra =9
     form = KinematicsChannelForm
 
 class KinematicsChannelViewInline(FeedTabularInline):
@@ -337,11 +336,12 @@ class ChannelLineupViewInline(FeedTabularInline):
     tab_name="Channel Lineup"
 
 class SessionAdmin(SessionModelAdmin):
-    inlines = [ChannelLineupInline, TrialInline]
+    inlines = [ChannelLineupInline]
     view_inlines = [ChannelLineupViewInline, TrialViewInline ]
     form = SessionForm
     list_display = ('title', 'experiment','position', 'start', 'subj_restraint','subj_anesthesia_sedation')
     ordering = ('position',)
+    form = SessionChangeForm
     tabbed = True
     tab_name = "Session"
 
@@ -349,8 +349,8 @@ class EmgSensorAdmin(EmgSensorModelAdmin):
     form = EmgSensorChannelForm
 
 class SonoSensorAdmin(FeedModelAdmin):
-    list_display = ('name', 'location_controlled', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes')
-    ordering = ('name',)
+    list_display = ('name', 'location_controlled', 'loc_side', 'axisdepth','loc_ap','loc_dv')
+    ordering = ('name', 'location_controlled',)
 
 class ChannelLineupAdmin(FeedModelAdmin):
     list_display = ('position', 'session','channel')
@@ -362,15 +362,10 @@ class TermAdmin(FeedModelAdmin):
     list_filter = ('controlled','deprecated')
     ordering = ('label',)
 
-class AnatomicalLocationAdmin(FeedModelAdmin):
-    list_display = ('category', 'label')
-    list_filter = ('category', )
-    ordering = ('category', 'label')
-
 class UnitAdmin(FeedModelAdmin):
-    list_display = ('technique', 'label')
-    list_filter = ('technique',)
-    ordering = ('technique', 'label',)
+    list_display = ('technique', 'label', 'controlled','deprecated')
+    list_filter = ('technique', 'controlled','deprecated')
+    ordering = ('label',)
         
 class TaxonAdmin(FeedModelAdmin):
     list_display = ('genus','species','common_name', 'controlled','deprecated')
@@ -380,13 +375,10 @@ class TaxonAdmin(FeedModelAdmin):
 admin.site.register(Technique,TermAdmin)	
 admin.site.register(Taxon, TaxonAdmin)
 admin.site.register(Muscle,TermAdmin)
-admin.site.register(AnatomicalLocation, AnatomicalLocationAdmin)
 admin.site.register(Side,TermAdmin)
 admin.site.register(DepthAxis,TermAdmin)
 admin.site.register(AnteriorPosteriorAxis,TermAdmin)
 admin.site.register(DorsalVentralAxis,TermAdmin)
-admin.site.register(ProximalDistalAxis,TermAdmin)
-admin.site.register(MedialLateralAxis,TermAdmin)
 admin.site.register(ElectrodeType,TermAdmin)
 admin.site.register(DevelopmentStage,TermAdmin)
 admin.site.register(Behavior,TermAdmin)
