@@ -18,6 +18,21 @@ from django.db import models
 class ExperimentChangeForm(forms.ModelForm):
     start = FeedDateTimeField(required=False)
     end = FeedDateTimeField(required=False)
+    def __init__(self, *args, **kwargs):
+        parent_obj =None
+        obj = None
+        
+        if 'initial' in kwargs:
+            if 'study' in kwargs['initial']:
+                study_id=kwargs['initial']['study']
+                parent_obj = Study.objects.get(id=study_id)
+                for key, field in self.base_fields.iteritems():
+                    if key =="start":
+                        field.initial=parent_obj.start 
+                    if key =="end":
+                        field.initial=parent_obj.end
+                         
+        super(ExperimentChangeForm, self).__init__(*args, **kwargs)
 
 class StudyChangeForm(forms.ModelForm):
     start = FeedDateTimeField()
@@ -26,11 +41,39 @@ class StudyChangeForm(forms.ModelForm):
 class SessionChangeForm(forms.ModelForm):
     start = FeedDateTimeField(required=False)
     end = FeedDateTimeField(required=False)
+    def __init__(self, *args, **kwargs):
+        parent_obj =None
+        obj = None
+        if 'initial' in kwargs:
+            if 'experiment' in kwargs['initial']:
+                experiment_id=kwargs['initial']['experiment']
+                parent_obj = Experiment.objects.get(id=experiment_id)
+                for key, field in self.base_fields.iteritems():
+                    if key =="start":
+                        field.initial=parent_obj.start 
+                    if key =="end":
+                        field.initial=parent_obj.end
+                         
+        super(SessionChangeForm, self).__init__(*args, **kwargs)
 
 class TrialChangeForm(forms.ModelForm):
     start = FeedDateTimeField(required=False)
     end = FeedDateTimeField(required=False)
-
+    def __init__(self, *args, **kwargs):
+        parent_obj =None
+        obj = None
+        
+        if 'initial' in kwargs:
+            if 'session' in kwargs['initial']:
+                session_id=kwargs['initial']['session']
+                parent_obj = Session.objects.get(id=session_id)
+                for key, field in self.base_fields.iteritems():
+                    if key =="start":
+                        field.initial=parent_obj.start 
+                    if key =="end":
+                        field.initial=parent_obj.end
+                         
+        super(TrialChangeForm, self).__init__(*args, **kwargs)
 
 class EmgChannelForm(forms.ModelForm):
     class Meta:
@@ -94,7 +137,7 @@ class SessionForm(forms.ModelForm):
     class Meta:
         model = Session
         exclude = ('channels',)
-
+        
 class ExperimentForm(forms.ModelForm):
     subject_notes = CharField(label ="Subject Notes", widget=Notes(), required=False)
     description = CharField(label ="Description",widget=Notes(), required=False)
