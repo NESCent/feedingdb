@@ -131,7 +131,7 @@ class SubjectAdmin(FeedModelAdmin):
     inlines = [IllustrationInline]
     view_inlines = [IllustrationViewInline]
     search_fields = ('name', 'breed','taxon', 'source','sex','notes')
-    list_display = ('name', 'taxon', 'breed','sex', 'source')
+    list_display = ('name', 'study', 'taxon', 'breed','sex', 'source')
     #list_filter = ('study', 'taxon','sex')
     ordering = ('name',)
 
