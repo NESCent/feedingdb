@@ -209,8 +209,8 @@ class Experiment(FeedBaseModel):
     end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     description = models.TextField()
     subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="subject development stage")
-    subj_age = models.DecimalField("subject age",max_digits=19, decimal_places=5, blank = True, null=True)
-    subj_weight = models.DecimalField("subject weight",max_digits=19, decimal_places=5, blank = True, null=True)
+    subj_age = models.DecimalField("subject age (Year)",max_digits=19, decimal_places=5, blank = True, null=True)
+    subj_weight = models.DecimalField("subject weight (Kg)",max_digits=19, decimal_places=5, blank = True, null=True)
     subj_tooth = models.CharField("subject teeth",max_length=255, blank = True, null=True)
     subject_notes = models.TextField("subject notes", blank = True, null=True)
     impl_notes = models.TextField("implantation notes", blank = True, null=True)
@@ -375,14 +375,14 @@ class KinematicsChannel(Channel):
     sensor = models.ForeignKey(KinematicsSensor, blank = True, null=True)
     class Meta:
         verbose_name = "2D Kinematics channel"
-               
+              
 class Session(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255, default="new Recording Session - edit this")
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     experiment = models.ForeignKey(Experiment)    
     position = models.IntegerField(help_text='the order of the recording session in the experiment')
-    start = models.DateTimeField( blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
+    start = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     subj_notes = models.TextField("subject notes", blank = True, null=True)    
     subj_restraint = models.ForeignKey(Restraint,verbose_name="subject restraint")
