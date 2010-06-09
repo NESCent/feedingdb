@@ -646,9 +646,6 @@ class FeedModelAdmin(admin.ModelAdmin):
         elif  model == Experiment:
             if form.fields.has_key("subject") and obj:
                 form.fields["subject"].queryset = Subject.objects.filter(study=obj.study)
-        elif  model == EmgElectrode:
-            if request.GET.has_key("emgsetup"):
-                form.fields["setup"].initial=request.GET['emgsetup']
         elif  model == Illustration:
             for s in setups:
                 if request.GET.has_key(s):
