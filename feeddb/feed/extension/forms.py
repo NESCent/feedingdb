@@ -4,28 +4,33 @@ from django.utils.text import get_text_list, capfirst
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.forms.util import ValidationError, ErrorList
 from django.forms.forms import BaseForm, get_declared_fields, NON_FIELD_ERRORS
-from django.forms.fields import CharField, IntegerField,DecimalField, ChoiceField
+from django.forms.fields import *
 from django.forms.widgets import Select, SelectMultiple, HiddenInput, MultipleHiddenInput
 from django.forms.widgets import media_property
 from django.forms.formsets import BaseFormSet, formset_factory, DELETION_FIELD_NAME
 from django import forms
 from feeddb.feed.models import *
 from feeddb.feed.extension.widgets import *
+from feeddb.feed.extension.fields import FeedDateTimeField
+
 from django.db import models
 
-class EmgElectrodeForm(forms.ModelForm):
-    notes = CharField(label="Notes", widget=Notes(), required=False)
-    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}))
+class ExperimentChangeForm(forms.ModelForm):
+    start = FeedDateTimeField(required=False)
+    end = FeedDateTimeField(required=False)
 
-    class Meta:
-        model = EmgElectrode
+class StudyChangeForm(forms.ModelForm):
+    start = FeedDateTimeField()
+    end = FeedDateTimeField(required=False)
 
-    def __init__(self, *args, **kwargs):
-        for key, field in self.base_fields.iteritems():
-            if key == "sensor" or key == "channel":
-                field.widget = field.hidden_widget()
+class SessionChangeForm(forms.ModelForm):
+    start = FeedDateTimeField(required=False)
+    end = FeedDateTimeField(required=False)
 
-        super(EmgElectrodeForm, self).__init__(*args, **kwargs)
+class TrialChangeForm(forms.ModelForm):
+    start = FeedDateTimeField(required=False)
+    end = FeedDateTimeField(required=False)
+
 
 class EmgChannelForm(forms.ModelForm):
     class Meta:
@@ -49,9 +54,14 @@ class EmgSensorChannelForm(forms.ModelForm):
         model = EmgSensor
 
     def __init__(self, *args, **kwargs):
+        channel=None
         if 'instance' in kwargs:
             sensor=kwargs['instance']
-            channel = EmgChannel.objects.get(sensor__id__exact = sensor.id)
+            try:
+                channel = EmgChannel.objects.get(sensor__id__exact = sensor.id)
+            except EmgChannel.DoesNotExist:
+                channel = None
+        if channel !=None:    
             for key, field in self.base_fields.iteritems():
                 if key =="emg_amplification":
                     field.initial=channel.emg_amplification
@@ -67,6 +77,7 @@ class EmgSensorChannelForm(forms.ModelForm):
                     field.initial= None
                 if key =="emg_filtering":
                     field.initial=None        
+        
         super(EmgSensorChannelForm, self).__init__(*args, **kwargs)
     
 class EmgSensorForm(EmgSensorChannelForm):
@@ -78,10 +89,11 @@ class SessionForm(forms.ModelForm):
     accession = CharField(label = "Accession", widget=forms.TextInput(attrs={'size': 5}), required=False)
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
     position = IntegerField(label = "Position", help_text='the order of the recording session in the experiment', widget=forms.TextInput(attrs={'size': 3}))
+    start = FeedDateTimeField(required=False)
+    end = FeedDateTimeField(required=False)
     class Meta:
         model = Session
         exclude = ('channels',)
-
 
 class ExperimentForm(forms.ModelForm):
     subject_notes = CharField(label ="Subject Notes", widget=Notes(), required=False)
@@ -92,6 +104,7 @@ class ExperimentForm(forms.ModelForm):
     subj_tooth = CharField(label = "Subject Tooth", widget=forms.TextInput(attrs={'size': 10}), required=False)
     subj_age = DecimalField(label = "Subject Age", widget=forms.TextInput(attrs={'size': 5}), required=False)
     subj_weight = DecimalField(label = "Subject Weight", widget=forms.TextInput(attrs={'size': 5}), required=False)
+    
     class Meta:
         model = Experiment
         exclude = ('setups',)
