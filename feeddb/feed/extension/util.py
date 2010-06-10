@@ -9,6 +9,8 @@ from django.core.urlresolvers import reverse, NoReverseMatch
 from django.contrib.admin.util import _nest_help, get_change_view_url
 from django.db.models.query import CollectedObjects
 from django.db.models.fields.related import *
+from feeddb.feed.models import *
+from django.db.models import Max
 
 def get_feed_deleted_objects(deleted_objects, perms_needed, user, obj, opts, current_depth, admin_site, levels_to_root=4):
     """
@@ -182,4 +184,24 @@ def duplicate(obj, exclude = None, value=None, field=None):
             obj.save()
             if root_obj is None:
                 root_obj = obj
+    set_position(root_obj)
     return root_obj
+
+def set_position(obj):
+    """
+    set the position of the obj consecutively 
+    """
+    if hasattr(obj,'position'):
+       if isinstance(obj, Session) and obj.experiment:
+           sisters = Session.objects.filter(experiment__id=obj.experiment.id)
+           max_position = sisters.aggregate(Max('position'))
+           obj.position =  max_position['position__max']+1
+       if isinstance(obj, Trial) and obj.session:
+           sisters = Trial.objects.filter(session__id=obj.session.id)
+           max_position = sisters.aggregate(Max('position'))
+           obj.position =  max_position['position__max']+1
+       if isinstance(obj, ChannelLineup) and obj.session:
+           sisters = ChannelLineup.objects.filter(session__id=obj.session.id)
+           max_position = sisters.aggregate(Max('position'))
+           obj.position =  max_position['position__max']+1
+            
