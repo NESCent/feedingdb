@@ -92,8 +92,9 @@ class EmgChannelForm(forms.ModelForm):
 class EmgSensorChannelForm(forms.ModelForm):
     emg_unit = forms.ModelChoiceField(label = "Emg Unit", required=True,queryset=Emgunit.objects.all())
     emg_filtering = forms.ModelChoiceField(label="EMG filtering", queryset=Emgfiltering.objects.all())
-    emg_amplification = IntegerField(label = "Amplification",required=False, initial='')
-    
+    emg_amplification = IntegerField(label = "Amplification",required=False, initial='', widget=forms.TextInput(attrs={'size': 5}))
+    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}))
+
     class Meta:
         model = EmgSensor
 
@@ -126,7 +127,6 @@ class EmgSensorChannelForm(forms.ModelForm):
     
 class EmgSensorForm(EmgSensorChannelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
-
          
 class SessionForm(forms.ModelForm):
     subj_notes = CharField(label = "Subject Notes", widget=Notes(attrs={'size': 5}), required=False)
