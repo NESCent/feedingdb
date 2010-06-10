@@ -352,7 +352,7 @@ def trial_search(request):
                 query = query & Q(session__experiment__subject__taxon__id__exact = species)
             muscle = form.cleaned_data['muscle']
             if muscle!=None and muscle != "":
-                query = query & (Q(session__channels__setup__sensor__emgsensor__muscle__id__exact = muscle) | Q(session__channels__setup__sensor__sonosensor__muscle__id__exact = muscle) )
+                query = query & (Q(session__channels__setup__sensor__emgsensor__location_controlled__id__exact = muscle) | Q(session__channels__setup__sensor__sonosensor__location_controlled__id__exact = muscle) )
             behavior = form.cleaned_data['primary_behavior']
             if behavior!=None and behavior != "":
                 query = query & Q(behavior_primary__id__exact = behavior) 

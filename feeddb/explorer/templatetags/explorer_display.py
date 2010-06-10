@@ -23,9 +23,9 @@ def display_muscle(trial):
     
     for ch in trial.session.channels.all():
         for sensor in ch.setup.sensor_set.all():
-            if hasattr(sensor, 'emgsensor') and  not sensor.emgsensor.muscle.label in musles:
-                musles.add(sensor.emgsensor.muscle.label)
-            if hasattr(sensor, 'sonosensor') and not sensor.sonosensor.muscle.label in musles:
-                musles.add(sensor.sonosensor.muscle.label)
+            if hasattr(sensor, 'emgsensor') and  not sensor.emgsensor.location_controlled.label in musles:
+                musles.add(sensor.emgsensor.location_controlled.label)
+            if hasattr(sensor, 'sonosensor') and not sensor.sonosensor.location_controlled.label in musles:
+                musles.add(sensor.sonosensor.location_controlled.label)
     return ','.join(musles)
 display_muscle = register.simple_tag(display_muscle)
