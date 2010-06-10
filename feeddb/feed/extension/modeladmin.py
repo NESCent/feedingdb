@@ -1128,6 +1128,7 @@ class SessionModelAdmin(FeedModelAdmin):
 
     def get_urls(self):
         from django.conf.urls.defaults import patterns, url
+        urls = super(SessionModelAdmin, self).get_urls()
 
         def wrap(view):
             def wrapper(*args, **kwargs):
@@ -1137,29 +1138,11 @@ class SessionModelAdmin(FeedModelAdmin):
         info = self.model._meta.app_label, self.model._meta.module_name
 
         urlpatterns = patterns('',
-            url(r'^$',
-                wrap(self.changelist_view),
-                name='%s_%s_changelist' % info),
             url(r'^edit/$',
                 wrap(self.editlist_view),
                 name='%s_%s_editlist' % info),
-            url(r'^add/$',
-                wrap(self.add_view),
-                name='%s_%s_add' % info),
-            url(r'^(.+)/history/$',
-                wrap(self.history_view),
-                name='%s_%s_history' % info),
-            url(r'^(.+)/delete/$',
-                wrap(self.delete_view),
-                name='%s_%s_delete' % info),
-            url(r'^(.+)/edit/$',
-                wrap(self.change_view),
-                name='%s_%s_change' % info),    
-            url(r'^(.+)/$',
-                wrap(self.view_view),
-                name='%s_%s_view' % info),
         )
-        return urlpatterns
+        return urlpatterns+urls
 
     def editlist_view(self, request, extra_context=None):
         if request.GET.get("experiment") ==None:
@@ -1198,25 +1181,10 @@ class SessionModelAdmin(FeedModelAdmin):
                 messages.append("Successfully updated the data!")
             else:
                 errors.append(sessionformset.non_form_errors())
-            form = SessionForm(instance=obj)
-            
-            context={
-                'experiment': obj,
-                'object_id': object_id,
-                'change': True,
-                'add': False,
-                'view': False,
-                'sessionformset': sessionformset,
-                'app_label': 'feed',
-                'messages': messages,
-                'errors': errors,
-            }
-            context_instance = template.RequestContext(request, current_app=self.admin_site.name)
-            return render_to_response("admin/feed/session/edit_sessions.html", context, context_instance=context_instance)
-        else:
-            #form = SessionForm(instance=obj)
-            FormSet  = inlineformset_factory(Experiment, Session, SessionForm, PositionBaseInlineFormSet, can_delete=True)
-            sessionformset =FormSet(instance=obj)
+        
+        FormSet  = inlineformset_factory(Experiment, Session, SessionForm, PositionBaseInlineFormSet, can_delete=True)
+        sessionformset =FormSet(instance=obj)
+        
         context={
             'experiment': obj,
             'object_id': object_id,
