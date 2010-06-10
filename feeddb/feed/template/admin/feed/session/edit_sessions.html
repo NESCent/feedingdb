@@ -57,8 +57,8 @@
                {% endif %}
           {% endfor %}
 		  <td>
-		  	{% if f.original %}
-			<a href=""><img src="{% app_static_prefix %}img/admin/copy-icon.png" alt="clone" title="clone this as a new row" /></a>
+		  	{% if f.instance.id %}
+			<a href="/admin/{{app_label}}/session/{{f.instance.id}}/clone/?r=/admin/{{app_label}}/session/edit/?experiment={{object_id}}"><img src="{% app_static_prefix %}img/admin/copy-icon.png" alt="clone" title="clone this as a new row" /></a>
 			{% endif %}
 			</td>
           </tr>
