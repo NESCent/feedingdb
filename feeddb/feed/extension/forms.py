@@ -15,9 +15,10 @@ from feeddb.feed.extension.fields import FeedDateTimeField
 
 from django.db import models
 
+DATE_HELP_TEXT = 'format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00'
 class ExperimentChangeForm(forms.ModelForm):
-    start = FeedDateTimeField(required=False)
-    end = FeedDateTimeField(required=False)
+    start = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
+    end = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
     def __init__(self, *args, **kwargs):
         parent_obj =None
         obj = None
@@ -35,12 +36,12 @@ class ExperimentChangeForm(forms.ModelForm):
         super(ExperimentChangeForm, self).__init__(*args, **kwargs)
 
 class StudyChangeForm(forms.ModelForm):
-    start = FeedDateTimeField()
-    end = FeedDateTimeField(required=False)
+    start = FeedDateTimeField(help_text=DATE_HELP_TEXT)
+    end = FeedDateTimeField(required=False,help_text=DATE_HELP_TEXT)
 
 class SessionChangeForm(forms.ModelForm):
-    start = FeedDateTimeField(required=False)
-    end = FeedDateTimeField(required=False)
+    start = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
+    end = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
     def __init__(self, *args, **kwargs):
         parent_obj =None
         obj = None
@@ -57,8 +58,8 @@ class SessionChangeForm(forms.ModelForm):
         super(SessionChangeForm, self).__init__(*args, **kwargs)
 
 class TrialChangeForm(forms.ModelForm):
-    start = FeedDateTimeField(required=False)
-    end = FeedDateTimeField(required=False)
+    start = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
+    end = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
     def __init__(self, *args, **kwargs):
         parent_obj =None
         obj = None
