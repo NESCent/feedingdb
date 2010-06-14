@@ -325,6 +325,7 @@ class SonoChannelAdmin(FeedModelAdmin):
     list_display = ('name', 'rate', 'crystal1','crystal2','sono_unit')
     ordering = ('crystal1',)
 
+  
 class ChannelLineupInline(FeedTabularInline):
     model = ChannelLineup
     extra = 8    
@@ -405,11 +406,16 @@ admin.site.register(PressureSetup,PressureSetupAdmin)
 admin.site.register(KinematicsSetup,KinematicsSetupAdmin)
 admin.site.register(EmgSensor, EmgSensorAdmin)
 admin.site.register(SonoSensor, SonoSensorAdmin)
+admin.site.register(ForceSensor, FeedModelAdmin)
+admin.site.register(StrainSensor, FeedModelAdmin)
+admin.site.register(KinematicsSensor, FeedModelAdmin)
+admin.site.register(PressureSensor, FeedModelAdmin)
 admin.site.register(ChannelLineup, ChannelLineupAdmin)
 admin.site.register(Illustration,IllustrationAdmin)
 admin.site.register(EmgChannel,EmgChannelAdmin)
 admin.site.register(SonoChannel,SonoChannelAdmin)
 admin.site.register(Channel, FeedModelAdmin)
-admin.site.register(StrainSensor,FeedModelAdmin)
 admin.site.register(StrainChannel,FeedModelAdmin)
-
+admin.site.register(ForceChannel, FeedModelAdmin)
+admin.site.register(KinematicsChannel, FeedModelAdmin)
+admin.site.register(PressureChannel, FeedModelAdmin)
