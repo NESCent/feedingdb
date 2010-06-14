@@ -114,6 +114,7 @@ class StudyAdmin(FeedModelAdmin):
     view_inlines = [StudyPrivateViewInline, SubjectViewInline, ExperimentViewInline]
     search_fields = ('title', 'description')
     list_display = ('title','start','end', 'funding_agency','approval_secured',)
+    exclude = ['accession']
     form = StudyChangeForm    
     tabbed = True
 
@@ -122,6 +123,7 @@ class ExperimentAdmin(ExperimentModelAdmin):
     view_inlines = [IllustrationViewInline]
     search_fields = ('decription',)
     list_display = ('title', 'study', 'subject')
+    exclude = ['accession']
     form = ExperimentChangeForm
     #list_filter = ('study', 'subject')
 
@@ -143,6 +145,7 @@ class TrialAdmin(FeedModelAdmin):
     #list_filter = ('behavior_primary', 'food_type','session')
     form = TrialChangeForm
     ordering = ('position',)
+    exclude = ['accession']    
 
 class IllustrationAdmin(FeedModelAdmin):
     search_fields = ('notes', 'experiment','setup', 'subject')
@@ -341,6 +344,7 @@ class SessionAdmin(SessionModelAdmin):
     form = SessionForm
     list_display = ('title', 'experiment','position', 'start', 'subj_restraint','subj_anesthesia_sedation')
     ordering = ('position',)
+    exclude = ['accession']    
     form = SessionChangeForm
     tabbed = True
     tab_name = "Session"
