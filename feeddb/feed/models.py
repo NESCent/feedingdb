@@ -441,7 +441,7 @@ class Illustration(FeedBaseModel):
 class ChannelLineup(FeedBaseModel):
     session = models.ForeignKey(Session)
     position = models.IntegerField()
-    channel = models.ForeignKey(Channel)
+    channel = models.ForeignKey(Channel, null=True, blank=True)
 
     class Meta:
         ordering = ["position"]
