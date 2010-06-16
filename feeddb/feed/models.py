@@ -25,20 +25,6 @@ class FeedBaseModel(models.Model):
         self.updated_at = now
         super(FeedBaseModel, self).save()
 
-    def clone_back(self, exclude=[]):
-        cloned=None
-        if self.__class__ in exclude:
-            pass
-        else:
-            for f in self._meta.fields:
-                if isinstance(f, models.ForeignKey):
-                    rel_obj = getattr(self,f.name)
-                    if rel_obj!=None and hasattr(rel_obj,'clone'):
-                        setattr(self,f.name,rel_obj.clone(exclude))
-            cloned=self
-            cloned.id=None
-        return cloned
-                             
 #cvterms
 class CvTerm(FeedBaseModel):
     label = models.CharField(max_length=255)
@@ -256,6 +242,13 @@ class KinematicsSetup(Setup):
     class Meta:
         verbose_name = "2D Kinematics setup" 
 
+    def save(self):
+        if self.notes in (None, '') and self.id == None:
+            self.notes = 'camera\nmarkers\nmovie film or digital\nlight or x-ray\nanatomical view (lateral/d-v/frontal)\n2D or 3D'
+        super(KinematicsSetup, self).save()
+
+        
+        
 class Sensor(FeedBaseModel):
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length=255)
