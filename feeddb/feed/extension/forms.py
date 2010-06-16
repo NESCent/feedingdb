@@ -97,6 +97,7 @@ class EmgSensorChannelForm(forms.ModelForm):
 
     class Meta:
         model = EmgSensor
+        fields = ['setup','name', 'location_controlled', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
 
     def __init__(self, *args, **kwargs):
         channel=None
@@ -162,6 +163,7 @@ class SonoSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
     class Meta:
         model = SonoSensor
+        fields = ['name', 'location_controlled', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
 
 class SonoChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
@@ -172,6 +174,7 @@ class StrainSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
     class Meta:
         model = StrainSensor
+        fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
         
 class StrainChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
@@ -182,7 +185,8 @@ class ForceSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
     class Meta:
         model = ForceSensor
-        
+        fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
+                
 class ForceChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
     class Meta:
@@ -191,7 +195,8 @@ class PressureSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
     class Meta:
         model = PressureSensor
-        
+        fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
+                
 class PressureChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
     class Meta:
@@ -201,7 +206,8 @@ class KinematicsSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
     class Meta:
         model = KinematicsSensor
-        
+        fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
+                
 class KinematicsChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
     class Meta:
