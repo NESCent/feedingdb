@@ -257,8 +257,7 @@ class ChannelLineupForm(forms.ModelForm):
         for key, field in self.base_fields.iteritems():
             if(key =="channel"):
                 field.empty_label = 'dead channel'
-        super(forms.ModelForm, self).__init__(*args, **kwargs)
+        super(ChannelLineupForm, self).__init__(*args, **kwargs)
                 
     class Meta:
-        model = ChannelLineup
-            
+        model = ChannelLineup       
