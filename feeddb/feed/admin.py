@@ -332,17 +332,18 @@ class ChannelLineupInline(FeedTabularInline):
     tabbed = True
     tab_name="Channel Lineup"
     formset = PositionBaseInlineFormSet
+    form = ChannelLineupForm
 
 class ChannelLineupViewInline(FeedTabularInline):
     model = ChannelLineup
     extra = 0 
     tabbed = True
     tab_name="Channel Lineup"
+    form = ChannelLineupForm
 
 class SessionAdmin(SessionModelAdmin):
     inlines = [ChannelLineupInline]
     view_inlines = [ChannelLineupViewInline, TrialViewInline ]
-    form = SessionForm
     list_display = ('title', 'experiment','position', 'start', 'subj_restraint','subj_anesthesia_sedation')
     ordering = ('position',)
     exclude = ['accession']    
@@ -361,6 +362,7 @@ class ChannelLineupAdmin(FeedModelAdmin):
     list_display = ('position', 'session','channel')
     list_filter = ('session',)
     ordering = ('session','position',)
+    form = ChannelLineupForm
 
 class TermAdmin(FeedModelAdmin):
     list_display = ('label', 'controlled','deprecated')
