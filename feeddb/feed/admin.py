@@ -121,7 +121,7 @@ class StudyAdmin(FeedModelAdmin):
 class ExperimentAdmin(ExperimentModelAdmin):
     inlines = [IllustrationInline]
     view_inlines = [IllustrationViewInline]
-    search_fields = ('decription',)
+    search_fields = ('title','study__title','subject__taxon__genus','subject__taxon__species','subject__taxon__common_name','subject__name','description','subject_notes','impl_notes')
     list_display = ('title', 'study', 'subject')
     exclude = ['accession']
     form = ExperimentChangeForm
@@ -132,17 +132,16 @@ class ExperimentAdmin(ExperimentModelAdmin):
 class SubjectAdmin(FeedModelAdmin):
     inlines = [IllustrationInline]
     view_inlines = [IllustrationViewInline]
-    search_fields = ('name', 'breed','taxon', 'source','sex','notes')
+    search_fields = ('name','study__title', 'breed','taxon__species', 'taxon__genus','taxon__common_name','source','sex','notes')
     list_display = ('name', 'study', 'taxon', 'breed','sex', 'source')
     #list_filter = ('study', 'taxon','sex')
     ordering = ('name',)
 
 class TrialAdmin(FeedModelAdmin):
     form = TrialForm
-    search_fields = ('accession', 'bookkeeping','behavior_primary', 'food_type')
+    search_fields = ('accession','title','bookkeeping','subj_notes','subj_treatment','food_type','food_property','behavior_primary__label','behavior_secondary','behavior_notes')
     list_display = ('title', 'session', 'position', 'claimed_duration', 
                     'food_type', 'behavior_primary')
-    #list_filter = ('behavior_primary', 'food_type','session')
     form = TrialChangeForm
     ordering = ('position',)
     exclude = ['accession']    
@@ -350,6 +349,7 @@ class SessionAdmin(SessionModelAdmin):
     inlines = [ChannelLineupInline]
     view_inlines = [ChannelLineupViewInline, TrialViewInline ]
     list_display = ('title', 'experiment','position', 'start', 'subj_restraint','subj_anesthesia_sedation')
+    search_fields = ('accession','title','bookkeeping','experiment__title','subj_notes','subj_restraint__label','subj_anesthesia_sedation')
     ordering = ('position',)
     exclude = ['accession']    
     form = SessionChangeForm
