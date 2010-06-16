@@ -30,6 +30,7 @@ from django.forms.util import ValidationError
 from feeddb.feed.extension.changelist import *
 from feeddb.feed.extension.util import *
 from django.template import RequestContext
+from django.contrib.admin.views.main import IncorrectLookupParameters
 
 class FeedTabularInline(admin.TabularInline):
     template = 'admin/edit_inline/tabular.html'
