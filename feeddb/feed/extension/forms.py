@@ -246,3 +246,13 @@ class TrialForm(forms.ModelForm):
     class Meta:
         model = Trial
 
+class ChannelLineupForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        for key, field in self.base_fields.iteritems():
+            if(key =="channel"):
+                field.empty_label = 'dead channel'
+        super(forms.ModelForm, self).__init__(*args, **kwargs)
+                
+    class Meta:
+        model = ChannelLineup
+            
