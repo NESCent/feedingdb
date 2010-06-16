@@ -174,9 +174,9 @@ class SonoSensorInline(FeedTabularInline):
 
 class SonoSensorViewInline(FeedTabularInline):
     model = SonoSensor
-    exclude = ['location_freetext']       
+    exclude = ['location_freetext']
     extra = 0
-
+    form = SonoSensorForm
 
 class StrainSensorInline(FeedTabularInline):
     model = StrainSensor
@@ -186,7 +186,8 @@ class StrainSensorInline(FeedTabularInline):
 class StrainSensorViewInline(FeedTabularInline):
     model = StrainSensor
     extra = 0
-
+    form = StrainSensorForm
+    
 class ForceSensorInline(FeedTabularInline):
     model = ForceSensor
     extra = 3
@@ -195,7 +196,8 @@ class ForceSensorInline(FeedTabularInline):
 class ForceSensorViewInline(FeedTabularInline):
     model = ForceSensor
     extra = 0
-
+    form = ForceSensorForm
+    
 class PressureSensorInline(FeedTabularInline):
     model = PressureSensor
     extra = 3
@@ -205,6 +207,8 @@ class PressureSensorViewInline(FeedTabularInline):
     model = PressureSensor
     exclude = ['notes']   
     extra = 0
+    form = PressureSensorForm
+        
 class KinematicsSensorInline(FeedTabularInline):
     model = KinematicsSensor
     extra = 3
@@ -213,7 +217,8 @@ class KinematicsSensorInline(FeedTabularInline):
 class KinematicsSensorViewInline(FeedTabularInline):
     model = KinematicsSensor
     extra = 0
-        
+    form = KinematicsSensorForm
+            
 class ChannelInline(FeedTabularInline):
     model = Channel
     exclude = ['notes']   
@@ -355,9 +360,22 @@ class EmgSensorAdmin(EmgSensorModelAdmin):
     form = EmgSensorChannelForm
 
 class SonoSensorAdmin(FeedModelAdmin):
-    list_display = ('name', 'location_controlled', 'loc_side', 'axisdepth','loc_ap','loc_dv')
+    fieldsets = (
+        (None, {
+            'fields': ('setup','name', 'location_controlled', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes')
+        }),
+    )
     ordering = ('name', 'location_controlled',)
 
+class CommonSensorAdmin(FeedModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': ('setup','name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes')
+        }),
+    )
+    ordering = ('name', 'location_freetext',)
+
+    
 class ChannelLineupAdmin(FeedModelAdmin):
     list_display = ('position', 'session','channel')
     list_filter = ('session',)
@@ -408,10 +426,10 @@ admin.site.register(PressureSetup,PressureSetupAdmin)
 admin.site.register(KinematicsSetup,KinematicsSetupAdmin)
 admin.site.register(EmgSensor, EmgSensorAdmin)
 admin.site.register(SonoSensor, SonoSensorAdmin)
-admin.site.register(ForceSensor, FeedModelAdmin)
-admin.site.register(StrainSensor, FeedModelAdmin)
-admin.site.register(KinematicsSensor, FeedModelAdmin)
-admin.site.register(PressureSensor, FeedModelAdmin)
+admin.site.register(ForceSensor, CommonSensorAdmin)
+admin.site.register(StrainSensor, CommonSensorAdmin)
+admin.site.register(KinematicsSensor, CommonSensorAdmin)
+admin.site.register(PressureSensor, CommonSensorAdmin)
 admin.site.register(ChannelLineup, ChannelLineupAdmin)
 admin.site.register(Illustration,IllustrationAdmin)
 admin.site.register(EmgChannel,EmgChannelAdmin)
