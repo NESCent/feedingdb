@@ -177,6 +177,7 @@ def feed_results(cl):
             view_url = cl.url_for_result(res)
             change_url = "%sedit" % view_url
             delete_url = "%sdelete" % view_url
+            clone_url = "%sclone" % view_url
             if hasattr(cl, "request"):
                 if cl.request.META['QUERY_STRING']:  
                     change_url = '%s/?%s' % (change_url, cl.request.META['QUERY_STRING'])
@@ -184,6 +185,7 @@ def feed_results(cl):
             view_anchor = "<img src='%simg/admin/icon_calendar.gif' alt='view' title='view'/>" % settings.STATIC_PREFIX
             change_anchor = "<img src='%simg/admin/icon_changelink.gif' alt='edit' title='edit'/>" % settings.STATIC_PREFIX
             delete_anchor = "<img src='%simg/admin/icon_deletelink.gif' alt='delete' title='delete' />" % settings.STATIC_PREFIX
+            clone_anchor = "<img src='%simg/admin/copy-icon.png' alt='clone' title='clone' />" % settings.STATIC_PREFIX
             '''
             view_action = u'<li><a href="%s">%s</a></li>' % (view_url, view_anchor)
             change_action = u'<li><a href="%s">%s</a></li>' % (change_url, change_anchor)
@@ -192,11 +194,15 @@ def feed_results(cl):
             view_action = u'<a href="%s">%s</a>' % (view_url, view_anchor)
             change_action = u'<a href="%s">%s</a>' % (change_url, change_anchor)
             delete_action = u'<a href="%s">%s</a>' % (delete_url, delete_anchor)
+            clone_action = u'<a href="%s">%s</a>' % (clone_url, clone_anchor)
             if hasattr(cl, "request"):
                 if cl.model_admin.has_change_permission (cl.request, res):
                     view_action = u'%s%s'  % (view_action, change_action)
                 if cl.model_admin.has_delete_permission (cl.request, res):
-                    view_action = u'%s%s'  % (view_action, delete_action)		
+                    view_action = u'%s%s'  % (view_action, delete_action)	
+                if cl.model_admin.has_change_permission (cl.request, res):
+                    if cl.model.is_cloneable:
+                        view_action = u'%s%s'  % (view_action, clone_action)                    	
             #lst.append(mark_safe(u'<td class="action"><ul class="feed-object-tools">%s</ul></td>' % view_action))
             lst.append(mark_safe(u'<td class="action">%s</td>' % view_action))
             yield lst
