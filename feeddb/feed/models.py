@@ -11,12 +11,13 @@ class FeedBaseModel(models.Model):
     created_by = models.ForeignKey(User, related_name="%(class)s_related", editable=False,  blank=True, null=True)
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField(editable=False)
-   
+    is_cloneable = True
+    
     class Meta:
         abstract = True
 
     def cloneable(self):
-        return True
+        return self.is_cloneable
         
     def save(self):
         now = datetime.datetime.today()
@@ -30,14 +31,14 @@ class CvTerm(FeedBaseModel):
     label = models.CharField(max_length=255)
     controlled = models.BooleanField()
     deprecated = models.BooleanField()
+    is_cloneable = False
+    
     def __unicode__(self):
         return self.label
     class Meta:
         ordering = ["label"]
         abstract = True
-    def cloneable(self):
-        return False
-        
+       
 class DevelopmentStage(CvTerm):
     pass
 
@@ -170,6 +171,7 @@ class StudyPrivate(FeedBaseModel):
 '''
 '''
 class Subject(FeedBaseModel):
+    is_cloneable = False
     GENDER_CHOICES = (
         (u'M', u'Male'),
         (u'F', u'Female'),
@@ -325,7 +327,7 @@ class EmgChannel(Channel):
     emg_amplification = models.IntegerField(blank=True,null=True,verbose_name = "amplification")
     
     def __unicode__(self):
-        return 'EMG Channel: %s (Muscle: %s, Side: %s) '  % (self.name, self.sensor.muscle.label, self.sensor.side.label)  
+        return 'EMG Channel: %s (Muscle: %s, Side: %s) '  % (self.name, self.sensor.location_controlled.label, self.sensor.loc_side.label)  
     class Meta:
         verbose_name = "EMG channel"
 
@@ -336,7 +338,7 @@ class SonoChannel(Channel):
     crystal2 = models.ForeignKey(SonoSensor, related_name="crystals2_related")
 
     def __unicode__(self):
-        return 'Sono Channel: %s (Muscle: %s, Side: %s, Crystal1: %s, Crystal2: %s) '  % (self.name, self.crystal1.muscle.label, self.crystal1.side.label, self.crystal1.name, self.crystal2.name)  
+        return 'Sono Channel: %s (Muscle: %s, Side: %s, Crystal1: %s, Crystal2: %s) '  % (self.name, self.crystal1.location_controlled.label, self.crystal1.loc_side.label, self.crystal1.name, self.crystal2.name)  
 
     class Meta:
         verbose_name = "Sono channel"
