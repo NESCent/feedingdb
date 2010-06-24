@@ -70,7 +70,7 @@ class FeedModelAdmin(admin.ModelAdmin):
 
     # Custom templates (designed to be over-ridden in subclasses)
     view_form_template = None
-
+    change_form_template = "admin/tabbed_change_form.html"
     # Actions
     actions = None
 
@@ -917,8 +917,11 @@ class FeedStackedInline(admin.StackedInline):
                 return db_field.formfield(**kwargs)
 
         return db_field.formfield(**kwargs)
+        
+class DefaultModelAdmin(FeedModelAdmin):
+    change_form_template = None
 
-class ExperimentModelAdmin(FeedModelAdmin):
+class ExperimentModelAdmin(DefaultModelAdmin):
     def __init__(self, model, admin_site):
         super(ExperimentModelAdmin, self).__init__(model,admin_site)
 
@@ -1211,7 +1214,7 @@ class SessionModelAdmin(FeedModelAdmin):
         }
         return super(SessionModelAdmin, self). changelist_view( request, context)
        
-class EmgSensorModelAdmin(FeedModelAdmin):
+class EmgSensorModelAdmin(DefaultModelAdmin):
     def __init__(self, model, admin_site):
         super(EmgSensorModelAdmin, self).__init__(model,admin_site)
         
@@ -1242,7 +1245,7 @@ class EmgSensorModelAdmin(FeedModelAdmin):
         emgchannel.setup = form.instance.setup
         emgchannel.save()
         
-class EmgSetupModelAdmin(FeedModelAdmin):
+class EmgSetupModelAdmin(DefaultModelAdmin):
     def __init__(self, model, admin_site):
         super(EmgSetupModelAdmin, self).__init__(model,admin_site)
         
