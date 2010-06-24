@@ -110,7 +110,7 @@ class SubjectStackInline(admin.StackedInline):
     extra = 1
 
 class StudyAdmin(FeedModelAdmin):
-    inlines = [StudyPrivateInline,SubjectInline]
+    inlines = [StudyPrivateInline,SubjectInline, ExperimentInline]
     view_inlines = [StudyPrivateViewInline, SubjectViewInline, ExperimentViewInline]
     search_fields = ('title', 'description')
     list_display = ('title','start','end', 'funding_agency','approval_secured',)
@@ -346,7 +346,7 @@ class ChannelLineupViewInline(FeedTabularInline):
     form = ChannelLineupForm
 
 class SessionAdmin(SessionModelAdmin):
-    inlines = [ChannelLineupInline]
+    inlines = [ChannelLineupInline,TrialInline]
     view_inlines = [ChannelLineupViewInline, TrialViewInline ]
     list_display = ('title', 'experiment','position', 'start', 'subj_restraint','subj_anesthesia_sedation')
     search_fields = ('accession','title','bookkeeping','experiment__title','subj_notes','subj_restraint__label','subj_anesthesia_sedation')
