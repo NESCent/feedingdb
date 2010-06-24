@@ -290,42 +290,42 @@ class EmgSetupAdmin(EmgSetupModelAdmin):
     ordering = ('preamplifier',)
 
 
-class SonoSetupAdmin(FeedModelAdmin):
+class SonoSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,SonoSensorInline,SonoChannelInline]
     view_inlines = [IllustrationViewInline, SonoSensorViewInline, SonoChannelViewInline]
     list_display = ('technique', 'sonomicrometer','experiment')
     list_filter = ('technique', 'experiment')
     ordering = ('sonomicrometer',)
 
-class StrainSetupAdmin(FeedModelAdmin):
+class StrainSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,StrainSensorInline,StrainChannelInline]
     view_inlines = [IllustrationViewInline, StrainSensorViewInline, StrainChannelViewInline]
     list_display = ('technique', 'experiment')
     list_filter = ('technique', 'experiment')
 
-class ForceSetupAdmin(FeedModelAdmin):
+class ForceSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,ForceSensorInline,ForceChannelInline]
     view_inlines = [IllustrationViewInline, ForceSensorViewInline, ForceChannelViewInline]
     list_display = ('technique', 'experiment')
     list_filter = ('technique', 'experiment')
 
-class PressureSetupAdmin(FeedModelAdmin):
+class PressureSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,PressureSensorInline,PressureChannelInline]
     view_inlines = [IllustrationViewInline, PressureSensorViewInline, PressureChannelViewInline]
     list_display = ('technique', 'experiment')
     list_filter = ('technique', 'experiment')
 
-class KinematicsSetupAdmin(FeedModelAdmin):
+class KinematicsSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,KinematicsSensorInline,KinematicsChannelInline]
     view_inlines = [IllustrationViewInline, KinematicsSensorViewInline, KinematicsChannelViewInline]
     list_display = ('technique', 'experiment')
     list_filter = ('technique', 'experiment')            
 
-class EmgChannelAdmin(FeedModelAdmin):
+class EmgChannelAdmin(DefaultModelAdmin):
     list_display = ('name', 'rate', 'sensor','emg_unit', 'emg_filtering')
     ordering = ('sensor',)
 
-class SonoChannelAdmin(FeedModelAdmin):
+class SonoChannelAdmin(DefaultModelAdmin):
     list_display = ('name', 'rate', 'crystal1','crystal2','sono_unit')
     ordering = ('crystal1',)
 
@@ -359,7 +359,7 @@ class SessionAdmin(SessionModelAdmin):
 class EmgSensorAdmin(EmgSensorModelAdmin):
     form = EmgSensorChannelForm
 
-class SonoSensorAdmin(FeedModelAdmin):
+class SonoSensorAdmin(DefaultModelAdmin):
     fieldsets = (
         (None, {
             'fields': ('setup','name', 'location_controlled', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes')
@@ -367,7 +367,7 @@ class SonoSensorAdmin(FeedModelAdmin):
     )
     ordering = ('name', 'location_controlled',)
 
-class CommonSensorAdmin(FeedModelAdmin):
+class CommonSensorAdmin(DefaultModelAdmin):
     fieldsets = (
         (None, {
             'fields': ('setup','name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes')
@@ -382,17 +382,17 @@ class ChannelLineupAdmin(FeedModelAdmin):
     ordering = ('session','position',)
     form = ChannelLineupForm
 
-class TermAdmin(FeedModelAdmin):
+class TermAdmin(DefaultModelAdmin):
     list_display = ('label', 'controlled','deprecated')
     list_filter = ('controlled','deprecated')
     ordering = ('label',)
 
-class UnitAdmin(FeedModelAdmin):
+class UnitAdmin(DefaultModelAdmin):
     list_display = ('technique', 'label', 'controlled','deprecated')
     list_filter = ('technique', 'controlled','deprecated')
     ordering = ('label',)
         
-class TaxonAdmin(FeedModelAdmin):
+class TaxonAdmin(DefaultModelAdmin):
     list_display = ('genus','species','common_name', 'controlled','deprecated')
     list_filter = ('genus','controlled','deprecated')
     ordering = ('genus','species')
@@ -414,7 +414,7 @@ admin.site.register(Sonounit,TermAdmin)
 admin.site.register(Emgfiltering,TermAdmin)
 admin.site.register(Experiment, ExperimentAdmin)
 admin.site.register(Subject,SubjectAdmin)
-admin.site.register(Sensor,FeedModelAdmin)
+admin.site.register(Sensor,DefaultModelAdmin)
 admin.site.register(Study,StudyAdmin)
 admin.site.register(Session,SessionAdmin)
 admin.site.register(Trial,TrialAdmin)
@@ -434,8 +434,8 @@ admin.site.register(ChannelLineup, ChannelLineupAdmin)
 admin.site.register(Illustration,IllustrationAdmin)
 admin.site.register(EmgChannel,EmgChannelAdmin)
 admin.site.register(SonoChannel,SonoChannelAdmin)
-admin.site.register(Channel, FeedModelAdmin)
-admin.site.register(StrainChannel,FeedModelAdmin)
-admin.site.register(ForceChannel, FeedModelAdmin)
-admin.site.register(KinematicsChannel, FeedModelAdmin)
-admin.site.register(PressureChannel, FeedModelAdmin)
+admin.site.register(Channel, DefaultModelAdmin)
+admin.site.register(StrainChannel,DefaultModelAdmin)
+admin.site.register(ForceChannel, DefaultModelAdmin)
+admin.site.register(KinematicsChannel, DefaultModelAdmin)
+admin.site.register(PressureChannel, DefaultModelAdmin)
