@@ -258,7 +258,8 @@ class FeedModelAdmin(admin.ModelAdmin):
         # will also be deleted.
         deleted_objects = [mark_safe(u'%s: <a href="../../%s/">%s</a>' % (escape(force_unicode(capfirst(opts.verbose_name))), object_id, escape(obj))), []]
         perms_needed = set()
-        get_feed_deleted_objects(deleted_objects, perms_needed, request.user, obj, opts, 1, self.admin_site)
+        #disable permission check for all related objects
+        #get_feed_deleted_objects(deleted_objects, perms_needed, request.user, obj, opts, 1, self.admin_site)
 
         if request.POST: # The user has already confirmed the deletion.
             if perms_needed:
