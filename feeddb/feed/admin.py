@@ -4,7 +4,7 @@ from django import forms
 from django.forms import models
 from feeddb.feed.extension.modeladmin import *
 from feeddb.feed.extension.forms import *
-from feeddb.feed.extension.formsets import PositionBaseInlineFormSet
+from feeddb.feed.extension.formsets import PositionBaseInlineFormSet, OrderedFormset
 
 class StudyPrivateInline(admin.StackedInline):
     model = StudyPrivate
@@ -164,7 +164,8 @@ class EmgSensorInline(FeedTabularInline):
     exclude = ['location_freetext']   
     extra = 5
     form = EmgSensorForm
-
+    formset = OrderedFormset
+    
 class SonoSensorInline(FeedTabularInline):
     model = SonoSensor
     extra = 4
