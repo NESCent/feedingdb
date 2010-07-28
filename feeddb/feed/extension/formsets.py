@@ -44,3 +44,12 @@ class PositionBaseInlineFormSet(BaseInlineFormSet):
             print e
         if form_errors:
             raise ValidationError(form_errors)
+
+class OrderedFormset(BaseInlineFormSet):
+    def get_queryset(self):
+        qs = super(BaseInlineFormSet, self).get_queryset()
+        if hasattr(self.form, 'ordering'):
+            ordering=self.form.ordering
+            if not ordering in (None,''):
+                return qs.order_by(ordering)
+        return qs         
