@@ -128,6 +128,7 @@ class EmgSensorChannelForm(forms.ModelForm):
     
 class EmgSensorForm(EmgSensorChannelForm):
     notes = CharField(label ="Notes", widget=Notes(), required=False)
+    ordering='name'
          
 class SessionForm(forms.ModelForm):
     subj_notes = CharField(label = "Subject Notes", widget=Notes(attrs={'size': 5}), required=False)
