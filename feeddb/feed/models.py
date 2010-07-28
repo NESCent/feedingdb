@@ -189,7 +189,7 @@ class Subject(FeedBaseModel):
         
 class Experiment(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
-    title = models.CharField(max_length=255, default="new Experiment - edit this")
+    title = models.CharField(max_length=255)
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     study = models.ForeignKey(Study)    
     subject = models.ForeignKey(Subject)   
@@ -373,7 +373,7 @@ class KinematicsChannel(Channel):
               
 class Session(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
-    title = models.CharField(max_length=255, default="new Recording Session - edit this")
+    title = models.CharField(max_length=255)
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     experiment = models.ForeignKey(Experiment)    
     position = models.IntegerField(help_text='the order of the recording session in the experiment')
@@ -402,7 +402,7 @@ def get_data_upload_to(instance, filename):
 
 class Trial(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
-    title = models.CharField(max_length=255, default='new Trial - edit this')
+    title = models.CharField(max_length=255)
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
     session = models.ForeignKey(Session)    
     position = models.IntegerField()
