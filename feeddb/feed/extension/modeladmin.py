@@ -1256,32 +1256,32 @@ class EmgSetupModelAdmin(DefaultModelAdmin):
             instance.created_by = request.user
             instance.save()
         formset.save_m2m()
-        
-        for f in formset.forms:
-            for ins in instances:
-                if f.instance.id == ins.id:
-                    try:
-                        emgchannel = EmgChannel.objects.get(sensor__id__exact = ins.id)
-                    except EmgChannel.DoesNotExist:
-                        emgchannel = EmgChannel()
-                        emgchannel.sensor=ins
-                    
-                    unit = f.cleaned_data['emg_unit']
-                    filtering=f.cleaned_data['emg_filtering']
-                    amplification=f.cleaned_data['emg_amplification']
-                    if unit!=None and unit!='':
-                        emgchannel.emg_unit = unit
-                    else:
-                        raise forms.ValidationError("Emg Unit is required!")
-        
-                    if filtering!=None and filtering!='':        
-                        emgchannel.emg_filtering = filtering
-                    else:
-                        raise forms.ValidationError("Emg Filtering is required!")
-                    
-                    if amplification!=None and amplification!='':
-                        emgchannel.emg_amplification = int(amplification)
-                    emgchannel.rate =1000
-                    emgchannel.name = ins.name
-                    emgchannel.setup = ins.setup
-                    emgchannel.save()
+        if issubclass(formset.model,EmgSensor):
+            for f in formset.forms:
+	            for ins in instances:
+	                if f.instance.id == ins.id:
+	                    try:
+	                        emgchannel = EmgChannel.objects.get(sensor__id__exact = ins.id)
+	                    except EmgChannel.DoesNotExist:
+	                        emgchannel = EmgChannel()
+	                        emgchannel.sensor=ins
+	                    
+	                    unit = f.cleaned_data['emg_unit']
+	                    filtering=f.cleaned_data['emg_filtering']
+	                    amplification=f.cleaned_data['emg_amplification']
+	                    if unit!=None and unit!='':
+	                        emgchannel.emg_unit = unit
+	                    else:
+	                        raise forms.ValidationError("Emg Unit is required!")
+	        
+	                    if filtering!=None and filtering!='':        
+	                        emgchannel.emg_filtering = filtering
+	                    else:
+	                        raise forms.ValidationError("Emg Filtering is required!")
+	                    
+	                    if amplification!=None and amplification!='':
+	                        emgchannel.emg_amplification = int(amplification)
+	                    emgchannel.rate =1000
+	                    emgchannel.name = ins.name
+	                    emgchannel.setup = ins.setup
+	                    emgchannel.save()
