@@ -63,3 +63,57 @@ class TrialModelForm(forms.ModelForm):
         model=Trial
         exclude = ('session',)
         name = 'Trial'
+
+class SetupModelForm(forms.ModelForm):
+    class Meta:
+        model=Setup
+        exclude = ('experiment',)
+        name = 'Setup' 
+
+class EmgSetupModelForm(forms.ModelForm):
+    class Meta:
+        model=EmgSetup
+        exclude = ('experiment','notes','technique')
+        name = 'EmgSetup'
+        
+class SonoSetupModelForm(forms.ModelForm):
+    class Meta:
+        model=SonoSetup
+        exclude = ('experiment','notes','technique')
+        name = 'SonoSetup'
+
+class SensorModelForm(forms.ModelForm):
+    class Meta:
+        model=Sensor
+        exclude = ('setup',)
+        name = 'Sensor'
+
+class EmgSensorModelForm(forms.ModelForm):
+    class Meta:
+        model=EmgSensor
+        exclude = ('setup','name','location_freetext','loc_side','loc_ap','loc_dv','loc_pd','loc_ml','notes')
+        name = 'EmgSensor'
+
+class SonoSensorModelForm(forms.ModelForm):
+    class Meta:
+        model=SonoSensor
+        exclude = ('setup','name','location_freetext','loc_side','loc_ap','loc_dv','loc_pd','loc_ml','notes')
+        name = 'SonoSensor'
+        
+class ChannelModelForm(forms.ModelForm):
+    class Meta:
+        model=Channel
+        exclude = ('setup',)
+        name = 'Channel'
+
+class EmgChannelModelForm(forms.ModelForm):
+    class Meta:
+        model=EmgChannel
+        exclude = ('sensor','name','rate','notes','setup')
+        name = 'EmgChannel'  
+
+class SonoChannelModelForm(forms.ModelForm):
+    class Meta:
+        model=SonoChannel
+        exclude = ('crystal1','crystal2','name','rate','notes','setup')
+        name = 'SonoChannel'       
