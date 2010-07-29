@@ -199,7 +199,7 @@ def bucket_download(request, id):
             #output headers
             headers=["Trial:ID"]
             for key, value in meta_selected.items():
-                if key!="Channel":
+                if not key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel'):
                     for v in value:
                         headers.append( v[1] )
             metaWriter.writerow(headers)
@@ -220,17 +220,20 @@ def bucket_download(request, id):
                                 ss=s.split('\r\n')
                                 if len(ss)>1:
                                     s=' '.join(ss)
+                            
                             values.append(s) 
+                            
                 metaWriter.writerow(values)
         
             #output channels
             #generate channel headers
             headers=["Channel:ID"]
             for key, value in meta_selected.items():
-                if key=="Channel":
+                if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel'):
                     for v in value:
                         headers.append( v[1] )
-        
+            
+            channel_types = ['strainchannel','forcechannel','pressurechannel','kinematicschannel']        
             for trial in bucket.trials.all():
                 filename = "trial_%d_channels.csv" % trial.id
                 full_filename = "%s/trial_%d_channels.csv" % (tempdir, trial.id)
@@ -239,31 +242,62 @@ def bucket_download(request, id):
                 f = open(full_filename,"w")
                 metaWriter = csv.writer(f, delimiter=delimiter_char, doublequote='false', escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
                 metaWriter.writerow(headers)
+                objects={}
                 for lineup in trial.session.channellineup_set.all():
                     ch=lineup.channel
+                    objects["Channel"] = lineup.channel
                     values=[ch.id]
+                    objects["Setup"]= ch.setup
+                    for channel_type in channel_types:
+                        if hasattr(ch,channel_type):
+                            objects["Sensor"] = getattr(ch, channel_type).sensor
+                    if hasattr(ch.setup, 'emgsetup'):
+                        objects["EmgSetup"] = ch.setup.emgsetup
+                    if hasattr(ch.setup, 'sonoetup'):
+                        objects["SonoSetup"] = ch.setup.sonosetup
+                    if hasattr(ch,'emgchannel'):
+                        objects["EmgChannel"] = ch.emgchannel
+                        objects["Sensor"] = ch.emgchannel.sensor
+                        objects["EmgSensor"] = ch.emgchannel.sensor
+                    if hasattr(ch,'sonochannel'):
+                        objects["SonoChannel"] = ch.sonochannel
+                        objects["Sensor"] = ch.sonochannel.crystal1
+                        objects["SonoSensor"] = ch.sonochannel.crystal1
+                                        
+                    
+                    if hasattr(ch,'emgchannel'):
+                        objects["Sensor"] = ch.emgchannel.sensor
                     for key, value in meta_selected.items():
-                        if key=="Channel":
+                        if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel'):
                             for v in value:
-                                if v[0]=="order":		
-                                    values.append(lineup.position)
-                                if v[0]=="name":		
-                                    values.append(ch.name)
-                                if v[0]=="technique":		
-                                    values.append(ch.setup.technique)
-                                if v[0]=="muscle":
-                                    if hasattr(ch, 'emgchannel'):
-                                        values.append(ch.emgchannel.sensor.muscle)
-                                    elif hasattr(ch, 'sonochannel'):
-                                        values.append(ch.sonochannel.crystal1.muscle+", "+ch.sonochannel.crystal2.muscle)		
-                                if v[0]=="side":		
-                                    if hasattr(ch, 'emgchannel'):
-                                        values.append(ch.emgchannel.sensor.side)
-                                    elif hasattr(ch, 'sonochannel'):
-                                        values.append(ch.sonochannel.crystal1.side+", "+ch.sonochannel.crystal2.side)	
-                                if v[0]=="rate":		
-                                    values.append(ch.rate)	                             
+                                s=''
+                                if key in objects:
+		                            s=getattr(objects[key], v[0])
+		                            if hasattr(s,'split'): 
+		                                ss=s.split('\r\n')
+		                                if len(ss)>1:
+		                                    s=' '.join(ss)
+                                values.append(s)                 
                     metaWriter.writerow(values)
+                    #output the second crystal sensor information if it is sono channel
+                    if hasattr(ch,'sonochannel'):
+                        objects["SonoChannel"] = ch.sonochannel
+                        objects["Sensor"] = ch.sonochannel.crystal2
+                        objects["SonoSensor"] = ch.sonochannel.crystal2
+                        for key, value in meta_selected.items():
+                            if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel'):
+                                for v in value:
+                                    s=''
+                                    if key in objects:
+		                                s=getattr(objects[key], v[0])
+		                                if hasattr(s,'split'): 
+		                                    ss=s.split('\r\n')
+		                                    if len(ss)>1:
+		                                        s=' '.join(ss)
+                                    values.append(s)                 
+                        
+                        metaWriter.writerow(values)
+                                        
                 f.close()
         #
         # put data files into the tmp zip
@@ -336,6 +370,20 @@ def bucket_download(request, id):
     meta_forms.append(ExperimentModelForm())
     meta_forms.append(SessionModelForm())
     meta_forms.append(TrialModelForm())
+    
+    meta_forms.append(SetupModelForm())
+    meta_forms.append(EmgSetupModelForm())
+    meta_forms.append(SonoSetupModelForm())
+    meta_forms.append(SensorModelForm())
+    meta_forms.append(EmgSensorModelForm())
+    meta_forms.append(SonoSensorModelForm())
+    meta_forms.append(ChannelModelForm())
+    meta_forms.append(EmgChannelModelForm())
+    meta_forms.append(SonoChannelModelForm())
+    
+    
+    
+    
     c = RequestContext(request, {'title': 'FeedDB Explorer',  'bucket':bucket, 'meta_forms':meta_forms})
     return render_to_response('explorer/bucket_download.html', c)
 
