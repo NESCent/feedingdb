@@ -327,7 +327,8 @@ class FeedModelAdmin(admin.ModelAdmin):
     def save_formset(self, request, form, formset, change):
         for f in formset.forms:
             if f.instance:
-                f.instance.created_by = request.user
+                if not f.instance.id:
+                    f.instance.created_by = request.user
 
         
         formset.save()
@@ -338,7 +339,8 @@ class FeedModelAdmin(admin.ModelAdmin):
     """  
     def save_form(self, request, form, change):
         if form.instance:
-            form.instance.created_by = request.user
+            if not form.instance.id:
+                form.instance.created_by = request.user
         return form.save(commit=False)
 
  
@@ -1180,7 +1182,8 @@ class SessionModelAdmin(FeedModelAdmin):
             if all_valid(formsets):
                 for f in sessionformset.forms:
                     if f.instance:
-                        f.instance.created_by = request.user
+                        if not f.instance.id
+                            f.instance.created_by = request.user
                 sessionformset.save()
 
                 messages.append("Successfully updated the data!")
@@ -1253,7 +1256,8 @@ class EmgSetupModelAdmin(DefaultModelAdmin):
     def save_formset(self, request, form, formset, change):
         instances = formset.save(commit=False)
         for instance in instances:
-            instance.created_by = request.user
+            if not instance.id:
+                instance.created_by = request.user
             instance.save()
         formset.save_m2m()
         if issubclass(formset.model,EmgSensor):
