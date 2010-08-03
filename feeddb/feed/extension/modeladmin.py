@@ -1182,7 +1182,7 @@ class SessionModelAdmin(FeedModelAdmin):
             if all_valid(formsets):
                 for f in sessionformset.forms:
                     if f.instance:
-                        if not f.instance.id
+                        if not f.instance.id:
                             f.instance.created_by = request.user
                 sessionformset.save()
 
@@ -1226,7 +1226,7 @@ class EmgSensorModelAdmin(DefaultModelAdmin):
         form.save()
         try:
             emgchannel = EmgChannel.objects.get(sensor__id__exact = form.instance.id)
-        except self.model.DoesNotExist:
+        except EmgChannel.DoesNotExist:
             emgchannel = EmgChannel()
             emgchannel.sensor=form.instance
                     
