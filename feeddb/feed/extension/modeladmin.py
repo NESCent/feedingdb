@@ -23,6 +23,7 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
 from feeddb.feed.models import  *
+from feeddb.explorer.models import  *
 from feeddb.feed.extension.widgets import FeedRelatedFieldWidgetWrapper
 from feeddb.feed.extension.forms import *
 from feeddb.feed.extension.formsets import PositionBaseInlineFormSet
@@ -495,7 +496,7 @@ class FeedModelAdmin(admin.ModelAdmin):
     def clone_view(self, request, object_id, extra_context=None):
         "The 'clone' admin view for this model."
         
-        exclude = None
+        exclude = [TrialInBucket]
         model = self.model
         opts = model._meta
         app_label = opts.app_label
