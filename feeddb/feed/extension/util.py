@@ -148,42 +148,38 @@ def duplicate(obj, exclude = None, value=None, field=None):
     # Traverse the related models in reverse deletion order.    
     for model in reversed(related_models):
         # Find all FKs on `model` that point to a `related_model`.
-        
         fks = []
+        if model in exclude:
+            continue
         for f in model._meta.fields:
             if isinstance(f, ForeignKey) and f.rel.to in related_models:
                 fks.append(f)
         # Replace each `sub_obj` with a duplicate.
         sub_obj = collected_objs[model]
-        for pk_val, obj in sub_obj.iteritems():
-            if hasattr(obj,"clone"):
-                obj= obj.clone(exclude)
+        for pk_val, obj1 in sub_obj.iteritems():
+            if hasattr(obj1,"clone"):
+                obj1= obj1.clone(exclude)
             else:
                 for fk in fks:
-                    fk_value = getattr(obj, "%s_id" % fk.name)
+                    fk_value = getattr(obj1, "%s_id" % fk.name)
                     # If this FK has been duplicated then point to the duplicate.
                     if fk_value in collected_objs[fk.rel.to]:
                         dupe_obj = collected_objs[fk.rel.to][fk_value]
-                        setattr(obj, fk.name, dupe_obj)
+                        setattr(obj1, fk.name, dupe_obj)
             # Duplicate the object and save it.
-            if exclude !=None:
-                opts = obj._meta
-                model_name = opts.object_name
-                if not model_name in exclude:
-                    obj.id = None
-            else:
-                obj.id = None
+            
+            obj1.id = None
 
-            if obj.id ==None:
-                if hasattr(obj, 'name'):
-                    setattr(obj,'name', "%s - cloned" % obj.name)
-                if hasattr(obj, 'title'):
-                    setattr(obj,'title', "%s - cloned" % obj.title)
+            if hasattr(obj1, 'name'):
+                setattr(obj1,'name', "%s - cloned" % obj1.name)
+            if hasattr(obj1, 'title'):
+                setattr(obj1,'title', "%s - cloned" % obj1.title)
+
             if field!=None and value!=None:
-                setattr(obj, field, value)
-            obj.save()
+                setattr(obj1, field, value)
+            #obj1.save()
             if root_obj is None:
-                root_obj = obj
+                root_obj = obj1
     set_position(root_obj)
     return root_obj
 
