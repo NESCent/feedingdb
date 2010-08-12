@@ -1234,6 +1234,7 @@ class EmgSensorModelAdmin(DefaultModelAdmin):
         unit = request.POST['emg_unit']
         filtering=request.POST['emg_filtering']
         amplification=request.POST['emg_amplification']
+        rate=request.POST['rate']
         if unit!=None and unit!='':
             emgchannel.emg_unit = Emgunit.objects.get(pk=int(unit))
         else:
@@ -1246,6 +1247,8 @@ class EmgSensorModelAdmin(DefaultModelAdmin):
                     
         if amplification!=None and amplification!='':
             emgchannel.emg_amplification = int(amplification)
+        if rate!=None and rate!='':
+	        emgchannel.rate = int(rate)    
         emgchannel.name = form.instance.name
         emgchannel.setup = form.instance.setup
         emgchannel.save()
@@ -1274,6 +1277,7 @@ class EmgSetupModelAdmin(DefaultModelAdmin):
 	                    unit = f.cleaned_data['emg_unit']
 	                    filtering=f.cleaned_data['emg_filtering']
 	                    amplification=f.cleaned_data['emg_amplification']
+	                    rate=f.cleaned_data['rate']
 	                    if unit!=None and unit!='':
 	                        emgchannel.emg_unit = unit
 	                    else:
@@ -1286,7 +1290,9 @@ class EmgSetupModelAdmin(DefaultModelAdmin):
 	                    
 	                    if amplification!=None and amplification!='':
 	                        emgchannel.emg_amplification = int(amplification)
-	                    emgchannel.rate =1000
+	                    
+	                    if rate!=None and rate!='':
+	                        emgchannel.rate = int(rate)
 	                    emgchannel.name = ins.name
 	                    emgchannel.setup = ins.setup
 	                    emgchannel.save()
