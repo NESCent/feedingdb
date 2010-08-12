@@ -90,6 +90,7 @@ class EmgChannelForm(forms.ModelForm):
         super(EmgChannelForm, self).__init__(*args, **kwargs)
         
 class EmgSensorChannelForm(forms.ModelForm):
+    rate = forms.IntegerField(label = "Rate", required=True, widget=forms.TextInput(attrs={'size': 5}))
     emg_unit = forms.ModelChoiceField(label = "Emg Unit", required=True,queryset=Emgunit.objects.all())
     emg_filtering = forms.ModelChoiceField(label="EMG filtering", queryset=Emgfiltering.objects.all())
     emg_amplification = IntegerField(label = "Amplification",required=False, initial='', widget=forms.TextInput(attrs={'size': 5}))
@@ -114,7 +115,9 @@ class EmgSensorChannelForm(forms.ModelForm):
                 if key =="emg_unit":
                     field.initial= channel.emg_unit.id
                 if key =="emg_filtering":
-                    field.initial=channel.emg_filtering.id        
+                    field.initial=channel.emg_filtering.id  
+                if key =="rate":
+                    field.initial=channel.rate            
         else:
             for key, field in self.base_fields.iteritems():
                 if key =="emg_amplification":
@@ -122,7 +125,9 @@ class EmgSensorChannelForm(forms.ModelForm):
                 if key =="emg_unit":
                     field.initial= None
                 if key =="emg_filtering":
-                    field.initial=None        
+                    field.initial=None   
+                if key =="rate":
+                    field.initial=None            
         
         super(EmgSensorChannelForm, self).__init__(*args, **kwargs)
     
