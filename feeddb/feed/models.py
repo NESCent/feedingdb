@@ -209,6 +209,7 @@ class Setup(FeedBaseModel):
     experiment = models.ForeignKey(Experiment)
     technique = models.ForeignKey(Technique)     
     notes = models.TextField("Notes about all sensors and channels in this setup", blank = True, null=True)
+    sampling_rate = models.IntegerField("Sampling Rate, Hz", blank=True, null=True)
     class Meta:
         verbose_name = "setup"
     def __unicode__(self):
@@ -304,7 +305,7 @@ class ForceSensor(Sensor):
     
 class PressureSensor(Sensor):
     class Meta:
-        verbose_name = "Pessure sensor"
+        verbose_name = "Pressure sensor"
     
 class KinematicsSensor(Sensor):
     class Meta:
@@ -314,7 +315,7 @@ class KinematicsSensor(Sensor):
 class Channel(FeedBaseModel):
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length = 255)
-    rate = models.IntegerField()
+    rate = models.IntegerField("Recording Rate, Hz")
     notes = models.TextField("Notes about the channel",  blank = True, null=True)
 
     def __unicode__(self):

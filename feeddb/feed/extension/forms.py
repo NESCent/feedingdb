@@ -90,7 +90,7 @@ class EmgChannelForm(forms.ModelForm):
         super(EmgChannelForm, self).__init__(*args, **kwargs)
         
 class EmgSensorChannelForm(forms.ModelForm):
-    rate = forms.IntegerField(label = "Rate", required=True, widget=forms.TextInput(attrs={'size': 5}))
+    rate = forms.IntegerField(label = "Recording Rate, Hz", required=True, widget=forms.TextInput(attrs={'size': 5}))
     emg_unit = forms.ModelChoiceField(label = "Emg Unit", required=True,queryset=Emgunit.objects.all())
     emg_filtering = forms.ModelChoiceField(label="EMG filtering", queryset=Emgfiltering.objects.all())
     emg_amplification = IntegerField(label = "Amplification",required=False, initial='', widget=forms.TextInput(attrs={'size': 5}))
@@ -109,21 +109,23 @@ class EmgSensorChannelForm(forms.ModelForm):
             except EmgChannel.DoesNotExist:
                 channel = None
         if channel !=None:    
+            self.base_fields["emg_unit"].initial = channel.emg_unit.id
             for key, field in self.base_fields.iteritems():
                 if key =="emg_amplification":
                     field.initial=channel.emg_amplification
-                if key =="emg_unit":
-                    field.initial= channel.emg_unit.id
+#                if key =="emg_unit":
+#                    field.initial= channel.emg_unit.id
                 if key =="emg_filtering":
                     field.initial=channel.emg_filtering.id  
                 if key =="rate":
                     field.initial=channel.rate            
         else:
+            self.base_fields["emg_unit"].initial = None
             for key, field in self.base_fields.iteritems():
                 if key =="emg_amplification":
                     field.initial=None
-                if key =="emg_unit":
-                    field.initial= None
+#                if key =="emg_unit":
+#                    field.initial= None
                 if key =="emg_filtering":
                     field.initial=None   
                 if key =="rate":
