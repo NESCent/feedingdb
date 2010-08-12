@@ -29,8 +29,6 @@ class FeedBaseModel(models.Model):
 #cvterms
 class CvTerm(FeedBaseModel):
     label = models.CharField(max_length=255)
-    controlled = models.BooleanField()
-    deprecated = models.BooleanField()
     is_cloneable = False
     
     def __unicode__(self):

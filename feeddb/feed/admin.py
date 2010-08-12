@@ -384,18 +384,17 @@ class ChannelLineupAdmin(FeedModelAdmin):
     form = ChannelLineupForm
 
 class TermAdmin(DefaultModelAdmin):
-    list_display = ('label', 'controlled','deprecated')
-    list_filter = ('controlled','deprecated')
+    list_display = ('label',)
     ordering = ('label',)
 
 class UnitAdmin(DefaultModelAdmin):
-    list_display = ('technique', 'label', 'controlled','deprecated')
-    list_filter = ('technique', 'controlled','deprecated')
+    list_display = ('technique', 'label') 
+    list_filter = ('technique', ) 
     ordering = ('label',)
         
 class TaxonAdmin(DefaultModelAdmin):
-    list_display = ('genus','species','common_name', 'controlled','deprecated')
-    list_filter = ('genus','controlled','deprecated')
+    list_display = ('genus','species','common_name')  
+    list_filter = ('genus',) 
     ordering = ('genus','species')
 
 admin.site.register(Technique,TermAdmin)	
