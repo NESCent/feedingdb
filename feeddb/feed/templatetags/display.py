@@ -35,7 +35,8 @@ def display_readonly(field, adminform):
         values.append(value)
     real_value=""
     if value ==None:
-        real_value=""
+        if isinstance(field.field.field.widget, RelatedFieldWidgetWrapper):
+            real_value=field.field.field.empty_label
     elif isinstance(field.field.field.widget, RelatedFieldWidgetWrapper):
         for choice in field.field.field.widget.widget.choices:
             modelname = field.field.field.widget.rel.to._meta.object_name.lower()
