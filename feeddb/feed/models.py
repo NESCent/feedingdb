@@ -43,6 +43,7 @@ class DevelopmentStage(CvTerm):
 class Technique(CvTerm):
     "Presence of specific entries (see KnownTechniques) in this table is required for proper functioning of the application, so it is not really a controlled term."
     #TODO: change the implementation (or just UI?) to avoid the impression that Technique entries can be edited.   
+    #      (See ANATOMICAL_CATEGORIES for an idea how to move them out of the DB.)
     pass
 
 class KnownTechniques:
