@@ -152,7 +152,7 @@ class IllustrationAdmin(FeedModelAdmin):
     list_display = ('picture', 'notes')
     #list_filter = ('experiment', 'subject')
     ordering = ('picture',)
-    form = DisableForeignKeyForm
+    form = IllustrationForm
 
 class EmgSensorViewInline(FeedTabularInline):
     model = EmgSensor
