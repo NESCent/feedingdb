@@ -196,8 +196,8 @@ class Experiment(FeedBaseModel):
     end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     description = models.TextField()
     subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="subject development stage")
-    subj_age = models.DecimalField("subject age (Year)",max_digits=19, decimal_places=5, blank = True, null=True)
-    subj_weight = models.DecimalField("subject weight (Kg)",max_digits=19, decimal_places=5, blank = True, null=True)
+    subj_age = models.DecimalField("subject age (yr)",max_digits=19, decimal_places=5, blank = True, null=True)
+    subj_weight = models.DecimalField("subject weight (kg)",max_digits=19, decimal_places=5, blank = True, null=True)
     subj_tooth = models.CharField("subject teeth",max_length=255, blank = True, null=True)
     subject_notes = models.TextField("subject notes", blank = True, null=True)
     impl_notes = models.TextField("implantation notes", blank = True, null=True)
@@ -208,7 +208,7 @@ class Setup(FeedBaseModel):
     experiment = models.ForeignKey(Experiment)
     technique = models.ForeignKey(Technique)     
     notes = models.TextField("Notes about all sensors and channels in this setup", blank = True, null=True)
-    sampling_rate = models.IntegerField("Sampling Rate, Hz", blank=True, null=True)
+    sampling_rate = models.IntegerField("Sampling Rate (Hz)", blank=True, null=True)
     class Meta:
         verbose_name = "setup"
     def __unicode__(self):
@@ -242,7 +242,7 @@ class PressureSetup(Setup):
 
 class KinematicsSetup(Setup):
     class Meta:
-        verbose_name = "2D Kinematics setup" 
+        verbose_name = "Kinematics setup" 
 
     def save(self):
         if self.notes in (None, '') and self.id == None:
@@ -280,7 +280,7 @@ class EmgSensor(Sensor):
         return 'EMG Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.location_controlled.label, self.loc_side.label)  
 
     class Meta:
-        verbose_name = "EMG sensor"
+        verbose_name = "EMG electrode"
         ordering = ["id"]
 
 class SonoSensor(Sensor):
@@ -289,10 +289,10 @@ class SonoSensor(Sensor):
 
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="Crystal depth", blank = True, null=True )
     def __unicode__(self):
-        return 'Sono Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.location_controlled.label, self.loc_side.label)  
+        return 'Sono crystal: %s (Muscle: %s, Side: %s) '  % (self.name, self.location_controlled.label, self.loc_side.label)  
 
     class Meta:
-        verbose_name = "Sono sensor"
+        verbose_name = "Sono crystal"
 
 class StrainSensor(Sensor):
     class Meta:
@@ -308,14 +308,14 @@ class PressureSensor(Sensor):
     
 class KinematicsSensor(Sensor):
     class Meta:
-        verbose_name = "2D Kinematics sensor"
+        verbose_name = "Kinematics marker"
 
     
 class Channel(FeedBaseModel):
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length = 255)
-    rate = models.IntegerField("Recording Rate, Hz")
-    notes = models.TextField("Notes about the channel",  blank = True, null=True)
+    rate = models.IntegerField("Recording Rate (Hz)")
+    notes = models.TextField("Notes",  blank = True, null=True)
 
     def __unicode__(self):
         return self.name 
@@ -367,9 +367,9 @@ class PressureChannel(Channel):
 class KinematicsChannel(Channel):
     unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.kinematics},
                              verbose_name="Kinematics units", null=True) 
-    sensor = models.ForeignKey(KinematicsSensor, blank = True, null=True)
+    sensor = models.ForeignKey(KinematicsSensor, blank = True, null=True, verbose_name="Marker")
     class Meta:
-        verbose_name = "2D Kinematics channel"
+        verbose_name = "Kinematics channel"
               
 class Session(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)

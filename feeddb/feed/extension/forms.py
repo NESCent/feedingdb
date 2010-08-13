@@ -90,7 +90,7 @@ class EmgChannelForm(forms.ModelForm):
         super(EmgChannelForm, self).__init__(*args, **kwargs)
         
 class EmgSensorChannelForm(forms.ModelForm):
-    rate = forms.IntegerField(label = "Recording Rate, Hz", required=True, widget=forms.TextInput(attrs={'size': 5}))
+    rate = forms.IntegerField(label = "Recording Rate (Hz)", required=True, widget=forms.TextInput(attrs={'size': 5}))
     emg_unit = forms.ModelChoiceField(label = "Emg Unit", required=True,queryset=Emgunit.objects.all())
     emg_filtering = forms.ModelChoiceField(label="EMG filtering", queryset=Emgfiltering.objects.all())
     emg_amplification = IntegerField(label = "Amplification",required=False, initial='', widget=forms.TextInput(attrs={'size': 5}))
