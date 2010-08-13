@@ -148,6 +148,7 @@ class Study(FeedBaseModel):
     funding_agency = models.CharField(max_length=255, blank = True, null=True)
     approval_secured = models.CharField(max_length=255, blank = True, null=True)
     description = models.TextField()
+    resources = models.TextField("External Resources", blank = True, null=True)
 
     def __unicode__(self):
         return self.title
