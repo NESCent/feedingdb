@@ -16,7 +16,7 @@ from feeddb.feed.extension.fields import FeedDateTimeField
 from django.db import models
 
 DATE_HELP_TEXT = 'format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00'
-DISABLE_FIELDS = ['study','experiment','session','subject','setup']
+DISABLE_FIELDS = ['study','experiment','session','setup']
 
 #use this form as the super class for hiding foreign keys in editing form
 class DisableForeignKeyForm (forms.ModelForm):
@@ -31,7 +31,11 @@ class SetupForm (DisableForeignKeyForm):
     class Meta:
         exclude = ('technique',)
 
-               
+#exclude subject from illustration                 
+class IllustrationForm (DisableForeignKeyForm):
+    class Meta:
+        exclude = ('subject','setup','experiment')
+
 class ExperimentChangeForm(DisableForeignKeyForm):
     start = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
     end = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
@@ -45,8 +49,8 @@ class ExperimentChangeForm(DisableForeignKeyForm):
                 parent_obj = Study.objects.get(id=study_id)
                 self.base_fields["start"].initial=parent_obj.start 
                 self.base_fields["end"].initial=parent_obj.end 
-                         
         super(ExperimentChangeForm, self).__init__(*args, **kwargs)
+        
 
 class StudyChangeForm(forms.ModelForm):
     start = FeedDateTimeField(help_text=DATE_HELP_TEXT)
