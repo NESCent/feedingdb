@@ -16,7 +16,22 @@ from feeddb.feed.extension.fields import FeedDateTimeField
 from django.db import models
 
 DATE_HELP_TEXT = 'format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00'
-class ExperimentChangeForm(forms.ModelForm):
+DISABLE_FIELDS = ['study','experiment','session']
+
+#use this form as the super class for hiding foreign keys in editing form
+class DisableForeignKeyForm (forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        for f in DISABLE_FIELDS:
+            if f in self.base_fields:
+                self.base_fields[f].widget.attrs['disabled']=""
+        super(DisableForeignKeyForm, self).__init__(*args, **kwargs)    
+
+#exclude technique from all types of setups                 
+class SetupForm (DisableForeignKeyForm):
+    class Meta:
+        exclude = ('technique',)
+        
+class ExperimentChangeForm(DisableForeignKeyForm):
     start = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
     end = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
     def __init__(self, *args, **kwargs):
@@ -241,10 +256,6 @@ class ChannelLineupForm(forms.ModelForm):
                 
     class Meta:
         model = ChannelLineup       
-        
-class SetupForm (forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        self.base_fields['technique'].widget.attrs['disabled']=""
-        self.base_fields['experiment'].widget.attrs['disabled']=""
-        super(SetupForm, self).__init__(*args, **kwargs)    
+
+
        
