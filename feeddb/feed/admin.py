@@ -63,7 +63,6 @@ class EmgSetupInline(FeedTabularInline):
     extra = 0
     tab_name = "EMG"
     tabbed = True
-
     class Meta:
         verbose_name = "emgsetup"
         
@@ -136,7 +135,8 @@ class SubjectAdmin(FeedModelAdmin):
     list_display = ('name', 'study', 'taxon', 'breed','sex', 'source')
     #list_filter = ('study', 'taxon','sex')
     ordering = ('name',)
-
+    form = DisableForeignKeyForm
+    
 class TrialAdmin(FeedModelAdmin):
     form = TrialForm
     search_fields = ('accession','title','bookkeeping','subj_notes','subj_treatment','food_type','food_property','behavior_primary__label','behavior_secondary','behavior_notes')
@@ -145,13 +145,14 @@ class TrialAdmin(FeedModelAdmin):
     form = TrialChangeForm
     ordering = ('position',)
     exclude = ['accession']    
-
+    form = DisableForeignKeyForm
+    
 class IllustrationAdmin(FeedModelAdmin):
     search_fields = ('notes', 'experiment','setup', 'subject')
     list_display = ('picture', 'notes')
     #list_filter = ('experiment', 'subject')
     ordering = ('picture',)
-
+    form = DisableForeignKeyForm
 
 class EmgSensorViewInline(FeedTabularInline):
     model = EmgSensor
@@ -289,27 +290,30 @@ class EmgSetupAdmin(EmgSetupModelAdmin):
     list_display = ('technique', 'preamplifier','experiment')
     list_filter = ('technique', 'experiment')
     ordering = ('preamplifier',)
-
-
+    form = SetupForm
+    
 class SonoSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,SonoSensorInline,SonoChannelInline]
     view_inlines = [IllustrationViewInline, SonoSensorViewInline, SonoChannelViewInline]
     list_display = ('technique', 'sonomicrometer','experiment')
     list_filter = ('technique', 'experiment')
     ordering = ('sonomicrometer',)
-
+    form = SetupForm
+    
 class StrainSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,StrainSensorInline,StrainChannelInline]
     view_inlines = [IllustrationViewInline, StrainSensorViewInline, StrainChannelViewInline]
     list_display = ('technique', 'experiment')
     list_filter = ('technique', 'experiment')
-
+    form = SetupForm
+    
 class ForceSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,ForceSensorInline,ForceChannelInline]
     view_inlines = [IllustrationViewInline, ForceSensorViewInline, ForceChannelViewInline]
     list_display = ('technique', 'experiment')
     list_filter = ('technique', 'experiment')
-
+    form = SetupForm
+    
 class PressureSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,PressureSensorInline,PressureChannelInline]
     view_inlines = [IllustrationViewInline, PressureSensorViewInline, PressureChannelViewInline]
@@ -321,6 +325,7 @@ class KinematicsSetupAdmin(DefaultModelAdmin):
     view_inlines = [IllustrationViewInline, KinematicsSensorViewInline, KinematicsChannelViewInline]
     list_display = ('technique', 'experiment')
     list_filter = ('technique', 'experiment')            
+    form = SetupForm
 
 class EmgChannelAdmin(DefaultModelAdmin):
     list_display = ('name', 'rate', 'sensor','emg_unit', 'emg_filtering')
@@ -434,7 +439,7 @@ admin.site.register(KinematicsSensor, CommonSensorAdmin)
 admin.site.register(PressureSensor, CommonSensorAdmin)
 admin.site.register(ChannelLineup, ChannelLineupAdmin)
 admin.site.register(Illustration,IllustrationAdmin)
-admin.site.register(EmgChannel,EmgChannelAdmin)
+#admin.site.register(EmgChannel,EmgChannelAdmin)
 admin.site.register(SonoChannel,SonoChannelAdmin)
 admin.site.register(Channel, DefaultModelAdmin)
 admin.site.register(StrainChannel,DefaultModelAdmin)
