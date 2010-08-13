@@ -27,11 +27,8 @@ class ExperimentChangeForm(forms.ModelForm):
             if 'study' in kwargs['initial']:
                 study_id=kwargs['initial']['study']
                 parent_obj = Study.objects.get(id=study_id)
-                for key, field in self.base_fields.iteritems():
-                    if key =="start":
-                        field.initial=parent_obj.start 
-                    if key =="end":
-                        field.initial=parent_obj.end
+                self.base_fields["start"].initial=parent_obj.start 
+                self.base_fields["end"].initial=parent_obj.end 
                          
         super(ExperimentChangeForm, self).__init__(*args, **kwargs)
 
@@ -49,11 +46,8 @@ class SessionChangeForm(forms.ModelForm):
             if 'experiment' in kwargs['initial']:
                 experiment_id=kwargs['initial']['experiment']
                 parent_obj = Experiment.objects.get(id=experiment_id)
-                for key, field in self.base_fields.iteritems():
-                    if key =="start":
-                        field.initial=parent_obj.start 
-                    if key =="end":
-                        field.initial=parent_obj.end
+                self.base_fields["start"].initial=parent_obj.start 
+                self.base_fields["end"].initial=parent_obj.end 
                          
         super(SessionChangeForm, self).__init__(*args, **kwargs)
 
@@ -68,12 +62,9 @@ class TrialChangeForm(forms.ModelForm):
             if 'session' in kwargs['initial']:
                 session_id=kwargs['initial']['session']
                 parent_obj = Session.objects.get(id=session_id)
-                for key, field in self.base_fields.iteritems():
-                    if key =="start":
-                        field.initial=parent_obj.start 
-                    if key =="end":
-                        field.initial=parent_obj.end
-                         
+                self.base_fields["start"].initial=parent_obj.start 
+                self.base_fields["end"].initial=parent_obj.end 
+
         super(TrialChangeForm, self).__init__(*args, **kwargs)
 
 class EmgChannelForm(forms.ModelForm):
@@ -81,12 +72,11 @@ class EmgChannelForm(forms.ModelForm):
         model = EmgChannel
 
     def __init__(self, *args, **kwargs):
-        for key, field in self.base_fields.iteritems():
-            if key == "setup" or key == "name" or key == "notes":
-                field.widget = field.hidden_widget()
-            if key =="name":
-                field.initial="EMG Channel"    
-
+        self.base_fields["setup"].widget = field.hidden_widget()
+        self.base_fields["name"].widget = field.hidden_widget()
+        self.base_fields["notes"].widget = field.hidden_widget()
+        self.base_fields["name"].initial = "EMG Channel"
+        
         super(EmgChannelForm, self).__init__(*args, **kwargs)
         
 class EmgSensorChannelForm(forms.ModelForm):
@@ -110,27 +100,14 @@ class EmgSensorChannelForm(forms.ModelForm):
                 channel = None
         if channel !=None:    
             self.base_fields["emg_unit"].initial = channel.emg_unit.id
-            for key, field in self.base_fields.iteritems():
-                if key =="emg_amplification":
-                    field.initial=channel.emg_amplification
-#                if key =="emg_unit":
-#                    field.initial= channel.emg_unit.id
-                if key =="emg_filtering":
-                    field.initial=channel.emg_filtering.id  
-                if key =="rate":
-                    field.initial=channel.rate            
+            self.base_fields["emg_amplification"].initial = channel.emg_amplification
+            self.base_fields["emg_filtering"].initial = channel.emg_filtering.id
+            self.base_fields["rate"].initial = channel.rate
         else:
             self.base_fields["emg_unit"].initial = None
-            for key, field in self.base_fields.iteritems():
-                if key =="emg_amplification":
-                    field.initial=None
-#                if key =="emg_unit":
-#                    field.initial= None
-                if key =="emg_filtering":
-                    field.initial=None   
-                if key =="rate":
-                    field.initial=None            
-        
+            self.base_fields["emg_amplification"].initial = None
+            self.base_fields["emg_filtering"].initial = None
+            self.base_fields["rate"].initial = None
         super(EmgSensorChannelForm, self).__init__(*args, **kwargs)
     
 class EmgSensorForm(EmgSensorChannelForm):
