@@ -11,7 +11,7 @@ from django.utils.encoding import smart_unicode, smart_str, force_unicode
 from django.template import Library, Node, TemplateSyntaxError, Variable, VariableDoesNotExist
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper, AdminFileWidget
 from django.conf import settings
-
+from feeddb.feed.models import *
 
 register = Library()
 
@@ -39,10 +39,26 @@ def display_readonly(field, adminform):
     elif isinstance(field.field.field.widget, RelatedFieldWidgetWrapper):
         for choice in field.field.field.widget.widget.choices:
             modelname = field.field.field.widget.rel.to._meta.object_name.lower()
+
+            if modelname=="setup":
+                if isinstance(adminform.form.instance, EmgSensor) or isinstance(adminform.form.instance, EmgChannel):
+                    modelname ="emgsetup"
+                elif isinstance(adminform.form.instance, SonoSensor) or isinstance(adminform.form.instance, SonoChannel):
+                    modelname ="sonosetup"
+                elif isinstance(adminform.form.instance, StrainSensor) or isinstance(adminform.form.instance, StrainChannel):
+                    modelname ="strainsetup"
+                elif isinstance(adminform.form.instance, PressureSensor) or isinstance(adminform.form.instance, PressureChannel):
+                    modelname ="pressuresetup"
+                elif isinstance(adminform.form.instance, ForceSensor) or isinstance(adminform.form.instance, ForceChannel):
+                    modelname ="forcesetup"
+                elif isinstance(adminform.form.instance, KinematicsSensor) or isinstance(adminform.form.instance,KinematicsChannel):
+                    modelname ="kinematicssetup"            
+                else:
+                    modelname=""    
             for value in values:
                 if value == choice[0]:
-                    if modelname  != "group" and modelname  != "permission":
-                        real_value += u'<a href="/admin/%s/%s/%s">%s</a><br/>' % ("feed", field.field.field.widget.rel.to._meta.object_name.lower(), value, choice[1])
+                    if modelname!="" and modelname  != "group" and modelname  != "permission":
+                        real_value += u'<a href="/admin/%s/%s/%s">%s</a><br/>' % ("feed", modelname, value, choice[1])
                     else:
                         real_value += u'%s<br/>' % choice[1]
     elif hasattr( field.field.field.widget, "choices"):
