@@ -228,21 +228,23 @@ class TrialForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(forms.ModelForm, self).__init__(*args, **kwargs)
-        for key, field in self.base_fields.iteritems():
-            if(key =="data_file"):
-                field.widget = field.hidden_widget()
-                field.help_text ="Please upload data file after saving the new trial."
+        self.base_fields['data_file'].widget = self.base_fields['data_file'].hidden_widget()
+        self.base_fields['data_file'].help_text ="Please upload data file after saving the new trial."
         
-
     class Meta:
         model = Trial
 
 class ChannelLineupForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        for key, field in self.base_fields.iteritems():
-            if(key =="channel"):
-                field.empty_label = 'dead channel'
+        self.base_fields['channel'].empty_label='dead channel'
         super(ChannelLineupForm, self).__init__(*args, **kwargs)
                 
     class Meta:
         model = ChannelLineup       
+        
+class SetupForm (forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.base_fields['technique'].widget.attrs['disabled']=""
+        self.base_fields['experiment'].widget.attrs['disabled']=""
+        super(SetupForm, self).__init__(*args, **kwargs)    
+       
