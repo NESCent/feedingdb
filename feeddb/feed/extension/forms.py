@@ -31,10 +31,6 @@ class SetupForm (DisableForeignKeyForm):
     class Meta:
         exclude = ('technique',)
 
-#exclude subject from illustration                 
-class IllustrationForm (DisableForeignKeyForm):
-    class Meta:
-        exclude = ('subject','setup','experiment')
 
 class ExperimentChangeForm(DisableForeignKeyForm):
     start = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
@@ -87,18 +83,6 @@ class TrialChangeForm(forms.ModelForm):
 
         super(TrialChangeForm, self).__init__(*args, **kwargs)
 
-class EmgChannelForm(forms.ModelForm):
-    class Meta:
-        model = EmgChannel
-
-    def __init__(self, *args, **kwargs):
-        self.base_fields["setup"].widget = field.hidden_widget()
-        self.base_fields["name"].widget = field.hidden_widget()
-        self.base_fields["notes"].widget = field.hidden_widget()
-        self.base_fields["name"].initial = "EMG Channel"
-        
-        super(EmgChannelForm, self).__init__(*args, **kwargs)
-        
 class EmgSensorChannelForm(forms.ModelForm):
     rate = forms.IntegerField(label = "Recording Rate (Hz)", required=True, widget=forms.TextInput(attrs={'size': 5}))
     emg_unit = forms.ModelChoiceField(label = "Emg Unit", required=True,queryset=Emgunit.objects.all())

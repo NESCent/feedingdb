@@ -273,7 +273,7 @@ class FeedModelAdmin(admin.ModelAdmin):
 
             post_url = '../../'
 
-            if hasattr(obj,'experiment'):
+            if hasattr(obj,'experiment') and obj.experiment!=None:
                 post_url='/admin/feed/experiment/%s' % obj.experiment.pk
             return HttpResponseRedirect(post_url)
 
