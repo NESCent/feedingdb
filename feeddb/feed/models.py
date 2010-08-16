@@ -347,28 +347,28 @@ class SonoChannel(Channel):
 class StrainChannel(Channel):
     unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.strain},
                              verbose_name="Strain units", null=True) 
-    sensor = models.ForeignKey(StrainSensor, blank = True, null=True)
+    sensor = models.ForeignKey(StrainSensor)
     class Meta:
         verbose_name = "Strain channel"
 
 class ForceChannel(Channel):
     unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.force},
                              verbose_name="Bite Force units", null=True) 
-    sensor = models.ForeignKey(ForceSensor, blank = True, null=True)
+    sensor = models.ForeignKey(ForceSensor)
     class Meta:
         verbose_name = "Bite Force channel"
                
 class PressureChannel(Channel):
     unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.pressure},
                              verbose_name="Pressure units", null=True) 
-    sensor = models.ForeignKey(PressureSensor, blank = True, null=True)
+    sensor = models.ForeignKey(PressureSensor)
     class Meta:
         verbose_name = "Pressure channel"
                
 class KinematicsChannel(Channel):
     unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.kinematics},
                              verbose_name="Kinematics units", null=True) 
-    sensor = models.ForeignKey(KinematicsSensor, blank = True, null=True, verbose_name="Marker")
+    sensor = models.ForeignKey(KinematicsSensor, verbose_name="Marker")
     class Meta:
         verbose_name = "Kinematics channel"
               
