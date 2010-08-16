@@ -1,4 +1,5 @@
 {% extends "explorer/base.html" %}
+{% load explorer_display %}
 {% block extra_js %}
 <script type="text/javascript" src="/explorer/static/js/jquery-1.3.2.min.js"></script>
 {% endblock %}
@@ -28,6 +29,16 @@
 <tr><td class='TdField'>Sex</td><td class='TdValue'>{{trial.session.experiment.subject.sex}}</td></tr>
 <tr><td class='TdField'>Source</td><td class='TdValue'>{{trial.session.experiment.subject.source}}</td></tr>
 <tr><td class='TdField'>Notes</td><td class='TdValue'>{{trial.session.experiment.subject.notes}}</td></tr>
+<tr><td class='TdField'>Illustrations</td><td class='TdValue'>
+	<table>
+	{% for illustration in trial.session.experiment.subject.illustration_set.all %}
+	  <tr><td>{%display_file illustration.picture %}</td>
+	  <td>{{illustration.notes}}</td>
+	  </tr>
+	{%endfor%}
+	</table>
+	
+</td></tr>
  </table>
 
  
@@ -43,6 +54,16 @@
 <tr><td class='TdField'>Body Weight</td><td class='TdValue'>{{trial.session.experiment.subj_weight}}</td></tr>
 <tr><td class='TdField'>Notes about Animal</td><td class='TdValue'>{{trial.session.experiment.subj_notes}}</td></tr>
 <tr><td class='TdField'>Tooth Development </td><td class='TdValue'>{{trial.session.experiment.subj_tooth}}</td></tr>
+<tr><td class='TdField'>Illustrations</td><td class='TdValue'>
+	<table>
+	{% for illustration in trial.session.experiment.illustration_set.all %}
+	  <tr><td>{%display_file illustration.picture %}</td>
+	  <td>{{illustration.notes}}</td>
+	  </tr>
+	{%endfor%}
+	</table>
+	
+</td></tr>
 </table>
  
                 <table class="detail_table">
@@ -69,35 +90,180 @@
 <tr><td class='TdField'>Material Properties of Food</td><td class='TdValue'>{{trial.food_property }}</td></tr>
 <tr><td class='TdField'>Experimental Treatment</td><td class='TdValue'>{{trial.subj_treatment }}</td></tr>
 <tr><td class='TdField'>Subject Notes</td><td class='TdValue'>{{trial.subj_notes}}</td></tr>
-                </table>
-             
+<tr><td class='TdField'>Waveform</td><td class='TdValue'>{%display_file trial.waveform_picture %}</td></tr>
 
+                </table>
+
+<table class="detail_table">
+<caption>Setups</caption>
+                <tr>
+                <th>ID</th>
+               <th>Technique</th>
+                <th>Sampling Rate</th>
+                <th>EMG Preamplifier</th>
+                <th>Sono Micrometer</th>
+                <th>Notes</th>
+                <th>Illustrations</th>
+                </tr>
+                 
+{% for setup in trial.session.experiment.setup_set.all %}
+<tr class="{% cycle 'even'  'odd' %}">
+      <td>{{setup.id}}</td>
+                 <td>{{setup.technique}}</td>
+				 <td>{{setup.sampling_rate|default_if_none:""}}</td>
+				 <td>
+				  {% ifequal setup.technique.label 'EMG' %}
+                       {{setup.emgsetup.preamplifier|default_if_none:""}}                           
+                  {%endifequal%}
+                   {% ifequal setup.technique.label 'Sono' %}
+                       {{setup.sonosetup.sonomicrometer|default_if_none:""}}
+                  {%endifequal%}
+				  </td>
+				  
+				  
+				  <td>{{setup.notes|default_if_none:""|truncatewords:50}}</td>
+				  <td>
+				  		<table>
+	{% for illustration in setup.illustration_set.all %}
+	  <tr><td>{%display_file illustration.picture %}</td>
+	  <td>{{illustration.notes}}</td>
+	  </tr>
+	{%endfor%}
+	</table>
+				  </td>
+                  
+</tr>
+{%endfor %}
+                </table>
+				             
+
+<table class="detail_table">
+<caption>Sensors</caption>
+                <tr>
+                <th>ID</th>
+				<th>Setup ID</th>
+               <th>Name</th>
+                <th>Location</th>
+                <th>Side</th>
+                <th>AP</th>
+                <th>DV</th>
+                <th>PD</th>
+				<th>ML</th>
+				<th>Axis Depth</th>
+				<th>Electrode Type</th>
+				<th>Nodes</th>
+                </tr>
+                 
+{% for setup in trial.session.experiment.setup_set.all %}
+{% for sensor in setup.sensor_set.all|dictsort:"name" %}
+<tr class="{% cycle 'even'  'odd' %}">
+	<td>{{sensor.id}}</td>
+    <td>{{setup.id}}</td>
+    <td>{{sensor.name}}</td>
+	<td>
+	  {% ifequal setup.technique.label "EMG" %}
+                {{sensor.emgsensor.location_controlled}}                           
+      {% endifequal %}
+	  {%ifequal setup.technique.label "Sono" %}
+                {{sensor.sonosensor.location_controlled}} 
+	  {% endifequal %}
+	  {% ifnotequal setup.technique.label "EMG" %}
+	      {%ifnotequal setup.technique.label "Sono" %}
+	   	        {{sensor.location_freetext}} 
+		  {%endifnotequal%}
+	  {%endifnotequal%}	  
+      
+ 	</td>
+    <td>{{sensor.loc_side|default_if_none:""}}</td>
+    <td>{{sensor.loc_ap|default_if_none:""}}</td>
+	<td>{{sensor.loc_dv|default_if_none:""}}</td>
+	<td>{{sensor.loc_pd|default_if_none:""}}</td>
+	<td>{{sensor.loc_ml|default_if_none:""}}</td>
+		  {% ifequal setup.technique.label "EMG" %}
+                 <td>{{sensor.emgsensor.axisdepth|default_if_none:""}}</td>     
+		 <td>{{sensor.emgsensor.electrode_type|default_if_none:""}}</td>                           
+      {% endifequal %}
+	  {%ifequal setup.technique.label "Sono" %}
+                <td>{{sensor.sonosensor.axisdepth|default_if_none:""}}</td>     
+		 <td></td> 
+	  {% endifequal %}
+	  {% ifnotequal setup.technique.label "EMG" %}
+	      {%ifnotequal setup.technique.label "Sono" %}
+	   	         <td></td>
+		  <td></td>
+		  {%endifnotequal%}
+	  {%endifnotequal%}	  
+	<td>{{sensor.notes|truncatewords:50|default_if_none:""}}</td>
+	              
+</tr>
+{%endfor %}
+{%endfor %}
+                </table>
+				
 <table class="detail_table">
 <caption>Channels</caption>
                 <tr>
                 <th>Order</th>
                <th>Name</th>
-                <th>Technique</th>
-                <th>Rate</th>
-                <th>Muscle</th>
-                <th>Muscle Side</th>
-                </tr>
+			   <th>Technique</th>
+            <th>Recording Rate</th>
+			    <th>Unit</th>
+				<th>Sensor 1</th>
+                <th>Sensor 2</th>
+                <th>EMG Filtering</th>
+                <th>EMG Amplification</th>
+			</tr>
                  
 {% for lineup in trial.session.channellineup_set.all %}
 <tr class="{% cycle 'even'  'odd' %}">
       <td>{{lineup.position}}</td>
                  <td>{{lineup.channel.name}}</td>
                  <td>{{lineup.channel.setup.technique}}</td>
-                  <td>{{lineup.channel.rate}}</td>
-                  {% ifequal lineup.channel.setup.technique.label 'EMG' %}
-                           <td>{{lineup.channel.emgchannel.sensor.muscle}}</td>
-                           <td>{{lineup.channel.emgchannel.sensor.side}}</td>
-                  {%endifequal%}
-                   {% ifequal lineup.channel.setup.technique.label 'Sono' %}
-                           <td>{{lineup.channel.sonochannel.sensor.muscle}}</td>
-                           <td>{{lineup.channel.sonochannel.sensor.side}}</td>
-                  {%endifequal%}
-                  
+				  <td>{{lineup.channel.rate|default_if_none:""}}</td>
+				  {% ifequal lineup.channel.setup.technique.label "EMG" %}
+                     <td>{{lineup.channel.emgchannel.emg_unit|default_if_none:""}}</td>     
+		             <td>{{lineup.channel.emgchannel.sensor.id}}</td> 
+					 <td></td>
+					 <td>{{lineup.channel.emgchannel.emg_filtering|default_if_none:""}}</td> 
+					 <td>{{lineup.channel.emgchannel.emg_amplification|default_if_none:""}}</td>                           
+                  {% endifequal %}
+	              {%ifequal lineup.channel.setup.technique.label "Sono" %}
+                     <td>{{lineup.channel.sonochannel.sono_unit|default_if_none:""}}</td>     
+		             <td>{{lineup.channel.sonochannel.crystal1.id}}</td> 
+					 <td>{{lineup.channel.sonochannel.crystal2.id}}</td>
+					 <td></td> 
+					 <td></td> 
+				  {% endifequal %}
+	              
+	              {%ifequal lineup.channel.setup.technique.label "Bone strain" %}
+                     <td>{{lineup.channel.strainchannel.unit|default_if_none:""}}</td>     
+		             <td>{{lineup.channel.strainchannel.sensor.id}}</td> 
+					 <td></td>
+					 <td></td> 
+					 <td></td> 
+				  {% endifequal %}	  
+ 
+	              {%ifequal lineup.channel.setup.technique.label "Bite force" %}
+                     <td>{{lineup.channel.forcechannel.unit|default_if_none:""}}</td>     
+		             <td>{{lineup.channel.forcechannel.sensor.id}}</td> 
+					 <td></td>
+					 <td></td> 
+					 <td></td> 
+				  {% endifequal %}	                    
+	              {%ifequal lineup.channel.setup.technique.label "Pressure" %}
+                     <td>{{lineup.channel.pressurechannel.unit|default_if_none:""}}</td>     
+		             <td>{{lineup.channel.pressurechannel.sensor.id}}</td> 
+					 <td></td>
+					 <td></td> 
+					 <td></td> 
+				  {% endifequal %}	
+	              {%ifequal lineup.channel.setup.technique.label "Kinematics" %}
+                     <td>{{lineup.channel.kinematicschannel.unit|default_if_none:""}}</td>     
+		             <td>{{lineup.channel.kinematicschannel.sensor.id}}</td> 
+					 <td></td>
+					 <td></td> 
+					 <td></td> 
+				  {% endifequal %}					  
 </tr>
 {%endfor %}
                 </table>
