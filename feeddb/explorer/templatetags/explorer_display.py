@@ -1,4 +1,5 @@
 from django.template import Library
+from django.conf import settings
 
 register = Library()
 
@@ -29,3 +30,25 @@ def display_muscle(trial):
                 musles.add(sensor.sonosensor.location_controlled.label)
     return ','.join(musles)
 display_muscle = register.simple_tag(display_muscle)
+
+def is_image(file):
+    """
+    Check if the file is a image based on the extension
+    """
+    img_exts = [".jpeg",".png",".gif",".jpg",".bmp"]
+    for ext in img_exts:
+        if file.url.find(ext) !=-1: 
+            return True
+    return False
+    
+def display_file(value):
+    """
+    If file is an image display <img> tag with the file as src, otherwise display <a> link with file as href
+    """
+    if value in (None, ''):
+        return ""
+    if is_image(value):
+        return u'<a href="%s%s" title="click to view full size image"><img width="100" src="%s%s"/></a><br/>' % (settings.MEDIA_URL, value, settings.MEDIA_URL,value)
+
+    return u'<a href="%s%s">%s</a><br/>' % (settings.MEDIA_URL,value, value)
+display_file = register.simple_tag(display_file)    
