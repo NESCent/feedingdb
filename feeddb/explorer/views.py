@@ -271,9 +271,9 @@ def bucket_download(request, id):
                         if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel'):
                             for v in value:
                                 s=''
-                                if key in objects:
-		                            s=getattr(objects[key], v[0])
-		                            if hasattr(s,'split'): 
+                                if key in objects and objects[key]!=None:
+                                    s=getattr(objects[key], v[0])
+                                    if hasattr(s,'split'): 
 		                                ss=s.split('\r\n')
 		                                if len(ss)>1:
 		                                    s=' '.join(ss)
