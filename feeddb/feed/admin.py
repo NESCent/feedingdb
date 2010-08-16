@@ -152,7 +152,6 @@ class IllustrationAdmin(FeedModelAdmin):
     list_display = ('picture', 'notes')
     #list_filter = ('experiment', 'subject')
     ordering = ('picture',)
-    form = IllustrationForm
 
 class EmgSensorViewInline(FeedTabularInline):
     model = EmgSensor
@@ -225,20 +224,8 @@ class ChannelInline(FeedTabularInline):
     exclude = ['notes']   
     extra = 0
 
-class EmgChannelViewInline(FeedTabularInline):
-    model = EmgChannel
-    exclude = ['notes']   
-    extra = 0
 
-class EmgChannelViewStackInline(admin.StackedInline):
-    model = EmgChannel
-    extra = 0
     
-class EmgChannelInline(admin.StackedInline):
-    model = EmgChannel
-    extra = 1
-    form = EmgChannelForm
-
 class SonoChannelInline(FeedTabularInline):
     model = SonoChannel
     extra =5
