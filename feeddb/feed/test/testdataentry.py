@@ -78,7 +78,7 @@ class TestDataentry(BaseTestCase):
         sel.select("id_emgsensor_set-0-loc_pd", "label=Proximal")
         sel.select("id_emgsensor_set-0-loc_ml", "label=Medial")
         sel.select("id_emgsensor_set-0-axisdepth", "label=Superficial")
-        sel.select("id_emgsensor_set-0-emg_unit", "label=millivolt")
+        sel.select("id_emgsensor_set-0-unit", "label=millivolt")
         sel.select("id_emgsensor_set-0-emg_filtering", "label=60Hz notch")
         sel.type("id_emgsensor_set-0-emg_amplification", "12")
         sel.click("_save")

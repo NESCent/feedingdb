@@ -315,11 +315,11 @@ class KinematicsSetupAdmin(DefaultModelAdmin):
     form = SetupForm
 
 class EmgChannelAdmin(DefaultModelAdmin):
-    list_display = ('name', 'rate', 'sensor','emg_unit', 'emg_filtering')
+    list_display = ('name', 'rate', 'sensor', 'unit', 'emg_filtering')
     ordering = ('sensor',)
 
 class SonoChannelAdmin(DefaultModelAdmin):
-    list_display = ('name', 'rate', 'crystal1','crystal2','sono_unit')
+    list_display = ('name', 'rate', 'crystal1','crystal2','unit')
     ordering = ('crystal1',)
 
   
@@ -382,7 +382,7 @@ class TermAdmin(DefaultModelAdmin):
 class UnitAdmin(DefaultModelAdmin):
     list_display = ('technique', 'label') 
     list_filter = ('technique', ) 
-    ordering = ('label',)
+    #ordering    #--comes from the model
         
 class TaxonAdmin(DefaultModelAdmin):
     list_display = ('genus','species','common_name')  
@@ -402,9 +402,7 @@ admin.site.register(ElectrodeType,TermAdmin)
 admin.site.register(DevelopmentStage,TermAdmin)
 admin.site.register(Behavior,TermAdmin)
 admin.site.register(Restraint,TermAdmin)
-admin.site.register(Emgunit,TermAdmin)
 admin.site.register(Unit,UnitAdmin)
-admin.site.register(Sonounit,TermAdmin)
 admin.site.register(Emgfiltering,TermAdmin)
 admin.site.register(Experiment, ExperimentAdmin)
 admin.site.register(Subject,SubjectAdmin)

@@ -85,7 +85,7 @@ class TrialChangeForm(forms.ModelForm):
 
 class EmgSensorChannelForm(forms.ModelForm):
     rate = forms.IntegerField(label = "Recording Rate (Hz)", required=True, widget=forms.TextInput(attrs={'size': 5}))
-    emg_unit = forms.ModelChoiceField(label = "Emg Unit", required=True,queryset=Emgunit.objects.all())
+    unit = forms.ModelChoiceField(label = "Emg Units", required=True,queryset=Unit.objects.filter(technique = KnownTechniques.emg))
     emg_filtering = forms.ModelChoiceField(label="EMG filtering", queryset=Emgfiltering.objects.all())
     emg_amplification = IntegerField(label = "Amplification",required=False, initial='', widget=forms.TextInput(attrs={'size': 5}))
     name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}))
@@ -103,12 +103,12 @@ class EmgSensorChannelForm(forms.ModelForm):
             except EmgChannel.DoesNotExist:
                 channel = None
         if channel !=None:    
-            self.base_fields["emg_unit"].initial = channel.emg_unit.id
+            self.base_fields["unit"].initial = channel.unit.id 
             self.base_fields["emg_amplification"].initial = channel.emg_amplification
             self.base_fields["emg_filtering"].initial = channel.emg_filtering.id
             self.base_fields["rate"].initial = channel.rate
         else:
-            self.base_fields["emg_unit"].initial = None
+            self.base_fields["unit"].initial = None
             self.base_fields["emg_amplification"].initial = None
             self.base_fields["emg_filtering"].initial = None
             self.base_fields["rate"].initial = None

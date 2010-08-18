@@ -1231,14 +1231,14 @@ class EmgSensorModelAdmin(DefaultModelAdmin):
             emgchannel = EmgChannel()
             emgchannel.sensor=form.instance
                     
-        unit = request.POST['emg_unit']
+        unit = request.POST['unit']
         filtering=request.POST['emg_filtering']
         amplification=request.POST['emg_amplification']
         rate=request.POST['rate']
         if unit!=None and unit!='':
-            emgchannel.emg_unit = Emgunit.objects.get(pk=int(unit))
+            emgchannel.unit = Unit.objects.get(pk=int(unit)) 
         else:
-            raise forms.ValidationError("Emg Unit is required!")
+            raise forms.ValidationError("Unit is required!")
         
         if filtering!=None and filtering!='':        
             emgchannel.emg_filtering = Emgfiltering.objects.get(pk=int(filtering))
@@ -1274,12 +1274,12 @@ class EmgSetupModelAdmin(DefaultModelAdmin):
 	                        emgchannel = EmgChannel()
 	                        emgchannel.sensor=ins
 	                    
-	                    unit = f.cleaned_data['emg_unit']
+	                    unit = f.cleaned_data['unit']
 	                    filtering=f.cleaned_data['emg_filtering']
 	                    amplification=f.cleaned_data['emg_amplification']
 	                    rate=f.cleaned_data['rate']
 	                    if unit!=None and unit!='':
-	                        emgchannel.emg_unit = unit
+	                        emgchannel.unit = unit
 	                    else:
 	                        raise forms.ValidationError("Emg Unit is required!")
 	        

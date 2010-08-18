@@ -49,12 +49,12 @@ class Technique(CvTerm):
 class KnownTechniques:
     "Techniques that are assumed to be in the database."
     #TODO: complain ASAP if any of these is not in DB
-    emg = Technique.objects.all().filter(label__iexact = 'EMG')
-    sono = Technique.objects.all().filter(label__iexact = 'Sono')
-    strain = Technique.objects.all().filter(label__iexact = 'Bone strain')
-    force = Technique.objects.all().filter(label__iexact = 'Bite force')
-    pressure = Technique.objects.all().filter(label__iexact = 'Pressure')
-    kinematics = Technique.objects.all().filter(label__iexact = 'Kinematics')
+    emg = Technique.objects.all().get(label__iexact = 'EMG')
+    sono = Technique.objects.all().get(label__iexact = 'Sono')
+    strain = Technique.objects.all().get(label__iexact = 'Bone strain')   #TODO? filter --> get
+    force = Technique.objects.all().get(label__iexact = 'Bite force')
+    pressure = Technique.objects.all().get(label__iexact = 'Pressure')
+    kinematics = Technique.objects.all().get(label__iexact = 'Kinematics')
     
 
 class Taxon(CvTerm):
@@ -125,16 +125,13 @@ class Behavior(CvTerm):
 class Restraint(CvTerm):
     pass
 
-# VG: initially Unit is only for the "generic" techniques; 
-#  later, we'll probably switch from Emgunit and Sonounit into it's favor 
+
 class Unit(CvTerm):
     technique = models.ForeignKey(Technique)
+    
+    class Meta:
+        ordering = ["technique", "label"]
 
-class Emgunit(CvTerm):
-    pass
-
-class Sonounit(CvTerm):
-    pass
 
 class Emgfiltering(CvTerm):
     pass
@@ -322,8 +319,9 @@ class Channel(FeedBaseModel):
         return self.name 
 
 class EmgChannel(Channel):
+    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.emg},
+                             verbose_name="EMG units [from models.py]")     
     sensor = models.ForeignKey(EmgSensor)    
-    emg_unit = models.ForeignKey(Emgunit, verbose_name="EMG units")    #TODO: switch from Emgunit to Unit
     emg_filtering = models.ForeignKey(Emgfiltering, verbose_name="EMG filtering")
     emg_amplification = models.IntegerField(blank=True,null=True,verbose_name = "amplification")
     
@@ -334,7 +332,8 @@ class EmgChannel(Channel):
 
 
 class SonoChannel(Channel):
-    sono_unit = models.ForeignKey(Sonounit, verbose_name="Sono units")    #TODO: switch from Sonounit to Unit
+    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.sono},
+                             verbose_name="Sono units")     
     crystal1 = models.ForeignKey(SonoSensor, related_name="crystals1_related")
     crystal2 = models.ForeignKey(SonoSensor, related_name="crystals2_related")
 
