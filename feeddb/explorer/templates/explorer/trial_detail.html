@@ -220,24 +220,22 @@
                  <td>{{lineup.channel.name}}</td>
                  <td>{{lineup.channel.setup.technique}}</td>
 				  <td>{{lineup.channel.rate|default_if_none:""}}</td>
+				  <td>{{lineup.channel.emgchannel.unit|default_if_none:""}}</td>     
 				  {% ifequal lineup.channel.setup.technique.label "EMG" %}
-                     <td>{{lineup.channel.emgchannel.emg_unit|default_if_none:""}}</td>     
-		             <td>{{lineup.channel.emgchannel.sensor.id}}</td> 
+                     <td>{{lineup.channel.emgchannel.sensor.id}}</td> 
 					 <td></td>
 					 <td>{{lineup.channel.emgchannel.emg_filtering|default_if_none:""}}</td> 
 					 <td>{{lineup.channel.emgchannel.emg_amplification|default_if_none:""}}</td>                           
                   {% endifequal %}
 	              {%ifequal lineup.channel.setup.technique.label "Sono" %}
-                     <td>{{lineup.channel.sonochannel.sono_unit|default_if_none:""}}</td>     
-		             <td>{{lineup.channel.sonochannel.crystal1.id}}</td> 
+                     <td>{{lineup.channel.sonochannel.crystal1.id}}</td> 
 					 <td>{{lineup.channel.sonochannel.crystal2.id}}</td>
 					 <td></td> 
 					 <td></td> 
 				  {% endifequal %}
 	              
 	              {%ifequal lineup.channel.setup.technique.label "Bone strain" %}
-                     <td>{{lineup.channel.strainchannel.unit|default_if_none:""}}</td>     
-		             <td>{{lineup.channel.strainchannel.sensor.id}}</td> 
+                     <td>{{lineup.channel.strainchannel.sensor.id}}</td> 
 					 <td></td>
 					 <td></td> 
 					 <td></td> 
