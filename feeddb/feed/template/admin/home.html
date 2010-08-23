@@ -1,0 +1,24 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load feedmedia %}{% app_static_prefix %}css/dashboard.css" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+{% block menu %}{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+<h2>Two web applications are available: </h2>
+<ul>
+<li><h2><a href ="/admin">Data Admin: for data entry and management</a></h2> </li>
+<li><h2><a href ="/explorer">Explorer: for data searching and downloading</a></h2></li>
+</ul>	
+ </div>
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
