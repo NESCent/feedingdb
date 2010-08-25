@@ -326,7 +326,7 @@ def bucket_download(request, id):
                     #check if there is a data file
                     if(trial.data_file!=None and trial.data_file!=""):
                         full_filename = "%s/%s" % (settings.MEDIA_ROOT, trial.data_file)
-                        csvfile = open(full_filename)
+                        csvfile = open(full_filename,"rU")
                         dialect = csv.Sniffer().sniff(csvfile.read(1024))
                         csvfile.seek(0)
                         reader = csv.reader(csvfile, dialect)
