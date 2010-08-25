@@ -168,7 +168,6 @@ def bucket_download(request, id):
             return render_to_response('explorer/base.html', c)
         channel_download = []
         for ch in channel_selected:
-            print ch
             parts=ch.split(":")
             channel_download.append([parts[1], parts[2]])
             channel_headers.append("Trial %s:Channel %s" % (parts[1], parts[2]))
