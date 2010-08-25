@@ -167,6 +167,7 @@ def bucket_download(request, id):
             c = RequestContext(request, {'title': 'FeedDB Explorer'})
             return render_to_response('explorer/base.html', c)
         channel_download = []
+        channel_selected.sort()
         for ch in channel_selected:
             parts=ch.split(":")
             channel_download.append([parts[1], parts[2]])
