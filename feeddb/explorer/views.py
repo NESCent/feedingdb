@@ -351,7 +351,8 @@ def bucket_download(request, id):
                             trial_readers[key]["file"].close()
                             
                     newrow=[]
-                    for ch in channel_download:
+                    for sel_ch in channel_selected:
+                        ch=sel_ch.split(":")
                         if ch[0] in rows:
                             if int(ch[1]) > len(rows[ch[0]]):
                                 message = "Error in channel lineup positions for trial: %s" % ch[0]
