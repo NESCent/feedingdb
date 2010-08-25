@@ -168,10 +168,13 @@ def bucket_download(request, id):
             return render_to_response('explorer/base.html', c)
         channel_download = []
         channel_selected.sort()
+        trials_download =[]
         for ch in channel_selected:
             parts=ch.split(":")
             channel_download.append([parts[1], parts[2]])
             channel_headers.append("Trial %s:Channel %s" % (parts[1], parts[2]))
+            if not part1[1] in trials_download:
+                trials_download.append(parts[1])
         filenames={}
 
         # create a temporary folder to store files
@@ -325,7 +328,7 @@ def bucket_download(request, id):
                 total_trial_number=0
                 for trial in bucket.trials.all():
                     #check if there is a data file
-                    if(trial.data_file!=None and trial.data_file!=""):
+                    if(trial.data_file!=None and trial.data_file!="" and str(trial.id) in trials_download ):
                         full_filename = "%s/%s" % (settings.MEDIA_ROOT, trial.data_file)
                         csvfile = open(full_filename,"rU")
                         dialect = csv.Sniffer().sniff(csvfile.read(1024))
