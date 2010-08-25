@@ -168,6 +168,7 @@ def bucket_download(request, id):
             return render_to_response('explorer/base.html', c)
         channel_download = []
         for ch in channel_selected:
+            print ch
             parts=ch.split(":")
             channel_download.append([parts[1], parts[2]])
             channel_headers.append("Trial %s:Channel %s" % (parts[1], parts[2]))
@@ -352,6 +353,11 @@ def bucket_download(request, id):
                     newrow=[]
                     for ch in channel_download:
                         if ch[0] in rows:
+                            if int(ch[1]) > len(rows[ch[0]]):
+                                message = "Error in channel lineup positions for trial: %s" % ch[0]
+                                request.user.message_set.create(message=message)
+                                c = RequestContext(request, {'title': 'FeedDB Explorer'})
+                                return render_to_response('explorer/base.html', c)
                             newrow.append(rows[ch[0]][int(ch[1])])
                         else:
                             newrow.append('')                  
