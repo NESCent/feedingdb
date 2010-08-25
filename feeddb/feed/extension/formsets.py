@@ -33,6 +33,9 @@ class PositionBaseInlineFormSet(BaseInlineFormSet):
                             positions.append(int(p))
                 if positions:
                     positions.sort()
+                    #check start position must be 1
+                    if positions[0]!=1:
+                        form_errors.append("position must start from 1")
                     for i in range(1, len(positions)):
                         #check unique position
                         if positions[i-1]==positions[i]:
