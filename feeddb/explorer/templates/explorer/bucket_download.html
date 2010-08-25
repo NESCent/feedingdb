@@ -90,8 +90,8 @@ function select_allchannels_clicked(obj){
                <th>Name</th>
                 <th>Technique</th>
                 <th>Rate</th>
-                <th>Muscle</th>
-                <th>Muscle Side</th>
+                <th>Location</th>
+                <th>Side</th>
                 </tr>
                 {% for trial in bucket.trials.all %} 
 				{% for lineup in trial.session.channellineup_set.all %}
@@ -102,13 +102,31 @@ function select_allchannels_clicked(obj){
                  <td>{{lineup.channel.setup.technique}}</td>
                   <td>{{lineup.channel.rate}}</td>
                   {% ifequal lineup.channel.setup.technique.label 'EMG' %}
-                           <td>{{lineup.channel.emgchannel.sensor.muscle}}</td>
-                           <td>{{lineup.channel.emgchannel.sensor.side}}</td>
+                           <td>{{lineup.channel.emgchannel.sensor.location_controlled}}</td>
+                           <td>{{lineup.channel.emgchannel.sensor.loc_side}}</td>
                   {%endifequal%}
-                   {% ifequal lineup.channel.setup.technique.label 'Sono' %}
-                           <td>{{lineup.channel.sonochannel.sensor.muscle}}</td>
-                           <td>{{lineup.channel.sonochannel.sensor.side}}</td>
+                  {% ifequal lineup.channel.setup.technique.label 'Sono' %}
+                           <td>{{lineup.channel.sonochannel.sensor.location_controlled}}</td>
+                           <td>{{lineup.channel.sonochannel.sensor.loc_side}}</td>
                   {%endifequal%}
+	              {%ifequal lineup.channel.setup.technique.label "Bone strain" %}
+                     <td>{{lineup.channel.strainchannel.sensor.location_freetext}}</td> 
+					 <td>{{lineup.channel.strainchannel.sensor.loc_side}}</td>
+				  {% endifequal %}	  
+ 
+	              {%ifequal lineup.channel.setup.technique.label "Bite force" %}
+                     <td>{{lineup.channel.forcechannel.location_freetext}}</td>     
+		             <td>{{lineup.channel.forcechannel.sensor.loc_side}}</td>
+				  {% endifequal %}	                    
+	              {%ifequal lineup.channel.setup.technique.label "Pressure" %}
+                     <td>{{lineup.channel.pressurechannel.location_freetext}}</td>     
+		             <td>{{lineup.channel.pressurechannel.sensor.loc_side}}</td> 
+				  {% endifequal %}	
+	              {%ifequal lineup.channel.setup.technique.label "Kinematics" %}
+                     <td>{{lineup.channel.kinematicschannel.location_freetext}}</td>     
+		             <td>{{lineup.channel.kinematicschannel.sensor.loc_side}}</td> 
+				  {% endifequal %}	
+	   
                 <td><input name="channel:{{trial.id}}:{{lineup.position}}" type="checkbox" checked="checked" /></td>  
 </tr>
 {%endfor %}
