@@ -173,7 +173,7 @@ def bucket_download(request, id):
             parts=ch.split(":")
             channel_download.append([parts[1], parts[2]])
             channel_headers.append("Trial %s:Channel %s" % (parts[1], parts[2]))
-            if not part1[1] in trials_download:
+            if not parts[1] in trials_download:
                 trials_download.append(parts[1])
         filenames={}
 
