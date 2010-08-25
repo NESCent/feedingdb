@@ -357,7 +357,7 @@ def bucket_download(request, id):
                                 request.user.message_set.create(message=message)
                                 c = RequestContext(request, {'title': 'FeedDB Explorer'})
                                 return render_to_response('explorer/base.html', c)
-                            newrow.append(rows[ch[0]][int(ch[1])])
+                            newrow.append(rows[ch[0]][int(ch[1])-1])
                         else:
                             newrow.append('')                  
                     metaWriter.writerow(newrow)      
