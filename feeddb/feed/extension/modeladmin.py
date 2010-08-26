@@ -411,9 +411,6 @@ class FeedModelAdmin(admin.ModelAdmin):
 
     def change_view(self, request, object_id, extra_context=None):
         "The 'change' admin view for this model."
-        if request.method == 'POST':
-            return super(FeedModelAdmin, self).change_view(request, object_id, extra_context)
-        
         model = self.model
         opts = model._meta
 
@@ -434,18 +431,48 @@ class FeedModelAdmin(admin.ModelAdmin):
         
         ModelForm = self.get_form(request, obj)
         formsets = []
+        if request.method == 'POST':
+            form = ModelForm(request.POST, request.FILES, instance=obj)
+            #filtering choices
+            self.filter_form_values(request, form,model,obj)
+            if form.is_valid():
+                form_validated = True
+                new_object = self.save_form(request, form, change=True)
+            else:
+                form_validated = False
+                new_object = obj
+            prefixes = {}
+            for FormSet in self.get_formsets(request, new_object):
+                prefix = FormSet.get_default_prefix()
+                prefixes[prefix] = prefixes.get(prefix, 0) + 1
+                if prefixes[prefix] != 1:
+                    prefix = "%s-%s" % (prefix, prefixes[prefix])
+                formset = FormSet(request.POST, request.FILES,
+                                  instance=new_object, prefix=prefix)
+                formsets.append(formset)
+
+            if all_valid(formsets) and form_validated:
+                self.save_model(request, new_object, form, change=True)
+                form.save_m2m()
+                for formset in formsets:
+                    self.save_formset(request, form, formset, change=True)
+
+                change_message = self.construct_change_message(request, form, formsets)
+                self.log_change(request, new_object, change_message)
+                return self.response_change(request, new_object)
+        else:
         
-        form = ModelForm(instance=obj)
-        #filtering choices
-        self.filter_form_values(request, form,model,obj)
-        prefixes = {}
-        for FormSet in self.get_formsets(request, obj):
-            prefix = FormSet.get_default_prefix()
-            prefixes[prefix] = prefixes.get(prefix, 0) + 1
-            if prefixes[prefix] != 1:
-                prefix = "%s-%s" % (prefix, prefixes[prefix])
-            formset = FormSet(instance=obj, prefix=prefix)
-            formsets.append(formset)
+            form = ModelForm(instance=obj)
+            #filtering choices
+            self.filter_form_values(request, form,model,obj)
+            prefixes = {}
+            for FormSet in self.get_formsets(request, obj):
+                prefix = FormSet.get_default_prefix()
+                prefixes[prefix] = prefixes.get(prefix, 0) + 1
+                if prefixes[prefix] != 1:
+                    prefix = "%s-%s" % (prefix, prefixes[prefix])
+                formset = FormSet(instance=obj, prefix=prefix)
+                formsets.append(formset)
 
         adminForm = helpers.AdminForm(form, self.get_fieldsets(request, obj), self.prepopulated_fields)
         media = self.media + adminForm.media
