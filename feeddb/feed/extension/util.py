@@ -157,15 +157,12 @@ def duplicate(obj, exclude = None, value=None, field=None):
         # Replace each `sub_obj` with a duplicate.
         sub_obj = collected_objs[model]
         for pk_val, obj1 in sub_obj.iteritems():
-            if hasattr(obj1,"clone"):
-                obj1= obj1.clone(exclude)
-            else:
-                for fk in fks:
-                    fk_value = getattr(obj1, "%s_id" % fk.name)
-                    # If this FK has been duplicated then point to the duplicate.
-                    if fk_value in collected_objs[fk.rel.to]:
-                        dupe_obj = collected_objs[fk.rel.to][fk_value]
-                        setattr(obj1, fk.name, dupe_obj)
+            for fk in fks:
+                fk_value = getattr(obj1, "%s_id" % fk.name)
+                # If this FK has been duplicated then point to the duplicate.
+                if fk_value in collected_objs[fk.rel.to]:
+                    dupe_obj = collected_objs[fk.rel.to][fk_value]
+                    setattr(obj1, fk.name, dupe_obj)
             # Duplicate the object and save it.
             
             obj1.id = None
@@ -177,7 +174,7 @@ def duplicate(obj, exclude = None, value=None, field=None):
 
             if field!=None and value!=None:
                 setattr(obj1, field, value)
-            #obj1.save()
+            obj1.save()
             if root_obj is None:
                 root_obj = obj1
     set_position(root_obj)
