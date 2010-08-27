@@ -12,7 +12,8 @@ BEHAVIOR_CHOICES=[('','')]
 for s in Taxon.objects.all():
     SPECIES_CHOICES.append((s.id, '%s %s' % (s.genus, s.species)))
 
-for s in Muscle.objects.all():
+#for s in Muscle.objects.all():
+for s in AnatomicalLocation.objects.filter(category = AnatomicalCategories.muscle):    
     MUSCLE_CHOICES.append((s.id, s.label))
 
 for s in Technique.objects.all():
