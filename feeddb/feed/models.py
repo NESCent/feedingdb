@@ -67,10 +67,6 @@ class Taxon(CvTerm):
         ordering = ["genus"]
         verbose_name_plural = "Taxa"
 
-# Muscle is being replaced by AnatomicalLocation
-class Muscle(CvTerm):
-    pass
-
 
 class AnatomicalCategories:     # An "enumeration", not a Django model
     muscle = 1
@@ -80,10 +76,9 @@ ANATOMICAL_CATEGORIES = (
         (AnatomicalCategories.muscle, u'Muscle'), 
         (AnatomicalCategories.bone, u'Bone')
                                   )
-
 class AnatomicalLocation(CvTerm):
     category = models.IntegerField(choices=ANATOMICAL_CATEGORIES)
-    #--tmp_muscleid = models.IntegerField(null=True)    #to be dropped after data migration
+
 
 class Side(CvTerm):
     pass

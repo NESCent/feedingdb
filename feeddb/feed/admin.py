@@ -382,16 +382,21 @@ class TermAdmin(DefaultModelAdmin):
 class UnitAdmin(DefaultModelAdmin):
     list_display = ('technique', 'label') 
     list_filter = ('technique', ) 
-    #ordering    #--comes from the model
         
 class TaxonAdmin(DefaultModelAdmin):
     list_display = ('genus','species','common_name')  
     list_filter = ('genus',) 
     ordering = ('genus','species')
+    
+class AnatomicalLocationAdmin(DefaultModelAdmin):
+    list_display = ('category', 'label')
+    list_filter = ('category',)    
+    ordering = ('category', 'label')
+    
 
 admin.site.register(Technique,TermAdmin)	
 admin.site.register(Taxon, TaxonAdmin)
-admin.site.register(Muscle,TermAdmin)
+admin.site.register(AnatomicalLocation, AnatomicalLocationAdmin)
 admin.site.register(Side,TermAdmin)
 admin.site.register(DepthAxis,TermAdmin)
 admin.site.register(AnteriorPosteriorAxis,TermAdmin)

@@ -47,7 +47,7 @@
 <li><a href="{%url admin:feed_developmentstage_changelist %}">Development stages</a></li>
 <li><a href="{%url admin:feed_restraint_changelist %}">Restraints</a></li>
 <li><a href="{%url admin:feed_electrodetype_changelist %}">Electrode types</a></li>
-<li><a href="{%url admin:feed_muscle_changelist %}">Muscles</a></li>
+<li><a href="{%url admin:feed_anatomicallocation_changelist %}">Anatomical Locations</a></li>
 <li><a href="{%url admin:feed_side_changelist %}">Sides</a></li>
 <li><a href="{%url admin:feed_anteriorposterioraxis_changelist %}">AP axis</a></li>
 <li><a href="{%url admin:feed_dorsalventralaxis_changelist %}">DV axis</a></li>
@@ -57,11 +57,6 @@
 <li><a href="{%url admin:feed_behavior_changelist %}">Behaviors</a></li>
 <li><a href="{%url admin:feed_emgfiltering_changelist %}">EMG filtering</a></li>
 <li><a href="{%url admin:feed_unit_changelist %}">Units</a></li>
-{%comment %} 
-#TODO--
-<li><a href="{%url admin:feed_emgunit_changelist %}">EMG units</a></li>
-<li><a href="{%url admin:feed_sonounit_changelist %}">Sono units</a></li>
-{%endcomment %}
 </ul> 
 
 {% if user.is_superuser %}

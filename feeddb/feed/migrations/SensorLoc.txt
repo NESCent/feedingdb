@@ -12,3 +12,5 @@ Goal: FogBugz case 1971
 [0025] drop Sensor.location, AnatomicalLocation.tmp_muscleid; make XxxSensor.location_controlled non-null 
    drop {Emg,Sono}Sensor.axisxxx fields (except axisdepth!)
    adjust field nullability 
+   
+[0037] drop Muscle model -- forgot to do it!
