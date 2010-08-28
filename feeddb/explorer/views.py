@@ -417,14 +417,18 @@ def trial_search(request):
             if food!=None and food != "":
                 query = query & Q(food_type__icontains = food) 
             if muscle!=None and muscle != "":
-                query = query &  Q(session__channels__setup__technique__id__exact = emg_tech_id) & Q(session__channels__emgchannel__sensor__location_controlled__id__exact = int(muscle))
+                muscle_emg_query =  Q(session__channels__setup__technique__id__exact = emg_tech_id) & Q(session__channels__emgchannel__sensor__location_controlled__id__exact = int(muscle))
+                muscle_sono_query =  Q(session__channels__setup__technique__id__exact = sono_tech_id) & (Q(session__channels__sonochannel__crystal1__location_controlled__id__exact = int(muscle)) | Q(session__channels__sonochannel__crystal2__location_controlled__id__exact = int(muscle)))
+                muscle_query =  muscle_emg_query | muscle_sono_query
+                query = query & muscle_query
+            
             sensor = form.cleaned_data['sensor']
             if sensor!=None and sensor != "":
-                sensor_query = Q()
-                for tq in sensor:
-                    if tq!=None and tq != "":
-                        sensor_query = sensor_query | Q(session__channels__setup__technique__id__exact = tq)
-                        query = query & sensor_query
+                #sensor_query = Q()
+                #for tq in sensor:
+                #    if tq!=None and tq != "":
+                #sensor_query = sensor_query | Q(session__channels__setup__technique__id__exact = tq)
+                query = query & Q(session__channels__setup__technique__id__exact = int(sensor))
             
             results= Trial.objects.filter(query).distinct()
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'form': form, 'trials': results})
