@@ -401,22 +401,23 @@ def trial_search(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
     if request.method == 'POST': 
-        query = Q(id__isnull=False)
-        form = SearchTrailForm(request.POST) 
+        query = Q()
+        form = SearchTrialForm(request.POST) 
+        emg_tech_id = KnownTechniques.emg.id
+        sono_tech_id = KnownTechniques.sono.id
         if form.is_valid():
             species = form.cleaned_data['species']
             if species!=None and species != "":
                 query = query & Q(session__experiment__subject__taxon__id__exact = species)
             muscle = form.cleaned_data['muscle']
-            if muscle!=None and muscle != "":
-                query = query & (Q(session__channels__setup__sensor__emgsensor__location_controlled__id__exact = muscle) | Q(session__channels__setup__sensor__sonosensor__location_controlled__id__exact = muscle) )
             behavior = form.cleaned_data['primary_behavior']
             if behavior!=None and behavior != "":
                 query = query & Q(behavior_primary__id__exact = behavior) 
             food = form.cleaned_data['food_type']
             if food!=None and food != "":
                 query = query & Q(food_type__icontains = food) 
-
+            if muscle!=None and muscle != "":
+                query = query &  Q(session__channels__setup__technique__id__exact = emg_tech_id) & Q(session__channels__emgchannel__sensor__location_controlled__id__exact = int(muscle))
             sensor = form.cleaned_data['sensor']
             if sensor!=None and sensor != "":
                 sensor_query = Q()
@@ -424,12 +425,12 @@ def trial_search(request):
                     if tq!=None and tq != "":
                         sensor_query = sensor_query | Q(session__channels__setup__technique__id__exact = tq)
                         query = query & sensor_query
-            results= Trial.objects.filter(query).distinct()  
             
+            results= Trial.objects.filter(query).distinct()
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'form': form, 'trials': results})
         return render_to_response('explorer/trial_list.html', c)
     else:
-        form= SearchTrailForm()
+        form= SearchTrialForm()
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'form': form})
         return render_to_response('explorer/search_trial.html', c)
 
