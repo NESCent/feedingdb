@@ -171,7 +171,11 @@ def duplicate(obj, exclude = None, value=None, field=None):
                 setattr(obj1,'name', "%s - cloned" % obj1.name)
             if hasattr(obj1, 'title'):
                 setattr(obj1,'title', "%s - cloned" % obj1.title)
-
+            if hasattr(obj1, 'waveform_picture'):
+                setattr(obj1,'waveform_picture', None)
+            if hasattr(obj1, 'data_file'):
+                setattr(obj1,'data_file', None)
+                
             if field!=None and value!=None:
                 setattr(obj1, field, value)
             obj1.save()

@@ -523,7 +523,7 @@ class FeedModelAdmin(admin.ModelAdmin):
     def clone_view(self, request, object_id, extra_context=None):
         "The 'clone' admin view for this model."
         
-        exclude = [TrialInBucket]
+        exclude = [TrialInBucket, Illustration]
         model = self.model
         opts = model._meta
         app_label = opts.app_label
