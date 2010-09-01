@@ -14,51 +14,48 @@
  
 
 <h3><a href="/admin/feed/study/add">Add a new study</a></h3>   
-
-{% for o in user.study_related.all %}
-{% if forloop.first %}
 <h3>Your studies:</h3>
 <ul>
-{%endif%}
+{% for o in user.study_related.all|dictsort:"title"|slice:":6" %}
+{%ifnotequal forloop.counter 6 %} 
     <li><a href="/admin/feed/study/{{o.id}}">{{o}}</a></li>
-{% if forloop.last %}
-</ul>
-{%endif%}
+{%endifnotequal%}
 
+{%ifequal forloop.counter 6 %} 
+    <li><a href="/admin/feed/study/?created_by={{user.id}}">More</a></li>
+{%endifequal%}	
+{% empty %}
+    <li>you have no studies</li>
 {%endfor%}
-
-
-{% for o in user.experiment_related.all %}
-{% if forloop.first %}
+</ul>
 <h3>Your experiments:</h3>
 <ul>
-{%endif%}
+{% for o in user.experiment_related.all|dictsort:"title"|slice:":6" %}
+{%ifnotequal forloop.counter 6 %} 
     <li><a href="/admin/feed/experiment/{{o.id}}">{{o}}</a></li>
-{% if forloop.last %}
-</ul>
-{%endif%}
-{%endfor%}
+{%endifnotequal%}
 
-{% for o in user.session_related.all %}
-{% if forloop.first %}
-<h3>Your recording sessions:</h3>
-<ul>
-{%endif%}
-    <li><a href="/admin/feed/session/{{o.id}}">{{o}}</a></li>
-{% if forloop.last %}
-</ul>
-{%endif%}
-{%endfor%}
+{%ifequal forloop.counter 6 %} 
+    <li><a href="/admin/feed/experiment/?created_by={{user.id}}">More</a></li>
+{%endifequal%}
+{% empty %}
+    <li>you have no experiments</li>
 
-{% for o in user.trial_related.all %}
-{% if forloop.first %}
+{%endfor%}
+</ul>
 <h3>Your trials:</h3>
 <ul>
-{%endif%}
+{% for o in user.trial_related.all|dictsort:"title"|slice:":11" %}
+{%ifnotequal forloop.counter 11 %} 
     <li><a href="/admin/feed/trial/{{o.id}}">{{o}}</a></li>
-{% if forloop.last %}
-</ul>
-{%endif%}
+{%endifnotequal%}
+
+{%ifequal forloop.counter 11 %} 
+    <li><a href="/admin/feed/trial/?created_by={{user.id}}">More</a></li>
+{%endifequal%}
+{% empty %}
+    <li>you have no trials</li>
+
 {%endfor%}
 
 
