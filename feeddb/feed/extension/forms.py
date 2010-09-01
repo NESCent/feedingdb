@@ -35,17 +35,6 @@ class SetupForm (DisableForeignKeyForm):
 class ExperimentChangeForm(DisableForeignKeyForm):
     start = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
     end = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
-    def __init__(self, *args, **kwargs):
-        parent_obj =None
-        obj = None
-        
-        if 'initial' in kwargs:
-            if 'study' in kwargs['initial']:
-                study_id=kwargs['initial']['study']
-                parent_obj = Study.objects.get(id=study_id)
-                self.base_fields["start"].initial=parent_obj.start 
-                self.base_fields["end"].initial=parent_obj.end 
-        super(ExperimentChangeForm, self).__init__(*args, **kwargs)
         
 
 class StudyChangeForm(forms.ModelForm):
@@ -55,33 +44,10 @@ class StudyChangeForm(forms.ModelForm):
 class SessionChangeForm(forms.ModelForm):
     start = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
     end = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
-    def __init__(self, *args, **kwargs):
-        parent_obj =None
-        obj = None
-        if 'initial' in kwargs:
-            if 'experiment' in kwargs['initial']:
-                experiment_id=kwargs['initial']['experiment']
-                parent_obj = Experiment.objects.get(id=experiment_id)
-                self.base_fields["start"].initial=parent_obj.start 
-                self.base_fields["end"].initial=parent_obj.end 
-                         
-        super(SessionChangeForm, self).__init__(*args, **kwargs)
 
 class TrialChangeForm(forms.ModelForm):
     start = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
     end = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
-    def __init__(self, *args, **kwargs):
-        parent_obj =None
-        obj = None
-        
-        if 'initial' in kwargs:
-            if 'session' in kwargs['initial']:
-                session_id=kwargs['initial']['session']
-                parent_obj = Session.objects.get(id=session_id)
-                self.base_fields["start"].initial=parent_obj.start 
-                self.base_fields["end"].initial=parent_obj.end 
-
-        super(TrialChangeForm, self).__init__(*args, **kwargs)
 
 class EmgSensorChannelForm(forms.ModelForm):
     rate = forms.IntegerField(label = "Recording Rate (Hz)", required=True, widget=forms.TextInput(attrs={'size': 5}))
