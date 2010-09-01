@@ -40,8 +40,8 @@
 {% block content %}
   <div id="content-main">
     {% block object-tools %}
-
-     {% if has_add_permission %}
+{% comment %}
+     {{-- % if has_add_permission %}
         <ul class="object-tools object-tools-top">
           <li>
             <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
@@ -50,7 +50,7 @@
           </li>
         </ul>
       {% endif %}
-
+{% endcomment %}
     {% endblock %}
     {% if cl.formset.errors %}
         <p class="errornote">
