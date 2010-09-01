@@ -15,6 +15,10 @@ from django.forms.widgets import media_property
 from django.forms.models import BaseInlineFormSet
 
 class PositionBaseInlineFormSet(BaseInlineFormSet):
+    check_startposition=True
+    check_unique=True
+    check_consecutive=True
+    
     def clean(self):
         form_errors = []
         errors = super(PositionBaseInlineFormSet, self).clean()
@@ -34,18 +38,24 @@ class PositionBaseInlineFormSet(BaseInlineFormSet):
                 if positions:
                     positions.sort()
                     #check start position must be 1
-                    if positions[0]!=1:
+                    if self.check_startposition and positions[0]!=1:
                         form_errors.append("position must start from 1")
                     for i in range(1, len(positions)):
                         #check unique position
-                        if positions[i-1]==positions[i]:
+                        if self.check_unique and positions[i-1]==positions[i]:
                             form_errors.append("duplicate position: %s." % str(positions[i]))
                         #check consecutiveness
-                        if positions[i]-positions[i-1]!=1:
+                        if self.check_consecutive and positions[i]-positions[i-1]!=1:
                             form_errors.append("positions are not consecutive between %s and %s." % (str(positions[i-1]), str(positions[i])) )
         if form_errors:
             raise ValidationError(form_errors)
 
+class TrialInlineFormSet(PositionBaseInlineFormSet):
+    check_startposition=False
+    check_unique=True
+    check_consecutive=False
+
+   
 class OrderedFormset(BaseInlineFormSet):
     def get_queryset(self):
         qs = super(BaseInlineFormSet, self).get_queryset()
