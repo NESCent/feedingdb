@@ -4,7 +4,7 @@ from django import forms
 from django.forms import models
 from feeddb.feed.extension.modeladmin import *
 from feeddb.feed.extension.forms import *
-from feeddb.feed.extension.formsets import PositionBaseInlineFormSet, OrderedFormset
+from feeddb.feed.extension.formsets import PositionBaseInlineFormSet, OrderedFormset,TrialInlineFormSet
 
 class StudyPrivateInline(admin.StackedInline):
     model = StudyPrivate
@@ -40,6 +40,7 @@ class SessionInline(FeedTabularInline):
     extra = 1
     excludes = ['subj_notes']
     formset = PositionBaseInlineFormSet
+    tabbed = True
 
 class SessionViewInline(FeedTabularInline):
     model = Session
@@ -80,7 +81,7 @@ class TrialInline(FeedTabularInline):
     form = TrialInlineForm
     tabbed = True
     tab_name="Trials"
-    formset = PositionBaseInlineFormSet
+    formset = TrialInlineFormSet
 
 class TrialViewInline(FeedTabularInline):
     model = Trial
@@ -375,7 +376,7 @@ class ChannelLineupAdmin(FeedModelAdmin):
     ordering = ('session','position',)
     form = ChannelLineupForm
 
-class TermAdmin(DefaultModelAdmin):
+class TermAdmin(TermModelAdmin):
     list_display = ('label',)
     ordering = ('label',)
 
@@ -383,7 +384,7 @@ class UnitAdmin(DefaultModelAdmin):
     list_display = ('technique', 'label') 
     list_filter = ('technique', ) 
         
-class TaxonAdmin(DefaultModelAdmin):
+class TaxonAdmin(TermModelAdmin):
     list_display = ('genus','species','common_name')  
     list_filter = ('genus',) 
     ordering = ('genus','species')
