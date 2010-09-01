@@ -68,7 +68,7 @@ class FeedTabularInline(admin.TabularInline):
 
 class FeedModelAdmin(admin.ModelAdmin):
     view_inlines = []
-
+    list_per_page = 30 
     # Custom templates (designed to be over-ridden in subclasses)
     view_form_template = None
     change_form_template = "admin/tabbed_change_form.html"
@@ -628,6 +628,7 @@ class FeedModelAdmin(admin.ModelAdmin):
                         form.fields["setup"].widget.widget.attrs['disabled']=""
                     form.fields["setup"].initial=request.GET[s]
 
+
         if request.GET.has_key("session"):
             if form.fields.has_key("session"):
                 form.fields["session"].widget.widget.attrs['disabled']=""
@@ -706,10 +707,17 @@ class FeedModelAdmin(admin.ModelAdmin):
             elif request.GET.has_key("experiment") and form.fields.has_key("channel"): 
                 form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=request.GET['experiment'])
         elif  model == ChannelLineup:
+            if form.fields.has_key("experiment"):
+                form.fields["experiment"].widget.widget.attrs['disabled']=""
+            if form.fields.has_key("session"):
+                form.fields["session"].widget.widget.attrs['disabled']="" 
+            
             if request.GET.has_key("session") and form.fields.has_key("channel"): 
                 sess = Session.objects.get(id=  request.GET['session'])
                 form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=sess.experiment.id)
-
+            if obj and hasattr(obj, "session"):
+                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=obj.session.experiment.id)
+                
     def filter_formset_values(self, request, formset, model, obj):
         for form in formset.forms:
             self.filter_form_values(request, form, model, obj)
