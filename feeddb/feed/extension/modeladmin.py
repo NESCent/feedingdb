@@ -919,7 +919,9 @@ class FeedModelAdmin(admin.ModelAdmin):
             'admin/change_list.html'
         ], context, context_instance=context_instance)
 
-
+class TermModelAdmin(FeedModelAdmin):
+    change_list_template = "admin/term_change_list.html"
+    
 class FeedStackedInline(admin.StackedInline):
     template = 'admin/edit_inline/stacked.html'
     def formfield_for_dbfield(self, db_field, **kwargs):
@@ -1202,9 +1204,9 @@ class SessionModelAdmin(FeedModelAdmin):
             raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
         messages =[]
         errors =[]
+        FormSet  = inlineformset_factory(Experiment, Session, SessionForm, PositionBaseInlineFormSet, can_delete=True)
         if request.method == 'POST':
             formsets=[]
-            FormSet  = inlineformset_factory(Experiment, Session, SessionForm, PositionBaseInlineFormSet, can_delete=True)
             sessionformset = FormSet(request.POST, request.FILES, instance=obj )
             formsets.append(sessionformset)
             if all_valid(formsets):
@@ -1217,9 +1219,8 @@ class SessionModelAdmin(FeedModelAdmin):
                 messages.append("Successfully updated the data!")
             else:
                 errors.append(sessionformset.non_form_errors())
-        
-        FormSet  = inlineformset_factory(Experiment, Session, SessionForm, PositionBaseInlineFormSet, can_delete=True)
-        sessionformset =FormSet(instance=obj)
+        else:
+            sessionformset =FormSet(instance=obj)
         
         context={
             'experiment': obj,
