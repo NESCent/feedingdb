@@ -1,5 +1,8 @@
    
 <div class="navigation">
+<ul><li><a href="/admin">Home</a></li>
+</ul>
+
 {% if user.is_authenticated %}
 
 <h2>Studies</h2>
@@ -80,4 +83,8 @@
 <li><a href="{{login_url}}">Login</a></li>
 </ul>
 {% endif %}
+<ul>
+<li><a href="/explorer">Explorer</a></li>
+</ul>
+
 </div>
