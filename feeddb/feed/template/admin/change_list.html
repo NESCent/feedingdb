@@ -41,7 +41,7 @@
   <div id="content-main">
     {% block object-tools %}
 {% comment %}
-     {{-- % if has_add_permission %}
+     {{% if has_add_permission %}
         <ul class="object-tools object-tools-top">
           <li>
             <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
