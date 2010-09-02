@@ -9,6 +9,7 @@ function toggle(id, img_id){
                el.style.display="block";
                el.style.position="absolute";
                el.style.zindex = 1000;
+               el.opacity= 0 ;
                img.src= "/static/img/admin/icon-yes.gif";
              
          }else{
