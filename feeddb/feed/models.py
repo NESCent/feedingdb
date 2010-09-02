@@ -282,7 +282,7 @@ class SonoSensor(Sensor):
 
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="Crystal depth", blank = True, null=True )
     def __unicode__(self):
-        return 'Sono crystal: %s (Muscle: %s, Side: %s) '  % (self.name, self.location_controlled.label, self.loc_side.label)  
+        return self.name  
 
     class Meta:
         verbose_name = "Sono crystal"
@@ -333,8 +333,8 @@ class SonoChannel(Channel):
     crystal2 = models.ForeignKey(SonoSensor, related_name="crystals2_related")
 
     def __unicode__(self):
-        return 'Sono Channel: %s (Muscle: %s, Side: %s, Crystal1: %s, Crystal2: %s) '  % (self.name, self.crystal1.location_controlled.label, self.crystal1.loc_side.label, self.crystal1.name, self.crystal2.name)  
-
+        return self.name
+        
     class Meta:
         verbose_name = "Sono channel"
 
