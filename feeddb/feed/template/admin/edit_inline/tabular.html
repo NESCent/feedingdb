@@ -1,5 +1,4 @@
-{% load i18n %}
-{% load display i18n feedmedia %}
+{% load display i18n feedmedia admin_modify %}
 <div class="inline-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
 {{ inline_admin_formset.formset.management_form }}
@@ -56,7 +55,7 @@
 
      {% endfor %}
 
-   </table>
+   </table><p>{% submit_row %}</p>
 <p><strong>*If you need to add more records than available empty rows, please click 'save' to save the data and additional space will be added following the existing records.</strong></p>
  
 </fieldset>
