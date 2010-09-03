@@ -72,17 +72,19 @@
 
 {% for fieldset in adminform %}
   {% include "admin/includes/fieldset.html" %}
+  {% submit_row %}
 {% endfor %}
 
 {% block after_field_sets %}{% endblock %}
     {% for inline_admin_formset in inline_admin_formsets %}
           {% if  not inline_admin_formset.opts.tabbed %}
                    {% include inline_admin_formset.opts.template %}
+				   {% submit_row %}
           {% endif %}
     {% endfor %}
 
 {% if tabbed %}
-{% submit_row %}
+
 </div></div>
 {% endif %}
 
@@ -95,7 +97,6 @@
     <div class="Page">
        <div class="Pad">
     {% include inline_admin_formset.opts.template %}
-{% submit_row %}
 </div></div>
 {% else %}
    {% if not tabbed and inline_admin_formset.opts.tabbed  %}
@@ -127,7 +128,7 @@
 {% prepopulated_fields_js %}
 
 {% if not tabbed %}
-{% submit_row %}
+
 {% endif %}
 </form></div>
 
