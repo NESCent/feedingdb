@@ -5,16 +5,20 @@
 {% endblock %}
 {% block content %}
 <h3>Search Trials </h3>
-
 <form action="{% url explorer.views.trial_search %}" method="POST">
 <table>
-{% for field in form.visible_fields %}
-<tr><td class="TdField">{{ field.label_tag }}</td>
-<td class="TdValue">{{ field }}</td>
-</tr>
-        {% endfor %}
+<tr>
 
-<tr><td></td><td><input type="submit" value="submit" /></td></tr>
+{% for field in form.visible_fields %}
+{% ifequal forloop.counter 4 %}
+</tr>
+<tr>
+{%endifequal%}
+<td class="TdField">{{ field.label_tag }}</td>
+<td class="TdValue">{{ field }}</td>
+       {% endfor %}
+<td colspan="2"><input type="submit" value="submit" /></td>
+</tr>
 </table>
  
 
@@ -55,9 +59,9 @@ function bucket_changed(obj){
 <th class="bucket_header">Buckets</th>
 </tr>
 
-{% autopaginate trials 10 %}
+{% autopaginate trials 50 %}
 {% for trial in trials %}
-<tr class="{% cycle 'even'  'odd' %}">
+<tr  class="{% cycle 'row1' 'row2' %}">
 <td><input type="checkbox" name="{{trial.id}}" id="{{trial.id}}" class="check_trial" /></td>
 <td><a href="{% url explorer.views.trial_detail trial.id %}">{{trial.title}}</a></td>
 <td>{{trial.session.experiment.subject.taxon.genus}} {{trial.session.experiment.subject.taxon.species}}</td>

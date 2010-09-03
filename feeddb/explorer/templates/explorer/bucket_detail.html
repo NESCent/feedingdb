@@ -25,6 +25,8 @@ function checkbox_clicked(obj){
 }
 
 </script>
+<br/><br/>
+<h3>Trails</h3>
 <form action = "{% url explorer.views.bucket_remove_trials form.instance.id %}" method="POST" id="trial_form" name ="trial_form">
 <table>
 <tr>
@@ -38,7 +40,7 @@ function checkbox_clicked(obj){
 <th class="bucket_header">Buckets</th>
 </tr>
 {% for trial in form.instance.trials.all %}
-<tr class="{% cycle 'even'  'odd' %}">
+<tr class="{% cycle 'row1'  'row2' %}">
 <td><input type="checkbox" name="{{trial.id}}" id="{{trial.id}}" class="check_trial" /></td>
 <td><a href="{% url explorer.views.trial_detail trial.id %}">{{trial.title}}</a></td>
 <td>{{trial.session.experiment.subject.taxon.genus}} {{trial.session.experiment.subject.taxon.species}}</td>

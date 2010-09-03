@@ -1,20 +1,24 @@
 {% extends "explorer/base.html" %}
 {% block content %}
 <h3>Search Trials </h3>
-
 <form action="{% url explorer.views.trial_search %}" method="POST">
 <table>
-{% for field in form.visible_fields %}
-<tr><td class="TdField">{{ field.label_tag }}</td>
-<td class="TdValue">{{ field }}</td>
-</tr>
-        {% endfor %}
+	
+<tr>
 
-<tr><td></td><td><input type="submit" value="submit" /></td></tr>
+{% for field in form.visible_fields %}
+{% ifequal forloop.counter 4 %}
+</tr>
+<tr>
+{%endifequal%}
+<td class="TdField">{{ field.label_tag }}</td>
+<td class="TdValue">{{ field }}</td>
+       {% endfor %}
+<td colspan="2"><input type="submit" value="submit" /></td>
+</tr>
 </table>
  
 
 </form>
-
 
 {% endblock %}

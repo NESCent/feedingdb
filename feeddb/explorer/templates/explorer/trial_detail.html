@@ -1,11 +1,19 @@
 {% extends "explorer/base.html" %}
 {% load explorer_display %}
 {% block content %}
-<h3>Trial: {{trial.title}}</h3>
-<div class="left">
-        <table class="detail_table">
-                <caption>Study</caption>
+<script type="text/javascript">
+	$(function() {
+		$("#accordion").accordion();
+	});
+	</script>
 
+<h3>Trial: {{trial.title}}</h3>
+
+<div class="left">
+<div id="accordion">
+<h3><a href="#">Study</a></h3>
+<div>
+        <table class="detail_table">
                 <tr><td class='TdField'>Name</td><td class='TdValue'>{{trial.session.experiment.study.title}}</td></tr>
 <tr><td class='TdField'>Start Date</td><td class='TdValue'>{{trial.session.experiment.study.start}}</td></tr>
 <tr><td class='TdField'>End Date</td><td class='TdValue'>{{trial.session.experiment.study.end}}</td></tr>
@@ -14,9 +22,11 @@
 <tr><td class='TdField'>Description</td><td class='TdValue'>{{trial.session.experiment.study.description}}</td></tr>
 
  </table>
- 
+ </div>
+ <h3><a href="#">Research Subject</a></h3>
+ <div>
   <table class="detail_table">
-       <caption>Research Subject</caption>         
+     
  <tr><td class='TdField'>Subject Name</td><td class='TdValue'>{{trial.session.experiment.subject.name}}</td></tr>
 <tr><td class='TdField'>Genus</td><td class='TdValue'>{{trial.session.experiment.subject.taxon.genus}}</td></tr>
 <tr><td class='TdField'>Species</td><td class='TdValue'>{{trial.session.experiment.subject.taxon.species}}</td></tr>
@@ -36,11 +46,11 @@
 	
 </td></tr>
  </table>
-
- 
- 
+ </div>
+<h3><a href="#">Experiment</a></h3>
+<div> 
    <table class="detail_table">
-                <caption>Experiment</caption>
+                
 <tr><td class='TdField'>Title</td><td class='TdValue'>{{trial.session.experiment.title}}</td></tr>
                <tr><td class='TdField'>Developmental Stage</td><td class='TdValue'>{{trial.session.experiment.subj_devstage}}</td></tr>
 <tr><td class='TdField'>Instrumentation Note</td><td class='TdValue'>{{trial.session.experiment.impl_notes}}</td></tr>
@@ -61,9 +71,11 @@
 	
 </td></tr>
 </table>
- 
+  </div>
+<h3><a href="#">Recording Session</a></h3>
+<div> 
                 <table class="detail_table">
-                <caption>Recording Session</caption>
+                
                 <tr><td class='TdField'>Start</td><td class='TdValue'>{{trial.session.start}}</td></tr>
 <tr><td class='TdField'>End</td><td class='TdValue'>{{trial.session.end}}</td></tr>
 <tr><td class='TdField'>Recording Session Order</td><td class='TdValue'>{{trial.session.position}}</td></tr>
@@ -72,9 +84,10 @@
 <tr><td class='TdField'>Subject Notes</td><td class='TdValue'>{{trial.session.subj_notes}}</td></tr>
 
                 </table>
+  </div>
+<h3><a href="#">Trial</a></h3>
+<div> 
                 <table class="detail_table">                
-                
-                <caption>Trial</caption>
 <tr><td class='TdField'>Trial Name </td><td class='TdValue'>{{trial.title }}</td></tr>
 <tr><td class='TdField'>Trial Number</td><td class='TdValue'>{{trial.position }}</td></tr>
                <tr><td class='TdField'>Primary Behavior </td><td class='TdValue'>{{trial.behavior_primary }}</td></tr>
@@ -89,9 +102,10 @@
 <tr><td class='TdField'>Waveform</td><td class='TdValue'>{%display_file trial.waveform_picture %}</td></tr>
 
                 </table>
-
+  </div>
+<h3><a href="#">Setups</a></h3>
+<div> 
 <table class="detail_table">
-<caption>Setups</caption>
                 <tr>
                 <th>ID</th>
                <th>Technique</th>
@@ -103,7 +117,7 @@
                 </tr>
                  
 {% for setup in trial.session.experiment.setup_set.all %}
-<tr class="{% cycle 'even'  'odd' %}">
+<tr  class="{% cycle 'row1' 'row2' %}">
       <td>{{setup.id}}</td>
                  <td>{{setup.technique}}</td>
 				 <td>{{setup.sampling_rate|default_if_none:""}}</td>
@@ -132,7 +146,9 @@
 {%endfor %}
                 </table>
 				             
-
+  </div>
+<h3><a href="#">Sensors</a></h3>
+<div>
 <table class="detail_table">
 <caption>Sensors</caption>
                 <tr>
@@ -152,7 +168,7 @@
                  
 {% for setup in trial.session.experiment.setup_set.all %}
 {% for sensor in setup.sensor_set.all|dictsort:"name" %}
-<tr class="{% cycle 'even'  'odd' %}">
+<tr  class="{% cycle 'row1' 'row2' %}">
 	<td>{{sensor.id}}</td>
     <td>{{setup.id}}</td>
     <td>{{sensor.name}}</td>
@@ -195,9 +211,10 @@
 {%endfor %}
 {%endfor %}
                 </table>
-				
+  </div>
+<h3><a href="#">Channels</a></h3>
+<div>				
 <table class="detail_table">
-<caption>Channels</caption>
                 <tr>
                 <th>Order</th>
                <th>Name</th>
@@ -211,19 +228,21 @@
 			</tr>
                  
 {% for lineup in trial.session.channellineup_set.all %}
-<tr class="{% cycle 'even'  'odd' %}">
+<tr  class="{% cycle 'row1' 'row2' %}">
       <td>{{lineup.position}}</td>
                  <td>{{lineup.channel.name}}</td>
                  <td>{{lineup.channel.setup.technique}}</td>
 				  <td>{{lineup.channel.rate|default_if_none:""}}</td>
-				  <td>{{lineup.channel.emgchannel.unit|default_if_none:""}}</td>     
+				    
 				  {% ifequal lineup.channel.setup.technique.label "EMG" %}
+				     <td>{{lineup.channel.emgchannel.unit|default_if_none:""}}</td>   
                      <td>{{lineup.channel.emgchannel.sensor.id}}</td> 
 					 <td></td>
 					 <td>{{lineup.channel.emgchannel.emg_filtering|default_if_none:""}}</td> 
 					 <td>{{lineup.channel.emgchannel.emg_amplification|default_if_none:""}}</td>                           
                   {% endifequal %}
 	              {%ifequal lineup.channel.setup.technique.label "Sono" %}
+				     <td>{{lineup.channel.sonochannel.unit|default_if_none:""}}</td>   
                      <td>{{lineup.channel.sonochannel.crystal1.id}}</td> 
 					 <td>{{lineup.channel.sonochannel.crystal2.id}}</td>
 					 <td></td> 
@@ -261,6 +280,8 @@
 </tr>
 {%endfor %}
                 </table>
+				</div>
+				</div>
 </div> <!-- end of left -->
          <div class="right">
 <script language="javascript">

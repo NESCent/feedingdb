@@ -2,14 +2,16 @@
 {% block content %}
 <h3>List of my buckets</h3>
 <table>
+	<thead>
 <tr><th>ID</th>
 <th>Name</th>
 <th>Number of Trials</th>
 <th>Description</th>
 <th>Action</th>
 </tr>
+</thead>
 {% for b in buckets %}
-<tr class="{% cycle 'even'  'odd' %}">
+<tr  class="{% cycle 'row1' 'row2' %}">
 <td><a  href="{% url explorer.views.bucket_detail b.id %}">{{b.id}}</a></td>
 <td><a  href="{% url explorer.views.bucket_detail b.id %}">{{b.title}}</a></td>
 <td>{{b.trials.all|length}}</td>
