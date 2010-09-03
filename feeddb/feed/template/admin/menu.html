@@ -1,6 +1,6 @@
    
 <div class="navigation">
-<ul><li><a href="/admin">Home</a></li>
+<ul><li><a href="/">Home</a></li>
 </ul>
 
 {% if user.is_authenticated %}
@@ -30,11 +30,16 @@
 <li><a href="{%url admin:feed_trial_changelist %}?created_by={{user.pk}}">Mine</a></li>
 </ul> 
 
-
 <h2>Individual Subjects</h2>
 <ul>
 <li><a href="{%url admin:feed_subject_changelist %}">All</a></li>
 <li><a href="{%url admin:feed_subject_changelist %}?created_by={{user.pk}}">Mine</a></li>
+</ul> 
+<br/>
+<h2>Search & Download</h2>
+<ul>
+<li><a href="/explorer/trial/search/">Search Trials</a></li>
+<li><a href="/explorer/bucket/">My Buckets</a></li>
 </ul> 
 
 <br/>
@@ -80,11 +85,8 @@
 </ul>
 {% else %}
 <ul>
-<li><a href="{{login_url}}">Login</a></li>
+<li><a href="/admin">Login</a></li>
 </ul>
 {% endif %}
-<ul>
-<li><a href="/explorer">Explorer</a></li>
-</ul>
 
 </div>
