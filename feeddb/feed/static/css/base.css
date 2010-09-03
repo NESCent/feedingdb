@@ -384,6 +384,7 @@ input[type=text], input[type=password], textarea, select, .vTextField {
     font-weight: bold;
     color: white;
     float: right;
+    width: 100px;
 }
 
 .button.default:active, input[type=submit].default:active {
