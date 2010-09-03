@@ -81,11 +81,11 @@ class EmgSensorChannelForm(forms.ModelForm):
         super(EmgSensorChannelForm, self).__init__(*args, **kwargs)
     
 class EmgSensorForm(EmgSensorChannelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     ordering='name'
          
 class SessionForm(forms.ModelForm):
-    subj_notes = CharField(label = "Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    subj_notes = CharField(label = "Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
     position = IntegerField(label = "Position", help_text='the order of the recording session in the experiment', widget=forms.TextInput(attrs={'size': 3}))
     start = FeedDateTimeField(required=False)
@@ -95,9 +95,9 @@ class SessionForm(forms.ModelForm):
         exclude = ('channels','accession')
         
 class ExperimentForm(forms.ModelForm):
-    subject_notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
-    description = CharField(label ="Description",widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
-    impl_notes = CharField(label ="Implantation Notes",widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    subject_notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
+    description = CharField(label ="Description",widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
+    impl_notes = CharField(label ="Implantation Notes",widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
     subj_tooth = CharField(label = "Subject Tooth", widget=forms.TextInput(attrs={'size': 10}), required=False)
     subj_age = DecimalField(label = "Subject Age (Year)", widget=forms.TextInput(attrs={'size': 5}), required=False)
@@ -108,63 +108,63 @@ class ExperimentForm(forms.ModelForm):
         exclude = ('setups','accession')
 
 class SubjectForm(forms.ModelForm):
-    notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
         model = Subject
 
 class SonoSensorForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=False)
     class Meta:
         model = SonoSensor
         fields = ['name', 'location_controlled', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
 
 class SonoChannelForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=False)
     class Meta:
         model = SonoChannel
 
 class StrainSensorForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
         model = StrainSensor
         fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
         
 class StrainChannelForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
         model = StrainChannel
 
 class ForceSensorForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
         model = ForceSensor
         fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
                 
 class ForceChannelForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
         model = ForceChannel
 class PressureSensorForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
         model = PressureSensor
         fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
                 
 class PressureChannelForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
         model = PressureChannel        
 
 class KinematicsSensorForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
         model = KinematicsSensor
         fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
                 
 class KinematicsChannelForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
         model = KinematicsChannel    
                 
@@ -173,12 +173,12 @@ class TrialInlineForm(forms.ModelForm):
     accession = CharField(label = "Accession", widget=forms.TextInput(attrs={'size': 5}), required=False)
     position = IntegerField(label = "Position", widget=forms.TextInput(attrs={'size': 3}))
     claimed_duration = DecimalField(label = "Claimed Duration", widget=forms.TextInput(attrs={'size': 5}), required=False)
-    subj_notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
-    subj_treatment = CharField(label ="Subject Treatment",widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    subj_notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
+    subj_treatment = CharField(label ="Subject Treatment",widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
 
-    behavior_notes = CharField(label ="Behavior Notes",widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    behavior_notes = CharField(label ="Behavior Notes",widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     behavior_secondary = CharField(label = "Secondary Behavior", widget=forms.TextInput(attrs={'size': 10}), required=False)
-    behavior_notes = CharField(label = "Behavior Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 5}), required=False)
+    behavior_notes = CharField(label = "Behavior Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
 
     food_property = CharField(label = "Food Property", widget=forms.TextInput(attrs={'size': 5}), required=False)
     food_size = CharField(label = "Food Size", widget=forms.TextInput(attrs={'size': 5}), required=False)
