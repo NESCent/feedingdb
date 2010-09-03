@@ -1,4 +1,5 @@
 from django.contrib import admin
+from feeddb.feed.extension.widgets import FeedRelatedFieldWidgetWrapper
 from django import forms, template
 from django.forms.formsets import all_valid
 from django.forms.models import modelform_factory, modelformset_factory, inlineformset_factory
@@ -24,7 +25,6 @@ from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
 from feeddb.feed.models import  *
 from feeddb.explorer.models import  *
-from feeddb.feed.extension.widgets import FeedRelatedFieldWidgetWrapper
 from feeddb.feed.extension.forms import *
 from feeddb.feed.extension.formsets import PositionBaseInlineFormSet
 from django.forms.util import ValidationError
@@ -66,6 +66,9 @@ class FeedTabularInline(admin.TabularInline):
 
         return db_field.formfield(**kwargs)
 
+class SetupTabularInline(FeedTabularInline):
+    template = 'admin/edit_inline/setup_tabular.html'     
+    
 class FeedModelAdmin(admin.ModelAdmin):
     view_inlines = []
     list_per_page = 30 
@@ -482,6 +485,14 @@ class FeedModelAdmin(admin.ModelAdmin):
         for form in formset.forms:
             self.filter_form_values(request, form, model, obj)
     
+    def change_view(self,request,object_id,extra_context=None):
+        #add extra context for tabs
+        extra_context = {
+            'tabbed': self.tabbed,
+            'tab_name': self.tab_name,
+        }
+        return super(FeedModelAdmin,self).change_view(request,object_id,extra_context)
+        
     def view_view(self, request, object_id, extra_context=None):
         "The 'View' admin view for this model."
         model = self.model
