@@ -55,6 +55,7 @@
 
 {% for fieldset in adminform %}
   {% include "admin/includes/fieldset.html" %}
+  {% submit_row %}
 {% endfor %}
 
 {% block after_field_sets %}{% endblock %}
@@ -67,7 +68,6 @@
 
 {% block after_related_objects %}{% endblock %}
 
-{% submit_row %}
 
 {% if adminform and add %}
    <script type="text/javascript">document.getElementById("{{ adminform.first_field.auto_id }}").focus();</script>
