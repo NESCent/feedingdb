@@ -18,8 +18,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
     #(r'^feed/', include(admin.site.urls)),
-    #(r'^$', include(admin.site.urls)),
-    (r'^$', include('feeddb.feed.urls')),
+    (r'^$', 'feeddb.feed.views.index'),
+    #(r'^$', include('feeddb.feed.urls')),
     (r'^explorer/', include('feeddb.explorer.urls')),
 )
 
