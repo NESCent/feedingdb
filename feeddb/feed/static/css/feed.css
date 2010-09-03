@@ -110,14 +110,14 @@ padding-top:50px;
 }
 .navigation h2 {
 	color: #333;
-	font: 1.2em;
+	font: 1.0em;
 	margin: 0;
-	margin-top: 1.5em;
-	margin-bottom: 0.2em;
+	margin-top: 0.5em;
+	margin-bottom: 0.1em;
 	padding-left: 5px;
 	padding-bottom:0.1em;
 	padding-right: 15px;
-	padding-top:0.3em;
+	padding-top:0.2em;
 /*	border-top: 1px solid #bbb;*/
 }
 
@@ -144,7 +144,7 @@ padding-top:50px;
 
 
 .td {
-   border-right: 1px solid b5b5EB;
+   border: 1px solid b5b5EB;
 }
 
 /*my object tool */
@@ -238,9 +238,46 @@ padding: 5px;
     padding: 0;
 }
 
-/*
-.clickable:hover{
-    background: #5b80b2;
+table{
+  border: #EDF3FE 1px solid;
 }
 
-*/
+table caption {
+     text-align:left; 
+     font-size:14px; 
+     font-weight:bold; 
+     background-color:#EDF3FE; 
+     color:#FFFFFF; 
+    padding:5px; 
+}
+
+td {
+  border-bottom: #EDF3FE 1px solid;
+  line-height:22px;
+}
+
+.right {
+ width: 160px;
+ float: right;
+ background-color:#EDF3FE; 
+ padding: 5px;
+}
+
+.left {
+ width: 750px;
+ float: left;
+}
+
+.TdField { 
+	background-color: #EDF3FE;
+	font-weight: bold;
+	text-align: right;
+    padding: 5px;
+    line-height: 25px;
+  
+}
+
+.TdValue { 
+     text-align: left;
+     padding: 5px;
+}

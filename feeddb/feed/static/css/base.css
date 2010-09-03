@@ -288,7 +288,7 @@ tr.row-label td {
     font-size: 9px;
     padding-top: 2px;
     padding-bottom: 0;
-    border-bottom: none;
+    border-bottom: 1px solid #555;
     color: #666;
     margin-top: -1px;
 }
