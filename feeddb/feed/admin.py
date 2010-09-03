@@ -27,7 +27,7 @@ class ExperimentViewInline(FeedTabularInline):
     model = Experiment
     extra = 0
     tabbed = True
-    fields = ['title', 'subject','start','end', 'subj_devstage',]
+    fields = ['title', 'subject','subj_devstage','start','end']
     tab_name = "Experiments"
 
 class SensorInline(FeedTabularInline):
@@ -122,7 +122,7 @@ class ExperimentAdmin(ExperimentModelAdmin):
     inlines = [IllustrationInline]
     view_inlines = [IllustrationViewInline]
     search_fields = ('title','study__title','subject__taxon__genus','subject__taxon__species','subject__taxon__common_name','subject__name','description','subject_notes','impl_notes')
-    list_display = ('title', 'study', 'subject')
+    list_display = ('title','study', 'subject','subj_devstage')
     exclude = ['accession']
     form = ExperimentChangeForm
     #list_filter = ('study', 'subject')
