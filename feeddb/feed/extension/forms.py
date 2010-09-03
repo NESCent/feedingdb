@@ -170,9 +170,8 @@ class KinematicsChannelForm(forms.ModelForm):
                 
 class TrialInlineForm(forms.ModelForm):
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
-    accession = CharField(label = "Accession", widget=forms.TextInput(attrs={'size': 5}), required=False)
     position = IntegerField(label = "Position", widget=forms.TextInput(attrs={'size': 3}))
-    claimed_duration = DecimalField(label = "Claimed Duration", widget=forms.TextInput(attrs={'size': 5}), required=False)
+    claimed_duration = DecimalField(label = "Claimed Duration (second)", widget=forms.TextInput(attrs={'size': 5}), required=False)
     subj_notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     subj_treatment = CharField(label ="Subject Treatment",widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
 
@@ -181,12 +180,12 @@ class TrialInlineForm(forms.ModelForm):
     behavior_notes = CharField(label = "Behavior Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
 
     food_property = CharField(label = "Food Property", widget=forms.TextInput(attrs={'size': 5}), required=False)
-    food_size = CharField(label = "Food Size", widget=forms.TextInput(attrs={'size': 5}), required=False)
+    food_size = CharField(label = "Food Size(maximum dimension millimeters)", widget=forms.TextInput(attrs={'size': 5}), required=False)
     food_type = CharField(label = "Food Type", widget=forms.TextInput(attrs={'size': 5}), required=False)
 
     class Meta:
         model = Trial
-        exclude = ('waveform_picture',)
+        exclude = ( 'accession')
 
 class TrialForm(forms.ModelForm):
     #remove_waveform_picture = forms.BooleanField(required=False)
