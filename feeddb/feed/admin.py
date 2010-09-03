@@ -4,7 +4,7 @@ from django import forms
 from django.forms import models
 from feeddb.feed.extension.modeladmin import *
 from feeddb.feed.extension.forms import *
-from feeddb.feed.extension.formsets import PositionBaseInlineFormSet, OrderedFormset,TrialInlineFormSet
+from feeddb.feed.extension.formsets import *
 
 class StudyPrivateInline(admin.StackedInline):
     model = StudyPrivate
@@ -167,7 +167,7 @@ class EmgSensorInline(FeedTabularInline):
     form = EmgSensorForm
     formset = OrderedFormset
     
-class SonoSensorInline(FeedTabularInline):
+class SonoSensorInline(SetupTabularInline):
     model = SonoSensor
     extra = 4
     exclude = ['location_freetext']   
@@ -179,7 +179,7 @@ class SonoSensorViewInline(FeedTabularInline):
     extra = 0
     form = SonoSensorForm
 
-class StrainSensorInline(FeedTabularInline):
+class StrainSensorInline(SetupTabularInline):
     model = StrainSensor
     extra = 3
     form = StrainSensorForm
@@ -189,7 +189,7 @@ class StrainSensorViewInline(FeedTabularInline):
     extra = 0
     form = StrainSensorForm
     
-class ForceSensorInline(FeedTabularInline):
+class ForceSensorInline(SetupTabularInline):
     model = ForceSensor
     extra = 3
     form = ForceSensorForm
@@ -199,7 +199,7 @@ class ForceSensorViewInline(FeedTabularInline):
     extra = 0
     form = ForceSensorForm
     
-class PressureSensorInline(FeedTabularInline):
+class PressureSensorInline(SetupTabularInline):
     model = PressureSensor
     extra = 3
     form = PressureSensorForm
@@ -210,7 +210,7 @@ class PressureSensorViewInline(FeedTabularInline):
     extra = 0
     form = PressureSensorForm
         
-class KinematicsSensorInline(FeedTabularInline):
+class KinematicsSensorInline(SetupTabularInline):
     model = KinematicsSensor
     extra = 3
     form = KinematicsSensorForm
