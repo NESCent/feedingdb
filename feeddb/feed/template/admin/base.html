@@ -7,7 +7,11 @@
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% app_static_prefix %}css/rtl.css{% endblock %}" />{% endif %}
 <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/feed.css" />
+<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/cupertino/jquery-ui-1.8.4.custom.css" />
 <script type="text/javascript" src="{% app_static_prefix %}js/common.js"></script>
+<script type="text/javascript" src="{% app_static_prefix %}js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="{% app_static_prefix %}js/jquery-ui-1.8.4.custom.min.js"></script>
+{% block extra_js %}{% endblock %}
 {% block extrahead %}{% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
 </head>
@@ -70,7 +74,7 @@
     <!-- Content -->
     <div id="content" class="{% block coltype %}colM{% endblock %}">
         {% block pretitle %}{% endblock %}
-        {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+        {% block content_title %}{% if title %}{% endif %}{% endblock %}
         {% block tabs %}{% endblock %}
         {% block content %}
         {% block object-tools %}{% endblock %}
