@@ -75,7 +75,7 @@
 {% if tabbed %}
 {% for inline_admin_formset in inline_admin_formsets %}
 {% if  not inline_admin_formset.opts.tabbed %}
-{% ifequal inline_admin_formset.opts.template "admin/template/stacked.html" %}
+{% ifequal inline_admin_formset.opts.template "admin/edit_inline/stacked.html" %}
         {% include "admin/stacked_view.html" %}
     {% else %}
         {% include "admin/tabular_view.html" %}
@@ -93,7 +93,7 @@
     <div class="Page">
        <div class="Pad">
 
-    {% ifequal inline_admin_formset.opts.template "admin/template/stacked.html" %}
+    {% ifequal inline_admin_formset.opts.template "admin/edit_inline/stacked.html" %}
         {% include "admin/stacked_view.html" %}
     {% else %}
 		{% include "admin/tabular_view.html" %}
@@ -101,7 +101,7 @@
 </div></div>
 {% else %}
    {% if not tabbed %}
-   {% ifequal inline_admin_formset.opts.template "admin/template/stacked.html" %}
+   {% ifequal inline_admin_formset.opts.template "admin/edit_inline/stacked.html" %}
         {% include "admin/stacked_view.html" %}
     {% else %}
 		{% include "admin/tabular_view.html" %}
@@ -125,3 +125,4 @@
     tabview_switch_by_name('TabView','{% ifequal tab_name None %}{{ opts.object_name }}{% else %}{{ tab_name }}{% endifequal %}');
 </script>
 {% endblock %}
+
