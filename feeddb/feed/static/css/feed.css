@@ -281,3 +281,13 @@ td {
      text-align: left;
      padding: 5px;
 }
+
+.menu_div{
+ position: relative;
+ z-index: 1000;
+}
+
+.content{
+ position: relative;
+ z-index: 1;
+}
