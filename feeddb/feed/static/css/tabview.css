@@ -50,6 +50,7 @@ div.TabView div.Pages
 {
   clear: both;
   border: 0px solid #404040;
+  display: block;
 /*  overflow: hidden; */
 
 
@@ -59,11 +60,12 @@ div.TabView div.Pages div.Page
 {
  
   padding-top: 10px;
+  display: block;
 /*  overflow: hidden; */
 }
 
 div.TabView div.Pages div.Page div.Pad
 {
   padding: 3px 5px;
- 
+ display: block;
 }
