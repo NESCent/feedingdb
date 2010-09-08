@@ -233,10 +233,17 @@ def bucket_download(request, id):
             #generate channel headers
             headers=["Channel:ID"]
             for key, value in meta_selected.items():
-                if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel'):
+                #generate headers meta data
+                if key in('Setup','EmgSetup','Sensor','EmgSensor','SonoSetup','SonoSensor','Channel','EmgChannel','SonoChannel'):
                     for v in value:
                         headers.append( v[1] )
             
+            for key, value in meta_selected.items():
+                #generate headers for 2 meta data (specifically for crystal2 in sono data 
+                if key in('Sensor','SonoSensor'):
+                    for v in value:
+                        headers.append( 'Sensor 2:%s' % v[1] )
+                        
             channel_types = ['strainchannel','forcechannel','pressurechannel','kinematicschannel']        
             for trial in bucket.trials.all():
                 filename = "trial_%d_channels.csv" % trial.id
@@ -282,14 +289,13 @@ def bucket_download(request, id):
 		                                if len(ss)>1:
 		                                    s=' '.join(ss)
                                 values.append(s)                 
-                    metaWriter.writerow(values)
+                           
                     #output the second crystal sensor information if it is sono channel
                     if hasattr(ch,'sonochannel'):
-                        objects["SonoChannel"] = ch.sonochannel
                         objects["Sensor"] = ch.sonochannel.crystal2
                         objects["SonoSensor"] = ch.sonochannel.crystal2
                         for key, value in meta_selected.items():
-                            if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel'):
+                            if key in('Sensor','SonoSensor'):
                                 for v in value:
                                     s=''
                                     if key in objects:
@@ -299,8 +305,7 @@ def bucket_download(request, id):
 		                                    if len(ss)>1:
 		                                        s=' '.join(ss)
                                     values.append(s)                 
-                        
-                        metaWriter.writerow(values)
+                    metaWriter.writerow(values)
                                         
                 f.close()
         #
