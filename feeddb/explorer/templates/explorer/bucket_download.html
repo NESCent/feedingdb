@@ -29,7 +29,7 @@ function select_allchannels_clicked(obj){
           <form action="{% url explorer.views.bucket_download bucket.id %}" id="meta_form" name ="meta_form" method="POST">
                 
 <table>
-<tr><td class="TdField">Zip file name</td><td class="TdValue"><input name="zipfile_name" size="50" value="bucket_{{bucket.id}}.zip"/></td></tr>
+<tr><td class="TdField">Zip file name</td><td class="TdValue"><input name="zipfile_name" size="50" value="{{file_name}}"/></td></tr>
 <tr><td class="TdField">Choose data to download</td><td class="TdValue">
 				<input type="radio" name="download_choice"  value="0"  checked="checked" onclick="document.getElementById('meta_div').style.display='block';document.getElementById('channels_div').style.display='none';"/>Meta data only<br/>
                 <input type="radio" name="download_choice"  value="1" onclick="document.getElementById('meta_div').style.display='none';document.getElementById('channels_div').style.display='block';" />Data only<br/>
