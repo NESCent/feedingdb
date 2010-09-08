@@ -4,7 +4,7 @@
 #  We will only keep the connecting code here. 
 #  All non-trivial computations should be factored out separate modules. 
 
-import os, tempfile, zipfile, csv
+import os, re, tempfile, zipfile, csv
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.generic.list_detail import object_detail
@@ -246,8 +246,9 @@ def bucket_download(request, id):
                         
             channel_types = ['strainchannel','forcechannel','pressurechannel','kinematicschannel']        
             for trial in bucket.trials.all():
-                filename = "trial_%d_channels.csv" % trial.id
-                full_filename = "%s/trial_%d_channels.csv" % (tempdir, trial.id)
+                trial_name = trial.title.replace('.', '').replace(',', '').replace(' ', '_').strip().lower()
+                filename = "trial_%d_%s_channels.csv" % (trial.id, trial_name)
+                full_filename = "%s/trial_%d_%s_channels.csv" % (tempdir, trial.id,trial_name)
                 filenames[filename]=full_filename
 
                 f = open(full_filename,"w")
@@ -395,10 +396,11 @@ def bucket_download(request, id):
     meta_forms.append(EmgChannelModelForm())
     meta_forms.append(SonoChannelModelForm())
     
+    bucket_name = bucket.title.replace(' ','_').strip().lower()
+    bucket_name = "%s.zip" % bucket_name
     
     
-    
-    c = RequestContext(request, {'title': 'FeedDB Explorer',  'bucket':bucket, 'meta_forms':meta_forms})
+    c = RequestContext(request, {'title': 'FeedDB Explorer', 'file_name': bucket_name, 'bucket':bucket, 'meta_forms':meta_forms})
     return render_to_response('explorer/bucket_download.html', c)
 
 
