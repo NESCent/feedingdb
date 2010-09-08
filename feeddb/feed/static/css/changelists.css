@@ -52,12 +52,12 @@
     white-space: nowrap;
     vertical-align: middle;
 }
-
+/*
 #changelist table thead th:first-child {
     width: 1.5em;
     text-align: center;
 }
-
+*/
 #changelist table tbody td {
     border-left: 1px solid #ddd;
 }
@@ -65,7 +65,7 @@
 #changelist table tbody td:first-child {
     border-left: 0;
     border-right: 1px solid #ddd;
-    text-align: center;
+/*    text-align: center; */
 }
 
 #changelist table tfoot {
