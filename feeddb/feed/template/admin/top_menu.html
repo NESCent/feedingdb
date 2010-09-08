@@ -1,0 +1,76 @@
+<div id="myslidemenu" class="jqueryslidemenu">
+
+<ul>
+	<li><a href="/">Home</a></li>
+{% if user.is_authenticated %}
+<li><a href="{%url admin:feed_study_changelist %}">Studies</a>
+<ul> 
+<li><a href="{%url admin:feed_study_changelist %}?created_by={{user.pk}}">Mine</a></li>
+<li><a href="{%url admin:feed_study_add %}">Add</a></li>
+</ul>
+</li> 
+
+<li><a href="{%url admin:feed_experiment_changelist %}">Experiments</a>
+<ul>
+<li><a href="{%url admin:feed_experiment_changelist %}?created_by={{user.pk}}">Mine</a></li>
+</ul> 
+</li>
+<li><a href="{%url admin:feed_session_changelist %}">Recording Sessions</a>
+<ul>
+<li><a href="{%url admin:feed_session_changelist %}?created_by={{user.pk}}">Mine</a></li>
+</ul> 
+</li>
+</li>
+<li><a href="{%url admin:feed_trial_changelist %}">Trials</a>
+<ul>
+<li><a href="{%url admin:feed_trial_changelist %}?created_by={{user.pk}}">Mine</a></li>
+<li><a href="/explorer/trial/search/">Search Trials</a></li>
+</ul> 
+</li>
+<li><a href="{%url admin:feed_subject_changelist %}">Subjects</a>
+<ul>
+	<li><a href="{%url admin:feed_subject_changelist %}?created_by={{user.pk}}">Mine</a></li>
+</ul>
+</li> 
+
+<li><a href="{%url admin:feed_taxon_changelist %}">Species</a></li>
+
+<li><a href="#">Terms</a>
+<ul>
+<li><a href="{%url admin:feed_developmentstage_changelist %}">Development stages</a></li>
+<li><a href="{%url admin:feed_restraint_changelist %}">Restraints</a></li>
+<li><a href="{%url admin:feed_electrodetype_changelist %}">Electrode types</a></li>
+<li><a href="{%url admin:feed_anatomicallocation_changelist %}">Anatomical Locations</a></li>
+<li><a href="{%url admin:feed_side_changelist %}">Sides</a></li>
+<li><a href="{%url admin:feed_anteriorposterioraxis_changelist %}">AP axis</a></li>
+<li><a href="{%url admin:feed_dorsalventralaxis_changelist %}">DV axis</a></li>
+<li><a href="{%url admin:feed_proximaldistalaxis_changelist %}">PD axis</a></li>
+<li><a href="{%url admin:feed_mediallateralaxis_changelist %}">ML axis</a></li>
+<li><a href="{%url admin:feed_depthaxis_changelist %}">Depth axis</a></li>
+<li><a href="{%url admin:feed_behavior_changelist %}">Behaviors</a></li>
+<li><a href="{%url admin:feed_emgfiltering_changelist %}">EMG filtering</a></li>
+<li><a href="{%url admin:feed_unit_changelist %}">Units</a></li>
+</ul> 
+</li>
+<li><a href="/explorer/bucket/">My Buckets</a></li>
+{% if user.is_superuser %}
+
+<li><a href="{%url admin:auth_group_changelist %}">Groups</a>
+<ul>
+<li><a href="{%url admin:auth_group_add %}">Add</a></li>
+</ul>
+</li>
+<li><a href="{%url admin:auth_user_changelist %}">Users</a>
+<ul>
+<li><a href="{%url admin:auth_user_add %}">Add</a></li>
+</ul> 
+</li>
+{% endif %}
+<li><a href="mailto: feeding-bugs@nescent.org">Report Bug</a></li>
+{% else %}
+<li><a href="/admin">Login</a></li>
+{% endif %}
+</ul>
+<br style="clear: left" />
+</div>
+
