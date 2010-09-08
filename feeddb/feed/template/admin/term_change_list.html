@@ -2,7 +2,7 @@
 {% load feedmedia admin_list i18n %}
 {% load feed_list i18n %}
 {% block object-tools %}
-     {{% if has_add_permission %}
+     {% if has_add_permission %}
         <ul class="object-tools object-tools-top">
           <li>
             <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
