@@ -7,10 +7,16 @@
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% app_static_prefix %}css/rtl.css{% endblock %}" />{% endif %}
 <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/feed.css" />
+<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/jqueryslidemenu.css" />
 <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/cupertino/jquery-ui-1.8.4.custom.css" />
+
+
 <script type="text/javascript" src="{% app_static_prefix %}js/common.js"></script>
 <script type="text/javascript" src="{% app_static_prefix %}js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="{% app_static_prefix %}js/jqueryslidemenu.js"></script>
 <script type="text/javascript" src="{% app_static_prefix %}js/jquery-ui-1.8.4.custom.min.js"></script>
+
+
 {% block extra_js %}{% endblock %}
 {% block extrahead %}{% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
@@ -58,11 +64,11 @@
     </div>
     <!-- END Header -->
     <!-- menu sidebar -->
-    <table style="padding:0; margin:0; border:none; width:100%;">
-    <tr><td  style="padding:0; margin:0; border:none; width:190px;background-color: #EDF3FE;">
- {% block menu %}{% include "admin/menu.html" %}{% endblock %}
-</td>
-    <td>
+	<div class="menu_div">
+		
+		{% block top_menu %}{% include "admin/top_menu.html" %}{% endblock %}
+	</div>
+     {% block menu %}{% endblock %}
     
     {% block breadcrumbs %}<div class="breadcrumbs"><a href="/">{% trans 'Home' %}</a>{% if title %} &rsaquo; {{ title }}{% endif %}</div>{% endblock %}
     {% endif %}
@@ -83,10 +89,8 @@
         {% block sidebar %}{% endblock %}
         <br class="clear" />
     </div>
+	<div style="clear:both;"><div>
     <!-- END Content -->
-    </td>
-    </tr>
-    </table>
     {% block footer %}<!-- div id="footer">
 <a href="http://www.nescent.org">National Evolutionary Synthesis Center (NESCent) </a></div -->
 {% endblock %}
