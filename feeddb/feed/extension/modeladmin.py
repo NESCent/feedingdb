@@ -35,7 +35,7 @@ from django.contrib.admin.views.main import IncorrectLookupParameters
 
 class FeedTabularInline(admin.TabularInline):
     template = 'admin/edit_inline/tabular.html'
-    change_form_template = 'admin/tabbed_change_form.html'
+    #change_form_template = 'admin/tabbed_change_form.html'
     tabbed = False
     tab_name = None
 
@@ -74,7 +74,7 @@ class FeedModelAdmin(admin.ModelAdmin):
     list_per_page = 30 
     # Custom templates (designed to be over-ridden in subclasses)
     view_form_template = None
-    change_form_template = "admin/tabbed_change_form.html"
+    #change_form_template = "admin/tabbed_change_form.html"
     # Actions
     actions = None
 
@@ -416,7 +416,6 @@ class FeedModelAdmin(admin.ModelAdmin):
         elif model == KinematicsSetup:
             if form.fields.has_key("sensor"):
                 form.fields["sensor"].queryset = KinematicsSensor.objects.filter(setup=obj)
-                                 
         elif  model == Experiment:
             if form.fields.has_key("subject") and obj:
                 form.fields["subject"].queryset = Subject.objects.filter(study=obj.study)

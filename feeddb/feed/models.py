@@ -198,6 +198,7 @@ class Experiment(FeedBaseModel):
         return self.title
 
 class Setup(FeedBaseModel):
+    is_cloneable=False
     experiment = models.ForeignKey(Experiment)
     technique = models.ForeignKey(Technique)     
     notes = models.TextField("Notes about all sensors and channels in this setup", blank = True, null=True)

@@ -24,24 +24,6 @@
 {% endif %}{% endblock %}
 
 {% block content %}<div id="content-main">
-{% block object-tools %}
-<ul class="object-tools object-tools-top">
-	{% if change %}
-                               {% ifequal opts.app_label "feed" %}
-		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" >{% trans "View" %}</a></li>
-                               {% endifequal %}
-		{% if has_delete_permission %}
-			<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" >{% trans "Delete" %}</a></li>
-		{% endif %}
-	{% endif %}	
-	{% if change %}{% if not is_popup %}
-  		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/history/" class="historylink">{% trans "History" %}</a></li>
-  		<!-- {% if has_absolute_url %}
-			<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>
-		{% endif%} -->
-    {% endif %}{% endif %}
-</ul>
-{% endblock %}
 {% if errors %}
     <p class="errornote">
     {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
@@ -66,7 +48,31 @@
        <div class="Pad">
 {% endif %}
 
+
 {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+<ul class="object-tools object-tools-top">
+	{% if change %}
+                               {% ifequal opts.app_label "feed" %}
+		<li> <a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><img src='/static/img/admin/icon_calendar.gif' alt='view' title='view'/></a></li>
+                               {% endifequal %}
+		{% if has_delete_permission %}
+			<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" ><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a></a></li>
+		{% endif %}
+		{% if has_change_permission %}
+		{% if cloneable %}
+	     <li><a class="clonelink" href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/clone" ><img src='/static/img/admin/copy-icon.png' alt='clone' title='clone'/></a></li>
+        {% endif %}
+        {% endif %}
+	{% endif %}	
+	{% if has_change_permission %}{% if not is_popup %}
+  		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/history/" class="historylink">{% trans "History" %}</a></li>
+  		<!-- {% if has_absolute_url %}
+			<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>
+		{% endif%} -->
+    {% endif %}{% endif %}
+</ul>
+
+
 {% if save_on_top %}{% submit_row %}{% endif %}
 
 
@@ -84,7 +90,6 @@
     {% endfor %}
 
 {% if tabbed %}
-
 </div></div>
 {% endif %}
 

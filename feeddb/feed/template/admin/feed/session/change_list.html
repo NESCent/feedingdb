@@ -13,7 +13,6 @@
 <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/tabview.css" />
 {% endblock %}
 
-{% block content_title %}<h1>{% if experiment %}View Experiment{% else %} Select session to change {% endif %}</h1>{% endblock %}
     {% block object-tools %}
       {% if has_change_permission %}
         <ul class="object-tools object-tools-top">
@@ -25,7 +24,7 @@
 </li>
 {%else%}
 {% comment %}
-     {% if has_add_permission %}
+     {% if has_change_permission %}
           <li>
             <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">
               {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
@@ -55,6 +54,7 @@
           {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
                 {% if has_add_permission %}
 {% if experiment %}
+{% if has_change_permission %}
 <p>
 <table width="50"><tr>
 <td class="form-row">
@@ -65,6 +65,7 @@
 </tr>
 </table>
 </p>
+ {% endif %}
   {% endif %}
       {% endif %}
       {% endblock %}
