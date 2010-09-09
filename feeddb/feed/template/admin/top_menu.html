@@ -5,6 +5,7 @@
 {% if user.is_authenticated %}
 <li><a href="{%url admin:feed_study_changelist %}">Studies</a>
 <ul> 
+<li><a href="{%url admin:feed_study_changelist %}">All</a>
 <li><a href="{%url admin:feed_study_changelist %}?created_by={{user.pk}}">Mine</a></li>
 <li><a href="{%url admin:feed_study_add %}">Add</a></li>
 </ul>
@@ -12,23 +13,27 @@
 
 <li><a href="{%url admin:feed_experiment_changelist %}">Experiments</a>
 <ul>
+	<li><a href="{%url admin:feed_experiment_changelist %}">All</a>
 <li><a href="{%url admin:feed_experiment_changelist %}?created_by={{user.pk}}">Mine</a></li>
 </ul> 
 </li>
 <li><a href="{%url admin:feed_session_changelist %}">Recording Sessions</a>
 <ul>
+	<li><a href="{%url admin:feed_session_changelist %}">All</a>
 <li><a href="{%url admin:feed_session_changelist %}?created_by={{user.pk}}">Mine</a></li>
 </ul> 
 </li>
 </li>
 <li><a href="{%url admin:feed_trial_changelist %}">Trials</a>
 <ul>
+	<li><a href="{%url admin:feed_trial_changelist %}">All</a>
 <li><a href="{%url admin:feed_trial_changelist %}?created_by={{user.pk}}">Mine</a></li>
 <li><a href="/explorer/trial/search/">Search Trials</a></li>
 </ul> 
 </li>
 <li><a href="{%url admin:feed_subject_changelist %}">Subjects</a>
 <ul>
+	<li><a href="{%url admin:feed_subject_changelist %}">All</a>
 	<li><a href="{%url admin:feed_subject_changelist %}?created_by={{user.pk}}">Mine</a></li>
 </ul>
 </li> 
