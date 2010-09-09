@@ -52,9 +52,9 @@
                 {% trans 'Change password' %}</a> /
                 {% url admin:logout as logout_url %}
                 {% if logout_url %}
-                    <a href="{{ logout_url }}">
+                    <a href="{{ logout_url }}?next=/">
                 {% else %}
-                    <a href="{{ root_path }}logout/">
+                    <a href="{{ root_path }}logout/?next=/">
                 {% endif %}
                 {% trans 'Log out' %}</a>
             {% endblock %}
