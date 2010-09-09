@@ -463,6 +463,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         #filter sensor choise for channel
         sensor_classes = [EmgSensor,SonoSensor,PressureSensor,ForceSensor,StrainSensor,KinematicsSensor]
         
+        sensor_class=None
         if hasattr(obj,'setup') and obj.setup.id:
             if(form.fields.has_key("setup")):
                 form.fields["setup"].widget.widget.attrs['disabled']=""
