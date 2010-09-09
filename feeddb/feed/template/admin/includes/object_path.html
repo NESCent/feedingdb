@@ -56,12 +56,12 @@
      {% ifequal opts.object_name "StrainSensor" %}
          <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.setup.experiment.study.id}}"> {{adminform.form.instance.setup.experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
          <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.setup.experiment.id}}"> {{adminform.form.instance.setup.experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
-         <a href="/admin/{{ app_label}}/emgsetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+         <a href="/admin/{{ app_label}}/strainsetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
      {% endifequal %}
      {% ifequal opts.object_name "StrainChannel" %}
          <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.setup.experiment.study.id}}"> {{adminform.form.instance.setup.experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
          <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.setup.experiment.id}}"> {{adminform.form.instance.setup.experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
-         <a href="/admin/{{ app_label}}/emgsetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+         <a href="/admin/{{ app_label}}/strainsetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
      {% endifequal %}
 	 
 	 
@@ -72,12 +72,12 @@
      {% ifequal opts.object_name "ForceSensor" %}
          <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.setup.experiment.study.id}}"> {{adminform.form.instance.setup.experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
          <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.setup.experiment.id}}"> {{adminform.form.instance.setup.experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
-         <a href="/admin/{{ app_label}}/emgsetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+         <a href="/admin/{{ app_label}}/forcesetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
      {% endifequal %}
      {% ifequal opts.object_name "ForceChannel" %}
          <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.setup.experiment.study.id}}"> {{adminform.form.instance.setup.experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
          <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.setup.experiment.id}}"> {{adminform.form.instance.setup.experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
-         <a href="/admin/{{ app_label}}/emgsetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+         <a href="/admin/{{ app_label}}/forcesetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
      {% endifequal %}
 
 
@@ -88,12 +88,12 @@
      {% ifequal opts.object_name "PressureSensor" %}
          <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.setup.experiment.study.id}}"> {{adminform.form.instance.setup.experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
          <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.setup.experiment.id}}"> {{adminform.form.instance.setup.experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
-         <a href="/admin/{{ app_label}}/emgsetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+         <a href="/admin/{{ app_label}}/pressuresetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
      {% endifequal %}
      {% ifequal opts.object_name "PressureChannel" %}
          <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.setup.experiment.study.id}}"> {{adminform.form.instance.setup.experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
          <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.setup.experiment.id}}"> {{adminform.form.instance.setup.experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
-         <a href="/admin/{{ app_label}}/emgsetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+         <a href="/admin/{{ app_label}}/pressuresetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
      {% endifequal %}
 	 
 	 {% ifequal opts.object_name "KinematicsSetup" %}
@@ -103,12 +103,12 @@
      {% ifequal opts.object_name "KinematicsSensor" %}
          <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.setup.experiment.study.id}}"> {{adminform.form.instance.setup.experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
          <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.setup.experiment.id}}"> {{adminform.form.instance.setup.experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
-         <a href="/admin/{{ app_label}}/emgsetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+         <a href="/admin/{{ app_label}}/kinematicssetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
      {% endifequal %}
      {% ifequal opts.object_name "KinematicsChannel" %}
          <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.setup.experiment.study.id}}"> {{adminform.form.instance.setup.experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
          <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.setup.experiment.id}}"> {{adminform.form.instance.setup.experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
-         <a href="/admin/{{ app_label}}/emgsetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+         <a href="/admin/{{ app_label}}/kinematicssetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a> &raquo;
      {% endifequal %}	 
 	 
      {% ifequal opts.object_name "SonoSensor" %}
