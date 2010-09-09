@@ -289,7 +289,8 @@ class FeedModelAdmin(admin.ModelAdmin):
         pk_value = obj._get_pk_val()
         msg = _('The %(name)s "%(obj)s" was changed successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj)}
         self.message_user(request, msg)
-        return HttpResponseRedirect(request.path)
+        
+        return HttpResponseRedirect("../")
 
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         adminForm = context['adminform']
