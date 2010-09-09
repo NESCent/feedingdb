@@ -7,7 +7,9 @@
 {% block content %}
 
 <h3>Bucket Detail</h3>
-<a href="{% url explorer.views.bucket_download form.instance.id %}">Download</a>
+<ul class="object-tools">
+    <li><a href="{% url explorer.views.bucket_download form.instance.id %}" class="downloadlink">Download</a></li>
+</ul>
 <table>
 <form action="{% url explorer.views.bucket_detail form.instance.id %}" method="POST">
      {% include "explorer/include/form.html" %}
@@ -60,7 +62,7 @@ function checkbox_clicked(obj){
 </tr>
 {% endfor %}
 
-<tr><th class="table_action" colspan = "8"><input type="submit" value="remove selected records from the bucket" />
+<tr><th class="table_action" colspan = "8"><input type="submit" value="Remove selected records from the bucket" />
 </th>
 </tr>
 </table>

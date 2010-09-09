@@ -1,6 +1,9 @@
 {% extends "explorer/base.html" %}
 {% block content %}
 <h3>List of my buckets</h3>
+<ul class="object-tools">
+    <li><a href="{%url explorer.views.bucket_add %}" class="addlink">Add Bucket</a></li>
+</ul>
 <table>
 	<thead>
 <tr><th>ID</th>
@@ -23,6 +26,5 @@
 {% endfor %}
 </table>
 
-<div class="TdAction"><a href="{%url explorer.views.bucket_add %}">&#43; add bucket</a></div>
 
  {% endblock %}
