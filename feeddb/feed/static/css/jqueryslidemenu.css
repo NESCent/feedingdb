@@ -58,6 +58,9 @@ z-index:999;
 .jqueryslidemenu ul li ul li{
 display: list-item;
 float: none;
+margin:0;
+padding:0;
+border-bottom: 1px solid gray;
 }
 
 /*All subsequent sub menu levels vertical offset after 1st level sub menu */
@@ -71,8 +74,6 @@ font: normal 13px Verdana;
 width: 160px; /*width of sub menus*/
 padding: 5px;
 margin: 0;
-border-top-width: 0;
-border-bottom: 1px solid gray;
 }
 
 .jqueryslidemenuz ul li ul li a:hover{ /*sub menus hover style*/
