@@ -1,5 +1,6 @@
 .jqueryslidemenu{
-font: bold 12px Verdana;
+font-size: 12px;
+font-weight: bold !important;
 background: #414141;
 width: 100%;
 position:relative; 
