@@ -44,6 +44,11 @@
 
     {% endblock %}
 {% if experiment %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+{% include "admin/includes/object_path.html" %}
+</div>
+{% endblock %}
 {% block tabs %}{% include "admin/feed/experiment/experiment_tab.html" %}{% endblock %}
 {% endif %}
 
