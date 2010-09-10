@@ -240,12 +240,12 @@ class FeedModelAdmin(admin.ModelAdmin):
             if hasattr(obj,'experiment') and obj.experiment!=None:
                 post_url='/admin/feed/experiment/%s' % obj.experiment.pk
             return HttpResponseRedirect(post_url)
-
+        
         context = {
             "title": _("Are you sure?"),
             "object_name": force_unicode(opts.verbose_name),
             "object": obj,
-            "deleted_objects": deleted_objects,
+            
             "perms_lacking": perms_needed,
             "opts": opts,
             "root_path": self.admin_site.root_path,
