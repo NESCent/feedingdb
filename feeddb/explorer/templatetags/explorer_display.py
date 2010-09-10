@@ -37,7 +37,8 @@ def is_image(file):
     """
     img_exts = [".jpeg",".png",".gif",".jpg",".bmp"]
     for ext in img_exts:
-        if file.url.find(ext) !=-1: 
+        
+        if file.url.lower().find(ext) !=-1: 
             return True
     return False
     
