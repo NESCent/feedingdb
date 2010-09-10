@@ -1,8 +1,10 @@
 
 {% ifequal object_id None %}
-     <!--  add new object -->
+      {%if experiment %}
+		 <a href="/admin/{{ app_label}}/study/{{experiment.study.id}}"> {{experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+         <a href="/admin/{{ app_label}}/experiment/{{experiment.id}}"> {{experiment|capfirst|escape|truncatewords:"18" }}</a>
+	  {%endif%}
 {% else %}
-     
      {% ifequal opts.object_name "Trial" %}
          <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.session.experiment.study.id}}"> {{adminform.form.instance.session.experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
          <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.session.experiment.id}}"> {{adminform.form.instance.session.experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
@@ -24,8 +26,15 @@
          {% endifequal %}
      {% endifequal %}
      {% ifequal opts.object_name "Session" %}
-         <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.experiment.study.id}}"> {{adminform.form.instance.experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+	     {%if experiment %}
+		 <a href="/admin/{{ app_label}}/study/{{experiment.study.id}}"> {{experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+         <a href="/admin/{{ app_label}}/experiment/{{experiment.id}}"> {{experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+		 {%else%}
+		  <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.experiment.study.id}}"> {{adminform.form.instance.experiment.study|capfirst|escape|truncatewords:"18" }}</a> &raquo;
          <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.experiment.id}}"> {{adminform.form.instance.experiment|capfirst|escape|truncatewords:"18" }}</a> &raquo;
+		
+         {%endif%}
+         
      {% endifequal %}
      {% if sessionformset %}
          <a href="/admin/{{ app_label}}/study/{{experiment.study.id}}"> {{experiment.study.name|capfirst|escape|truncatewords:"18" }}</a> &raquo;
