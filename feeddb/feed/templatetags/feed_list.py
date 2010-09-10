@@ -10,6 +10,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import get_date_formats, get_partial_date_formats, ugettext as _
 from django.utils.encoding import smart_unicode, smart_str, force_unicode
 from django.template import Library
+from feeddb.explorer.templatetags.explorer_display import display_file
 import datetime
 
 register = Library()
@@ -153,6 +154,9 @@ def feed_items_for_result(cl, result, form):
             # of the choice.
             elif f.flatchoices:
                 result_repr = dict(f.flatchoices).get(field_val, EMPTY_CHANGELIST_VALUE)
+            #file fields
+            elif isinstance(f, models.FileField):
+                result_repr = mark_safe(display_file(field_val))
             else:
                 result_repr = escape(field_val)
         if force_unicode(result_repr) == '':
