@@ -141,8 +141,7 @@ class SubjectAdmin(FeedModelAdmin):
 class TrialAdmin(FeedModelAdmin):
     form = TrialForm
     search_fields = ('accession','title','bookkeeping','subj_notes','subj_treatment','food_type','food_property','behavior_primary__label','behavior_secondary','behavior_notes')
-    list_display = ('title', 'session', 'position', 'claimed_duration', 
-                    'food_type', 'behavior_primary')
+    list_display = ('title', 'session', 'claimed_duration','food_type', 'behavior_primary','waveform_picture')
     form = TrialChangeForm
     ordering = ('position',)
     exclude = ['accession']    
@@ -386,7 +385,6 @@ class UnitAdmin(DefaultModelAdmin):
         
 class TaxonAdmin(TermModelAdmin):
     list_display = ('genus','species','common_name')  
-    list_filter = ('genus',) 
     ordering = ('genus','species')
     
 class AnatomicalLocationAdmin(DefaultModelAdmin):
