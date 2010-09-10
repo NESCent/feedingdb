@@ -1,38 +1,18 @@
 
-/* login body */
-
-.login {
- width: 100%;
-}
-
-
-/* OBJECT HISTORY */
-
-table#change-history {
-    width: 100%;
-}
-
-table#change-history tbody th {
-    width: 16em;
-}
 
 /* PAGE STRUCTURE */
 
 #container {
     position: relative;
-    width: 100%;
     min-width: 760px;
     padding: 0;
-    border: 0px solid #417690;
     margin: 0 auto 0 auto; /*this is what centers the pages in the middle of the screen */
-    width: 100%;
-   
+    width: 1000px;
 }
 
 #content {
     margin: 10px 15px;
     min-height: 500px;
-
 }
 
 #footer {
@@ -45,173 +25,6 @@ table#change-history tbody th {
 
 #footer a:link, #footer a:visited {
     color: white;
-}
-/* COLUMN TYPES */
-
-.colMS {
-    margin-right: 20em !important;
-}
-
-.colSM {
-    margin-left: 20em !important;
-}
-
-.colSM #content-related {
-    float: left;
-    margin-right: 0;
-    margin-left: -19em;
-}
-
-.colSM #content-main {
-    float: right;
-}
-
-.popup .colM {
-    width: 95%;
-}
-
-.subcol {
-    float: left;
-    width: 46%;
-    margin-right: 15px;
-}
-
-.dashboard #content {
-    width: 500px;
-}
-
-/* navigation */
-
-.bullet {list-style-type: square;}
-
-.navigation {
-		
-	background: url(/static/images/menutop.jpg) top right no-repeat;
-	width: 190px;
-	background-color: #EDF3FE;
-                        padding:0;
- 	font-size: 1.1em;
-	float: left;
-	text-align: right;
-	height:100%;
-padding-top:50px;
-/*	
-	
-	border-right: 1px solid #bbb;	
-	height:650px;*/
-	
-}
-.navigation h2 {
-	color: #333;
-	font: 1.0em;
-	margin: 0;
-	margin-top: 0.5em;
-	margin-bottom: 0.1em;
-	padding-left: 5px;
-	padding-bottom:0.1em;
-	padding-right: 15px;
-	padding-top:0.2em;
-/*	border-top: 1px solid #bbb;*/
-}
-
-.navigation ul {
-	margin-top:0px;
-	padding-left: 0px;
-	padding-right: 15px;
-}
-.navigation li {
-    padding-left: 10px;
-    padding-right: 0px;
-    display: inline;    
-}
-.navigation li a {
-	font-size: 1.0em;
-	color: #444;
-	text-decoration: none;
-}
-.navigation li a:hover {
-	background: #b5b5EB;
-	color: #000000;	
-}
-
-
-
-.td {
-   border: 1px solid b5b5EB;
-}
-
-/*my object tool */
-/* OBJECT TOOLS */
-/*
-.feed-object-tools {
-    font-size: 10px;
-    font-weight: bold;
-    font-family: Arial,Helvetica,sans-serif;
-    padding-left: 0;
-    float: right;
-    position: relative; 
-}
-
-.action .feed-object-tools {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    float: none;
-    height: 2em;
-    padding-left: 0px;
-}
-
-.feed-object-tools li {
-    display: block;
-    float: left; 
-    background: url(../img/admin/tool-left.gif) 0 0 no-repeat;
-    padding: 0 0 0 8px;
-    margin-left: 0px;
-    height: 16px;
-
-}
-
-.feed-object-tools li:hover {
-    background: url(../img/admin/tool-left_over.gif) 0 0 no-repeat;
-}
-
-.feed-object-tools a:link, .feed-object-tools a:visited {
-    display: block;
-    float: left;
-    color: white;
-    padding: .1em 14px .1em 8px;
-    height: 14px;
-  background: #999 url(../img/admin/tool-right.gif) 100% 0 no-repeat;
-}
-
-.feed-object-tools a:hover, .feed-object-tools li:hover a {
- background: #5b80b2 url(../img/admin/tool-right_over.gif) 100% 0 no-repeat;
-}
-
-.feed-object-tools a.viewsitelink, .feed-object-tools a.golink {
-  background: #999 url(../img/admin/tooltag-arrowright.gif) top right no-repeat;
-    padding-right: 0px;
-}
-
-.feed-object-tools a.viewsitelink:hover, .feed-object-tools a.golink:hover {
-    background: #5b80b2 url(../img/admin/tooltag-arrowright_over.gif) top right no-repeat;
-}
-
-.feed-object-tools a.addlink {
-  background: #999 url(../img/admin/tooltag-add.gif) top right no-repeat;
-    padding-right: 0px;
-}
-
-.feed-object-tools a.addlink:hover {
- background: #5b80b2 url(../img/admin/tooltag-add_over.gif) top right no-repeat;
-}
-*/
-
-.feed-object-tools li {
-    display: block;
-    float: none; 
-    padding-right: 5px;
-    margin-left: 0px;
-
 }
 
 .action {
@@ -261,19 +74,7 @@ td {
  float: left;
 }
 
-.TdField { 
-	background-color: #EDF3FE;
-	font-weight: bold;
-	text-align: right;
-    padding: 5px;
-    line-height: 25px;
-  
-}
 
-.TdValue { 
-     text-align: left;
-     padding: 5px;
-}
 
 .menu_div{
  position: relative;
