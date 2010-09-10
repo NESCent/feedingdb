@@ -12,16 +12,9 @@ from django.template import Library, Node, TemplateSyntaxError, Variable, Variab
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper, AdminFileWidget
 from django.conf import settings
 from feeddb.feed.models import *
+from feeddb.explorer.templatetags.explorer_display import display_file
 
 register = Library()
-
-def is_image(file):
-    img_exts = [".jpeg",".png",".gif",".jpg",".bmp"]
-    for ext in img_exts:
-        if file.url.find(ext) !=-1: 
-            return True
-
-    return False
 
 def display_readonly(field, adminform):
     values =[]
@@ -69,10 +62,7 @@ def display_readonly(field, adminform):
                     real_value += u'%s<br/>' % choice[1]
     elif isinstance(field.field.field.widget, AdminFileWidget):
         if value!=None and value!="":
-            if is_image(value):
-                real_value = u'<a href="%s%s" title="click to view full size image"><img width="100" src="%s%s"/></a><br/>' % (settings.MEDIA_URL, value, settings.MEDIA_URL,value)
-            else:
-                real_value = u'<a href="%s%s">%s</a><br/>' % (settings.MEDIA_URL,value, value)
+            real_value=display_file(value)
     else:     
         real_value = value
          
