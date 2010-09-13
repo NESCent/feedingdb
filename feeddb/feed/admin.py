@@ -334,12 +334,11 @@ class ChannelLineupInline(FeedTabularInline):
 class ChannelLineupViewInline(FeedTabularInline):
     model = ChannelLineup
     extra = 0 
-    tabbed = True
     tab_name="Channel Lineup"
     form = ChannelLineupForm
 
 class SessionAdmin(SessionModelAdmin):
-    inlines = []
+    inlines = [ChannelLineupInline]
     view_inlines = [ChannelLineupViewInline, TrialViewInline ]
     list_display = ('title', 'experiment','position', 'start', 'subj_restraint','subj_anesthesia_sedation')
     search_fields = ('accession','title','bookkeeping','experiment__title','subj_notes','subj_restraint__label','subj_anesthesia_sedation')
