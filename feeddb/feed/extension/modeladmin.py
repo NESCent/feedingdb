@@ -8,7 +8,7 @@ from django.forms.models import BaseInlineFormSet
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin import widgets
 from django.contrib.admin import helpers
-from django.contrib.admin.util import unquote, flatten_fieldsets, model_ngettext, model_format_dict
+from django.contrib.admin.util import unquote, flatten_fieldsets, get_deleted_objects, model_ngettext, model_format_dict
 from django.core.exceptions import PermissionDenied
 from django.db import models, transaction
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -224,11 +224,20 @@ class FeedModelAdmin(admin.ModelAdmin):
 
         if not self.has_delete_permission(request, obj):
             raise PermissionDenied
-
+        perms_needed=None
+        
+        
+      
         if obj is None:
             raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
-
+        
+        deleted_objects = [mark_safe(u'%s: <a href="../../%s/">%s</a>' % (escape(force_unicode(capfirst(opts.verbose_name))), object_id, escape(obj))), []]
+        perms_needed = set()
+        get_deleted_objects(deleted_objects, perms_needed, request.user, obj, opts, 1, self.admin_site)
+        
         if request.POST: # The user has already confirmed the deletion.
+            if perms_needed:
+                raise PermissionDenied
             obj_display = force_unicode(obj)
             self.log_deletion(request, obj, obj_display)
             obj.delete()
@@ -245,7 +254,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             "title": _("Are you sure?"),
             "object_name": force_unicode(opts.verbose_name),
             "object": obj,
-            
+            "deleted_objects": deleted_objects,
             "perms_lacking": perms_needed,
             "opts": opts,
             "root_path": self.admin_site.root_path,
