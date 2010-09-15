@@ -11,7 +11,7 @@ class FeedBaseModel(models.Model):
     created_by = models.ForeignKey(User, related_name="%(class)s_related", editable=False,  blank=True, null=True)
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField(editable=False)
-    is_cloneable = True
+    is_cloneable = False
     
     class Meta:
         abstract = True
