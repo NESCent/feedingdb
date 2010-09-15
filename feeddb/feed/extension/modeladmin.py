@@ -206,6 +206,11 @@ class FeedModelAdmin(admin.ModelAdmin):
 
         msg = _('The %(name)s "%(obj)s" was added successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj)}
         self.message_user(request, msg)
+        if request.POST.has_key("_popup"):
+            return HttpResponse('<script type="text/javascript">opener.dismissAddAnotherPopup(window, "%s", "%s");</script>' % \
+                # escape() calls force_unicode.
+                (escape(pk_value), escape(obj)))
+        
         post_url = "../%d/" % pk_value
         return HttpResponseRedirect(post_url)
 
