@@ -421,6 +421,9 @@ class Trial(FeedBaseModel):
 
     def __unicode__(self):
         return self.title          
+    def taxon_name(self):
+        return self.session.experiment.subject.taxon.label
+    taxon_name.short_description = 'Species'
 
 class Illustration(FeedBaseModel):
     picture = models.FileField("picture",upload_to='illustrations',  blank = True, null=True)

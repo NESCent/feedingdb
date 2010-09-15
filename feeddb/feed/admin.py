@@ -141,7 +141,7 @@ class SubjectAdmin(FeedModelAdmin):
 class TrialAdmin(FeedModelAdmin):
     form = TrialForm
     search_fields = ('accession','title','bookkeeping','subj_notes','subj_treatment','food_type','food_property','behavior_primary__label','behavior_secondary','behavior_notes')
-    list_display = ('title', 'session', 'claimed_duration','food_type', 'behavior_primary','waveform_picture')
+    list_display = ('title', 'session', 'taxon_name','food_type', 'behavior_primary','waveform_picture')
     form = TrialChangeForm
     ordering = ('position',)
     exclude = ['accession']    
