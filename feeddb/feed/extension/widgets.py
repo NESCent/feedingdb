@@ -29,8 +29,13 @@ class FeedRelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
             related_url = '%s%s/%s/add/' % info
         self.widget.choices = self.choices
         output = [self.widget.render(name, value, *args, **kwargs)]
+        if rel_to in self.admin_site._registry and rel_to._meta.object_name.lower() =='taxon': # If the related object has an admin interface:
+            output.append(u'<a href="%s" class="add-another" id="add_id_%s" onclick="return showAddAnotherPopup(this);"> ' % \
+                (related_url, name))
+            output.append(u'<img src="%simg/admin/icon_addlink.gif" width="10" height="10" alt="%s"/></a>' % (settings.ADMIN_MEDIA_PREFIX, _('Add Another')))
+        
         if self.widget.attrs.has_key('disabled'):
-             output.append('<input type="hidden" name="%s" value="%s" />' % (name, value))
+            output.append('<input type="hidden" name="%s" value="%s" />' % (name, value))
 
         return mark_safe(u''.join(output))
 
