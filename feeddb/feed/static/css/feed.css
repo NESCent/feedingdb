@@ -8,6 +8,8 @@
     padding: 0;
     margin: 0 auto 0 auto; /*this is what centers the pages in the middle of the screen */
     width: 1000px;
+    border-left: 1px solid #417690;
+    border-right: 1px solid #417690;
 }
 
 #content {
@@ -98,4 +100,9 @@ td {
 fieldset{
 min-width: 650px;
 clear: both;
+}
+
+.inline-group {
+    width: 960px;
+    overflow: auto;
 }
