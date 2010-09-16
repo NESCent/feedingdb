@@ -106,3 +106,12 @@ clear: both;
     width: 960px;
     overflow: auto;
 }
+
+#footer table {
+  border: none;
+  width:100%;
+}
+
+#footer table tr td{
+  border: none;
+}
