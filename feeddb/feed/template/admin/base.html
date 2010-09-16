@@ -91,9 +91,7 @@
     </div>
 	<div style="clear:both;"></div>
     <!-- END Content -->
-    {% block footer %}<div id="footer">
-<a href="http://www.nescent.org">National Evolutionary Synthesis Center (NESCent) </a></div>
-{% endblock %}
+    {% block footer %}{% include "admin/footer.html" %}{% endblock %}
 </div>
 <!-- END Container -->
 {% block final_block %}{% endblock %}
