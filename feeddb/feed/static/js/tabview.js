@@ -73,12 +73,10 @@ function tabview_aux(TabViewId, id)
     {
       i++;
     
-      if (Pages.offsetHeight){
-       Page.style.height = (Pages.offsetHeight-2)+"px";
-       }
+      
       
       Page.style.overflow = "auto";
-      Page.style.position = "absolute";
+      //Page.style.position = "absolute";
       
       Page.style.display  = (i == id) ? 'block' : 'none';
       //Page.style.top  = (i == id) ? 0 :1000;
