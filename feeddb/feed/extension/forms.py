@@ -114,19 +114,23 @@ class SubjectForm(forms.ModelForm):
 
 class SonoSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=False)
+    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=True)
+    
     class Meta:
         model = SonoSensor
         fields = ['name', 'location_controlled', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
 
 class SonoChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=False)
+    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=True)
     class Meta:
         model = SonoChannel
 
 class StrainSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
+    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=True)
+    location_freetext = CharField(label = "Location", widget=forms.TextInput(attrs={'size': 10}) , required=True)
+    
     class Meta:
         model = StrainSensor
         fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
@@ -138,6 +142,8 @@ class StrainChannelForm(forms.ModelForm):
 
 class ForceSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
+    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=True)
+    location_freetext = CharField(label = "Location", widget=forms.TextInput(attrs={'size': 10}) , required=True)
     class Meta:
         model = ForceSensor
         fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
@@ -148,6 +154,8 @@ class ForceChannelForm(forms.ModelForm):
         model = ForceChannel
 class PressureSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
+    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=True)
+    location_freetext = CharField(label = "Location", widget=forms.TextInput(attrs={'size': 10}) , required=True)
     class Meta:
         model = PressureSensor
         fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
@@ -159,6 +167,8 @@ class PressureChannelForm(forms.ModelForm):
 
 class KinematicsSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
+    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=True)
+    location_freetext = CharField(label = "Location", widget=forms.TextInput(attrs={'size': 10}) , required=True)
     class Meta:
         model = KinematicsSensor
         fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
