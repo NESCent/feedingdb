@@ -64,17 +64,22 @@ td {
   line-height:22px;
 }
 
+.left {
+ width: 700px;
+ float: left;
+ padding-right: 5px;
+  
+}
+
+
 .right {
- width: 180px;
+ width: 250px;
  float: right;
  background-color:#EDF3FE; 
  padding: 5px;
+ 
 }
 
-.left {
- width: 750px;
- float: left;
-}
 
 
 
