@@ -443,3 +443,24 @@ class ChannelLineup(FeedBaseModel):
         verbose_name_plural = "Channel Lineup"
     def __unicode__(self):
         return str(self.position)
+        
+        
+CRITICAL_ASSOCIATED_OBJECTS = {}
+CRITICAL_ASSOCIATED_OBJECTS[Channel]=['session_set']
+CRITICAL_ASSOCIATED_OBJECTS[Session]=['channellineup_set']
+CRITICAL_ASSOCIATED_OBJECTS[Unit]=['emgchannel_set','sonochannel_set','strainchannel_set','forcechannel_set','pressurechannel_set','kinematicschannel_set']
+CRITICAL_ASSOCIATED_OBJECTS[Taxon]=['subject_set']
+CRITICAL_ASSOCIATED_OBJECTS[DevelopmentStage]=['experiment_set']
+CRITICAL_ASSOCIATED_OBJECTS[Technique]=['setup_set']
+CRITICAL_ASSOCIATED_OBJECTS[AnatomicalLocation]=['emgsensor_set','sonosensor_set']
+CRITICAL_ASSOCIATED_OBJECTS[DepthAxis]=['emgsensor_set','sonosensor_set']
+CRITICAL_ASSOCIATED_OBJECTS[Side]=['sensor_set']
+CRITICAL_ASSOCIATED_OBJECTS[AnteriorPosteriorAxis]=['sensor_set']
+CRITICAL_ASSOCIATED_OBJECTS[DorsalVentralAxis]=['sensor_set']
+CRITICAL_ASSOCIATED_OBJECTS[ProximalDistalAxis]=['sensor_set']
+CRITICAL_ASSOCIATED_OBJECTS[MedialLateralAxis]=['sensor_set']
+CRITICAL_ASSOCIATED_OBJECTS[ElectrodeType]=['emgsensor_set']
+CRITICAL_ASSOCIATED_OBJECTS[Behavior]=['trial_set']
+CRITICAL_ASSOCIATED_OBJECTS[Restraint]=['session_set']
+CRITICAL_ASSOCIATED_OBJECTS[Emgfiltering]=['emgchannel_set']
+CRITICAL_ASSOCIATED_OBJECTS[Subject]=['experiment_set']        
