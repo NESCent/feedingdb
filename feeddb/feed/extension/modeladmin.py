@@ -238,7 +238,9 @@ class FeedModelAdmin(admin.ModelAdmin):
         
         deleted_objects = [mark_safe(u'%s: <a href="../../%s/">%s</a>' % (escape(force_unicode(capfirst(opts.verbose_name))), object_id, escape(obj))), []]
         perms_needed = set()
-        get_deleted_objects(deleted_objects, perms_needed, request.user, obj, opts, 1, self.admin_site)
+        associated_critical_objects = get_associated_critical_objects(obj)
+        if len(associated_critical_objects)==0:
+            get_deleted_objects(deleted_objects, perms_needed, request.user, obj, opts, 1, self.admin_site)
         
         if request.POST: # The user has already confirmed the deletion.
             if perms_needed:
@@ -260,6 +262,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             "object_name": force_unicode(opts.verbose_name),
             "object": obj,
             "deleted_objects": deleted_objects,
+            "associated_critical_objects": associated_critical_objects,
             "perms_lacking": perms_needed,
             "opts": opts,
             "root_path": self.admin_site.root_path,
@@ -272,8 +275,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             "admin/%s/delete_confirmation.html" % app_label,
             "admin/delete_confirmation.html"
         ], context, context_instance=context_instance)
-
-
+ 
     """
     overwrite the function to set the created_by for any associated records before saving
     """ 

@@ -201,4 +201,22 @@ def set_position(obj):
            sisters = ChannelLineup.objects.filter(session__id=obj.session.id)
            max_position = sisters.aggregate(Max('position'))
            obj.position =  max_position['position__max']+1
-            
+
+"""
+CRITICAL_ASSOCIATED_OBJECTS stores critical associated objects in model level for determine if an object can be deleted. 
+The policy is that only object that has no associated critical objects can be deleted.
+"""
+
+"""
+get list of associated objects that disallow an object to be deleted
+"""
+def get_associated_critical_objects(obj):   
+    associated_critical_objects =[]
+    model = obj.__class__
+    if model in CRITICAL_ASSOCIATED_OBJECTS:
+        for attr in CRITICAL_ASSOCIATED_OBJECTS[model]:
+            associated_objects = getattr(obj,attr)
+            for o in associated_objects.all():
+                obj_name = o.__class__.__name__
+                associated_critical_objects.append(mark_safe(u'%s: <a href="../../../%s/%s/">%s</a>' % (escape(force_unicode(capfirst(obj_name))),obj_name.lower(), o.id, escape(o))))
+    return associated_critical_objects
