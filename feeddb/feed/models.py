@@ -444,6 +444,10 @@ class ChannelLineup(FeedBaseModel):
     def __unicode__(self):
         return str(self.position)
         
+"""
+CRITICAL_ASSOCIATED_OBJECTS stores critical associated objects in model level for determine if an object can be deleted. 
+The policy is that only object that has no associated critical objects can be deleted.
+"""
         
 CRITICAL_ASSOCIATED_OBJECTS = {}
 CRITICAL_ASSOCIATED_OBJECTS[Channel]=['session_set']
