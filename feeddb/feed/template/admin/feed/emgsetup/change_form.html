@@ -13,7 +13,11 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-{% endblock %}
+{% if not is_popup %}
+<div class="breadcrumbs">
+{% include "admin/includes/object_path.html" %}
+</div>
+{% endif %}{% endblock %}
 
 <!-- % block tabs %}{% if change %}{% include "admin/feed/experiment/experiment_tab.html" %}{% endif %}
 
