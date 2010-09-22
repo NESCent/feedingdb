@@ -203,11 +203,6 @@ def set_position(obj):
            obj.position =  max_position['position__max']+1
 
 """
-CRITICAL_ASSOCIATED_OBJECTS stores critical associated objects in model level for determine if an object can be deleted. 
-The policy is that only object that has no associated critical objects can be deleted.
-"""
-
-"""
 get list of associated objects that disallow an object to be deleted
 """
 def get_associated_critical_objects(obj):   
