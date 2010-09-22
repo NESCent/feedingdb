@@ -509,7 +509,60 @@ class FeedModelAdmin(admin.ModelAdmin):
             'tab_name': self.tab_name,
         }
         return super(FeedModelAdmin,self).change_view(request,object_id,extra_context)
+    
+    #get context from the url if adding data
+    def add_view(self, request, form_url='', extra_context=None):
+        if not request.method == 'POST':
+            context_object=self.get_context(request)
+            if(context_object !=None):
+                context = {
+                    'context_object': context_object,
+                    'object_name': context_object.__class__.__name__,
+                    'has_change_permission': self.has_change_permission(request, context_object),
+                }
+                if(extra_context!=None):
+                    extra_context.update(context)
+                else:
+                    extra_context = context
+        return super(FeedModelAdmin,self).add_view(request, form_url, extra_context)  
+    
+    #get context object from the url parameter
+    def get_context(self, request):
         
+        v= request.GET.get("experiment")
+        if v!=None:
+            return Experiment.objects.get(pk = v)
+            
+        v= request.GET.get("emgsetup")
+        if v!=None:
+            return EmgSetup.objects.get(pk=v)
+        
+        v= request.GET.get("sonosetup")
+        if v!=None:
+            return SonoSetup.objects.get(pk=v)
+
+        v= request.GET.get("strainsetup")
+        if v!=None:
+            return StrainSetup.objects.get(pk=v)
+
+        v= request.GET.get("pressuresetup")
+        if v!=None:
+            return PressureSetup.objects.get(pk=v)
+        
+        v= request.GET.get("forcesetup")
+        if v!=None:
+            return ForceSetup.objects.get(pk=v)
+
+        v= request.GET.get("kinematicssetup")
+        if v!=None:
+            return KinematicsSetup.objects.get(pk=v)
+        v= request.GET.get("session")
+        if v!=None:
+            return Session.objects.get(pk=v)
+        v= request.GET.get("study")
+        if v!=None:
+            return Study.objects.get(pk=v)  
+
     def view_view(self, request, object_id, extra_context=None):
         "The 'View' admin view for this model."
         model = self.model
