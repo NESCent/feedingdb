@@ -369,6 +369,9 @@ class FeedModelAdmin(admin.ModelAdmin):
         if request.GET.has_key("study"):
             if form.fields.has_key("study"):
                 form.fields["study"].widget.widget.attrs['disabled']=""
+            if form.fields.has_key("subject"):
+                v= request.GET.get("study")
+                form.fields["subject"].queryset = Subject.objects.filter(study__id=v)
         if request.GET.has_key("experiment"):
             if form.fields.has_key("experiment"):
                 form.fields["experiment"].widget.widget.attrs['disabled']=""
