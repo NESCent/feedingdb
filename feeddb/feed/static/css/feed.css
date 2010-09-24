@@ -120,3 +120,7 @@ clear: both;
 #footer table tr td{
   border: none;
 }
+
+.required input,.required select, .required textarea {
+ background-color: #ffa;
+}
