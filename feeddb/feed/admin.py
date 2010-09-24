@@ -155,9 +155,9 @@ class IllustrationAdmin(FeedModelAdmin):
 
 class EmgSensorViewInline(FeedTabularInline):
     model = EmgSensor
-    exclude = ['location_freetext']   
+    exclude = ['location_freetext','notes']   
     extra = 0
-    form = EmgSensorForm
+    form = EmgSensorChannelForm
 
 class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
