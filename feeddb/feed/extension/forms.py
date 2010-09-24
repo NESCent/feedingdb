@@ -79,10 +79,9 @@ class EmgSensorChannelForm(forms.ModelForm):
             self.base_fields["emg_filtering"].initial = None
             self.base_fields["rate"].initial = None
         super(EmgSensorChannelForm, self).__init__(*args, **kwargs)
-    
+
 class EmgSensorForm(EmgSensorChannelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    ordering='name'
          
 class SessionForm(forms.ModelForm):
     subj_notes = CharField(label = "Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
