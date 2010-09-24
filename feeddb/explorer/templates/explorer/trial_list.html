@@ -1,15 +1,21 @@
 {% extends "explorer/base.html" %}
 {% load explorer_display pagination_tags %}
+{% load feedmedia admin_list i18n %}
+{% load feed_list i18n %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/changelists.css" />
+{% endblock %}
+
 {% block extra_js %}
 <script type="text/javascript" src="/explorer/static/js/jquery.checkboxes.js"></script>
 {% endblock %}
 {% block content %}
 {% include "explorer/include/search_trial_form.html" %}
-
-
-
 {% if trials %}
 <h3>Results</h3>
+Total records found: {{total}}<br/>
 <script language="javascript">
 function checkbox_clicked(obj){
    if(obj.checked){
@@ -28,9 +34,9 @@ function bucket_changed(obj){
 }
 </script>
 
+<div class="module" id="changelist">
 
 <form action = "{% url explorer.views.trial_search_put %}" method="POST" id="trial_form" name ="trial_form">
-Total records found: {{total}}<br/>
 <table>
 <tr><td  colspan = "8">
 {% include "explorer/include/pages.html" %}
@@ -88,7 +94,7 @@ Total records found: {{total}}<br/>
 
 </table>
 </form>
-
+</div>
 <script language="javascript">
 function gopage(page){
     var f= document.search_trial_form;
