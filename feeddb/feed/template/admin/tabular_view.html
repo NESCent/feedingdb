@@ -81,6 +81,7 @@
         {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
 
  {% if has_change_permission %}
+{% if tabbed and inline_admin_formset.opts.tabbed %}
 <p>
 <table width="50"><tr>
 <td class="form-row">
@@ -91,6 +92,7 @@
 </tr>
 </table>
 </p >     
+{% endif %}
    {% endif %}
         {% endifequal %}
 {% endfor %}
