@@ -46,6 +46,7 @@
     {% endif %}{% endif %}
 </ul>
 {% endblock %}
+<p>Highlighted fileds are required</p>
 <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% block form_top %}{% endblock %}
 <div>
 {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
@@ -86,4 +87,5 @@
 
 </div>
 </form></div>
+<p>Highlighted fileds are required</p>
 {% endblock %}
