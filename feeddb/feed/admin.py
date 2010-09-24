@@ -205,7 +205,6 @@ class PressureSensorInline(SetupTabularInline):
 
 class PressureSensorViewInline(FeedTabularInline):
     model = PressureSensor
-    exclude = ['notes']   
     extra = 0
     form = PressureSensorForm
         
