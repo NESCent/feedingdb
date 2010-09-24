@@ -19,6 +19,30 @@
 </div>
 {% endif %}{% endblock %}
 
+{% block object-tools %}
+<ul class="object-tools object-tools-top">
+	{% if change %}
+                               {% ifequal opts.app_label "feed" %}
+		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><img src='/static/img/admin/icon_calendar.gif' alt='view' title='view'/></a></li>
+                               {% endifequal %}
+		{% if has_delete_permission %}
+			<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete/?experiment={{original.experiment.id}}" ><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a></li>
+		{% endif %}
+	{% endif %}
+	{% if has_change_permission %}
+	{% if cloneable %}
+	     <li><a class="clonelink" href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/clone" ><img src='/static/img/admin/copy-icon.png' alt='clone' title='clone'/></a></li>
+    {% endif %}	
+	{% endif %}	
+	{% if has_change_permission %}{% if not is_popup %}
+  		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/history/" class="historylink">{% trans "History" %}</a></li>
+  		<!-- {% if has_absolute_url %}
+			<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>
+		{% endif%} -->
+    {% endif %}{% endif %}
+</ul>
+{% endblock %}
+
 <!-- % block tabs %}{% if change %}{% include "admin/feed/experiment/experiment_tab.html" %}{% endif %}
 
 {% endblock % -->
