@@ -42,8 +42,12 @@
         {% for fieldset in inline_admin_form %}
           {% for line in fieldset %}
             {% for field in line %}
-               <td class="{{ field.field.name }}">
-              {{ field.field.errors.as_ul }}
+              {%if field.field.field.required %}
+			     <td class="{{ field.field.name }} required">
+			  {%else%}
+                 <td class="{{ field.field.name }}">
+              {%endif%}
+			  {{ field.field.errors.as_ul }}
               {{ field.field }}
               </td>
             {% endfor %}
