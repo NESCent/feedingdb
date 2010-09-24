@@ -251,10 +251,7 @@ class FeedModelAdmin(admin.ModelAdmin):
 
             self.message_user(request, _('The %(name)s "%(obj)s" was deleted successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj_display)})
 
-            post_url = '../../'
-
-            if hasattr(obj,'experiment') and obj.experiment!=None:
-                post_url='/admin/feed/experiment/%s' % obj.experiment.pk
+            post_url = self.get_response_url(request)
             return HttpResponseRedirect(post_url)
         
         context = {
@@ -276,6 +273,20 @@ class FeedModelAdmin(admin.ModelAdmin):
             "admin/delete_confirmation.html"
         ], context, context_instance=context_instance)
  
+    """
+    get response url after deleting an object
+    """
+    def get_response_url(self,request):
+        post_url = '../../'
+        q_str = request.META['QUERY_STRING']
+        if q_str in (None, ''):
+            return post_url
+        pos = q_str.find('created_by')
+        if pos != -1:
+            return "%s?%s" % (post_url, q_str)
+        q_str= q_str.replace("=","/")    
+        return "../../../%s" % q_str        
+
     """
     overwrite the function to set the created_by for any associated records before saving
     """ 
