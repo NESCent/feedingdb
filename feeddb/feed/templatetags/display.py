@@ -30,6 +30,8 @@ def display_readonly(field, adminform):
     if value ==None:
         if isinstance(field.field.field.widget, RelatedFieldWidgetWrapper):
             real_value=field.field.field.empty_label
+            if real_value!="dead channel":
+                real_value=""
     elif isinstance(field.field.field.widget, RelatedFieldWidgetWrapper):
         for choice in field.field.field.widget.widget.choices:
             modelname = field.field.field.widget.rel.to._meta.object_name.lower()
