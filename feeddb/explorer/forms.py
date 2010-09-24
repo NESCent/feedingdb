@@ -1,6 +1,7 @@
 from django import forms
 from feeddb.feed.models import *
 from feeddb.explorer.models import *
+from django.forms.widgets import HiddenInput
 
 SPECIES_CHOICES = [('','')]
 MUSCLE_CHOICES=[('','')]
@@ -29,6 +30,8 @@ class SearchTrialForm (forms.Form):
     sensor = forms.ChoiceField(choices=SENSOR_CHOICES,required=False)
     primary_behavior=forms.ChoiceField(choices=BEHAVIOR_CHOICES,required=False)
     food_type=forms.CharField(max_length=100,required=False)
+    item_per_page = forms.IntegerField(label='Records per page', required=False, initial=10,widget=HiddenInput())
+    page = forms.IntegerField(required=False, initial=1, widget=HiddenInput())
  
 class BucketModelForm(forms.ModelForm):
     class Meta:

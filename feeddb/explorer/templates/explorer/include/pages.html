@@ -1,0 +1,19 @@
+<div id="pages" style="text-align: center;">Pages: | 
+{% for p in pages %}
+{%ifequal p page %}
+<b>{{p}}</b> | 
+{%endifequal%}
+{%ifnotequal p page %}
+<a href="javascript: gopage({{p}});">{{p}}</a> | 
+{%endifnotequal%}
+{%endfor%}&nbsp;&nbsp;&nbsp;
+Records per page: | 
+{% for p in item_per_page_choice %}
+{%ifequal p item_per_page %}
+<b>{{p}}</b> | 
+{%endifequal%}
+{%ifnotequal p item_per_page %}
+<a href="javascript: itemperpage({{p}});">{{p}}</a> | 
+{%endifnotequal%}
+{%endfor%}
+</div>

@@ -421,6 +421,8 @@ def trial_search(request):
             if behavior!=None and behavior != "":
                 query = query & Q(behavior_primary__id__exact = behavior) 
             food = form.cleaned_data['food_type']
+            item_per_page = int(form.cleaned_data['item_per_page'])
+            page = int(form.cleaned_data['page'])
             if food!=None and food != "":
                 query = query & Q(food_type__icontains = food) 
             if muscle!=None and muscle != "":
@@ -437,8 +439,19 @@ def trial_search(request):
                 #sensor_query = sensor_query | Q(session__channels__setup__technique__id__exact = tq)
                 query = query & Q(session__channels__setup__technique__id__exact = int(sensor))
             
-            results= Trial.objects.filter(query).distinct()
-        c = RequestContext(request, {'title': 'FeedDB Explorer', 'form': form, 'trials': results})
+            start = (page-1)*item_per_page
+            end = start + item_per_page
+            results= Trial.objects.filter(query).distinct().order_by('session__experiment__subject__taxon')
+            total = results.count()
+            total_page=total/item_per_page
+            if (total - total_page*item_per_page >0):
+                total_page=total_page+1
+            pages=[]
+            for i in range(1,total_page+1):
+                pages.append(i)
+            results= Trial.objects.filter(query).distinct().order_by('session__experiment__subject__taxon')[start:end]    
+            item_per_page_choice = [10,30,50,100,200]        
+        c = RequestContext(request, {'title': 'FeedDB Explorer', 'form': form, 'total': total, 'item_per_page':item_per_page, 'item_per_page_choice':item_per_page_choice, 'page': page, 'pages': pages, 'trials': results})
         return render_to_response('explorer/trial_list.html', c)
     else:
         form= SearchTrialForm()
