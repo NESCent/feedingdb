@@ -211,7 +211,7 @@ class FeedModelAdmin(admin.ModelAdmin):
                 # escape() calls force_unicode.
                 (escape(pk_value), escape(obj)))
         
-        post_url = "../%d/" % pk_value
+        post_url = "../%d/edit" % pk_value
         return HttpResponseRedirect(post_url)
 
     def delete_view(self, request, object_id, extra_context=None):
@@ -285,7 +285,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         if pos != -1:
             return "%s?%s" % (post_url, q_str)
         q_str= q_str.replace("=","/")    
-        return "../../../%s" % q_str        
+        return "../../../%s/edit" % q_str        
 
     """
     overwrite the function to set the created_by for any associated records before saving
@@ -317,7 +317,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         msg = _('The %(name)s "%(obj)s" was changed successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj)}
         self.message_user(request, msg)
         
-        return HttpResponseRedirect("../")
+        return HttpResponseRedirect("../edit")
 
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         adminForm = context['adminform']
@@ -518,10 +518,16 @@ class FeedModelAdmin(admin.ModelAdmin):
     
     def change_view(self,request,object_id,extra_context=None):
         #add extra context for tabs
-        extra_context = {
-            'tabbed': self.tabbed,
-            'tab_name': self.tab_name,
-        }
+        if(extra_context!=None):
+            extra_context.update({
+                'tabbed': self.tabbed,
+                'tab_name': self.tab_name,
+            })
+        else:
+            extra_context= {
+                'tabbed': self.tabbed,
+                'tab_name': self.tab_name,
+            }
         return super(FeedModelAdmin,self).change_view(request,object_id,extra_context)
     
     #get context from the url if adding data
@@ -858,48 +864,48 @@ class ExperimentModelAdmin(DefaultModelAdmin):
             if hasattr(s, "kinematicssetup"):
                 has_kinematics = True
                 kinematicssetup = s               
-        emg  = request.POST.get('technique_emg')
         
+        emg  = request.POST.get('technique_emg')
         if emg != None and emg == "on":
             if not has_emg:
                 self.add_technique(request,new_experiment,'EMG');
-        if emg == None and has_emg:
-            self.delete_setup(emgsetup)
+        #if emg == None and has_emg:
+        #    self.delete_setup(emgsetup)
             
         sono  = request.POST.get('technique_sono')
         if sono != None and sono == "on":
             if not has_sono:
                 self.add_technique(request,new_experiment,'Sono');
-        if sono == None and has_sono: 
-            self.delete_setup(sonosetup)
+        #if sono == None and has_sono: 
+        #    self.delete_setup(sonosetup)
             
         strain  = request.POST.get('technique_strain')
         if strain != None and strain == "on":
             if not has_strain:
                 self.add_technique(request,new_experiment,'Bone strain');
-        if strain == None and has_strain: 
-            self.delete_setup(strainsetup)
+        #if strain == None and has_strain: 
+        #    self.delete_setup(strainsetup)
         
         force  = request.POST.get('technique_force')
         if force != None and force == "on":
             if not has_force:
                 self.add_technique(request,new_experiment,'Bite force');
-        if force == None and has_force: 
-            self.delete_setup(forcesetup)
+        #if force == None and has_force: 
+        #    self.delete_setup(forcesetup)
         
         pressure  = request.POST.get('technique_pressure')
         if pressure != None and pressure == "on":
             if not has_pressure:
                 self.add_technique(request,new_experiment,'Pressure');
-        if pressure == None and has_pressure: 
-            self.delete_setup(pressuresetup)        
+        #if pressure == None and has_pressure: 
+        #    self.delete_setup(pressuresetup)        
         
         kinematics  = request.POST.get('technique_kinematics')
         if kinematics != None and kinematics == "on":
             if not has_kinematics:
                 self.add_technique(request,new_experiment,'Kinematics');
-        if kinematics == None and has_kinematics: 
-            self.delete_setup(kinematicssetup)                  
+        #if kinematics == None and has_kinematics: 
+        #    self.delete_setup(kinematicssetup)                  
 
     def add_technique(self,request,experiment, technique):
         tech = Technique.objects.get(label = technique)
@@ -956,6 +962,61 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         }
         return super(ExperimentModelAdmin, self). changelist_view( request, context)
 
+    def change_view(self,request,object_id,extra_context=None):
+        #add extra context for techniques
+        experiment = Experiment.objects.get(pk=object_id)
+        techniques =[]
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_emg'/>EMG"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_sono'/>Sono"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_strain'/>Bone Strain"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_force'/>Force"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_pressure'/>Pressure"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_kinematics'/>Kinematics"))
+        for s in experiment.setup_set.all():
+            if hasattr(s,"emgsetup"):
+                techniques[0] = mark_safe("<a href='/admin/feed/emgsetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>EMG" % (s.id, experiment.id))
+            if hasattr(s, "sonosetup"):
+                techniques[1] = mark_safe("<a href='/admin/feed/sonosetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Sono" % (s.id, experiment.id))
+            if hasattr(s, "strainsetup"):
+                techniques[2] = mark_safe("<a href='/admin/feed/strainsetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Bone Strain" % (s.id, experiment.id))
+            if hasattr(s, "forcesetup"):
+                techniques[3] = mark_safe("<a href='/admin/feed/forcesetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Force" % (s.id, experiment.id))
+            if hasattr(s, "pressuresetup"):
+                techniques[4] = mark_safe("<a href='/admin/feed/pressuresetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Pressure" % (s.id, experiment.id))
+            if hasattr(s, "kinematicssetup"):
+                techniques[5] = mark_safe("<a href='/admin/feed/kinematicssetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Kinematics" % (s.id, experiment.id))
+        
+        if(extra_context!=None):
+            extra_context.update({
+                'techniques': techniques,
+            })
+        else:
+            extra_context= {
+                'techniques': techniques,
+            }
+        return super(ExperimentModelAdmin,self).change_view(request,object_id,extra_context)
+    
+    #get context from the url if adding data
+    def add_view(self, request, form_url='', extra_context=None):
+        techniques =[]
+
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_emg'/>EMG"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_sono'/>Sono"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_strain'/>Bone Strain"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_force'/>Force"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_pressure'/>Pressure"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_kinematics'/>Kinematics"))
+
+        if(extra_context!=None):
+            extra_context.update({
+                'techniques': techniques,
+            })
+        else:
+            extra_context= {
+                'techniques': techniques,
+            }
+        return super(ExperimentModelAdmin,self).add_view(request, form_url, extra_context)  
+        
 class SessionModelAdmin(FeedModelAdmin):
     def __init__(self, model, admin_site):
         super(SessionModelAdmin, self).__init__(model,admin_site)
