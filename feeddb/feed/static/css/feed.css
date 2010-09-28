@@ -124,3 +124,34 @@ clear: both;
 .required input,.required select, .required textarea {
  background-color: #ffa;
 }
+
+/* breadcrumbs style */
+#crumbs ul, #crumbs li {
+	list-style-type:none;
+	padding:0;
+	margin:0;
+	}		
+#crumbs {
+	height:2.3em;
+	border:1px solid #dedede;
+	}
+#crumbs li {
+	float:left;
+	line-height:2.3em;
+	color:#777;
+	padding-left:.75em;
+	}		
+#crumbs li a {
+	background:url(/static/images/crumbs.gif) no-repeat right center;
+	display:block;
+	padding:0 15px 0 0;
+	}							
+#crumbs li a:link,
+#crumbs li a:visited {
+	text-decoration:none;
+	}	
+
+#crumbs li a:hover,
+#crumbs li a:focus{
+	color:#dd2c0d;
+	}		
