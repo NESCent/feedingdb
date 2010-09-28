@@ -17,8 +17,12 @@
 
      {% for r in registry %}
         {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
-     <th class="action_header">{% trans "Action" %}</th>
-        {% endifequal %}
+		{% if has_change_permission %}
+		{% if tabbed and inline_admin_formset.opts.tabbed %}
+     		<th class="action_header">{% trans "Action" %}</th>
+	 	{% endif %}
+	 	{% endif %}
+	    {% endifequal %}
 {% endfor %}
      </tr></thead>
 
@@ -55,21 +59,25 @@
         {% endfor %}
 
 
-	  <td class="action">
-         <!-- ul class="object-tools" -->
-
+	  
 {% for r in registry %}
-        {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
+{% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
+{% if has_change_permission %}
+{% if tabbed and inline_admin_formset.opts.tabbed %}
 
-     	 <a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><img src="{% app_static_prefix %}img/admin/icon_calendar.gif" alt="view" title="view"/></a>
+     <td class="action">
+	 	 <a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><img src="{% app_static_prefix %}img/admin/icon_calendar.gif" alt="view" title="view"/></a>
       	 {% if has_change_permission %}
 	    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" ><img src="{% app_static_prefix %}img/admin/icon_changelink.gif" alt="edit" title="edit" /></a>
  	    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><img src="{% app_static_prefix %}img/admin/icon_deletelink.gif" alt="delete" title="delete" /></a>
        	{% endif %}
-        {% endifequal %}
+     </td>	
+       	{% endif %}
+       	{% endif %}
+{% endifequal %}
 {% endfor %}
 	
-        </td >
+       
 
         </tr>
 
@@ -78,9 +86,9 @@
    </table>
 
 {% for r in registry %}
-        {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
+{% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
 
- {% if has_change_permission %}
+{% if has_change_permission %}
 {% if tabbed and inline_admin_formset.opts.tabbed %}
 <p>
 <table width="50"><tr>
