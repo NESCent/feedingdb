@@ -55,10 +55,7 @@ class EmgSensorChannelForm(forms.ModelForm):
     emg_filtering = forms.ModelChoiceField(label="EMG filtering", queryset=Emgfiltering.objects.all())
     emg_amplification = IntegerField(label = "Amplification",required=False, initial='', widget=forms.TextInput(attrs={'size': 5}))
     name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}))
-
-    class Meta:
-        model = EmgSensor
-        fields = ['setup','name', 'location_controlled', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
 
     def __init__(self, *args, **kwargs):
         channel=None
@@ -80,9 +77,6 @@ class EmgSensorChannelForm(forms.ModelForm):
             self.base_fields["rate"].initial = None
         super(EmgSensorChannelForm, self).__init__(*args, **kwargs)
 
-class EmgSensorForm(EmgSensorChannelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-         
 class SessionForm(forms.ModelForm):
     subj_notes = CharField(label = "Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
