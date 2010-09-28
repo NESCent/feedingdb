@@ -12,4 +12,10 @@
 <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/tabview.css" />
 {% endblock %}
 
-{% block tabs %}{% include "admin/feed/experiment/experiment_tab.html" %}{% endblock %}
+{% block tabs %}{% include "admin/feed/experiment/experiment_tab.html" %}
+{% endblock %}
+{% block technique %}
+{% include "admin/feed/experiment/techniques_view.html" %}
+{% endblock %}
+
+  
