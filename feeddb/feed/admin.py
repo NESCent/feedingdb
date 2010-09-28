@@ -384,7 +384,8 @@ class UnitAdmin(DefaultModelAdmin):
 class TaxonAdmin(TermModelAdmin):
     list_display = ('genus','species','common_name')  
     ordering = ('genus','species')
-    
+    exclude = ['label']
+
 class AnatomicalLocationAdmin(DefaultModelAdmin):
     list_display = ('category', 'label')
     list_filter = ('category',)    
