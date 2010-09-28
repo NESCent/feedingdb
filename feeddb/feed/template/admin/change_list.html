@@ -22,15 +22,14 @@
 {% if not is_popup %}
   {% block breadcrumbs %}
     <div class="breadcrumbs">
-      <a href="../../">
+    	<ul id="crumbs">
+      <li><a href="../../">
         {% trans "Home" %}
-      </a>
-       &rsaquo; 
-       <a href="../">
+      </a></li>
+       <li><a href="../">
          {{ app_label|capfirst }}
-      </a>
-      &rsaquo; 
-      {{ cl.opts.verbose_name_plural|capfirst }}
+      </a></li>
+      <li>{{ cl.opts.verbose_name_plural|capfirst }}</li>
     </div>
   {% endblock %}
 {% endif %}
