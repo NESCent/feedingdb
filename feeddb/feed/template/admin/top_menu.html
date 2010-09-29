@@ -28,7 +28,6 @@
 <ul>
 	<li><a href="{%url admin:feed_trial_changelist %}">All</a>
 <li><a href="{%url admin:feed_trial_changelist %}?created_by={{user.pk}}">Mine</a></li>
-<li><a href="/explorer/trial/search/">Search Trials</a></li>
 </ul> 
 </li>
 <li><a href="{%url admin:feed_subject_changelist %}">Subjects</a>
@@ -57,7 +56,12 @@
 <li><a href="{%url admin:feed_unit_changelist %}">Units</a></li>
 </ul> 
 </li>
+<li><a href="/explorer/trial/search/">Search & Download</a>
+<ul> 
+<li><a href="/explorer/trial/search/">Search Trials</a></li>
 <li><a href="/explorer/bucket/">My Buckets</a></li>
+</ul>
+</li>
 {% if user.is_superuser %}
 
 <li><a href="{%url admin:auth_group_changelist %}">Groups</a>
