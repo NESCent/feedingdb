@@ -242,6 +242,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         if len(associated_critical_objects)==0:
             get_deleted_objects(deleted_objects, perms_needed, request.user, obj, opts, 1, self.admin_site)
         
+        perms_needed=None
         if request.POST: # The user has already confirmed the deletion.
             if perms_needed:
                 raise PermissionDenied
