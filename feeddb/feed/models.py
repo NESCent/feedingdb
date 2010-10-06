@@ -187,7 +187,7 @@ class Experiment(FeedBaseModel):
     subject = models.ForeignKey(Subject)   
     start = models.DateTimeField( blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
-    description = models.TextField()
+    description = models.TextField(blank = True, null=True)
     subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="subject development stage")
     subj_age = models.DecimalField("subject age (yr)",max_digits=19, decimal_places=5, blank = True, null=True)
     subj_weight = models.DecimalField("subject weight (kg)",max_digits=19, decimal_places=5, blank = True, null=True)
