@@ -60,14 +60,17 @@ def bucket_add(request):
 def bucket_delete(request, id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
-    
     try:
         bucket = Bucket.objects.get(pk=id)
     except Bucket.DoesNotExist:
         request.user.message_set.create(message='Bucket with primary key %s does not exist.' % id)
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
-    
+    #check if the user is the owner of the bucket. If not return error page 
+    if bucket.created_by.pk != request.user.pk:
+        request.user.message_set.create(message='Sorry, you are not allowed to delete a bucket owned by another user.')
+        c = RequestContext(request, {'title': 'FeedDB Explorer'})
+        return render_to_response('explorer/base.html', c)
     bucket.delete()
     request.user.message_set.create(message='successfully deleted the bucket:%s' % bucket)
     return HttpResponseRedirect('/explorer/bucket/')
@@ -86,6 +89,12 @@ def bucket_detail(request, id):
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
 
+    #check if the user is the owner of the bucket. If not return error page 
+    if bucket.created_by.pk != request.user.pk:
+        request.user.message_set.create(message='Sorry, you are not allowed to view/edit a bucket owned by another user.')
+        c = RequestContext(request, {'title': 'FeedDB Explorer'})
+        return render_to_response('explorer/base.html', c)
+        
     if request.method=='POST':
         form = BucketModelForm(request.POST, instance=bucket)
         if form.is_valid():
@@ -526,7 +535,11 @@ def bucket_remove_trials(request, id):
     except Trial.DoesNotExist:
         request.user.message_set.create(message='Bucket with primary key %(key)r does not exist.' % {'key': escape(id)})
         return HttpResponseRedirect('/explorer/bucket/%s/' % id)
-
+    #check if the user is the owner of the bucket. If not return error page 
+    if bucket.created_by.pk != request.user.pk:
+        request.user.message_set.create(message='Sorry, you are not allowed to change a bucket owned by another user.')
+        c = RequestContext(request, {'title': 'FeedDB Explorer'})
+        return render_to_response('explorer/base.html', c)
     #remove trials from the bucket
     for trial_id in trial_selected:
         trial = Trial.objects.get(pk=trial_id)
@@ -562,7 +575,13 @@ def trial_remove(request, id, bucket_id):
     except Bucket.DoesNotExist:
         request.user.message_set.create(message='Bucket with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
         return HttpResponseRedirect('/explorer/trial/%s/' % id)
-    
+
+    #check if the user is the owner of the bucket. If not return error page 
+    if bucket.created_by.pk != request.user.pk:
+        request.user.message_set.create(message='Sorry, you are not allowed to change a bucket owned by another user.')
+        c = RequestContext(request, {'title': 'FeedDB Explorer'})
+        return render_to_response('explorer/base.html', c)
+            
     try:
         assoc = TrialInBucket.objects.filter(Q(trial__id__exact=id) & Q(bin__id__exact=bucket_id))
     except TrialInBucket.DoesNotExist:
@@ -582,7 +601,11 @@ def trial_add(request, id):
         except Trial.DoesNotExist:
             c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
             return render_to_response('explorer/error.html', c)
-        
+        #check if the user is the owner of the bucket. If not return error page 
+        if bucket.created_by.pk != request.user.pk:
+            request.user.message_set.create(message='Sorry, you are not allowed to change a bucket owned by another user.')
+            c = RequestContext(request, {'title': 'FeedDB Explorer'})
+            return render_to_response('explorer/base.html', c)
         if request.POST['bucket_id']!='add new bucket':
             bucket_id = request.POST['bucket_id']
             if bucket_id==None or bucket_id =="":
