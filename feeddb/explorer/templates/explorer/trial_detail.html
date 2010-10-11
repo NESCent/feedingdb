@@ -229,6 +229,7 @@
 {% for lineup in trial.session.channellineup_set.all %}
 <tr  class="{% cycle 'row1' 'row2' %}">
       <td>{{lineup.position}}</td>
+	  {%if lineup.channel %}
                  <td>{{lineup.channel.name}}</td>
                  <td>{{lineup.channel.setup.technique}}</td>
 				  <td>{{lineup.channel.rate|default_if_none:""}}</td>
@@ -275,7 +276,17 @@
 					 <td></td>
 					 <td></td> 
 					 <td></td> 
-				  {% endifequal %}					  
+				  {% endifequal %}	
+		  {%else%}
+                     <td>*deadchannel</td>
+                 <td></td>
+				  <td></td>
+					 <td></td>     
+		             <td></td> 
+					 <td></td>
+					 <td></td> 
+					 <td></td> 
+				  {% endif %}		
 </tr>
 {%endfor %}
                 </table>
