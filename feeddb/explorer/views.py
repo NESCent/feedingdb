@@ -246,9 +246,11 @@ def bucket_download(request, id):
                         
             channel_types = ['strainchannel','forcechannel','pressurechannel','kinematicschannel']        
             for trial in bucket.trials.all():
-                trial_name = trial.title.replace('.', '').replace(',', '').replace(' ', '_').strip().lower()
-                filename = "trial_%d_%s_channels.csv" % (trial.id, trial_name)
-                full_filename = "%s/trial_%d_%s_channels.csv" % (tempdir, trial.id,trial_name)
+                #trial_name = trial.title.replace('.', '').replace(',', '').replace(' ', '_').strip().lower()
+                #filename = "trial_%d_%s_channels.csv" % (trial.id, trial_name)
+                #full_filename = "%s/trial_%d_%s_channels.csv" % (tempdir, trial.id,trial_name)
+                filename = "trial_%d_channels.csv" % trial.id
+                full_filename = "%s/trial_%d_channels.csv" % (tempdir, trial.id)
                 filenames[filename]=full_filename
 
                 f = open(full_filename,"w")
@@ -256,29 +258,33 @@ def bucket_download(request, id):
                 metaWriter.writerow(headers)
                 objects={}
                 for lineup in trial.session.channellineup_set.all():
+                    objects={}
                     ch=lineup.channel
-                    objects["Channel"] = lineup.channel
-                    values=[ch.id]
-                    objects["Setup"]= ch.setup
-                    for channel_type in channel_types:
-                        if hasattr(ch,channel_type):
-                            objects["Sensor"] = getattr(ch, channel_type).sensor
-                    if hasattr(ch.setup, 'emgsetup'):
-                        objects["EmgSetup"] = ch.setup.emgsetup
-                    if hasattr(ch.setup, 'sonoetup'):
-                        objects["SonoSetup"] = ch.setup.sonosetup
-                    if hasattr(ch,'emgchannel'):
-                        objects["EmgChannel"] = ch.emgchannel
-                        objects["Sensor"] = ch.emgchannel.sensor
-                        objects["EmgSensor"] = ch.emgchannel.sensor
-                    if hasattr(ch,'sonochannel'):
-                        objects["SonoChannel"] = ch.sonochannel
-                        objects["Sensor"] = ch.sonochannel.crystal1
-                        objects["SonoSensor"] = ch.sonochannel.crystal1
-                                        
                     
-                    if hasattr(ch,'emgchannel'):
-                        objects["Sensor"] = ch.emgchannel.sensor
+                    if ch == None:
+                        values=["deadchannel"]
+                    else:
+                        objects["Channel"] = lineup.channel
+                        values=[ch.id]
+                        objects["Setup"]= ch.setup
+                        for channel_type in channel_types:
+	                        if hasattr(ch,channel_type):
+	                            objects["Sensor"] = getattr(ch, channel_type).sensor
+                        if hasattr(ch.setup, 'emgsetup'):
+                            objects["EmgSetup"] = ch.setup.emgsetup
+                        if hasattr(ch.setup, 'sonoetup'):
+                            objects["SonoSetup"] = ch.setup.sonosetup
+                        if hasattr(ch,'emgchannel'):
+                            objects["EmgChannel"] = ch.emgchannel
+                            objects["Sensor"] = ch.emgchannel.sensor
+                            objects["EmgSensor"] = ch.emgchannel.sensor
+                        if hasattr(ch,'sonochannel'):
+                            objects["SonoChannel"] = ch.sonochannel
+                            objects["Sensor"] = ch.sonochannel.crystal1
+                            objects["SonoSensor"] = ch.sonochannel.crystal1
+                        if hasattr(ch,'emgchannel'):
+                            objects["Sensor"] = ch.emgchannel.sensor
+                    
                     for key, value in meta_selected.items():
                         if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel'):
                             for v in value:
