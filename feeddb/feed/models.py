@@ -136,7 +136,7 @@ class Study(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255)
     bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True)
-    start = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
+    start = models.DateTimeField(blank = False, null=False, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     end = models.DateTimeField( blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     funding_agency = models.CharField(max_length=255, blank = True, null=True)
     approval_secured = models.CharField(max_length=255, blank = True, null=True)
