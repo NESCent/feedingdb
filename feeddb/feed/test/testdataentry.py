@@ -117,7 +117,7 @@ class TestDataentry(BaseTestCase):
         sel.click("link=Trials")
         sel.type("id_trial_set-0-title", "test trial")
         sel.type("id_trial_set-0-position", "1")
-        sel.type("id_trial_set-0-claimed_duration", "12")
+        sel.type("id_trial_set-0-estimated_duration", "12")
         sel.type("id_trial_set-0-food_type", "cookie")
         sel.type("id_trial_set-0-food_size", "12")
         sel.type("id_trial_set-0-food_property", "soft")

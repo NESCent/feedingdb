@@ -404,7 +404,7 @@ class Trial(FeedBaseModel):
     position = models.IntegerField()
     start = models.DateTimeField( blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
-    claimed_duration = models.DecimalField("Estimated duration (seconds)",max_digits=8, decimal_places=4, blank = True, null=True)    
+    estimated_duration = models.PositiveIntegerField("Estimated duration (sec)", blank = True, null=True) 
     subj_treatment = models.TextField("subject treatment",blank = True, null=True)
     subj_notes = models.TextField("subject notes", blank = True, null=True)
 
