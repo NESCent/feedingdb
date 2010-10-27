@@ -14,7 +14,11 @@
 <div class="left">
 <h1>Introduction</h1>
 <br/><br/>
-<img style="float:right;margin-top: 5px; margin-left: 15px; margin-right: 20px;width: 180px;" src="{% app_static_prefix %}images/AyeAye.jpg" />
+<img style="float:right;margin-top: 5px; margin-left: 15px; margin-right: 20px;width: 180px;" src="{% app_static_prefix %}images/Lemur_catta_eating_leaves.jpg" />
+<p>The Feeding 
+ Experiments End-User Database (FEED) was designed and developed by <a href="http://nescent.org/science/awards_summary.php?id=150">the Mammalian Feeding Apparatus Working Group</a> 
+suppoted by the <a href="http://www.nescent.org">National Evolutionary Synthesis Center (NESCent). </a>
+</p>
 <p>Feeding, critical to survival, is an integrated function involving 
 numerous craniofacial structures. 
 Changes in these structures are a significant part of the evolution and 
@@ -29,10 +33,9 @@ Such data address fundamental questions about the evolution, functional
 morphology, and development of the mammalian head. Despite 
 significant datasets and collegiality amongst workers, inter-specific 
 studies of neuromotor evolution are rare because of the lack of a master
- database. 
-The overarching goal of the working group is to develop a database of 
-physiologic data on feeding in mammals through three specific aims:</p>
-<img style="float:left;margin-top: 5px; margin-right: 25px;" src="{% app_static_prefix %}images/Crownedlemur.jpg" " />
+ database. </p>
+ <p>FEED was developed with three specific aims:
+ <img style="float:left;margin-top: 5px; margin-right: 25px;height: 200px;" src="{% app_static_prefix %}images/alpaca_open_mouth.jpg" " />
 <ul>
 <li> combine existing EMG, kinematic, and bone strain data for at least 36 mammalian species in 10 orders into a database; </li>
 <li> generate operational strategies for studying key scientific 
@@ -40,18 +43,40 @@ questions about neuromotor evolution and constraint, craniofacial
 evolution, and feeding behavior with the database; </li>
 <li> test hypotheses about the evolution and conservation of motor pattern in mammals. </li>
 </ul>
-
+</p>
+<p>
 This will be the first major database of neuromuscular data to be 
 constructed. It will be a significant tool for studying the evolution of
  the mammalian feeding apparatus, 
 and will be a model for future study of the evolution of functional 
 systems and neuromotor evolution.
-
+</p>
+<p>
+This site is currently only accessible for the working group members. If you want to see how the system work, please visit our demo site, 
+which includes an example dataset, representing a subset of the actual database, as well as a live version of the graphical user interface.
+</p>
 </div>
 <div class="right">
 {% if user.is_authenticated %}
 {% else %}
+<!-- h2>Login</h2>
 
+<form action="/admin/" method="post" id="login-form">
+  <div class="form-row">
+    <label for="id_username">{% trans 'Username:' %}</label> <input type="text" name="username" id="id_username" />
+  </div>
+  <div class="form-row">
+    <label for="id_password">{% trans 'Password:' %}</label> <input type="password" name="password" id="id_password" />
+    <input type="hidden" name="this_is_the_login_form" value="1" />
+  </div>
+  <div class="submit-row">
+    <label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}" />
+  </div>
+</form>
+
+<script type="text/javascript">
+document.getElementById('id_username').focus()
+</script -->
 {%endif%}
 <h2>Data Model</h2>
 <a href="{% app_static_prefix %}images/feeding-model.png"><img style="width: 250px;border: 1px solid #ccc;" src="{% app_static_prefix %}images/feeding-model.png" /></a>
