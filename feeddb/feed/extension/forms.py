@@ -93,7 +93,9 @@ class ExperimentForm(forms.ModelForm):
     impl_notes = CharField(label ="Implantation Notes",widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
     subj_tooth = CharField(label = "Subject Tooth", widget=forms.TextInput(attrs={'size': 10}), required=False)
-    subj_age = DecimalField(label = "Subject Age (Year)", widget=forms.TextInput(attrs={'size': 5}), required=False)
+    subj_age = DecimalField(label = "Subject Age", widget=forms.TextInput(attrs={'size': 5}), required=False)
+    #VG 2010-10-29 not sure correct field type for ageunit, but it appears dead code, anyway
+    subj_ageunit = CharField(label = "Age Units", widget=forms.TextInput(attrs={'size': 10}), required=False)
     subj_weight = DecimalField(label = "Subject Weight (Kg)", widget=forms.TextInput(attrs={'size': 5}), required=False)
     title = CharField(label = "Title", widget=forms.TextInput(attrs={'size': 10}))
     class Meta:

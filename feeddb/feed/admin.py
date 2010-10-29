@@ -16,6 +16,7 @@ class StudyPrivateViewInline(admin.StackedInline):
     extra = 0
     max_num = 1
 
+#FIXME: dead code? - ExperimentInline and ExperimentForm
 class ExperimentInline(FeedTabularInline):
     model = Experiment
     extra = 1
@@ -403,6 +404,7 @@ admin.site.register(ProximalDistalAxis,TermAdmin)
 admin.site.register(MedialLateralAxis,TermAdmin)
 admin.site.register(ElectrodeType,TermAdmin)
 admin.site.register(DevelopmentStage,TermAdmin)
+admin.site.register(AgeUnit,TermAdmin)
 admin.site.register(Behavior,TermAdmin)
 admin.site.register(Restraint,TermAdmin)
 admin.site.register(Unit,UnitAdmin)

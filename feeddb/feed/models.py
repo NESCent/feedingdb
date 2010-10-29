@@ -40,6 +40,9 @@ class CvTerm(FeedBaseModel):
 class DevelopmentStage(CvTerm):
     pass
 
+class AgeUnit(CvTerm):
+    pass
+
 class Technique(CvTerm):
     "Presence of specific entries (see KnownTechniques) in this table is required for proper functioning of the application, so it is not really a controlled term."
     #TODO: change the implementation (or just UI?) to avoid the impression that Technique entries can be edited.   
@@ -189,7 +192,8 @@ class Experiment(FeedBaseModel):
     end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
     description = models.TextField(blank = True, null=True)
     subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="subject development stage")
-    subj_age = models.DecimalField("subject age (yr)",max_digits=19, decimal_places=5, blank = True, null=True)
+    subj_age = models.DecimalField("subject age",max_digits=19, decimal_places=5, blank = True, null=True)
+    subj_ageunit = models.ForeignKey(AgeUnit, verbose_name='age units', blank = True, null = True)
     subj_weight = models.DecimalField("subject weight (kg)",max_digits=19, decimal_places=5, blank = True, null=True)
     subj_tooth = models.CharField("subject teeth",max_length=255, blank = True, null=True)
     subject_notes = models.TextField("subject notes", blank = True, null=True)
@@ -455,6 +459,7 @@ CRITICAL_ASSOCIATED_OBJECTS[Session]=['channellineup_set']
 CRITICAL_ASSOCIATED_OBJECTS[Unit]=['emgchannel_set','sonochannel_set','strainchannel_set','forcechannel_set','pressurechannel_set','kinematicschannel_set']
 CRITICAL_ASSOCIATED_OBJECTS[Taxon]=['subject_set']
 CRITICAL_ASSOCIATED_OBJECTS[DevelopmentStage]=['experiment_set']
+CRITICAL_ASSOCIATED_OBJECTS[AgeUnit]=['experiment_set']
 CRITICAL_ASSOCIATED_OBJECTS[Technique]=['setup_set']
 CRITICAL_ASSOCIATED_OBJECTS[AnatomicalLocation]=['emgsensor_set','sonosensor_set']
 CRITICAL_ASSOCIATED_OBJECTS[DepthAxis]=['emgsensor_set','sonosensor_set']

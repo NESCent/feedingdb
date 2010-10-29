@@ -1,0 +1,17 @@
+Various "architectural" implementation notes that are worth knowing upfront, 
+rather than finding in code comments. 
+
+=== Special SYSTEM user ===
+
+SYSTEM was created by feed data migration 0043, in or after SVN 3649. 
+It is intended to be used in data migrations that create new records, 
+to fill the "created_by" fields. 
+
+=== Restrictions on Admin's cascaded delete ===
+
+Purpose: Deletion of a term from a CV should not (even with a user confirmation!) lead to deletion 
+of associated data objects that have this term in a non-null field.  In other words, a term deletion 
+should be permitted only when the term has been replaced by an alternative in all data objects. 
+
+See feed/models.py, the CRITICAL_ASSOCIATED_OBJECTS array. 
+TODO: Xianhua, could you explain more how to use this mechanism? 
