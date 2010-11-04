@@ -5,3 +5,6 @@ import models
 
 def index(request):
     return render_to_response("admin/home.html",{'user':request.user})
+
+def about(request):
+    return render_to_response("about.html",{'user':request.user})
