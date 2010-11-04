@@ -21,5 +21,6 @@ urlpatterns = patterns('',
     (r'^$', 'feeddb.feed.views.index'),
     #(r'^$', include('feeddb.feed.urls')),
     (r'^explorer/', include('feeddb.explorer.urls')),
+    (r'^about', 'feeddb.feed.views.about'),
 )
 
