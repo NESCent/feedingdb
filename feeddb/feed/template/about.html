@@ -1,0 +1,120 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load feedmedia %}{% app_static_prefix %}css/dashboard.css" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+<div class="left">
+<h1>About</h1>
+
+<h2>Data</h2>
+<img src="/images/photos/bogart_copyright.jpg" style="float:right;margin-left: 15px; margin-bottom:15px;" />
+<p>
+This database contains data and meta data of EMG, kinematic, and bone strain for mammalian species that have been collected 
+by the working group participants over many years. The purpose of collecting 
+data of this type is to address fundamental questions about the evolution, functional morphology, 
+and development of the mammalian head. The data are searchable and can be downloaded
+into csv format.</p>
+
+<h2>About the demo site and example database</h2>
+<p>To illustrate how the system work, we created a demo site with an example dataset, representing a subset of the actual database. 
+Please visit our <a href="http://demo.feed.org">demo site</a> 
+for details</p> 
+<h2>Technology</h2>
+<ul>
+<li>Database: <a href="http://www.postgresql.org/">PostgreSQL 8.3</a></li>
+<li>Programming Language: <a href="http://python.org/">python</a></li>
+<li>Web Framework: <a href="http://www.djangoproject.com/">Django (1.1.1)</a></li>
+<li>Other Libraries 
+  <ul>
+    <li><a href="http://south.aeracode.org/">South for schema and data migration</a></li>
+	<li><a href="http://code.google.com/p/django-pagination/">django-pagination (1.0.5)</a></li>
+    <li><a href="http://www.jquery.com/">jquery</a></li>
+	<li><a href="http://initd.org/psycopg/">psycopg2 (2.0.13): PostgreSQL adapter for the Python programming language</a></li>
+	<li><a href="http://pypi.python.org/pypi/wsgiref">wsgiref</a></li>
+   </ul>
+</li>
+</ul>
+<h2>Source Code</h2>
+<p>
+Source code is available on <a href="http://github.com/feeding/feeding">GitHub</a> under a <a href="http://www.gnu.org/copyleft/gpl.html">GPL v3 license</a>. 
+</p> 
+<div style="clear:both;"></div>
+<h2>Credits</h2>
+<ul>
+<li>Concept, content, and scientific requirements: <a href="http://www.nescent.org/science/awards_summary.php?id=150">the Evolutionary Ecology of Primate Life Histories Working Group</a>, with following PIs:
+<ul><li><a href="http://evolutionaryanthropology.duke.edu/people?subpage=profile&Gurl=%2Faas%2FBAA&Uil=christine_wall">Christine Wall</a> (Duke University)</li>
+<li><a href="http://www.oucom.ohiou.edu/dbms-williams/">Susan Williams</a> (Ohio State University)</li>
+<li><a href="http://www.neoucom.edu/audience/about/departments/anatneuro/faculty/ChrisVinyard/">Chris Vinyard</a> (Northeastern Ohio Universities Colleges of Medicine and Pharmacy)</li>
+<li><a href="http://www.hopkinsmedicine.org/Rehab/Faculty/german.html">Rebecca Z German</a> (Johns Hopkins University)</li>
+</ul>
+</li>
+<li>Database and application programming: Vladimir Gapyev (NESCent), Xianhua Liu (NESCent)</li>
+</ul>
+
+<h2>Publications</h2>
+<p>
+[TBD]
+</p>
+ <h2>Contact</h2>
+ <ul>
+ <li>
+ The website is maintained by <a href="http://www.nescent.org">the National Evolutionary Synthesis Center (NESCent)</a>. 
+<div style="left-padding: 30px;">
+2024 W. Main Street, Suite A200<br/>
+Durham, NC 27705-4667<br/>
+Tel: (919) 668-4551<br/>
+Fax: (919) 668-9198<br/>
+</div>
+</li>
+
+<li>Send email to  
+<div style="left-padding: 30px;">
+leading scientists of the working group (<a href="#">[TBD]</a>)<br/>
+report bugs or request technical help (<a href="mailto: feeding-bugs@nescent.org;">feeding-bugs@nescent.org</a>)<br/>
+</div>
+</li>
+</ul>
+
+</div>
+<div class="right">
+{% if user.is_authenticated %}
+{% else %}
+<!-- h2>Login</h2>
+
+<form action="/admin/" method="post" id="login-form">
+  <div class="form-row">
+    <label for="id_username">{% trans 'Username:' %}</label> <input type="text" name="username" id="id_username" />
+  </div>
+  <div class="form-row">
+    <label for="id_password">{% trans 'Password:' %}</label> <input type="password" name="password" id="id_password" />
+    <input type="hidden" name="this_is_the_login_form" value="1" />
+  </div>
+  <div class="submit-row">
+    <label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}" />
+  </div>
+</form>
+
+<script type="text/javascript">
+document.getElementById('id_username').focus()
+</script -->
+{%endif%}
+<h2>Data Model</h2>
+<a href="{% app_static_prefix %}images/feeding-model.png"><img style="width: 250px;border: 1px solid #ccc;" src="{% app_static_prefix %}images/feeding-model.png" /></a>
+<h2>People</h2>
+<a href="{% app_static_prefix %}images/feeding_group.jpg"><img style="width: 250px;border: 1px solid #ccc;" src="{% app_static_prefix %}images/feeding_group.jpg" /></a>
+
+</div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
