@@ -675,7 +675,8 @@ table#change-history tbody th {
 /* HEADER */
 
 #header {
-    background: #417690;
+    /*background: #417690;*/
+     background: url('http://localhost:8001/static/images/header_background_1.jpg');
     color: #ffc;
     overflow: hidden;
 }

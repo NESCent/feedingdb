@@ -1,7 +1,7 @@
 .jqueryslidemenu{
 font-size: 12px;
 font-weight: bold !important;
-background: #414141;
+background: #417690;
 width: 100%;
 position:relative; 
 z-index:1;
@@ -25,7 +25,7 @@ list-style-type: none;
 /*Top level menu link items style*/
 .jqueryslidemenu ul li a{
 display: block;
-background: #414141; /*background of tabs (default state)*/
+background: #417690; /*background of tabs (default state)*/
 color: white;
 padding: 8px 10px;
 border-right: 1px solid #778;
