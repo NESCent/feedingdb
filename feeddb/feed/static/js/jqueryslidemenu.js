@@ -8,7 +8,7 @@
 
 //Specify full URL to down and right arrow images (23 is padding-right to add to top level LIs with drop downs):
 var arrowimages={down:['downarrowclass', '/static/images/down.gif', 23], right:['rightarrowclass', '/static/images/right.gif']}
-
+var draw_image = false;
 var jqueryslidemenu={
 
 animateduration: {over: 200, out: 100}, //duration of slide in/ out animation, in milliseconds
@@ -23,11 +23,16 @@ buildmenu:function(menuid, arrowsvar){
 			this._dimensions={w:this.offsetWidth, h:this.offsetHeight, subulw:$subul.outerWidth(), subulh:$subul.outerHeight()}
 			this.istopheader=$curobj.parents("ul").length==1? true : false
 			$subul.css({top:this.istopheader? this._dimensions.h+"px" : 0})
-			$curobj.children("a:eq(0)").css(this.istopheader? {paddingRight: arrowsvar.down[2]} : {}).append(
+			if(draw_image){
+			   $curobj.children("a:eq(0)").css(this.istopheader? {paddingRight: arrowsvar.down[2]} : {}).append(
 				'<img src="'+ (this.istopheader? arrowsvar.down[1] : arrowsvar.right[1])
 				+'" class="' + (this.istopheader? arrowsvar.down[0] : arrowsvar.right[0])
 				+ '" style="border:0;" />'
 			)
+			}else{
+			    //$curobj.children("a:eq(0)").css(this.istopheader? {paddingRight: arrowsvar.down[2]} : {})
+			
+			}
 			$curobj.hover(
 				function(e){
 					var $targetul=$(this).children("ul:eq(0)")
