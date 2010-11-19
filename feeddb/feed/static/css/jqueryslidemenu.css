@@ -42,7 +42,7 @@ color: white;
 }
 
 .jqueryslidemenu ul li a:hover{
-background: black; /*tab link background during hover state*/
+background: #5287a1; /*tab link background during hover state*/
 color: white;
 }
 	
