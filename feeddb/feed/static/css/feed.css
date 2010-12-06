@@ -75,7 +75,7 @@ td {
 .right {
  width: 250px;
  float: right;
- background-color:#EDF3FE; 
+ /*background-color:#EDF3FE; */
  padding: 5px;
  
 }
@@ -155,3 +155,35 @@ clear: both;
 #crumbs li a:focus{
 	color:#dd2c0d;
 	}		
+
+.block {
+  margin-bottom: 5px;
+}
+.block h2{
+  background-color: #417690;
+  color: white;
+  padding: 5px;
+margin:0;
+  font-size: 12px;
+}
+
+
+.block_content {
+ padding: 5px;
+
+background-color: #cccccc;
+}
+
+.block_content {
+}
+
+.block_content table{
+  border:none;
+  width: auto;
+}
+.block_content table td{
+  border:none;
+  padding: 2px;
+ 
+
+}
