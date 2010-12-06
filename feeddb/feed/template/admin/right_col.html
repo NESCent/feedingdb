@@ -1,20 +1,10 @@
-{% extends "admin/base_site.html" %}
-{% load i18n %}
-{% block bodyclass %}login{% endblock %}
-
-{% block content_title %}{% endblock %}
-
-{% block breadcrumbs %}{% endblock %}
-
-{% block content %}
-{% if error_message %}
-<p class="errornote">{{ error_message }}</p>
-{% endif %}
-<div id="content-main">
+{% load i18n %}{% load feedmedia %}
+{% if user.is_authenticated %}
+{% else %}
 <div class="block">
 <h2>Login</h2>
 <div class="block_content">
-<form action="{{ app_path }}" method="post" id="login-form">
+<form action="/admin/" method="post" id="login-form">
   <table>
   	<tr><td>
     <label for="id_username">{% trans 'Username:' %}</label></td><td> <input type="text" name="username" id="id_username" />
@@ -31,9 +21,19 @@
 </form>
 </div>
 </div>
-
 <script type="text/javascript">
 document.getElementById('id_username').focus()
 </script>
+{%endif%}
+<div class="block">
+<h2>Data Model</h2>
+<div class="block_content">
+<a href="{% app_static_prefix %}images/feeding-model.png"><img style="width: 230px;border: 1px solid #ccc;" src="{% app_static_prefix %}images/feeding-model.png" /></a>
 </div>
-{% endblock %}
+</div>
+<div class="block">
+<h2>People</h2>
+<div class="block_content">
+<a href="{% app_static_prefix %}images/feeding_group.jpg"><img style="width: 230px;border: 1px solid #ccc;" src="{% app_static_prefix %}images/feeding_group.jpg" /></a>
+</div>
+</div>
