@@ -48,7 +48,7 @@ TEMPLATE_DIRS = (
    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
    # Always use forward slashes, even on Windows.
    #"/Users/vgapeyev/Work/MammFeeding/Django/feeding/feeddb/feed/template"
-   relpath2abspath('feed/template'),
+   relpath2abspath('feed/templates'),
    relpath2abspath('explorer/templates')
 )
 
