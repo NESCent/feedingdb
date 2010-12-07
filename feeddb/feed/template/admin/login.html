@@ -15,6 +15,7 @@
 <h2>Login</h2>
 <div class="block_content">
 <form action="{{ app_path }}" method="post" id="login-form">
+	<input type="hidden" name="next" value = "{{next}}" />
   <table>
   	<tr><td>
     <label for="id_username">{% trans 'Username:' %}</label></td><td> <input type="text" name="username" id="id_username" />
