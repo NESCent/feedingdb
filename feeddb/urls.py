@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
-
+from views import * 
 
 
 # Uncomment the next two lines to enable the admin:
@@ -22,5 +22,7 @@ urlpatterns = patterns('',
     #(r'^$', include('feeddb.feed.urls')),
     (r'^explorer/', include('feeddb.explorer.urls')),
     (r'^about', 'feeddb.feed.views.about'),
+    (r'^login$', login_view),
+    (r'^logout$', logout_view),
 )
 
