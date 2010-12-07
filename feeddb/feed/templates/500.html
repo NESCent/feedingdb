@@ -1,0 +1,13 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="/">{% trans "Home" %}</a> &rsaquo; {% trans "Server error" %}</div>{% endblock %}
+
+{% block title %}{% trans 'Server error (500)' %}{% endblock %}
+
+{% block content %}
+<h1>Server Error</h1>
+<p>Sorry! There's been an error. If you are trying to delete a record, mostly the reason could be the deleted record is still referenced from other existing records. For exmaple,
+you are trying to delete a sensor or a crystal but it still referenced in one or more channel records. If this is the case please remove the referencing records first. Otherwise, please 
+<a href="mailto: feeding-bugs@nescent.org">send us a bug report</a> with detailed information about the problem. We will try to fix it shortly. <br/><br/>Thanks for your patience.</p>
+{% endblock %}

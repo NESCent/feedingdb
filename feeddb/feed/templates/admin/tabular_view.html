@@ -1,0 +1,117 @@
+{% load i18n %}
+{% load display i18n feedmedia %}
+
+<div class="inline-group">
+  <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
+{{ inline_admin_formset.formset.management_form }}
+<fieldset class="module">
+   <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h2>
+   {{ inline_admin_formset.formset.non_form_errors }}
+   <table>
+     <thead><tr>
+     {% for field in inline_admin_formset.fields %}
+       {% if not field.is_hidden  %}
+         <th {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
+        {% endif %}
+     {% endfor %}
+
+     {% for r in registry %}
+        {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
+		{% if has_change_permission %}
+		{% if tabbed and inline_admin_formset.opts.tabbed %}
+     		<th class="action_header">{% trans "Action" %}</th>
+	 	{% endif %}
+	 	{% endif %}
+	    {% endifequal %}
+{% endfor %}
+     </tr></thead>
+
+     {% for inline_admin_form in inline_admin_formset %}
+        {% if inline_admin_form.form.non_field_errors %}
+        <tr><td colspan="{{ inline_admin_form.field_count }}">{{ inline_admin_form.form.non_field_errors }}</td></tr>
+        {% endif %}
+        <tr class="{% cycle row1,row2 %} {% if inline_admin_form.original or inline_admin_form.show_url %}has_original{% endif %}">
+
+        <td class="original" >
+          
+          {% if inline_admin_form.has_auto_field %}{{ inline_admin_form.pk_field.field }}{% endif %}
+          {{ inline_admin_form.fk_field.field }}
+          {% spaceless %}
+          {% for fieldset in inline_admin_form %}
+            {% for line in fieldset %}
+              {% for field in line %}
+               {% if field.is_hidden  %} {{ field.field }} {% endif %}
+              {% endfor %}
+            {% endfor %}
+          {% endfor %}
+          {% endspaceless %}
+        </td>
+
+        {% for fieldset in inline_admin_form %}
+          {% for line in fieldset %}
+            {% for field in line %}
+               <td class="{{ field.field.name }}">
+              {{ field.field.errors.as_ul }}
+              {% display_readonly field inline_admin_form %}
+              </td>
+            {% endfor %}
+          {% endfor %}
+        {% endfor %}
+
+
+	  
+{% for r in registry %}
+{% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
+<td class="action">
+	 	 <a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><img src="{% app_static_prefix %}img/admin/icon_calendar.gif" alt="view" title="view"/></a>
+
+{% if has_change_permission %}
+{% if tabbed and inline_admin_formset.opts.tabbed %}
+
+     
+      	 {% if has_change_permission %}
+	    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" ><img src="{% app_static_prefix %}img/admin/icon_changelink.gif" alt="edit" title="edit" /></a>
+ 	    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><img src="{% app_static_prefix %}img/admin/icon_deletelink.gif" alt="delete" title="delete" /></a>
+       	{% endif %}
+     	
+       	{% endif %}
+       	{% endif %}
+		</td>
+{% endifequal %}
+{% endfor %}
+	
+       
+
+        </tr>
+
+     {% endfor %}
+
+   </table>
+
+{% for r in registry %}
+{% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
+
+{% if has_change_permission %}
+{% if tabbed and inline_admin_formset.opts.tabbed %}
+<p>
+<table width="50"><tr>
+<td class="form-row">
+<ul class="object-tools">
+    <li><a class="addlink" href="/admin/{{opts.app_label}}/{% display_classname inline_admin_formset %}/add/?{{ opts.object_name.lower }}={{object_id}}" >{% trans "Add " %}{{inline_admin_formset.opts.verbose_name}}</a></li>
+</ul>
+</td>
+</tr>
+</table>
+</p >     
+{% endif %}
+   {% endif %}
+        {% endifequal %}
+{% endfor %}
+</fieldset>
+  </div>
+
+  {# <ul class="tools"> #}
+  {#   <li><a class="add" href="">Add another {{ inline_admin_formset.opts.verbose_name|title }}</a></li> #}
+  {# </ul> #}
+
+</div>

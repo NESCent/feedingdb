@@ -1,0 +1,84 @@
+<div class="TabView" id="TabView">
+    <div class="Tabs" style="width: 100%;">
+	 
+     {% ifequal opts.object_name|lower "experiment" %}
+	     <a class="Active" href="/admin/feed/experiment/{{object_id}}/{% if change %}edit{%endif %}">Experiment</a>
+		 
+	     {% for setup in original.setup_set.all %}
+	       {% if setup.emgsetup %}
+	         <a class='{% ifequal opts.object_name|lower "emgsetup" %}Active{% endifequal %}' href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/{% if change %}edit{%endif %}">EMG</a>
+	       {% endif %}
+	       {% if setup.sonosetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'sonosetup' %}Active{% endifequal %}" href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/{% if change %}edit{%endif %}">Sono</a>
+	       {% endif %}
+	       {% if setup.strainsetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'strainsetup' %}Active{% endifequal %}" href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/{% if change %}edit{%endif %}">Bone Strain</a>
+	       {% endif %}
+	       {% if setup.forcesetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'forcesetup' %}Active{% endifequal %}" href="/admin/feed/forcesetup/{{setup.forcesetup.pk}}/{% if change %}edit{%endif %}">Bite Force</a>
+	       {% endif %}
+		   {% if setup.pressuresetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'pressuresetup' %}Active{% endifequal %}" href="/admin/feed/pressuresetup/{{setup.pressuresetup.pk}}/{% if change %}edit{%endif %}">Pressure</a>
+	       {% endif %}
+		   {% if setup.kinematicssetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
+	       {% endif %}
+	     {% endfor %}
+	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{object_id}}">Sessions</a>
+     {% endifequal %}
+	 
+	 {% if experiment %}
+	 		<a  href="/admin/feed/experiment/{{experiment.pk}}/{% if change %}edit{%endif %}">Experiment</a>
+     		{% for setup in experiment.setup_set.all %}
+      			{% if setup.emgsetup %}
+		         <a class='{% ifequal opts.object_name|lower "emgsetup" %}Active{% endifequal %}' href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/{% if change %}edit{%endif %}">EMG</a>
+		       {% endif %}
+		       {% if setup.sonosetup %}
+		         <a  class="{% ifequal opts.object_name|lower 'sonosetup' %}Active{% endifequal %}" href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/{% if change %}edit{%endif %}">Sono</a>
+		       {% endif %}
+		       {% if setup.strainsetup %}
+		         <a  class="{% ifequal opts.object_name|lower 'strainsetup' %}Active{% endifequal %}" href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/{% if change %}edit{%endif %}">Bone Strain</a>
+		       {% endif %}
+		       {% if setup.forcesetup %}
+		         <a  class="{% ifequal opts.object_name|lower 'forcesetup' %}Active{% endifequal %}" href="/admin/feed/forcesetup/{{setup.forcesetup.pk}}/{% if change %}edit{%endif %}">Bite Force</a>
+		       {% endif %}
+			   {% if setup.pressuresetup %}
+	             <a  class="{% ifequal opts.object_name|lower 'pressuresetup' %}Active{% endifequal %}" href="/admin/feed/pressuresetup/{{setup.pressuresetup.pk}}/{% if change %}edit{%endif %}">Pressure</a>
+	           {% endif %}
+	    	   {% if setup.kinematicssetup %}
+		         <a  class="{% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
+		       {% endif %}
+	 		{% endfor %}
+	      <a class="Active"  href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{experiment.pk}}">Sessions</a>
+	 {% else %}
+	    {% ifnotequal opts.object_name|lower "experiment" %}
+		{% ifnotequal opts.object_name None %}
+	     <a href="/admin/feed/experiment/{{original.experiment.pk}}/{% if change %}edit{%endif %}">Experiment</a>
+		 
+	     {% for setup in original.experiment.setup_set.all %}
+	       {% if setup.emgsetup %}
+	         <a class='{% ifequal opts.object_name|lower "emgsetup" %}Active{% endifequal %}' href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/{% if change %}edit{%endif %}">EMG</a>
+	       {% endif %}
+	       {% if setup.sonosetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'sonosetup' %}Active{% endifequal %}" href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/{% if change %}edit{%endif %}">Sono</a>
+	       {% endif %}
+	       {% if setup.strainsetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'strainsetup' %}Active{% endifequal %}" href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/{% if change %}edit{%endif %}">Bone Strain</a>
+	       {% endif %}
+	       {% if setup.forcesetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'forcesetup' %}Active{% endifequal %}" href="/admin/feed/forcesetup/{{setup.forcesetup.pk}}/{% if change %}edit{%endif %}">Bite Force</a>
+	       {% endif %}
+		   {% if setup.pressuresetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'pressuresetup' %}Active{% endifequal %}" href="/admin/feed/pressuresetup/{{setup.pressuresetup.pk}}/{% if change %}edit{%endif %}">Pressure</a>
+	       {% endif %}
+		   {% if setup.kinematicssetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
+	       {% endif %}		   
+	     {% endfor %}
+	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{original.experiment.pk}}">Sessions</a>
+       {% endifnotequal %}
+	   {% endifnotequal %}
+     {% endif %}
+   </div>
+</div>
+

@@ -1,0 +1,78 @@
+{% extends "admin/feed/experiment/change_form.html" %}
+
+{% load i18n admin_modify feedmedia %}
+
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" src="/djangoadmin/js/core.js"></script>
+<script type="text/javascript" src="/djangoadmin/js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="/djangoadmin/js/calendar.js"></script>
+<script type="text/javascript" src="/djangoadmin/js/admin/DateTimeShortcuts.js"></script>
+
+{% endblock %}
+
+
+{% block tabs %}{% if change %}{% if experiment %}{% include "admin/feed/experiment/experiment_tab.html" %}{% endif %}{% endif %}
+{% endblock %}
+
+
+{% block content %}<div id="content-main">
+{% block object-tools %}
+<ul class="object-tools object-tools-top">
+	{% if change %}
+                               <li><a href="/admin/feed/session/?experiment={{object_id}}" >{% trans "View" %}</a></li>
+                       {% endif %}
+</ul>
+{% endblock %}
+    {% if errors %}
+        <p class="errornote">
+        {% blocktrans count cl.formset.errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+        </p>
+        <ul class="errorlist">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+  {% endif %}
+<form action="{{ form_url }}" method="post" id="edit_sessions_form">
+<fieldset class="module aligned ">
+<table>
+     <thead><tr>
+     {% for field in sessionformset.forms.0 %}
+          {% if not field.is_hidden %}
+               <th>{{ field.label }}</th>
+          {% endif %}
+     {% endfor %}
+     <th>Clone</th>
+	 </tr></thead>
+     {% for f in sessionformset.management_form %}
+          {{ f }}
+     {% endfor %}
+     {% for f in sessionformset.forms %}
+           <tr class="{% cycle row1,row2 %} {% if f.original or f.show_url %}has_original{% endif %}">
+          {% for field in f %}
+               {% if not field.is_hidden %}
+                    <td>
+                    {{ field.errors }}
+                    {{ field }}
+                    </td>
+               {% else %}
+                    {{ field }}
+               {% endif %}
+          {% endfor %}
+		  <td>
+		  	{% if f.instance.id %}
+			<a href="/admin/{{app_label}}/session/{{f.instance.id}}/clone/?r=/admin/{{app_label}}/session/edit/?experiment={{object_id}}"><img src="{% app_static_prefix %}img/admin/copy-icon.png" alt="clone" title="clone this as a new row" /></a>
+			{% endif %}
+			</td>
+          </tr>
+     {% endfor %}
+</table>
+<p><strong>*If you need to add more records than available empty rows, please click 'save' to save the data and additional space will be added following the existing records.</strong></p>
+ 
+</fieldset>
+
+<div class="submit-row" >
+<input type="submit" value="Save" class="default" name="_save" />
+<!-- % if show_save_and_add_another %}<input type="submit" value="Save and add another" name="_addanother"  />{% endif % -->
+<!-- %if show_save_and_continue %}<input type="submit" value="Save and continue editing" name="_continue" />{% endif % -->
+</div>
+
+</div>
+{% endblock %}
+
