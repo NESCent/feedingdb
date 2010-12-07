@@ -16,39 +16,12 @@ class StudyPrivateViewInline(admin.StackedInline):
     extra = 0
     max_num = 1
 
-#FIXME: dead code? - ExperimentInline and ExperimentForm
-class ExperimentInline(FeedTabularInline):
-    model = Experiment
-    extra = 1
-    form = ExperimentForm
-    tabbed = True
-    tab_name = "Experiments"
-
 class ExperimentViewInline(FeedTabularInline):
     model = Experiment
     extra = 0
     tabbed = True
     fields = ['title', 'subject','subj_devstage','start','end']
     tab_name = "Experiments"
-
-class SensorInline(FeedTabularInline):
-    model = Sensor
-    extra = 0
-    fields = ['name','technique']
-
-class SessionInline(FeedTabularInline):
-    model = Session
-    extra = 1
-    excludes = ['subj_notes']
-    formset = PositionBaseInlineFormSet
-    tabbed = True
-
-class SessionViewInline(FeedTabularInline):
-    model = Session
-    extra = 0
-    tab_name = "Sessions"
-    tabbed = True
-    excludes = ['subj_notes']
 
 class IllustrationInline(FeedTabularInline):
     model = Illustration
@@ -60,30 +33,6 @@ class IllustrationViewInline(FeedTabularInline):
     extra = 0
     fields = ('picture', 'notes')
 
-class EmgSetupInline(FeedTabularInline):
-    model = EmgSetup
-    extra = 0
-    tab_name = "EMG"
-    tabbed = True
-    class Meta:
-        verbose_name = "emgsetup"
-        
-class SonoSetupInline(FeedTabularInline):
-    model = SonoSetup
-    extra = 0
-    tab_name = "Sono"
-    tabbed = True
-    class Meta:
-        verbose_name = "sonosetup"
-
-class TrialInline(FeedTabularInline):
-    model = Trial
-    extra = 1
-    form = TrialInlineForm
-    tabbed = True
-    tab_name="Trials"
-    formset = TrialInlineFormSet
-
 class TrialViewInline(FeedTabularInline):
     model = Trial
     extra = 0
@@ -92,23 +41,11 @@ class TrialViewInline(FeedTabularInline):
     tab_name="Trials"
 
 
-class SubjectInline(FeedTabularInline):
-    model = Subject
-    extra = 1
-    form = SubjectForm
-    tabbed = True
-    tab_name="Subjects"
-
-
 class SubjectViewInline(FeedTabularInline):
     model = Subject
     extra = 0
     tabbed = True
     tab_name="Subjects"
-
-class SubjectStackInline(admin.StackedInline):
-    model = Subject
-    extra = 1
 
 class StudyAdmin(FeedModelAdmin):
     inlines = [StudyPrivateInline]
