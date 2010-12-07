@@ -26,14 +26,14 @@ def portal_page(request):
 
 def bucket_index(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+        return HttpResponseRedirect('/login?next=%s' % request.path)
     buckets = Bucket.objects.filter(created_by=request.user)
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'buckets': buckets})
     return render_to_response('explorer/bucket_list.html', c, mimetype="text/html")
 
 def bucket_add(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+        return HttpResponseRedirect('/login?next=%s' % request.path)
     message=None
     
     if request.method=='POST':
@@ -59,7 +59,7 @@ def bucket_add(request):
 
 def bucket_delete(request, id):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+        return HttpResponseRedirect('/login?next=%s' % request.path)
     try:
         bucket = Bucket.objects.get(pk=id)
     except Bucket.DoesNotExist:
@@ -80,7 +80,7 @@ def bucket_delete(request, id):
 #  However, we'll later need to improve efficiency of DB lookups. 
 def bucket_detail(request, id):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+        return HttpResponseRedirect('/login?next=%s' % request.path)
     message=None
     try:
         bucket = Bucket.objects.get(pk=id)
@@ -112,7 +112,7 @@ def bucket_detail(request, id):
 
 def bucket_download(request, id):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+        return HttpResponseRedirect('/login?next=%s' % request.path)
     message=""
     try:
         bucket = Bucket.objects.get(pk=id)
@@ -421,7 +421,7 @@ def bucket_download(request, id):
 
 def trial_search(request): 
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+        return HttpResponseRedirect('/login?next=%s' % request.path)
     if request.method == 'POST': 
         query = Q()
         form = SearchTrialForm(request.POST) 
@@ -475,7 +475,7 @@ def trial_search(request):
 
 def trial_search_put(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+        return HttpResponseRedirect('/login?next=%s' % request.path)
     message = None
     #check if any trial selected
     trial_selected = []
@@ -520,7 +520,7 @@ def trial_search_put(request):
 
 def bucket_remove_trials(request, id):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+        return HttpResponseRedirect('/login?next=%s' % request.path)
     #check if any trial selected
     trial_selected = []
     for item in request.POST.items():
@@ -551,7 +551,7 @@ def bucket_remove_trials(request, id):
     
 def trial_detail(request, id): 
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+        return HttpResponseRedirect('/login?next=%s' % request.path)
     try:
         trial = Trial.objects.get(pk=id)
     except Trial.DoesNotExist:
@@ -562,7 +562,7 @@ def trial_detail(request, id):
 
 def trial_remove(request, id, bucket_id):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+        return HttpResponseRedirect('/login?next=%s' % request.path)
     try:
         trial = Trial.objects.get(pk=id)
     except Trial.DoesNotExist:
@@ -594,7 +594,7 @@ def trial_remove(request, id, bucket_id):
 
 def trial_add(request, id):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/explorer/login/?next=%s' % request.path)
+        return HttpResponseRedirect('/login?next=%s' % request.path)
     if request.method =='POST':
         try:
             trial = Trial.objects.get(pk=id)
