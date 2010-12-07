@@ -638,47 +638,6 @@ def trial_add(request, id):
         request.user.message_set.create(message='Trial: %s has been successfully added to the bucket: %s.' % (trial, bucket))
         return HttpResponseRedirect('/explorer/trial/%s/' % id)
 
-def logout_view(request):
-    logout(request)
-    message = 'You have logged out.'
-    c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': message})
-    return render_to_response('explorer/index.html', c)
-
-def login_view(request):
-    if request.user.is_authenticated():
-        return HttpResponseRedirect('/explorer')
-    message = 'Please login'
-    if request.method == 'GET':
-        next = '/explorer'
-        if request.GET.has_key('next'):
-            next = request.GET['next'] 
-        c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': message, 'next':next})
-        return render_to_response('explorer/login.html', c)
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                next = '/explorer'
-                if request.POST.has_key('next'):
-                    next = request.POST['next'] 
-                if not next is None and next !="": 
-                    return HttpResponseRedirect(next)
-                else:
-                    return HttpResponseRedirect("/explorer/trial/search")
-            else:
-                message = "The account is no longer active. Please try another account." 
-        else:
-            message = "No matched account found. Please try again."
-
-        next = '/explorer'
-        if request.GET.has_key('next'):
-            next = request.GET['next'] 
-        c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': message, 'next':next })
-        return render_to_response('explorer/login.html', c)
-
 def send_file(request, filename):
     """                                                                         
     Send a file through Django without loading the whole file into              
