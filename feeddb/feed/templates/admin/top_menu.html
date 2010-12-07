@@ -4,37 +4,46 @@
 	<li><a href="/">Home</a></li>
 {% if user.is_authenticated %}
 <li><a href="{%url admin:feed_study_changelist %}">Studies</a>
+{% ifnotequal user.first_name "anonymous" %}
 <ul> 
-<li><a href="{%url admin:feed_study_changelist %}">All</a>
+<li><a href="{%url admin:feed_study_changelist %}">All</a></li>
 <li><a href="{%url admin:feed_study_changelist %}?created_by={{user.pk}}">Mine</a></li>
 <li><a href="{%url admin:feed_study_add %}">Add</a></li>
 </ul>
+{% endifnotequal %}
 </li> 
 
 <li><a href="{%url admin:feed_experiment_changelist %}">Experiments</a>
+{% ifnotequal user.first_name "anonymous" %}
 <ul>
-	<li><a href="{%url admin:feed_experiment_changelist %}">All</a>
-<li><a href="{%url admin:feed_experiment_changelist %}?created_by={{user.pk}}">Mine</a></li>
+	<li><a href="{%url admin:feed_experiment_changelist %}">All</a></li>
+     <li><a href="{%url admin:feed_experiment_changelist %}?created_by={{user.pk}}">Mine</a></li>
 </ul> 
+{% endifnotequal %}
 </li>
 <li><a href="{%url admin:feed_session_changelist %}">Recording Sessions</a>
+{% ifnotequal user.first_name "anonymous" %}
 <ul>
-	<li><a href="{%url admin:feed_session_changelist %}">All</a>
+	<li><a href="{%url admin:feed_session_changelist %}">All</a></li>
 <li><a href="{%url admin:feed_session_changelist %}?created_by={{user.pk}}">Mine</a></li>
 </ul> 
-</li>
+{% endifnotequal %}
 </li>
 <li><a href="{%url admin:feed_trial_changelist %}">Trials</a>
+{% ifnotequal user.first_name "anonymous" %}
 <ul>
-	<li><a href="{%url admin:feed_trial_changelist %}">All</a>
+	<li><a href="{%url admin:feed_trial_changelist %}">All</a></li>
 <li><a href="{%url admin:feed_trial_changelist %}?created_by={{user.pk}}">Mine</a></li>
 </ul> 
+{% endifnotequal %}
 </li>
 <li><a href="{%url admin:feed_subject_changelist %}">Subjects</a>
+{% ifnotequal user.first_name "anonymous" %}
 <ul>
-	<li><a href="{%url admin:feed_subject_changelist %}">All</a>
+	<li><a href="{%url admin:feed_subject_changelist %}">All</a></li>
 	<li><a href="{%url admin:feed_subject_changelist %}?created_by={{user.pk}}">Mine</a></li>
 </ul>
+{% endifnotequal %}
 </li> 
 
 <li><a href="{%url admin:feed_taxon_changelist %}">Species</a></li>
