@@ -1,10 +1,36 @@
 {% load i18n %}{% load feedmedia %}
+
 {% if user.is_authenticated %}
+{% ifequal  user.first_name "anonymous" %}
+<div class="block">
+<h2>Login</h2>
+<div class="block_content">
+<form action="/login" method="post" id="login-form">
+  <table>
+  	<tr><td>
+    <label for="id_username">{% trans 'Username:' %}</label></td><td> <input type="text" name="username" id="id_username" />
+  </td></tr>
+  <tr><td>
+  
+    <label for="id_password">{% trans 'Password:' %}</label> </td><td><input type="password" name="password" id="id_password" />
+    <input type="hidden" name="this_is_the_login_form" value="1" />
+  </td></tr>
+  <tr><td>
+    <label>&nbsp;</label></td><td><input type="submit" value="{% trans 'Log in' %}" />
+    </td></tr>
+  </table>
+</form>
+</div>
+</div>
+<script type="text/javascript">
+document.getElementById('id_username').focus()
+</script>
+{% endifequal %}	
 {% else %}
 <div class="block">
 <h2>Login</h2>
 <div class="block_content">
-<form action="/admin/" method="post" id="login-form">
+<form action="/login" method="post" id="login-form">
   <table>
   	<tr><td>
     <label for="id_username">{% trans 'Username:' %}</label></td><td> <input type="text" name="username" id="id_username" />
