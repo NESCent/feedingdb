@@ -1,10 +1,10 @@
 {% extends "admin/change_form.html" %}
-{% load i18n %}
+{% load i18n admin_modify feedmedia %}
 
 {% block after_field_sets %}
 
 <p>{% trans "First, enter a username and password. Then, you'll be able to edit more user options." %}</p>
-
+<form action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% block form_top %}{% endblock %}
 <fieldset class="module aligned">
 
 <div class="form-row">
@@ -30,4 +30,6 @@
 <script type="text/javascript">document.getElementById("id_username").focus();</script>
 
 </fieldset>
+ {% submit_row %}
+<form>
 {% endblock %}
