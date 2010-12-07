@@ -63,7 +63,9 @@ MIDDLEWARE_CLASSES = (
    'django.middleware.common.CommonMiddleware',
    'django.contrib.sessions.middleware.SessionMiddleware',
    'django.contrib.auth.middleware.AuthenticationMiddleware',
+   'feed.extension.middleware.AnonymousAccessMiddleware',
    'pagination.middleware.PaginationMiddleware',
+   
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
