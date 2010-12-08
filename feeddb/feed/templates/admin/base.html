@@ -58,7 +58,10 @@
                 <a href="/logout?next=/admin/">
                 {% trans 'Log out' %}</a>
 			{% endifnotequal %}	
-			
+			{% ifequal  user.first_name "anonymous" %}
+            <a href="/login">
+                {% trans 'Log in' %}</a>
+			{% endifequal %}	
             {% endblock %}
         </div>
 		
