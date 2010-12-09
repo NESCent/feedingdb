@@ -17,10 +17,8 @@
 
      {% for r in registry %}
         {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
-		{% if has_change_permission %}
 		{% if tabbed and inline_admin_formset.opts.tabbed %}
      		<th class="action_header">{% trans "Action" %}</th>
-	 	{% endif %}
 	 	{% endif %}
 	    {% endifequal %}
 {% endfor %}
