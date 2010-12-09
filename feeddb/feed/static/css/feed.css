@@ -158,20 +158,21 @@ clear: both;
 
 .block {
   margin-bottom: 5px;
+  border: 1px solid #ccc;
 }
 .block h2{
-  background-color: #417690;
-  color: white;
   padding: 5px;
-margin:0;
+  margin:0;
   font-size: 12px;
+  background: #eee url(../img/admin/nav-bg.gif) bottom left repeat-x;
+  color: #666;
 }
 
 
 .block_content {
  padding: 5px;
 
-background-color: #cccccc;
+background-color: #eee;
 }
 
 .block_content {
