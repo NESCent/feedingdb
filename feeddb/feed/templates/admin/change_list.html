@@ -23,12 +23,12 @@
   {% block breadcrumbs %}
     <div class="breadcrumbs">
     	<ul id="crumbs">
-      <li><a href="../../">
+      <li><a href="/">
         {% trans "Home" %}
       </a></li>
-       <li><a href="../">
+       <!-- li><a href="../">
          {{ app_label|capfirst }}
-      </a></li>
+      </a></li -->
       <li>{{ cl.opts.verbose_name_plural|capfirst }}</li>
     </div>
   {% endblock %}
