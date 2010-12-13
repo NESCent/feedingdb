@@ -185,6 +185,21 @@ background-color: #eee;
 .block_content table td{
   border:none;
   padding: 2px;
- 
+}
 
+th {
+   vertical-align: middle;
+}
+.order_by a:link{
+  color: #00f;
+}
+
+.asc {
+  padding-left: 15px;
+  background: url(/static/img/admin/arrow-down.gif) no-repeat left ;
+}
+
+.desc {
+  padding-left: 15px;
+  background: url(/static/img/admin/arrow-up.gif) no-repeat left ;
 }
