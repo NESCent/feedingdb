@@ -473,4 +473,4 @@ CRITICAL_ASSOCIATED_OBJECTS[Behavior]=['trial_set']
 CRITICAL_ASSOCIATED_OBJECTS[Restraint]=['session_set']
 CRITICAL_ASSOCIATED_OBJECTS[Emgfiltering]=['emgchannel_set']
 CRITICAL_ASSOCIATED_OBJECTS[Subject]=['experiment_set']
-CRITICAL_ASSOCIATED_OBJECTS[Trial]=['trialinbucket_set']
+
