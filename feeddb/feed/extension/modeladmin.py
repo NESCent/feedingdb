@@ -286,7 +286,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         if pos != -1:
             return "%s?%s" % (post_url, q_str)
         q_str= q_str.replace("=","/")    
-        return "../../../%s/edit" % q_str        
+        return "../../../%s" % q_str        
 
     """
     overwrite the function to set the created_by for any associated records before saving
