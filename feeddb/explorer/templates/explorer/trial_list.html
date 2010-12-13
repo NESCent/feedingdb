@@ -15,8 +15,10 @@
 {% include "explorer/include/search_trial_form.html" %}
 {% if trials %}
 <h3>Results</h3>
-Total records found: {{total}}<br/>
 <script language="javascript">
+var cur_order_by = "{{order_by}}";
+var cur_order_type = "{{order_type}}";
+
 function checkbox_clicked(obj){
    if(obj.checked){
 	$("#trial_form").checkCheckboxes();	
@@ -32,22 +34,51 @@ function bucket_changed(obj){
         $("#new_bucket_div").css({'display':'none'}); 
    }
 }
+
+function sort(field){
+	var form = document.search_trial_form;
+	form.order_by.value = field;
+	form.order_type.value = "asc";
+	if(cur_order_by == field){
+		if(cur_order_type =="asc"){
+			form.order_type.value = "desc";
+		}
+	}
+	form.submit();
+}
 </script>
 
 <div class="module" id="changelist">
 
 <form action = "{% url explorer.views.trial_search_put %}" method="POST" id="trial_form" name ="trial_form">
 <table>
+	<caption>Total records found: {{total}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;click header to sort results</caption>
 <tr><td  colspan = "8">
 {% include "explorer/include/pages.html" %}
 </td>
 </tr>	
 <tr>
 <th><input type="checkbox" id="select_all" onclick ="checkbox_clicked(this)" /></th>
-<th>Trial</th>
-<th>Species</th>
-<th>Primary Behavior</th>
-<th>Food Type</th>
+<th 
+{% ifequal order_by "title" %}
+ class="order_by {{order_type}}"
+{% endifequal %}
+><a href="javascript:sort('title')">Trial</a></th>
+<th 
+{% ifequal order_by "session__experiment__study__subject__taxon" %}
+ class="order_by {{order_type}}"
+{% endifequal %}
+><a href="javascript:sort('session__experiment__study__subject__taxon')">Species</a></th>
+<th 
+{% ifequal order_by "behavior_primary" %}
+ class="order_by {{order_type}}"
+{% endifequal %}
+><a href="javascript:sort('behavior_primary')">Primary Behavior</th>
+<th 
+{% ifequal order_by "food_type" %}
+ class="order_by {{order_type}}"
+{% endifequal %}
+><a href="javascript:sort('food_type')">Food Type</th>
 <th>Techniques</th>
 <th>Anatomical Location</th>
 <th class="bucket_header">Buckets</th>
