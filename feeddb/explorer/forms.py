@@ -33,6 +33,7 @@ class SearchTrialForm (forms.Form):
     item_per_page = forms.IntegerField(label='Records per page', required=False, initial=10,widget=HiddenInput())
     page = forms.IntegerField(required=False, initial=1, widget=HiddenInput())
     order_by = forms.CharField(max_length=100,required=False,widget=HiddenInput())
+    order_type = forms.CharField(max_length=10,required=False,widget=HiddenInput())
  
 class BucketModelForm(forms.ModelForm):
     class Meta:
