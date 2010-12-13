@@ -454,9 +454,17 @@ def trial_search(request):
                 #sensor_query = sensor_query | Q(session__channels__setup__technique__id__exact = tq)
                 query = query & Q(session__channels__setup__technique__id__exact = int(sensor))
             
+            order_by = form.cleaned_data['order_by']
+            if order_by in (None, ''):
+                order_by = 'session__experiment__subject__taxon'
+            order_type = form.cleaned_data['order_type']
+            order_by_str = order_by 
+            if order_type =="desc":
+                order_by_str = "-%s" % order_by  
+            
             start = (page-1)*item_per_page
             end = start + item_per_page
-            results= Trial.objects.filter(query).distinct().order_by('session__experiment__subject__taxon')
+            results= Trial.objects.filter(query).distinct().order_by(order_by_str)
             total = results.count()
             total_page=total/item_per_page
             if (total - total_page*item_per_page >0):
@@ -464,9 +472,9 @@ def trial_search(request):
             pages=[]
             for i in range(1,total_page+1):
                 pages.append(i)
-            results= Trial.objects.filter(query).distinct().order_by('session__experiment__subject__taxon')[start:end]    
+            results= Trial.objects.filter(query).distinct().order_by(order_by_str)[start:end]    
             item_per_page_choice = [10,30,50,100,200]        
-        c = RequestContext(request, {'title': 'FeedDB Explorer', 'form': form, 'total': total, 'item_per_page':item_per_page, 'item_per_page_choice':item_per_page_choice, 'page': page, 'pages': pages, 'trials': results})
+        c = RequestContext(request, {'title': 'FeedDB Explorer', 'form': form, 'total': total, 'item_per_page':item_per_page, 'item_per_page_choice':item_per_page_choice, 'page': page, 'pages': pages,'order_by':order_by, 'order_type':order_type, 'trials': results})
         return render_to_response('explorer/trial_list.html', c)
     else:
         form= SearchTrialForm()
