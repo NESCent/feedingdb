@@ -190,6 +190,12 @@ background-color: #eee;
 th {
    vertical-align: middle;
 }
+
+th a {
+  display: block;
+  height:25px;
+}
+
 .order_by a:link{
   color: #00f;
 }
