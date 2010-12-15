@@ -3,7 +3,7 @@ Thoughts on improvements needed in order to make a public release.
 === Pre-population with initial data ===
 
 Even though can be argued optional, these are desirable in a start-up database: 
-  - User groups: contributors, terminologists, with proper permissions to access data types
+  - User groups: contributors, terminologists, anonymous with suitable permissions to access data types
   - Values in controlled vocabularies (except for, perhaps, taxa) 
   
 === Package as django apps === 
