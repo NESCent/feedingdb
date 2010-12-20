@@ -1,19 +1,167 @@
 from django.template import Library
 from django.conf import settings
+from feeddb.feed.models import Techniques
+
+#VG 2010-12-20 Most of the custom tags are the hack to look up descriptive strings from numeric codes, 
+#  to implement human-readable text in Explorer templates. 
+#  Properly, these should be supplied by the model, or looked up in forms, or looked up in 
+#  an intermediate layer of the application (yet to be architected...). 
 
 register = Library()
 
+@register.simple_tag
 def display_technique(trial):
     """
-    Returns the unique techinique list for a trail.
+    Returns the unique technique list for a trial.
     """
-    techniques = set()
-    
+    techn_ids = set()
     for ch in trial.session.channels.all():
-        if not ch.setup.technique.label in techniques:
-            techniques.add(ch.setup.technique.label)
-    return ','.join(techniques)
-display_technique = register.simple_tag(display_technique)
+        techn_ids.add(ch.setup.technique)
+    techn_names = map(Techniques.num2label,  techn_ids)
+    return ', '.join(techn_names)
+
+
+@register.simple_tag
+def technique_label(technique_num):
+    return Techniques.num2label(technique_num)
+
+
+def silent_if_none(x):
+    """A helper function"""
+    if x == None:  return ""
+    else:          return x
+    
+@register.simple_tag
+def display_preamplifier(setup):
+    if setup.technique == Techniques.ENUM.emg:
+        return silent_if_none(setup.emgsetup.preamplifier)
+    else:
+        return ""
+
+@register.simple_tag
+def display_sonomicrometer(setup):
+    if setup.technique == Techniques.ENUM.sono:
+        return silent_if_none(setup.sonosetup.sonomicrometer)
+    else:
+        return ""
+
+@register.simple_tag
+def display_location(setup, sensor):
+    if setup.technique == Techniques.ENUM.emg:
+        return sensor.emgsensor.location_controlled
+    elif setup.technique == Techniques.ENUM.sono:
+        return sensor.sonosensor.location_controlled
+    else: 
+        return sensor.location_freetext
+    
+    
+@register.simple_tag
+def display_axisdepth(setup, sensor):
+    if setup.technique == Techniques.ENUM.emg:
+        return silent_if_none(sensor.emgsensor.axisdepth)
+    elif setup.technique == Techniques.ENUM.sono:
+        return silent_if_none(sensor.sonosensor.axisdepth)
+    else: 
+        return ""
+    
+@register.simple_tag
+def display_electrodetype(setup, sensor):
+    if setup.technique == Techniques.ENUM.emg:
+        return silent_if_none(sensor.emgsensor.electrode_type)
+    else:
+        return ""
+    
+         
+@register.simple_tag
+def display_unit(lineup):
+    if lineup.channel.setup.technique == Techniques.ENUM.emg:
+        return silent_if_none(lineup.channel.emgchannel.unit)
+    elif lineup.channel.setup.technique == Techniques.ENUM.sono:
+        return silent_if_none(lineup.channel.sonochannel.unit)
+    elif lineup.channel.setup.technique == Techniques.ENUM.force:
+        return silent_if_none(lineup.channel.forcechannel.unit)
+    elif lineup.channel.setup.technique == Techniques.ENUM.kinematics:
+        return silent_if_none(lineup.channel.kinematicschannel.unit)
+    elif lineup.channel.setup.technique == Techniques.ENUM.pressure:
+        return silent_if_none(lineup.channel.pressurechannel.unit)
+    elif lineup.channel.setup.technique == Techniques.ENUM.strain:
+        return silent_if_none(lineup.channel.strainchannel.unit)
+    else: 
+        return "ERROR: unknown technique in display_unit()"        
+
+
+@register.simple_tag
+def display_sensor1(lineup):
+    if lineup.channel.setup.technique == Techniques.ENUM.emg:
+        return silent_if_none(lineup.channel.emgchannel.sensor.id)
+    elif lineup.channel.setup.technique == Techniques.ENUM.sono:
+        return silent_if_none(lineup.channel.sonochannel.crystal1.id)
+    elif lineup.channel.setup.technique == Techniques.ENUM.force:
+        return silent_if_none(lineup.channel.forcechannel.sensor.id)
+    elif lineup.channel.setup.technique == Techniques.ENUM.kinematics:
+        return silent_if_none(lineup.channel.kinematicschannel.sensor.id)
+    elif lineup.channel.setup.technique == Techniques.ENUM.pressure:
+        return silent_if_none(lineup.channel.pressurechannel.sensor.id)
+    elif lineup.channel.setup.technique == Techniques.ENUM.strain:
+        return silent_if_none(lineup.channel.strainchannel.sensor.id)
+    else: 
+        return "ERROR: unknown technique in display_sensor1()"        
+
+@register.simple_tag
+def display_sensor2(lineup):
+    if lineup.channel.setup.technique == Techniques.ENUM.sono:
+        return silent_if_none(lineup.channel.sonochannel.crystal2.id)
+    else: 
+        return ""        
+
+@register.simple_tag
+def display_emg_filtering(lineup):
+    if lineup.channel.setup.technique == Techniques.ENUM.emg:
+        return silent_if_none(lineup.channel.emgchannel.emg_filtering)
+    else: 
+        return ""   
+
+@register.simple_tag
+def display_emg_amplification(lineup):
+    if lineup.channel.setup.technique == Techniques.ENUM.emg:
+        return silent_if_none(lineup.channel.emgchannel.emg_amplification)
+    else: 
+        return ""   
+                
+               
+@register.simple_tag
+def display_lineup_location(lineup):
+    if lineup.channel.setup.technique == Techniques.ENUM.emg:
+        return silent_if_none(lineup.channel.emgchannel.sensor.location_controlled)
+    elif lineup.channel.setup.technique == Techniques.ENUM.sono:
+        return silent_if_none(lineup.channel.sonochannel.sensor.location_controlled)
+    elif lineup.channel.setup.technique == Techniques.ENUM.force:
+        return silent_if_none(lineup.channel.forcechannel.location_freetext)
+    elif lineup.channel.setup.technique == Techniques.ENUM.kinematics:
+        return silent_if_none(lineup.channel.kinematicschannel.location_freetext)
+    elif lineup.channel.setup.technique == Techniques.ENUM.pressure:
+        return silent_if_none(lineup.channel.pressurechannel.location_freetext)
+    elif lineup.channel.setup.technique == Techniques.ENUM.strain:
+        return silent_if_none(lineup.channel.strainchannel.sensor.location_freetext)
+    else: 
+        return "ERROR: unknown technique in display_lineup_location()"        
+
+@register.simple_tag
+def display_lineup_side(lineup):
+    if lineup.channel.setup.technique == Techniques.ENUM.emg:
+        return silent_if_none(lineup.channel.emgchannel.sensor.loc_side)
+    elif lineup.channel.setup.technique == Techniques.ENUM.sono:
+        return silent_if_none(lineup.channel.sonochannel.sensor.loc_side)
+    elif lineup.channel.setup.technique == Techniques.ENUM.force:
+        return silent_if_none(lineup.channel.forcechannel.loc_side)
+    elif lineup.channel.setup.technique == Techniques.ENUM.kinematics:
+        return silent_if_none(lineup.channel.kinematicschannel.loc_side)
+    elif lineup.channel.setup.technique == Techniques.ENUM.pressure:
+        return silent_if_none(lineup.channel.pressurechannel.loc_side)
+    elif lineup.channel.setup.technique == Techniques.ENUM.strain:
+        return silent_if_none(lineup.channel.strainchannel.sensor.loc_side)
+    else: 
+        return "ERROR: unknown technique in display_lineup_location()"        
 
 
 def display_muscle(trial):
@@ -28,7 +176,7 @@ def display_muscle(trial):
                 musles.add(sensor.emgsensor.location_controlled.label)
             if hasattr(sensor, 'sonosensor') and not sensor.sonosensor.location_controlled.label in musles:
                 musles.add(sensor.sonosensor.location_controlled.label)
-    return ','.join(musles)
+    return ', '.join(musles)
 display_muscle = register.simple_tag(display_muscle)
 
 def is_image(file):

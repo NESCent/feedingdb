@@ -869,77 +869,78 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         emg  = request.POST.get('technique_emg')
         if emg != None and emg == "on":
             if not has_emg:
-                self.add_technique(request,new_experiment,'EMG');
+                self.add_technique(request,new_experiment, Techniques.ENUM.emg);
         #if emg == None and has_emg:
         #    self.delete_setup(emgsetup)
             
         sono  = request.POST.get('technique_sono')
         if sono != None and sono == "on":
             if not has_sono:
-                self.add_technique(request,new_experiment,'Sono');
+                self.add_technique(request,new_experiment, Techniques.ENUM.sono);
         #if sono == None and has_sono: 
         #    self.delete_setup(sonosetup)
             
         strain  = request.POST.get('technique_strain')
         if strain != None and strain == "on":
             if not has_strain:
-                self.add_technique(request,new_experiment,'Bone strain');
+                self.add_technique(request,new_experiment, Techniques.ENUM.strain);
         #if strain == None and has_strain: 
         #    self.delete_setup(strainsetup)
         
         force  = request.POST.get('technique_force')
         if force != None and force == "on":
             if not has_force:
-                self.add_technique(request,new_experiment,'Bite force');
+                self.add_technique(request,new_experiment, Techniques.ENUM.force);
         #if force == None and has_force: 
         #    self.delete_setup(forcesetup)
         
         pressure  = request.POST.get('technique_pressure')
         if pressure != None and pressure == "on":
             if not has_pressure:
-                self.add_technique(request,new_experiment,'Pressure');
+                self.add_technique(request,new_experiment, Techniques.ENUM.pressure);
         #if pressure == None and has_pressure: 
         #    self.delete_setup(pressuresetup)        
         
         kinematics  = request.POST.get('technique_kinematics')
         if kinematics != None and kinematics == "on":
             if not has_kinematics:
-                self.add_technique(request,new_experiment,'Kinematics');
+                self.add_technique(request,new_experiment, Techniques.ENUM.kinematics);
         #if kinematics == None and has_kinematics: 
         #    self.delete_setup(kinematicssetup)                  
 
-    def add_technique(self,request,experiment, technique):
-        tech = Technique.objects.get(label = technique)
+    def add_technique(self, request, experiment, technique):
+        #TODO This creates both a Setup and a XxxSetup objects -- isn't this trouble? 
         setup = Setup();
-        setup.technique=tech
+        setup.technique=technique
         setup.experiment = experiment
         tech_setup = None
-        if technique=="EMG":
+        if technique==Techniques.ENUM.emg:
             tech_setup = EmgSetup()
-        elif technique=="Sono":
+        elif technique==Techniques.ENUM.sono:
             tech_setup = SonoSetup()
-        elif technique=="Bone strain":
+        elif technique==Techniques.ENUM.strain:
             tech_setup = StrainSetup()
-        elif technique=="Bite force":
+        elif technique==Techniques.ENUM.force:
             tech_setup = ForceSetup()
-        elif technique=="Pressure":
+        elif technique==Techniques.ENUM.pressure:
             tech_setup = PressureSetup()
-        elif technique=="Kinematics":
+        elif technique==Techniques.ENUM.kinematics:
             tech_setup = KinematicsSetup()
             
         tech_setup.experiment = experiment
-        tech_setup.technique=tech
-        if technique=="EMG":
+        tech_setup.technique=technique
+        ##TODO: combine this branching with the one above (VG)
+        if technique==Techniques.ENUM.emg:
             setup.emgsetup = tech_setup
-        elif technique=="Sono":
+        elif technique==Techniques.ENUM.sono:
             setup.sonosetup = tech_setup
-        elif technique=="Bone strain":
+        elif technique==Techniques.ENUM.strain:
             setup.strainsetup = tech_setup
-        elif technique=="Bite force":
+        elif technique==Techniques.ENUM.force:
             setup.forcesetup = tech_setup    
-        elif technique=="Kinematics":
+        elif technique==Techniques.ENUM.kinematics:
             setup.kinematicssetup = tech_setup  
-        elif technique=="Pressure":
+        elif technique==Techniques.ENUM.pressure:
             setup.pressuresetup = tech_setup  
         tech_setup.created_by = request.user
 

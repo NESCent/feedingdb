@@ -43,22 +43,74 @@ class DevelopmentStage(CvTerm):
 class AgeUnit(CvTerm):
     pass
 
-class Technique(CvTerm):
-    "Presence of specific entries (see KnownTechniques) in this table is required for proper functioning of the application, so it is not really a controlled term."
-    #TODO: change the implementation (or just UI?) to avoid the impression that Technique entries can be edited.   
-    #      (See ANATOMICAL_CATEGORIES for an idea how to move them out of the DB.)
-    pass
-
-class KnownTechniques:
-    "Techniques that are assumed to be in the database."
-    #TODO: complain ASAP if any of these is not in DB
-    emg = Technique.objects.all().get(label__iexact = 'EMG')
-    sono = Technique.objects.all().get(label__iexact = 'Sono')
-    strain = Technique.objects.all().get(label__iexact = 'Bone strain')   #TODO? filter --> get
-    force = Technique.objects.all().get(label__iexact = 'Bite force')
-    pressure = Technique.objects.all().get(label__iexact = 'Pressure')
-    kinematics = Technique.objects.all().get(label__iexact = 'Kinematics')
+##-- after data migration! 
+#class Technique(CvTerm):
+#    "Presence of specific entries (see KnownTechniques) in this table is required for proper functioning of the application, so it is not really a controlled term."
+#    #TODO: change the implementation (or just UI?) to avoid the impression that Technique entries can be edited.   
+#    #      (See ANATOMICAL_CATEGORIES for an idea how to move them out of the DB.)
+#    pass
+#
+#class KnownTechniques:
+#    "Techniques that are assumed to be in the database."
+#    #TODO: complain ASAP if any of these is not in DB
+#    emg = Technique.objects.all().get(label__iexact = 'EMG')
+#    sono = Technique.objects.all().get(label__iexact = 'Sono')
+#    strain = Technique.objects.all().get(label__iexact = 'Bone strain')   #TODO? filter --> get
+#    force = Technique.objects.all().get(label__iexact = 'Bite force')
+#    pressure = Technique.objects.all().get(label__iexact = 'Pressure')
+#    kinematics = Technique.objects.all().get(label__iexact = 'Kinematics')
     
+    
+    
+TECHNIQUE_CHOICES = (
+               (1, u'EMG'),
+               (2, u'Sono'), 
+               (3, u'Bone strain'), 
+               (4, u'Bite force'), 
+               (5, u'Pressure'), 
+               (6, u'Kinematics'), 
+#              (7, u''), 
+               )
+    
+class Techniques(object):
+    CHOICES = TECHNIQUE_CHOICES
+    __choices_dict = dict(TECHNIQUE_CHOICES)
+
+    class ENUM:
+        emg = 1
+        sono = 2
+        strain = 3
+        force = 4 
+        pressure = 5 
+        kinematics = 6
+        
+    @staticmethod
+    def num2label(num):
+        return Techniques.__choices_dict.get(num, "Unknown Technique")
+        
+#--??
+#    @staticmethod
+#    def label2num():
+#        raise NotImplementedError("Techniques.label2num")
+    
+#--       
+#class Techniques:     # An "enumeration", not a Django model
+#    emg = 1
+#    sono = 2
+#    strain = 3
+#    force = 4 
+#    pressure = 5 
+#    kinematics = 6
+#
+#TECHNIQUES = (
+#              (Techniques.emg, u'EMG'), 
+#              (Techniques.sono, u'Sono'), 
+#              (Techniques.strain, u'Bone strain'), 
+#              (Techniques.force, u'Bite force'), 
+#              (Techniques.pressure, u'Pressure'), 
+#              (Techniques.kinematics, u'Kinematics'), 
+##              (Techniques, u''), 
+#            )
 
 class Taxon(CvTerm):
     genus = models.CharField(max_length=255)
@@ -125,7 +177,9 @@ class Restraint(CvTerm):
 
 
 class Unit(CvTerm):
-    technique = models.ForeignKey(Technique)
+#--    technique = models.ForeignKey(Technique)
+#--    techn_enum = models.IntegerField(choices = Techniques.CHOICES) 
+    technique  = models.IntegerField(choices = Techniques.CHOICES)   #TODO: make non-null 
     
     class Meta:
         ordering = ["technique", "label"]
@@ -204,27 +258,30 @@ class Experiment(FeedBaseModel):
 class Setup(FeedBaseModel):
     is_cloneable=False
     experiment = models.ForeignKey(Experiment)
-    technique = models.ForeignKey(Technique)     
+#--    technique = models.ForeignKey(Technique)   #--
+#--    techn_enum = models.IntegerField(choices=Techniques.CHOICES)  
+    technique = models.IntegerField(choices=Techniques.CHOICES)  #TODO: make non-null 
     notes = models.TextField("Notes about all sensors and channels in this setup", blank = True, null=True)
     sampling_rate = models.IntegerField("Sampling Rate (Hz)", blank=True, null=True)
     class Meta:
         verbose_name = "setup"
     def __unicode__(self):
-        return "%s setup" % (self.technique)  
+#--        return "%s setup" % (self.technique)  
+        return "%s setup" % (Techniques.num2label(self.technique))  
 
 class EmgSetup(Setup):
     preamplifier = models.CharField(max_length=255, blank = True, null=True)
     class Meta:
         verbose_name = "EMG setup"
-    def __unicode__(self):
-        return "%s setup with preamplifier: %s" % (self.technique, self.preamplifier)  
+#--    def __unicode__(self):
+#--        return "%s setup with preamplifier: %s" % (self.technique, self.preamplifier)  
 
 class SonoSetup(Setup):
     sonomicrometer = models.CharField(max_length=255, blank = True, null=True)
     class Meta:
         verbose_name = "Sono setup"
-    def __unicode__(self):
-        return "%s setup with sonomicrometer: %s" % (self.technique, self.sonomicrometer)  
+#--    def __unicode__(self):
+#--        return "%s setup with sonomicrometer: %s" % (self.technique, self.sonomicrometer)  
 
 class StrainSetup(Setup):
     class Meta:
@@ -319,7 +376,7 @@ class Channel(FeedBaseModel):
         return self.name 
 
 class EmgChannel(Channel):
-    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.emg},
+    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : Techniques.ENUM.emg},
                              verbose_name="EMG units [from models.py]")     
     sensor = models.ForeignKey(EmgSensor)    
     emg_filtering = models.ForeignKey(Emgfiltering, verbose_name="EMG filtering")
@@ -332,7 +389,7 @@ class EmgChannel(Channel):
 
 
 class SonoChannel(Channel):
-    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.sono},
+    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : Techniques.ENUM.sono},
                              verbose_name="Sono units")     
     crystal1 = models.ForeignKey(SonoSensor, related_name="crystals1_related")
     crystal2 = models.ForeignKey(SonoSensor, related_name="crystals2_related")
@@ -344,28 +401,28 @@ class SonoChannel(Channel):
         verbose_name = "Sono channel"
 
 class StrainChannel(Channel):
-    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.strain},
+    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : Techniques.ENUM.strain},
                              verbose_name="Strain units", null=True) 
     sensor = models.ForeignKey(StrainSensor)
     class Meta:
         verbose_name = "Strain channel"
 
 class ForceChannel(Channel):
-    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.force},
+    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : Techniques.ENUM.force},
                              verbose_name="Bite Force units", null=True) 
     sensor = models.ForeignKey(ForceSensor)
     class Meta:
         verbose_name = "Bite Force channel"
                
 class PressureChannel(Channel):
-    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.pressure},
+    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : Techniques.ENUM.pressure},
                              verbose_name="Pressure units", null=True) 
     sensor = models.ForeignKey(PressureSensor)
     class Meta:
         verbose_name = "Pressure channel"
                
 class KinematicsChannel(Channel):
-    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : KnownTechniques.kinematics},
+    unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : Techniques.ENUM.kinematics},
                              verbose_name="Kinematics units", null=True) 
     sensor = models.ForeignKey(KinematicsSensor, verbose_name="Marker")
     class Meta:
@@ -460,7 +517,7 @@ CRITICAL_ASSOCIATED_OBJECTS[Unit]=['emgchannel_set','sonochannel_set','straincha
 CRITICAL_ASSOCIATED_OBJECTS[Taxon]=['subject_set']
 CRITICAL_ASSOCIATED_OBJECTS[DevelopmentStage]=['experiment_set']
 CRITICAL_ASSOCIATED_OBJECTS[AgeUnit]=['experiment_set']
-CRITICAL_ASSOCIATED_OBJECTS[Technique]=['setup_set']
+#-- CRITICAL_ASSOCIATED_OBJECTS[Technique]=['setup_set']
 CRITICAL_ASSOCIATED_OBJECTS[AnatomicalLocation]=['emgsensor_set','sonosensor_set']
 CRITICAL_ASSOCIATED_OBJECTS[DepthAxis]=['emgsensor_set','sonosensor_set']
 CRITICAL_ASSOCIATED_OBJECTS[Side]=['sensor_set']

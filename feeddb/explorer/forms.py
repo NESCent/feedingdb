@@ -16,8 +16,10 @@ for s in Taxon.objects.all():
 for s in AnatomicalLocation.objects.filter(category = AnatomicalCategories.muscle):    
     MUSCLE_CHOICES.append((s.id, s.label))
 
-for s in Technique.objects.all():
-    SENSOR_CHOICES.append((s.id, s.label))
+#-- 
+#for s in Technique.objects.all():
+#    SENSOR_CHOICES.append((s.id, s.label))
+SENSOR_CHOICES = Techniques.CHOICES
 
 for s in Behavior.objects.all():
     BEHAVIOR_CHOICES.append((s.id, s.label))

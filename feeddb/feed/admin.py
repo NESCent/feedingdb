@@ -330,7 +330,7 @@ class AnatomicalLocationAdmin(DefaultModelAdmin):
     ordering = ('category', 'label')
     
 
-admin.site.register(Technique,TermAdmin)	
+#-- admin.site.register(Technique,TermAdmin)	
 admin.site.register(Taxon, TaxonAdmin)
 admin.site.register(AnatomicalLocation, AnatomicalLocationAdmin)
 admin.site.register(Side,TermAdmin)

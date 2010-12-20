@@ -51,7 +51,7 @@ class TrialChangeForm(forms.ModelForm):
 
 class EmgSensorChannelForm(forms.ModelForm):
     rate = forms.IntegerField(label = "Recording Rate (Hz)", required=True, widget=forms.TextInput(attrs={'size': 5}))
-    unit = forms.ModelChoiceField(label = "Emg Units", required=True,queryset=Unit.objects.filter(technique = KnownTechniques.emg))
+    unit = forms.ModelChoiceField(label = "Emg Units", required=True,queryset=Unit.objects.filter(technique = Techniques.ENUM.emg))
     emg_filtering = forms.ModelChoiceField(label="EMG filtering", queryset=Emgfiltering.objects.all())
     emg_amplification = IntegerField(label = "Amplification",required=False, initial='', widget=forms.TextInput(attrs={'size': 5}))
     name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}))

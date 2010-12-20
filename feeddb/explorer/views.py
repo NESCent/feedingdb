@@ -425,8 +425,8 @@ def trial_search(request):
     if request.method == 'POST': 
         query = Q()
         form = SearchTrialForm(request.POST) 
-        emg_tech_id = KnownTechniques.emg.id
-        sono_tech_id = KnownTechniques.sono.id
+        emg_tech_id = Techniques.ENUM.emg
+        sono_tech_id =Techniques.ENUM.sono
         if form.is_valid():
             species = form.cleaned_data['species']
             if species!=None and species != "":
@@ -441,7 +441,7 @@ def trial_search(request):
             if food!=None and food != "":
                 query = query & Q(food_type__icontains = food) 
             if muscle!=None and muscle != "":
-                muscle_emg_query =  Q(session__channels__setup__technique__id__exact = emg_tech_id) & Q(session__channels__emgchannel__sensor__location_controlled__id__exact = int(muscle))
+                muscle_emg_query =  Q(session__channels__setup__technique__exact = emg_tech_id) & Q(session__channels__emgchannel__sensor__location_controlled__id__exact = int(muscle))
                 muscle_sono_query =  Q(session__channels__setup__technique__id__exact = sono_tech_id) & (Q(session__channels__sonochannel__crystal1__location_controlled__id__exact = int(muscle)) | Q(session__channels__sonochannel__crystal2__location_controlled__id__exact = int(muscle)))
                 muscle_query =  muscle_emg_query | muscle_sono_query
                 query = query & muscle_query
@@ -452,7 +452,7 @@ def trial_search(request):
                 #for tq in sensor:
                 #    if tq!=None and tq != "":
                 #sensor_query = sensor_query | Q(session__channels__setup__technique__id__exact = tq)
-                query = query & Q(session__channels__setup__technique__id__exact = int(sensor))
+                query = query & Q(session__channels__setup__technique__exact = int(sensor))
             
             order_by = form.cleaned_data['order_by']
             if order_by in (None, ''):

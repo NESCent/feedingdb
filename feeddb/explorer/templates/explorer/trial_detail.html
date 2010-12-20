@@ -120,20 +120,12 @@
 {% for setup in trial.session.experiment.setup_set.all %}
 <tr  class="{% cycle 'row1' 'row2' %}">
       <td>{{setup.id}}</td>
-                 <td>{{setup.technique}}</td>
+                 <td>{%technique_label setup.technique%}</td>
 				 <td>{{setup.sampling_rate|default_if_none:""}}</td>
+				 <td>{% display_preamplifier setup %}</td>
+                 <td>{% display_sonomicrometer setup %}</td>
+  			     <td>{{setup.notes|default_if_none:""|truncatewords:50}}</td>
 				 <td>
-				  {% ifequal setup.technique.label 'EMG' %}
-                       {{setup.emgsetup.preamplifier|default_if_none:""}}                           
-                  {%endifequal%}
-                   {% ifequal setup.technique.label 'Sono' %}
-                       {{setup.sonosetup.sonomicrometer|default_if_none:""}}
-                  {%endifequal%}
-				  </td>
-				  
-				  
-				  <td>{{setup.notes|default_if_none:""|truncatewords:50}}</td>
-				  <td>
 				  		<table>
 	{% for illustration in setup.illustration_set.all %}
 	  <tr><td>{%display_file illustration.picture %}</td>
@@ -163,7 +155,7 @@
 				<th>ML</th>
 				<th>Axis Depth</th>
 				<th>Electrode Type</th>
-				<th>Nodes</th>
+				<th>Notes</th>
                 </tr>
                  
 {% for setup in trial.session.experiment.setup_set.all %}
@@ -172,39 +164,14 @@
 	<td>{{sensor.id}}</td>
     <td>{{setup.id}}</td>
     <td>{{sensor.name}}</td>
-	<td>
-	  {% ifequal setup.technique.label "EMG" %}
-                {{sensor.emgsensor.location_controlled}}                           
-      {% endifequal %}
-	  {%ifequal setup.technique.label "Sono" %}
-                {{sensor.sonosensor.location_controlled}} 
-	  {% endifequal %}
-	  {% ifnotequal setup.technique.label "EMG" %}
-	      {%ifnotequal setup.technique.label "Sono" %}
-	   	        {{sensor.location_freetext}} 
-		  {%endifnotequal%}
-	  {%endifnotequal%}	  
-      
- 	</td>
+	<td>{% display_location setup sensor %}</td>
     <td>{{sensor.loc_side|default_if_none:""}}</td>
     <td>{{sensor.loc_ap|default_if_none:""}}</td>
 	<td>{{sensor.loc_dv|default_if_none:""}}</td>
 	<td>{{sensor.loc_pd|default_if_none:""}}</td>
 	<td>{{sensor.loc_ml|default_if_none:""}}</td>
-		  {% ifequal setup.technique.label "EMG" %}
-                 <td>{{sensor.emgsensor.axisdepth|default_if_none:""}}</td>     
-		 <td>{{sensor.emgsensor.electrode_type|default_if_none:""}}</td>                           
-      {% endifequal %}
-	  {%ifequal setup.technique.label "Sono" %}
-                <td>{{sensor.sonosensor.axisdepth|default_if_none:""}}</td>     
-		 <td></td> 
-	  {% endifequal %}
-	  {% ifnotequal setup.technique.label "EMG" %}
-	      {%ifnotequal setup.technique.label "Sono" %}
-	   	         <td></td>
-		  <td></td>
-		  {%endifnotequal%}
-	  {%endifnotequal%}	  
+	<td>{%display_axisdepth setup sensor %}</td>	  
+	<td>{%display_electrodetype setup sensor %}</td>	  
 	<td>{{sensor.notes|truncatewords:50|default_if_none:""}}</td>
 	              
 </tr>
@@ -215,16 +182,16 @@
 <h3><a href="#">Channels</a></h3>
 <div>				
 <table class="detail_table">
-                <tr>
-                <th>Order</th>
-               <th>Name</th>
-			   <th>Technique</th>
-            <th>Recording Rate</th>
-			    <th>Unit</th>
-				<th>Sensor 1</th>
-                <th>Sensor 2</th>
-                <th>EMG Filtering</th>
-                <th>EMG Amplification</th>
+             <tr>
+                 <th>Order</th>
+                 <th>Name</th>
+			     <th>Technique</th>
+                 <th>Recording Rate</th>
+			     <th>Unit</th>
+			     <th>Sensor 1</th>
+                 <th>Sensor 2</th>
+                 <th>EMG Filtering</th>
+                 <th>EMG Amplification</th>
 			</tr>
                  
 {% for lineup in trial.session.channellineup_set.all %}
@@ -232,62 +199,23 @@
       <td>{{lineup.position}}</td>
 	  {%if lineup.channel %}
                  <td>{{lineup.channel.name}}</td>
-                 <td>{{lineup.channel.setup.technique}}</td>
-				  <td>{{lineup.channel.rate|default_if_none:""}}</td>
-				    
-				  {% ifequal lineup.channel.setup.technique.label "EMG" %}
-				     <td>{{lineup.channel.emgchannel.unit|default_if_none:""}}</td>   
-                     <td>{{lineup.channel.emgchannel.sensor.id}}</td> 
-					 <td></td>
-					 <td>{{lineup.channel.emgchannel.emg_filtering|default_if_none:""}}</td> 
-					 <td>{{lineup.channel.emgchannel.emg_amplification|default_if_none:""}}</td>                           
-                  {% endifequal %}
-	              {%ifequal lineup.channel.setup.technique.label "Sono" %}
-				     <td>{{lineup.channel.sonochannel.unit|default_if_none:""}}</td>   
-                     <td>{{lineup.channel.sonochannel.crystal1.id}}</td> 
-					 <td>{{lineup.channel.sonochannel.crystal2.id}}</td>
-					 <td></td> 
-					 <td></td> 
-				  {% endifequal %}
-	              
-	              {%ifequal lineup.channel.setup.technique.label "Bone strain" %}
-                     <td>{{lineup.channel.strainchannel.sensor.id}}</td> 
-					 <td></td>
-					 <td></td> 
-					 <td></td> 
-				  {% endifequal %}	  
- 
-	              {%ifequal lineup.channel.setup.technique.label "Bite force" %}
-                     <td>{{lineup.channel.forcechannel.unit|default_if_none:""}}</td>     
-		             <td>{{lineup.channel.forcechannel.sensor.id}}</td> 
-					 <td></td>
-					 <td></td> 
-					 <td></td> 
-				  {% endifequal %}	                    
-	              {%ifequal lineup.channel.setup.technique.label "Pressure" %}
-                     <td>{{lineup.channel.pressurechannel.unit|default_if_none:""}}</td>     
-		             <td>{{lineup.channel.pressurechannel.sensor.id}}</td> 
-					 <td></td>
-					 <td></td> 
-					 <td></td> 
-				  {% endifequal %}	
-	              {%ifequal lineup.channel.setup.technique.label "Kinematics" %}
-                     <td>{{lineup.channel.kinematicschannel.unit|default_if_none:""}}</td>     
-		             <td>{{lineup.channel.kinematicschannel.sensor.id}}</td> 
-					 <td></td>
-					 <td></td> 
-					 <td></td> 
-				  {% endifequal %}	
-		  {%else%}
-                     <td>*deadchannel</td>
+                 <td>{%technique_label lineup.channel.setup.technique%}</td>
+				 <td>{{lineup.channel.rate|default_if_none:""}}</td>
+				 <td>{%display_unit lineup%}</td>
+				 <td>{%display_sensor1 lineup%}</td>
+				 <td>{%display_sensor2 lineup%}</td>
+				 <td>{%display_emg_filtering lineup%}</td>
+				 <td>{%display_emg_amplification lineup%}</td>
+	  {%else%}
+                 <td>*deadchannel</td>
                  <td></td>
-				  <td></td>
-					 <td></td>     
-		             <td></td> 
-					 <td></td>
-					 <td></td> 
-					 <td></td> 
-				  {% endif %}		
+				 <td></td>
+			     <td></td>     
+		         <td></td> 
+			     <td></td>
+				 <td></td> 
+			     <td></td> 
+      {% endif %}		
 </tr>
 {%endfor %}
                 </table>
