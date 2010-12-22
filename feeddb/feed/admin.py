@@ -315,7 +315,7 @@ class TermAdmin(TermModelAdmin):
     list_display = ('label',)
     ordering = ('label',)
 
-class UnitAdmin(DefaultModelAdmin):
+class UnitAdmin(TermModelAdmin):
     list_display = ('technique', 'label') 
     list_filter = ('technique', ) 
         
@@ -324,7 +324,7 @@ class TaxonAdmin(TermModelAdmin):
     ordering = ('genus','species')
     exclude = ['label']
 
-class AnatomicalLocationAdmin(DefaultModelAdmin):
+class AnatomicalLocationAdmin(TermModelAdmin):
     list_display = ('category', 'label')
     list_filter = ('category',)    
     ordering = ('category', 'label')
