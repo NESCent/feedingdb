@@ -281,7 +281,7 @@ def bucket_download(request, id):
 	                            objects["Sensor"] = getattr(ch, channel_type).sensor
                         if hasattr(ch.setup, 'emgsetup'):
                             objects["EmgSetup"] = ch.setup.emgsetup
-                        if hasattr(ch.setup, 'sonoetup'):
+                        if hasattr(ch.setup, 'sonosetup'):
                             objects["SonoSetup"] = ch.setup.sonosetup
                         if hasattr(ch,'emgchannel'):
                             objects["EmgChannel"] = ch.emgchannel

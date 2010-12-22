@@ -52,7 +52,7 @@ TECHNIQUE_CHOICES = (
                (4, u'Bite force'), 
                (5, u'Pressure'), 
                (6, u'Kinematics'), 
-#              (7, u''), 
+               (7, u'Event'), 
                )
     
 class Techniques(object):
@@ -66,6 +66,7 @@ class Techniques(object):
         force = 4 
         pressure = 5 
         kinematics = 6
+        event = 7
         
     @staticmethod
     def num2label(num):
@@ -255,6 +256,9 @@ class KinematicsSetup(Setup):
             self.notes = 'camera\nmarkers\nmovie film or digital\nlight or x-ray\nanatomical view (lateral/d-v/frontal)\n2D or 3D'
         super(KinematicsSetup, self).save()
 
+class EventSetup(Setup):    
+    class Meta:
+        verbose_name = "Time/Event setup"
         
         
 class Sensor(FeedBaseModel):
@@ -378,6 +382,13 @@ class KinematicsChannel(Channel):
     sensor = models.ForeignKey(KinematicsSensor, verbose_name="Marker")
     class Meta:
         verbose_name = "Kinematics channel"
+              
+class EventChannel(Channel):
+    unit = models.CharField(max_length=255, blank = True, null = True)
+    #Note: An EventChannel is not associated with any Sensor
+    class Meta:
+        verbose_name = "Time/Event channel" 
+    
               
 class Session(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)

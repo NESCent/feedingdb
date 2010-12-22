@@ -86,6 +86,8 @@ def display_unit(lineup):
         return silent_if_none(lineup.channel.pressurechannel.unit)
     elif lineup.channel.setup.technique == Techniques.ENUM.strain:
         return silent_if_none(lineup.channel.strainchannel.unit)
+    elif lineup.channel.setup.technique == Techniques.ENUM.event:
+        return silent_if_none(lineup.channel.eventchannel.unit)
     else: 
         return "ERROR: unknown technique in display_unit()"        
 
@@ -104,6 +106,8 @@ def display_sensor1(lineup):
         return silent_if_none(lineup.channel.pressurechannel.sensor.id)
     elif lineup.channel.setup.technique == Techniques.ENUM.strain:
         return silent_if_none(lineup.channel.strainchannel.sensor.id)
+    elif lineup.channel.setup.technique == Techniques.ENUM.event:
+        return ""
     else: 
         return "ERROR: unknown technique in display_sensor1()"        
 
@@ -143,6 +147,8 @@ def display_lineup_location(lineup):
         return silent_if_none(lineup.channel.pressurechannel.location_freetext)
     elif lineup.channel.setup.technique == Techniques.ENUM.strain:
         return silent_if_none(lineup.channel.strainchannel.sensor.location_freetext)
+    elif lineup.channel.setup.technique == Techniques.ENUM.event:
+        return ""
     else: 
         return "ERROR: unknown technique in display_lineup_location()"        
 
@@ -160,13 +166,15 @@ def display_lineup_side(lineup):
         return silent_if_none(lineup.channel.pressurechannel.loc_side)
     elif lineup.channel.setup.technique == Techniques.ENUM.strain:
         return silent_if_none(lineup.channel.strainchannel.sensor.loc_side)
+    elif lineup.channel.setup.technique == Techniques.ENUM.event:
+        return ""
     else: 
         return "ERROR: unknown technique in display_lineup_location()"        
 
 
 def display_muscle(trial):
     """
-    Returns the unique muscles list for a trail.
+    Returns the unique muscles list for a trial.
     """
     musles = set()
     

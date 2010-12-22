@@ -172,6 +172,13 @@ class KinematicsChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
         model = KinematicsChannel    
+        
+class EventChannelForm(forms.ModelForm):
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
+    class Meta:
+        model = EventChannel        
+    
+    
                 
 class TrialInlineForm(forms.ModelForm):
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)

@@ -377,7 +377,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         if form.fields.has_key("study"):
             form.fields["study"].queryset = Study.objects.filter(created_by=request.user)
 
-        #disable corresponding foriegn key select box if the data object is already specified in the url
+        #disable corresponding foreign key select box if the data object is already specified in the url
         if request.GET.has_key("study"):
             if form.fields.has_key("study"):
                 form.fields["study"].widget.widget.attrs['disabled']=""
@@ -391,8 +391,8 @@ class FeedModelAdmin(admin.ModelAdmin):
             if form.fields.has_key("subject"):
                 form.fields["subject"].widget.widget.attrs['disabled']=""
                 
-        setups = ["emgsetup","sonosetup","pressuresetup","forcesetup","strainsetup","kinematicssetup"]
-        channels = ["emgchannel","sonochannel","pressurechannel","forcechannel","strainchannel","kinematicschannel"]
+        setups = ["emgsetup","sonosetup","pressuresetup","forcesetup","strainsetup","kinematicssetup", "eventsetup"]
+        channels = ["emgchannel","sonochannel","pressurechannel","forcechannel","strainchannel","kinematicschannel", "eventchannel"]
         
         for s in setups:
             if request.GET.has_key(s):
@@ -492,7 +492,7 @@ class FeedModelAdmin(admin.ModelAdmin):
                 form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=sess.experiment.id)
             if obj and hasattr(obj, "session"):
                 form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=obj.session.experiment.id)
-        #filter sensor choise for channel
+        #filter sensor choice for channel
         sensor_classes = [EmgSensor,SonoSensor,PressureSensor,ForceSensor,StrainSensor,KinematicsSensor]
         
         sensor_class=None

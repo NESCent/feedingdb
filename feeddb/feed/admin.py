@@ -208,6 +208,15 @@ class KinematicsChannelViewInline(FeedTabularInline):
     model = KinematicsChannel
     extra = 0    
              
+class EventChannelInline(FeedTabularInline):
+    model = EventChannel
+    extra =9
+    form = EventChannelForm
+
+class EventChannelViewInline(FeedTabularInline):
+    model = EventChannel
+    extra = 0    
+             
 class EmgSetupAdmin(EmgSetupModelAdmin):
     inlines = [ IllustrationInline, EmgSensorInline]
     view_inlines = [IllustrationViewInline, EmgSensorViewInline]
@@ -247,6 +256,13 @@ class PressureSetupAdmin(DefaultModelAdmin):
 class KinematicsSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,KinematicsSensorInline,KinematicsChannelInline]
     view_inlines = [IllustrationViewInline, KinematicsSensorViewInline, KinematicsChannelViewInline]
+    list_display = ('technique', 'experiment')
+    list_filter = ('technique', 'experiment')            
+    form = SetupForm
+
+class EventSetupAdmin(DefaultModelAdmin):
+    inlines = [ IllustrationInline,EventChannelInline]
+    view_inlines = [IllustrationViewInline, EventChannelViewInline]
     list_display = ('technique', 'experiment')
     list_filter = ('technique', 'experiment')            
     form = SetupForm
@@ -357,6 +373,7 @@ admin.site.register(StrainSetup,StrainSetupAdmin)
 admin.site.register(ForceSetup,ForceSetupAdmin)
 admin.site.register(PressureSetup,PressureSetupAdmin)
 admin.site.register(KinematicsSetup,KinematicsSetupAdmin)
+admin.site.register(EventSetup,EventSetupAdmin)
 admin.site.register(EmgSensor, EmgSensorAdmin)
 admin.site.register(SonoSensor, SonoSensorAdmin)
 admin.site.register(ForceSensor, CommonSensorAdmin)
@@ -372,3 +389,4 @@ admin.site.register(StrainChannel,DefaultModelAdmin)
 admin.site.register(ForceChannel, DefaultModelAdmin)
 admin.site.register(KinematicsChannel, DefaultModelAdmin)
 admin.site.register(PressureChannel, DefaultModelAdmin)
+admin.site.register(EventChannel, DefaultModelAdmin)

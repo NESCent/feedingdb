@@ -49,6 +49,8 @@ def display_readonly(field, adminform):
                     modelname ="forcesetup"
                 elif isinstance(adminform.form.instance, KinematicsSensor) or isinstance(adminform.form.instance,KinematicsChannel):
                     modelname ="kinematicssetup"            
+                elif isinstance(adminform.form.instance,EventChannel):   #recall, there is no EventSensor
+                    modelname ="eventsetup"            
                 else:
                     modelname=""    
             for value in values:
