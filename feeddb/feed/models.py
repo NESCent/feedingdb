@@ -43,23 +43,6 @@ class DevelopmentStage(CvTerm):
 class AgeUnit(CvTerm):
     pass
 
-##-- after data migration! 
-#class Technique(CvTerm):
-#    "Presence of specific entries (see KnownTechniques) in this table is required for proper functioning of the application, so it is not really a controlled term."
-#    #TODO: change the implementation (or just UI?) to avoid the impression that Technique entries can be edited.   
-#    #      (See ANATOMICAL_CATEGORIES for an idea how to move them out of the DB.)
-#    pass
-#
-#class KnownTechniques:
-#    "Techniques that are assumed to be in the database."
-#    #TODO: complain ASAP if any of these is not in DB
-#    emg = Technique.objects.all().get(label__iexact = 'EMG')
-#    sono = Technique.objects.all().get(label__iexact = 'Sono')
-#    strain = Technique.objects.all().get(label__iexact = 'Bone strain')   #TODO? filter --> get
-#    force = Technique.objects.all().get(label__iexact = 'Bite force')
-#    pressure = Technique.objects.all().get(label__iexact = 'Pressure')
-#    kinematics = Technique.objects.all().get(label__iexact = 'Kinematics')
-    
     
     
 TECHNIQUE_CHOICES = (
@@ -87,30 +70,7 @@ class Techniques(object):
     @staticmethod
     def num2label(num):
         return Techniques.__choices_dict.get(num, "Unknown Technique")
-        
-#--??
-#    @staticmethod
-#    def label2num():
-#        raise NotImplementedError("Techniques.label2num")
-    
-#--       
-#class Techniques:     # An "enumeration", not a Django model
-#    emg = 1
-#    sono = 2
-#    strain = 3
-#    force = 4 
-#    pressure = 5 
-#    kinematics = 6
-#
-#TECHNIQUES = (
-#              (Techniques.emg, u'EMG'), 
-#              (Techniques.sono, u'Sono'), 
-#              (Techniques.strain, u'Bone strain'), 
-#              (Techniques.force, u'Bite force'), 
-#              (Techniques.pressure, u'Pressure'), 
-#              (Techniques.kinematics, u'Kinematics'), 
-##              (Techniques, u''), 
-#            )
+
 
 class Taxon(CvTerm):
     genus = models.CharField(max_length=255)
@@ -177,9 +137,7 @@ class Restraint(CvTerm):
 
 
 class Unit(CvTerm):
-#--    technique = models.ForeignKey(Technique)
-#--    techn_enum = models.IntegerField(choices = Techniques.CHOICES) 
-    technique  = models.IntegerField(choices = Techniques.CHOICES)   #TODO: make non-null 
+    technique  = models.IntegerField(choices = Techniques.CHOICES)   
     
     class Meta:
         ordering = ["technique", "label"]
@@ -258,30 +216,23 @@ class Experiment(FeedBaseModel):
 class Setup(FeedBaseModel):
     is_cloneable=False
     experiment = models.ForeignKey(Experiment)
-#--    technique = models.ForeignKey(Technique)   #--
-#--    techn_enum = models.IntegerField(choices=Techniques.CHOICES)  
-    technique = models.IntegerField(choices=Techniques.CHOICES)  #TODO: make non-null 
+    technique = models.IntegerField(choices=Techniques.CHOICES)   
     notes = models.TextField("Notes about all sensors and channels in this setup", blank = True, null=True)
     sampling_rate = models.IntegerField("Sampling Rate (Hz)", blank=True, null=True)
     class Meta:
         verbose_name = "setup"
     def __unicode__(self):
-#--        return "%s setup" % (self.technique)  
         return "%s setup" % (Techniques.num2label(self.technique))  
 
 class EmgSetup(Setup):
     preamplifier = models.CharField(max_length=255, blank = True, null=True)
     class Meta:
         verbose_name = "EMG setup"
-#--    def __unicode__(self):
-#--        return "%s setup with preamplifier: %s" % (self.technique, self.preamplifier)  
 
 class SonoSetup(Setup):
     sonomicrometer = models.CharField(max_length=255, blank = True, null=True)
     class Meta:
         verbose_name = "Sono setup"
-#--    def __unicode__(self):
-#--        return "%s setup with sonomicrometer: %s" % (self.technique, self.sonomicrometer)  
 
 class StrainSetup(Setup):
     class Meta:
@@ -517,7 +468,6 @@ CRITICAL_ASSOCIATED_OBJECTS[Unit]=['emgchannel_set','sonochannel_set','straincha
 CRITICAL_ASSOCIATED_OBJECTS[Taxon]=['subject_set']
 CRITICAL_ASSOCIATED_OBJECTS[DevelopmentStage]=['experiment_set']
 CRITICAL_ASSOCIATED_OBJECTS[AgeUnit]=['experiment_set']
-#-- CRITICAL_ASSOCIATED_OBJECTS[Technique]=['setup_set']
 CRITICAL_ASSOCIATED_OBJECTS[AnatomicalLocation]=['emgsensor_set','sonosensor_set']
 CRITICAL_ASSOCIATED_OBJECTS[DepthAxis]=['emgsensor_set','sonosensor_set']
 CRITICAL_ASSOCIATED_OBJECTS[Side]=['sensor_set']
