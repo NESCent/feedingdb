@@ -212,7 +212,7 @@ def bucket_download(request, id):
             #output headers
             headers=["Trial:ID"]
             for key, value in meta_selected.items():
-                if not key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel'):
+                if not key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel','EventChanel'):
                     for v in value:
                         headers.append( v[1] )
             metaWriter.writerow(headers)
@@ -243,7 +243,7 @@ def bucket_download(request, id):
             headers=["Channel:ID"]
             for key, value in meta_selected.items():
                 #generate headers meta data
-                if key in('Setup','EmgSetup','Sensor','EmgSensor','SonoSetup','SonoSensor','Channel','EmgChannel','SonoChannel'):
+                if key in('Setup','EmgSetup','Sensor','EmgSensor','SonoSetup','SonoSensor','Channel','EmgChannel','SonoChannel','EventChannel'):
                     for v in value:
                         headers.append( v[1] )
             
@@ -287,6 +287,8 @@ def bucket_download(request, id):
                             objects["EmgChannel"] = ch.emgchannel
                             objects["Sensor"] = ch.emgchannel.sensor
                             objects["EmgSensor"] = ch.emgchannel.sensor
+                        if hasattr(ch,'eventchannel'):
+                            objects["EventChannel"] = ch.eventchannel
                         if hasattr(ch,'sonochannel'):
                             objects["SonoChannel"] = ch.sonochannel
                             objects["Sensor"] = ch.sonochannel.crystal1
@@ -295,7 +297,7 @@ def bucket_download(request, id):
                             objects["Sensor"] = ch.emgchannel.sensor
                     
                     for key, value in meta_selected.items():
-                        if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel'):
+                        if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel','EventChannel'):
                             for v in value:
                                 s=''
                                 if key in objects and objects[key]!=None:
@@ -410,7 +412,7 @@ def bucket_download(request, id):
     meta_forms.append(ChannelModelForm())
     meta_forms.append(EmgChannelModelForm())
     meta_forms.append(SonoChannelModelForm())
-    
+    meta_forms.append(EventChannelModelForm())
     bucket_name = bucket.title.replace(' ','_').strip().lower()
     bucket_name = "%s.zip" % bucket_name
     
@@ -609,11 +611,6 @@ def trial_add(request, id):
         except Trial.DoesNotExist:
             c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
             return render_to_response('explorer/error.html', c)
-        #check if the user is the owner of the bucket. If not return error page 
-        if bucket.created_by.pk != request.user.pk:
-            request.user.message_set.create(message='Sorry, you are not allowed to change a bucket owned by another user.')
-            c = RequestContext(request, {'title': 'FeedDB Explorer'})
-            return render_to_response('explorer/base.html', c)
         if request.POST['bucket_id']!='add new bucket':
             bucket_id = request.POST['bucket_id']
             if bucket_id==None or bucket_id =="":
@@ -624,6 +621,12 @@ def trial_add(request, id):
             except Bukcet.DoesNotExist:
                 request.user.message_set.create(message='Bucket with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
+            #check if the user is the owner of the bucket. If not return error page 
+            if bucket.created_by.pk != request.user.pk:
+                request.user.message_set.create(message='Sorry, you are not allowed to change a bucket owned by another user.')
+                c = RequestContext(request, {'title': 'FeedDB Explorer'})
+                return render_to_response('explorer/base.html', c)
+ 
         else: 
             new_bucket_name=request.POST['new_bucket_name']
             if new_bucket_name==None and new_bucket_name =="":

@@ -23,6 +23,10 @@
 		   {% if setup.kinematicssetup %}
 	         <a  class="{% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
 	       {% endif %}
+		   {% if setup.eventsetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'eventsetup' %}Active{% endifequal %}" href="/admin/feed/eventsetup/{{setup.eventsetup.pk}}/{% if change %}edit{%endif %}">Time/Event</a>
+	       {% endif %}
+
 	     {% endfor %}
 	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{object_id}}">Sessions</a>
      {% endifequal %}
@@ -48,6 +52,9 @@
 	    	   {% if setup.kinematicssetup %}
 		         <a  class="{% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
 		       {% endif %}
+     		   {% if setup.eventsetup %}
+	              <a  class="{% ifequal opts.object_name|lower 'eventsetup' %}Active{% endifequal %}" href="/admin/feed/eventsetup/{{setup.eventsetup.pk}}/{% if change %}edit{%endif %}">Time/Event</a>
+	           {% endif %}
 	 		{% endfor %}
 	      <a class="Active"  href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{experiment.pk}}">Sessions</a>
 	 {% else %}
@@ -74,6 +81,9 @@
 		   {% if setup.kinematicssetup %}
 	         <a  class="{% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
 	       {% endif %}		   
+     	   {% if setup.eventsetup %}
+	         <a  class="{% ifequal opts.object_name|lower 'eventsetup' %}Active{% endifequal %}" href="/admin/feed/eventsetup/{{setup.eventsetup.pk}}/{% if change %}edit{%endif %}">Time/Event</a>
+	       {% endif %}
 	     {% endfor %}
 	     <a  class="{% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{original.experiment.pk}}">Sessions</a>
        {% endifnotequal %}

@@ -845,6 +845,8 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         pressuresetup=None
         has_kinematics=False
         kinematicssetup=None
+        has_event=False
+        eventsetup=None
         
         for s in new_experiment.setup_set.all():
             if hasattr(s,"emgsetup"):
@@ -865,7 +867,9 @@ class ExperimentModelAdmin(DefaultModelAdmin):
             if hasattr(s, "kinematicssetup"):
                 has_kinematics = True
                 kinematicssetup = s               
-        
+            if hasattr(s, "eventsetup"):
+                has_event = True
+                eventsetup = s   
         emg  = request.POST.get('technique_emg')
         if emg != None and emg == "on":
             if not has_emg:
@@ -907,41 +911,39 @@ class ExperimentModelAdmin(DefaultModelAdmin):
                 self.add_technique(request,new_experiment, Techniques.ENUM.kinematics);
         #if kinematics == None and has_kinematics: 
         #    self.delete_setup(kinematicssetup)                  
-
+        event  = request.POST.get('technique_event')
+        if event != None and event == "on":
+            if not has_event:
+                self.add_technique(request,new_experiment, Techniques.ENUM.event);
+                
     def add_technique(self, request, experiment, technique):
-        #TODO This creates both a Setup and a XxxSetup objects -- isn't this trouble? 
         setup = Setup();
         setup.technique=technique
         setup.experiment = experiment
         tech_setup = None
         if technique==Techniques.ENUM.emg:
             tech_setup = EmgSetup()
-        elif technique==Techniques.ENUM.sono:
-            tech_setup = SonoSetup()
-        elif technique==Techniques.ENUM.strain:
-            tech_setup = StrainSetup()
-        elif technique==Techniques.ENUM.force:
-            tech_setup = ForceSetup()
-        elif technique==Techniques.ENUM.pressure:
-            tech_setup = PressureSetup()
-        elif technique==Techniques.ENUM.kinematics:
-            tech_setup = KinematicsSetup()
-            
-        tech_setup.experiment = experiment
-        tech_setup.technique=technique
-        ##TODO: combine this branching with the one above (VG)
-        if technique==Techniques.ENUM.emg:
             setup.emgsetup = tech_setup
         elif technique==Techniques.ENUM.sono:
+            tech_setup = SonoSetup()
             setup.sonosetup = tech_setup
         elif technique==Techniques.ENUM.strain:
+            tech_setup = StrainSetup()
             setup.strainsetup = tech_setup
         elif technique==Techniques.ENUM.force:
-            setup.forcesetup = tech_setup    
-        elif technique==Techniques.ENUM.kinematics:
-            setup.kinematicssetup = tech_setup  
+            tech_setup = ForceSetup()
+            setup.forcesetup = tech_setup
         elif technique==Techniques.ENUM.pressure:
-            setup.pressuresetup = tech_setup  
+            tech_setup = PressureSetup()
+            setup.pressuresetup = tech_setup
+        elif technique==Techniques.ENUM.kinematics:
+            tech_setup = KinematicsSetup()
+            setup.kinematicssetup = tech_setup
+        elif technique==Techniques.ENUM.event:
+            tech_setup = EventSetup()    
+            setup.eventsetup = tech_setup
+        tech_setup.experiment = experiment
+        tech_setup.technique=technique
         tech_setup.created_by = request.user
 
         setup.created_by = request.user
@@ -974,6 +976,7 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_force'/>Force"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_pressure'/>Pressure"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_kinematics'/>Kinematics"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_event'/>Time/Event"))
         for s in experiment.setup_set.all():
             if hasattr(s,"emgsetup"):
                 techniques[0] = mark_safe("<a href='/admin/feed/emgsetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>EMG" % (s.id, experiment.id))
@@ -987,7 +990,9 @@ class ExperimentModelAdmin(DefaultModelAdmin):
                 techniques[4] = mark_safe("<a href='/admin/feed/pressuresetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Pressure" % (s.id, experiment.id))
             if hasattr(s, "kinematicssetup"):
                 techniques[5] = mark_safe("<a href='/admin/feed/kinematicssetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Kinematics" % (s.id, experiment.id))
-        
+            if hasattr(s, "eventsetup"):
+                techniques[6] = mark_safe("<a href='/admin/feed/eventsetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Time/Event" % (s.id, experiment.id))
+     
         if(extra_context!=None):
             extra_context.update({
                 'techniques': techniques,
@@ -1008,7 +1013,8 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_force'/>Force"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_pressure'/>Pressure"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_kinematics'/>Kinematics"))
-
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_event'/>Time/Event"))
+        
         if(extra_context!=None):
             extra_context.update({
                 'techniques': techniques,

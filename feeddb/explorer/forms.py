@@ -120,4 +120,9 @@ class SonoChannelModelForm(forms.ModelForm):
     class Meta:
         model=SonoChannel
         exclude = ('crystal1','crystal2','name','rate','notes','setup')
-        name = 'SonoChannel'       
+        name = 'SonoChannel'   
+class EventChannelModelForm(forms.ModelForm):
+    class Meta:
+        model=EventChannel
+        exclude = ('name','rate','notes','setup')
+        name = 'EventChannel'                   
