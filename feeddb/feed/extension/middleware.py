@@ -8,10 +8,11 @@ from django.contrib.auth.models import User
 
 class AnonymousAccessMiddleware(object):
     def process_request(self, request):
-        if not request.user.is_authenticated() and settings.ALLOW_ANONYMOUS_ACCESS:
-            username = settings.ANONYMOUS_USERNAME
-            password = settings.ANONYMOUS_PASSWORD
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
+        if hasattr(settings, "ALLOW_ANONYMOUS_ACCESS"): 
+            if not request.user.is_authenticated() and settings.ALLOW_ANONYMOUS_ACCESS:
+	            username = settings.ANONYMOUS_USERNAME
+	            password = settings.ANONYMOUS_PASSWORD
+	            user = authenticate(username=username, password=password)
+	            if user is not None:
+	                if user.is_active:
+	                    login(request, user)
