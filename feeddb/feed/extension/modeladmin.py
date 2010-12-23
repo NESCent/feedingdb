@@ -972,7 +972,7 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         techniques =[]
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_emg'/>EMG"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_sono'/>Sono"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_strain'/>Bone Strain"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_strain'/>Strain"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_force'/>Force"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_pressure'/>Pressure"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_kinematics'/>Kinematics"))
@@ -983,7 +983,7 @@ class ExperimentModelAdmin(DefaultModelAdmin):
             if hasattr(s, "sonosetup"):
                 techniques[1] = mark_safe("<a href='/admin/feed/sonosetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Sono" % (s.id, experiment.id))
             if hasattr(s, "strainsetup"):
-                techniques[2] = mark_safe("<a href='/admin/feed/strainsetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Bone Strain" % (s.id, experiment.id))
+                techniques[2] = mark_safe("<a href='/admin/feed/strainsetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Strain" % (s.id, experiment.id))
             if hasattr(s, "forcesetup"):
                 techniques[3] = mark_safe("<a href='/admin/feed/forcesetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Force" % (s.id, experiment.id))
             if hasattr(s, "pressuresetup"):
@@ -1009,7 +1009,7 @@ class ExperimentModelAdmin(DefaultModelAdmin):
 
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_emg'/>EMG"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_sono'/>Sono"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_strain'/>Bone Strain"))
+        techniques.append(mark_safe("<input type='checkbox' name = 'technique_strain'/>Strain"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_force'/>Force"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_pressure'/>Pressure"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_kinematics'/>Kinematics"))

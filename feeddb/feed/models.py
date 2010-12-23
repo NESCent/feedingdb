@@ -48,7 +48,7 @@ class AgeUnit(CvTerm):
 TECHNIQUE_CHOICES = (
                (1, u'EMG'),
                (2, u'Sono'), 
-               (3, u'Bone strain'), 
+               (3, u'Strain'), 
                (4, u'Bite force'), 
                (5, u'Pressure'), 
                (6, u'Kinematics'), 
@@ -237,7 +237,7 @@ class SonoSetup(Setup):
 
 class StrainSetup(Setup):
     class Meta:
-        verbose_name = "Bone Strain setup"
+        verbose_name = "Strain setup"
         
 class ForceSetup(Setup):
     class Meta:
