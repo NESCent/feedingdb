@@ -5,9 +5,12 @@ import datetime
 from django.db.models.expressions import F
 
 
-# base model for the whole project
+DATETIME_HELP_TEXT = 'For older dates, type by hand "yyyy-mm-dd" for date and "hh:mm:ss" for time, for example "1990-10-22" and "15:45:00.  If start time is not known, use "00:00:00".' 
+# Only used for Trial here; the other containers are are affected through forms.py -- go figure (VG) 
+BOOKKEEPING_HELP_TEXT = 'The reference to these data, as used in your lab notes or records (optional).'
 
 class FeedBaseModel(models.Model):
+    """Base model for the whole project """
     created_by = models.ForeignKey(User, related_name="%(class)s_related", editable=False,  blank=True, null=True)
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField(editable=False)
@@ -78,7 +81,8 @@ class Taxon(CvTerm):
     species = models.CharField(max_length=255)
     common_name = models.CharField(max_length=255, blank = True, null=True)
     def __unicode__(self):
-        return self.genus+" "+ self.species 
+        return "%s %s (%s)" % (self.genus, self.species, self.common_name)
+#        return self.genus+" "+ self.species + " ()"
     class Meta:
         ordering = ["genus"]
         verbose_name_plural = "Taxa"
@@ -150,12 +154,14 @@ class Emgfiltering(CvTerm):
 #object models    
 class Study(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
-    title = models.CharField(max_length=255)
-    bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True)
-    start = models.DateTimeField(blank = False, null=False, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
-    end = models.DateTimeField( blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
+    title = models.CharField(max_length=255, 
+                             help_text = "A descriptive name of this study.")
+    bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
+    start = models.DateTimeField(blank = False, null=False)
+    end = models.DateTimeField( blank = True, null=True)
     funding_agency = models.CharField(max_length=255, blank = True, null=True)
-    approval_secured = models.CharField(max_length=255, blank = True, null=True)
+    approval_secured = models.CharField(max_length=255, blank = True, null=True, 
+                                        help_text = "Whether an approval for Animal Care and Use or for Human Subjects was secured (Yes, No, or N/A).")
     description = models.TextField()
     resources = models.TextField("External Resources", blank = True, null=True)
 
@@ -167,11 +173,12 @@ class Study(FeedBaseModel):
     
 class StudyPrivate(FeedBaseModel):
     study = models.ForeignKey(Study)
-    pi = models.CharField(max_length=255)
+    pi = models.CharField("PI", max_length=255)
     organization = models.CharField(max_length=255, blank = True, null=True)
     lab = models.CharField(max_length=255, blank = True, null=True)
-    funding = models.CharField(max_length=255, blank = True, null=True)
-    approval = models.CharField(max_length=255, blank = True, null=True)
+    funding = models.CharField(max_length=255, blank = True, null=True, help_text = "Funding agency, grant name, number, award date, etc.")
+    approval = models.CharField(max_length=255, blank = True, null=True, 
+                                help_text = "A reference to approval documentation for Animal Care and Use or for Human Subjects, if it was secured.")
     notes = models.TextField( blank = True, null=True)
     class Meta:
         verbose_name = "Study - Private Information"
@@ -190,25 +197,28 @@ class Subject(FeedBaseModel):
     name = models.CharField(max_length=255)    
     breed = models.CharField(max_length=255, blank = True, null=True)   
     sex = models.CharField(max_length=2, choices = GENDER_CHOICES, blank = True, null=True) 
-    source = models.CharField(max_length=255, blank = True, null=True) 
-    notes = models.TextField(blank = True, null=True, help_text="notes about the research subject")
+    source = models.CharField(max_length=255, blank = True, null=True, 
+                              help_text = "E.g. wild-caught, zoo, laboratory raised, etc.")
+    notes = models.TextField(blank = True, null=True, help_text="E.g., any relevant morphological data, such as muscle weights, muscle fiber angles, fiber types, CT scan images, anatomical drawings.")
     def __unicode__(self):
         return self.name       
         
 class Experiment(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255)
-    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
+    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     study = models.ForeignKey(Study)    
     subject = models.ForeignKey(Subject)   
-    start = models.DateTimeField( blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
-    end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
+    start = models.DateTimeField( blank = True, null=True)
+    end = models.DateTimeField(blank = True, null=True)
     description = models.TextField(blank = True, null=True)
     subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="subject development stage")
-    subj_age = models.DecimalField("subject age",max_digits=19, decimal_places=5, blank = True, null=True)
+    subj_age = models.DecimalField("subject age",max_digits=19, decimal_places=5, blank = True, null=True, 
+                                   help_text = "As a decimal; use the following field to specify age units.")
     subj_ageunit = models.ForeignKey(AgeUnit, verbose_name='age units', blank = True, null = True)
     subj_weight = models.DecimalField("subject weight (kg)",max_digits=19, decimal_places=5, blank = True, null=True)
-    subj_tooth = models.CharField("subject teeth",max_length=255, blank = True, null=True)
+    subj_tooth = models.CharField("subject teeth",max_length=255, blank = True, null=True, 
+                                  help_text = "Stage of teeth development")
     subject_notes = models.TextField("subject notes", blank = True, null=True)
     impl_notes = models.TextField("implantation notes", blank = True, null=True)
     def __unicode__(self):
@@ -229,6 +239,8 @@ class EmgSetup(Setup):
     preamplifier = models.CharField(max_length=255, blank = True, null=True)
     class Meta:
         verbose_name = "EMG setup"
+    def __unicode__(self):
+        return "%s setup" % (Techniques.num2label(self.technique))  
 
 class SonoSetup(Setup):
     sonomicrometer = models.CharField(max_length=255, blank = True, null=True)
@@ -393,11 +405,11 @@ class EventChannel(Channel):
 class Session(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255)
-    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
+    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     experiment = models.ForeignKey(Experiment)    
     position = models.IntegerField(help_text='the order of the recording session in the experiment')
-    start = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
-    end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
+    start = models.DateTimeField(blank = True, null=True)
+    end = models.DateTimeField(blank = True, null=True)
     subj_notes = models.TextField("subject notes", blank = True, null=True)    
     subj_restraint = models.ForeignKey(Restraint,verbose_name="subject restraint")
     subj_anesthesia_sedation = models.CharField("subject anesthesia / sedation", max_length=255,  blank = True, null=True)
@@ -422,11 +434,11 @@ def get_data_upload_to(instance, filename):
 class Trial(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255)
-    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True)
+    bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     session = models.ForeignKey(Session)    
     position = models.IntegerField()
-    start = models.DateTimeField( blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
-    end = models.DateTimeField(blank = True, null=True, help_text='format: yyyy-mm-dd hh:mm:ss example: 1990-10-10 00:00:00')
+    start = models.DateTimeField( blank = True, null=True, help_text = DATETIME_HELP_TEXT)
+    end = models.DateTimeField(blank = True, null=True, help_text = DATETIME_HELP_TEXT)
     estimated_duration = models.PositiveIntegerField("Estimated duration (sec)", blank = True, null=True) 
     subj_treatment = models.TextField("subject treatment",blank = True, null=True)
     subj_notes = models.TextField("subject notes", blank = True, null=True)
@@ -439,8 +451,10 @@ class Trial(FeedBaseModel):
     behavior_secondary = models.CharField("secondary behavior", max_length=255,blank = True, null=True)
     behavior_notes = models.TextField("behavior notes", blank = True, null=True)
 
-    waveform_picture = models.FileField("waveform picture",upload_to="pictures",  blank = True, null=True)
-    data_file  = models.FileField("Data File",upload_to=get_data_upload_to ,  blank = True, null=True)
+    data_file  = models.FileField("Data File",upload_to=get_data_upload_to ,  blank = True, null=True, 
+                                  help_text="A tab-delimited file with columns corresponding to the channel lineup specified in the Recording Session.")
+    waveform_picture = models.FileField("waveform picture",upload_to="pictures",  blank = True, null=True, 
+                                        help_text="A picture (jpeg, pdf, etc.) as a graphical overview of data in the data file.")
 
     def __unicode__(self):
         return self.title          
@@ -451,6 +465,7 @@ class Trial(FeedBaseModel):
 class Illustration(FeedBaseModel):
     picture = models.FileField("picture",upload_to='illustrations',  blank = True, null=True)
     notes = models.TextField(blank = True, null=True)
+    #A hack: It is intended that only one of the following FKs is non-null.  
     subject  = models.ForeignKey(Subject,  blank = True, null=True)
     setup  = models.ForeignKey(Setup,  blank = True, null=True)
     experiment  = models.ForeignKey(Experiment,  blank = True, null=True)
