@@ -444,7 +444,7 @@ def trial_search(request):
                 query = query & Q(food_type__icontains = food) 
             if muscle!=None and muscle != "":
                 muscle_emg_query =  Q(session__channels__setup__technique__exact = emg_tech_id) & Q(session__channels__emgchannel__sensor__location_controlled__id__exact = int(muscle))
-                muscle_sono_query =  Q(session__channels__setup__technique__id__exact = sono_tech_id) & (Q(session__channels__sonochannel__crystal1__location_controlled__id__exact = int(muscle)) | Q(session__channels__sonochannel__crystal2__location_controlled__id__exact = int(muscle)))
+                muscle_sono_query =  Q(session__channels__setup__technique__exact = sono_tech_id) & (Q(session__channels__sonochannel__crystal1__location_controlled__id__exact = int(muscle)) | Q(session__channels__sonochannel__crystal2__location_controlled__id__exact = int(muscle)))
                 muscle_query =  muscle_emg_query | muscle_sono_query
                 query = query & muscle_query
             
