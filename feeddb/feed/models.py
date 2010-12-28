@@ -55,7 +55,7 @@ TECHNIQUE_CHOICES = (
                (4, u'Bite force'), 
                (5, u'Pressure'), 
                (6, u'Kinematics'), 
-               (7, u'Event'), 
+               (7, u'Time/Event'), 
                )
     
 class Techniques(object):
