@@ -12,13 +12,19 @@
 {% block content %}
 <div id="content-main">
 <div class="left">
-<h1>Introduction</h1>
 <br/><br/>
+
+<p>
 <img style="float:right;margin-top: 5px; margin-left: 15px; margin-right: 20px;width: 180px;" src="{% app_static_prefix %}images/Lemur_catta_eating_leaves.jpg" />
-<p>The Feeding 
- Experiments End-User Database (FEED) was designed and developed by <a href="http://nescent.org/science/awards_summary.php?id=150">the Mammalian Feeding Apparatus Working Group</a> 
-supported by the <a href="http://www.nescent.org">National Evolutionary Synthesis Center (NESCent). </a>
-</p>
+This database collects physiologic data and associated metadata for a number of mammalian species. 
+The data contain information on muscle activity, bone and muscle strain, jaw and oropharyngeal apparatus motion, 
+and intra-oral pressure and were generated using several techniques (e.g., electromyography, cineradiography, sonomicrometry). </p>
+<div style="clear:both;"></div>
+<p>
+<img style="float:left;margin-top: 5px; margin-right: 25px;height: 180px;" src="{% app_static_prefix %}images/alpaca_open_mouth.jpg" " />
+The purpose of collecting data of this type is to address fundamental questions about the evolution, functional morphology, 
+physiology and development of the mammalian head. The data are searchable and can be downloaded into csv format. </p>
+ <!--
 <p>Feeding, critical to survival, is an integrated function involving 
 numerous craniofacial structures. 
 Changes in these structures are a significant part of the evolution and 
@@ -55,6 +61,7 @@ systems and neuromotor evolution.
 This site is currently only accessible for the working group members. If you want to see how the system works, please visit our demo site, 
 which includes an example dataset, representing a subset of the actual database, as well as a live version of the graphical user interface.
 </p>
+-->
 </div>
 <div class="right">
 {% include "admin/right_col.html" %}
