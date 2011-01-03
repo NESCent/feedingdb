@@ -138,17 +138,19 @@ def display_lineup_location(lineup):
     if lineup.channel.setup.technique == Techniques.ENUM.emg:
         return silent_if_none(lineup.channel.emgchannel.sensor.location_controlled)
     elif lineup.channel.setup.technique == Techniques.ENUM.sono:
-        return silent_if_none(lineup.channel.sonochannel.sensor.location_controlled)
+        loc1 = silent_if_none(lineup.channel.sonochannel.crystal1.location_controlled)
+        loc2 = silent_if_none(lineup.channel.sonochannel.crystal2.location_controlled)
+        return loc1.label + " : " + loc2.label
     elif lineup.channel.setup.technique == Techniques.ENUM.force:
-        return silent_if_none(lineup.channel.forcechannel.location_freetext)
+        return silent_if_none(lineup.channel.forcechannel.sensor.location_freetext)
     elif lineup.channel.setup.technique == Techniques.ENUM.kinematics:
-        return silent_if_none(lineup.channel.kinematicschannel.location_freetext)
+        return silent_if_none(lineup.channel.kinematicschannel.sensor.location_freetext)
     elif lineup.channel.setup.technique == Techniques.ENUM.pressure:
-        return silent_if_none(lineup.channel.pressurechannel.location_freetext)
+        return silent_if_none(lineup.channel.pressurechannel.sensor.location_freetext)
     elif lineup.channel.setup.technique == Techniques.ENUM.strain:
         return silent_if_none(lineup.channel.strainchannel.sensor.location_freetext)
     elif lineup.channel.setup.technique == Techniques.ENUM.event:
-        return ""
+        return "N/A"
     else: 
         return "ERROR: unknown technique in display_lineup_location()"        
 
@@ -157,17 +159,19 @@ def display_lineup_side(lineup):
     if lineup.channel.setup.technique == Techniques.ENUM.emg:
         return silent_if_none(lineup.channel.emgchannel.sensor.loc_side)
     elif lineup.channel.setup.technique == Techniques.ENUM.sono:
-        return silent_if_none(lineup.channel.sonochannel.sensor.loc_side)
+        side1 = silent_if_none(lineup.channel.sonochannel.crystal1.loc_side)
+        side2 = silent_if_none(lineup.channel.sonochannel.crystal2.loc_side)
+        return side1.label + " : " + side2.label 
     elif lineup.channel.setup.technique == Techniques.ENUM.force:
-        return silent_if_none(lineup.channel.forcechannel.loc_side)
+        return silent_if_none(lineup.channel.forcechannel.sensor.loc_side)
     elif lineup.channel.setup.technique == Techniques.ENUM.kinematics:
-        return silent_if_none(lineup.channel.kinematicschannel.loc_side)
+        return silent_if_none(lineup.channel.kinematicschannel.sensor.loc_side)
     elif lineup.channel.setup.technique == Techniques.ENUM.pressure:
-        return silent_if_none(lineup.channel.pressurechannel.loc_side)
+        return silent_if_none(lineup.channel.pressurechannel.sensor.loc_side)
     elif lineup.channel.setup.technique == Techniques.ENUM.strain:
         return silent_if_none(lineup.channel.strainchannel.sensor.loc_side)
     elif lineup.channel.setup.technique == Techniques.ENUM.event:
-        return ""
+        return "N/A"
     else: 
         return "ERROR: unknown technique in display_lineup_location()"        
 

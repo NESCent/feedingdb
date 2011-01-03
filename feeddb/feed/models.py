@@ -407,7 +407,7 @@ class Session(FeedBaseModel):
     title = models.CharField(max_length=255)
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     experiment = models.ForeignKey(Experiment)    
-    position = models.IntegerField(help_text='the order of the recording session in the experiment')
+    position = models.IntegerField(help_text='The numeric position of this recording session among the other sessions within the current experiment.')
     start = models.DateTimeField(blank = True, null=True)
     end = models.DateTimeField(blank = True, null=True)
     subj_notes = models.TextField("subject notes", blank = True, null=True)    
@@ -436,7 +436,7 @@ class Trial(FeedBaseModel):
     title = models.CharField(max_length=255)
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     session = models.ForeignKey(Session)    
-    position = models.IntegerField()
+    position = models.IntegerField(help_text='The numeric position of this trial among the other trials within the current recording session.')
     start = models.DateTimeField( blank = True, null=True, help_text = DATETIME_HELP_TEXT)
     end = models.DateTimeField(blank = True, null=True, help_text = DATETIME_HELP_TEXT)
     estimated_duration = models.PositiveIntegerField("Estimated duration (sec)", blank = True, null=True) 
@@ -472,7 +472,7 @@ class Illustration(FeedBaseModel):
     
 class ChannelLineup(FeedBaseModel):
     session = models.ForeignKey(Session)
-    position = models.IntegerField()
+    position = models.IntegerField(help_text='The numeric position of the channel within this channel lineup; coincides with the column position in the data file.')
     channel = models.ForeignKey(Channel, null=True, blank=True)
 
     class Meta:
