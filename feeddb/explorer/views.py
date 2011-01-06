@@ -405,6 +405,7 @@ def bucket_download(request, id):
             os.remove(full_file)
         os.rmdir(tempdir)
         return response
+    #end of if request.POST
     if message!=None and message!="":
         request.user.message_set.create(message=message)
     meta_forms =[]
