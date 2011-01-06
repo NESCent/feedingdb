@@ -212,7 +212,8 @@ def bucket_download(request, id):
             #output headers
             headers=["Trial:ID"]
             for key, value in meta_selected.items():
-                if not key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel','EventChanel'):
+                if not key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel',
+                              'PressureChannel','ForceChannel','StrainChannel','KinematicsChannel','EventChannel'):
                     for v in value:
                         headers.append( v[1] )
             metaWriter.writerow(headers)
