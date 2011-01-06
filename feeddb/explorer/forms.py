@@ -115,12 +115,34 @@ class EmgChannelModelForm(forms.ModelForm):
         model=EmgChannel
         exclude = ('sensor','name','rate','notes','setup')
         name = 'EmgChannel'  
-
 class SonoChannelModelForm(forms.ModelForm):
     class Meta:
         model=SonoChannel
         exclude = ('crystal1','crystal2','name','rate','notes','setup')
         name = 'SonoChannel'   
+class ForceChannelModelForm(forms.ModelForm):
+    class Meta:
+        model=ForceChannel
+        exclude = ('sensor','name','rate','notes','setup')
+        name = 'ForceChannel'  
+        
+class StrainChannelModelForm(forms.ModelForm):
+    class Meta:
+        model=StrainChannel
+        exclude = ('sensor','name','rate','notes','setup')
+        name = 'StrainChannel'  
+        
+class PressureChannelModelForm(forms.ModelForm):
+    class Meta:
+        model=PressureChannel
+        exclude = ('sensor','name','rate','notes','setup')
+        name = 'PressureChannel'  
+class KinematicsChannelModelForm(forms.ModelForm):
+    class Meta:
+        model=KinematicsChannel
+        exclude = ('sensor','name','rate','notes','setup')
+        name = 'KinematicsChannel'  
+
 class EventChannelModelForm(forms.ModelForm):
     class Meta:
         model=EventChannel
