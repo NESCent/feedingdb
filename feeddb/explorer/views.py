@@ -243,7 +243,8 @@ def bucket_download(request, id):
             headers=["Channel:ID"]
             for key, value in meta_selected.items():
                 #generate headers meta data
-                if key in('Setup','EmgSetup','Sensor','EmgSensor','SonoSetup','SonoSensor','Channel','EmgChannel','SonoChannel','EventChannel'):
+                if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel',
+                          'PressureChannel','ForceChannel','StrainChannel','KinematicsChannel','EventChannel'):
                     for v in value:
                         headers.append( v[1] )
             
@@ -289,6 +290,14 @@ def bucket_download(request, id):
                             objects["EmgSensor"] = ch.emgchannel.sensor
                         if hasattr(ch,'eventchannel'):
                             objects["EventChannel"] = ch.eventchannel
+                        if hasattr(ch,'pressurechannel'):
+                            objects["PressureChannel"] = ch.pressurechannel    
+                        if hasattr(ch,'strainchannel'):
+                            objects["StrainChannel"] = ch.strainchannel   
+                        if hasattr(ch,'forcechannel'):
+                            objects["ForceChannel"] = ch.forcechannel   
+                        if hasattr(ch,'kinematicschannel'):
+                            objects["KinematicsChannel"] = ch.kinematicschannel   
                         if hasattr(ch,'sonochannel'):
                             objects["SonoChannel"] = ch.sonochannel
                             objects["Sensor"] = ch.sonochannel.crystal1
@@ -297,12 +306,13 @@ def bucket_download(request, id):
                             objects["Sensor"] = ch.emgchannel.sensor
                     
                     for key, value in meta_selected.items():
-                        if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel','EventChannel'):
+                        if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel',
+                                  'PressureChannel','ForceChannel','StrainChannel','KinematicsChannel','EventChannel'):
                             for v in value:
                                 s=''
                                 if key in objects and objects[key]!=None:
                                     s=getattr(objects[key], v[0])
-                                    if hasattr(s,'split'): 
+                                    if hasattr(s,'split'): #check if s is a string 
 		                                ss=s.split('\r\n')
 		                                if len(ss)>1:
 		                                    s=' '.join(ss)
@@ -412,6 +422,10 @@ def bucket_download(request, id):
     meta_forms.append(ChannelModelForm())
     meta_forms.append(EmgChannelModelForm())
     meta_forms.append(SonoChannelModelForm())
+    meta_forms.append(ForceChannelModelForm())
+    meta_forms.append(StrainChannelModelForm())
+    meta_forms.append(PressureChannelModelForm())
+    meta_forms.append(KinematicsChannelModelForm())
     meta_forms.append(EventChannelModelForm())
     bucket_name = bucket.title.replace(' ','_').strip().lower()
     bucket_name = "%s.zip" % bucket_name
