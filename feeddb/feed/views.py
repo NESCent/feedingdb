@@ -8,3 +8,6 @@ def index(request):
 
 def about(request):
     return render_to_response("about.html",{'user':request.user})
+
+def welcome(request):
+    return render_to_response("welcome.html",{'user':request.user})

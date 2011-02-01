@@ -1,7 +1,14 @@
 <div id="myslidemenu" class="jqueryslidemenu">
 
 <ul>
-	<li><a href="/">Home</a></li>
+<li><a href="/">Home</a>
+{% if user.is_authenticated %}
+<ul>
+<li><a href="/welcome">Welcome</a></li>
+<li><a href="{%url admin:index %}">My contributions</a></li>
+</ul>
+</li>
+{% endif %} 
 {% if user.is_authenticated %}
 <li><a href="{%url admin:feed_study_changelist %}">Studies</a>
 {% ifnotequal user.first_name "anonymous" %}
@@ -86,7 +93,7 @@
 </li>
 {% endif %}
 {% else %}
-<li><a href="/admin">Login</a></li>
+<li><a href="/login">Login</a></li>
 {% endif %}
 <li><a href="/about">About</a></li>
 </ul>

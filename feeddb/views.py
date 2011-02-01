@@ -21,10 +21,10 @@ def logout_view(request):
 
 def login_view(request):
     if request.user.is_authenticated() and request.user.first_name!="anonymous":
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/welcome')
     message = 'Please login'
     if request.method == 'GET':
-        next = '/'
+        next = '/welcome'
         if request.GET.has_key('next'):
             next = request.GET['next'] 
         c = RequestContext(request, {'title': 'FeedDB', 'message': message, 'next':next})
@@ -36,19 +36,20 @@ def login_view(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                next = '/admin'
+                next = '/welcome'
                 if request.POST.has_key('next'):
                     next = request.POST['next'] 
+                #VG: I think the following 'if' is unreachable code  2011-02-01
                 if not next is None and next !="": 
                     return HttpResponseRedirect(next)
                 else:
                     return HttpResponseRedirect("/")
             else:
-                message = "The account is no longer active. Please try another account." 
+                message = "This account is deactivated." 
         else:
             message = "No matched account found. Please try again."
 
-        next = '/'
+        next = '/welcome'
         if request.GET.has_key('next'):
             next = request.GET['next'] 
         c = RequestContext(request, {'title': 'FeedDB', 'message': message, 'next':next })

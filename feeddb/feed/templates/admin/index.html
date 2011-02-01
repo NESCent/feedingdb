@@ -14,7 +14,7 @@
  
 
 <h3><a href="/admin/feed/study/add">Add a new study</a></h3>   
-<h3>Your studies:</h3>
+<h3>My studies:</h3>
 <ul>
 {% for o in user.study_related.all|dictsort:"title"|slice:":6" %}
 {%ifnotequal forloop.counter 6 %} 
@@ -25,10 +25,10 @@
     <li><a href="/admin/feed/study/?created_by={{user.id}}">More</a></li>
 {%endifequal%}	
 {% empty %}
-    <li>you have no studies</li>
+    <li>No studies contributed so far.</li>
 {%endfor%}
 </ul>
-<h3>Your experiments:</h3>
+<h3>My experiments:</h3>
 <ul>
 {% for o in user.experiment_related.all|dictsort:"title"|slice:":6" %}
 {%ifnotequal forloop.counter 6 %} 
@@ -39,11 +39,11 @@
     <li><a href="/admin/feed/experiment/?created_by={{user.id}}">More</a></li>
 {%endifequal%}
 {% empty %}
-    <li>you have no experiments</li>
+    <li>No experiments contributed so far.</li>
 
 {%endfor%}
 </ul>
-<h3>Your trials:</h3>
+<h3>My trials:</h3>
 <ul>
 {% for o in user.trial_related.all|dictsort:"title"|slice:":11" %}
 {%ifnotequal forloop.counter 11 %} 
@@ -54,7 +54,7 @@
     <li><a href="/admin/feed/trial/?created_by={{user.id}}">More</a></li>
 {%endifequal%}
 {% empty %}
-    <li>you have no trials</li>
+    <li>No trials  contributed so far.</li>
 
 {%endfor%}
 
