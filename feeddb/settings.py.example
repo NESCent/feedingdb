@@ -7,6 +7,9 @@
 # and use them as 
 #   ./manage.py runserver --settings=feeddb.mysettings 
 
+### For installing Feeding DB, supply appropriate values for metavariables $FEEDDB_XXXX$ mentioned below, 
+###   as described in README-INSTALL
+
 
 from settings_common import * 
 
@@ -20,6 +23,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'postgresql_psycopg2'        # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+### Use $FEEDDB_RDB$ for these: 
 DATABASE_NAME = ''             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
@@ -28,13 +32,17 @@ DATABASE_PORT = ''             # Set to empty string for default. Not used with 
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ''
+### An easy way to obtain a key: 
+###   - Create a fresh Django project. 
+###   - Copy SECRETE_KEY from this project's settings.py to your $FEEDDB_INSTALL$/feeddb/settings.py
+###   - Discard the newly-created project. 
 
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-# FEED: we use this for user-uploaded files only
-MEDIA_ROOT = '/Users/vgapeyev/Work/MammFeeding/Django/feeding/feeddb_uploads'
+### Feeding DB: we use this for user-uploaded files only
+MEDIA_ROOT = '$FEEDDB_UPLOADS$'
 
 # Absolute path to the directory that holds temporary files for download
 # Note: do not put the "/" at the end of the path
-EXPLORER_TEMPORARY_FOLDER = '/home/temp'
+EXPLORER_TEMPORARY_FOLDER = '$FEEDDB_TEMP$'

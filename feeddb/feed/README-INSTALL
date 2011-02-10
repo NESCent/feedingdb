@@ -1,0 +1,104 @@
+Installation guidelines for Feeding DB, as of 20110210 release. 
+
+An effort was made to mention all relevant matters, but there are likely lurking omissions or worse. 
+
+[We expect to upgrade Feeding DB to Django 1.3 after it becomes available in Feb 2011, 
+and as part of that improve code layout and installation instructions.]
+
+
+DEPENDENCIES 
+============
+
+Common dependencies: 
+
+ - Relational database. (We used Postgres, both on development Macs and on linux servers)
+
+ - Python.  (We used 2.5 on development Macs and 2.6 on the lunux server) 
+ 
+ - Python libraries: 
+     (Installed with pip, as described below.)
+     Django==1.1.1
+     South==0.6.2
+     django-pagination==1.0.5
+     psycopg2==2.0.13
+     wsgiref==0.1.2
+     
+
+Server-side dependencies: 
+
+ - Apache 
+ 
+ - mod_wsgi in Apache 
+
+
+Installation & development dependencies:
+(Strictly speaking, these are just because their use in the following installation guidelines -- 
+there could be other ways to acieve what they do.)
+
+ - setuptools (easy_nstall, pip) (Python) 
+
+ - virtualenv (Python)
+ 
+
+
+LOCATIONS 
+=========
+
+$FEEDDB_RDB$   			RDB credentials (url, name, user, password), as used in Django settings.py 
+$FEEDDB_PYTHON_SITE$    The site-packages directory in the Python installation.
+$FEEDDB_PYTHON_VIRTENV$	The python to be used by Feeding DB. 
+						(Only needed if you follow the installation process sketched below. 
+						If so, your $FEEDDB_PYTHON_SITE$ will be the one under $FEEDDB_PYTHON_VIRTENV$.)
+
+$FEEDDB_INSTALL$		The directory into which the feeddb package is placed. 
+						(This package is the only top-level directory packed in feedingdb-yyymmdd-svnNNNN.tar.gz).
+$FEEDDB_WSGI_CONF$		WSGI configuration file that mod_wsgi reads on startup. 
+
+$FEEDDB_UPLOADS$    	The location on the web server that will host files uploaded by contributors (recordings, illustrations). 
+$FEEDDB_TEMP$			The location where CSV metadata files are constructed prior presenting to users for download.
+
+See in each of the sections below how these metavariables fit into the setups we used in practice at NESCent. 
+
+
+DEVELOPMENT INSTALLATION 
+========================
+
+(1) Select and create sensible locations for the above pieces.  For example, 
+
+ - Create an empty database $FEED_RDB$ and take note of the credentials (url, name, user, password). 
+
+ - Select a directory, say 'feeding'  and create under it
+      feeding/
+        projsrc/ 				- use for $FEEDDB_INSTALL$
+          feeddb/				- this is the unpacked contents of a feedingdb-yyymmdd-svnNNNN.tar.gz distribution
+          feeddb/settings.py    - create by copying feeddb/settings.py.example and filling in values as indicated
+        uploads/				- use for $FEEDDB_UPLOADS$
+        temp/					- use for $FEEDDB_TEMP$
+		virtenv/  				- use for $FEEDDB_PYTHON_VIRTENV$ (read on)
+		
+	Don't forget to edit settings.py suitably before moving on! 
+  
+
+(2) Build Python virtual environment to be used by Feeding DB. 
+ 	Assuming setup_tools and virtualenv are available (go to the internets if not), 
+ 	go to the above feeding/ and run 
+ 	     virtualenv --no-site-packages virtenv
+ 	     
+ 	Start the environment: 
+ 	     source  $FEEDDB_PYTHON_VIRTENV$/bin/activate
+ 	Note: you will need to do this every time prior to running Django in development mode. 
+ 	
+ 	Install python dependencies (as listed in dependencies.pip)
+ 	  cd feeding/projsrc/feeddb
+ 	  pip install dependencies.pip
+
+(3) #####  ?
+	manage.py migrate   
+    manage.py runserver    
+Not tested:  there could be a chicken-and-egg here.... 
+
+
+DEPLOYMENT (SERVER) INSTALLATION 
+================================
+
+
