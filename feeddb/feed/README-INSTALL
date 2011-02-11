@@ -13,7 +13,7 @@ Common dependencies:
 
  - Relational database. (We used Postgres, both on development Macs and on linux servers)
 
- - Python.  (We used 2.5 on development Macs and 2.6 on the lunux server) 
+ - Python.  (We used 2.5 on development Macs and 2.6 on the linux server) 
  
  - Python libraries: 
      (Installed with pip, as described below.)
@@ -32,8 +32,8 @@ Server-side dependencies:
 
 
 Installation & development dependencies:
-(Strictly speaking, these are just because their use in the following installation guidelines -- 
-there could be other ways to acieve what they do.)
+(Strictly speaking, these are only used in the installation guidelines below -- 
+there could be other ways to achieve what they do.)
 
  - setuptools (easy_nstall, pip) (Python) 
 
@@ -41,8 +41,8 @@ there could be other ways to acieve what they do.)
  
 
 
-LOCATIONS 
-=========
+CONFIGURATION PARAMETERS
+========================
 
 $FEEDDB_RDB$   			RDB credentials (url, name, user, password), as used in Django settings.py 
 $FEEDDB_PYTHON_SITE$    The site-packages directory in the Python installation.
@@ -52,16 +52,16 @@ $FEEDDB_PYTHON_VIRTENV$	The python to be used by Feeding DB.
 
 $FEEDDB_INSTALL$		The directory into which the feeddb package is placed. 
 						(This package is the only top-level directory packed in feedingdb-yyymmdd-svnNNNN.tar.gz).
-$FEEDDB_WSGI_CONF$		WSGI configuration file that mod_wsgi reads on startup. 
+$FEEDDB_WSGI_CONF$		WSGI configuration file that mod_wsgi reads on startup. (Server only)
 
 $FEEDDB_UPLOADS$    	The location on the web server that will host files uploaded by contributors (recordings, illustrations). 
-$FEEDDB_TEMP$			The location where CSV metadata files are constructed prior presenting to users for download.
+$FEEDDB_TEMP$			The location where CSV metadata files are constructed prior to presenting to users for download.
 
 See in each of the sections below how these metavariables fit into the setups we used in practice at NESCent. 
 
 
-DEVELOPMENT INSTALLATION 
-========================
+DEVELOPER INSTALLATION 
+======================
 
 (1) Select and create sensible locations for the above pieces.  For example, 
 
@@ -80,25 +80,140 @@ DEVELOPMENT INSTALLATION
   
 
 (2) Build Python virtual environment to be used by Feeding DB. 
- 	Assuming setup_tools and virtualenv are available (go to the internets if not), 
- 	go to the above feeding/ and run 
+ 	Assuming setup_tools and virtualenv are available, 
+ 	go to feeding/ and run 
  	     virtualenv --no-site-packages virtenv
  	     
  	Start the environment: 
  	     source  $FEEDDB_PYTHON_VIRTENV$/bin/activate
- 	Note: you will need to do this every time prior to running Django in development mode. 
+ 	Note: you will also do this every time prior to running Django in development mode. 
  	
- 	Install python dependencies (as listed in dependencies.pip)
+ 	Install python dependencies (as listed in dependencies.pip) into virtenv
  	  cd feeding/projsrc/feeddb
  	  pip install dependencies.pip
 
-(3) #####  ?
-	manage.py migrate   
-    manage.py runserver    
-Not tested:  there could be a chicken-and-egg here.... 
+(3) Initialize the database. 
+
+	Initialize Django apps:
+    	./manage.py syncdb
+    This is the Django command that sets up Admin and other Django apps in the RDB. 
+    While running, it will ask to create the administrator user for the app - do that. 	
+    
+    Initialize Feeding DB structures:   
+		./manage.py migrate   
+	This is a South command that runs migrations that create tables. 
+	The Feeding tables will be empty.
+	
+(4) Run the web application: 
+      	./manage.py runserver    
+    Initially, only the administrator created above can log in. 
+    Use the application to create users and add data. 
 
 
 DEPLOYMENT (SERVER) INSTALLATION 
 ================================
+
+A server deployment must cover all the points described above for the developer installation, 
+plus connect the application to mod_wsgi in the Apache server. 
+
+Assume that Apache and mod_wsgi are installed. 
+
+(1) Configure WSGI in the application. 
+    That is, create the $FEEDDB_WSGI_CONF$ file. 
+    E.g., extend the above directories: 
+       feeding/
+         wsgi_scripts/
+            feeding.wsgi
+            
+    Put this in feeding.wsgi, after substituting $$ metavariables appropriately: 
+---------------------------------------------------------------------------------------------
+# overlay application-specific virtualenv on top of the python environment
+# supplied by Apache (e.g., via WSGIPythonHome)
+import site
+site.addsitedir('$FEEDDB_PYTHON_SITE$')
+
+# point to the django application
+import os
+import sys
+sys.path.append('$FEEDDB_INSTALL$')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'feeddb.settings'
+
+import django.core.handlers.wsgi
+application = django.core.handlers.wsgi.WSGIHandler()
+---------------------------------------------------------------------------------------------
+
+
+(2) Configure WSGI in Apache. 
+
+    E.g., put something like the following either into httpd.conf directly, 
+    or into an included file. 
+	[Note: In this example, Feeding DB is installed in WSGI Daemon mode, 
+	when a file change on $FEEDDB_WSGI_CONF$ triggers application restart. 
+	This is useful in a development server, but takes cycles and should be disabled in production. ]
+
+---------------------------------------------------------------------------------------------
+<VirtualHost *:80>
+ServerName $FEEDDB_SERVER_NAME$       # E.g. feeding.yourdomain.org
+ServerAdmin $FEEDDB_EMAIL$
+DocumentRoot $FEEDDB_INSTALL$/docroot
+
+<Directory " $FEEDDB_INSTALL$/docroot">
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All 
+        Order allow,deny
+        Allow from all
+</Directory>
+
+<Directory " $FEEDDB_INSTALL$">
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+</Directory>
+
+<Directory " $FEEDDB_INSTALL$/wsgi-scripts">
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+</Directory>
+
+## The FEED application
+WSGIDaemonProcess feeding processes=1 threads=1
+WSGIProcessGroup feeding
+WSGIScriptAlias / $FEEDDB_INSTALL$/wsgi-scripts/feeding.wsgi
+
+Alias /static $FEEDDB_INSTALL$/feeddb/feed/static
+
+<Directory " /home/www/feeding-dev.nescent.org/feeding/feeddb/feed/static">
+        Order allow,deny
+        Allow from all
+</Directory>
+
+Alias /explorer/static $FEEDDB_INSTALL$/feeddb/explorer/static
+
+<Directory " $FEEDDB_INSTALL$/feeddb/explorer/static">
+        Order allow,deny
+        Allow from all
+</Directory>
+
+Alias /adminstatic  /home/www/feeding-dev.nescent.org/virtualenv/feeding/lib/python2.6/site-packages/django/contrib/admin/media
+
+<Directory " $FEEDDB_PYTHON_SITE$/django/contrib/admin/media">
+        Order allow,deny
+        Allow from all
+</Directory>
+
+Alias /uploads  /home/www/feeding-dev.nescent.org/feeding/feeddb_uploads
+
+<Directory "$FEEDDB_UPLOADS$">
+        # Since Apache will write files into here, make sure _www user (orgroup)
+        # has write rights.
+        Order allow,deny
+        Allow from all
+</Directory>
+
+</VirtualHost>
+---------------------------------------------------------------------------------------------
+         
 
 
