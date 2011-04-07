@@ -33,6 +33,13 @@ from feeddb.feed.extension.util import *
 from django.template import RequestContext
 from django.contrib.admin.views.main import IncorrectLookupParameters
 
+#for 1.2.4
+from django.views.decorators.csrf import csrf_protect
+from django.utils.decorators import method_decorator
+
+csrf_protect_m = method_decorator(csrf_protect)
+#end for 1.2.4
+
 class FeedTabularInline(admin.TabularInline):
     template = 'admin/edit_inline/tabular.html'
     #change_form_template = 'admin/tabbed_change_form.html'
@@ -213,7 +220,8 @@ class FeedModelAdmin(admin.ModelAdmin):
         
         post_url = "../%d/edit" % pk_value
         return HttpResponseRedirect(post_url)
-
+    
+    @csrf_protect_m
     def delete_view(self, request, object_id, extra_context=None):
         "The 'delete' admin view for this model."
         opts = self.model._meta
@@ -240,8 +248,9 @@ class FeedModelAdmin(admin.ModelAdmin):
         perms_needed = set()
         associated_critical_objects = get_associated_critical_objects(obj)
         if len(associated_critical_objects)==0:
-            get_deleted_objects(deleted_objects, perms_needed, request.user, obj, opts, 1, self.admin_site)
-        
+            #get_deleted_objects(deleted_objects, perms_needed, request.user, obj, opts, 1, self.admin_site)
+            # for 1.2.4
+            (deleted_objects, perms_needed) = get_deleted_objects((obj,), opts, request.user, self.admin_site)
         perms_needed=None
         if request.POST: # The user has already confirmed the deletion.
             if perms_needed:
@@ -516,6 +525,10 @@ class FeedModelAdmin(admin.ModelAdmin):
     def filter_formset_values(self, request, formset, model, obj):
         for form in formset.forms:
             self.filter_form_values(request, form, model, obj)
+    
+    #overiten method to allow filtering in URL which is defaultly not allowed in 1.2.4
+    def lookup_allowed(self, lookup):
+        return True
     
     def change_view(self,request,object_id,extra_context=None):
         #add extra context for tabs

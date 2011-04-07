@@ -1,4 +1,4 @@
-Django==1.1.1
+Django==1.2.4
 South==0.6.2
 django-pagination==1.0.5
 psycopg2==2.0.13

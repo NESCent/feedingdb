@@ -10,11 +10,8 @@ class StudyPrivateInline(admin.StackedInline):
     model = StudyPrivate
     extra = 1
     max_num = 1
+    template = 'admin/edit_inline/studyprivate_stacked.html'
 
-class StudyPrivateViewInline(admin.StackedInline):
-    model = StudyPrivate
-    extra = 0
-    max_num = 1
 
 class ExperimentViewInline(FeedTabularInline):
     model = Experiment
@@ -52,7 +49,6 @@ class StudyAdmin(FeedModelAdmin):
     view_inlines = [SubjectViewInline, ExperimentViewInline]
     search_fields = ('title', 'description')
     list_display = ('title','start','end', 'funding_agency','approval_secured',)
-    exclude = ['accession']
     form = StudyChangeForm    
     tabbed = True
 
@@ -61,7 +57,6 @@ class ExperimentAdmin(ExperimentModelAdmin):
     view_inlines = [IllustrationViewInline]
     search_fields = ('title','study__title','subject__taxon__genus','subject__taxon__species','subject__taxon__common_name','subject__name','description','subject_notes','impl_notes')
     list_display = ('title','study', 'subject','subj_devstage')
-    exclude = ['accession']
     form = ExperimentChangeForm
     #list_filter = ('study', 'subject')
 
@@ -78,11 +73,10 @@ class SubjectAdmin(FeedModelAdmin):
     
 class TrialAdmin(FeedModelAdmin):
     form = TrialForm
-    search_fields = ('accession','title','bookkeeping','subj_notes','subj_treatment','food_type','food_property','behavior_primary__label','behavior_secondary','behavior_notes')
+    search_fields = ('title','bookkeeping','subj_notes','subj_treatment','food_type','food_property','behavior_primary__label','behavior_secondary','behavior_notes')
     list_display = ('title', 'session', 'taxon_name','food_type', 'behavior_primary','waveform_picture')
     form = TrialChangeForm
     ordering = ('position',)
-    exclude = ['accession']    
     form = DisableForeignKeyForm
     
 class IllustrationAdmin(FeedModelAdmin):
@@ -99,7 +93,6 @@ class EmgSensorViewInline(FeedTabularInline):
 
 class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
-    exclude = ['location_freetext']   
     extra = 5
     form = EmgSensorChannelForm
     formset = OrderedFormset
@@ -107,12 +100,10 @@ class EmgSensorInline(FeedTabularInline):
 class SonoSensorInline(SetupTabularInline):
     model = SonoSensor
     extra = 4
-    exclude = ['location_freetext']   
     form = SonoSensorForm
 
 class SonoSensorViewInline(FeedTabularInline):
     model = SonoSensor
-    exclude = ['location_freetext']
     extra = 0
     form = SonoSensorForm
 
@@ -294,9 +285,8 @@ class SessionAdmin(SessionModelAdmin):
     inlines = [ChannelLineupInline]
     view_inlines = [ChannelLineupViewInline, TrialViewInline ]
     list_display = ('title', 'experiment','position', 'start', 'subj_restraint','subj_anesthesia_sedation')
-    search_fields = ('accession','title','bookkeeping','experiment__title','subj_notes','subj_restraint__label','subj_anesthesia_sedation')
+    search_fields = ('title','bookkeeping','experiment__title','subj_notes','subj_restraint__label','subj_anesthesia_sedation')
     ordering = ('position',)
-    exclude = ['accession']    
     form = SessionChangeForm
     tabbed = True
     tab_name = "Session"
