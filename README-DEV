@@ -45,3 +45,31 @@ Installing the package list updated by another developer
 $ svn update dependencies.pip
 (feeddb)$ pip -r dependencies.pip
 
+
+Setting up the project in Eclipse with PyDev and EGit
+-----------------------------------------------------
+
+The following appears to work: 
+
+- Clone from github, on command line, call the location $FEED_GIT_WORK$
+- Create appropriate settings.py in $FEED_GIT_WORK$/src/feeddb (based on settings.py.example; test with './manage.py runserver')
+
+- Create a PyDev project (in a new or existing workspaces, elsewhere outside of $FEED_GIT_WORK$)
+-- For "Project contents", uncheck "Use default" and put in $FEED_GIT_WORK$ for "Directory".  
+-- "Grammar Version" == 2.5
+-- Uncheck "Create default 'src' folder and add it to the pythonpath?"
+-- Note: this will create .project and .pydevproject in $FEED_GIT_WORK$, 
+   but they are mentioned in .gitignore and should not be checked into
+   the code repository later on 
+   (we do not standardize on PyDev as the development tools)  
+
+- Set the source folder in the project
+-- In Project Properties (Apple+I), select "PyDev - PYTHONPATH" page
+-- On "Source folders" tab, do "Add source folder" and select $YOUR_PROJECT/src
+
+- Tell Eclipse about the git repository
+--  Team... > Share project > Git 
+-- This should find and select the .git repository at $FEED_GIT_WORK$
+
+
+
