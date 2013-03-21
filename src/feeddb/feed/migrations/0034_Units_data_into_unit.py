@@ -7,28 +7,29 @@ class Migration:
     
     def forwards(self, orm):
     ## Process EMG
-        emg = orm.Technique.objects.all().get(label__iexact = 'EMG')                
-        # Create a dictionary that maps EmgUnit entries to Unit entries
-        emgunit2unit = {} 
-        for e in orm.EmgUnit.objects.all():
-            u = orm.Unit.objects.get(models.Q(technique = emg) & models.Q(label__iexact = e.label))
-            emgunit2unit[e] = u 
-        # Use the dictionary to place appropriate objects into EmgChannel.unit
-        for x in orm.EmgChannel.objects.all():   
-            x.unit = emgunit2unit[x.emg_unit]
-            x.save()
+        if orm.Technique.objects.count() > 0:
+            emg = orm.Technique.objects.all().get(label__iexact = 'EMG')
+            # Create a dictionary that maps EmgUnit entries to Unit entries
+            emgunit2unit = {}
+            for e in orm.EmgUnit.objects.all():
+                u = orm.Unit.objects.get(models.Q(technique = emg) & models.Q(label__iexact = e.label))
+                emgunit2unit[e] = u
+            # Use the dictionary to place appropriate objects into EmgChannel.unit
+            for x in orm.EmgChannel.objects.all():
+                x.unit = emgunit2unit[x.emg_unit]
+                x.save()
 
-    ## Process Sono
-        sono = orm.Technique.objects.all().get(label__iexact = 'Sono')
-        # Create a dictionary that maps SonoUnit entries to Unit entries
-        sonounit2unit = {} 
-        for s in orm.SonoUnit.objects.all():
-            u = orm.Unit.objects.get(models.Q(technique = sono) & models.Q(label__iexact = s.label))
-            sonounit2unit[s] = u 
-        # Use the dictionary to place appropriate objects into SonoChannel.unit
-        for x in orm.SonoChannel.objects.all():   
-            x.unit = sonounit2unit[x.sono_unit]
-            x.save()
+        ## Process Sono
+            sono = orm.Technique.objects.all().get(label__iexact = 'Sono')
+            # Create a dictionary that maps SonoUnit entries to Unit entries
+            sonounit2unit = {}
+            for s in orm.SonoUnit.objects.all():
+                u = orm.Unit.objects.get(models.Q(technique = sono) & models.Q(label__iexact = s.label))
+                sonounit2unit[s] = u
+            # Use the dictionary to place appropriate objects into SonoChannel.unit
+            for x in orm.SonoChannel.objects.all():
+                x.unit = sonounit2unit[x.sono_unit]
+                x.save()
         
     
     def backwards(self, orm):
