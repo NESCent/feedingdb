@@ -36,8 +36,12 @@ class Migration:
             
             for mod in group_models:
                 for op in group_opers:
-                    perm = feeddb_perms.get(codename__iexact = op+"_"+mod)
-                    group.permissions.add(perm)
+                    try:
+                        perm = feeddb_perms.get(codename__iexact = op+"_"+mod)
+                        group.permissions.add(perm)
+                    except Exception:
+                        pass
+
             group.save()  #not needed?
 
         add_permissions('anonymous', Migration.anon_opers, Migration.anon_models)
