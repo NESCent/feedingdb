@@ -451,9 +451,9 @@ class Trial(FeedBaseModel):
     behavior_secondary = models.CharField("secondary behavior", max_length=255,blank = True, null=True)
     behavior_notes = models.TextField("behavior notes", blank = True, null=True)
 
-    data_file  = models.FileField("Data File",upload_to=get_data_upload_to ,  blank = True, null=True, 
+    data_file  = models.FileField(verbose_name="Data File",upload_to=get_data_upload_to ,  blank = True, null=True,
                                   help_text="A tab-delimited file with columns corresponding to the channel lineup specified in the Recording Session.")
-    waveform_picture = models.FileField("waveform picture",upload_to="pictures",  blank = True, null=True, 
+    waveform_picture = models.FileField(verbose_name="waveform picture", upload_to="pictures",  blank = True, null=True,
                                         help_text="A picture (jpeg, pdf, etc.) as a graphical overview of data in the data file.")
 
     def __unicode__(self):
@@ -463,7 +463,7 @@ class Trial(FeedBaseModel):
     taxon_name.short_description = 'Species'
 
 class Illustration(FeedBaseModel):
-    picture = models.FileField("picture",upload_to='illustrations',  blank = True, null=True)
+    picture = models.FileField(verbose_name="picture",upload_to='illustrations',  blank = True, null=True)
     notes = models.TextField(blank = True, null=True)
     #A hack: It is intended that only one of the following FKs is non-null.  
     subject  = models.ForeignKey(Subject,  blank = True, null=True)

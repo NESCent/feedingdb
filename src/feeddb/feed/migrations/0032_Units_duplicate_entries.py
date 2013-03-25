@@ -8,36 +8,38 @@ class Migration:
     
     def forwards(self, orm):
         "Write your forwards migration here"
-        emg = orm.Technique.objects.all().get(label__iexact = 'EMG')
-        sono = orm.Technique.objects.all().get(label__iexact = 'Sono')
-        
-        for x in orm.EmgUnit.objects.all():
-            u = orm.Unit()
-            u.technique = emg
-            u.label = x.label
-            u.created_by = x.created_by
-            u.created_at = x.created_at
-            u.updated_at = x.updated_at
-            u.save()
-            
-        for x in orm.SonoUnit.objects.all():
-            u = orm.Unit()
-            u.technique = sono
-            u.label = x.label
-            u.created_by = x.created_by
-            u.created_at = x.created_at
-            u.updated_at = x.updated_at
-            u.save()
+        if orm.Technique.objects.count() > 0:
+            emg = orm.Technique.objects.all().get(label__iexact = 'EMG')
+            sono = orm.Technique.objects.all().get(label__iexact = 'Sono')
+
+            for x in orm.EmgUnit.objects.all():
+                u = orm.Unit()
+                u.technique = emg
+                u.label = x.label
+                u.created_by = x.created_by
+                u.created_at = x.created_at
+                u.updated_at = x.updated_at
+                u.save()
+
+            for x in orm.SonoUnit.objects.all():
+                u = orm.Unit()
+                u.technique = sono
+                u.label = x.label
+                u.created_by = x.created_by
+                u.created_at = x.created_at
+                u.updated_at = x.updated_at
+                u.save()
          
     
     def backwards(self, orm):
         "Write your backwards migration here"
-        emg = orm.Technique.objects.all().get(label__iexact = 'EMG')
-        sono = orm.Technique.objects.all().get(label__iexact = 'Sono')
+        if orm.Technique.objects.count() > 0:
+            emg = orm.Technique.objects.all().get(label__iexact = 'EMG')
+            sono = orm.Technique.objects.all().get(label__iexact = 'Sono')
 
-        for y in orm.Unit.objects.filter(models.Q(technique = emg) | 
-                                         models.Q(technique = sono)):
-            y.delete()
+            for y in orm.Unit.objects.filter(models.Q(technique = emg) |
+                                             models.Q(technique = sono)):
+                y.delete()
     
     
     models = {
