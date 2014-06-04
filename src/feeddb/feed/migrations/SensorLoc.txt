@@ -1,0 +1,16 @@
+Plan for the SensorLoc group of migrations. 
+Goal: FogBugz case 1971 
+
+[0018] add AnatomicalLocation{category,tmp_muscleid} 
+[0019] copy data from Muscle to AnatomicalLocation, incl tmp_muscleid
+[0020] add Sensor.location_freetext and {Emg,Sono}Sensor.location_controlled
+[0021] copy data: Sensor.location_freetext <-- Sensor.location, 
+              EmgSensor.location_controlled <-- EmgSensor.muscle, using Muscle.id == AnatomicalLocation.tmp_muscleid, ditto for SonoSensor
+[0022] ProximalDistalAxis, MedialLateralAxis, loc_xxx axis fields in Sensor
+[0023] Copy loc_xxx/axis values from {Emg,Sono}Sensor to Sensor
+[0024] Copy Side data {Emg,Sono}Sensor.side --> Sensor.loc_side
+[0025] drop Sensor.location, AnatomicalLocation.tmp_muscleid; make XxxSensor.location_controlled non-null 
+   drop {Emg,Sono}Sensor.axisxxx fields (except axisdepth!)
+   adjust field nullability 
+   
+[0037] drop Muscle model -- forgot to do it!

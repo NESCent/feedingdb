@@ -1,0 +1,67 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load feedmedia %}{% app_static_prefix %}css/dashboard.css" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+ 
+
+<h3><a href="/admin/feed/study/add">Add a new study</a></h3>   
+<h3>My studies:</h3>
+<ul>
+{% for o in user.study_related.all|dictsort:"title"|slice:":6" %}
+{%ifnotequal forloop.counter 6 %} 
+    <li><a href="/admin/feed/study/{{o.id}}">{{o}}</a></li>
+{%endifnotequal%}
+
+{%ifequal forloop.counter 6 %} 
+    <li><a href="/admin/feed/study/?created_by={{user.id}}">More</a></li>
+{%endifequal%}	
+{% empty %}
+    <li>No studies contributed so far.</li>
+{%endfor%}
+</ul>
+<h3>My experiments:</h3>
+<ul>
+{% for o in user.experiment_related.all|dictsort:"title"|slice:":6" %}
+{%ifnotequal forloop.counter 6 %} 
+    <li><a href="/admin/feed/experiment/{{o.id}}">{{o}}</a></li>
+{%endifnotequal%}
+
+{%ifequal forloop.counter 6 %} 
+    <li><a href="/admin/feed/experiment/?created_by={{user.id}}">More</a></li>
+{%endifequal%}
+{% empty %}
+    <li>No experiments contributed so far.</li>
+
+{%endfor%}
+</ul>
+<h3>My trials:</h3>
+<ul>
+{% for o in user.trial_related.all|dictsort:"title"|slice:":11" %}
+{%ifnotequal forloop.counter 11 %} 
+    <li><a href="/admin/feed/trial/{{o.id}}">{{o}}</a></li>
+{%endifnotequal%}
+
+{%ifequal forloop.counter 11 %} 
+    <li><a href="/admin/feed/trial/?created_by={{user.id}}">More</a></li>
+{%endifequal%}
+{% empty %}
+    <li>No trials  contributed so far.</li>
+
+{%endfor%}
+
+
+</div>
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}

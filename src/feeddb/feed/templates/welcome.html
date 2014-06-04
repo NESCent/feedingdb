@@ -1,0 +1,43 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load feedmedia %}{% app_static_prefix %}css/dashboard.css" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+<div class="left">
+<h1>Welcome to the FEED database!</h1>
+
+{% if not user.is_authenticated %}
+<p>Please log in into the system.</p>
+{% else %}
+<p>All functionality is accessible through the menu above.  </p>
+
+<p>Here are a few common starting points:</p>
+<ul>
+<li>Browse <a href="{%url admin:feed_study_changelist %}">all deposited studies</a> (in the menu: Studies > All)</li>
+<li>Browse <a href="{%url admin:feed_trial_changelist %}">all deposited trials</a> (Trials > All)</li>
+<li>Search <a href=/explorer/trial/search/>trials by criteria</a> (Search & Download > Search Trials)</li>
+<li>See <a href="{%url admin:index %}">your contributions</a> (Home > My contributions)</li>
+<li>To review controlled vocabularies, click on menu Terms.</li>
+</ul>
+<p>If you lose this page, it is in Home > Welcome.<p>
+{% endif %}
+
+
+</div>
+<div class="right">
+{% include "admin/right_col.html" %}
+</div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}

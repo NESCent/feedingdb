@@ -1,0 +1,211 @@
+
+
+/* PAGE STRUCTURE */
+
+#container {
+    position: relative;
+    min-width: 760px;
+    padding: 0;
+    margin: 0 auto 0 auto; /*this is what centers the pages in the middle of the screen */
+    width: 1000px;
+    border-left: 1px solid #417690;
+    border-right: 1px solid #417690;
+}
+
+#content {
+    margin: 10px 15px;
+    min-height: 500px;
+}
+
+#footer {
+    background: #417690;
+    clear: both;
+    padding: 10px;
+    color: #fff;
+    text-align:center;
+}
+
+#footer a:link, #footer a:visited {
+    color: white;
+}
+
+.action {
+width: 100px;
+    padding: 0;
+
+}
+
+.action a{
+width: 80px;
+padding: 5px;
+}
+
+.action_header {
+    text-align: center;
+    width: 80px;
+    padding: 0;
+}
+
+table{
+  border: #EDF3FE 1px solid;
+}
+
+table caption {
+     text-align:left; 
+     font-size:14px; 
+     font-weight:bold; 
+     background-color:#EDF3FE; 
+     color:#FFFFFF; 
+    padding:5px; 
+}
+
+td {
+  border-bottom: #EDF3FE 1px solid;
+  line-height:22px;
+}
+
+.left {
+ width: 700px;
+ float: left;
+ padding-right: 5px;
+  
+}
+
+
+.right {
+ width: 250px;
+ float: right;
+ /*background-color:#EDF3FE; */
+ padding: 5px;
+ 
+}
+
+
+
+
+.menu_div{
+ position: relative;
+ z-index: 1000;
+}
+
+.content{
+ position: relative;
+ z-index: 1;
+}
+
+/* OBJECT TOOLS */
+
+.object-tools-top {
+    margin-top: .4em;
+    margin-bottom: .2em; 
+    
+    clear: both;
+}
+
+fieldset{
+min-width: 650px;
+clear: both;
+}
+
+.inline-group {
+    width: 960px;
+    overflow: auto;
+}
+
+#footer table {
+  border: none;
+  width:100%;
+}
+
+#footer table tr td{
+  border: none;
+}
+
+.required input,.required select, .required textarea {
+ background-color: #ffa;
+}
+
+/* breadcrumbs style */
+#crumbs ul, #crumbs li {
+	list-style-type:none;
+	padding:0;
+	margin:0;
+	}		
+#crumbs {
+	height:2.3em;
+	border:1px solid #dedede;
+	}
+#crumbs li {
+	float:left;
+	line-height:2.3em;
+	color:#777;
+	padding-left:.75em;
+	}		
+#crumbs li a {
+	background:url(/static/images/crumbs.gif) no-repeat right center;
+	display:block;
+	padding:0 15px 0 0;
+	}							
+#crumbs li a:link,
+#crumbs li a:visited {
+	text-decoration:none;
+	}	
+
+#crumbs li a:hover,
+#crumbs li a:focus{
+	color:#dd2c0d;
+	}		
+
+.block {
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+}
+.block h2{
+  padding: 5px;
+  margin:0;
+  font-size: 12px;
+  background: #eee url(../img/admin/nav-bg.gif) bottom left repeat-x;
+  color: #666;
+}
+
+
+.block_content {
+ padding: 5px;
+
+background-color: #eee;
+}
+
+.block_content {
+}
+
+.block_content table{
+  border:none;
+  width: auto;
+}
+.block_content table td{
+  border:none;
+  padding: 2px;
+}
+
+th {
+   vertical-align: middle;
+}
+
+th a {
+  display: block;
+  height:25px;
+}
+
+.order_by a:link{
+  color: #00f;
+}
+
+.asc {
+  padding-left: 15px;
+  background: url(/static/img/admin/arrow-down.gif) no-repeat left ;
+}
+
+.desc {
+  padding-left: 15px;
+  background: url(/static/img/admin/arrow-up.gif) no-repeat left ;
+}

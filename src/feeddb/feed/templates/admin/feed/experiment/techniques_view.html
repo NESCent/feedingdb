@@ -1,0 +1,32 @@
+<fieldset class="module aligned">
+<div class="form-row ">
+              <label>Techniques:</label>
+			  {%ifequal original.setup_set.all|length 0 %}(No technique added for this experiment. Please click the edit button to add techniques.){%endifequal%}
+			  
+{% for setup in original.setup_set.all %}
+{% if setup.emgsetup %}EMG&nbsp;&nbsp;&nbsp;{% endif %}
+{%endfor%}
+
+{% for setup in original.setup_set.all %}
+{% if setup.sonosetup %}Sono&nbsp;&nbsp;&nbsp;{% endif %}
+{%endfor%}
+
+{% for setup in original.setup_set.all %}
+{% if setup.strainsetup %}Strain&nbsp;&nbsp;&nbsp;{% endif %}
+{%endfor%}
+
+{% for setup in original.setup_set.all %}
+{% if setup.forcesetup %}Bite Force&nbsp;&nbsp;&nbsp;{% endif %}
+{%endfor%}
+
+{% for setup in original.setup_set.all %}
+{% if setup.pressuresetup %}Pressure&nbsp;&nbsp;&nbsp;{% endif %}
+{%endfor%}
+
+{% for setup in original.setup_set.all %}
+{% if setup.kinematicssetup %}Kinematics&nbsp;&nbsp;&nbsp;{% endif %}
+{%endfor%}
+
+</div>
+			  
+</fieldset>

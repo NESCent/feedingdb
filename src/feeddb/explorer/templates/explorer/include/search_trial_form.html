@@ -1,0 +1,21 @@
+<h3>Search Trials </h3>
+<form name="search_trial_form" action="{% url explorer.views.trial_search %}" method="POST">
+	{% for field in form.hidden_fields %}
+	{{ field }}
+	{% endfor %}
+<table>
+	
+<tr>
+
+{% for field in form.visible_fields %}
+{% ifequal forloop.counter 4 %}
+</tr>
+<tr>
+{%endifequal%}
+<td class="TdField">{{ field.label_tag }}</td>
+<td class="TdValue">{{ field }}</td>
+       {% endfor %}
+<td colspan="2"><input type="submit" value="submit" /></td>
+</tr>
+</table>
+</form>

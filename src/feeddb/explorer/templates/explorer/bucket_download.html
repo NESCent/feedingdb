@@ -1,0 +1,125 @@
+{% extends "explorer/base.html" %}
+{% load explorer_display %}
+{% block extra_js %}
+<script type="text/javascript" src="/explorer/static/js/jquery.checkboxes.js"></script>
+{% endblock %}
+
+{% block content %}
+<script language="javascript">
+function checkbox_clicked(obj){
+   if(obj.checked){
+    	$('[INPUT[name^="chk:"]').attr('checked', true);
+   }else{
+        $('[INPUT[name^="chk:"]').attr('checked', false);
+   }
+}
+function select_allchannels_clicked(obj){
+    if(obj.checked){
+    	$('[INPUT[name^="channel:"]').attr('checked', true);
+   }else{
+        $('[INPUT[name^="channel:"]').attr('checked', false);
+   }
+}
+
+
+</script>
+
+
+        <h3>Download Data in Bucket: {{bucket}}</h3>
+          <form action="{% url explorer.views.bucket_download bucket.id %}" id="meta_form" name ="meta_form" method="POST">
+                
+<table>
+<tr><td class="TdField">Zip file name</td><td class="TdValue"><input name="zipfile_name" size="50" value="{{file_name}}"/></td></tr>
+<tr><td class="TdField">Choose data to download</td><td class="TdValue">
+				<input type="radio" name="download_choice"  value="0"  checked="checked" onclick="document.getElementById('meta_div').style.display='block';document.getElementById('channels_div').style.display='none';"/>Meta data only<br/>
+                <input type="radio" name="download_choice"  value="1" onclick="document.getElementById('meta_div').style.display='none';document.getElementById('channels_div').style.display='block';" />Data only<br/>
+                <input type="radio" name="download_choice"  value="2"  onclick="document.getElementById('meta_div').style.display='block'; document.getElementById('channels_div').style.display='block';"/>Both meta data and data<br/>
+				
+				</td></tr>
+</table>
+                 <div id="meta_div">
+                 <!-- h3>CSV format</h3>
+                  <table><tr><td class="TdField">Delimiter</td><td class="TdValue"><select name="delimiter"><option value="tab">tab</option><option value="comma">comma</option></select></td></tr>
+                 <tr><td class="TdField">Quote Char</td><td class="TdValue"><input name="quotechar" value='"' />(1 character)</td></tr>
+</table -->
+
+                 <!-- h3>Metadata Option</h3>
+                  <table><tr><td><input type="radio" name="meta_option"   value="0"  checked="checked" />  store channel meta data in separate files</td></tr>
+                 <tr><td><input type="radio"  name="meta_option"  value="1"  />  store channel meta data with trial meta data</td></tr>
+</table -->
+
+                <h3>Select Trial Metadata Fields</h3>
+                <table>
+<tr>
+<th>Source</th>
+                  <th width="166">Field</th>
+                  <th width="180">Column Header</th>
+                  <th width="60">Select All<br/>
+                  <input type="checkbox"  id="select_all" onclick ="checkbox_clicked(this)" checked="checked" /></th></tr>
+                  
+                 {% for form in meta_forms %}
+                       
+                        {%for field in form %}
+                         {%if forloop.first %}<tr class=" {% cycle 'even'  'odd' %}"><td rowspan="{{form.fields|length}}">{{form.Meta.name}}</td>{%else%}<tr class="{% cycle 'even'  'odd' %}">{%endif%}
+                                      <td>{{form.Meta.name}}: {{field.name}}</td><td><input size="20" name="{{form.Meta.name}}:{{field.name}}" value="{{form.Meta.name}}:{{field.label}}" /></td><td><input name="chk:{{form.Meta.name}}:{{field.name}}" type="checkbox" checked="checked" /></td></tr>
+                          {% endfor %}
+                   
+                  {% endfor %}
+
+ 				  </table>  
+
+                </div>
+				
+				 <div id="channels_div" style="display:none;">
+                 <h3>Channel Selection</h3>
+				 <table width="100%">
+                 <tr><td  class="TdValue"><input type="radio"  name="channel_choice"  value ="0" onclick="document.getElementById('channels_sel_div').style.display='none';" checked="checked"/> all channels: all trial files in current bucket will be downloaded as original files. </td></tr>
+                 <tr><td  class="TdValue"><input type="radio"   name="channel_choice"  value ="1" onclick="document.getElementById('channels_sel_div').style.display='block';" /> selected channels: selected channels will be merged side by side into one file for downloading.</td></tr>
+				 </table>
+                 <div id="channels_sel_div" style="display:none;">
+                     <h3>Select Channels</h3>
+                     <p>All channels from all trials in the current bucket will be displayed below and user can select individual channels for each trial for downloading. </p>
+                     <table class="detail_table">
+                <tr>
+                  <th rowspan="2">Trial</th>
+                  <th colspan="6">Channels</th>
+                  <th rowspan="2">Select All <br/><input type="checkbox" id="select_all_channels" onclick ="select_allchannels_clicked(this)" checked="checked"/></th>
+				</tr>
+				<tr>				  
+                <th>Order</th>
+               <th>Name</th>
+                <th>Technique</th>
+                <th>Rate</th>
+                <th>Location</th>
+                <th>Side</th>
+                </tr>
+                {% for trial in bucket.trials.all %} 
+				{% for lineup in trial.session.channellineup_set.all %}
+				{%if forloop.first %}<tr class="{% cycle 'even'  'odd' %}"><td rowspan="{{trial.session.channellineup_set.all|length}}">{{trial.title}}</td>{%else%}<tr class="{% cycle 'even'  'odd' %}">{%endif%}
+
+      <td>{{lineup.position}}</td>
+         {%if lineup.channel %}
+                 <td>{{lineup.channel.name}}</td>
+                 <td>{%technique_label lineup.channel.setup.technique%}</td>
+                 <td>{{lineup.channel.rate}}</td>
+                 <td>{% display_lineup_location lineup %}</td> 
+                 <td>{% display_lineup_side lineup %}</td> 
+          {%else%}
+                 <td>*dead*</td>
+                 <td>*dead*</td>
+                 <td>*dead*</td>
+                 <td>*dead*</td>
+                 <td>*dead*</td>
+          {%endif%}
+                 <td><input name="channel:{{trial.id}}:{{lineup.position}}" type="checkbox" checked="checked" /></td>  
+</tr>
+{%endfor %}
+{%endfor %}
+                </table>
+                 </div>    
+				</div>
+                <input type="submit" value="download" />
+          </form>
+
+ {% endblock %}
+

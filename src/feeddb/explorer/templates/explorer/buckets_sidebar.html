@@ -1,0 +1,13 @@
+<li>
+<h4>Your Buckets</h4>
+<ul>
+{% if buckets %}
+{% for b in buckets %}
+ <li><a  href="/explorer/bucket/{{ b.id}}">{{b.id}}. {{b.name}}</a></li>
+{% endfor %}
+ <li><a  href="/explorer/bucket/add">add new bucket</a></li>
+
+
+{% endif %}
+</ul>
+</li>

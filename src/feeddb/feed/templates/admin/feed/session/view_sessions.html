@@ -1,0 +1,49 @@
+{% extends "admin/feed/experiment/view.html" %}
+{% load i18n admin_modify feedmedia display %}
+
+{% block tabs %}{% if change %}{% if experiment %}{% include "admin/feed/experiment/experiment_tab.html" %}{% endif %}{% endif %}
+{% endblock %}
+
+
+{% block content %}<div id="content-main">
+{% block object-tools %}
+<ul class="object-tools object-tools-top">
+	{% if change %}
+                               <li><a href="/admin/feed/session/?experiment={{object_id}}" >{% trans "View" %}</a></li>
+                       {% endif %}
+</ul>
+{% endblock %}
+
+<form action="{{ form_url }}" method="post" id="edit_sessions_form">
+<fieldset class="module aligned ">
+<table>
+     <tr>
+     {% for field in sessionformset.forms.0 %}
+          {% if not field.is_hidden %}
+               <th>{{ field.label }}</th>
+          {% endif %}
+     {% endfor %}
+     </tr>
+     {% for f in sessionformset.management_form %}
+          {{ f }}
+     {% endfor %}
+     {% for f in sessionformset.forms %}
+          <tr>
+          {% for field in f %}
+               {% if not field.is_hidden %}
+                    <td>
+                    {% display_readonly field f %} 
+                    </td>
+               {% else %}
+                    <td valign="bottom">{{ field }}</
+               {% endif %}
+          {% endfor %}
+          </tr>
+     {% endfor %}
+</table>
+</fieldset>
+
+
+</div>
+{% endblock %}
+

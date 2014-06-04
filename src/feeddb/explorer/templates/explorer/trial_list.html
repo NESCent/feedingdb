@@ -1,0 +1,151 @@
+{% extends "explorer/base.html" %}
+{% load explorer_display pagination_tags %}
+{% load feedmedia admin_list i18n %}
+{% load feed_list i18n %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/changelists.css" />
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript" src="/explorer/static/js/jquery.checkboxes.js"></script>
+{% endblock %}
+{% block content %}
+{% include "explorer/include/search_trial_form.html" %}
+{% if trials %}
+<h3>Results</h3>
+<script language="javascript">
+var cur_order_by = "{{order_by}}";
+var cur_order_type = "{{order_type}}";
+
+function checkbox_clicked(obj){
+   if(obj.checked){
+	$("#trial_form").checkCheckboxes();	
+   }else{
+           	$("#trial_form").unCheckCheckboxes();
+   }
+}
+
+function bucket_changed(obj){
+   if(obj.value =="add new bucket"){
+        $("#new_bucket_div").css({'display':'inline'}); 
+   }else{
+        $("#new_bucket_div").css({'display':'none'}); 
+   }
+}
+
+function sort(field){
+	var form = document.search_trial_form;
+	form.order_by.value = field;
+	form.order_type.value = "asc";
+	if(cur_order_by == field){
+		if(cur_order_type =="asc"){
+			form.order_type.value = "desc";
+		}
+	}
+	form.submit();
+}
+</script>
+
+<div class="module" id="changelist">
+
+<form action = "{% url explorer.views.trial_search_put %}" method="POST" id="trial_form" name ="trial_form">
+<table>
+	<caption>Total records found: {{total}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;click header to sort results</caption>
+<tr><td  colspan = "8">
+{% include "explorer/include/pages.html" %}
+</td>
+</tr>	
+<tr>
+<th><input type="checkbox" id="select_all" onclick ="checkbox_clicked(this)" /></th>
+<th 
+{% ifequal order_by "title" %}
+ class="order_by {{order_type}}"
+{% endifequal %}
+><a href="javascript:sort('title')">Trial</a></th>
+<th 
+{% ifequal order_by "session__experiment__study__subject__taxon" %}
+ class="order_by {{order_type}}"
+{% endifequal %}
+><a href="javascript:sort('session__experiment__study__subject__taxon')">Species</a></th>
+<th 
+{% ifequal order_by "behavior_primary" %}
+ class="order_by {{order_type}}"
+{% endifequal %}
+><a href="javascript:sort('behavior_primary')">Primary Behavior</th>
+<th 
+{% ifequal order_by "food_type" %}
+ class="order_by {{order_type}}"
+{% endifequal %}
+><a href="javascript:sort('food_type')">Food Type</th>
+<th>Techniques</th>
+<th>Anatomical Location</th>
+<th class="bucket_header">Buckets</th>
+</tr>
+
+
+{% for trial in trials %}
+<tr  class="{% cycle 'row1' 'row2' %}">
+<td><input type="checkbox" name="{{trial.id}}" id="{{trial.id}}" class="check_trial" /></td>
+<td><a href="{% url explorer.views.trial_detail trial.id %}">{{trial.title}}</a></td>
+<td>{{trial.session.experiment.subject.taxon.genus}} {{trial.session.experiment.subject.taxon.species}}</td>
+<td>{{trial.behavior_primary}}</td>
+<td>{{trial.food_type}}</td>
+<td>
+{% display_technique trial  %}
+</td>
+<td>{% display_muscle trial  %}</td>
+<td class="bucket_column">
+{% for bucket in trial.bucket_set.all %}
+{%ifequal bucket.created_by.id user.id %}
+<a href="{% url explorer.views.bucket_detail bucket.id %}">{{bucket}}</a><br/>
+{%endifequal %}
+{% endfor %}
+</td>
+</tr>
+{% endfor %}
+
+<tr><th class="table_action" colspan = "8">Put selected records into my bucket: <select name="bucket" onchange="bucket_changed(this)">
+<option value=""></option>
+{% for bucket in user.bucket_related.all %}
+<option value = "{{bucket.id}}" >{{bucket}}</option>
+{%endfor%}
+<option value = "add new bucket" >add new bucket</option>
+</select>
+<div id="new_bucket_div" style="display:none;">Enter name for the new bucket:<input name="new_bucket_name" size="20" /></div> 
+<input type="submit" value="put" />
+</th>
+</tr>
+
+<tr><td colspan = "8">
+{% include "explorer/include/pages.html" %}
+</td>
+</tr>
+
+</table>
+</form>
+</div>
+<script language="javascript">
+function gopage(page){
+    var f= document.search_trial_form;
+    f.page.value=page
+    f.submit();	
+}
+
+function itemperpage(itemperpage){
+    var f= document.search_trial_form;
+    f.item_per_page.value=itemperpage
+	f.page.value=1
+	
+    f.submit();	
+}
+
+
+</script>
+
+{% else %}
+<p>No trials found.</p>
+{% endif %}
+
+{% endblock %}

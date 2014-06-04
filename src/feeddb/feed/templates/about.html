@@ -1,0 +1,101 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load feedmedia %}{% app_static_prefix %}css/dashboard.css" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+<div class="left">
+<h1>About</h1>
+
+<p>The Feeding 
+ Experiments End-User Database (FEED) was designed and developed by <a href="http://nescent.org/science/awards_summary.php?id=150">the Mammalian Feeding Apparatus Working Group</a> 
+supported by the <a href="http://www.nescent.org">National Evolutionary Synthesis Center (NESCent). </a>
+</p>
+
+<h2>Technology</h2>
+<ul>
+<li>Database management system: <a href="http://www.postgresql.org/">PostgreSQL 8.3</a></li>
+<li>Programming language: <a href="http://python.org/">python</a></li>
+<li>Web framework: <a href="http://www.djangoproject.com/">Django (1.1.1)</a></li>
+<li>Other libraries 
+  <ul>
+    <li><a href="http://south.aeracode.org/">South</a> for schema and data migration</li>
+	<li><a href="http://code.google.com/p/django-pagination/">django-pagination (1.0.5)</a></li>
+    <li><a href="http://www.jquery.com/">jQuery</a></li>
+	<li><a href="http://initd.org/psycopg/">psycopg2 (2.0.13)</a>: PostgreSQL adapter for the Python programming language</li>
+	<!--  Do we use this?  We do use WSGI, though.  VG 2010-12-29 
+	<li><a href="http://pypi.python.org/pypi/wsgiref">wsgiref</a></li>
+	 -->
+   </ul>
+</li>
+</ul>
+<h2>Source Code</h2>
+<p>
+Source code is available at <a href="http://github.com/NESCent/feedingdb/">Github</a> under the <a href="http://www.gnu.org/copyleft/gpl.html">GPL v3 license</a>. 
+</p> 
+<div style="clear:both;"></div>
+<h2>Credits</h2>
+<ul>
+<li>Concept and scientific requirements: <a href="http://nescent.org/science/awards_summary.php?id=150">NESCent Working Group</a> on <a href="http://www.feedexp.org">Analysis and Synthesis of Physiologic Data from the Mammalian Feeding Apparatus</a>,
+led by
+<ul><li><a
+  href="http://walllab.evolutionaryanthropology.duke.edu/">Christine
+  E. Wall</a> (Duke University)</li>
+<li><a
+  href="http://dentistry.uic.edu/depts/oralBiology/oralb/FDruzinsky.htm">Robert
+  E Druzinsky</a> (University of Illinois at Chicago)</li>
+<li><a href="http://www.hopkinsmedicine.org/Rehab/Faculty/german.html">Rebecca Z German</a> (Northeast Ohio Medical University))</li>
+<li><a href="http://www.oucom.ohiou.edu/dbms-williams/">Susan Williams</a> (Ohio University)</li>
+<li><a href="http://www.neoucom.edu/audience/about/departments/anatneuro/faculty/ChrisVinyard/">Chris Vinyard</a> (Northeast Ohio Medical University)</li>
+</ul>
+</li>
+<li>Database and application programming: Vladimir Gapeyev (NESCent), Xianhua Liu (NESCent)</li>
+</ul>
+ 
+<h2>Publications and How to Cite</h2>
+<p>
+If you reuse the FEED database or application, or publish results obtained from it, please cite the following publication:</p>
+<p>
+Wall, Christine E, Christopher J Vinyard, Susan H Williams, Vladimir Gapeyev, Xianhua Liu, Hilmar Lapp, and Rebecca Z German. 2011. &quot;<a href="http://dx.doi.org/10.1093/icb/icr047" target="_blank">Overview of FEED, the Feeding Experiments End-user Database</a>.&quot; Integrative and Comparative Biology 51(2): 215–223. <br/><a href="http://dx.doi.org/10.1093/icb/icr047" target="_blank">http://dx.doi.org/10.1093/icb/icr047</a>.
+</p>
+
+<h2>Contact</h2>
+ <ul>
+ <li>
+FEED is developed at the <a href="http://www.nescent.org">National Evolutionary Synthesis Center (NESCent)</a>. 
+<div style="left-padding: 30px;">
+2024 W. Main Street, Suite A200<br/>
+Durham, NC 27705-4667<br/>
+Tel: (919) 668-4551<br/>
+Fax: (919) 668-9198<br/>
+</div>
+</li>
+
+<!-- 
+<li>Send email to  
+<div style="left-padding: 30px;">
+leading scientists of the working group (<a href="#">[TBD]</a>)<br/>
+report bugs or request technical help (<a href="mailto: feeding-bugs@nescent.org;">feeding-bugs@nescent.org</a>)<br/>
+</div>
+</li>
+ -->
+ <li>To report bugs or request technical help, send email to <a href="mailto: feeding-bugs@nescent.org;">feeding-bugs@nescent.org</a></li>
+</ul>
+
+</div>
+<div class="right">
+{% include "admin/right_col.html" %}
+</div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
