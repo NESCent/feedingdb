@@ -1,0 +1,44 @@
+{
+  "types": [
+
+  ],
+  "license": "Apache 2.0",
+  "source": "git://github.com/thias/puppet-modules/modules/php",
+  "dependencies": [
+
+  ],
+  "project_page": "http://glee.thias.es/puppet",
+  "description": "Install and configure PHP for any of CLI, Apache httpd module and FastCGI.",
+  "checksums": {
+    "templates/fpm/pool.conf.erb": "c7035baa35333616415f98a5d03add27",
+    "manifests/module/ini.pp": "c0783993edfeefc9a6cc1d1fb7f5b7bb",
+    "templates/httpd/php.conf.orig": "50015ff8bb23090aae4f8556987c5e40",
+    "LICENSE": "e4678a02ee34a6b96bab29aa0169a5ce",
+    "tests/mod_php5.pp": "ff071f8ba0eb1a2b90e71a6de246df30",
+    "manifests/ini.pp": "2e2e0b291ae379de7a8eb577421ef481",
+    "manifests/fpm/conf.pp": "d53a6505989aa5c8534b6e7a8c304151",
+    "tests/ini.pp": "6ccaff70f981929198f22e398beca6ff",
+    "tests/cli.pp": "4acf74bcea023f76f2e9eb7acf38bbb3",
+    "templates/httpd/php.conf.erb": "8dcf1861fcb2b46027df55c86b4fc85d",
+    "manifests/common.pp": "8d778b31029fe89516840b2115400973",
+    "Modulefile": "ca4e6227a0b342c48ab482a5d4d32167",
+    "templates/module.ini.erb": "0bc70f1c763fb938c953df90622f0ae4",
+    "manifests/mod_php5.pp": "56774313ea6bb95986968285bccca407",
+    "tests/fpm/daemon.pp": "6804b102876223b40b3382668bf61434",
+    "templates/php.ini-el6.orig": "a82c6a40a5bbd7188c2cbd81d98e5faa",
+    "templates/fpm/php-fpm.conf.erb": "bf22d5060f5ed3f30b9fb472415dc8f0",
+    "ChangeLog": "fffbadab43a540537626fff4d856a69d",
+    "tests/module.pp": "461e492ab58e9777a3b09e7da5e69c54",
+    "tests/fpm/conf.pp": "8ab22d2e1e3821072e57c30734de70cd",
+    "manifests/module.pp": "1450325013725602d42b4731ff58d05c",
+    "manifests/fpm/daemon.pp": "a067bf6f79a658c07588b889deca645b",
+    "tests/module/ini.pp": "ba5ad8ccc8bf36c6a4f513c8498262d8",
+    "README": "b033485fa1064841accb8c2d949789a2",
+    "templates/php.ini-el6.erb": "b3bad69af795150935bc94bb29d69f46",
+    "manifests/cli.pp": "a4102df6b6b5229c131488286b3b653b"
+  },
+  "summary": "PHP module",
+  "name": "thias-php",
+  "author": "Matthias Saou",
+  "version": "0.2.3"
+}

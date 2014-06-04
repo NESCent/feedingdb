@@ -1,0 +1,76 @@
+{
+  "license": "Apache License, Version 2.0",
+  "project_page": "https://github.com/lukas-hetzenecker/puppet-module-ssh_authorized_key",
+  "source": "UNKNOWN",
+  "checksums": {
+    "lib/puppet/type/pxp_ssh_authorized_key_base.rb": "ac90c3d231659afab5cc5bb8c5df248f",
+    "manifests/init.pp": "eee3b263f196424949c9e40ee4778eb7",
+    "LICENSE": "cd576e9e2d6c932aa6933f3d3135dde5",
+    "manifests/hetzeneckerl.pp": "1e2820ea741e09e997decdeb714d72ec",
+    "manifests/test.pp": "eb7e5e124367409b0c11ea8747fafce4",
+    "manifests/create_ssh_file.pp": "d3ac2848de51349a927a15222b22b613",
+    "manifests/absentuser.pp": "c361818adadb31940393b6468ac66e74",
+    "README.md": "43e54bda56e8dd6030b3f0e03a2867b2",
+    "Modulefile": "cddff9d4025b856e54b479ed789eb7d6",
+    "lib/puppet/util/ssh_authorized_key_file_parser.rb": "c293a6bf9cb413bf79654a7a9cd3ee6e",
+    "lib/puppet/provider/pxp_ssh_authorized_key_base/base.rb": "4fdb1fc25d421e280597e8d20ba63369",
+    "manifests/testmannt.pp": "8dfc6ae15596a99063dbf17c98f8d35c",
+    "manifests/presentuser.pp": "1707d1005bff0ad8d4e15fffcfb6e316"
+  },
+  "types": [
+    {
+      "doc": "Manages SSH authorized keys. Currently only type 2 keys are\n    supported.\n\n    **Autorequires:** If Puppet is managing the user account in which this\n    SSH key should be installed, the `ssh_authorized_key` resource will autorequire\n    that user.",
+      "providers": [
+        {
+          "doc": "",
+          "name": "base"
+        }
+      ],
+      "name": "pxp_ssh_authorized_key_base",
+      "properties": [
+        {
+          "doc": "The basic property that the resource should be in.  Valid values are `present`, `absent`.",
+          "name": "ensure"
+        },
+        {
+          "doc": "The encryption type used: ssh-dss or ssh-rsa.  Valid values are `ssh-dss` (also called `dsa`), `ssh-rsa` (also called `rsa`), `ecdsa-sha2-nistp256`, `ecdsa-sha2-nistp384`, `ecdsa-sha2-nistp521`.",
+          "name": "type"
+        },
+        {
+          "doc": "The user account in which the SSH key should be installed.\n      The resource will automatically depend on this user.",
+          "name": "user"
+        },
+        {
+          "doc": "The absolute filename in which to store the SSH key. This\n      property is optional and should only be used in cases where keys\n      are stored in a non-standard location (i.e.` not in\n      `~user/.ssh/authorized_keys`).",
+          "name": "target"
+        },
+        {
+          "doc": "If uniquecomment is set to true (default: false), the SSH key and the fingerprint need to be unique.\nIf there is already a key with the same comment, but a different fingerprint, in the authorized_key file the fingerprint will be changed.\n\nA possible use case for this is the change of the key for a user. The old one doesn't need to be set absent, because the comment stays the same.  Valid values are `true`, `false`.",
+          "name": "uniquecomment"
+        },
+        {
+          "doc": "Key options, see sshd(8) for possible values. Multiple values\n        should be specified as an array.",
+          "name": "options"
+        }
+      ],
+      "parameters": [
+        {
+          "doc": "The SSH key fingerprint. This attribute is currently used as a\n      system-wide primary key and therefore has to be unique.",
+          "name": "name"
+        },
+        {
+          "doc": "The SSH key comment",
+          "name": "comment"
+        }
+      ]
+    }
+  ],
+  "version": "0.0.1",
+  "dependencies": [
+
+  ],
+  "name": "pxp-ssh-authorized-key",
+  "summary": "SSH authorized key management for puppet",
+  "author": "Lukas Hetzenecker",
+  "description": "SSH authorized key management for puppet that uses the key fingerprint as resource identifier and allows arrays for the user and target attributes"
+}
