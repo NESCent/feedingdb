@@ -1,6 +1,6 @@
 Restore database
 ====
-Database `feed`, user `feed`, filename `feed:
+Database `feed`, user `feed`, filename `feed`:
 
 ```
 dropdb -U feed feed
@@ -16,3 +16,12 @@ Create new superuser for testing
 Set password?
 ====
 Figure this out.
+
+Run server
+====
+
+```
+. ~/venv/bin/activate
+cd /server/src/feeddb
+./manage.py runserver 0.0.0.0:8000
+```
