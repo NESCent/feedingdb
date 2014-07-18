@@ -1,9 +1,24 @@
-# Our "lamp" manifest requires this external variable.
-$mysql_root_password = 'root'
-
 include squishy_config::minimum
-include squishy_config::lamp
-include squishy_config::mysql
+
+
+
+class { 'python':
+  version => 'system',
+  pip => true,
+  dev => true,
+  virtualenv => true,
+  gunicorn => false,
+}
+
+python::virtualenv { '/home/vagrant/feed-venv':
+  owner => 'vagrant',
+  group => 'vagrant',
+}
+
+python::requirements { '/server/src/feeddb/dependencies.pip':
+  virtualenv => '/home/vagrant/feed-venv',
+  owner => 'vagrant',
+}
 
 apache::vhost { 'vagrant':
   priority => '10',
@@ -16,16 +31,6 @@ apache::vhost { 'vagrant':
 # Alternately, you can use `link` or `directory` if you want to be explicit.
 file { '/server/htdocs':
   ensure => present,
-}
-
-# Enable development settings in php.ini
-augeas { 'vagrant_php.ini':
-  context => "/files/etc/php.ini",
-  changes => [
-    'set PHP/display_errors On',
-    'set PHP/display_startup_errors On',
-    'set PHP/error_reporting "E_ALL | E_STRICT',
-  ],
 }
 
 # insecure settings for ssh client within vagrant
