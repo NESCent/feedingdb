@@ -64,7 +64,6 @@ MIDDLEWARE_CLASSES = (
    'django.contrib.sessions.middleware.SessionMiddleware',
    'django.contrib.auth.middleware.AuthenticationMiddleware',
    'django.middleware.csrf.CsrfViewMiddleware',
-   'django.middleware.csrf.CsrfResponseMiddleware',  
    'feeddb.feed.extension.middleware.AnonymousAccessMiddleware',
    'pagination.middleware.PaginationMiddleware',
    
@@ -90,5 +89,6 @@ INSTALLED_APPS = (
    'feeddb.feed',
    'feeddb.explorer',
    'pagination',
+   'haystack',
 )
 

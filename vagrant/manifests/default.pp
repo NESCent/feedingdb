@@ -1,6 +1,5 @@
 include squishy_config::minimum
-
-
+include squishy_config::apache
 
 class { 'python':
   version => 'system',
@@ -18,13 +17,26 @@ python::virtualenv { '/home/vagrant/feed-venv':
 python::requirements { '/server/src/feeddb/dependencies.pip':
   virtualenv => '/home/vagrant/feed-venv',
   owner => 'vagrant',
+  forceupdate => true,
 }
 
-apache::vhost { 'vagrant':
+apache::vhost { 'feeddb':
   priority => '10',
   port => '80',
-  docroot => '/server/htdocs',
-  override => ['all'],
+  docroot => '/server/src',
+  wsgi_daemon_process => 'wsgi',
+  wsgi_daemon_process_options => {
+    processes => 2,
+    threads => 15,
+    display_name => '%{GROUP}',
+  },
+  wsgi_process_group => 'wsgi',
+  wsgi_script_aliases => {
+    '/' => '/server/src/feedb/wsgi.py',
+  },
+  #aliases => [
+  #  { alias => '/media', path => '/server/src/feedb' TODO ... }
+  #],
 }
 
 # Ensure that apache::vhost doesn't clobber our docroot.
