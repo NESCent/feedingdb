@@ -1,0 +1,9 @@
+pkg/
+
+# ignore rbvenv files used for puppet-lint, rspect etc.
+.ruby-version
+.rbenv-gemsets
+
+# ignore geppetto files
+.project
+metadata.json
