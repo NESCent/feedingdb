@@ -89,9 +89,6 @@ define python::requirements (
   if !defined(File[$requirements]) {
     file { $requirements:
       ensure  => present,
-      mode    => '0644',
-      owner   => $owner,
-      group   => $group,
       audit   => content,
       replace => false,
       content => '# Puppet will install and/or update pip packages listed here',
