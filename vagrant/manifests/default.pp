@@ -20,19 +20,25 @@ python::requirements { '/server/src/feeddb/dependencies.pip':
   forceupdate => true,
 }
 
+class { 'apache::mod::wsgi':
+  wsgi_socket_prefix => '/var/run/wsgi',
+  wsgi_python_home => '/home/vagrant/feed-venv',
+  wsgi_python_path => '/home/vagrant/feed-venv/lib/python2.6/site-packages',
+}
+
 apache::vhost { 'feeddb':
   priority => '10',
   port => '80',
-  docroot => '/server/src',
+  docroot => '/server/htdocs',
   wsgi_daemon_process => 'wsgi',
   wsgi_daemon_process_options => {
     processes => 2,
     threads => 15,
-    display_name => '%{GROUP}',
+    display-name => '%{GROUP}',
   },
   wsgi_process_group => 'wsgi',
   wsgi_script_aliases => {
-    '/' => '/server/src/feedb/wsgi.py',
+    '/' => '/server/src/feeddb/wsgi.py',
   },
   #aliases => [
   #  { alias => '/media', path => '/server/src/feedb' TODO ... }
