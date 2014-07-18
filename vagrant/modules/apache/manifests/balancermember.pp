@@ -9,7 +9,7 @@
 #
 # === Requirement/Dependencies:
 #
-# Currently requires the ripienaar/concat module on the Puppet Forge and
+# Currently requires the puppetlabs/concat module on the Puppet Forge and
 # uses storeconfigs on the Puppet Master to export/collect resources
 # from all balancer members.
 #
@@ -46,6 +46,7 @@ define apache::balancermember(
 ) {
 
   concat::fragment { "BalancerMember ${url}":
+    ensure  => present,
     target  => "${::apache::params::confd_dir}/balancer_${balancer_cluster}.conf",
     content => inline_template(" BalancerMember ${url} <%= @options.join ' ' %>\n"),
   }
