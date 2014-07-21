@@ -528,7 +528,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             self.filter_form_values(request, form, model, obj)
     
     #overiten method to allow filtering in URL which is defaultly not allowed in 1.2.4
-    def lookup_allowed(self, lookup):
+    def lookup_allowed(self, lookup, value):
         return True
     
     def change_view(self,request,object_id,extra_context=None):
