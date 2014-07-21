@@ -79,6 +79,7 @@ class SetupTabularInline(FeedTabularInline):
 class FeedModelAdmin(admin.ModelAdmin):
     view_inlines = []
     list_per_page = 30 
+    list_max_show_all = 100
     # Custom templates (designed to be over-ridden in subclasses)
     view_form_template = None
     #change_form_template = "admin/tabbed_change_form.html"
@@ -189,7 +190,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             'content_type_id': ContentType.objects.get_for_model(self.model).id,
             'save_as': self.save_as,
             'save_on_top': self.save_on_top,
-            'root_path': self.admin_site.root_path,
+            'root_path': reverse('admin:index'),
         })
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
         if context.get('tabbed'):
@@ -272,7 +273,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             "associated_critical_objects": associated_critical_objects,
             "perms_lacking": perms_needed,
             "opts": opts,
-            "root_path": self.admin_site.root_path,
+            "root_path": reverse('admin:index'),
             "app_label": app_label,
         }
         context.update(extra_context or {})
@@ -659,7 +660,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             'media': mark_safe(media),
             'inline_admin_formsets': inline_admin_formsets,
             'errors': helpers.AdminErrorList(form, formsets),
-            'root_path': self.admin_site.root_path,
+            'root_path': reverse('admin:index'),
             'app_label': opts.app_label,
             'registry': registry,
         }
@@ -711,8 +712,10 @@ class FeedModelAdmin(admin.ModelAdmin):
             except ValueError:
                 pass
         try:
-            cl = FeedChangeList(request, self.model, list_display, self.list_display_links, self.list_filter,
-                self.date_hierarchy, self.search_fields, self.list_select_related, self.list_per_page, self.list_editable, self)
+            cl = FeedChangeList(request, self.model, list_display,
+                self.list_display_links, self.list_filter, self.date_hierarchy,
+                self.search_fields, self.list_select_related, self.list_per_page,
+                self.list_max_show_all, self.list_editable, self)
         except IncorrectLookupParameters:
             # Wacky lookup parameters were given, so redirect to the main
             # changelist page, without parameters, and pass an 'invalid=1'
@@ -782,7 +785,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             'media': media,
             'has_add_permission': self.has_add_permission(request),
             'has_change_permission': self.has_change_permission(request, None),
-            'root_path': self.admin_site.root_path,
+            'root_path': reverse('admin:index'),
             'app_label': app_label,
             'action_form': action_form,
             'actions_on_top': self.actions_on_top,

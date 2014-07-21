@@ -1,13 +1,13 @@
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 import models
 
 def index(request):
-    return render_to_response("admin/home.html",{'user':request.user})
+    return render(request, "admin/home.html",{'user':request.user})
 
 def about(request):
-    return render_to_response("about.html",{'user':request.user})
+    return render(request, "about.html",{'user':request.user})
 
 def welcome(request):
-    return render_to_response("welcome.html",{'user':request.user})
+    return render(request, "welcome.html",{'user':request.user})

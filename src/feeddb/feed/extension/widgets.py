@@ -24,7 +24,7 @@ class FeedRelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
         try:
             related_url = reverse('admin:%s_%s_add' % info, current_app=self.admin_site.name)
         except NoReverseMatch:
-            info = (self.admin_site.root_path, rel_to._meta.app_label, rel_to._meta.object_name.lower())
+            info = (reverse('admin:index'), rel_to._meta.app_label, rel_to._meta.object_name.lower())
             related_url = '%s%s/%s/add/' % info
         self.widget.choices = self.choices
         output = [self.widget.render(name, value, *args, **kwargs)]
