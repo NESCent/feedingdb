@@ -15,7 +15,7 @@ define squishy_config::django(
     fail("You must specify a Django installation root")
   }
 
-  if ($requirements_file) {
+  if $requirements_file {
     $_requirements_file = $requirements_file
   }
   else {
