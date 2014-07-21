@@ -53,6 +53,7 @@ define squishy_config::django(
     owner => 'root',
     group => 'apache',
     forceupdate => $requirements_force_update,
+    require => Python::Virtualenv[$virtualenv],
   }
 
   # TODO: move class configuration to hiera and use `include` here.
