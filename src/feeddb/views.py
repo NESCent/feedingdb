@@ -8,7 +8,6 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import RequestContext, Template
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
-from django.views.generic.simple import redirect_to
 from django.contrib.auth import authenticate, login,logout
 from django.conf import settings
 

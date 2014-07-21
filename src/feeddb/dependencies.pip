@@ -4,3 +4,4 @@ django-pagination==1.0.5
 psycopg2==2.0.13
 wsgiref==0.1.2
 django-haystack==2.1.0
+pysolr==3.2.0

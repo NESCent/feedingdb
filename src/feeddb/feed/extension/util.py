@@ -7,7 +7,7 @@ from django.utils.encoding import force_unicode
 from django.utils.translation import ungettext, ugettext as _
 from django.core.urlresolvers import reverse, NoReverseMatch
 #from django.contrib.admin.util import _nest_help, get_change_view_url
-from django.db.models.query import CollectedObjects
+#from django.db.models.query import CollectedObjects
 from django.db.models.fields.related import *
 from feeddb.feed.models import *
 from django.db.models import Max
@@ -140,8 +140,10 @@ def duplicate(obj, exclude = None, value=None, field=None):
     update that as well. Return the duplicate copy
     of `obj`.  
     """
-       
-    collected_objs = CollectedObjects()
+    
+    # FIXME: figure out how to do this without CollectedObjects.
+    # @see https://github.com/django/django/commit/616b30227d
+    # collected_objs = CollectedObjects()
     obj._collect_sub_objects(collected_objs)
     related_models = collected_objs.keys()
     root_obj = None

@@ -1,7 +1,7 @@
 # VG: I suggest discussing and coordinating most ideas about 
 #     changing the design of URLs in this file. 
 
-from django.conf.urls.defaults import *
+from django.conf.urls import patterns
 from feeddb.explorer.views import * 
 from django.conf import settings 
 

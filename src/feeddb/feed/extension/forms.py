@@ -198,7 +198,7 @@ class TrialInlineForm(forms.ModelForm):
 
     class Meta:
         model = Trial
-        exclude = ( 'accession')
+        exclude = ( 'accession', )
 
 class TrialForm(forms.ModelForm):
     #remove_waveform_picture = forms.BooleanField(required=False)

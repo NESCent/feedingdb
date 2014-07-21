@@ -15,7 +15,7 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.utils.datastructures import SortedDict
-from django.utils.functional import update_wrapper
+from functools import update_wrapper
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.functional import curry
@@ -97,7 +97,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             self.view_inline_instances.append(view_inline_instance)
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url
+        from django.conf.urls import patterns, url
 
         def wrap(view):
             def wrapper(*args, **kwargs):
@@ -1043,7 +1043,7 @@ class SessionModelAdmin(FeedModelAdmin):
         super(SessionModelAdmin, self).__init__(model,admin_site)
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url
+        from django.conf.urls import patterns, url
         urls = super(SessionModelAdmin, self).get_urls()
 
         def wrap(view):

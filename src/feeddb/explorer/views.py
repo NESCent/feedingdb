@@ -7,11 +7,9 @@
 import os, re, tempfile, zipfile, csv
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.views.generic.list_detail import object_detail
 from django.template import RequestContext, Template
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
-from django.views.generic.simple import redirect_to
 from django.contrib.auth import authenticate, login,logout
 from django.db.models import Q
 from django.utils.html import escape
