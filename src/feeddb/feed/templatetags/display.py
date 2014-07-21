@@ -6,7 +6,7 @@ from django.utils import dateformat
 from django.utils.html import escape, conditional_escape
 from django.utils.text import capfirst
 from django.utils.safestring import mark_safe
-from django.utils.translation import get_date_formats, get_partial_date_formats, ugettext as _
+from django.utils.translation import ugettext as _
 from django.utils.encoding import smart_unicode, smart_str, force_unicode
 from django.template import Library, Node, TemplateSyntaxError, Variable, VariableDoesNotExist
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper, AdminFileWidget
