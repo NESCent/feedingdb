@@ -50,7 +50,7 @@ function sort(field){
 
 <div class="module" id="changelist">
 
-<form action = "{% url explorer.views.trial_search_put %}" method="POST" id="trial_form" name ="trial_form">
+<form action = "{% url "explorer.views.trial_search_put" %}" method="POST" id="trial_form" name ="trial_form">
 <table>
 	<caption>Total records found: {{total}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;click header to sort results</caption>
 <tr><td  colspan = "8">
@@ -88,7 +88,7 @@ function sort(field){
 {% for trial in trials %}
 <tr  class="{% cycle 'row1' 'row2' %}">
 <td><input type="checkbox" name="{{trial.id}}" id="{{trial.id}}" class="check_trial" /></td>
-<td><a href="{% url explorer.views.trial_detail trial.id %}">{{trial.title}}</a></td>
+<td><a href="{% url "explorer.views.trial_detail" trial.id %}">{{trial.title}}</a></td>
 <td>{{trial.session.experiment.subject.taxon.genus}} {{trial.session.experiment.subject.taxon.species}}</td>
 <td>{{trial.behavior_primary}}</td>
 <td>{{trial.food_type}}</td>
@@ -99,7 +99,7 @@ function sort(field){
 <td class="bucket_column">
 {% for bucket in trial.bucket_set.all %}
 {%ifequal bucket.created_by.id user.id %}
-<a href="{% url explorer.views.bucket_detail bucket.id %}">{{bucket}}</a><br/>
+<a href="{% url "explorer.views.bucket_detail" bucket.id %}">{{bucket}}</a><br/>
 {%endifequal %}
 {% endfor %}
 </td>

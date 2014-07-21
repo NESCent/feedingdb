@@ -1,5 +1,5 @@
 <h3>Search Trials </h3>
-<form name="search_trial_form" action="{% url explorer.views.trial_search %}" method="POST">
+<form name="search_trial_form" action="{% url "explorer.views.trial_search" %}" method="POST">
 	{% for field in form.hidden_fields %}
 	{{ field }}
 	{% endfor %}

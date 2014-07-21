@@ -1,12 +1,12 @@
 <ul>	
-<li><a href="{% url explorer.views.portal_page %}">Home</a></li>
+<li><a href="{% url "explorer.views.portal_page" %}">Home</a></li>
 
  {% if user.is_authenticated %}
-<li><a href="{% url explorer.views.trial_search %}">Search Trial</a></li>
-<li><a href="{% url explorer.views.bucket_index %}">My Buckets</a></li>
-<li><a href="{% url explorer.views.logout_view %}">Logout</a></li>
+<li><a href="{% url "explorer.views.trial_search" %}">Search Trial</a></li>
+<li><a href="{% url "explorer.views.bucket_index" %}">My Buckets</a></li>
+<li><a href="{% url "explorer.views.logout_view" %}">Logout</a></li>
 {%else %}
-<li><a href="{% url explorer.views.login_view %}">Login</a></li>
+<li><a href="{% url "explorer.views.login_view" %}">Login</a></li>
 
 {% endif %}
 </ul>

@@ -234,7 +234,7 @@ function bucket_changed(obj){
 }
 </script>
 
-Put this trial into my bucket: <form action="{% url explorer.views.trial_add trial.id %} " method="POST">
+Put this trial into my bucket: <form action="{% url "explorer.views.trial_add" trial.id %} " method="POST">
 <select name="bucket_id" onchange="bucket_changed(this)">
 <option value=""></option>
 {% for bucket in user.bucket_related.all %}
@@ -251,7 +251,7 @@ Put this trial into my bucket: <form action="{% url explorer.views.trial_add tri
            {% for bucket in trial.bucket_set.all %}
             {%if forloop.first %}This trial is in following bucket(s):<br/><ul> {%endif%}
             {%ifequal bucket.created_by.id user.id %}
-                <li><a href="{% url explorer.views.bucket_detail bucket.id %}">{{bucket}}</a> [ <a title="remove the trial from this bucket" href="javascript: if(confirm('Do you really want to remove this trial from the bucket:{{bucket}}?')==true)window.location.href='{% url explorer.views.trial_remove trial.id bucket.id %}';">Remove</a> ]</li>
+                <li><a href="{% url "explorer.views.bucket_detail" bucket.id %}">{{bucket}}</a> [ <a title="remove the trial from this bucket" href="javascript: if(confirm('Do you really want to remove this trial from the bucket:{{bucket}}?')==true)window.location.href='{% url "explorer.views.trial_remove" trial.id bucket.id %}';">Remove</a> ]</li>
             {%endifequal%}  
             {%if forloop.last %}</ul> {%endif%}
            {% endfor %}

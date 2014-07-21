@@ -43,12 +43,12 @@
             {% endifnotequal %}	
 			{% block userlinks %}
             {% ifnotequal  user.first_name "anonymous" %}
-			    {% url django-admindocs-docroot as docsroot %}
+			    {% url "django-admindocs-docroot" as docsroot %}
                 {% if docsroot %}
                     <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
                 {% endif %}
             
-		        {% url admin:password_change as password_change_url %}
+		        {% url "admin:password_change" as password_change_url %}
                 {% if password_change_url %}
                     <a href="{{ password_change_url }}">
                 {% else %}

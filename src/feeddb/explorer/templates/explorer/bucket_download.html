@@ -26,7 +26,7 @@ function select_allchannels_clicked(obj){
 
 
         <h3>Download Data in Bucket: {{bucket}}</h3>
-          <form action="{% url explorer.views.bucket_download bucket.id %}" id="meta_form" name ="meta_form" method="POST">
+          <form action="{% url "explorer.views.bucket_download" bucket.id %}" id="meta_form" name ="meta_form" method="POST">
                 
 <table>
 <tr><td class="TdField">Zip file name</td><td class="TdValue"><input name="zipfile_name" size="50" value="{{file_name}}"/></td></tr>
