@@ -1,6 +1,18 @@
 include squishy_config::minimum
 include squishy_config::apache
 
+package { ['postgresql-devel']: ensure => present }
+
+class { 'postgresql::server':
+  manage_firewall => false,
+  postgres_password => 'postgres',
+}
+
+postgresql::server::db { 'feeddb':
+  user => 'feed',
+  password => postgresql_password('feed', 'feed'),
+}
+
 class { 'python':
   version => 'system',
   pip => true,
@@ -9,21 +21,22 @@ class { 'python':
   gunicorn => false,
 }
 
-python::virtualenv { '/home/vagrant/feed-venv':
-  owner => 'vagrant',
-  group => 'vagrant',
+python::virtualenv { '/virtualenv/feed-venv':
+  owner => 'root',
+  group => 'apache',
 }
 
 python::requirements { '/server/src/feeddb/dependencies.pip':
-  virtualenv => '/home/vagrant/feed-venv',
-  owner => 'vagrant',
+  virtualenv => '/virtualenv/feed-venv',
+  owner => 'root',
+  group => 'apache',
   forceupdate => true,
 }
 
 class { 'apache::mod::wsgi':
   wsgi_socket_prefix => '/var/run/wsgi',
-  wsgi_python_home => '/home/vagrant/feed-venv',
-  wsgi_python_path => '/home/vagrant/feed-venv/lib/python2.6/site-packages',
+  wsgi_python_home => '/virtualenv/feed-venv',
+  wsgi_python_path => '/virtualenv/feed-venv/lib/python2.6',
 }
 
 apache::vhost { 'feeddb':
