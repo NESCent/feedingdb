@@ -2,6 +2,12 @@ from django.conf.urls import patterns, url, include
 from django.conf import settings
 from views import * 
 
+from haystack.forms import FacetedSearchForm
+from haystack.query import SearchQuerySet
+from haystack.views import FacetedSearchView
+
+sqs = SearchQuerySet().facet('breed')
+
 from django.contrib import admin
 admin.autodiscover()
 
@@ -22,6 +28,6 @@ urlpatterns = patterns('',
     (r'^welcome', 'feeddb.feed.views.welcome'), 
     (r'^login$', login_view),
     (r'^logout$', logout_view),
-    (r'^search/', include('haystack.urls')),
+    (r'^search/', FacetedSearchView(form_class=FacetedSearchForm, searchqueryset=sqs)),
 )
 

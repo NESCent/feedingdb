@@ -6,6 +6,7 @@ class SubjectIndex(indexes.SearchIndex, indexes.Indexable):
 
     #taxon = models.
     name = indexes.CharField(model_attr='name')
+    breed = indexes.CharField(model_attr='breed', faceted=True)
 
     def get_model(self):
         return Subject

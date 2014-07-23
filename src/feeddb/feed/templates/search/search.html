@@ -12,10 +12,25 @@
     </tr>
   </table>
   {% if query %}
+  <!-- begin faceting -->
+    {# debug #}
+    <div>
+      <dl>
+        {% if facets.fields.breed %}
+          <dt>Breed</dt>
+          {% for breed in facets.fields.breed %}
+            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=breed_exact:{{ breed.0|urlencode }}">{{ breed.0 }}</a> ({{ breed.1 }})</dd>
+          {% endfor %}
+        {% else %}
+          <p>No breed facets</p>
+        {% endif %}
+      </dl>
+    </div>
+  <!-- end faceting -->
   <h3>Results</h3>
   {% for result in page.object_list %}
   <p>
-    <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a>
+    <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a> - {{ result.object.breed }}
   </p>
   {% empty %}
   <p>No results found.</p>
