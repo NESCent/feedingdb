@@ -1,3 +1,8 @@
+Create a settings.py
+====
+
+TODO: automate this via puppet somehow
+
 Restore database
 ====
 Database `feed`, user `feed`, filename `feed`:
