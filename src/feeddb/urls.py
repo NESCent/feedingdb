@@ -22,5 +22,6 @@ urlpatterns = patterns('',
     (r'^welcome', 'feeddb.feed.views.welcome'), 
     (r'^login$', login_view),
     (r'^logout$', logout_view),
+    (r'^search/', include('haystack.urls')),
 )
 
