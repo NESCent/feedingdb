@@ -9,7 +9,6 @@ from haystack.views import FacetedSearchView
 sqs = SearchQuerySet().facet('breed').facet('sex').facet('taxon')
 
 from django.contrib import admin
-admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
@@ -23,7 +22,11 @@ urlpatterns = patterns('',
     #(r'^feed/', include(admin.site.urls)),
     (r'^$', 'feeddb.feed.views.index'),
     #(r'^$', include('feeddb.feed.urls')),
-    (r'^explorer/', include('feeddb.explorer.urls')),
+
+    # TODO: restore explorer URLs if they are desired. This line causes an
+    # error when using the django debug toolbar.
+    #(r'^explorer/', include('feeddb.explorer.urls')),
+
     (r'^about', 'feeddb.feed.views.about'),
     (r'^welcome', 'feeddb.feed.views.welcome'), 
     (r'^login$', login_view),
@@ -31,3 +34,4 @@ urlpatterns = patterns('',
     (r'^search/', FacetedSearchView(form_class=FacetedSearchForm, searchqueryset=sqs)),
 )
 
+admin.autodiscover()

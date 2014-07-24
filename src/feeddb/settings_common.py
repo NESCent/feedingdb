@@ -31,6 +31,7 @@ ADMIN_MEDIA_PREFIX = '/adminstatic/'
 # They point to the store for static files (CSS, JS, images) of feeddb.feed app.
 STATIC_ROOT = relpath2abspath('feed/static')
 STATIC_PREFIX='/static/'
+STATIC_URL=STATIC_PREFIX
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -62,6 +63,7 @@ MIDDLEWARE_CLASSES = (
    'django.middleware.common.CommonMiddleware',
    'django.contrib.sessions.middleware.SessionMiddleware',
    'django.contrib.auth.middleware.AuthenticationMiddleware',
+   'debug_toolbar.middleware.DebugToolbarMiddleware',
    'django.middleware.csrf.CsrfViewMiddleware',
    'feeddb.feed.extension.middleware.AnonymousAccessMiddleware',
    'pagination.middleware.PaginationMiddleware',
@@ -84,10 +86,13 @@ INSTALLED_APPS = (
    'django.contrib.sessions',
    'django.contrib.sites',
    'django.contrib.admin',
+   'django.contrib.staticfiles',
    'south',
    'feeddb.feed',
    'feeddb.explorer',
    'pagination',
    'haystack',
+   'debug_toolbar',
 )
+
 

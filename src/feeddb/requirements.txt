@@ -5,4 +5,4 @@ psycopg2==2.0.13
 wsgiref==0.1.2
 django-haystack==2.1.0
 pysolr==3.2.0
-whoosh==2.6.0
+django-debug-toolbar=1.2.1
