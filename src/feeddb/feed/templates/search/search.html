@@ -16,6 +16,16 @@
     {# debug #}
     <div>
       <dl>
+        {% if facets.fields.sex %}
+          <dt>sex</dt>
+          {% for sex in facets.fields.sex %}
+            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=sex_exact:{{ sex.0|urlencode }}">{{ sex.0 }}</a> ({{ sex.1 }})</dd>
+          {% endfor %}
+        {% else %}
+          <p>No sex facets</p>
+        {% endif %}
+      </dl>
+      <dl>
         {% if facets.fields.breed %}
           <dt>Breed</dt>
           {% for breed in facets.fields.breed %}
@@ -25,12 +35,24 @@
           <p>No breed facets</p>
         {% endif %}
       </dl>
+      <dl>
+        {% if facets.fields.taxon %}
+          <dt>Taxon</dt>
+          {% for taxon in facets.fields.taxon %}
+            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=taxon_exact:{{ taxon.0|urlencode }}">{{ taxon.0 }}</a> ({{ taxon.1 }})</dd>
+          {% endfor %}
+        {% else %}
+          <p>No taxon facets</p>
+        {% endif %}
+      </dl>
     </div>
   <!-- end faceting -->
   <h3>Results</h3>
   {% for result in page.object_list %}
   <p>
-    <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a> - {{ result.object.breed }}
+    <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a> - {{ result.object.breed }} 
+    Breed: {{ result.breed }}, {{ result.breed_exact }}<br />
+    Taxon: {{ result.taxon }}, {{ result.taxon_exact }}<br />
   </p>
   {% empty %}
   <p>No results found.</p>
