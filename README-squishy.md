@@ -15,35 +15,56 @@ Notable URLs:
 
  * http://dev-feed.sqm.private/search/?q=ABCD -- sample search returns all subjects
 
-Create a settings.py
+Setting up a server or vagrant box
 ====
+
+`vagrant provision` will do a lot of the work, but there is some stuff not yet
+automated.
+
+Create a settings.py
+----
 
 TODO: automate this via puppet somehow
 
+Install & run `solr` with `jetty`
+----
+
+You have to manually rerun the `java -jar start.jar` all the time in order to
+have search working. The other commands you just do once.
+
+Do this outside of vagrant, in the root of the repo:
+
+```
+wget https://archive.apache.org/dist/lucene/solr/3.6.2/apache-solr-3.6.2.tgz
+tar xfvz apache-solr-3.6.2.tgz
+```
+
+Then log in with `vagrant ssh` and do this:
+
+```
+source /virtualenv/feeddb/bin/activate
+/server/src/manage.py build_solr_schema > /server/apache-solr-3.6.2/example/solr/conf/schema.xml
+cd /server/apache-solr-3.6.2/example
+java -jar start.jar
+```
+
+You should keep this running as long as you are working with search; if you
+change a `search_indexes.py` file, you should rerun the `build_solr_schema`
+command.
+
 Restore database
-====
-Database `feed`, user `feed`, filename `feed`:
+----
+Database `feeddb`, user `feeddb`, filename `feed`:
 
 ```
-dropdb -U feed feed
-createdb -U feed feed
-pg_restore -d feed -O -U feed feed
+pg_restore -h localhost -d feeddb -O -U feeddb feed
 ```
 
-Create new superuser for testing
-====
+Create new Django superuser for testing
+----
+
+The dev server has a superuser with username `admin` and password `admin. If you load a fresh database dump without a superuser, you can create one with this command:
 
 `./manage.py createsuperuser`
 
-Set password?
-====
-Figure this out.
-
-Run server
-====
-
-```
-. ~/venv/bin/activate
-cd /server/src/feeddb
-./manage.py runserver 0.0.0.0:8000
-```
+(If you get an error, run `source /virtualenv/feeddb/bin/activate` and try again)
