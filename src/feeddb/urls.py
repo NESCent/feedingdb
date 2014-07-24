@@ -6,7 +6,10 @@ from haystack.forms import FacetedSearchForm
 from haystack.query import SearchQuerySet
 from haystack.views import FacetedSearchView
 
-sqs = SearchQuerySet().facet('breed').facet('sex').facet('taxon')
+sqs = SearchQuerySet() \
+    .facet('breed', mincount=1, limit=10) \
+    .facet('sex', mincount=1, limit=10) \
+    .facet('taxon', mincount=1, limit=10) \
 
 from django.contrib import admin
 

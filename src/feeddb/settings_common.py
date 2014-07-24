@@ -93,6 +93,7 @@ INSTALLED_APPS = (
    'pagination',
    'haystack',
    'debug_toolbar',
+   'feeddb.faceted_search',
 )
 
 

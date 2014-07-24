@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load faceted_search_extras %}
 {% block content %}
 <html>
 <head></head>
@@ -48,6 +49,11 @@
           <p>No taxon facets</p>
         {% endif %}
       </dl>
+    </div>
+  
+    <div>
+      <h4>automatic facet</h4>
+      {% show_facets facets 'taxon' %}
     </div>
   <!-- end faceting -->
   <h3>Results</h3>
