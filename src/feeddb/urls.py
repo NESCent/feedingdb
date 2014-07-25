@@ -12,6 +12,7 @@ sqs = SearchQuerySet() \
     .facet('taxon', mincount=1, limit=10) \
 
 from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
@@ -28,7 +29,7 @@ urlpatterns = patterns('',
 
     # TODO: restore explorer URLs if they are desired. This line causes an
     # error when using the django debug toolbar.
-    #(r'^explorer/', include('feeddb.explorer.urls')),
+    (r'^explorer/', include('feeddb.explorer.urls')),
 
     (r'^about', 'feeddb.feed.views.about'),
     (r'^welcome', 'feeddb.feed.views.welcome'), 
@@ -37,4 +38,9 @@ urlpatterns = patterns('',
     (r'^search/', FacetedSearchView(form_class=FacetedSearchForm, searchqueryset=sqs)),
 )
 
-admin.autodiscover()
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += patterns('',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
+

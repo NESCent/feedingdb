@@ -29,6 +29,33 @@ class FeedBaseModel(models.Model):
         self.updated_at = now
         super(FeedBaseModel, self).save()
 
+class OwlTerm(models.Model):
+    label = models.CharField(max_length=1000)
+    obo_definition = models.TextField()
+    rdfs_comment = models.TextField()
+    uri = models.CharField(max_length=1500)
+
+    # The list of parent terms and parents of parent terms, and so on.
+    # Determined by the rdfs:subClassOf property.
+    rdfs_subClassOf_ancestors = models.ManyToManyField('self', symmetrical=False)
+    # The list of child terms and grandchild terms, and so on. Determined by
+    # the rdfs:subClassOf property.
+    #rdfs_subClassOf_descendants = models.ManyToManyField('self', symmetrical=false)
+
+    # TODO: add fields for the part_of relationship
+
+    class Meta:
+        abstract = True
+
+    def __unicode__(self):
+        return self.label
+
+    def cloneable(self):
+        return False
+
+class MuscleOwl(OwlTerm): 
+    pass
+
 #cvterms
 class CvTerm(FeedBaseModel):
     label = models.CharField(max_length=255)
