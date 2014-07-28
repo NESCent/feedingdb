@@ -31,6 +31,8 @@ class FeedBaseModel(models.Model):
 
 class OwlTerm(models.Model):
     label = models.CharField(max_length=1000)
+    # TODO: see gl-4
+    #rdf_type = models.CharField(max_length=255)
     obo_definition = models.TextField()
     rdfs_comment = models.TextField()
     uri = models.CharField(max_length=1500)
@@ -54,6 +56,9 @@ class OwlTerm(models.Model):
         return False
 
 class MuscleOwl(OwlTerm): 
+    pass
+
+class BehaviorOwl(OwlTerm):
     pass
 
 #cvterms

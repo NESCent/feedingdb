@@ -1,5 +1,15 @@
 from django.core.management.base import BaseCommand, CommandError
-from feeddb.feed.models import MuscleOwl
+from feeddb.feed.models import MuscleOwl, BehaviorOwl
+
+def nonblankthings(g, things):
+    from rdflib.term import URIRef, BNode, Literal
+    for thing in set(things):
+        if isinstance(thing, BNode):
+            continue
+
+        label = g.label(thing)
+        if len(label):
+            yield thing
 
 # first draft of command to import muscle terms from an OWL file
 class Command(BaseCommand):
@@ -8,46 +18,46 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         from rdflib.graph import Graph
-        from rdflib import RDFS
+        from rdflib import RDFS, RDF, OWL
         from rdflib.term import URIRef, BNode, Literal
         import yaml
 
-        print yaml.dump(args)
         OboDefinition = URIRef('http://purl.obolibrary.org/obo/IAO_0000115')
 
         g = Graph()
-        g.parse(args[0], 'xml')
+        g.parse(args[1], 'xml')
 
-        # first pass, add the muscles
-        subjects = set(g.subjects())
-        for subject in subjects:
-            if isinstance(subject, BNode):
-                continue
+        Model = MuscleOwl if args[0] == 'm' else BehaviorOwl
 
+        # first pass, add the things
+        for subject in nonblankthings(g, g.subjects()):
             slabel = g.label(subject)
-            if len(slabel):
-                m = MuscleOwl()
-                m.uri = unicode(subject)
-                m.label = unicode(slabel)
-                m.obo_definition = unicode(g.value(subject, OboDefinition, None))
-                m.rdfs_comment = unicode(g.value(subject, RDFS.comment, None))
-                m.save()
+            m = Model()
+            m.uri = unicode(subject)
+            m.label = unicode(slabel)
+            # FIXME: each subject can have multiple types, so this needs a helper function
+            # to choose the best type. Or a multi-valued field (ugh).
+            #m.rdf_type = unicode(g.value(subject, RDF.type, None))
+            m.obo_definition = unicode(g.value(subject, OboDefinition, None))
+            m.rdfs_comment = unicode(g.value(subject, RDFS.comment, None))
+            m.save()
 
         # second pass, add the relationships
-        for subject in subjects:
-            if isinstance(subject, BNode):
-                continue
-                
+        for subject in nonblankthings(g, g.subjects()):
             slabel = g.label(subject)
-            if len(slabel):
-                m = MuscleOwl.objects.get(uri=unicode(subject))
-                tobjs = g.transitive_objects(subject, RDFS.subClassOf)
-                for obj in g.transitive_objects(subject, RDFS.subClassOf):
-                    if isinstance(obj, BNode):
-                        continue
+            m = Model.objects.get(uri=unicode(subject))
 
+            # add all super-classes to m.rdfs_subClassOf_ancestors
+            for obj in nonblankthings(g, g.transitive_objects(subject, RDFS.subClassOf)):
+                if obj != subject:
                     print unicode(obj)
-                    a = MuscleOwl.objects.get(uri=unicode(obj))
+                    a = Model.objects.get(uri=unicode(obj))
                     m.rdfs_subClassOf_ancestors.add(a)
 
-                m.save()
+            # add only direct super-classes to m.rdfs_subClassOf
+            #for obj in nonblankthings(g, g.objects(subject, RDFS.subClassOf)):
+            #    if obj != subject:
+            #        a = Model.objects.get(uri=unicode(obj))
+            #        m.rdfs_subClassOf.add(a)
+
+            m.save()
