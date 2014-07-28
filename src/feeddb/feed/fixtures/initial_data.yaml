@@ -1,0 +1,2807 @@
+- fields:
+    label: attached to lateral surface of
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#attached_to_lateral_surface_of
+  model: feed.muscleowl
+  pk: 4446
+- fields:
+    label: attached to
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000001
+  model: feed.muscleowl
+  pk: 4447
+- fields:
+    label: innervated by
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000003
+  model: feed.muscleowl
+  pk: 4448
+- fields:
+    label: buccinator muscle
+    obo_definition: The buccinator is a muscle that is attached to the mandible, skin,
+      pterygomandibular raphe and maxilla, and is innervated by Cranial Nerve VII
+      and participates in oropharyngeal behavior.
+    rdfs_comment: 'The attachments of this muscle vary in mammals. The modiolus is
+      a structure (or anatomical cluster) clearly present in humans and other primates
+      but it''s presence is less certain in other mammals (see Tomo et al., 2002 -
+      DOI 10.1002/ar.10090; Diogo et al., 2008 - doi: 10.1111/j.1469-7580.2008.00953.x;
+      Burrows et al., 2011 - DOI 10.1002/ar.21355; Lightoller, 1940, 1942). In cats
+      (Tomo et al., 2002) there is no attachment to the maxilla.'
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000002
+  model: feed.muscleowl
+  pk: 4449
+- fields:
+    label: facial muscle
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000005
+  model: feed.muscleowl
+  pk: 4450
+- fields:
+    label: non ceratohyal part of hyoid apparatus
+    obo_definition: None
+    rdfs_comment: Request new term but definition needs revision.
+    rdfs_subClassOf_ancestors: [4611, 4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000004
+  model: feed.muscleowl
+  pk: 4451
+- fields:
+    label: muscles innervated by glossopharyngeal nerve
+    obo_definition: Muscles innervated by the glossopharyngeal nerve (Cranial Nerve
+      IX).
+    rdfs_comment: Request new term.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000007
+  model: feed.muscleowl
+  pk: 4452
+- fields:
+    label: ceratohyoideus muscle
+    obo_definition: The ceratohyoideus is a muscle of Pharyngeal Arch III that participates
+      in oral/pharyngeal behaviors and is innervated by the glossopharyngeal n. (CN
+      IX), and attaches to the ceratohyal part of the hyoid apparatus and also to
+      a non-ceratohyal part of the hyoid apparatus
+    rdfs_comment: Request new term.
+    rdfs_subClassOf_ancestors: [4452]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000006
+  model: feed.muscleowl
+  pk: 4453
+- fields:
+    label: cricopharyngeus muscle
+    obo_definition: The cricopharyngeus is a pharyngeal arch 4/6 muscle that participates
+      in oral/pharyngeal behaviors and is innervated by the pharyngeal plexus and
+      the recurrent laryngeal n. (from Vagus, CN X), and is an integral part of the
+      pharyngeal tube, and attaches to the cricoid cartilage and the midline raphe.  It
+      acts as a sphincter between the pharynx and esophagus.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000009
+  model: feed.muscleowl
+  pk: 4454
+- fields:
+    label: midline raphe
+    obo_definition: The seamlike union of the two lateral halves of a part or organ
+      (as the tongue) having externally a ridge or furrow.
+    rdfs_comment: Request new term.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000008
+  model: feed.muscleowl
+  pk: 4455
+- fields:
+    label: lower lip
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4626, 4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0001835
+  model: feed.muscleowl
+  pk: 4456
+- fields:
+    label: Human palatopharyngeus muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/1/1b/Musculuspalatopharyngeus.png
+  model: feed.muscleowl
+  pk: 4457
+- fields:
+    label: middle pharyngeal constrictor muscle
+    obo_definition: The middle constrictor is a pharyngeal arches 4/6 muscle that
+      participates in oral/pharyngeal behaviors and is innervated by the pharyngeal
+      plexus of Vagus (CN X) and attaches to the hyoid apparatus and the midline raphe.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#middle_pharyngeal_constrictor_muscle
+  model: feed.muscleowl
+  pk: 4458
+- fields:
+    label: Human salpingopharyngeus muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/e/e3/Salpingopharyngeus.png
+  model: feed.muscleowl
+  pk: 4459
+- fields:
+    label: branchial arch 2
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0003066
+  model: feed.muscleowl
+  pk: 4460
+- fields:
+    label: hypoglossal nerve
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision,
+    rdfs_subClassOf_ancestors: [4570, 4663]
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#hypoglossal_nerve
+  model: feed.muscleowl
+  pk: 4461
+- fields:
+    label: Human Posterior Digastric Muscle
+    obo_definition: None
+    rdfs_comment: from Gray's Anatomy 1918 edition, Wiki photo
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/2/26/Digastricus.png
+  model: feed.muscleowl
+  pk: 4462
+- fields:
+    label: branchiohyoideus
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4452]
+    uri: http://purl.obolibrary.org/obo/MFMO0000212
+  model: feed.muscleowl
+  pk: 4463
+- fields:
+    label: intrinsic circularis
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000213
+  model: feed.muscleowl
+  pk: 4464
+- fields:
+    label: mandibulohyoideus part 2
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000210
+  model: feed.muscleowl
+  pk: 4465
+- fields:
+    label: mandibulohyoideus part 3
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000211
+  model: feed.muscleowl
+  pk: 4466
+- fields:
+    label: longitudinal intrinsic tongue muscle
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000216
+  model: feed.muscleowl
+  pk: 4467
+- fields:
+    label: transversus mandibulae
+    obo_definition: None
+    rdfs_comment: FEED spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000217
+  model: feed.muscleowl
+  pk: 4468
+- fields:
+    label: dorsoventral intrinsic tongue muscle
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000214
+  model: feed.muscleowl
+  pk: 4469
+- fields:
+    label: base of cranium
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000044
+  model: feed.muscleowl
+  pk: 4470
+- fields:
+    label: right
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO0000218
+  model: feed.muscleowl
+  pk: 4471
+- fields:
+    label: levator veli palatini
+    obo_definition: The levator veli palatini is part of the soft palate that attaches
+      to the cranial base, pharyngotympanic tube and the soft palate and is innervated
+      by Cranial Nerve X via the pharyngeal plexus.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4458]
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#levator_veli_palatini
+  model: feed.muscleowl
+  pk: 4472
+- fields:
+    label: depressor supercilii
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000133
+  model: feed.muscleowl
+  pk: 4473
+- fields:
+    label: corrugator supercilii
+    obo_definition: Muscle of facial expression, attached to  the skin in the medial
+      palpebral region and the superciliary region, lateral and deep to the procerus
+      muscle, and lateral to the depressor supercillii muscle.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000132
+  model: feed.muscleowl
+  pk: 4474
+- fields:
+    label: procerus
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000131
+  model: feed.muscleowl
+  pk: 4475
+- fields:
+    label: orbicularis oculi
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000130
+  model: feed.muscleowl
+  pk: 4476
+- fields:
+    label: zygomaticus minor
+    obo_definition: Facial muscle attached to the orbicularis oris muscle, anterior
+      root of the zygomatic arch (zygomatic bone or maxilla), and skin in the region
+      of the caudal border of the orbicularis oculi muscle. The muscle is often described
+      as having two heads, one attached to the maxilla and the other attached to the
+      skin overlying the orbicularis oculi.  In many mammals this muscle also has
+      an attachment to the cartilage of the external ear, in which case it is called
+      the auriculolabialis superior. See Diogo 2008; Diogo et al., 2009; Burrows et
+      al.., 2011., also DuBrul, 1980.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO0000137
+  model: feed.muscleowl
+  pk: 4477
+- fields:
+    label: levator labii superioris
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000136
+  model: feed.muscleowl
+  pk: 4478
+- fields:
+    label: levator labii superioris alaeque nasi
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000135
+  model: feed.muscleowl
+  pk: 4479
+- fields:
+    label: nasalis
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000134
+  model: feed.muscleowl
+  pk: 4480
+- fields:
+    label: levator anguli oris
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000139
+  model: feed.muscleowl
+  pk: 4481
+- fields:
+    label: zygomaticus major
+    obo_definition: Facial muscle attached to the modiolus, corner (angle) of the
+      mouth, and zygomatic bone. This muscle is ventral to the zygomaticus minor and
+      dorsal to the platysma muscle.  In many mammals this muscle also has an attachment
+      to the cartilage of the external ear, in which case it is called the auriculolabialis
+      inferior. See Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011., also DuBrul,
+      1980.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000138
+  model: feed.muscleowl
+  pk: 4482
+- fields:
+    label: vagus nerve
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4570, 4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0001759
+  model: feed.muscleowl
+  pk: 4483
+- fields:
+    label: Human platysma muscle
+    obo_definition: None
+    rdfs_comment: From Gray's Anatomy 1918 Wiki photo
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/f/fb/Platysma.png
+  model: feed.muscleowl
+  pk: 4484
+- fields:
+    label: zygomatic arch
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000108
+  model: feed.muscleowl
+  pk: 4485
+- fields:
+    label: anterior root of zygomatic arch
+    obo_definition: The anterior or rostral end of the zygomatic arch, which includes
+      the temporal process of the zygomatic bone (UBERON_0004654), but also including
+      some of the body of the zygomatic bone. It may also include the zygomatico-temporal
+      suture and the most rostral portion of the zygomatic process of the temporal
+      bone (UBERON_0004655).
+    rdfs_comment: Request new term but requires definition.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000109
+  model: feed.muscleowl
+  pk: 4486
+- fields:
+    label: Human levator veli palatini muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/a/a5/Musculuslevatorvelipalatini.png
+  model: feed.muscleowl
+  pk: 4487
+- fields:
+    label: soft palate
+    obo_definition: 'A muscular arch-shaped structure (an anatomical cluster) that
+      is composed of the musculus uvuli and parts of tensor veli palatini, levator
+      veli palatini, palatoglossus and palatopharyngeus and attaches to the hard palate
+      and modulates the connections between the oral cavity and pharynx soft tissue
+      arch '
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4663, 4691]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000100
+  model: feed.muscleowl
+  pk: 4488
+- fields:
+    label: somite
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000101
+  model: feed.muscleowl
+  pk: 4489
+- fields:
+    label: sphenoid bone
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000102
+  model: feed.muscleowl
+  pk: 4490
+- fields:
+    label: sternum
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000104
+  model: feed.muscleowl
+  pk: 4491
+- fields:
+    label: temporalis fascia
+    obo_definition: None
+    rdfs_comment: Request new term but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000105
+  model: feed.muscleowl
+  pk: 4492
+- fields:
+    label: thyroid cartilage
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000106
+  model: feed.muscleowl
+  pk: 4493
+- fields:
+    label: tongue
+    obo_definition: Muscular organ in the floor of the mouth.
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000107
+  model: feed.muscleowl
+  pk: 4494
+- fields:
+    label: basioccipital bone
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000045
+  model: feed.muscleowl
+  pk: 4495
+- fields:
+    label: clavicle
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000047
+  model: feed.muscleowl
+  pk: 4496
+- fields:
+    label: capsule of the temporomandibular joint
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000046
+  model: feed.muscleowl
+  pk: 4497
+- fields:
+    label: esophagus
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000049
+  model: feed.muscleowl
+  pk: 4498
+- fields:
+    label: cranium
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000048
+  model: feed.muscleowl
+  pk: 4499
+- fields:
+    label: deep to
+    obo_definition: underneath, in the sense of being closer to the center of the
+      individual and farther from the external surface
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#deep_to
+  model: feed.muscleowl
+  pk: 4500
+- fields:
+    label: palatopharyngeus muscle
+    obo_definition: Palatopharyngeus is a muscle that attaches to the palatine bones,
+      soft palate, and pharynx and is innervated by Cranial Nerve X via the pharyngeal
+      plexus.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#palatopharyngeus_muscle
+  model: feed.muscleowl
+  pk: 4501
+- fields:
+    label: attached to ventral surface of
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#attached_to_ventral_surface_of
+  model: feed.muscleowl
+  pk: 4502
+- fields:
+    label: Human styloglossus Muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/1/16/Styloglossus.png
+  model: feed.muscleowl
+  pk: 4503
+- fields:
+    label: Human mylohyoid muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/9/92/Mylohyoid_muscle.PNG
+  model: feed.muscleowl
+  pk: 4504
+- fields:
+    label: adductor Mandibulae Internus
+    obo_definition: None
+    rdfs_comment: 'Uberon has a couple of terms (e.g., UBERON_2000311) that refer
+      to the entire adductor mandibulae complex but not individual parts. '
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000168
+  model: feed.muscleowl
+  pk: 4505
+- fields:
+    label: intramandibularis
+    obo_definition: None
+    rdfs_comment: FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000169
+  model: feed.muscleowl
+  pk: 4506
+- fields:
+    label: thyroepiglotticus
+    obo_definition: None
+    rdfs_comment: Not a part of the thyroarytenoid in Uberon.
+    rdfs_subClassOf_ancestors: [4584, 4612]
+    uri: http://purl.obolibrary.org/obo/MFMO0000160
+  model: feed.muscleowl
+  pk: 4507
+- fields:
+    label: branchiohyoideus
+    obo_definition: None
+    rdfs_comment: FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4452]
+    uri: http://purl.obolibrary.org/obo/MFMO0000161
+  model: feed.muscleowl
+  pk: 4508
+- fields:
+    label: constrictor colli
+    obo_definition: None
+    rdfs_comment: FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000162
+  model: feed.muscleowl
+  pk: 4509
+- fields:
+    label: obliquus capitis
+    obo_definition: None
+    rdfs_comment: FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4619]
+    uri: http://purl.obolibrary.org/obo/MFMO0000164
+  model: feed.muscleowl
+  pk: 4510
+- fields:
+    label: longus capitis
+    obo_definition: None
+    rdfs_comment: FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4619]
+    uri: http://purl.obolibrary.org/obo/MFMO0000165
+  model: feed.muscleowl
+  pk: 4511
+- fields:
+    label: rectus cervicis
+    obo_definition: None
+    rdfs_comment: FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4619]
+    uri: http://purl.obolibrary.org/obo/MFMO0000166
+  model: feed.muscleowl
+  pk: 4512
+- fields:
+    label: Adductor Mandibulae Externus
+    obo_definition: None
+    rdfs_comment: FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000167
+  model: feed.muscleowl
+  pk: 4513
+- fields:
+    label: zygomatic bone
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO0000146
+  model: feed.muscleowl
+  pk: 4514
+- fields:
+    label: symphyseal region
+    obo_definition: The region of the mandible on or near the midline (near the mandiblular
+      symphysis, UBERON_0006606)
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4524, 4663]
+    uri: http://purl.obolibrary.org/obo/MFMO0000147
+  model: feed.muscleowl
+  pk: 4515
+- fields:
+    label: angle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO0000144
+  model: feed.muscleowl
+  pk: 4516
+- fields:
+    label: angle of oral opening
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4629]
+    uri: http://purl.obolibrary.org/obo/MFMO0000145
+  model: feed.muscleowl
+  pk: 4517
+- fields:
+    label: dorsal to
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO0000142
+  model: feed.muscleowl
+  pk: 4518
+- fields:
+    label: ventral to
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO0000143
+  model: feed.muscleowl
+  pk: 4519
+- fields:
+    label: depressor septi nasi
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000140
+  model: feed.muscleowl
+  pk: 4520
+- fields:
+    label: risorius
+    obo_definition: Facial muscle that attaches to the fascia of the masseter muscle
+      and the facia of the skin in the region of the corner (angle) of the mouth.
+      Even in species in which this muscle is present, it is highly variable. A true
+      risorius muscle may only be present in Hominins (humans and great apes). See
+      Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011., also DuBrul, 1980.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000141
+  model: feed.muscleowl
+  pk: 4521
+- fields:
+    label: orbit
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO0000148
+  model: feed.muscleowl
+  pk: 4522
+- fields:
+    label: scalp
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent, but definition needs revision.
+    rdfs_subClassOf_ancestors: [4626, 4663]
+    uri: http://purl.obolibrary.org/obo/MFMO0000149
+  model: feed.muscleowl
+  pk: 4523
+- fields:
+    label: mandible
+    obo_definition: None
+    rdfs_comment: 'Mandible is equivalent to dentary but none of the definitions in
+      Uberon is perfect.  Unfortunately, the term is used in several different ways.  RED
+
+      Term in Uberon is equivalent but the definition needs revision.'
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0001684
+  model: feed.muscleowl
+  pk: 4524
+- fields:
+    label: Human middle pharyngeal constrictor muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/8/8f/Musculusconstrictorpharyngismedius.png
+  model: feed.muscleowl
+  pk: 4525
+- fields:
+    label: orbicularis oris muscle
+    obo_definition: The orbicularis oris is a superficial facial muscle with fibers
+      that encircle the opening of the oral cavity that attaches to the maxilla, mandible,
+      skin and modiolus, and that participates in oral/pharyngeal behaviors, and is
+      innervated by the facial nerve (CN VII).
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000058
+  model: feed.muscleowl
+  pk: 4526
+- fields:
+    label: platysma muscle
+    obo_definition: The platysma is a pharyngeal arch 2 muscle and a superficial facial
+      muscle that participates in oral/pharyngeal behaviors and is innervated by the
+      cervical branch of the facial nerve.  It attaches to the mandible and it attaches
+      to the skin of the head, neck, and thoracic region where it is found superficial
+      to the clavicle.  Burrows et al. (2011) argue that in hylobatids (and, presumably,
+      other primates) the platysma in the region of the modiolus represents both the
+      cervicale and myoides muscles.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000059
+  model: feed.muscleowl
+  pk: 4527
+- fields:
+    label: non stylohyal part of hyoid apparatus
+    obo_definition: None
+    rdfs_comment: Request new term but definition needs revision.
+    rdfs_subClassOf_ancestors: [4611, 4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000052
+  model: feed.muscleowl
+  pk: 4528
+- fields:
+    label: stylohyal bone
+    obo_definition: part of the hyoid apparatus
+    rdfs_comment: Request new term but definition needs revision.
+    rdfs_subClassOf_ancestors: [4611, 4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000053
+  model: feed.muscleowl
+  pk: 4529
+- fields:
+    label: hard palate
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663, 4691]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000050
+  model: feed.muscleowl
+  pk: 4530
+- fields:
+    label: head somite
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000051
+  model: feed.muscleowl
+  pk: 4531
+- fields:
+    label: condyle of the mandible
+    obo_definition: articular part of the mandible bone
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4524, 4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000056
+  model: feed.muscleowl
+  pk: 4532
+- fields:
+    label: modiolus
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+      Even in humans the modiolus is often difficult to discern, and in other mammals
+      it is not clear that such a structure exists (see Tomo et al., 2002; DOI 10.1002/ar.10090;
+      Lightoller, 1942)
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000057
+  model: feed.muscleowl
+  pk: 4533
+- fields:
+    label: infraorbital foramen
+    obo_definition: None
+    rdfs_comment: Request new term but definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000054
+  model: feed.muscleowl
+  pk: 4534
+- fields:
+    label: recurrent branch of vagus nerve
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4483, 4570, 4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0003716
+  model: feed.muscleowl
+  pk: 4535
+- fields:
+    label: runs through
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#runs_through
+  model: feed.muscleowl
+  pk: 4536
+- fields:
+    label: sternohyoideus superficialis
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4619]
+    uri: http://purl.obolibrary.org/obo/MFMO0000201
+  model: feed.muscleowl
+  pk: 4537
+- fields:
+    label: omohyoideus
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4619]
+    uri: http://purl.obolibrary.org/obo/MFMO0000200
+  model: feed.muscleowl
+  pk: 4538
+- fields:
+    label: hyoglossus
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000203
+  model: feed.muscleowl
+  pk: 4539
+- fields:
+    label: sternohyoideus profundus
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4619]
+    uri: http://purl.obolibrary.org/obo/MFMO0000202
+  model: feed.muscleowl
+  pk: 4540
+- fields:
+    label: genioglossus medial
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000205
+  model: feed.muscleowl
+  pk: 4541
+- fields:
+    label: genioglossus
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000204
+  model: feed.muscleowl
+  pk: 4542
+- fields:
+    label: genioglossus internal
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000207
+  model: feed.muscleowl
+  pk: 4543
+- fields:
+    label: genioglossus lateral
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000206
+  model: feed.muscleowl
+  pk: 4544
+- fields:
+    label: mandibulohyoideus part 1
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000209
+  model: feed.muscleowl
+  pk: 4545
+- fields:
+    label: mandibulohyoideus
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000208
+  model: feed.muscleowl
+  pk: 4546
+- fields:
+    label: adductor mandibulae externus superficialis posterior
+    obo_definition: None
+    rdfs_comment: 'Uberon has a couple of terms (e.g., UBERON_2000311) that refer
+      to the entire adductor mandibulae complex but not individual parts. '
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000178
+  model: feed.muscleowl
+  pk: 4547
+- fields:
+    label: adductor mandibulae externus superficialis anterior
+    obo_definition: None
+    rdfs_comment: 'Uberon has a couple of terms (e.g., UBERON_2000311) that refer
+      to the entire adductor mandibulae complex but not individual parts. '
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000177
+  model: feed.muscleowl
+  pk: 4548
+- fields:
+    label: Human Medial Pterygoid Muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/0/0e/Musculuspterygoideusmedialis.png
+  model: feed.muscleowl
+  pk: 4549
+- fields:
+    label: adductor mandibulae externus medialis
+    obo_definition: None
+    rdfs_comment: 'Uberon has a couple of terms (e.g., UBERON_2000311) that refer
+      to the entire adductor mandibulae complex but not individual parts. '
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000170
+  model: feed.muscleowl
+  pk: 4550
+- fields:
+    label: adductor mandibulae externus profundus
+    obo_definition: None
+    rdfs_comment: 'Uberon has a couple of terms (e.g., UBERON_2000311) that refer
+      to the entire adductor mandibulae complex but not individual parts. '
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000179
+  model: feed.muscleowl
+  pk: 4551
+- fields:
+    label: retractor anguli oris
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000176
+  model: feed.muscleowl
+  pk: 4552
+- fields:
+    label: mLAO
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000175
+  model: feed.muscleowl
+  pk: 4553
+- fields:
+    label: posterior head of mAMEM
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000174
+  model: feed.muscleowl
+  pk: 4554
+- fields:
+    label: anteromedial head of mAMEM
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000173
+  model: feed.muscleowl
+  pk: 4555
+- fields:
+    label: ventrolateral head of mAMEM
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000172
+  model: feed.muscleowl
+  pk: 4556
+- fields:
+    label: adductor mandibulae externus superficialis
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000171
+  model: feed.muscleowl
+  pk: 4557
+- fields:
+    label: Human Temporalis Muscle
+    obo_definition: None
+    rdfs_comment: Drawing from Gray's Anatomy 1918 Edition, picture from Wiki
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/d/d3/Gray382.png
+  model: feed.muscleowl
+  pk: 4558
+- fields:
+    label: Human tensor veli palatini muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/3/30/Musculustensorvelipalatini.png
+  model: feed.muscleowl
+  pk: 4559
+- fields:
+    label: Human Genioglosssus Muscle
+    obo_definition: None
+    rdfs_comment: Drawing from Gray's Anatomy
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/7/7e/Genioglossus.png
+  model: feed.muscleowl
+  pk: 4560
+- fields:
+    label: branchial arch 6
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0003117
+  model: feed.muscleowl
+  pk: 4561
+- fields:
+    label: spinalis capitis
+    obo_definition: None
+    rdfs_comment: FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4619]
+    uri: http://purl.obolibrary.org/obo/MFMO0000163
+  model: feed.muscleowl
+  pk: 4562
+- fields:
+    label: pharyngeal plexus
+    obo_definition: None
+    rdfs_comment: Request new term but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4483, 4570, 4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0011325
+  model: feed.muscleowl
+  pk: 4563
+- fields:
+    label: muscles innervated by hypoglossal nerve
+    obo_definition: Muscles innervated by the hypoglossal nerve (Cranial Nerve XII).
+    rdfs_comment: Request new term.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000062
+  model: feed.muscleowl
+  pk: 4564
+- fields:
+    label: scapula
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000098
+  model: feed.muscleowl
+  pk: 4565
+- fields:
+    label: pharyngeal wall
+    obo_definition: the wall of the pharynx
+    rdfs_comment: Request new term but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000096
+  model: feed.muscleowl
+  pk: 4566
+- fields:
+    label: palatine bone
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000094
+  model: feed.muscleowl
+  pk: 4567
+- fields:
+    label: branchial arch 1
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000095
+  model: feed.muscleowl
+  pk: 4568
+- fields:
+    label: first cervical nerve
+    obo_definition: Spinal nerve (paired) emerging from the first cervical segment
+      superior to the first cervical vertebrae.
+    rdfs_comment: Request new term.
+    rdfs_subClassOf_ancestors: [4570, 4594, 4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000092
+  model: feed.muscleowl
+  pk: 4569
+- fields:
+    label: nerve
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000090
+  model: feed.muscleowl
+  pk: 4570
+- fields:
+    label: cervical plexus
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4570, 4594, 4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000091
+  model: feed.muscleowl
+  pk: 4571
+- fields:
+    label: superior pharyngeal constrictor muscle
+    obo_definition: The superior constrictor is a muscle that is an integral part
+      of the pharyngeal tube that is attached to the mandible, pterygomandibular raphe,
+      basioccipital bone, pterygoid process and midline raphe and is innervated by
+      Cranial Nerve X via the pharyngeal plexus.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#superior_pharyngeal_constrictor_muscle
+  model: feed.muscleowl
+  pk: 4572
+- fields:
+    label: depressor labii inferioris
+    obo_definition: A muscle of facial expression, innervated by the facial nerve,
+      attached to the skin of the lower lip, orbicularis oris muscle, and mandible,
+      and superficial and lateral to the mentalis muscle. See Diogo et al., 2009;
+      Burrows et al., 2011)
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000123
+  model: feed.muscleowl
+  pk: 4573
+- fields:
+    label: transverse intrinsic tongue muscle
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4564]
+    uri: http://purl.obolibrary.org/obo/MFMO0000215
+  model: feed.muscleowl
+  pk: 4574
+- fields:
+    label: superficial to
+    obo_definition: above, in the sense of being closer to the external surface of
+      the individual and farther from the center
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#superficial_to
+  model: feed.muscleowl
+  pk: 4575
+- fields:
+    label: pterygomandibular raphe
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0011349
+  model: feed.muscleowl
+  pk: 4576
+- fields:
+    label: Human sternohyoid muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/6/67/Sternohyoid_muscle.PNG
+  model: feed.muscleowl
+  pk: 4577
+- fields:
+    label: Human inferior pharyngeal constrictor muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/2/22/Musculusconstrictorpharyngisinferior.png
+  model: feed.muscleowl
+  pk: 4578
+- fields:
+    label: palatoglossus muscle
+    obo_definition: Palatoglossus is a muscle that attaches to the soft palate and
+      the tongue and is innervated by Cranial Nerve X via the pharyngeal plexus.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#palatoglossus_muscle
+  model: feed.muscleowl
+  pk: 4579
+- fields:
+    label: maxilla
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0002397
+  model: feed.muscleowl
+  pk: 4580
+- fields:
+    label: upper esophageal sphincter muscle
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4612]
+    uri: http://purl.obolibrary.org/obo/UBERON_0007268
+  model: feed.muscleowl
+  pk: 4581
+- fields:
+    label: oblique arytenoideus
+    obo_definition: None
+    rdfs_comment: Uberon definition pretty good but human-centric.
+    rdfs_subClassOf_ancestors: [4588, 4612]
+    uri: http://purl.obolibrary.org/obo/MFMO0000155
+  model: feed.muscleowl
+  pk: 4582
+- fields:
+    label: transverse arytenoideus
+    obo_definition: None
+    rdfs_comment: Uberon definition pretty good.
+    rdfs_subClassOf_ancestors: [4588, 4612]
+    uri: http://purl.obolibrary.org/obo/MFMO0000154
+  model: feed.muscleowl
+  pk: 4583
+- fields:
+    label: thyroarytenoideus
+    obo_definition: None
+    rdfs_comment: Uberon definition is pretty good but human-centric.
+    rdfs_subClassOf_ancestors: [4612]
+    uri: http://purl.obolibrary.org/obo/MFMO0000157
+  model: feed.muscleowl
+  pk: 4584
+- fields:
+    label: aryepiglotticus
+    obo_definition: None
+    rdfs_comment: "Defintion in Uberon is okay but human-centric. \n\nWe consider\
+      \ this muscle a part of the arytenoid muscle complex but some workers describe\
+      \ it as a separate muscle."
+    rdfs_subClassOf_ancestors: [4588, 4612]
+    uri: http://purl.obolibrary.org/obo/MFMO0000156
+  model: feed.muscleowl
+  pk: 4585
+- fields:
+    label: ceratocricoideus
+    obo_definition: None
+    rdfs_comment: FMA has numerous terms that refer to various parts (fascicles, fascia,
+      innervation) of ceratocricoid muscles but not the whole muscle (at least not
+      in the Ontobee subset of the FMA.
+    rdfs_subClassOf_ancestors: [4587, 4612]
+    uri: http://purl.obolibrary.org/obo/MFMO0000151
+  model: feed.muscleowl
+  pk: 4586
+- fields:
+    label: posterior cricoarytenoid
+    obo_definition: None
+    rdfs_comment: 'Uberon definition is pretty good but human-centric.
+
+
+      In Uberon the posterior cricoarytenoid and lateral cricoarytenoid are subClasses
+      of a "cricoarytenoid" class, but there is no anatomical basis for this class
+      other than the similar names.'
+    rdfs_subClassOf_ancestors: [4612]
+    uri: http://purl.obolibrary.org/obo/MFMO0000150
+  model: feed.muscleowl
+  pk: 4587
+- fields:
+    label: arytenoideus
+    obo_definition: None
+    rdfs_comment: Uberon definition okay but wiki ref is very human-centric
+    rdfs_subClassOf_ancestors: [4612]
+    uri: http://purl.obolibrary.org/obo/MFMO0000153
+  model: feed.muscleowl
+  pk: 4588
+- fields:
+    label: lateral cricoarytenoideus
+    obo_definition: None
+    rdfs_comment: Uberon definition is pretty good but human-centric
+    rdfs_subClassOf_ancestors: [4612]
+    uri: http://purl.obolibrary.org/obo/MFMO0000152
+  model: feed.muscleowl
+  pk: 4589
+- fields:
+    label: superior thyroarytenoideus
+    obo_definition: None
+    rdfs_comment: Not in Ontobee.
+    rdfs_subClassOf_ancestors: [4584, 4612]
+    uri: http://purl.obolibrary.org/obo/MFMO0000159
+  model: feed.muscleowl
+  pk: 4590
+- fields:
+    label: vocalis
+    obo_definition: None
+    rdfs_comment: Uberon properly notes that the vocalis is a part of the thyroarytenoid
+      muscle.
+    rdfs_subClassOf_ancestors: [4584, 4612]
+    uri: http://purl.obolibrary.org/obo/MFMO0000158
+  model: feed.muscleowl
+  pk: 4591
+- fields:
+    label: Human Anterior Digastric Muscle
+    obo_definition: None
+    rdfs_comment: Photo from Wiki
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/c/ca/Digastric_muscle.PNG
+  model: feed.muscleowl
+  pk: 4592
+- fields:
+    label: Human buccinator muscle
+    obo_definition: None
+    rdfs_comment: Image from Gray's Anatomy 1918 edition from Wiki
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/d/df/Buccinator.jpg
+  model: feed.muscleowl
+  pk: 4593
+- fields:
+    label: spinal nerve
+    obo_definition: None
+    rdfs_comment: ''
+    rdfs_subClassOf_ancestors: [4570, 4663]
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#spinal_nerve
+  model: feed.muscleowl
+  pk: 4594
+- fields:
+    label: ceratohyal bone
+    obo_definition: part of the hyoid apparatus
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4611, 4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0011611
+  model: feed.muscleowl
+  pk: 4595
+- fields:
+    label: occipital region
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0005902
+  model: feed.muscleowl
+  pk: 4596
+- fields:
+    label: glossopharyngeal nerve
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4570, 4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0001649
+  model: feed.muscleowl
+  pk: 4597
+- fields:
+    label: facial nerve
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4570, 4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0001647
+  model: feed.muscleowl
+  pk: 4598
+- fields:
+    label: branchial arch 3
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0003114
+  model: feed.muscleowl
+  pk: 4599
+- fields:
+    label: branchial arch 4
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0003115
+  model: feed.muscleowl
+  pk: 4600
+- fields:
+    label: pterygoideus externus
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000182
+  model: feed.muscleowl
+  pk: 4601
+- fields:
+    label: pterygoideus internus
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000183
+  model: feed.muscleowl
+  pk: 4602
+- fields:
+    label: adductor mandibulae internus
+    obo_definition: None
+    rdfs_comment: 'Uberon has a couple of terms (e.g., UBERON_2000311) that refer
+      to the entire adductor mandibulae complex but not individual parts. '
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000180
+  model: feed.muscleowl
+  pk: 4603
+- fields:
+    label: pterygoideus
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000181
+  model: feed.muscleowl
+  pk: 4604
+- fields:
+    label: pseudotemporalis profundus
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000186
+  model: feed.muscleowl
+  pk: 4605
+- fields:
+    label: intramandibularis
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000187
+  model: feed.muscleowl
+  pk: 4606
+- fields:
+    label: pseudotemporalis
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000184
+  model: feed.muscleowl
+  pk: 4607
+- fields:
+    label: pseudotemporalis superficialis
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000185
+  model: feed.muscleowl
+  pk: 4608
+- fields:
+    label: pterygoideus atypicus
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000188
+  model: feed.muscleowl
+  pk: 4609
+- fields:
+    label: pterygoideus typicus
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000189
+  model: feed.muscleowl
+  pk: 4610
+- fields:
+    label: hyoid apparatus
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0001685
+  model: feed.muscleowl
+  pk: 4611
+- fields:
+    label: muscles innervated by vagus nerve
+    obo_definition: Muscles innervated by the vagus nerve (Cranial Nerve X).
+    rdfs_comment: Request new term.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000010
+  model: feed.muscleowl
+  pk: 4612
+- fields:
+    label: Human Sternothyroid muscle
+    obo_definition: None
+    rdfs_comment: Photo from Wiki
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/1/10/Sternothyroideus.png
+  model: feed.muscleowl
+  pk: 4613
+- fields:
+    label: attached to posterior surface of
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#attached_to_posterior_surface_of
+  model: feed.muscleowl
+  pk: 4614
+- fields:
+    label: Human orbicularis oris muscle
+    obo_definition: None
+    rdfs_comment: From Gray's Anatomy 1918 edition, Wiki photo
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/b/b6/Orbicularis_oris.jpg
+  model: feed.muscleowl
+  pk: 4615
+- fields:
+    label: genioglossus muscle
+    obo_definition: The genioglossus muscle is attached to the mandible and the tongue,
+      and it is innervated by the hypoglossal nerve (CN XII).
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000063
+  model: feed.muscleowl
+  pk: 4616
+- fields:
+    label: stylohyoid muscle
+    obo_definition: The stylohyoid is a pharyngeal arch II muscle that participates
+      in oral/pharygeal behaviors and is innervated by the stylohoid branch of the
+      facial nerve and attaches to the stylohyal and the non-stylohyal part of the
+      hyoid apparatus.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000061
+  model: feed.muscleowl
+  pk: 4617
+- fields:
+    label: posterior digastric muscle
+    obo_definition: The posterior digastric is a pharyngeal arch II muscle that participates
+      in oral pharyngeal behavior, is innervated by the digastric branch of facial
+      nerve and attaches to the posterior cranial base and the hyoid apparatus.  It
+      is found superficial to the mylohyoid muscle.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000060
+  model: feed.muscleowl
+  pk: 4618
+- fields:
+    label: muscles innervated by spinal nerve
+    obo_definition: Muscles innervated by a spinal nerve.
+    rdfs_comment: Request new term.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000067
+  model: feed.muscleowl
+  pk: 4619
+- fields:
+    label: styloglossus muscle
+    obo_definition: 'Styloglossus is a muscle that attaches to the tongue and stylohyal
+      and is innervated by Cranial Nerve XII.
+
+      '
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000066
+  model: feed.muscleowl
+  pk: 4620
+- fields:
+    label: intrinsic tongue muscle
+    obo_definition: The intrinsic tongue muscles are an integral part of the tongue
+      and completely contained within the tongue that are innervated by Cranial Nerve
+      XII.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000065
+  model: feed.muscleowl
+  pk: 4621
+- fields:
+    label: hyoglossus muscle
+    obo_definition: The hyoglossus muscle is attached to the hyoid and the tongue,
+      and it is innervated by the hypoglossal nerve (CN XII).
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000064
+  model: feed.muscleowl
+  pk: 4622
+- fields:
+    label: omohyoid muscle
+    obo_definition: The omohyoid is a somitic muscle that participates in oral/pharyngeal
+      behaviors and is innervated by the cervical plexus; it attaches to the hyoid
+      appratus and the scapula.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4619]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000069
+  model: feed.muscleowl
+  pk: 4623
+- fields:
+    label: geniohyoid muscle
+    obo_definition: The geniohyoid is a muscle that attaches to the mandible and the
+      hyoid apparatus and is innervated by the first cervical nerve (C1).
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000068
+  model: feed.muscleowl
+  pk: 4624
+- fields:
+    label: cricoid cartilage
+    obo_definition: None
+    rdfs_comment: 'Term in Uberon is equivalent but the definition needs revision.
+
+      Uberon ''external definition'' is better.'
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0002375
+  model: feed.muscleowl
+  pk: 4625
+- fields:
+    label: skin of body
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000099
+  model: feed.muscleowl
+  pk: 4626
+- fields:
+    label: Human Hyoglossus Muscle
+    obo_definition: None
+    rdfs_comment: Drawing from Gray's Anatomy
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/7/7e/Hyoglossus.png
+  model: feed.muscleowl
+  pk: 4627
+- fields:
+    label: pharyngotympanic tube
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000097
+  model: feed.muscleowl
+  pk: 4628
+- fields:
+    label: oral opening
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/UBERON_0000166
+  model: feed.muscleowl
+  pk: 4629
+- fields:
+    label: Human lateral pterygoid muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/b/bb/Musculuspterygoideuslateralis.png
+  model: feed.muscleowl
+  pk: 4630
+- fields:
+    label: trigeminal nerve
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4570, 4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000093
+  model: feed.muscleowl
+  pk: 4631
+- fields:
+    label: tensor veli palatini
+    obo_definition: The tensor veli palatini is a muscle of the soft palate that attaches
+      to the cranial base and pharyngotympanic tube, wraps around the pterygoid hamulus
+      and then attaches to the midline palatal raphe of the soft palate that is innervated
+      by the trigeminal nerve (cranial nerve (V3)).
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000089
+  model: feed.muscleowl
+  pk: 4632
+- fields:
+    label: suprazygomatic portion of the temporalis muscle
+    obo_definition: The suprazygomatic part of the temporalis muscle is a separable
+      part of the deep temporalis that attaches to the superior surface of the temporal
+      root of the zygomatic arch.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4638, 4672]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000088
+  model: feed.muscleowl
+  pk: 4633
+- fields:
+    label: zygomaticomandibularis muscle
+    obo_definition: The zygomaticomandibularis is a separable part of the masseter
+      muscle that attaches to the medial surface of the zygomatic arch
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4675]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000081
+  model: feed.muscleowl
+  pk: 4634
+- fields:
+    label: pars reflexa
+    obo_definition: The pars reflexa is a separable part of the superficial masseter
+      muscle that attaches to the medial surface of the mandible.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4675, 4679]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000080
+  model: feed.muscleowl
+  pk: 4635
+- fields:
+    label: medial pterygoid muscle
+    obo_definition: The medial pterygoid is a pharyngeal arch 1 muscle that participates
+      in oral/pharyngeal behaviors and is innervated by the nerve to the medial pterygoid
+      and attaches to the cranial base and the medial side of the mandibular angle.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000083
+  model: feed.muscleowl
+  pk: 4636
+- fields:
+    label: zygomaticomandibularis, infraorbital portion
+    obo_definition: The zygomaticomandibularis infraorbital part, is a separable part
+      of the zygomaticomandibularis that runs through the infraorbital foramen
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4634, 4675]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000082
+  model: feed.muscleowl
+  pk: 4637
+- fields:
+    label: temporalis muscle
+    obo_definition: Pharyngeal arch 1 muscle that is innervated by the deep temporal
+      branches of the trigeminal nerve and attaches to the wall of the braincase (including
+      the cranial vault) and mandible.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000085
+  model: feed.muscleowl
+  pk: 4638
+- fields:
+    label: Human Masseter Muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/8/83/Musculusmasseter.png
+  model: feed.muscleowl
+  pk: 4639
+- fields:
+    label: superficial temporalis muscle
+    obo_definition: The superficial temporalis muscle is a separable part of the temporalis
+      muscle that attaches to the temporalis fascia
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4638, 4672]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000087
+  model: feed.muscleowl
+  pk: 4640
+- fields:
+    label: Human intrinsic tongue muscles
+    obo_definition: None
+    rdfs_comment: includes genioglossus. styloglossus, hyoglossus, geniohyoideus,
+      stylohyoideus.
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/c/c6/Gray1019.png
+  model: feed.muscleowl
+  pk: 4641
+- fields:
+    label: occipital region of cranium
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4499, 4663]
+    uri: http://purl.obolibrary.org/obo/MFMO0000128
+  model: feed.muscleowl
+  pk: 4642
+- fields:
+    label: A muscle of the skin of the head (scalp), innervated by the facial nerve,
+      attached to facia of the skin superior to the orbits (superciliary region),
+      overlapping with the procerus muscles, and attched to the facia of the scalp
+      (galea aponurotica or epicranial aponeurosis in humans). In mammals other than
+      humans, there is no large facia present and the most rostral fibers of the occipitalis
+      are attached to the skin near or even overlapping with the fibers of the frontalis
+      muscle.See Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011.
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000129
+  model: feed.muscleowl
+  pk: 4643
+- fields:
+    label: lateral to
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO0000124
+  model: feed.muscleowl
+  pk: 4644
+- fields:
+    label: medial to
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO0000125
+  model: feed.muscleowl
+  pk: 4645
+- fields:
+    label: depressor anguli oris
+    obo_definition: 'A muscle of facial expression, innervated by the facial nerve,
+      attached to the mandible, skin of the lower lip in the region of the angle of
+      the oral opening, orbicularis oris, and lateral to the depressor anguli oris
+      muscle. '
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000126
+  model: feed.muscleowl
+  pk: 4646
+- fields:
+    label: occipitalis
+    obo_definition: A muscle of the skin of the head (scalp), innervated by the facial
+      nerve, attached to the cranium in the nuchal (occipital) region and to the facia
+      of the scalp (galea aponurotica or epicranial aponeurosis in humans). In mammals
+      other than humans, there is no large facia present and the most rostral fibers
+      of the occipitalis are attached to the skin near or even overlapping with the
+      fibers of the frontalis muscle.See Diogo 2008; Diogo et al., 2009; Burrows et
+      al.., 2011.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000127
+  model: feed.muscleowl
+  pk: 4647
+- fields:
+    label: caninus
+    obo_definition: lateral dilator of the nostril (external nares). In humans, the
+      levator anguli oris is sometimes called Caninus, but these are probably not
+      homogous muscles.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO0000120
+  model: feed.muscleowl
+  pk: 4648
+- fields:
+    label: mentalis
+    obo_definition: A muscle of facial expression, innervated by the facial nerve,
+      attached to the skin of the lower lip and inferior to the lower lip (in humans
+      this region is called the chin or mental region), the orbicularis oris muscle,
+      and the mandible in the symphyseal region. See Diogo et al., 2009; Burrows et
+      al., 2011)
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000122
+  model: feed.muscleowl
+  pk: 4649
+- fields:
+    label: constrictor internus dorsalis
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000191
+  model: feed.muscleowl
+  pk: 4650
+- fields:
+    label: adductor mandibulae posterior
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000190
+  model: feed.muscleowl
+  pk: 4651
+- fields:
+    label: levator pterygoidei
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000193
+  model: feed.muscleowl
+  pk: 4652
+- fields:
+    label: levator bulbi
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000192
+  model: feed.muscleowl
+  pk: 4653
+- fields:
+    label: intermandibularis posterior
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000195
+  model: feed.muscleowl
+  pk: 4654
+- fields:
+    label: protractor pterygoidei
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000194
+  model: feed.muscleowl
+  pk: 4655
+- fields:
+    label: intermandibularis
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000197
+  model: feed.muscleowl
+  pk: 4656
+- fields:
+    label: intermandibularis anterior
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO0000196
+  model: feed.muscleowl
+  pk: 4657
+- fields:
+    label: cervicomandibularis
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000199
+  model: feed.muscleowl
+  pk: 4658
+- fields:
+    label: depressor mandibulae
+    obo_definition: None
+    rdfs_comment: From FEED reptile spreadsheet
+    rdfs_subClassOf_ancestors: [4450]
+    uri: http://purl.obolibrary.org/obo/MFMO0000198
+  model: feed.muscleowl
+  pk: 4659
+- fields:
+    label: inferior pharyngeal constrictor muscle
+    obo_definition: This is a pharyngeal arch 4/6 muscle that is integral to the pharyngeal
+      tube, participates in oral/pharyngeal behaviors, is innervated by the pharyngeal
+      plexus of the vagus n. (CNX) and attaches to the laryngeal cartilages and the
+      midline raphe.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/http://purl.obolibrary.org/obo/UBERON_0001570
+  model: feed.muscleowl
+  pk: 4660
+- fields:
+    label: uvular muscle
+    obo_definition: The muscle of the uvuli is an integral part of the soft palate
+      and is innervated by Cranial Nerve X (Vagus via the pharyngeal plexus).
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#uvular_muscle
+  model: feed.muscleowl
+  pk: 4661
+- fields:
+    label: mylohyoid muscle
+    obo_definition: The mylohyoid is a pharyngeal arch I muscle that participates
+      in oral/pharyngeal behaviors and is innervated by the nerve to mylohyoid and
+      attaches to the midline raphe linking right and left mylohyoid and the mandible.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4672]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000084
+  model: feed.muscleowl
+  pk: 4662
+- fields:
+    label: material anatomical entity
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/UBERON_0000465
+  model: feed.muscleowl
+  pk: 4663
+- fields:
+    label: attached to medial surface of
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#attached_to_medial_surface_of
+  model: feed.muscleowl
+  pk: 4664
+- fields:
+    label: deep temporalis muscle
+    obo_definition: The deep temporalis muscle is a separable part of the temporalis
+      muscle that  that attaches to the bony wall of the braincase and is deep to
+      the superficial temporalis.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4638, 4672]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000086
+  model: feed.muscleowl
+  pk: 4665
+- fields:
+    label: Human uvular muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/a/af/Musculusuvulae.png
+  model: feed.muscleowl
+  pk: 4666
+- fields:
+    label: Human geniohyoid muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/2/2c/Geniohyoid_muscle.PNG
+  model: feed.muscleowl
+  pk: 4667
+- fields:
+    label: attached to anterior surface of
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#attached_to_anterior_surface_of
+  model: feed.muscleowl
+  pk: 4668
+- fields:
+    label: Human superior pharyngeal constrictor muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/a/ac/Musculusconstrictorpharyngissuperior.png
+  model: feed.muscleowl
+  pk: 4669
+- fields:
+    label: sternohyoid muscle
+    obo_definition: The sternohyoid is a somitic muscle that participates in oral/pharyngeal
+      behaviors and is innervated by the cervical plexus; it attaches to the hyoid
+      appratus and the sternum.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4619]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000070
+  model: feed.muscleowl
+  pk: 4670
+- fields:
+    label: sternothyroid muscle
+    obo_definition: The sternothyroid is a somitic muscle that participates in oral/pharyngeal
+      behaviors and is innervated by the cervical plexus; it attaches to the thyroid
+      cartilage and the sternum.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4619]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000071
+  model: feed.muscleowl
+  pk: 4671
+- fields:
+    label: muscles innervated by the trigeminal nerve
+    obo_definition: Muscle innervated by the trigeminal nerve (Cranial Nerve V).
+    rdfs_comment: Request new term.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000072
+  model: feed.muscleowl
+  pk: 4672
+- fields:
+    label: anterior digastric muscle
+    obo_definition: The anterior digastric is a pharyngeal arch I muscle that participates
+      in oral/pharygeal behaviors and is innervated by the nerve to mylohyoid and
+      superficial to mylohyoid muscle, and lacks the midline raphe.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000073
+  model: feed.muscleowl
+  pk: 4673
+- fields:
+    label: lateral pterygoid muscle
+    obo_definition: Pharyngeal arch 1 muscle that participates in oral/pharyngeal
+      behaviors, is innervated by the lateral pterygoid nerve branches, and attaches
+      to the condylar process of the mandible and temporomandibular joint (TMJ) capsule,
+      and the cranial base.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000074
+  model: feed.muscleowl
+  pk: 4674
+- fields:
+    label: masseter muscle
+    obo_definition: Pharyngeal arch 1 muscle that participates in oral/pharyngeal
+      behaviors, is innervated by masseteric nerve branches of the trigeminal nerve
+      (CN V), and attaches to mandible and zygomatic arch.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/MFMO_0000075
+  model: feed.muscleowl
+  pk: 4675
+- fields:
+    label: anterior masseter muscle
+    obo_definition: The anterior masseter is a separable part of the masseter muscle
+      that is attached to anterior root of zygomatic arch
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4675]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000076
+  model: feed.muscleowl
+  pk: 4676
+- fields:
+    label: deep masseter muscle
+    obo_definition: The deep masseter is a separable part of the masseter muscle that
+      attaches to lateral surface and/or ventral border of zygomatic arch.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4675]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000077
+  model: feed.muscleowl
+  pk: 4677
+- fields:
+    label: posterior masseter muscle
+    obo_definition: The posterior masseter is a separable part of the deep masseter
+      muscle that attaches to the postero-ventral surface of the zygomatic arch.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4675, 4677]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000078
+  model: feed.muscleowl
+  pk: 4678
+- fields:
+    label: superficial masseter muscle
+    obo_definition: The superficial masseter is a separable part of the masseter muscle,
+      is superficial to all other masseter muscle parts, and attaches to the mandibular
+      angle.
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: [4675]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000079
+  model: feed.muscleowl
+  pk: 4679
+- fields:
+    label: orangutan posterior digastric muscle
+    obo_definition: The posterior digastric muscle in orangutans does not have an
+      attachment to the hyoid apparatus. It is attached to the posterior edge of the
+      ascending ramus of the mandible. The anterior digastric muscle is absent in
+      orangutans. Winkler, 1991
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4618]
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#orangutan_posterior_digastric_muscle
+  model: feed.muscleowl
+  pk: 4680
+- fields:
+    label: muscle organ
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0001630
+  model: feed.muscleowl
+  pk: 4681
+- fields:
+    label: attached to dorsal surface of
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#attached_to_dorsal_surface_of
+  model: feed.muscleowl
+  pk: 4682
+- fields:
+    label: angle of the mandible
+    obo_definition: None
+    rdfs_comment: Request new term but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4524, 4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000055
+  model: feed.muscleowl
+  pk: 4683
+- fields:
+    label: pterygoid process of the sphenoid bone
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4490, 4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000103
+  model: feed.muscleowl
+  pk: 4684
+- fields:
+    label: external nares
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/UBERON_0002109
+  model: feed.muscleowl
+  pk: 4685
+- fields:
+    label: Human omohyoid muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/8/8a/Musculus_omohyoideus.png
+  model: feed.muscleowl
+  pk: 4686
+- fields:
+    label: Baboon temporalis muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://figshare.com/articles/Superficial_Temporalis_Muscle_of_a_baboon/655952
+  model: feed.muscleowl
+  pk: 4687
+- fields:
+    label: posterior root of zygomatic arch
+    obo_definition: None
+    rdfs_comment: Request new term but requires definition.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000112
+  model: feed.muscleowl
+  pk: 4688
+- fields:
+    label: Human Stylohyoid Muscle
+    obo_definition: None
+    rdfs_comment: Photo from Wiki
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/1/12/Stylohyoid_muscle.PNG
+  model: feed.muscleowl
+  pk: 4689
+- fields:
+    label: salpingopharyngeus muscle
+    obo_definition: 'Salpingopharyngeus is a muscle that attaches to pharyngotympanic
+      tube and the pharynx and is innervated by pharyngeal plexus of CN X and participates
+      in oral/pharyngeal behaviors
+
+      '
+    rdfs_comment: Ready for review.
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#salpingopharyngeus_muscle
+  model: feed.muscleowl
+  pk: 4690
+- fields:
+    label: anatomical cluster
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000111
+  model: feed.muscleowl
+  pk: 4691
+- fields:
+    label: pharynx
+    obo_definition: None
+    rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
+    rdfs_subClassOf_ancestors: [4663]
+    uri: http://purl.obolibrary.org/obo/MFMO_0000110
+  model: feed.muscleowl
+  pk: 4692
+- fields:
+    label: Human Temporalis Muscle
+    obo_definition: None
+    rdfs_comment: Drawing from Gray's Anatomy 1918 Edition, picture from Wiki
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/d/d3/Gray382.png
+  model: feed.behaviorowl
+  pk: 1
+- fields:
+    label: attached to anterior surface of
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#attached_to_anterior_surface_of
+  model: feed.behaviorowl
+  pk: 2
+- fields:
+    label: Human levator veli palatini muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/a/a5/Musculuslevatorvelipalatini.png
+  model: feed.behaviorowl
+  pk: 3
+- fields:
+    label: Human superior pharyngeal constrictor muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/a/ac/Musculusconstrictorpharyngissuperior.png
+  model: feed.behaviorowl
+  pk: 4
+- fields:
+    label: nipple ingestion
+    obo_definition: Ingestion of liquid (e.g., breast milk) using the nipple of the
+      breast.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [14, 50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000028
+  model: feed.behaviorowl
+  pk: 5
+- fields:
+    label: spoon ingestion
+    obo_definition: Ingestion using a spoon.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [14, 50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000029
+  model: feed.behaviorowl
+  pk: 6
+- fields:
+    label: Human Anterior Digastric Muscle
+    obo_definition: None
+    rdfs_comment: Photo from Wiki
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/c/ca/Digastric_muscle.PNG
+  model: feed.behaviorowl
+  pk: 7
+- fields:
+    label: molar ingestion
+    obo_definition: Ingestion using the molar teeth.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51, 57, 74]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000022
+  model: feed.behaviorowl
+  pk: 8
+- fields:
+    label: premolar ingestion
+    obo_definition: Ingestion using the premolar teeth.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51, 57, 74]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000023
+  model: feed.behaviorowl
+  pk: 9
+- fields:
+    label: canine ingestion
+    obo_definition: Ingestion using the canine teeth.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51, 57, 74]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000020
+  model: feed.behaviorowl
+  pk: 10
+- fields:
+    label: incisal ingestion
+    obo_definition: ingestion using the incisor teeth.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51, 57, 74]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000021
+  model: feed.behaviorowl
+  pk: 11
+- fields:
+    label: knife ingestion
+    obo_definition: Ingestion using a fork.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [14, 50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000026
+  model: feed.behaviorowl
+  pk: 12
+- fields:
+    label: Human Medial Pterygoid Muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/0/0e/Musculuspterygoideusmedialis.png
+  model: feed.behaviorowl
+  pk: 13
+- fields:
+    label: implement ingestion
+    obo_definition: Ingestion using a procured and/or manufactured instrument.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000024
+  model: feed.behaviorowl
+  pk: 14
+- fields:
+    label: fork ingestion
+    obo_definition: Ingestion using a fork.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [14, 50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000025
+  model: feed.behaviorowl
+  pk: 15
+- fields:
+    label: Human Genioglosssus Muscle
+    obo_definition: None
+    rdfs_comment: Drawing from Gray's Anatomy
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/7/7e/Genioglossus.png
+  model: feed.behaviorowl
+  pk: 16
+- fields:
+    label: Human tensor veli palatini muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/3/30/Musculustensorvelipalatini.png
+  model: feed.behaviorowl
+  pk: 17
+- fields:
+    label: attached to dorsal surface of
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#attached_to_dorsal_surface_of
+  model: feed.behaviorowl
+  pk: 18
+- fields:
+    label: Human buccinator muscle
+    obo_definition: None
+    rdfs_comment: Image from Gray's Anatomy 1918 edition from Wiki
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/d/df/Buccinator.jpg
+  model: feed.behaviorowl
+  pk: 19
+- fields:
+    label: right
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/OPBO0000218
+  model: feed.behaviorowl
+  pk: 20
+- fields:
+    label: attached to
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/OPBO_0000001
+  model: feed.behaviorowl
+  pk: 21
+- fields:
+    label: innervated by
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/OPBO_0000003
+  model: feed.behaviorowl
+  pk: 22
+- fields:
+    label: Human Sternothyroid muscle
+    obo_definition: None
+    rdfs_comment: Photo from Wiki
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/1/10/Sternothyroideus.png
+  model: feed.behaviorowl
+  pk: 23
+- fields:
+    label: Human omohyoid muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/8/8a/Musculus_omohyoideus.png
+  model: feed.behaviorowl
+  pk: 24
+- fields:
+    label: deep to
+    obo_definition: underneath, in the sense of being closer to the center of the
+      individual and farther from the external surface
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#deep_to
+  model: feed.behaviorowl
+  pk: 25
+- fields:
+    label: ventral to
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/OPBO0000143
+  model: feed.behaviorowl
+  pk: 26
+- fields:
+    label: dorsal to
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/OPBO0000142
+  model: feed.behaviorowl
+  pk: 27
+- fields:
+    label: angle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/OPBO0000144
+  model: feed.behaviorowl
+  pk: 28
+- fields:
+    label: nasal ingestion
+    obo_definition: Ingestion using the nose.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000035
+  model: feed.behaviorowl
+  pk: 29
+- fields:
+    label: manual ingestion
+    obo_definition: Ingestion using the cheiridia of the forelimb (e.g., hands).
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000034
+  model: feed.behaviorowl
+  pk: 30
+- fields:
+    label: pedal ingestion
+    obo_definition: Ingestion using the cheiridia of the hindlimb (e.g., feet).
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000037
+  model: feed.behaviorowl
+  pk: 31
+- fields:
+    label: other-aided ingestion
+    obo_definition: Ingestion via placement in oral cavity or pharynx by another animal
+      or person.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000036
+  model: feed.behaviorowl
+  pk: 32
+- fields:
+    label: straw ingestion
+    obo_definition: Ingestion using a straw (i.e., a hollow, elongate tube).
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [14, 50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000031
+  model: feed.behaviorowl
+  pk: 33
+- fields:
+    label: stick ingestion
+    obo_definition: Ingestion using a stick.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [14, 50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000030
+  model: feed.behaviorowl
+  pk: 34
+- fields:
+    label: labial ingestion
+    obo_definition: Ingestion using the lips.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000033
+  model: feed.behaviorowl
+  pk: 35
+- fields:
+    label: lingual ingestion
+    obo_definition: Ingestion using the tongue.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000032
+  model: feed.behaviorowl
+  pk: 36
+- fields:
+    label: drinking transport
+    obo_definition: An intraoral transport behavior during which there is movement
+      of liquid from the lips through the oral cavity and into the pharynx that occurs
+      prior to a swallow and that involves coordinated and stereotypical movements
+      of jaws, tongue, and hyoid.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [38, 50, 51]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000039
+  model: feed.behaviorowl
+  pk: 37
+- fields:
+    label: intraoral transport
+    obo_definition: A part of feeding behavior during which there is movement of food
+      or liquid from the lips through the oral cavity and into the pharynx.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000038
+  model: feed.behaviorowl
+  pk: 38
+- fields:
+    label: Human orbicularis oris muscle
+    obo_definition: None
+    rdfs_comment: From Gray's Anatomy 1918 edition, Wiki photo
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/b/b6/Orbicularis_oris.jpg
+  model: feed.behaviorowl
+  pk: 39
+- fields:
+    label: Human Stylohyoid Muscle
+    obo_definition: None
+    rdfs_comment: Photo from Wiki
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/1/12/Stylohyoid_muscle.PNG
+  model: feed.behaviorowl
+  pk: 40
+- fields:
+    label: Human mylohyoid muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/9/92/Mylohyoid_muscle.PNG
+  model: feed.behaviorowl
+  pk: 41
+- fields:
+    label: attached to ventral surface of
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#attached_to_ventral_surface_of
+  model: feed.behaviorowl
+  pk: 42
+- fields:
+    label: Human styloglossus Muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/1/16/Styloglossus.png
+  model: feed.behaviorowl
+  pk: 43
+- fields:
+    label: Baboon temporalis muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://figshare.com/articles/Superficial_Temporalis_Muscle_of_a_baboon/655952
+  model: feed.behaviorowl
+  pk: 44
+- fields:
+    label: attached to posterior surface of
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#attached_to_posterior_surface_of
+  model: feed.behaviorowl
+  pk: 45
+- fields:
+    label: attached to lateral surface of
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#attached_to_lateral_surface_of
+  model: feed.behaviorowl
+  pk: 46
+- fields:
+    label: Human inferior pharyngeal constrictor muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/2/22/Musculusconstrictorpharyngisinferior.png
+  model: feed.behaviorowl
+  pk: 47
+- fields:
+    label: Human sternohyoid muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/6/67/Sternohyoid_muscle.PNG
+  model: feed.behaviorowl
+  pk: 48
+- fields:
+    label: chewing
+    obo_definition: A part of feeding behavior during which food breakdown (mechanical
+      and chemical) by structure(s) of the oropharyngeal apparatus occurs.
+    rdfs_comment: mastication is a synonym of chewing in the NBO
+    rdfs_subClassOf_ancestors: [50, 51]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000013
+  model: feed.behaviorowl
+  pk: 49
+- fields:
+    label: oral/pharyngeal behavior
+    obo_definition: Oral/pharyngeal behaviors are movements that structures of the
+      oral and/or pharyngeal regions participate in.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [51]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000012
+  model: feed.behaviorowl
+  pk: 50
+- fields:
+    label: behavior
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/OPBO_0000011
+  model: feed.behaviorowl
+  pk: 51
+- fields:
+    label: feeding behavior
+    obo_definition: Feeding behavior is an oral/pharyngeal behavior during which there
+      is intake of food or liquid.
+    rdfs_comment: 'GO: eating behavior and feeding behavior are both terms. Our definition
+      removes the use of "associated with".'
+    rdfs_subClassOf_ancestors: [50, 51]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000017
+  model: feed.behaviorowl
+  pk: 52
+- fields:
+    label: Human platysma muscle
+    obo_definition: None
+    rdfs_comment: From Gray's Anatomy 1918 Wiki photo
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/f/fb/Platysma.png
+  model: feed.behaviorowl
+  pk: 53
+- fields:
+    label: puncture crush
+    obo_definition: A mastication behavior during which there is vertical movement
+      of the lower dentition without tooth-tooth contact.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [49, 50, 51, 55]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000015
+  model: feed.behaviorowl
+  pk: 54
+- fields:
+    label: mastication
+    obo_definition: A type of chewing during which food breakdown (mechanical and
+      chemical) using rhythmic movements of the postcanine dentition (molar and premolar
+      teeth) occurs.
+    rdfs_comment: mastication is a synonym of chewing in the NBO
+    rdfs_subClassOf_ancestors: [49, 50, 51]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000014
+  model: feed.behaviorowl
+  pk: 55
+- fields:
+    label: Human Posterior Digastric Muscle
+    obo_definition: None
+    rdfs_comment: from Gray's Anatomy 1918 edition, Wiki photo
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/2/26/Digastricus.png
+  model: feed.behaviorowl
+  pk: 56
+- fields:
+    label: ingestion behavior
+    obo_definition: Ingestion is part of feeding behavior during which there is movement
+      of a food or liquid from outside the body into the oral cavity or pharynx.
+    rdfs_comment: GO term for Ingestion is a Cellular Process
+    rdfs_subClassOf_ancestors: [50, 51]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000018
+  model: feed.behaviorowl
+  pk: 57
+- fields:
+    label: Human Masseter Muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/8/83/Musculusmasseter.png
+  model: feed.behaviorowl
+  pk: 58
+- fields:
+    label: Human intrinsic tongue muscles
+    obo_definition: None
+    rdfs_comment: includes genioglossus. styloglossus, hyoglossus, geniohyoideus,
+      stylohyoideus.
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/c/c6/Gray1019.png
+  model: feed.behaviorowl
+  pk: 59
+- fields:
+    label: medial to
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/OPBO0000125
+  model: feed.behaviorowl
+  pk: 60
+- fields:
+    label: lateral to
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/OPBO0000124
+  model: feed.behaviorowl
+  pk: 61
+- fields:
+    label: Human uvular muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/a/af/Musculusuvulae.png
+  model: feed.behaviorowl
+  pk: 62
+- fields:
+    label: Human lateral pterygoid muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/b/bb/Musculuspterygoideuslateralis.png
+  model: feed.behaviorowl
+  pk: 63
+- fields:
+    label: superficial to
+    obo_definition: above, in the sense of being closer to the external surface of
+      the individual and farther from the center
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#superficial_to
+  model: feed.behaviorowl
+  pk: 64
+- fields:
+    label: manufactured nipple ingestion
+    obo_definition: Ingestion using a nipple that is manufactured.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [14, 50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000027
+  model: feed.behaviorowl
+  pk: 65
+- fields:
+    label: Human geniohyoid muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/2/2c/Geniohyoid_muscle.PNG
+  model: feed.behaviorowl
+  pk: 66
+- fields:
+    label: Human Hyoglossus Muscle
+    obo_definition: None
+    rdfs_comment: Drawing from Gray's Anatomy
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/7/7e/Hyoglossus.png
+  model: feed.behaviorowl
+  pk: 67
+- fields:
+    label: Human palatopharyngeus muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/1/1b/Musculuspalatopharyngeus.png
+  model: feed.behaviorowl
+  pk: 68
+- fields:
+    label: Human salpingopharyngeus muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/e/e3/Salpingopharyngeus.png
+  model: feed.behaviorowl
+  pk: 69
+- fields:
+    label: tooth-tooth contact
+    obo_definition: A mastication behavior during which there is precise occlusion
+      of the upper and lower dentition.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [49, 50, 51, 55]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000016
+  model: feed.behaviorowl
+  pk: 70
+- fields:
+    label: Human middle pharyngeal constrictor muscle
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://upload.wikimedia.org/wikipedia/commons/8/8f/Musculusconstrictorpharyngismedius.png
+  model: feed.behaviorowl
+  pk: 71
+- fields:
+    label: rumination
+    obo_definition: A mastication behavior in which regurgitated food is re-masticated.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [49, 50, 51, 55]
+    uri: http://purl.obolibrary.org/obo/OPBO0000220
+  model: feed.behaviorowl
+  pk: 72
+- fields:
+    label: stage I transport
+    obo_definition: An intraoral transport behavior during which there is movement
+      of food from the lips into the oral cavity for further processing that involves
+      coordinated and stereotypical movements of jaws, tongue, and hyoid apparatus.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [38, 50, 51]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000040
+  model: feed.behaviorowl
+  pk: 73
+- fields:
+    label: dental ingestion
+    obo_definition: Ingestion using the dentition.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51, 57]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000019
+  model: feed.behaviorowl
+  pk: 74
+- fields:
+    label: isometric bite
+    obo_definition: An isometric bite is a type of oral/pharyngeal behavior during
+      which bite force is produced with no motion of the jaws and that is often elicited
+      in a controlled experimental setting.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000042
+  model: feed.behaviorowl
+  pk: 75
+- fields:
+    label: swallow
+    obo_definition: A part of feeding behavior during which there is movement of food
+      or liquid from out of the oropharynx and into the esophagus.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [50, 51]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000043
+  model: feed.behaviorowl
+  pk: 76
+- fields:
+    label: attached to medial surface of
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#attached_to_medial_surface_of
+  model: feed.behaviorowl
+  pk: 77
+- fields:
+    label: stage II transport
+    obo_definition: An intraoral transport behavior during which there is movement
+      of food from the oral cavity into the pharynx prior to swallowing that involves
+      coordinated and stereotypical movements of jaws, tongue, and hyoid apparatus.
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: [38, 50, 51]
+    uri: http://purl.obolibrary.org/obo/OPBO_0000041
+  model: feed.behaviorowl
+  pk: 78
+- fields:
+    label: runs through
+    obo_definition: None
+    rdfs_comment: None
+    rdfs_subClassOf_ancestors: []
+    uri: http://purl.obolibrary.org/obo/mfmo.owl#runs_through
+  model: feed.behaviorowl
+  pk: 79
