@@ -49,6 +49,16 @@
           <p>No taxon facets</p>
         {% endif %}
       </dl>
+      <dl>
+        {% if facets.fields.muscles %}
+          <dt>Muscle</dt>
+          {% for muscles in facets.fields.muscles %}
+            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=muscles_exact:{{ muscles.0|urlencode }}">{{ muscles.0 }}</a> ({{ muscles.1 }})</dd>
+          {% endfor %}
+        {% else %}
+          <p>No muscles facets</p>
+        {% endif %}
+      </dl>
     </div>
   
     <div>
@@ -62,6 +72,11 @@
     <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a> - {{ result.object.breed }} 
     Breed: {{ result.breed }}, {{ result.breed_exact }}<br />
     Taxon: {{ result.taxon }}, {{ result.taxon_exact }}<br />
+    Muscles: {{ result.muscles }}, {{ result.muscles_exact }}<br />
+    Trial title: {{ result.object.title }}<br />
+    Session title: {{ result.object.session.title }}<br />
+    Experiment title: {{ result.object.session.experiment.title }}<br />
+    Study title: {{ result.object.session.experiment.study.title }}<br />
   </p>
   {% empty %}
   <p>No results found.</p>

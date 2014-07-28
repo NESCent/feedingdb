@@ -10,6 +10,7 @@ sqs = SearchQuerySet() \
     .facet('breed', mincount=1, limit=10) \
     .facet('sex', mincount=1, limit=10) \
     .facet('taxon', mincount=1, limit=10) \
+    .facet('muscles', mincount=1, limit=10)
 
 from django.contrib import admin
 admin.autodiscover()
