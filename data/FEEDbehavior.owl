@@ -1,0 +1,963 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY obo "http://purl.obolibrary.org/obo/" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY oboInOwl "http://www.geneontology.org/formats/oboInOwl#" >
+]>
+
+
+<rdf:RDF xmlns="&obo;mfmo.owl#"
+     xml:base="&obo;mfmo.owl"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#">
+    <owl:Ontology rdf:about="&obo;opbo.owl">
+        <owl:imports rdf:resource="&obo;ro.owl"/>
+        <owl:versionIRI rdf:resource="&obo;mfmo/2014-7-5/opbo.owl"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000115 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IAO_0000115"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000119 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IAO_0000119"/>
+    
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasDbXref -->
+
+    <owl:AnnotationProperty rdf:about="&oboInOwl;hasDbXref"/>
+    
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasDefinition -->
+
+    <owl:AnnotationProperty rdf:about="&oboInOwl;hasDefinition"/>
+    
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasSynonym -->
+
+    <owl:AnnotationProperty rdf:about="&oboInOwl;hasSynonym"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/BFO_0000050 -->
+
+    <owl:ObjectProperty rdf:about="&obo;BFO_0000050"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/BFO_0000051 -->
+
+    <owl:ObjectProperty rdf:about="&obo;BFO_0000051"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO0000124 -->
+
+    <owl:ObjectProperty rdf:about="&obo;OPBO0000124">
+        <rdfs:label xml:lang="en">lateral to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO0000125 -->
+
+    <owl:ObjectProperty rdf:about="&obo;OPBO0000125">
+        <rdfs:label xml:lang="en">medial to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO0000142 -->
+
+    <owl:ObjectProperty rdf:about="&obo;OPBO0000142">
+        <rdfs:label xml:lang="en">dorsal to</rdfs:label>
+        <oboInOwl:hasDbXref>PATO_0001233</oboInOwl:hasDbXref>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO0000143 -->
+
+    <owl:ObjectProperty rdf:about="&obo;OPBO0000143">
+        <rdfs:label xml:lang="en">ventral to</rdfs:label>
+        <oboInOwl:hasDbXref>PATO_0001196</oboInOwl:hasDbXref>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO0000144 -->
+
+    <owl:ObjectProperty rdf:about="&obo;OPBO0000144">
+        <rdfs:label xml:lang="en">angle</rdfs:label>
+        <oboInOwl:hasDbXref>PATO_0002326</oboInOwl:hasDbXref>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO0000218 -->
+
+    <owl:ObjectProperty rdf:about="&obo;OPBO0000218">
+        <rdfs:label xml:lang="en">right</rdfs:label>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/PATO_0000367</oboInOwl:hasDbXref>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000001 -->
+
+    <owl:ObjectProperty rdf:about="&obo;OPBO_0000001">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:label>attached to</rdfs:label>
+        <owl:equivalentProperty rdf:resource="&obo;attaches_to"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000003 -->
+
+    <owl:ObjectProperty rdf:about="&obo;OPBO_0000003">
+        <rdfs:label>innervated by</rdfs:label>
+        <owl:inverseOf rdf:resource="&obo;RO_0002134"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002134 -->
+
+    <owl:ObjectProperty rdf:about="&obo;RO_0002134"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002163 -->
+
+    <owl:ObjectProperty rdf:about="&obo;RO_0002163"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002202 -->
+
+    <owl:ObjectProperty rdf:about="&obo;RO_0002202"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002371 -->
+
+    <owl:ObjectProperty rdf:about="&obo;RO_0002371"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/attaches_to -->
+
+    <owl:ObjectProperty rdf:about="&obo;attaches_to"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/left -->
+
+    <owl:ObjectProperty rdf:about="&obo;left">
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/PATO_0000366</oboInOwl:hasDbXref>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/mfmo.owl#attached_to_anterior_surface_of -->
+
+    <owl:ObjectProperty rdf:about="&obo;mfmo.owl#attached_to_anterior_surface_of">
+        <rdfs:label>attached to anterior surface of</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&obo;OPBO_0000001"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/mfmo.owl#attached_to_dorsal_surface_of -->
+
+    <owl:ObjectProperty rdf:about="&obo;mfmo.owl#attached_to_dorsal_surface_of">
+        <rdfs:label>attached to dorsal surface of</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&obo;OPBO_0000001"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/mfmo.owl#attached_to_lateral_surface_of -->
+
+    <owl:ObjectProperty rdf:about="&obo;mfmo.owl#attached_to_lateral_surface_of">
+        <rdfs:label>attached to lateral surface of</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&obo;OPBO_0000001"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/mfmo.owl#attached_to_medial_surface_of -->
+
+    <owl:ObjectProperty rdf:about="&obo;mfmo.owl#attached_to_medial_surface_of">
+        <rdfs:label>attached to medial surface of</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&obo;OPBO_0000001"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/mfmo.owl#attached_to_posterior_surface_of -->
+
+    <owl:ObjectProperty rdf:about="&obo;mfmo.owl#attached_to_posterior_surface_of">
+        <rdfs:label>attached to posterior surface of</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&obo;OPBO_0000001"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/mfmo.owl#attached_to_ventral_surface_of -->
+
+    <owl:ObjectProperty rdf:about="&obo;mfmo.owl#attached_to_ventral_surface_of">
+        <rdfs:label>attached to ventral surface of</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&obo;OPBO_0000001"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/mfmo.owl#deep_to -->
+
+    <owl:ObjectProperty rdf:about="&obo;mfmo.owl#deep_to">
+        <rdfs:label>deep to</rdfs:label>
+        <obo:IAO_0000115>underneath, in the sense of being closer to the center of the individual and farther from the external surface</obo:IAO_0000115>
+        <oboInOwl:hasDbXref>BSPO:0000107</oboInOwl:hasDbXref>
+        <owl:inverseOf rdf:resource="&obo;mfmo.owl#superficial_to"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/mfmo.owl#is_a -->
+
+    <owl:ObjectProperty rdf:about="&obo;mfmo.owl#is_a"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/mfmo.owl#runs_through -->
+
+    <owl:ObjectProperty rdf:about="&obo;mfmo.owl#runs_through">
+        <rdfs:label>runs through</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/mfmo.owl#superficial_to -->
+
+    <owl:ObjectProperty rdf:about="&obo;mfmo.owl#superficial_to">
+        <rdfs:label>superficial to</rdfs:label>
+        <oboInOwl:hasDbXref>BSPO:0000108</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>above, in the sense of being closer to the external surface of the individual and farther from the center</obo:IAO_0000115>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/depicts -->
+
+    <owl:ObjectProperty rdf:about="http://xmlns.com/foaf/0.1/depicts"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO0000220 -->
+
+    <owl:Class rdf:about="&obo;OPBO0000220">
+        <rdfs:label xml:lang="en">rumination</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000014"/>
+        <obo:IAO_0000115>A mastication behavior in which regurgitated food is re-masticated.</obo:IAO_0000115>
+        <obo:IAO_0000119>FEED Working Group</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000011 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000011">
+        <rdfs:label>behavior</rdfs:label>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/GO_0007610</oboInOwl:hasDbXref>
+        <oboInOwl:hasDefinition>The specific actions or reactions of an organism in response to external or internal stimuli. Patterned activity of a whole organism in a manner dependent upon some combination of that organism&apos;s internal state and external conditions. [database_cross_reference: GOC:ems] [database_cross_reference: ISBN:0395448956]</oboInOwl:hasDefinition>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000012 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000012">
+        <rdfs:label>oral/pharyngeal behavior</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000011"/>
+        <obo:IAO_0000115>Oral/pharyngeal behaviors are movements that structures of the oral and/or pharyngeal regions participate in.</obo:IAO_0000115>
+        <oboInOwl:hasSynonym>oro/pharyngeal behavior</oboInOwl:hasSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000013 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000013">
+        <rdfs:label>chewing</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000012"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;OPBO_0000017"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>mastication is a synonym of chewing in the NBO</rdfs:comment>
+        <obo:IAO_0000115>A part of feeding behavior during which food breakdown (mechanical and chemical) by structure(s) of the oropharyngeal apparatus occurs.</obo:IAO_0000115>
+        <oboInOwl:hasDbXref>NBO_0000073</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000014 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000014">
+        <rdfs:label>mastication</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000013"/>
+        <oboInOwl:hasDbXref>NBO_0000073</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>A type of chewing during which food breakdown (mechanical and chemical) using rhythmic movements of the postcanine dentition (molar and premolar teeth) occurs.</obo:IAO_0000115>
+        <rdfs:comment>mastication is a synonym of chewing in the NBO</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000015 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000015">
+        <rdfs:label>puncture crush</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000014"/>
+        <obo:IAO_0000115>A mastication behavior during which there is vertical movement of the lower dentition without tooth-tooth contact.</obo:IAO_0000115>
+        <obo:IAO_0000119>Hiiemae and Kay (1972): DOI:10.1038/240486a0</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000016 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000016">
+        <rdfs:label>tooth-tooth contact</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000014"/>
+        <obo:IAO_0000119>Hiiemae and Kay (1972): DOI:10.1038/240486a0</obo:IAO_0000119>
+        <obo:IAO_0000115>A mastication behavior during which there is precise occlusion of the upper and lower dentition.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000017 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000017">
+        <rdfs:label>feeding behavior</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000012"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000051"/>
+                <owl:someValuesFrom rdf:resource="&obo;OPBO_0000018"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000051"/>
+                <owl:someValuesFrom rdf:resource="&obo;OPBO_0000038"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000051"/>
+                <owl:someValuesFrom rdf:resource="&obo;OPBO_0000013"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000051"/>
+                <owl:someValuesFrom rdf:resource="&obo;OPBO_0000043"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <oboInOwl:hasDbXref>NBO_0000079</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>Feeding behavior is an oral/pharyngeal behavior during which there is intake of food or liquid.</obo:IAO_0000115>
+        <rdfs:comment>GO: eating behavior and feeding behavior are both terms. Our definition removes the use of &quot;associated with&quot;.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000018 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000018">
+        <rdfs:label>ingestion behavior</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000012"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;OPBO_0000017"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>GO term for Ingestion is a Cellular Process</rdfs:comment>
+        <obo:IAO_0000115>Ingestion is part of feeding behavior during which there is movement of a food or liquid from outside the body into the oral cavity or pharynx.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000019 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000019">
+        <rdfs:label>dental ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000018"/>
+        <obo:IAO_0000115>Ingestion using the dentition.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000020 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000020">
+        <rdfs:label>canine ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000019"/>
+        <obo:IAO_0000115>Ingestion using the canine teeth.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000021 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000021">
+        <rdfs:label>incisal ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000019"/>
+        <obo:IAO_0000115>ingestion using the incisor teeth.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000022 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000022">
+        <rdfs:label>molar ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000019"/>
+        <obo:IAO_0000115>Ingestion using the molar teeth.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000023 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000023">
+        <rdfs:label>premolar ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000019"/>
+        <obo:IAO_0000115>Ingestion using the premolar teeth.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000024 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000024">
+        <rdfs:label>implement ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000018"/>
+        <obo:IAO_0000115>Ingestion using a procured and/or manufactured instrument.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000025 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000025">
+        <rdfs:label>fork ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000024"/>
+        <obo:IAO_0000115>Ingestion using a fork.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000026 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000026">
+        <rdfs:label>knife ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000024"/>
+        <obo:IAO_0000115>Ingestion using a fork.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000027 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000027">
+        <rdfs:label>manufactured nipple ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000024"/>
+        <obo:IAO_0000115>Ingestion using a nipple that is manufactured.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000028 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000028">
+        <rdfs:label>nipple ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000024"/>
+        <obo:IAO_0000115>Ingestion of liquid (e.g., breast milk) using the nipple of the breast.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000029 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000029">
+        <rdfs:label>spoon ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000024"/>
+        <obo:IAO_0000115>Ingestion using a spoon.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000030 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000030">
+        <rdfs:label>stick ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000024"/>
+        <obo:IAO_0000115>Ingestion using a stick.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000031 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000031">
+        <rdfs:label>straw ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000024"/>
+        <obo:IAO_0000115>Ingestion using a straw (i.e., a hollow, elongate tube).</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000032 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000032">
+        <rdfs:label>lingual ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000018"/>
+        <oboInOwl:hasSynonym>tongue ingestion</oboInOwl:hasSynonym>
+        <obo:IAO_0000115>Ingestion using the tongue.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000033 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000033">
+        <rdfs:label>labial ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000018"/>
+        <obo:IAO_0000115>Ingestion using the lips.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000034 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000034">
+        <rdfs:label>manual ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000018"/>
+        <obo:IAO_0000115>Ingestion using the cheiridia of the forelimb (e.g., hands).</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000035 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000035">
+        <rdfs:label>nasal ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000018"/>
+        <obo:IAO_0000115>Ingestion using the nose.</obo:IAO_0000115>
+        <oboInOwl:hasSynonym>proboscis ingestion</oboInOwl:hasSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000036 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000036">
+        <rdfs:label>other-aided ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000018"/>
+        <obo:IAO_0000115>Ingestion via placement in oral cavity or pharynx by another animal or person.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000037 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000037">
+        <rdfs:label>pedal ingestion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000018"/>
+        <obo:IAO_0000115>Ingestion using the cheiridia of the hindlimb (e.g., feet).</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000038 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000038">
+        <rdfs:label>intraoral transport</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000012"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;OPBO_0000017"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000119>Hiiemae, Karen (2000). The oro-facial complex in macaques: tongue and jaw movements in feeding. Old World Monkeys. Cambridge University Press, Cambridge, 214-236.
+
+ISBN 1139471368, 9781139471367</obo:IAO_0000119>
+        <obo:IAO_0000115>A part of feeding behavior during which there is movement of food or liquid from the lips through the oral cavity and into the pharynx.</obo:IAO_0000115>
+        <oboInOwl:hasSynonym>intra-oral transport</oboInOwl:hasSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000039 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000039">
+        <rdfs:label>drinking transport</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000038"/>
+        <obo:IAO_0000115>An intraoral transport behavior during which there is movement of liquid from the lips through the oral cavity and into the pharynx that occurs prior to a swallow and that involves coordinated and stereotypical movements of jaws, tongue, and hyoid.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000040 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000040">
+        <rdfs:label>stage I transport</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000038"/>
+        <obo:IAO_0000115>An intraoral transport behavior during which there is movement of food from the lips into the oral cavity for further processing that involves coordinated and stereotypical movements of jaws, tongue, and hyoid apparatus.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000041 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000041">
+        <rdfs:label>stage II transport</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000038"/>
+        <obo:IAO_0000115>An intraoral transport behavior during which there is movement of food from the oral cavity into the pharynx prior to swallowing that involves coordinated and stereotypical movements of jaws, tongue, and hyoid apparatus.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000042 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000042">
+        <rdfs:label>isometric bite</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000012"/>
+        <obo:IAO_0000115>An isometric bite is a type of oral/pharyngeal behavior during which bite force is produced with no motion of the jaws and that is often elicited in a controlled experimental setting.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000043 -->
+
+    <owl:Class rdf:about="&obo;OPBO_0000043">
+        <rdfs:label>swallow</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;OPBO_0000012"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;OPBO_0000017"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <oboInOwl:hasDbXref>NBO_0000545</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>A part of feeding behavior during which there is movement of food or liquid from out of the oropharynx and into the esophagus.</obo:IAO_0000115>
+        <oboInOwl:hasSynonym>swallowing</oboInOwl:hasSynonym>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://figshare.com/articles/Superficial_Temporalis_Muscle_of_a_baboon/655952 -->
+
+    <owl:NamedIndividual rdf:about="http://figshare.com/articles/Superficial_Temporalis_Muscle_of_a_baboon/655952">
+        <rdfs:label>Baboon temporalis muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/0/0e/Musculuspterygoideusmedialis.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/0/0e/Musculuspterygoideusmedialis.png">
+        <rdfs:label>Human Medial Pterygoid Muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/1/10/Sternothyroideus.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/1/10/Sternothyroideus.png">
+        <rdfs:label>Human Sternothyroid muscle</rdfs:label>
+        <rdfs:comment>Photo from Wiki</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/1/12/Stylohyoid_muscle.PNG -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/1/12/Stylohyoid_muscle.PNG">
+        <rdfs:label>Human Stylohyoid Muscle</rdfs:label>
+        <rdfs:comment>Photo from Wiki</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/1/16/Styloglossus.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/1/16/Styloglossus.png">
+        <rdfs:label>Human styloglossus Muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/1/1b/Musculuspalatopharyngeus.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/1/1b/Musculuspalatopharyngeus.png">
+        <rdfs:label>Human palatopharyngeus muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/2/22/Musculusconstrictorpharyngisinferior.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/2/22/Musculusconstrictorpharyngisinferior.png">
+        <rdfs:label>Human inferior pharyngeal constrictor muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/2/26/Digastricus.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/2/26/Digastricus.png">
+        <rdfs:label>Human Posterior Digastric Muscle</rdfs:label>
+        <rdfs:comment>from Gray&apos;s Anatomy 1918 edition, Wiki photo</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/2/2c/Geniohyoid_muscle.PNG -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/2/2c/Geniohyoid_muscle.PNG">
+        <rdfs:label>Human geniohyoid muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/3/30/Musculustensorvelipalatini.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/3/30/Musculustensorvelipalatini.png">
+        <rdfs:label>Human tensor veli palatini muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/6/67/Sternohyoid_muscle.PNG -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/6/67/Sternohyoid_muscle.PNG">
+        <rdfs:label>Human sternohyoid muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/7/7e/Genioglossus.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/7/7e/Genioglossus.png">
+        <rdfs:label>Human Genioglosssus Muscle</rdfs:label>
+        <rdfs:comment>Drawing from Gray&apos;s Anatomy</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/7/7e/Hyoglossus.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/7/7e/Hyoglossus.png">
+        <rdfs:label>Human Hyoglossus Muscle</rdfs:label>
+        <rdfs:comment>Drawing from Gray&apos;s Anatomy</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/8/83/Musculusmasseter.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/8/83/Musculusmasseter.png">
+        <rdfs:label>Human Masseter Muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/8/8a/Musculus_omohyoideus.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/8/8a/Musculus_omohyoideus.png">
+        <rdfs:label>Human omohyoid muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/8/8f/Musculusconstrictorpharyngismedius.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/8/8f/Musculusconstrictorpharyngismedius.png">
+        <rdfs:label>Human middle pharyngeal constrictor muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/9/92/Mylohyoid_muscle.PNG -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/9/92/Mylohyoid_muscle.PNG">
+        <rdfs:label>Human mylohyoid muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/a/a5/Musculuslevatorvelipalatini.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/a/a5/Musculuslevatorvelipalatini.png">
+        <rdfs:label>Human levator veli palatini muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/a/ac/Musculusconstrictorpharyngissuperior.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/a/ac/Musculusconstrictorpharyngissuperior.png">
+        <rdfs:label>Human superior pharyngeal constrictor muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/a/af/Musculusuvulae.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/a/af/Musculusuvulae.png">
+        <rdfs:label>Human uvular muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/b/b6/Orbicularis_oris.jpg -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/b/b6/Orbicularis_oris.jpg">
+        <rdfs:label>Human orbicularis oris muscle</rdfs:label>
+        <rdfs:comment>From Gray&apos;s Anatomy 1918 edition, Wiki photo</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/b/bb/Musculuspterygoideuslateralis.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/b/bb/Musculuspterygoideuslateralis.png">
+        <rdfs:label>Human lateral pterygoid muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/c/c6/Gray1019.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/c/c6/Gray1019.png">
+        <rdfs:label>Human intrinsic tongue muscles</rdfs:label>
+        <rdfs:comment>includes genioglossus. styloglossus, hyoglossus, geniohyoideus, stylohyoideus.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/c/ca/Digastric_muscle.PNG -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/c/ca/Digastric_muscle.PNG">
+        <rdfs:label>Human Anterior Digastric Muscle</rdfs:label>
+        <rdfs:comment>Photo from Wiki</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/d/d3/Gray382.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/d/d3/Gray382.png">
+        <rdfs:label>Human Temporalis Muscle</rdfs:label>
+        <rdfs:comment>Drawing from Gray&apos;s Anatomy 1918 Edition, picture from Wiki</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/d/df/Buccinator.jpg -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/d/df/Buccinator.jpg">
+        <rdfs:label>Human buccinator muscle</rdfs:label>
+        <rdfs:comment>Image from Gray&apos;s Anatomy 1918 edition from Wiki</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/e/e3/Salpingopharyngeus.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/e/e3/Salpingopharyngeus.png">
+        <rdfs:label>Human salpingopharyngeus muscle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://upload.wikimedia.org/wikipedia/commons/f/fb/Platysma.png -->
+
+    <owl:NamedIndividual rdf:about="http://upload.wikimedia.org/wikipedia/commons/f/fb/Platysma.png">
+        <rdfs:label>Human platysma muscle</rdfs:label>
+        <rdfs:comment>From Gray&apos;s Anatomy 1918 Wiki photo</rdfs:comment>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
