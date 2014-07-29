@@ -15,7 +15,7 @@
       </td>
     </tr>
   </table>
-  {% if query %}
+  {% if page or query %}
   <!-- begin faceting -->
     {# debug #}
     <div>
@@ -27,16 +27,6 @@
           {% endfor %}
         {% else %}
           <p>No sex facets</p>
-        {% endif %}
-      </dl>
-      <dl>
-        {% if facets.fields.breed %}
-          <dt>Breed</dt>
-          {% for breed in facets.fields.breed %}
-            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=breed_exact:{{ breed.0|urlencode }}">{{ breed.0 }}</a> ({{ breed.1 }})</dd>
-          {% endfor %}
-        {% else %}
-          <p>No breed facets</p>
         {% endif %}
       </dl>
       <dl>
@@ -68,16 +58,18 @@
   <!-- end faceting -->
   <h3>Results</h3>
   {% for result in page.object_list %}
-  <p>
-    <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a> - {{ result.object.breed }} 
-    Breed: {{ result.breed }}, {{ result.breed_exact }}<br />
-    Taxon: {{ result.taxon }}, {{ result.taxon_exact }}<br />
-    Muscles: {{ result.muscles }}, {{ result.muscles_exact }}<br />
-    Trial title: {{ result.object.title }}<br />
-    Session title: {{ result.object.session.title }}<br />
-    Experiment title: {{ result.object.session.experiment.title }}<br />
-    Study title: {{ result.object.session.experiment.study.title }}<br />
-  </p>
+    <div class="result" style="border: solid black; margin: 0.5em; padding: 0.5em;">
+      Muscles: <br />
+      <ul>
+        {% for label in result.muscles %}
+          <li>{{ label }}</li>
+        {% endfor %}
+      </ul>
+      Trial title: {{ result.object.title }}<br />
+      Session title: {{ result.object.session.title }}<br />
+      Experiment title: {{ result.object.session.experiment.title }}<br />
+      Study title: {{ result.object.session.experiment.study.title }}<br />
+    </div>
   {% empty %}
   <p>No results found.</p>
   {% endfor %}

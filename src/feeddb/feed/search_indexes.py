@@ -1,28 +1,13 @@
 from haystack.indexes import SearchIndex, Indexable, CharField, DateTimeField, MultiValueField
 from feeddb.feed.models import Study, Subject, Experiment, Trial, Session
 
-class SubjectIndex(SearchIndex, Indexable):
-    text = CharField(document=True, use_template=True)
-
-    #taxon = models.
-    name = CharField(model_attr='name')
-    breed = CharField(model_attr='breed', faceted=True)
-    sex = CharField(model_attr='sex', null=True, faceted=True)
-    taxon = CharField(faceted=True)
-
-    def prepare_taxon(self, obj):
-        return "%s" % str(obj.taxon)
-
-    def prepare_taxon_exact(self, obj):
-        return obj.taxon.id
-
-    def get_model(self):
-        return Subject
-
-    #def index_queryset(self, using=None):
-
 class TrialIndex(SearchIndex, Indexable):
     text = CharField(document=True, use_template=True)
+
+    title = CharField(model_attr='title')
+    session_title = CharField(model_attr='session__title')
+    experiment_title = CharField(model_attr='session__experiment__title')
+    study_title = CharField(model_attr='session__experiment__study__title')
 
     #accession = CharField(model_attr='accession', null=True)
     food_type = CharField(model_attr='food_type', null=True)

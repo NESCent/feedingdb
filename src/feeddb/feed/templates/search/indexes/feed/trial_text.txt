@@ -1,1 +1,4 @@
-mytrial
+{{ object.title }}
+{{ object.session.title }}
+{{ object.session.experiment.title }}
+{{ object.session.experiment.study.title }}

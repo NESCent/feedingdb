@@ -93,7 +93,20 @@ INSTALLED_APPS = (
    'pagination',
    'haystack',
    'debug_toolbar',
+   #'inspector_panel',
    'feeddb.faceted_search',
 )
 
+### Debug toolbar configuration
+def custom_toolbar_show(request):
+    return True
 
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': 'feeddb.settings.custom_toolbar_show',
+}
+
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+#DEBUG_TOOLBAR_PANELS = (
+#    #'inspector_panel.panels.inspector.InspectorPanel',
+#)
