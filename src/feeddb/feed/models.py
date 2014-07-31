@@ -39,12 +39,14 @@ class OwlTerm(models.Model):
 
     # The list of parent terms and parents of parent terms, and so on.
     # Determined by the rdfs:subClassOf property.
-    rdfs_subClassOf_ancestors = models.ManyToManyField('self', symmetrical=False)
+    rdfs_subClassOf_ancestors = models.ManyToManyField('self',
+        symmetrical=False, related_name='has_subClass_descendants')
     # The list of child terms and grandchild terms, and so on. Determined by
     # the rdfs:subClassOf property.
     #rdfs_subClassOf_descendants = models.ManyToManyField('self', symmetrical=false)
 
-    # TODO: add fields for the part_of relationship
+    bfo_part_of_some = models.ManyToManyField('self',
+        symmetrical=False, related_name='has_parts')
 
     class Meta:
         abstract = True

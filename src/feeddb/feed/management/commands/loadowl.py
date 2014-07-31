@@ -11,6 +11,20 @@ def nonblankthings(g, things):
         if len(label):
             yield thing
 
+def get_model_instance(Model, uri):
+    """
+    Get an instance of the specified model, identified by the specified uri.
+
+    If the instance can't be found, create a new one.
+    """
+    try:
+        m = Model.objects.get(uri=uri)
+    except Model.DoesNotExist:
+        print "NEW: %s" % uri
+        m = Model()
+        m.uri = uri
+    return m
+
 # first draft of command to import muscle terms from an OWL file
 class Command(BaseCommand):
     args = '<file>'
@@ -23,6 +37,7 @@ class Command(BaseCommand):
         import yaml
 
         OboDefinition = URIRef('http://purl.obolibrary.org/obo/IAO_0000115')
+        part_of_some = URIRef('http://purl.obolibrary.org/obo/BFO_0000050_some')
 
         g = Graph()
         g.parse(args[1], 'xml')
@@ -32,7 +47,7 @@ class Command(BaseCommand):
         # first pass, add the things
         for subject in nonblankthings(g, g.subjects()):
             slabel = g.label(subject)
-            m = Model()
+            m = get_model_instance(Model, unicode(subject))
             m.uri = unicode(subject)
             m.label = unicode(slabel)
             # FIXME: each subject can have multiple types, so this needs a helper function
@@ -47,12 +62,20 @@ class Command(BaseCommand):
             slabel = g.label(subject)
             m = Model.objects.get(uri=unicode(subject))
 
+            m.rdfs_subClassOf_ancestors.clear()
             # add all super-classes to m.rdfs_subClassOf_ancestors
             for obj in nonblankthings(g, g.transitive_objects(subject, RDFS.subClassOf)):
                 if obj != subject:
                     print unicode(obj)
                     a = Model.objects.get(uri=unicode(obj))
                     m.rdfs_subClassOf_ancestors.add(a)
+
+            m.bfo_part_of_some.clear()
+            # add all things that this thing is part of to m.bfo_part_of_some
+            for obj in nonblankthings(g, g.objects(subject, part_of_some)):
+                if obj != subject:
+                    a = Model.objects.get(uri=unicode(obj))
+                    m.bfo_part_of_some.add(a)
 
             # add only direct super-classes to m.rdfs_subClassOf
             #for obj in nonblankthings(g, g.objects(subject, RDFS.subClassOf)):
