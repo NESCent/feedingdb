@@ -20,34 +20,24 @@
     {# debug #}
     <div>
       <dl>
-        {% if facets.fields.sex %}
-          <dt>sex</dt>
-          {% for sex in facets.fields.sex %}
-            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=sex_exact:{{ sex.0|urlencode }}">{{ sex.0 }}</a> ({{ sex.1 }})</dd>
-          {% endfor %}
-        {% else %}
-          <p>No sex facets</p>
-        {% endif %}
-      </dl>
-      <dl>
-        {% if facets.fields.taxon %}
-          <dt>Taxon</dt>
-          {% for taxon in facets.fields.taxon %}
-            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=taxon_exact:{{ taxon.0|urlencode }}">{{ taxon.0 }}</a> ({{ taxon.1 }})</dd>
-          {% endfor %}
-        {% else %}
-          <p>No taxon facets</p>
-        {% endif %}
-      </dl>
-      <dl>
         {% if facets.fields.muscles %}
-          <dt>Muscle</dt>
+          <dt>Muscles</dt>
           {% for muscles in facets.fields.muscles %}
             <dd><a href="{{ request.get_full_path }}&amp;selected_facets=muscles_exact:{{ muscles.0|urlencode }}">{{ muscles.0 }}</a> ({{ muscles.1 }})</dd>
           {% endfor %}
         {% else %}
           <p>No muscles facets</p>
         {% endif %}
+      </dl>
+        {% if facets.fields.muscles_part_of %}
+          <dt>Part of Muscles</dt>
+          {% for muscles_part_of in facets.fields.muscles_part_of %}
+            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=muscles_part_of_exact:{{ muscles_part_of.0|urlencode }}">{{ muscles_part_of.0 }}</a> ({{ muscles_part_of.1 }})</dd>
+          {% endfor %}
+        {% else %}
+          <p>No muscles_part_of facets</p>
+        {% endif %}
+      <dl>
       </dl>
     </div>
   

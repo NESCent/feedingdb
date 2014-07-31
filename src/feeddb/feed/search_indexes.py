@@ -21,12 +21,20 @@ class TrialIndex(SearchIndex, Indexable):
     #behaviors_expanded = MultiValueField()
 
     muscles = MultiValueField(faceted=True)
+    muscles_part_of = MultiValueField(faceted=True)
 
-    def prepare_muscles(self, obj):
+    def prepare(self, obj):
         """
         Prepare the list of muscles for the index by traversing all channels on
         this trial and including all muscles listed on channels which include a
         muscle term. These channels are just EMG and Sono types.
+
+        We also prepare the list of muscles which have the target muscle as a
+        part, but only store the muscles which are distinct from the muscles we
+        are already storing in the subClassOf field.
+
+        An alternate implemention might instead store two fields for indexing;
+        one uses just the subClassOf relationship and the other might use both.
         """
 
         def trial_muscles(obj):
@@ -38,14 +46,25 @@ class TrialIndex(SearchIndex, Indexable):
                         yield m
 
         muscles = set()
+        muscles_part_of = set()
         for m in trial_muscles(obj):
             if m != None and len(unicode(m)):
                 muscles.add(unicode(m))
                 for m_ancestor in m.rdfs_subClassOf_ancestors.all():
                     muscles.add(unicode(m_ancestor))
+                for m_part_of in m.bfo_part_of_some.all():
+                    muscles_part_of.add(unicode(m_part_of))
 
+        # Only store muscles that the muscle is part of, but isn't already a
+        # subclass of
+        muscles_part_of = muscles_part_of.difference(muscles)
+
+        self.prepared_data = super(TrialIndex, self).prepare(obj)
         print "MUSCLES %s" % muscles
-        return list(muscles) if len(muscles) else None
+        print "MUSCLES PART OF %s" % muscles_part_of
+        self.prepared_data['muscles'] = list(muscles) if len(muscles) else None
+        self.prepared_data['muscles_part_of'] = list(muscles_part_of) if len(muscles_part_of) else None
+        return self.prepared_data
 
     def get_model(self):
         return Trial
