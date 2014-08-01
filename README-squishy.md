@@ -1,6 +1,22 @@
 FEED: a database of mammalian feeding behaviors
 ====
 
+Fixtures for Behavior and Muscle
+----
+
+Load data from OWL file:
+
+```
+./manage.py loadowl m .../muscle-closure.owl
+./manage.py loadowl b .../behavior-closure.owl
+```
+
+If it looks good, save it to the fixtures -- this gets reloaded on every migration.
+
+```
+./manage.py dumpdata --format yaml feed.MuscleOwl feed.BehaviorOwl > feeddb/feed/fixtures/initial_data.yaml
+```
+
 Servers
 ----
 
