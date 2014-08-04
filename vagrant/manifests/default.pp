@@ -8,6 +8,16 @@ squishy_config::django { 'feeddb':
   root => '/server/src/feeddb',
 }
 
+package { 'java-1.7.0-openjdk':
+  ensure => 'installed',
+  before => Class['Solr::Jetty'],
+}
+
+class { 'solr::jetty':
+  solr_version => '3.6.2',
+  apache_mirror => 'archive.apache.org/dist',
+}
+
 # insecure settings for ssh client within vagrant
 augeas { 'ssh_config':
   context => "/files/etc/ssh/ssh_config",

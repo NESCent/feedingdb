@@ -162,6 +162,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.network :forwarded_port, guest: 80,   host: $port_base + 80
   config.vm.network :forwarded_port, guest: 3306, host: $port_base + 6
+  config.vm.network :forwarded_port, guest: 8983, host: $port_base + 83
 
   config.trigger.after [:up, :resume, :status, :restart] do
     $banner = "==> ".bold + "Squishy".cyan.bold + "Media".green.bold + " VAGRANT for " + (project).to_s.yellow.bold

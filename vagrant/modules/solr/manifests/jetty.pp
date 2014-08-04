@@ -16,10 +16,15 @@ class solr::jetty(
   $solr_home = $solr::params::solr_home,
   $zookeeper_hosts = $solr::params::zookeeper_hosts,
   $core_name = $solr::params::core_name,
+  $apache_mirror = $solr::params::apache_mirror,
 ) inherits solr::params {
 
   class { 'solr::core':
-	    core_name => $core_name }
+    solr_version => $solr_version,
+    solr_home => $solr_home,
+    apache_mirror => $apache_mirror,
+    core_name => $core_name,
+  }
 
   if $operatingsystem == "Ubuntu" {
       exec { "load init.d into upstart":

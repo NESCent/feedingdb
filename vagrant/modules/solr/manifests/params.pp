@@ -5,7 +5,7 @@ class solr::params {
       $solr_version = '4.5.1'
       $solr_home = '/opt/solr'
       # needs to be full path to apache root
-      $apache_mirror = "apache.cs.utah.edu" #because this is sometimes depressingly slow
+      $apache_mirror = "archive.apache.org/dist" #because this is sometimes depressingly slow
       $zookeeper_hosts = ""
       $exec_path = '/usr/bin:/usr/sbin:/bin:/usr/local/bin:/opt/local/bin'
       $java_home = '/usr/lib/jvm/default-java'

@@ -27,11 +27,16 @@ class solr::core(
 ) inherits solr::params {
 
   # using the 'creates' option here against the finished product so we only download this once
+  #
+  $solr_basename = versioncmp($solr_version, '4.0.0') ? {
+    1 => "solr-${solr_version}",
+    default => "apache-solr-${solr_version}"
+  }
 
-  $solr_tgz_url = "http://${apache_mirror}/lucene/solr/${solr_version}/solr-${solr_version}.tgz"
+  $solr_tgz_url = "http://${apache_mirror}/lucene/solr/${solr_version}/${solr_basename}.tgz"
   exec { "wget solr":
-    command => "wget --output-document=/tmp/solr-${solr_version}.tgz ${solr_tgz_url}",
-    creates => "${solr_home}/solr-${solr_version}",
+    command => "wget --output-document=/tmp/${solr_basename}.tgz ${solr_tgz_url}",
+    creates => "${solr_home}/${solr_basename}"
   } ->
 
   user { "solr":
@@ -44,13 +49,13 @@ class solr::core(
   } ->
   
   exec { "untar solr":
-    command => "tar -xf /tmp/solr-${solr_version}.tgz -C ${solr_home}",
-    creates => "${solr_home}/solr-${solr_version}",
+    command => "tar -xf /tmp/${solr_basename}.tgz -C ${solr_home}",
+    creates => "${solr_home}/${solr_basename}"
   } ->
 
   file { "${solr_home}/current":
     ensure => link,
-    target => "${solr_home}/solr-${solr_version}",
+    target => "${solr_home}/${solr_basename}",
     owner  => solr,
   }
 
@@ -62,36 +67,15 @@ class solr::core(
     owner  => solr,
   } ->
 
-  file { "/etc/solr/solr.xml":
-    ensure => present,
-    source => "puppet:///modules/solr/solr.xml",
-    owner  => solr,
-  } ->
-
-  file { "/etc/solr/collection1":
-    ensure => directory,
-    owner  => solr,
-  } ->
-
-  file { "/etc/solr/collection1/conf":
-    ensure => directory,
-    owner  => solr,
-  } ->
-
   file { "/var/lib/solr":
     ensure => directory,
     owner  => solr,
   } ->
 
-  file { "/var/lib/solr/collection1":
-    ensure => directory,
-    owner  => solr,
-  } ->
-
   exec { "copy core files to collection1":
-    command => "cp -rf /opt/solr/current/example/solr/collection1/* /etc/solr/collection1/",
+    command => "cp -rf /opt/solr/current/example/solr/* /etc/solr/",
     user    => solr,
-    creates => "/etc/solr/collection1/conf/schema.xml"
+    creates => "/etc/solr/conf/schema.xml"
   }
 }
 
