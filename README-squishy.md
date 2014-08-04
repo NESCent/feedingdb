@@ -26,11 +26,11 @@ WARNING: errors ignored on restore: 75
 
 If instead you see several hundred errors, something else has gone wrong.
 
-Next, you must load the `initial_data` fixture after creating the `MuscleOwl` model but before migrating the `location_controlled` field to `muscle`. Run these commands after loading a prod database dump:
+Next, you must dance a little jig in order to load muscle terms and run a dumb data migration to get some data to play with. Run these commands after loading a prod database dump:
 
 ```
+./manage.py migrate feed
 ./manage.py migrate feed 0058
-./manage.py loaddata initial_data
 ./manage.py migrate feed
 ```
 
