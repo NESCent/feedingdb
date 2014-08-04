@@ -99,7 +99,7 @@ INSTALLED_APPS = (
 
 ### Debug toolbar configuration
 def custom_toolbar_show(request):
-    return True
+    return 'show_debug_toolbar' in request.session and request.session['show_debug_toolbar']
 
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': 'feeddb.settings.custom_toolbar_show',
