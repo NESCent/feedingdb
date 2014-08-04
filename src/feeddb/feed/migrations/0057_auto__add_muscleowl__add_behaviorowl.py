@@ -47,7 +47,7 @@ class Migration(SchemaMigration):
         db.create_unique(m2m_table_name, ['from_behaviorowl_id', 'to_behaviorowl_id'])
 
         # Removing M2M table for field channels on 'session'
-        db.delete_table(db.shorten_name(u'feed_session_channels'))
+        #db.delete_table(db.shorten_name(u'feed_session_channels'))
 
 
     def backwards(self, orm):
