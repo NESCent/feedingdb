@@ -1,8 +1,31 @@
 FEED: a database of mammalian feeding behaviors
 ====
 
+Starting with a prod DB dump (for dev use)
+----
+
+First, load the DB dump. Restore database `feeddb`, user `feeddb`, filename `feed`:
+
+```
+pg_restore -h localhost -d feeddb -O -U feeddb feed
+```
+
+Next, you must load the `initial_data` fixture after creating the `MuscleOwl` model but before migrating the `location_controlled` field to `muscle`. Run these commands after loading a prod database dump:
+
+```
+./manage.py migrate feed 0058
+./manage.py loaddata initial_data
+./manage.py migrate feed
+```
+
+Finally, create a super user with access to edit everything. 
+
+`./manage.py createsuperuser`
+
 Fixtures for Behavior and Muscle
 ----
+
+Behavior and Muscle terms have been loaded from a pre-reasoned OWL file and saved to the `initial_data.yaml` file. To repeat this process, perform the following steps.
 
 Load data from OWL file:
 
@@ -45,42 +68,13 @@ TODO: automate this via puppet somehow
 Install & run `solr` with `jetty`
 ----
 
-You have to manually rerun the `java -jar start.jar` all the time in order to
-have search working. The other commands you just do once.
+This is now automated via puppet configuration. See `vagrant/manifests/default.pp` for details.
 
-Do this outside of vagrant, in the root of the repo:
-
-```
-wget https://archive.apache.org/dist/lucene/solr/3.6.2/apache-solr-3.6.2.tgz
-tar xfvz apache-solr-3.6.2.tgz
-```
-
-Then log in with `vagrant ssh` and do this:
+If you make changes to the schema or want to rebuild the index, run:
 
 ```
-source /virtualenv/feeddb/bin/activate
-/server/src/manage.py build_solr_schema > /server/apache-solr-3.6.2/example/solr/conf/schema.xml
-cd /server/apache-solr-3.6.2/example
-java -jar start.jar
+# while inside vagrant or on the dev server:
+sudo feeddb-refresh-solr
+# while outside vagrant:
+vagrant ssh -c sudo feeddb-refresh-solr
 ```
-
-You should keep this running as long as you are working with search; if you
-change a `search_indexes.py` file, you should rerun the `build_solr_schema`
-command.
-
-Restore database
-----
-Database `feeddb`, user `feeddb`, filename `feed`:
-
-```
-pg_restore -h localhost -d feeddb -O -U feeddb feed
-```
-
-Create new Django superuser for testing
-----
-
-The dev server has a superuser with username `admin` and password `admin. If you load a fresh database dump without a superuser, you can create one with this command:
-
-`./manage.py createsuperuser`
-
-(If you get an error, run `source /virtualenv/feeddb/bin/activate` and try again)
