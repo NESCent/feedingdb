@@ -3,8 +3,6 @@ include squishy_config::minimum
 package { ['postgresql-devel']: ensure => present }
 
 squishy_config::django { 'feeddb':
-  pg_user => 'feed',
-  pg_pass => 'feed',
   root => '/server/src/feeddb',
   settings_template => 'settings.py.erb',
 }
@@ -25,10 +23,7 @@ file { '/etc/solr/conf/stopwords_en.txt':
 }
 
 file { '/etc/profile.d/feeddb-django.sh':
-  content =>
-    "source /virtualenv/feeddb/bin/activate
-     cd /server/src
-    "
+  content => "source /virtualenv/feeddb/bin/activate; cd /server/src",
 }
 
 file { '/usr/bin/feeddb-refresh-solr':
