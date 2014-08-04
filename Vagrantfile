@@ -150,11 +150,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       "vagrant" => "1",
       "vagrant_ssh_user" => username.strip.to_s,
     }
-    puppet.options = "--hiera_config /server/vagrant/hiera.yaml"
+    puppet.options += ["--hiera_config", "/server/vagrant/hiera.yaml"]
+    puppet.options += ["--templatedir", "/server/vagrant/templates"]
     # Send "notice" to syslog
-    puppet.options += " --logdest syslog"
+    puppet.options += ["--logdest", "syslog"]
     # Enable this to see the details of a puppet run
-    #puppet.options += " --verbose --debug"
+    #puppet.options += ["--verbose", "--debug"]
   end
 
   # Stuff can be done after puppet.

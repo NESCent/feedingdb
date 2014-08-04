@@ -6,6 +6,7 @@ squishy_config::django { 'feeddb':
   pg_user => 'feed',
   pg_pass => 'feed',
   root => '/server/src/feeddb',
+  settings_template => 'settings.py.erb',
 }
 
 package { 'java-1.7.0-openjdk':

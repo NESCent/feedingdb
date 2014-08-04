@@ -1,0 +1,55 @@
+####
+# DO NOT EDIT settings.py -- file managed by puppet.
+####
+
+### For installing Feeding DB, supply appropriate values for metavariables $FEEDDB_XXXX$ mentioned below, 
+###   as described in README-INSTALL
+
+
+from settings_common import * 
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+ADMINS = (
+   # ('Your Name', 'your_email@domain.com'),
+)
+
+
+MANAGERS = ADMINS
+
+DATABASES = {
+    'default': {
+        'NAME': '<%= @pg_name %>',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': '<%= @pg_user %>',
+        'PASSWORD': '<%= @pg_pass %>',
+        'HOST': '<%= @pg_host %>',
+    }
+}
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr'
+        # ...or for multicore...
+        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
+    },
+}
+
+# Make this unique, and don't share it with anybody.
+<%- if @secret_key -%>
+SECRET_KEY = '@secret_key'
+<%- else -%>
+SECRET_KEY = 'axohvie9ej3eidinie6theek0ahzooG5saew6ce4aelie0thou'
+<%- end -%>
+
+# Absolute path to the directory that holds media.
+# Example: "/home/media/media.lawrence.com/"
+### Feeding DB: we use this for user-uploaded files only
+MEDIA_ROOT = '$FEEDDB_UPLOADS$'
+
+# Absolute path to the directory that holds temporary files for download
+# Note: do not put the "/" at the end of the path
+EXPLORER_TEMPORARY_FOLDER = '$FEEDDB_TEMP$'
+

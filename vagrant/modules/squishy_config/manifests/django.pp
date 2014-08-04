@@ -1,18 +1,26 @@
-# requirements_force_update: set to `true` to force puppet to run `pip install -r ...` 
+# requirements_force_update: set to `false` to avoid puppet running `pip install -r ...` 
 define squishy_config::django(
   $root = undef,
   $pg_user   = $title,
   $pg_pass   = $title,
   $pg_host   = 'localhost',
   $pg_name   = $title,
+  $secret_key = undef,
   $virtualenv = "/virtualenv/$title/",
   $requirements_file = undef,
   $requirements_force_update = true,
+  $settings_template = undef,
 ){
   include squishy_config::apache
 
   if ! $root {
     fail("You must specify a Django installation root")
+  }
+
+  if $settings_template {
+    file { "$root/settings.py":
+      content => template($settings_template),
+    }
   }
 
   if $requirements_file {
