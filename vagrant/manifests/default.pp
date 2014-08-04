@@ -23,6 +23,18 @@ file { '/etc/solr/conf/stopwords_en.txt':
   ensure => present,
 }
 
+file { '/etc/profile.d/feeddb-django.sh':
+  content =>
+    "source /virtualenv/feeddb/bin/activate
+     cd /server/src
+    "
+}
+
+file { '/usr/local/bin/feeddb-refresh-solr':
+  ensure => link,
+  target => "/server/bin/feeddb-refresh-solr.sh",
+}
+
 # insecure settings for ssh client within vagrant
 augeas { 'ssh_config':
   context => "/files/etc/ssh/ssh_config",
