@@ -20,7 +20,7 @@ class { 'solr::jetty':
 
 # Solr requires this stopwords file but doesn't include it in 3.6.2, dummies.
 file { '/etc/solr/conf/stopwords_en.txt':
-  ensure => exists,
+  ensure => present,
 }
 
 # insecure settings for ssh client within vagrant
