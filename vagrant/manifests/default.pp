@@ -30,7 +30,7 @@ file { '/etc/profile.d/feeddb-django.sh':
     "
 }
 
-file { '/usr/local/bin/feeddb-refresh-solr':
+file { '/usr/bin/feeddb-refresh-solr':
   ensure => link,
   target => "/server/bin/feeddb-refresh-solr.sh",
 }
