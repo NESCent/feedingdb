@@ -18,6 +18,11 @@ class { 'solr::jetty':
   apache_mirror => 'archive.apache.org/dist',
 }
 
+# Solr requires this stopwords file but doesn't include it in 3.6.2, dummies.
+file { '/etc/solr/conf/stopwords_en.txt':
+  ensure => exists,
+}
+
 # insecure settings for ssh client within vagrant
 augeas { 'ssh_config':
   context => "/files/etc/ssh/ssh_config",

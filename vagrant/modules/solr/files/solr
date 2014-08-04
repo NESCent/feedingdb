@@ -564,7 +564,7 @@ case "$ACTION" in
 
     ;;
 
-  check)
+  check|status)
     echo "Checking arguments to Solr on Jetty: "
     echo "JETTY_HOME     =  $JETTY_HOME"
     echo "SOLR_CONF     =  $SOLR_CONF"
