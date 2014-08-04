@@ -4,7 +4,9 @@ FEED: a database of mammalian feeding behaviors
 Starting with a prod DB dump (for dev use)
 ----
 
-First, load the DB dump. Restore database `feeddb`, user `feeddb`, filename `feed`:
+To begin working with a DB dump from prod, there a few things you have to do to bring it into the new world. 
+
+First, load the DB dump. Use `vagrant ssh` to log into the box, then restore database `feeddb`, user `feeddb`, filename `feed`:
 
 ```
 pg_restore -h localhost -d feeddb -O -U feeddb feed
@@ -18,6 +20,10 @@ Next, you must load the `initial_data` fixture after creating the `MuscleOwl` mo
 ./manage.py migrate feed
 ```
 
+Then, load the schema and data into Solr:
+
+`sudo feeddb-refresh-solr`
+
 Finally, create a super user with access to edit everything. 
 
 `./manage.py createsuperuser`
@@ -25,7 +31,7 @@ Finally, create a super user with access to edit everything.
 Fixtures for Behavior and Muscle
 ----
 
-Behavior and Muscle terms have been loaded from a pre-reasoned OWL file and saved to the `initial_data.yaml` file. To repeat this process, perform the following steps.
+Behavior and Muscle terms have been loaded from a pre-reasoned OWL file and saved to the `initial_data.yaml` file. Usually this is fine, but if you want to load new terms from the OWL files, you have to repeat the process below.
 
 Load data from OWL file:
 
@@ -46,13 +52,13 @@ Servers
  * Dev: (in office)
    * http://dev-feed.sqm.private/ 
    * Superuser: `admin` / `admin`
-   * Shell: `ssh -p 22421 dev-feed.sqm.private` and `cd /server/feed-django/src; ./manage.py ...`
+   * Shell: `ssh -p 22421 dev-feed.sqm.private` and `./manage.py ...`
  * Vagrant: 1.2+
  * Vagrantfile: From `webdev-vagrant` as of June 2014
 
 Notable URLs:
 
- * http://dev-feed.sqm.private/search/?q=ABCD -- sample search returns all subjects
+ * http://dev-feed.sqm.private/search/?q=pig -- sample search
 
 Setting up a server or vagrant box
 ====
@@ -65,8 +71,8 @@ Create a settings.py
 
 TODO: automate this via puppet somehow
 
-Install & run `solr` with `jetty`
-----
+Refresh solr schema & index
+====
 
 This is now automated via puppet configuration. See `vagrant/manifests/default.pp` for details.
 
