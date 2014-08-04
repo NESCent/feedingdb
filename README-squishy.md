@@ -12,6 +12,20 @@ First, load the DB dump. Use `vagrant ssh` to log into the box, then restore dat
 pg_restore -h localhost -d feeddb -O -U feeddb feed
 ```
 
+Enter `feeddb` when prompted for a password. You will see errors like this; it is OK:
+
+```
+GRANT ALL ON TABLE feed_trial T...
+pg_restore: [archiver (db)] Error from TOC entry 2667; 0 0 ACL feed_trial_id_seq feeding_app
+pg_restore: [archiver (db)] could not execute query: ERROR:  role "feeding_app" does not exist
+    Command was: REVOKE ALL ON SEQUENCE feed_trial_id_seq FROM PUBLIC;
+REVOKE ALL ON SEQUENCE feed_trial_id_seq FROM feeding_app;
+GRANT ALL O...
+WARNING: errors ignored on restore: 75
+```
+
+If instead you see several hundred errors, something else has gone wrong.
+
 Next, you must load the `initial_data` fixture after creating the `MuscleOwl` model but before migrating the `location_controlled` field to `muscle`. Run these commands after loading a prod database dump:
 
 ```
