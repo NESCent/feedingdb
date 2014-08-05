@@ -4,18 +4,14 @@
 <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% load feedmedia %}{% app_static_prefix %}css/base.css{% endblock %}" />
 {% block extrastyle %}{% endblock %}
 <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% load feedmedia %}{% app_static_prefix %}css/ie.css{% endblock %}" /><![endif]-->
-{% if LANGUAGE_BIDI %}
-<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% app_static_prefix %}css/rtl.css{% endblock %}" />{% endif %}
 <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}/src/less/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/feed.css" />
-<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/jqueryslidemenu.css" />
-<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/cupertino/jquery-ui-1.8.4.custom.css" />
 
-
-<script type="text/javascript" src="{% app_static_prefix %}js/common.js"></script>
-<script type="text/javascript" src="{% app_static_prefix %}js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="{% app_static_prefix %}js/jqueryslidemenu.js"></script>
-<script type="text/javascript" src="{% app_static_prefix %}js/jquery-ui-1.8.4.custom.min.js"></script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
 
 
 {% block extra_js %}{% endblock %}
@@ -27,7 +23,7 @@
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
 
 <!-- Container -->
-<div id="container">
+<div class="container">
 
     {% if not is_popup %}
     <!-- Header -->
@@ -102,6 +98,15 @@
 </div>
 <!-- END Container -->
 {% block final_block %}{% endblock %}
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{% app_static_prefix %}/src/less/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Custom js -->
+<script src="{% app_static_prefix %}/js/scripts.js"></script> 
+<!-- Chosen.js -->
+<script src="{% app_static_prefix %}/js/chosen_v1.1.0/chosen.jquery.min.js"></script>
 <script type='text/javascript'>
 (function (d, t) {
   var bh = d.createElement(t), s = d.getElementsByTagName(t)[0];
