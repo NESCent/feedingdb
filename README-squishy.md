@@ -80,10 +80,6 @@ Setting up a server or vagrant box
 `vagrant provision` will do a lot of the work, but there is some stuff not yet
 automated.
 
-Create a settings.py
-----
-
-TODO: automate this via puppet somehow
 
 Refresh solr schema & index
 ====
@@ -97,4 +93,10 @@ If you make changes to the schema or want to rebuild the index, run:
 sudo feeddb-refresh-solr
 # while outside vagrant:
 vagrant ssh -c sudo feeddb-refresh-solr
+```
+
+If you know you haven't changed the index schema, you can do a simple index rebuild like this:
+
+```
+./manage.py rebuild_index --noinput
 ```
