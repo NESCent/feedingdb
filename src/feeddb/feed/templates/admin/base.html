@@ -24,16 +24,42 @@
 
 <!-- Container -->
 <div class="container">
+  {% if not is_popup %}
+    <header>
+      <div class="row">
+        <a href="/" class="logo">Feed Experiments End-user Database</a>
+        <a href="/" class="login">Login</a>
+      </div>
+      <nav class="row">
+        <ul>
+          <li class="col-xs-2 col-xs-offset-1">
+            <a href="/">Home</a>
+          </li>
+          <li class="col-xs-2">
+            <a href="search.html">Search Data</a>
+          </li>
+          <li class="col-xs-2">
+            <a href="">Upload New Data</a>
+          </li>
+          <li class="col-xs-2">
+            <a href="">Vocabularies</a>
+          </li>
+          <li class="col-xs-2">
+            <a href="">My Data</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+
 
     {% if not is_popup %}
     <!-- Header -->
     <div id="header">
-        <div id="branding">
-        {% block branding %}{% endblock %}
-        </div>
+      <div class="row">
+        <a href="/" class="logo">Feed Experiments End-user Database</a>
         {% if user.is_authenticated and user.is_staff %}
-		
-        <div id="user-tools">
+        <div class="login">
         	{% ifnotequal  user.first_name "anonymous" %}
             {% trans 'Welcome,' %}
             <strong>{% firstof user.first_name user.username %}</strong>.
@@ -60,16 +86,19 @@
                 {% trans 'Log in' %}</a>
 			{% endifequal %}	
             {% endblock %}
-        </div>
-		
+        </div>		
         {% endif %}
+      </div>
+      <nav class="row">
+        {% block top_menu %}{% include "admin/top_menu.html" %}{% endblock %}
+      </nav>
         {% block nav-global %}{% endblock %}
     </div>
     <!-- END Header -->
     <!-- menu sidebar -->
 	<div class="menu_div">
 		
-		{% block top_menu %}{% include "admin/top_menu.html" %}{% endblock %}
+		
 	</div>
      {% block menu %}{% endblock %}
     
