@@ -37,6 +37,10 @@ class OwlTerm(models.Model):
     rdfs_comment = models.TextField()
     uri = models.CharField(max_length=1500)
 
+    # Whether this term had an rdfs:type relation to the rdfs:Class object in
+    # the original OWL file.
+    rdfs_is_class = models.BooleanField(default=False)
+
     # The list of parent terms and parents of parent terms, and so on.
     # Determined by the rdfs:subClassOf property.
     rdfs_subClassOf_ancestors = models.ManyToManyField('self',
