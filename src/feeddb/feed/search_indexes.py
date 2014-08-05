@@ -50,9 +50,9 @@ class TrialIndex(SearchIndex, Indexable):
         for m in trial_muscles(obj):
             if m != None and len(unicode(m)):
                 muscles.add(unicode(m))
-                for m_ancestor in m.rdfs_subClassOf_ancestors.all():
+                for m_ancestor in m.rdfs_subClassOf_ancestors.filter(rdfs_is_class=True):
                     muscles.add(unicode(m_ancestor))
-                for m_part_of in m.bfo_part_of_some.all():
+                for m_part_of in m.bfo_part_of_some.filter(rdfs_is_class=True):
                     muscles_part_of.add(unicode(m_part_of))
 
         # Only store muscles that the muscle is part of, but isn't already a
