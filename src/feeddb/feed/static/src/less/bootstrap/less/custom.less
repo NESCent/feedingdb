@@ -1,0 +1,109 @@
+body {
+  header { padding-top: 30px;
+    .logo { float: left; background: url('../../../../../img/logo.png') no-repeat; height: 71px; }
+    .login { float: right; }
+    nav { margin-top: 30px;
+      ul { padding-left: 0;
+        li { list-style-type: none; float: left; outline: 1px dashed green; text-align: center;
+          a {  }
+        }
+      }
+    }
+  }
+  .masthead { margin-top: 60px; margin-bottom: 30px;
+    
+  }
+  &.home {
+    h1 { text-align: center; }
+    p { margin-top: 30px; }
+    a.button { margin-top: 30px; height: 60px; outline: 1px solid #cccccc; text-align: center; padding: 20px; }
+  }
+  .searchbar { padding: 20px 0; }
+  .viewby {
+    ul { padding-left: 0;
+      li { list-style: none; float: left; margin-right: 20px;
+      }
+    }
+  }
+  &.search {
+    h1 { text-align: center; }
+    p { margin-top: 30px; }
+    table { margin-top: 0; }
+    aside { border-right: 2px solid #ccc;
+      form { margin-top: 20px;
+        label { display: block; }
+        .chosen-container-multi { width: 86% !important; }
+      }
+    }
+  }
+  &.collection {
+    form {
+      label, span { display: block; margin-bottom: 30px; }
+      span { font-weight: bold; }
+      input {
+      }
+      button, a.btn { width: 100%; margin-bottom: 10px; }
+      table { margin-top: 30px; }
+    }
+  }
+  main {
+    .records-number {
+      p { margin: 0; }
+    }
+    .records-list {
+      p { float: left; margin: 0; }
+      ul { float: right; padding-left: 0;
+        li { float: left; list-style: none; padding-left: 8px;
+          a {  }
+        }
+      }
+    }
+    table { border-top: 1px solid black; border-bottom: 1px solid black; border-left: 1px solid black; width: 100%; margin: 0 0 30px 0;
+      th { border-right: 1px solid black; padding: 0 1%; border-bottom: 1px solid black; font-size: 13px;
+        &.choose {  }
+        &.column2 {  }
+        &.column3 {  }
+        &.column9 {  }
+      }
+      td { border-right: 1px solid black; padding: 1%;
+        &.choose {  }
+        &.column2 {  }
+        &.column3 {  }
+        &.column9 {  }
+        a { font-size: 12px; }
+      }
+    }
+    .records-selection { margin-bottom: 30px;
+      p { float: left; margin: 0; }
+      form { float: right;
+        .chosen-container-single { width: 200px !important; }
+      }
+    }
+    .records-pagination { margin-bottom: 20px;
+      ul { padding-left: 0; width: 262px; margin: 0 auto;
+        li { float: left; list-style: none; padding-left: 12px;
+          a {  }
+        }
+      }
+    }
+  }
+}
+
+/* Global helpers */
+.full-width { width: 100%; }
+
+/* Custom media queries for larger screens */
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) {
+  body {
+    main {
+      .records-selection {
+        form {
+          .chosen-container-single { width: 170px !important; }
+        }
+      }
+    }
+  }
+}
+
