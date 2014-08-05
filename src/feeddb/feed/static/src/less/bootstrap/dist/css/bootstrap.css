@@ -6163,6 +6163,9 @@ button.close {
     display: none !important;
   }
 }
+body {
+  background: #000000;
+}
 body header {
   padding-top: 30px;
 }
