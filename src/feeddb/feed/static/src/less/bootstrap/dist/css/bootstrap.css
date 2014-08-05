@@ -6170,6 +6170,7 @@ body header .logo {
   float: left;
   background: url('../../../../../img/logo.png') no-repeat;
   height: 71px;
+  padding: 50px 0 0 80px;
 }
 body header .login {
   float: right;
