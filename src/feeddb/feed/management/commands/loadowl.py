@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from feeddb.feed.models import MuscleOwl, BehaviorOwl
+import pprint
 
 def nonblankthings(g, things):
     from rdflib.term import URIRef, BNode, Literal
@@ -50,9 +51,8 @@ class Command(BaseCommand):
             m = get_model_instance(Model, unicode(subject))
             m.uri = unicode(subject)
             m.label = unicode(slabel)
-            # FIXME: each subject can have multiple types, so this needs a helper function
-            # to choose the best type. Or a multi-valued field (ugh).
-            #m.rdf_type = unicode(g.value(subject, RDF.type, None))
+
+            m.rdfs_is_class = (subject, RDF.type, OWL.Class) in g
             m.obo_definition = unicode(g.value(subject, OboDefinition, None))
             m.rdfs_comment = unicode(g.value(subject, RDFS.comment, None))
             m.save()
@@ -66,7 +66,6 @@ class Command(BaseCommand):
             # add all super-classes to m.rdfs_subClassOf_ancestors
             for obj in nonblankthings(g, g.transitive_objects(subject, RDFS.subClassOf)):
                 if obj != subject:
-                    print unicode(obj)
                     a = Model.objects.get(uri=unicode(obj))
                     m.rdfs_subClassOf_ancestors.add(a)
 
