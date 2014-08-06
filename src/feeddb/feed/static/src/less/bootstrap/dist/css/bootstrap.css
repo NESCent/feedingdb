@@ -6163,6 +6163,12 @@ button.close {
     display: none !important;
   }
 }
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
 body header {
   padding-top: 30px;
 }
@@ -6203,6 +6209,9 @@ body.home a.button {
   outline: 1px solid #cccccc;
   text-align: center;
   padding: 20px;
+}
+body.home .masthead {
+  background: #f0f2f7;
 }
 body .searchbar {
   padding: 20px 0;
@@ -6313,6 +6322,9 @@ body main .records-pagination ul li {
   float: left;
   list-style: none;
   padding-left: 12px;
+}
+body footer {
+  background: #09192a;
 }
 /* Global helpers */
 .full-width {
