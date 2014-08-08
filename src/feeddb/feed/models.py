@@ -61,6 +61,18 @@ class OwlTerm(models.Model):
     def cloneable(self):
         return False
 
+    def part_of_classes(self):
+        return self.bfo_part_of_some.filter(rdfs_is_class=True)
+
+    def part_of_classes_inclusive(self):
+        return [self] + list(self.part_of_classes())
+
+    def ancestor_classes(self):
+        return self.rdfs_subClassOf_ancestors.filter(rdfs_is_class=True)
+
+    def ancestor_classes_inclusive(self):
+        return [self] + list(self.ancestor_classes())
+
 class MuscleOwl(OwlTerm):
 
     @staticmethod
@@ -492,7 +504,11 @@ class Trial(FeedBaseModel):
     food_property = models.CharField("food property", max_length=255,blank = True, null=True)
 
     behavior_primary = models.ForeignKey(Behavior,verbose_name="primary behavior")
+    behaviorowl_primary = models.ForeignKey(BehaviorOwl, verbose_name="primary behavior (OWL)", null=True, related_name="primary_in_trials")
+
     behavior_secondary = models.CharField("secondary behavior", max_length=255,blank = True, null=True)
+    behaviorowl_secondary = models.ForeignKey(BehaviorOwl, verbose_name="secondary behavior (OWL)", null=True, related_name="secondary_in_trials")
+
     behavior_notes = models.TextField("behavior notes", blank = True, null=True)
 
     data_file  = models.FileField(verbose_name="Data File",upload_to=get_data_upload_to ,  blank = True, null=True,

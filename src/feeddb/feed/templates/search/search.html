@@ -30,6 +30,7 @@
           <p>No subclass muscles facets</p>
         {% endif %}
       </dl>
+      <dl>
         {% if facets.fields.muscles_part_of %}
           <dt>Part of Muscles</dt>
           {% for muscles_part_of in facets.fields.muscles_part_of %}
@@ -38,7 +39,26 @@
         {% else %}
           <p>No muscles_part_of facets</p>
         {% endif %}
+      </dl>
       <dl>
+        {% if facets.fields.behaviorowl_primary_ancestors %}
+          <dt>Subclass of Primary Behavior</dt>
+          {% for behaviorowl_primary_ancestors in facets.fields.behaviorowl_primary_ancestors %}
+            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=behaviorowl_primary_ancestors_exact:{{ behaviorowl_primary_ancestors.0|urlencode }}">{{ behaviorowl_primary_ancestors.0 }}</a> ({{ behaviorowl_primary_ancestors.1 }})</dd>
+          {% endfor %}
+        {% else %}
+          <p>No subclass behaviorowl_primary_ancestors facets</p>
+        {% endif %}
+      </dl>
+      <dl>
+        {% if facets.fields.behaviorowl_primary_part_of %}
+          <dt>Part of primary behavior</dt>
+          {% for behaviorowl_primary_part_of in facets.fields.behaviorowl_primary_part_of %}
+            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=behaviorowl_primary_part_of_exact:{{ behaviorowl_primary_part_of.0|urlencode }}">{{ behaviorowl_primary_part_of.0 }}</a> ({{ behaviorowl_primary_part_of.1 }})</dd>
+          {% endfor %}
+        {% else %}
+          <p>No behaviorowl_primary_part_of facets</p>
+        {% endif %}
       </dl>
     </div>
   
