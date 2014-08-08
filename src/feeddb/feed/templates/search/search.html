@@ -22,12 +22,12 @@
     <div>
       <dl>
         {% if facets.fields.muscles %}
-          <dt>Muscles</dt>
+          <dt>Subclass of Muscles</dt>
           {% for muscles in facets.fields.muscles %}
             <dd><a href="{{ request.get_full_path }}&amp;selected_facets=muscles_exact:{{ muscles.0|urlencode }}">{{ muscles.0 }}</a> ({{ muscles.1 }})</dd>
           {% endfor %}
         {% else %}
-          <p>No muscles facets</p>
+          <p>No subclass muscles facets</p>
         {% endif %}
       </dl>
         {% if facets.fields.muscles_part_of %}
@@ -50,7 +50,13 @@
   <h3>Results</h3>
   {% for result in page.object_list %}
     <div class="result" style="border: solid black; margin: 0.5em; padding: 0.5em;">
-      Muscles: <br />
+      Muscles (direct): <br />
+      <ul>
+        {% for label in result.muscles_direct %}
+          <li>{{ label }}</li>
+        {% endfor %}
+      </ul>
+      Muscles (subclass expanded): <br />
       <ul>
         {% for label in result.muscles %}
           <li>{{ label }}</li>
