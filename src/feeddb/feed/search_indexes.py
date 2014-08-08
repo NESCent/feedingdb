@@ -20,7 +20,14 @@ class TrialIndex(SearchIndex, Indexable):
     #behavior_primary = CharField(model_attr='behavior_primary')
     #behaviors_expanded = MultiValueField()
 
+    # List of muscle labels for EMG and Sono sensors
+    muscles_direct = MultiValueField()
+
+    # `muscles_direct` along with each muscle's ancestors
     muscles = MultiValueField(faceted=True)
+
+    # Muscles which members of `muscles_direct` are a part of, except when the same
+    # muscle is already listed in `muscles`
     muscles_part_of = MultiValueField(faceted=True)
 
     def prepare(self, obj):
@@ -33,8 +40,12 @@ class TrialIndex(SearchIndex, Indexable):
         part, but only store the muscles which are distinct from the muscles we
         are already storing in the subClassOf field.
 
-        An alternate implemention might instead store two fields for indexing;
-        one uses just the subClassOf relationship and the other might use both.
+        This arrangement enables a search to be broadened from just subClass
+        relationships to both subClass and part_of relationships by adding an
+        OR filter on the `muscles_part_of` field.  An alternate implemention
+        might instead store two independent fields for indexing; one uses just
+        the subClassOf relationship and the other might use both. A search
+        would be broadened by switching from one field to the other.
         """
 
         def trial_muscles(obj):
@@ -47,9 +58,11 @@ class TrialIndex(SearchIndex, Indexable):
 
         muscles = set()
         muscles_part_of = set()
+        muscles_direct = set()
         for m in trial_muscles(obj):
             if m != None and len(unicode(m)):
                 muscles.add(unicode(m))
+                muscles_direct.add(unicode(m))
                 for m_ancestor in m.rdfs_subClassOf_ancestors.filter(rdfs_is_class=True):
                     muscles.add(unicode(m_ancestor))
                 for m_part_of in m.bfo_part_of_some.filter(rdfs_is_class=True):
@@ -64,6 +77,7 @@ class TrialIndex(SearchIndex, Indexable):
         print "MUSCLES PART OF %s" % muscles_part_of
         self.prepared_data['muscles'] = list(muscles) if len(muscles) else None
         self.prepared_data['muscles_part_of'] = list(muscles_part_of) if len(muscles_part_of) else None
+        self.prepared_data['muscles_direct'] = list(muscles_direct) if len(muscles_direct) else None
         return self.prepared_data
 
     def get_model(self):
