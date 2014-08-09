@@ -18,13 +18,9 @@ def welcome(request):
 
 class FeedSearchView(FacetedSearchView):
     def __init__(self):
-        sqs = (SearchQuerySet()
-            .facet('muscles', mincount=1, limit=10)
-            .facet('muscles_part_of', mincount=1, limit=10)
-            .facet('behaviorowl_primary_ancestors', mincount=1, limit=10)
-            .facet('behaviorowl_secondary_ancestors', mincount=1, limit=10)
-            .facet('behaviorowl_primary_part_of', mincount=1, limit=10)
-            .facet('behaviorowl_secondary_part_of', mincount=1, limit=10)
-        )
+        super(FeedSearchView, self).__init__(form_class=FeedSearchForm)
 
-        super(FeedSearchView, self).__init__(form_class=FeedSearchForm, searchqueryset=sqs)
+    def extra_context(self):
+        extra = super(FeedSearchView, self).extra_context()
+        extra['facet_items'] = self.form.searcher.facets
+        return extra
