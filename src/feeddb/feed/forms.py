@@ -2,12 +2,31 @@ from haystack.forms import FacetedSearchForm
 from haystack.inputs import AutoQuery, Exact, Clean
 from inspector_panel import debug
 
+from feeddb.feed.models import Trial
+
+from faceted_search.searcher import Searcher
+
 import logging
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 class FeedSearchForm(FacetedSearchForm):
+    facets = { 
+        'fields': { 
+            'muscles': { 'label': 'Muscles' },
+            'muscles_part_of': { 'label': 'Part of Muscles' },
+        }
+    }
+
+
+    def __init__(self, GET, *args, **kwargs):
+        try:
+            self.filters = GET.dict()
+        except AttributeError:
+            self.filters = {}
+        super(FeedSearchForm, self).__init__(GET, *args, **kwargs)
+        self.searcher = Searcher(model=Trial, facets=FeedSearchForm.facets)
     
     def no_query_found(self):
         """
@@ -17,30 +36,15 @@ class FeedSearchForm(FacetedSearchForm):
         return self.searchqueryset.all()
 
     def search(self):
-        if not self.is_valid():
-            return self.no_query_found()
-
-        if self.cleaned_data.get('q'):
+        # Get keywords from form, or not at all
+        try:
             q = self.cleaned_data['q']
-            aq = AutoQuery(q)
-            sqs = self.searchqueryset.filter_or(content=aq).filter_or(muscles=aq)
-        else:
-            sqs = self.searchqueryset.all()
-        
-        #sqs = self.searchqueryset.auto_query(self.cleaned_data['q'])
+        except AttributeError:
+            q = ''
 
+        sqs = self.searcher.search(filters=self.filters, keywords=q)
+        
         if self.load_all:
             sqs = sqs.load_all()
-
-        # We need to process each facet to ensure that the field name and the
-        # value are quoted correctly and separately:
-        for facet in self.selected_facets:
-            if ":" not in facet:
-                continue
-
-            field, value = facet.split(":", 1)
-
-            if value:
-                sqs = sqs.narrow(u'%s:"%s"' % (field, sqs.query.clean(value)))
 
         return sqs
