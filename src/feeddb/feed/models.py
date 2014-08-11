@@ -61,14 +61,23 @@ class OwlTerm(models.Model):
     def cloneable(self):
         return False
 
+    def default_qs_filter_args(self):
+        """
+        Return the default filter dict for a queryset against this model.
+
+        In subclasses, this should be overridden to ensure that we only use
+        terms which are supposed to be used.
+        """
+        return dict(rdfs_is_class=True)
+
     def part_of_classes(self):
-        return self.bfo_part_of_some.filter(rdfs_is_class=True)
+        return self.bfo_part_of_some.filter(**(self.default_qs_filter_args()))
 
     def part_of_classes_inclusive(self):
         return [self] + list(self.part_of_classes())
 
     def ancestor_classes(self):
-        return self.rdfs_subClassOf_ancestors.filter(rdfs_is_class=True)
+        return self.rdfs_subClassOf_ancestors.filter(**(self.default_qs_filter_args()))
 
     def ancestor_classes_inclusive(self):
         return [self] + list(self.ancestor_classes())
@@ -77,8 +86,17 @@ class MuscleOwl(OwlTerm):
 
     @staticmethod
     def default_muscle():
-        return MuscleOwl.objects.get(label='material anatomical entity')
+        return MuscleOwl.objects.get(label='muscle organ')
     pass
+
+    def default_qs_filter_args(self):
+        return dict(
+            # This is the "muscle organ" class, which is specified by Hilmar as
+            # the ultimate ancestor class for muscles
+            #
+            # URI: http://purl.obolibrary.org/obo/UBERON_0001630
+            rdfs_subClassOf_ancestors__label='muscle organ'
+        )
 
 class BehaviorOwl(OwlTerm):
     pass
