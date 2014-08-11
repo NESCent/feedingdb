@@ -42,6 +42,22 @@ Finally, create a super user with access to edit everything.
 
 `./manage.py createsuperuser`
 
+Correspondence of FEED1 AnatomicalLocation and FEED2 Muscles
+----
+
+The [canonical correspondence](https://docs.google.com/a/squishymedia.com/spreadsheets/d/1CU8Gw7ukyt0q4AHRAJ6b5HgrNukjALCVTdlQ-7dgABI/edit#gid=0) is a Google Doc accessible by both Squishy and the client representatives. The latest CSV export of that spreadsheet should be kept in `data/al_muscles_correspondence.csv`. After updating that file from the Google Doc, you can load the correspondence into the database with this command:
+
+```
+./manage.py loadmusclecorrespondence ../data/al_muscles_correspondence.csv
+```
+
+Then you need to rerun the migration.
+
+```
+./manage.py migrate feed 0066
+./manage.py migrate feed
+```
+
 Fixtures for Behavior and Muscle
 ----
 

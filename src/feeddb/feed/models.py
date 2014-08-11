@@ -61,7 +61,8 @@ class OwlTerm(models.Model):
     def cloneable(self):
         return False
 
-    def default_qs_filter_args(self):
+    @staticmethod
+    def default_qs_filter_args():
         """
         Return the default filter dict for a queryset against this model.
 
@@ -87,9 +88,9 @@ class MuscleOwl(OwlTerm):
     @staticmethod
     def default_muscle():
         return MuscleOwl.objects.get(label='muscle organ')
-    pass
 
-    def default_qs_filter_args(self):
+    @staticmethod
+    def default_qs_filter_args():
         return dict(
             # This is the "muscle organ" class, which is specified by Hilmar as
             # the ultimate ancestor class for muscles
@@ -171,6 +172,8 @@ ANATOMICAL_CATEGORIES = (
 class AnatomicalLocation(CvTerm):
     category = models.IntegerField(choices=ANATOMICAL_CATEGORIES)
 
+    # equivalent OWL term for migration
+    ontology_term = models.ForeignKey(MuscleOwl, related_name="+", null=True)
 
 class Side(CvTerm):
     pass
