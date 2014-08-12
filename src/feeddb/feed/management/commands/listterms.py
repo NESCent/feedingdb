@@ -14,10 +14,14 @@ def sensors_with_al_missing_owl():
 
 
 def used_terms():
+    """
+    Get all AnatomicalLocation terms used on sonosensor and emgsensor entities,
+    except for the fake "JEZ Muscle" term which has pk=54
+    """
     return AnatomicalLocation.objects.filter(
         Q(sonosensor__isnull=False) |
         Q(emgsensor__isnull=False)
-    )
+    ).exclude(id=54) # exclude "JEZ Muscle"
 
 class Command(BaseCommand):
     args = '<file>'
