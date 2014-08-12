@@ -6163,55 +6163,113 @@ button.close {
     display: none !important;
   }
 }
+/* Variables */
+/* Colors */
+/* Typography */
 body {
-  max-width: 1200px;
-  margin: 0 auto;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  background: url('../../../../../img/greyzz.png');
 }
 body header {
-  padding-top: 30px;
+  padding-top: 16px;
 }
 body header .logo {
   float: left;
   background: url('../../../../../img/logo.png') no-repeat;
   height: 71px;
   padding: 50px 0 0 80px;
+  font: 400 21px 'PT Sans', sans-serif;
+  color: #7c4600;
 }
 body header .login {
   float: right;
+  font: 400 12px 'Roboto', sans-serif;
+  color: #112e4f;
 }
-body header nav {
+body header .login a {
+  color: #007ecf;
+}
+body nav {
   margin-top: 30px;
+  background: #112e4f;
 }
-body header nav ul {
+body nav ul {
   padding-left: 0;
 }
-body header nav ul li {
+body nav ul li {
   list-style-type: none;
   float: left;
-  outline: 1px dashed green;
   text-align: center;
 }
+body nav ul li:hover {
+  background: #007ecf;
+}
+body nav ul li a {
+  color: #ceeded;
+  font: 300 21px 'Roboto', sans-serif;
+  text-transform: uppercase;
+  display: block;
+  padding: 13px 0;
+}
+body nav ul li a:hover {
+  text-decoration: none;
+  color: #ceeded;
+}
 body .masthead {
-  margin-top: 60px;
-  margin-bottom: 30px;
+  padding: 32px;
 }
 body.home h1 {
   text-align: center;
+  font: 40px 'Roboto', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #005a8b;
+}
+body.home h1 span {
+  color: #da5400;
 }
 body.home p {
-  margin-top: 30px;
+  color: #09192a;
+  font: 19px/21px 'PT Sans', sans-serif;
 }
-body.home a.button {
+body.home a.btn {
   margin-top: 30px;
   height: 60px;
-  outline: 1px solid #cccccc;
   text-align: center;
-  padding: 20px;
+  padding: 20px 0 60px 42px;
+  width: 100%;
+  font: 30px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
+  color: #ffffff;
+}
+body.home a.btn.search {
+  background: url('../../../../../img/search.png') no-repeat #da5400;
+  background: url('../../../../../img/search.png') 98px 20px no-repeat #da5400;
+}
+body.home a.btn.upload {
+  background: url('../../../../../img/upload.png') no-repeat #f29a00;
+  background: url('../../../../../img/upload.png') 78px 20px no-repeat #f29a00;
 }
 body.home .masthead {
   background: #f0f2f7;
+}
+body.home #makeMeScrollable div.scrollableArea * {
+  /* width: 100%; height: 330px; overflow: hidden; */
+  position: relative;
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 0;
+  /* If you don't want the images in the scroller to be selectable, try the following
+    		block of code. It's just a nice feature that prevent the images from
+    		accidentally becoming selected/inverted when the user interacts with the scroller. */
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+body.home footer p {
+  font: 12px/21px 'Roboto', sans-serif, sans-serif;
+  color: #ffffff;
 }
 body .searchbar {
   padding: 20px 0;
@@ -6260,6 +6318,9 @@ body.collection form a.btn {
 }
 body.collection form table {
   margin-top: 30px;
+}
+body main {
+  padding: 30px 0 54px 0;
 }
 body main .records-number p {
   margin: 0;
@@ -6325,6 +6386,69 @@ body main .records-pagination ul li {
 }
 body footer {
   background: #09192a;
+  clear: left;
+  border-bottom: 6px solid #da5400;
+  padding: 25px 0 42px 0;
+}
+body footer .logo {
+  background: url('../../../../../img/footer-logo.png') no-repeat;
+  width: 57px;
+  height: 56px;
+  display: block;
+  text-indent: -10000px;
+  overflow: hidden;
+  margin: 0 0 12px 0;
+}
+body footer ul {
+  padding-left: 0;
+}
+body footer ul li {
+  list-style-type: none;
+}
+body footer ul li a {
+  font-size: 12px;
+  line-height: 21px;
+  font-family: 'Roboto', sans-serif, sans-serif;
+}
+body footer p {
+  font: 12px/21px 'Roboto', sans-serif, sans-serif;
+  color: #ffffff;
+}
+body footer .partners h5 {
+  font: 100 15px/21px 'Roboto', sans-serif, sans-serif;
+  color: #ffffff;
+  margin-top: 0;
+}
+body footer .partners .col-xs-2 {
+  padding-right: 0;
+  width: 13.6666667%;
+}
+body footer .partners .col-xs-2:first-child {
+  padding-left: 15px;
+}
+body footer .partners .col-xs-2 .partner1,
+body footer .partners .col-xs-2 .partner2,
+body footer .partners .col-xs-2 .partner3,
+body footer .partners .col-xs-2 .partner4,
+body footer .partners .col-xs-2 .partner5,
+body footer .partners .col-xs-2 .partner6 {
+  display: block;
+  border-radius: 38px;
+  -webkit-border-radius: 38px;
+  -moz-border-radius: 38px;
+  border: 1px solid #ffffff;
+  width: 76px;
+  height: 76px;
+  text-indent: -10000px;
+  overflow: hidden;
+}
+body footer .partners .col-xs-2 .nescent {
+  display: block;
+  background: url('../../../../../img/nescent.png') no-repeat;
+  width: 76px;
+  height: 76px;
+  text-indent: -10000px;
+  overflow: hidden;
 }
 /* Global helpers */
 .full-width {
