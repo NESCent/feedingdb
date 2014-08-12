@@ -228,7 +228,6 @@ class Emgfiltering(CvTerm):
 
 #object models
 class Study(FeedBaseModel):
-    accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255,
                              help_text = "A descriptive name of this study.")
     bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
