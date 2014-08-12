@@ -58,7 +58,7 @@ class FacetList(object):
 
             return (index, f.facet.field, f.value)
 
-        return sorted(items, key=facet_key)
+        return sorted(set(items), key=facet_key)
 
     def has_selected(self):
         '''
@@ -79,7 +79,7 @@ class FacetList(object):
         '''
         param = list()
         if self.extra_params:
-            param.append(self.extra_params.items())
+            param.extend(self.extra_params.items())
 
         for item in self.selected_facet_items(facet_item=facet_item):
             if item == facet_item and not include_facet_item:
@@ -116,6 +116,12 @@ class FacetList(object):
 
     def __iter__(self):
         return iter(self.facets)
+
+    def __str__(self):
+        return self.__unicode__()
+
+    def __unicode__(self):
+        return unicode(self.facets)
 
     def __contains__(self, item):
         try:
@@ -209,7 +215,7 @@ class Facet(object):
             return default
 
     def __str__(self):
-        return 'Facet: {} ({})'.format(self.field,len(self.items))
+        return 'Facet: %s (%s)' % (self.field, len(self.items))
 
     def __unicode__(self):
         return self.__str__()
