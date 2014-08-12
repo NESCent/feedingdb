@@ -254,7 +254,7 @@ class FacetItem(object):
 
         # Date facets might need grouping in the templates
         self.year = getattr(value, 'year', None)
- 
+
     @property
     def url(self):
         return self._build_url()
