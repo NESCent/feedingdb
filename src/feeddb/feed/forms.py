@@ -22,7 +22,7 @@ class FeedSearchForm(FacetedSearchForm):
 
     def __init__(self, GET, *args, **kwargs):
         try:
-            self.filters = GET.dict()
+            self.filters = GET
         except AttributeError:
             self.filters = {}
         super(FeedSearchForm, self).__init__(GET, *args, **kwargs)

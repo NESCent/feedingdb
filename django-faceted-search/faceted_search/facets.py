@@ -7,11 +7,11 @@ from django.conf import settings
 from django.utils.safestring import mark_safe
 
 from faceted_search.utils import is_valid_date_range, parse_date_range
-                      
+
 logger = logging.getLogger(__name__)
 
 FACET_SORT_ORDER = getattr(settings, 'FACET_SORT_ORDER', [])
- 
+
 class FacetList(object):
     '''
     Hybrid List/Dict of Facets. Facets can be looked up
@@ -38,16 +38,28 @@ class FacetList(object):
     def remove(self, facet):
         self.facets.remove(facet)
 
-    def selected_facet_items(self):
+    def selected_facet_items(self, facet_item=None):
         items = []
         for f in self.facets:
             items = items + f.selected_items()
-        # Sort the selected facets by the search_settings.FACETS_ALL list index
-        if FACET_SORT_ORDER:
-            return sorted(items, key=lambda f: FACET_SORT_ORDER.index(f.facet.field) if f.facet.field in FACET_SORT_ORDER else 0)
-        else:
-            return items
-    
+
+        if facet_item:
+            items += [facet_item]
+
+        def facet_key(f):
+            """
+            Return sort key for a facet item based on facet field index, facet
+            field name, and facet item value.
+            """
+            try:
+                index = FACET_SORT_ORDER.index(f.facet.field)
+            except ValueError:
+                index = 0
+
+            return (index, f.facet.field, f.value)
+
+        return sorted(items, key=facet_key)
+
     def has_selected(self):
         '''
         True if any of the facets have selected items
@@ -58,31 +70,27 @@ class FacetList(object):
         '''
         True if there are any facets have potential to be selected
         '''
-        return any(f.has_active() for f in self.facets)   
- 
+        return any(f.has_active() for f in self.facets)
+
     def url_param(self, facet_item=None, include_facet_item=True):
         '''
         Return a url parameter for the given facet item which
         may be used to filter current results.
         '''
-        param = OrderedDict()
+        param = list()
         if self.extra_params:
-            param = self.extra_params.copy()
-        
-        for item in self.selected_facet_items():
+            param.append(self.extra_params.items())
+
+        for item in self.selected_facet_items(facet_item=facet_item):
             if item == facet_item and not include_facet_item:
                 # Our facet item could be selected so exclude it if we are told to
                 continue
 
             if item.facet.field not in self.exclude_params:
-                param.update({item.facet.field: item.value})
+                param.append((item.facet.field, item.value))
 
-        # This is to capture a facet_item that may not be part of our selected items
-        if isinstance(facet_item, FacetItem) and include_facet_item and facet_item.facet.field not in self.exclude_params:
-            param.update({facet_item.facet.field: facet_item.value})
+        return urlencode(param)
 
-        return urlencode(OrderedDict([k, v.encode('utf-8')] for k, v in param.items()))
-                      
     def get(self, key, default='__NOT_SET__'):
         if default == '__NOT_SET__':
             return self[key]
@@ -105,7 +113,7 @@ class FacetList(object):
 
     def __len__(self):
         return len(self.facets)
-    
+
     def __iter__(self):
         return iter(self.facets)
 
@@ -117,13 +125,13 @@ class FacetList(object):
             return False
         except:
             raise
-        
+
         return False
 
 class Facet(object):
     '''
-    Represents a term on which querysets can be filtered (faceted) 
-    Relates to a set of FacetItems representing the individual values 
+    Represents a term on which querysets can be filtered (faceted)
+    Relates to a set of FacetItems representing the individual values
     that can be selected for this Facet.
 
     `field`
@@ -147,12 +155,12 @@ class Facet(object):
 
         last_char = value[-1]
         if last_char == 's':
-            return '%ses' % value 
+            return '%ses' % value
         elif last_char == 'y':
             return '%sies' % value[:-1]
         else:
-            return '%ss' % value       
-            
+            return '%ss' % value
+
 
     def sort_by_value(self):
         self.items = sorted(self.items, key=lambda item: item.value)
@@ -179,19 +187,19 @@ class Facet(object):
 
     def remove(self, item):
         self.items.remove(item)
- 
+
     def __len__(self):
-        return len(self.items)             
- 
+        return len(self.items)
+
     def __iter__(self):
         return iter(self.items)
- 
+
     def __getitem__(self, key):
         for item in self.items:
             if item.value == key:
                 return item
         raise KeyError(key)
-                   
+
     def get(self, key, default='__NOT_SET__'):
         try:
             return self[key]
@@ -226,7 +234,7 @@ class QueryFacet(Facet):
 
     def _sort_val(self, val):
         '''Returns the numeric value of a query facet for sorting'''
-        sort_val = val.lstrip('[').rstrip(']').split()[0].replace('*', '0') 
+        sort_val = val.lstrip('[').rstrip(']').split()[0].replace('*', '0')
         return int(sort_val)
 
 class FacetItem(object):
@@ -235,7 +243,7 @@ class FacetItem(object):
     for generating the full URL to add the criteria to the existing
     query.
     '''
-    def __init__(self, value, count, label=None, 
+    def __init__(self, value, count, label=None,
                        is_selected=False, base_url=''):
         self.value = value
         self.label = mark_safe(label) if label else value
@@ -246,7 +254,7 @@ class FacetItem(object):
 
         # Date facets might need grouping in the templates
         self.year = getattr(value, 'year', None)
- 
+
     @property
     def url(self):
         return self._build_url()
@@ -299,13 +307,13 @@ class FacetItem(object):
 
         if '?' in self.base_url:
             if '&' in self.base_url:
-                return '%s&%s' % url_pieces 
-            return '%s%s' % url_pieces 
-        return '%s?%s' % url_pieces   
+                return '%s&%s' % url_pieces
+            return '%s%s' % url_pieces
+        return '%s?%s' % url_pieces
 
     def __unicode__(self):
         return 'FacetItem: %s (%d)' % (self.label, self.count)
 
     def __str__(self):
         return self.__unicode__()
-         
+
