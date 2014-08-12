@@ -8,19 +8,31 @@
 {% block bodyclass %}home{% endblock %}
 
 {% block breadcrumbs %}{% endblock %}
-{% block pretitle %}<h1>Welcome to FEED</h1>{% endblock %}
+{% block pretitle %}<h1>Welcome to <span>FEED</span></h1>{% endblock %}
 {% block content %}
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis ullamcorper velit. Praesent hendrerit mauris et luctus lacinia. Cras ace quam, vulputate libero.Nullam volutpat mauris tincidunt pretium lacinia. Phasellus posuere aliquam sem sit amet facilisis. Quisque placerat elit eu est adipiscing, a porttitor libero laoreet vulputate.</p>
-<div class="row">
-  <a href="search.html" class="col-xs-2 col-xs-offset-4 btn btn-default" role="button">Search</a>
-  <a href="" class="col-xs-2 btn btn-default" role="button">Upload</a>
+<div class="col-xs-8 col-xs-offset-2">
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis ullamcorper velit. Praesent hendrerit mauris et luctus lacinia. Cras ace quam, vulputate libero.Nullam volutpat mauris tincidunt pretium lacinia. Phasellus posuere aliquam sem sit amet facilisis. Quisque placerat elit eu est adipiscing, a porttitor libero laoreet vulputate.</p>
 </div>
+<div class="col-xs-4 col-xs-offset-2">
+  <a href="search.html" class="btn btn-default search" role="button">Search</a>
+</div>
+<div class="col-xs-4">
+  <a href="" class="btn btn-default upload" role="button">Upload</a>
+</div>
+{% endblock %}
+{% block feature %}
+<div id="makeMeScrollable">
+		<img src="{% app_static_prefix %}js/tkahn-Smooth-Div-Scroll-1c3b3a6/images/demo/field.jpg" alt="Field" id="field" />
+		<img src="{% app_static_prefix %}js/tkahn-Smooth-Div-Scroll-1c3b3a6/images/demo/gnome.jpg" alt="Gnome" id="gnome" />
+		<img src="{% app_static_prefix %}js/tkahn-Smooth-Div-Scroll-1c3b3a6/images/demo/pencils.jpg" alt="Pencils" id="pencils" />
+		<img src="{% app_static_prefix %}js/tkahn-Smooth-Div-Scroll-1c3b3a6/images/demo/golf.jpg" alt="Golf" id="golf" />
+		<img src="{% app_static_prefix %}js/tkahn-Smooth-Div-Scroll-1c3b3a6/images/demo/river.jpg" alt="River" id="river" />
+		<img src="{% app_static_prefix %}js/tkahn-Smooth-Div-Scroll-1c3b3a6/images/demo/train.jpg" alt="Train" id="train" />
+		<img src="{% app_static_prefix %}js/tkahn-Smooth-Div-Scroll-1c3b3a6/images/demo/leaf.jpg" alt="Leaf" id="leaf" />
+		<img src="{% app_static_prefix %}js/tkahn-Smooth-Div-Scroll-1c3b3a6/images/demo/dog.jpg" alt="Dog" id="dog" />
+</div>
+{% endblock %}
 
 {% if not user.is_authenticated %}
 <p>Please log in into the system.</p>
 {% endif %}
-
-
-
-{% endblock %}

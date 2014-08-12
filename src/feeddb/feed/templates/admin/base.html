@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="{{ LANGUAGE_CODE }}" xml:lang="{{ LANGUAGE_CODE }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
   <head>
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% load feedmedia %}{% app_static_prefix %}css/base.css{% endblock %}" />
     {% block extrastyle %}{% endblock %}
     <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% load feedmedia %}{% app_static_prefix %}css/ie.css{% endblock %}" /><![endif]-->
     <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}/src/less/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans|Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -60,13 +60,16 @@
             </div> <!-- /.login -->
             {% endif %}
           </div> <!-- /.row -->
-          
-          <nav class="row">
-            {% block top_menu %}{% include "admin/top_menu.html" %}{% endblock %}
-          </nav>
-            {% block nav-global %}{% endblock %}
         </div> <!-- /.container -->
       </header>
+      <nav>
+        <div class="container">
+          <div class="row">
+            {% block top_menu %}{% include "admin/top_menu.html" %}{% endblock %}
+          </div>
+        </div>
+      </nav>
+        {% block nav-global %}{% endblock %}
       
       <!-- <div class="menu_div"></div> Old site content -->
       
@@ -89,17 +92,17 @@
       <main>
         <div class="container">
           <div class="row">
-            <div class="col-xs-12">
-              {% block tabs %}{% endblock %}
-              {% block content %}
-              {% block object-tools %}{% endblock %}
-              {{ content }}
-              {% endblock %}
-              {% block sidebar %}{% endblock %}
-            </div>
+            {% block tabs %}{% endblock %}
+            {% block content %}
+            {% block object-tools %}{% endblock %}
+            {{ content }}
+            {% endblock %}
+            {% block sidebar %}{% endblock %}
           </div>
         </div> <!-- /.container -->
-      </div>
+
+      </main>
+        {% block feature %}{% endblock %}
       <footer>
         <div class="container">
           <div class="row">
@@ -109,16 +112,19 @@
         </div> <!-- /.container -->
       </footer>
       
-    
-    
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{% app_static_prefix %}/src/less/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{% app_static_prefix %}src/less/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Custom js -->
-    <script src="{% app_static_prefix %}/js/scripts.js"></script> 
     <!-- Chosen.js -->
-    <script src="{% app_static_prefix %}/js/chosen_v1.1.0/chosen.jquery.min.js"></script>
+    <script src="{% app_static_prefix %}js/chosen_v1.1.0/chosen.jquery.min.js"></script>
+    <script src="{% app_static_prefix %}js/tkahn-Smooth-Div-Scroll-1c3b3a6/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="{% app_static_prefix %}js/tkahn-Smooth-Div-Scroll-1c3b3a6/js/jquery.mousewheel.min.js"></script>
+    <script src="{% app_static_prefix %}js/tkahn-Smooth-Div-Scroll-1c3b3a6/js/jquery.kinetic.min.js"></script>
+    <script src="{% app_static_prefix %}js/tkahn-Smooth-Div-Scroll-1c3b3a6/js/jquery.smoothdivscroll-1.3-min.js"></script>
+    <script src="{% app_static_prefix %}js/scripts.js"></script> 
+
+
     <script type='text/javascript'>
     (function (d, t) {
       var bh = d.createElement(t), s = d.getElementsByTagName(t)[0];

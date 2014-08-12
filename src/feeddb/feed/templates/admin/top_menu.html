@@ -1,8 +1,8 @@
 <ul>
-  <li class="col-xs-2 col-xs-offset-1"><a href="/">Home</a></li>
-  <li class="col-xs-2"><a href="/explorer/trial/search/">Search Data</a></li>
-  <li class="col-xs-2">{% ifnotequal user.first_name "anonymous" %}<a href="{% url "admin:feed_study_add" %}">{% else %}<a href="/login">{% endifnotequal %}Upload New Data</a></li>
-  <li class="col-xs-2"><a href="">Vocabularies</a></li>
-  {% ifnotequal user.first_name "anonymous" %}<li class="col-xs-2"><a href="{% url "admin:feed_trial_changelist" %}?created_by={{user.pk}}">My Data</a></li>{% endifnotequal %}
+  <li class="col-xs-2"><a href="/">Home</a></li>
+  <li class="col-xs-2"><a href="/explorer/trial/search/">Search</a></li>
+  <li class="col-xs-2">{% ifnotequal user.first_name "anonymous" %}<a href="{% url "admin:feed_study_add" %}">{% else %}<a href="/login">{% endifnotequal %}Upload</a></li>
+  <li class="col-xs-3"><a href="">Vocabularies</a></li>
+  {% ifnotequal user.first_name "anonymous" %}<li class="col-xs-3"><a href="{% url "admin:feed_trial_changelist" %}?created_by={{user.pk}}">My Data</a></li>{% endifnotequal %}
 </ul>
 
