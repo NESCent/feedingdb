@@ -35,7 +35,7 @@ class Searcher(object):
 
     TODO:
         * find a different way to configure facet behaviour, perhaps directly in the index class??? e.g. meta?
-    '''     
+    '''
 
     def __init__(self, model=None, facets={}, sort_config={}):
         self.model = model
@@ -75,7 +75,7 @@ class Searcher(object):
         self.facets = self._facets()
         self.search_performed = True
         return self.queryset
- 
+
     @property
     def default_sort_order(self):
         for conf in self.sort_config:
@@ -92,7 +92,7 @@ class Searcher(object):
         if config:
             return sort_order
         return self.default_sort_order
-   
+
     def get_sort_order_config(self, sort_order):
         '''
         Helper to get the config of a specific sort order
@@ -120,14 +120,36 @@ class Searcher(object):
 
     def _clean_filters(self, filters):
         '''
-        Helper to ensure only indexed fields are filtered
+        Helper to ensure only indexed fields are filtered. We support
+        QueryDict, dict, and list arguments, and return a list of key-value
+        pairs.
         '''
-        cleaned = {}
-        for key, value in filters.items():
-            if key in self.indexed_fields and value:
-                cleaned[key] = value
+        def iterate_filters(filters):
+            if hasattr(filters, 'iterlists'): # e.g. QueryDict
+                for key, values in filters.iterlists():
+                    for value in values:
+                        yield (key, value)
 
-        return cleaned
+            elif hasattr(filters, 'iteritems'): # e.g. dict
+                for key, value in filters.iteritems():
+                    yield (key, value)
+
+            else: # hopefully a list of tuples
+                for f in filters:
+                    yield f
+
+        filter_list = []
+        for key, value in iterate_filters(filters):
+            if key in self.indexed_fields and value:
+                filter_list.append( (key, value) )
+
+        import logging
+        logger = logging.getLogger(__name__)
+
+        logger.info(filter_list)
+        logger.info(filters)
+
+        return filter_list
 
     def _facets(self):
         '''
@@ -137,7 +159,7 @@ class Searcher(object):
         facets = self._parse_field_facets(facet_counts.get('fields', {}))
         facets = facets + self._parse_query_facets(facet_counts.get('queries', {}))
         facets = facets + self._parse_date_facets(facet_counts.get('dates', {}))
-        
+
         extra_params = {}
         if self.keywords:
             extra_params[KEYWORD_PARAM] = self.keywords
@@ -164,7 +186,7 @@ class Searcher(object):
         # included as extra_params to the FacetList. This prevents multiple
         # sort orders from being included in the sort urls.
         query = parse_qs(self.facets.url_param())
-        query.pop(SORT_PARAM, None) 
+        query.pop(SORT_PARAM, None)
         query = dict((k, v[0]) for k, v in query.iteritems())
 
         for conf in self.sort_config:
@@ -189,7 +211,7 @@ class Searcher(object):
         if not self.order_by:
             return
         self.queryset = self.queryset.order_by(self.order_by)
-                                           
+
     def _keyword_filtered(self):
         if self.keywords:
             self.queryset = self.queryset.filter(text=self.queryset.query.clean(self.keywords))
@@ -208,7 +230,7 @@ class Searcher(object):
 
     def _date_faceted(self):
         for field, config in self.date_facets.iteritems():
-            self.queryset = self.queryset.date_facet(field, 
+            self.queryset = self.queryset.date_facet(field,
                         start_date=config['start_date'],
                         end_date=config['end_date'],
                         gap_by=config['gap_by'])
@@ -247,7 +269,7 @@ class Searcher(object):
                     item.value=date.strftime("%Y-%m")
                 elif gap == '+1YEAR/YEAR':
                     item.label=date.strftime("%Y")
-                    item.value=date.strftime("%Y-01") 
+                    item.value=date.strftime("%Y-01")
                 item.is_selected = self._is_selected_facet(field, check_parse_date(item.value))
                 item.facet = facet
                 facet.items.append(item)
@@ -259,15 +281,15 @@ class Searcher(object):
         '''
         Parses query facet counts like this:
             {
-                'min_price_USD_exact:[2001 TO *]': 306, 
-                'duration_exact:[16 TO 25]': 149, 
-                'min_price_USD_exact:[500 TO 1000]': 195, 
-                'duration_exact:[41 TO *]': 35, 
-                'duration_exact:[26 TO 40]': 52, 
-                'min_price_USD_exact:[0 TO 500]': 88, 
-                'duration_exact:[6 TO 10]': 329, 
-                'min_price_USD_exact:[1001 TO 2000]': 292, 
-                'duration_exact:[11 TO 15]': 256, 
+                'min_price_USD_exact:[2001 TO *]': 306,
+                'duration_exact:[16 TO 25]': 149,
+                'min_price_USD_exact:[500 TO 1000]': 195,
+                'duration_exact:[41 TO *]': 35,
+                'duration_exact:[26 TO 40]': 52,
+                'min_price_USD_exact:[0 TO 500]': 88,
+                'duration_exact:[6 TO 10]': 329,
+                'min_price_USD_exact:[1001 TO 2000]': 292,
+                'duration_exact:[11 TO 15]': 256,
                 'duration_exact:[* TO 5]': 205
             }
 
@@ -281,12 +303,12 @@ class Searcher(object):
                 facet = facets[field]
             else:
                 facet = QueryFacet(field=field, label=field.replace('_', ' ').title())
-                facets[field] = facet       
+                facets[field] = facet
             item = FacetItem(query, count, label=humanize_range(query))
             item.is_selected = self._is_selected_facet(field, item.value)
             item.facet = facet
             facet.items.append(item)
-        return [facet for field,facet in facets.iteritems()]    
+        return [facet for field,facet in facets.iteritems()]
 
     def _parse_field_facets(self, facet_items):
         '''
@@ -310,7 +332,7 @@ class Searcher(object):
                 item.is_selected = self._is_selected_facet(field, item.value)
                 item.facet = facet
                 facet.items.append(item)
-            facets.append(facet)       
+            facets.append(facet)
         return facets
 
     def _is_selected_facet(self, field, facet_value):
@@ -325,14 +347,14 @@ class Searcher(object):
                narrow.partition(':') == ('%s_exact'%field, ':', value):
                 return True
         return False
-     
-    def _narrow_queryset(self, filters):
-        '''
-        Helper to narrow a queryset using a dict of key-value pairs
-        '''
-        if not filters: return
 
-        for field, value in filters.iteritems():
+    def _narrow_queryset(self, filter_list):
+        '''
+        Helper to narrow a queryset using a list of key-value tuples
+        '''
+        if not filter_list: return
+
+        for field, value in filter_list:
             # Generally, django-haystack will use the correct _exact field
             # for filtering on facets, but for custom query facets it doesn't
             # so we just make sure that the _exact field is used.
@@ -340,7 +362,7 @@ class Searcher(object):
             value = self._solr_escape_value(value)
             field = '%s_exact' % field if self.indexed_fields[field].faceted else field
             self.queryset = self.queryset.narrow('%(field)s:%(value)s' % { 'field':field, 'value':value})
-                                    
+
     def _solr_escape_value(self, value):
         '''
         Escape Solr special characters
