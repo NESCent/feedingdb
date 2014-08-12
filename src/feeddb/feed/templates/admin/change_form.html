@@ -6,8 +6,6 @@
 {{ media }}
 {% endblock %}
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/forms.css" />{% endblock %}
-
 {% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
 
 {% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
@@ -18,8 +16,9 @@
 {% include "admin/includes/object_path.html" %}
 </div>
 {% endif %}{% endblock %}
-{% block content_title %}<h1>{% if change %}Edit {{ opts.object_name.lower}}{% else %}Add {{ opts.object_name.lower}}{% endif %}</h1>{% endblock %}
-{% block content %}<div id="content-main">
+{% block content_title %}<h1>{% if change %}Edit {{ opts.object_name.lower}}{% else %}Add {{ opts.object_name.lower}} or <a href="">Clone Existing Study</a>{% endif %}</h1><hr />{% endblock %}
+
+{% block content %}<div class="col-xs-9">
 {% block object-tools %}
 <ul class="object-tools object-tools-top">
 	{% if change %}
@@ -44,7 +43,7 @@
     {% endif %}{% endif %}
 </ul>
 {% endblock %}
-<p>Highlighted fileds are required</p>
+<p>Highlighted fields are required</p>
 <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">
 	{% csrf_token %}
 		{% block form_top %}{% endblock %}
@@ -82,6 +81,7 @@
 {% prepopulated_fields_js %}
 
 </div>
-</form></div>
-<p>Highlighted fileds are required</p>
-{% endblock %}
+</form>
+<p>Highlighted fields are required</p>
+</div>{% endblock %}
+{% block sidebar %}<div class="col-xs-3"><h3>Upload Steps</h3></div>{% endblock %}
