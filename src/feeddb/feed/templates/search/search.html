@@ -22,14 +22,15 @@
     <div>
       <dl>
         {% if facets.fields.muscles %}
-          <dt>Muscles</dt>
+          <dt>Subclass of Muscles</dt>
           {% for muscles in facets.fields.muscles %}
             <dd><a href="{{ request.get_full_path }}&amp;selected_facets=muscles_exact:{{ muscles.0|urlencode }}">{{ muscles.0 }}</a> ({{ muscles.1 }})</dd>
           {% endfor %}
         {% else %}
-          <p>No muscles facets</p>
+          <p>No subclass muscles facets</p>
         {% endif %}
       </dl>
+      <dl>
         {% if facets.fields.muscles_part_of %}
           <dt>Part of Muscles</dt>
           {% for muscles_part_of in facets.fields.muscles_part_of %}
@@ -38,19 +39,44 @@
         {% else %}
           <p>No muscles_part_of facets</p>
         {% endif %}
+      </dl>
       <dl>
+        {% if facets.fields.behaviorowl_primary_ancestors %}
+          <dt>Subclass of Primary Behavior</dt>
+          {% for behaviorowl_primary_ancestors in facets.fields.behaviorowl_primary_ancestors %}
+            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=behaviorowl_primary_ancestors_exact:{{ behaviorowl_primary_ancestors.0|urlencode }}">{{ behaviorowl_primary_ancestors.0 }}</a> ({{ behaviorowl_primary_ancestors.1 }})</dd>
+          {% endfor %}
+        {% else %}
+          <p>No subclass behaviorowl_primary_ancestors facets</p>
+        {% endif %}
+      </dl>
+      <dl>
+        {% if facets.fields.behaviorowl_primary_part_of %}
+          <dt>Part of primary behavior</dt>
+          {% for behaviorowl_primary_part_of in facets.fields.behaviorowl_primary_part_of %}
+            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=behaviorowl_primary_part_of_exact:{{ behaviorowl_primary_part_of.0|urlencode }}">{{ behaviorowl_primary_part_of.0 }}</a> ({{ behaviorowl_primary_part_of.1 }})</dd>
+          {% endfor %}
+        {% else %}
+          <p>No behaviorowl_primary_part_of facets</p>
+        {% endif %}
       </dl>
     </div>
   
     <div>
       <h4>automatic facet</h4>
-      {% show_facets facets 'taxon' %}
+      {% show_facets facet_items 'muscles' %}
     </div>
   <!-- end faceting -->
   <h3>Results</h3>
   {% for result in page.object_list %}
     <div class="result" style="border: solid black; margin: 0.5em; padding: 0.5em;">
-      Muscles: <br />
+      Muscles (direct): <br />
+      <ul>
+        {% for label in result.muscles_direct %}
+          <li>{{ label }}</li>
+        {% endfor %}
+      </ul>
+      Muscles (subclass expanded): <br />
       <ul>
         {% for label in result.muscles %}
           <li>{{ label }}</li>

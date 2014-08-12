@@ -61,12 +61,43 @@ class OwlTerm(models.Model):
     def cloneable(self):
         return False
 
+    @staticmethod
+    def default_qs_filter_args():
+        """
+        Return the default filter dict for a queryset against this model.
+
+        In subclasses, this should be overridden to ensure that we only use
+        terms which are supposed to be used.
+        """
+        return dict(rdfs_is_class=True)
+
+    def part_of_classes(self):
+        return self.bfo_part_of_some.filter(**(self.default_qs_filter_args()))
+
+    def part_of_classes_inclusive(self):
+        return [self] + list(self.part_of_classes())
+
+    def ancestor_classes(self):
+        return self.rdfs_subClassOf_ancestors.filter(**(self.default_qs_filter_args()))
+
+    def ancestor_classes_inclusive(self):
+        return [self] + list(self.ancestor_classes())
+
 class MuscleOwl(OwlTerm):
 
     @staticmethod
     def default_muscle():
-        return MuscleOwl.objects.get(label='material anatomical entity')
-    pass
+        return MuscleOwl.objects.get(label='muscle organ')
+
+    @staticmethod
+    def default_qs_filter_args():
+        return dict(
+            # This is the "muscle organ" class, which is specified by Hilmar as
+            # the ultimate ancestor class for muscles
+            #
+            # URI: http://purl.obolibrary.org/obo/UBERON_0001630
+            rdfs_subClassOf_ancestors__label='muscle organ'
+        )
 
 class BehaviorOwl(OwlTerm):
     pass
@@ -141,6 +172,8 @@ ANATOMICAL_CATEGORIES = (
 class AnatomicalLocation(CvTerm):
     category = models.IntegerField(choices=ANATOMICAL_CATEGORIES)
 
+    # equivalent OWL term for migration
+    ontology_term = models.ForeignKey(MuscleOwl, related_name="+", null=True)
 
 class Side(CvTerm):
     pass
@@ -492,7 +525,11 @@ class Trial(FeedBaseModel):
     food_property = models.CharField("food property", max_length=255,blank = True, null=True)
 
     behavior_primary = models.ForeignKey(Behavior,verbose_name="primary behavior")
+    behaviorowl_primary = models.ForeignKey(BehaviorOwl, verbose_name="primary behavior (OWL)", null=True, related_name="primary_in_trials")
+
     behavior_secondary = models.CharField("secondary behavior", max_length=255,blank = True, null=True)
+    behaviorowl_secondary = models.ForeignKey(BehaviorOwl, verbose_name="secondary behavior (OWL)", null=True, related_name="secondary_in_trials")
+
     behavior_notes = models.TextField("behavior notes", blank = True, null=True)
 
     data_file  = models.FileField(verbose_name="Data File",upload_to=get_data_upload_to ,  blank = True, null=True,

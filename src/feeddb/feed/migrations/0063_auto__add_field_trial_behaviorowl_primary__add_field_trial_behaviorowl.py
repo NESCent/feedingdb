@@ -1,27 +1,31 @@
 # -*- coding: utf-8 -*-
 from south.utils import datetime_utils as datetime
 from south.db import db
-from south.v2 import DataMigration
+from south.v2 import SchemaMigration
 from django.db import models
 
-from itertools import chain
 
-class Migration(DataMigration):
+class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # See 0059_ontologize_emg_sono_sensors.py
-        sensors = chain(orm.SonoSensor.objects.all(), orm.EmgSensor.objects.all())
-        for sensor in sensors:
-            # TODO: improve matching, perhaps with hardcoded lookup table
-            loc = sensor.location_controlled
-            print "Location: %s" % loc.label
-            m = orm.MuscleOwl.objects.filter(rdfs_is_class=True, label__icontains=loc.label).first()
-            print "Muscle: %s" % m
-            sensor.muscle = m
-            sensor.save()
+        # Adding field 'Trial.behaviorowl_primary'
+        db.add_column(u'feed_trial', 'behaviorowl_primary',
+                      self.gf('django.db.models.fields.related.ForeignKey')(related_name='primary_in_trials', null=True, to=orm['feed.BehaviorOwl']),
+                      keep_default=False)
+
+        # Adding field 'Trial.behaviorowl_secondary'
+        db.add_column(u'feed_trial', 'behaviorowl_secondary',
+                      self.gf('django.db.models.fields.related.ForeignKey')(related_name='secondary_in_trials', null=True, to=orm['feed.BehaviorOwl']),
+                      keep_default=False)
+
 
     def backwards(self, orm):
-        "Write your backwards methods here."
+        # Deleting field 'Trial.behaviorowl_primary'
+        db.delete_column(u'feed_trial', 'behaviorowl_primary_id')
+
+        # Deleting field 'Trial.behaviorowl_secondary'
+        db.delete_column(u'feed_trial', 'behaviorowl_secondary_id')
+
 
     models = {
         u'auth.group': {
@@ -453,6 +457,8 @@ class Migration(DataMigration):
             'behavior_notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'behavior_primary': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['feed.Behavior']"}),
             'behavior_secondary': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
+            'behaviorowl_primary': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'primary_in_trials'", 'null': 'True', 'to': u"orm['feed.BehaviorOwl']"}),
+            'behaviorowl_secondary': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'secondary_in_trials'", 'null': 'True', 'to': u"orm['feed.BehaviorOwl']"}),
             'bookkeeping': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'created_at': ('django.db.models.fields.DateTimeField', [], {}),
             'created_by': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'trial_related'", 'null': 'True', 'to': u"orm['auth.User']"}),
@@ -484,4 +490,3 @@ class Migration(DataMigration):
     }
 
     complete_apps = ['feed']
-    symmetrical = True
