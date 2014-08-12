@@ -6,7 +6,6 @@ from urllib import urlencode
 from django.conf import settings
 from django.utils.safestring import mark_safe
 
-from currencies.models import Currency
 from faceted_search.utils import is_valid_date_range, parse_date_range
                       
 logger = logging.getLogger(__name__)
@@ -139,13 +138,6 @@ class Facet(object):
         self.items = []
         self.facet_set = None
 
-    @staticmethod
-    def localize_field(base_field_name, currency_code=settings.DEFAULT_CURRENCY_CODE):
-        '''
-        Generate an l10n facet field name based on currency code and a base
-        '''
-        return ''.join((base_field_name, '_', currency_code.upper()))
-
     def _pluralize(self, value):
         '''
         Primative pluralization util, used for pluralizing the label
@@ -270,15 +262,6 @@ class FacetItem(object):
     @staticmethod
     def label_from_query(query_value):
         return query_value.replace('[', '').replace(']', '').lower()
-
-    @staticmethod
-    def price_label_from_query(query_value, currency=None):
-        if not isinstance(currency, Currency):
-            currency = Currency.objects.get(code=settings.DEFAULT_CURRENCY_CODE)
-
-        label = FacetItem.label_from_query(query_value).replace('*', str(settings.PRICE_FACET_MAX))
-
-        return ''.join((currency.symbol(),label,))
 
     @staticmethod
     def date_label_from_query(query_value):

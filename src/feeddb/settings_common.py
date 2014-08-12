@@ -94,7 +94,7 @@ INSTALLED_APPS = (
    'haystack',
    'debug_toolbar',
    #'inspector_panel',
-   'feeddb.faceted_search',
+   'faceted_search',
 )
 
 ### Debug toolbar configuration
