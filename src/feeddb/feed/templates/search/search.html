@@ -66,7 +66,7 @@
       <tr>
         <th class="choose"><input type="checkbox" name="viewby" value="blank" /></th>
         <th class="column2">Trial Name</th>
-        <th class="column3">Date</th> 
+        <th class="column3">Date (start date)</th>
         <th class="column4">Species</th>
         <th class="column5">Primary<br />Behavior</th>
         <th class="column6">Techniques</th>
@@ -78,9 +78,9 @@
         <tr>
           <td class="choose"><input type="checkbox" name="viewby" value="blank" /></td>
           <td class="column2"><a href="">{{ result.object.title }}</a></td>
-          <td class="column3"><a href="">6-19-2001</a></td> 
+          <td class="column3"><a href="">{{ result.object.start | date:"M j, Y" | default:"unknown" }}</a></td>
           <td class="column4"><a href="">{{ result.object.session.experiment.subject.taxon }}</a></td>
-          <td class="column5"><a href="">Mastication (static)</a></td>
+          <td class="column5"><a href="">Mastication (FIXME)</a></td>
           <td class="column6">
             {% for label in result.techniques %}
               <a href="">{{ label }}</a>
@@ -88,7 +88,7 @@
           </td>
           <td class="column7">{% for label in result.muscles_direct %}<a href="/{{ label }}">{{ label }}</a> {% endfor %}</td>
           <td class="column8"><a href="">{{ result.object.food_type }}</a></td>
-          <td class="column9"><a href="">collection-1</a></td>
+          <td class="column9"><a href="">collection-1 FIXME</a></td>
         </tr>
         {% empty %}
           <p>No results found.</p>
