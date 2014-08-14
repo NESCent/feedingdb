@@ -1,4 +1,5 @@
-<h3>Search Trials </h3>
+{% block content_title %}<h1>Search Trials</h1><p class="col-xs-10 col-xs-offset-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis ullamcorper velit. Praesent hendrerit mauris et luctus lacinia. Cras ac ornare quam, vitae vulputate libero. Nullam volutpat mauris tincidunt pretium lacinia. Phasellus posuere aliquam sem sit amet facilisis. Quisque placerat elit eu est adipiscing, a porttitor libero laoreet. Nunc posuere adipiscing mauris, sit amet tempus augue tincidunt ac. Duis porta arcu sed leo bibendum interdum. To access data contained within the XMA portal please click <a href="http://xmaportal.org">here</a>.</p><hr />{% endblock %}
+
 <form name="search_trial_form" action="{% url "explorer.views.trial_search" %}" method="POST">
   {% csrf_token %}
 	{% for field in form.hidden_fields %}

@@ -6168,22 +6168,29 @@ button.close {
 /* Typography */
 body {
   background: url('../../../../../img/greyzz.png');
+  color: #112e4f;
+  /* Typography / Global */
+  /* Buttons */
 }
 body h1 {
   font: 36px/24px 'Roboto', sans-serif, sans-serif;
   color: #112e4f;
 }
-body h2 {
+body h2,
+body h2.panel-title a {
   font: 27px/26px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #005a8b;
 }
-body h3 {
-  font: 700 21px/35px 'Roboto', sans-serif, sans-serif;
+body h3,
+body h3.panel-title a {
+  font: 400 21px/35px 'Roboto', sans-serif, sans-serif;
   color: #da5400;
+  text-transform: uppercase;
 }
 body h4 {
   font: 18px/35px 'Roboto', sans-serif, sans-serif;
   color: #112e4f;
+  text-transform: uppercase;
 }
 body h5 {
   font: 18px/35px 'PT Sans', sans-serif, sans-serif;
@@ -6197,17 +6204,55 @@ body p {
   font: 15px/19px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #112e4f;
 }
-body a {
+body a,
+body a:active {
   font: 15px/19px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #007ecf;
 }
-body a:hover {
+body a:hover,
+body a:active:hover {
+  color: #da5400;
+}
+body a:visited,
+body a:active:visited {
   color: #638ebc;
 }
 body hr {
   background: url('../../../../../img/hr.png') repeat-x;
   height: 2px;
   width: 100%;
+}
+body a.btn,
+body .btn {
+  color: #ffffff;
+  font: 17px/26px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  padding: 8px 23px;
+  -webkit-box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
+  -moz-box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
+  box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
+  border: 0;
+  width: auto;
+  border-radius: 0;
+}
+body a.btn.btn-primary,
+body .btn.btn-primary {
+  background: #da5400;
+}
+body a.btn.btn-primary:hover,
+body .btn.btn-primary:hover {
+  background: #f29a00;
+}
+body a.btn.btn-default,
+body .btn.btn-default {
+  background: #f29a00;
+}
+body a.btn.btn-default:hover,
+body .btn.btn-default:hover {
+  background: #da5400;
+  color: #ffffff;
+}
+body form .row {
+  margin-bottom: 20px;
 }
 body form label {
   font: 17px/26px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
@@ -6239,7 +6284,6 @@ body form input[type="submit"] {
   -moz-box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
   box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
   border: 0;
-  width: auto;
 }
 body form button:hover,
 body form input[type="button"]:hover,
@@ -6468,6 +6512,16 @@ body main .records-pagination ul li {
   list-style: none;
   padding-left: 12px;
 }
+body main aside .upload-steps {
+  border-left: 2px solid #005a8b;
+}
+body main aside .upload-steps ul {
+  padding-left: 0;
+}
+body main aside .upload-steps ul li {
+  list-style-type: none;
+  padding: 0 0 20px 0;
+}
 body footer {
   background: #09192a;
   clear: left;
@@ -6536,6 +6590,12 @@ body footer .partners .col-xs-2 .nescent {
   height: 76px;
   text-indent: -10000px;
   overflow: hidden;
+}
+body #clone-modal .row {
+  margin-bottom: 0;
+}
+body #clone-modal .row .chosen-container {
+  width: 100% !important;
 }
 /* Global helpers */
 .full-width {

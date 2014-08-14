@@ -34,24 +34,40 @@
     @rockwell: Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
 
 
-body { background: url('../../../../../img/greyzz.png');
+body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @navy-alpha;
+
+  /* Typography / Global */
+
   h1 { font: 36px/24px @roboto, sans-serif; color: @navy; color: @navy-alpha; }
-  h2 { font: 27px/26px @rockwell, serif; color: @muted-blue; color: @muted-blue-alpha; }
-  h3 { font: 700 21px/35px @roboto, sans-serif; color: @orange; color: @orange-alpha; }
-  h4 { font: 18px/35px @roboto, sans-serif; color: @navy; color: @navy-alpha; }
+  h2, h2.panel-title a { font: 27px/26px @rockwell, serif; color: @muted-blue; color: @muted-blue-alpha; }
+  h3, h3.panel-title a { font: 400 21px/35px @roboto, sans-serif; color: @orange; color: @orange-alpha; text-transform: uppercase; }
+  h4 { font: 18px/35px @roboto, sans-serif; color: @navy; color: @navy-alpha; text-transform: uppercase; }
   h5 { font: 18px/35px @pt-sans, sans-serif; color: @dk-orange; color: @dk-orange-alpha; }
   h6 { font: 17px/26px @rockwell, serif; color: @orange; color: @orange-alpha; }
   p { font: 15px/19px @rockwell, serif; color: @navy; color: @navy-alpha; }
-  a { font: 15px/19px @rockwell, serif; color: @sky-blue; color: @sky-blue-alpha;
-    &:hover { color: @lt-blue; color: @lt-blue-alpha; }
+  a, a:active { font: 15px/19px @rockwell, serif; color: @sky-blue; color: @sky-blue-alpha;
+    &:hover { color: @orange; color: @orange-alpha; }
+    &:visited { color: @lt-blue; color: @lt-blue-alpha; }
   }
   hr { background: url('../../../../../img/hr.png') repeat-x; height: 2px; width: 100%; }
+  
+  /* Buttons */
+  
+  a.btn, .btn { color: @white; color: @white-alpha; font: 17px/26px @rockwell, serif; padding: 8px 23px; -webkit-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); -moz-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); border: 0; width: auto; border-radius: 0;
+  }
+  a.btn.btn-primary, .btn.btn-primary { background: @orange; background: @orange-alpha;
+    &:hover { background: @goldenrod; background: @goldenrod-alpha; }
+  }
+  a.btn.btn-default, .btn.btn-default { background: @goldenrod; background: @goldenrod-alpha;
+    &:hover { background: @orange; background: @orange-alpha; color: @white; color: @white-alpha; }
+  }
   form {
+    .row { margin-bottom: 20px; }
     label { font: 17px/26px @rockwell, serif; color: @orange; color: @orange-alpha;
       &.aligned { padding: 3px 10px 0 0; float: left; width: 8em; }
     }
     input, textarea { border: 1px solid @tan; border: 1px solid @tan-alpha; background: @lt-tan; background: @lt-tan-alpha; padding: 7px 10px; font: 13px/26px @roboto, sans-serif; color: @tan; color: @tan-alpha; width: 100%; }
-    button, input[type="button"], input[type="reset"], input[type="submit"] { background: @orange; background: @orange-alpha; color: @white; color: @white-alpha; font: 17px/26px @rockwell, serif; padding: 8px 23px; -webkit-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); -moz-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); border: 0; width: auto;
+    button, input[type="button"], input[type="reset"], input[type="submit"] { background: @orange; background: @orange-alpha; color: @white; color: @white-alpha; font: 17px/26px @rockwell, serif; padding: 8px 23px; -webkit-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); -moz-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); border: 0;
       &:hover { background: @goldenrod; background: @goldenrod-alpha; }
     }
   }
@@ -177,6 +193,15 @@ body { background: url('../../../../../img/greyzz.png');
         }
       }
     }
+    aside {
+      .upload-steps { border-left: 2px solid @muted-blue; border-left: 2px solid @muted-blue-alpha;
+        ul { padding-left: 0;
+          li { list-style-type: none; padding: 0 0 20px 0;
+            
+          }
+        }
+      }
+    }
   }
   footer { background: @dk-navy; background: @dk-navy-alpha; clear: left; border-bottom: 6px solid @orange; padding: 25px 0 42px 0;
     .logo { background: url('../../../../../img/footer-logo.png') no-repeat; width: 57px; height: 56px; display: block; text-indent: -10000px; overflow: hidden; margin: 0 0 12px 0; }
@@ -194,6 +219,13 @@ body { background: url('../../../../../img/greyzz.png');
         &:first-child { padding-left: 15px; }
         .partner1, .partner2, .partner3, .partner4, .partner5, .partner6 { display: block; border-radius: 38px; -webkit-border-radius: 38px; -moz-border-radius: 38px; border: 1px solid rgb(255,255,255); border: 1px solid rgba(255,255,255,1); width: 76px; height: 76px; text-indent: -10000px; overflow: hidden; }
         .nescent { display: block; background: url('../../../../../img/nescent.png') no-repeat; width: 76px; height: 76px; text-indent: -10000px; overflow: hidden; }
+      }
+    }
+  }
+  #clone-modal {
+    .row { margin-bottom: 0;
+      .chosen-container { width: 100% !important;
+
       }
     }
   }
