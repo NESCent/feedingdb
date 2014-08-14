@@ -5,6 +5,7 @@
     {% block extrastyle %}{% endblock %}
     <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% load feedmedia %}{% app_static_prefix %}css/ie.css{% endblock %}" /><![endif]-->
     <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}/src/less/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}js/chosen_v1.1.0/chosen.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=PT+Sans|Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -111,7 +112,7 @@
           </div>
         </div> <!-- /.container -->
       </footer>
-      
+      {% block modal %}{% endblock %}
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% app_static_prefix %}src/less/bootstrap/dist/js/bootstrap.min.js"></script>
