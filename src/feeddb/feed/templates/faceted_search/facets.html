@@ -1,0 +1,11 @@
+{% load faceted_search_extras %}
+{% spaceless %}
+{% for facet in facets %}
+    <div id='facet-{{facet.field}}' class='facet-group{% if facet.has_selected %} selected{% endif %} count-{{facet|length}}'>
+        <h4>{{ facet.label }}</h4>
+        <ul>
+            {% show_facet_items facet %}
+        </ul>
+    </div>
+{% endfor %}
+{% endspaceless %}
