@@ -1,5 +1,6 @@
 from haystack.indexes import SearchIndex, Indexable, CharField, DateTimeField, MultiValueField
-from feeddb.feed.models import Study, Subject, Experiment, Trial, Session
+from feeddb.feed.models import Study, Subject, Experiment, Trial, Session, Techniques
+
 def trial_muscles(obj):
     for channel in obj.session.channels.all():
         if hasattr(channel, 'emgchannel'):
@@ -47,6 +48,8 @@ class TrialIndex(SearchIndex, Indexable):
     behaviorowl_secondary_ancestors = MultiValueField(faceted=True)
     behaviorowl_secondary_part_of = MultiValueField(faceted=True)
 
+    techniques = MultiValueField(indexed=False, stored=True)
+
     # List of muscle labels for EMG and Sono sensors
     muscles_direct = MultiValueField()
 
@@ -56,6 +59,20 @@ class TrialIndex(SearchIndex, Indexable):
     # Muscles which members of `muscles_direct` are a part of, except when the same
     # muscle is already listed in `muscles`
     muscles_part_of = MultiValueField(faceted=True)
+
+    def prepare_techniques(self, obj):
+        technique_dict = dict(Techniques.CHOICES)
+        techniques = set()
+        for channel in obj.session.channels.all():
+            try:
+                techniques.add(technique_dict[channel.setup.technique])
+            except IndexError:
+                print "Unknown technique #%d for channel %s on trial %s" % (
+                    channel.setup.technique, channel, obj)
+
+        if DEBUG:
+            print "Techniques: %s" % sorted(techniques)
+        return sorted(techniques)
 
     @fail_with_return_value([])
     #@unicodeify_list
@@ -116,8 +133,9 @@ class TrialIndex(SearchIndex, Indexable):
         muscles_part_of = muscles_part_of.difference(muscles)
 
         self.prepared_data = super(TrialIndex, self).prepare(obj)
-        print "MUSCLES %s" % muscles
-        print "MUSCLES PART OF %s" % muscles_part_of
+        if DEBUG:
+            print "MUSCLES %s" % muscles
+            print "MUSCLES PART OF %s" % muscles_part_of
         self.prepared_data['muscles'] = list(muscles) if len(muscles) else None
         self.prepared_data['muscles_part_of'] = list(muscles_part_of) if len(muscles_part_of) else None
         self.prepared_data['muscles_direct'] = list(muscles_direct) if len(muscles_direct) else None
