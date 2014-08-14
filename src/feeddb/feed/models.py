@@ -239,6 +239,14 @@ class Study(FeedBaseModel):
     description = models.TextField()
     resources = models.TextField("External Resources", blank = True, null=True)
 
+    # Previously private fields
+    pi = models.CharField("PI", max_length=255, null=True)
+    organization = models.CharField(max_length=255, blank = True, null=True)
+    lab = models.CharField(max_length=255, blank = True, null=True)
+    funding = models.CharField(max_length=255, blank = True, null=True, help_text = "Funding agency, grant name, number, award date, etc.")
+    approval = models.CharField(max_length=255, blank = True, null=True,
+                                help_text = "A reference to approval documentation for Animal Care and Use or for Human Subjects, if it was secured.")
+
     def __unicode__(self):
         return self.title
     class Meta:
@@ -247,12 +255,6 @@ class Study(FeedBaseModel):
 
 class StudyPrivate(FeedBaseModel):
     study = models.ForeignKey(Study)
-    pi = models.CharField("PI", max_length=255)
-    organization = models.CharField(max_length=255, blank = True, null=True)
-    lab = models.CharField(max_length=255, blank = True, null=True)
-    funding = models.CharField(max_length=255, blank = True, null=True, help_text = "Funding agency, grant name, number, award date, etc.")
-    approval = models.CharField(max_length=255, blank = True, null=True,
-                                help_text = "A reference to approval documentation for Animal Care and Use or for Human Subjects, if it was secured.")
     notes = models.TextField( blank = True, null=True)
     class Meta:
         verbose_name = "Study - Private Information"
