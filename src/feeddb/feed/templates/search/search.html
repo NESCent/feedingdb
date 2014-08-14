@@ -112,3 +112,12 @@
 {% endif %}
 </form>
 {% endblock content %}
+
+{% block extra_js %}
+<script>
+// TODO: add spinner graphiczzz!!
+jQuery(document).on('ready', function() {
+  $('form :input').on('change', function() { this.form.submit(); });
+});
+</script>
+{% endblock extra_js %}
