@@ -2,13 +2,13 @@
 {% for item in facet.items %}
      {% ifequal item.count 0 %}
          {% comment %}
-            <li class='zero'>{{item.label}}<span>({{item.count}})</li>
+            <option class='zero'>{{item.label}}<span>({{item.count}})</option>
          {% endcomment %}
      {% else %}
         {% if item.is_selected %}
-            <li class="selected">{{ item.label }} <a href='{{ item.removal_url }}' ceid="{{item.label}}">(-)</span></a></li>
+            <option class="selected">{{ item.label }} <a href='{{ item.removal_url }}' ceid="{{item.label}}">(-)</span></a></option>
         {% else %}
-            <li><a href='{{item.url}}' ceid="{{item.label}}">{{item.label}} <span>({{item.count}})</span></a></li>
+            <option><a href='{{item.url}}' ceid="{{item.label}}">{{item.label}} <span>({{item.count}})</span></a></option>
         {% endif %}
     {%endifequal%}
 {% endfor %}

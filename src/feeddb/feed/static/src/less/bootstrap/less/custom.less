@@ -131,7 +131,12 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
   &.search {
     h1 { text-align: center; }
     p { margin-top: 30px; }
-    table { margin-top: 0; }
+    table { margin-top: 0;
+      &.search-box { border: 0;
+        th { border: 0; }
+        td { border: 0; }
+      }
+    }
     aside { border-right: 2px solid #ccc;
       form { margin-top: 20px;
         label { display: block; }

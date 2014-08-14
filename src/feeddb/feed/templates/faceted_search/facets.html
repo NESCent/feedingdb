@@ -2,10 +2,12 @@
 {% spaceless %}
 {% for facet in facets %}
     <div id='facet-{{facet.field}}' class='facet-group{% if facet.has_selected %} selected{% endif %} count-{{facet|length}}'>
-        <h4>{{ facet.label }}</h4>
-        <ul>
-            {% show_facet_items facet %}
-        </ul>
+      <form action="">
+        <label>{{ facet.label }}</label>
+        <select class="chosen-select" multiple>
+          {% show_facet_items facet %}
+        </select>
+      </form>
     </div>
 {% endfor %}
 {% endspaceless %}
