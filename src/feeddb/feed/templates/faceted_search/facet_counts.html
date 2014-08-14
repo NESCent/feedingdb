@@ -1,14 +1,8 @@
 {% load faceted_search_extras %}
 {% for item in facet.items %}
-     {% ifequal item.count 0 %}
-         {% comment %}
-            <option class='zero'>{{item.label}}<span>({{item.count}})</option>
-         {% endcomment %}
-     {% else %}
-        {% if item.is_selected %}
-            <option class="selected">{{ item.label }} <a href='{{ item.removal_url }}' ceid="{{item.label}}">(-)</span></a></option>
-        {% else %}
-            <option><a href='{{item.url}}' ceid="{{item.label}}">{{item.label}} <span>({{item.count}})</span></a></option>
-        {% endif %}
-    {%endifequal%}
+    {% if item.is_selected %}
+        <option class="selected" selected value="{{item.value}}">{{ item.label }}</option>
+    {% else %}
+        <option value="{{item.value}}">{{item.label}} ({{item.count}})</option>
+    {% endif %}
 {% endfor %}

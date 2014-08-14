@@ -34,6 +34,14 @@ class FeedSearchView(FacetedSearchView):
             if item.count == 0 or int(item.count) == int(result_count):
                 items.items.remove(item)
 
+    def build_page(self):
+        try:
+            self.results_per_page = int(self.form.cleaned_data['per_page'])
+        except AttributeError: # cleaned_data doesn't exist
+            pass
+
+        return super(FeedSearchView, self).build_page()
+
     def extra_context(self):
         extra = super(FeedSearchView, self).extra_context()
         # trim down the facet_items: remove facets that don't supply extra constrictions
