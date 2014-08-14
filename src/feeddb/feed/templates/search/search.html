@@ -10,8 +10,8 @@
 {% block content_title %}<p class="col-xs-10 col-xs-offset-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis ullamcorper velit. Praesent hendrerit mauris et luctus lacinia. Cras ac ornare quam, vitae vulputate libero. Nullam volutpat mauris tincidunt pretium lacinia. Phasellus posuere aliquam sem sit amet facilisis. Quisque placerat elit eu est adipiscing, a porttitor libero laoreet. Nunc posuere adipiscing mauris, sit amet tempus augue tincidunt ac. Duis porta arcu sed leo bibendum interdum. To access data contained within the XMA portal please click <a href="http://xmaportal.org">here</a>.</p>{% endblock %}
 
 {% block content %}
+<form method="get" action=".">
 <div class="row">
-  <form method="get" action=".">
     <table class="search-box table col-xs-12">
       <!-- {{ form.as_table }} -->
       <tbody>
@@ -28,7 +28,6 @@
         </tr>
       </tbody>
     </table>
-  </form>
 </div>
 <div class="row">
   <div class="col-xs-12">
@@ -36,7 +35,7 @@
   </div>
 </div>
 
-  {% if page or query %}
+{% if page or query %}
 
 <div class="row">
   <div class="col-xs-3">
@@ -53,13 +52,7 @@
       </div>
       <div class="records-list col-xs-5 col-xs-offset-2 col-lg-4 col-lg-offset-4">
         <p>Records to display:</p>
-        <ul>
-          <li><a href="">10</a></li>
-          <li><a href="">30</a></li>
-          <li><a href="">50</a></li>
-          <li><a href="">100</a></li>
-          <li><a href="">200</a></li>
-        </ul>
+        {{ form.per_page }}
       </div>
     </div>
     <table>
@@ -97,40 +90,12 @@
     <div class="row">
       <div class="records-selection col-xs-8 col-xs-offset-2 col-lg-6 col-lg-offset-3">
         <p>Add selected records to collection:</p>
-        <form action="">
-          <select class="chosen-select">
-            <option>Existing collection</option>
-            <option>Add new collection</option>
-          </select>
-        </form>
+        <select class="chosen-select">
+          <option>Existing collection</option>
+          <option>Add new collection</option>
+        </select>
       </div>
     </div>
-
-<!--
-        {% for result in page.object_list %}
-
-      <div class="result" style="border: solid black; margin: 0.5em; padding: 0.5em;">
-        Muscles (direct): <br />
-        <ul>
-          {% for label in result.muscles_direct %}
-            <li>{{ label }}</li>
-          {% endfor %}
-        </ul>
-        Muscles (subclass expanded): <br />
-        <ul>
-          {% for label in result.muscles %}
-            <li>{{ label }}</li>
-          {% endfor %}
-        </ul>
-        Trial title: {{ result.object.title }}<br />
-        Session title: {{ result.object.session.title }}<br />
-        Experiment title: {{ result.object.session.experiment.title }}<br />
-        Study title: {{ result.object.session.experiment.study.title }}<br />
-      </div>
-    {% empty %}
-    <p>No results found.</p>
-  {% endfor %}
--->
 
   {% if page.has_previous or page.has_next %}
     <div class="row">
@@ -140,10 +105,10 @@
         {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
       </div>
     </div>
+  {% endif %}
   </div>
-  {% endif %}
-  {% else %}
+{% else %}
   {# Show some example queries to run, maybe query syntax, something else? #}
-  {% endif %}
+{% endif %}
 </form>
 {% endblock content %}
