@@ -79,9 +79,13 @@
           <td class="choose"><input type="checkbox" name="viewby" value="blank" /></td>
           <td class="column2"><a href="">{{ result.object.title }}</a></td>
           <td class="column3"><a href="">6-19-2001</a></td> 
-          <td class="column4"><a href="">Lemur catta</a></td>
-          <td class="column5"><a href="">Mastication</a></td>
-          <td class="column6"><a href="">EMG</a></td>
+          <td class="column4"><a href="">{{ result.object.session.experiment.subject.taxon }}</a></td>
+          <td class="column5"><a href="">Mastication (static)</a></td>
+          <td class="column6">
+            {% for label in result.techniques %}
+              <a href="">{{ label }}</a>
+            {% endfor %}
+          </td>
           <td class="column7">{% for label in result.muscles_direct %}<a href="/{{ label }}">{{ label }}</a> {% endfor %}</td>
           <td class="column8"><a href="">Gummy Bear</a></td>
           <td class="column9"><a href="">collection-1</a></td>
