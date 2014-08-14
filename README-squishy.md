@@ -51,10 +51,10 @@ The [canonical correspondence](https://docs.google.com/a/squishymedia.com/spread
 ./manage.py loadmusclecorrespondence ../data/al_muscles_correspondence.csv
 ```
 
-Then you need to rerun the migration.
+Then you need to rerun migration 66 by going back to 65 and then forward again.
 
 ```
-./manage.py migrate feed 0066
+./manage.py migrate feed 0065
 ./manage.py migrate feed
 ```
 
