@@ -1,3 +1,4 @@
+  {% csrf_token %}
   {% for field in form.visible_fields %}
             {# Include the hidden fields in the form #}
             {% if forloop.first %}

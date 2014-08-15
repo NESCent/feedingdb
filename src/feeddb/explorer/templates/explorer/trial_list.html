@@ -51,6 +51,7 @@ function sort(field){
 <div class="module" id="changelist">
 
 <form action = "{% url "explorer.views.trial_search_put" %}" method="POST" id="trial_form" name ="trial_form">
+{% csrf_token %}
 <table>
 	<caption>Total records found: {{total}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;click header to sort results</caption>
 <tr><td  colspan = "8">
