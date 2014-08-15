@@ -81,7 +81,11 @@
           </td>
           <td class="column7">{% for label in result.muscles_direct %}<a href="/{{ label }}">{{ label }}</a> {% endfor %}</td>
           <td class="column8"><a href="">{{ result.object.food_type }}</a></td>
-          <td class="column9"><a href="">collection-1 FIXME</a></td>
+          <td class="column9">
+            {% for bucket in result.object.bucket_set.all %}
+              <a href="">{{ bucket }}{% if not forloop.last %}, {% endif %}</a>
+            {% endfor %}
+          </td>
         </tr>
         {% empty %}
           <p>No results found.</p>
