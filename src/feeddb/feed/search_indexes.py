@@ -1,5 +1,9 @@
 from haystack.indexes import SearchIndex, Indexable, CharField, DateTimeField, MultiValueField
 from feeddb.feed.models import Study, Subject, Experiment, Trial, Session, Techniques
+from django.conf import settings
+
+import logging
+logger = logging.getLogger(__name__)
 
 def trial_muscles(obj):
     for channel in obj.session.channels.all():
@@ -70,7 +74,7 @@ class TrialIndex(SearchIndex, Indexable):
                 print "Unknown technique #%d for channel %s on trial %s" % (
                     channel.setup.technique, channel, obj)
 
-        if DEBUG:
+        if settings.DEBUG:
             print "Techniques: %s" % sorted(techniques)
         return sorted(techniques)
 
@@ -133,13 +137,17 @@ class TrialIndex(SearchIndex, Indexable):
         muscles_part_of = muscles_part_of.difference(muscles)
 
         self.prepared_data = super(TrialIndex, self).prepare(obj)
-        if DEBUG:
+        if settings.DEBUG:
             print "MUSCLES %s" % muscles
             print "MUSCLES PART OF %s" % muscles_part_of
         self.prepared_data['muscles'] = list(muscles) if len(muscles) else None
         self.prepared_data['muscles_part_of'] = list(muscles_part_of) if len(muscles_part_of) else None
         self.prepared_data['muscles_direct'] = list(muscles_direct) if len(muscles_direct) else None
         return self.prepared_data
+
+    def load_all_queryset(self):
+        logger.info('load all qs')
+        return Trial.objects.all().prefetch_related('session__experiment__subject__taxon', 'bucket_set')
 
     def get_model(self):
         return Trial
