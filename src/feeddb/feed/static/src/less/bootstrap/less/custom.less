@@ -134,13 +134,15 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
     table { margin-top: 0;
       &.search-box { border: 0;
         th { border: 0; }
-        td { border: 0; }
+        td { border: 0;
+          &.choose { padding: 2px; }
+        }
       }
     }
-    aside { border-right: 2px solid #ccc;
+    aside { border-right: 2px solid #ccc; min-height: 300px;
       form { margin-top: 20px;
         label { display: block; }
-        .chosen-container-multi { width: 86% !important; }
+        .chosen-container { width: 86% !important; }
       }
     }
   }
