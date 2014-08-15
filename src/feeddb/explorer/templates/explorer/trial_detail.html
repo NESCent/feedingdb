@@ -284,7 +284,7 @@ function bucket_changed(obj){
 }
 </script>
 
-Put this trial into my bucket: <form action="{% url "explorer.views.trial_add" trial.id %} " method="POST">
+Put this trial into my bucket: <form action="{% url "trial_add" trial.id %} " method="POST">
 <select name="bucket_id" onchange="bucket_changed(this)">
 <option value=""></option>
 {% for bucket in user.bucket_related.all %}
