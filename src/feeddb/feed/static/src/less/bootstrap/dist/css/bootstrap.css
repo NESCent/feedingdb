@@ -6337,7 +6337,7 @@ body nav ul li a:hover {
   color: #ceeded;
 }
 body .masthead {
-  padding: 32px;
+  padding: 32px 0;
 }
 body.home h1 {
   text-align: center;
@@ -6410,33 +6410,40 @@ body.search h1 {
 body.search p {
   margin-top: 30px;
 }
+body.search form .row {
+  margin-bottom: 0;
+}
 body.search table {
   margin-top: 0;
 }
 body.search table.search-box {
   border: 0;
+  background: transparent;
 }
 body.search table.search-box th {
   border: 0;
 }
+body.search table.search-box th label {
+  padding-top: 5px;
+}
 body.search table.search-box td {
   border: 0;
-}
-body.search table.search-box td.choose {
-  padding: 2px;
 }
 body.search aside {
   border-right: 2px solid #ccc;
   min-height: 300px;
 }
-body.search aside form {
-  margin-top: 20px;
+body.search aside .facet-group {
+  margin-bottom: 30px;
 }
-body.search aside form label {
+body.search aside .facet-group label {
   display: block;
 }
-body.search aside form .chosen-container {
+body.search aside .facet-group .chosen-container-multi {
   width: 86% !important;
+}
+body.search aside .facet-group .chosen-container-multi .chosen-choices {
+  padding: 5px;
 }
 body.collection form label,
 body.collection form span {
@@ -6466,6 +6473,9 @@ body main {
 body main .records-number p {
   margin: 0;
 }
+body main .records-list {
+  margin-top: 30px;
+}
 body main .records-list p {
   float: left;
   margin: 0;
@@ -6479,22 +6489,33 @@ body main .records-list ul li {
   list-style: none;
   padding-left: 8px;
 }
+body main .records-list ul#id_per_page li label {
+  position: relative;
+  display: block;
+  width: 46px;
+  text-align: left;
+  padding: 0 0 0 22px;
+}
+body main .records-list ul#id_per_page li label input {
+  position: absolute;
+  left: 0;
+  width: 20px;
+}
 body main table {
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
   width: 100%;
   margin: 0 0 30px 0;
+  background: #ffffff;
 }
 body main table th {
-  border-right: 1px solid black;
-  padding: 0 1%;
-  border-bottom: 1px solid black;
   font-size: 13px;
 }
-body main table td {
-  border-right: 1px solid black;
-  padding: 1%;
+body main table th.choose {
+  padding: 8px;
+  width: 30px;
+}
+body main table td.choose {
+  padding: 8px;
+  width: 30px;
 }
 body main table td a {
   font-size: 12px;
@@ -6504,13 +6525,16 @@ body main .records-selection {
 }
 body main .records-selection p {
   float: left;
-  margin: 0;
+  margin: 6px 20px 0 0;
 }
-body main .records-selection form {
-  float: right;
+body main .records-selection .chosen-container-single {
+  float: left;
+  display: block;
+  margin: 5px 20px 0 0;
 }
-body main .records-selection form .chosen-container-single {
-  width: 200px !important;
+body main .records-selection input {
+  padding: 4px 19px;
+  float: left;
 }
 body main .records-pagination {
   margin-bottom: 20px;

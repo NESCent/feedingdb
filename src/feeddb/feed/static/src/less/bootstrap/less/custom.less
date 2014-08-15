@@ -88,7 +88,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       }
     }
   }
-  .masthead { padding: 32px;
+  .masthead { padding: 32px 0;
     
   }
   &.home {
@@ -131,18 +131,23 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
   &.search {
     h1 { text-align: center; }
     p { margin-top: 30px; }
+    form {
+      .row { margin-bottom: 0; }
+    }
     table { margin-top: 0;
-      &.search-box { border: 0;
-        th { border: 0; }
-        td { border: 0;
-          &.choose { padding: 2px; }
+      &.search-box { border: 0; background: transparent;
+        th { border: 0;
+          label { padding-top: 5px; }
         }
+        td { border: 0; }
       }
     }
     aside { border-right: 2px solid #ccc; min-height: 300px;
-      form { margin-top: 20px;
+      .facet-group { margin-bottom: 30px;
         label { display: block; }
-        .chosen-container { width: 86% !important; }
+        .chosen-container-multi { width: 86% !important;
+          .chosen-choices { padding: 5px; }
+        }
       }
     }
   }
@@ -164,34 +169,41 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
     .records-number {
       p { margin: 0; }
     }
-    .records-list {
+    .records-list { margin-top: 30px;
       p { float: left; margin: 0; }
       ul { float: right; padding-left: 0;
         li { float: left; list-style: none; padding-left: 8px;
           a {  }
         }
+        &#id_per_page {
+          li {
+            label { position: relative; display: block; width: 46px; text-align: left; padding: 0 0 0 22px;
+              input { position: absolute; left: 0; width: 20px; }
+            }
+          }
+        }
       }
     }
-    table { border-top: 1px solid black; border-bottom: 1px solid black; border-left: 1px solid black; width: 100%; margin: 0 0 30px 0;
-      th { border-right: 1px solid black; padding: 0 1%; border-bottom: 1px solid black; font-size: 13px;
-        &.choose {  }
+    table { width: 100%; margin: 0 0 30px 0; background: @white; background: @white-alpha;
+      th { font-size: 13px;
+        &.choose { padding: 8px; width: 30px; }
         &.column2 {  }
         &.column3 {  }
         &.column9 {  }
       }
-      td { border-right: 1px solid black; padding: 1%;
+      td { 
         &.choose {  }
         &.column2 {  }
         &.column3 {  }
         &.column9 {  }
+        &.choose { padding: 8px; width: 30px; }
         a { font-size: 12px; }
       }
     }
     .records-selection { margin-bottom: 30px;
-      p { float: left; margin: 0; }
-      form { float: right;
-        .chosen-container-single { width: 200px !important; }
-      }
+      p { float: left; margin: 6px 20px 0 0; }
+      .chosen-container-single { float: left; display: block; margin: 5px 20px 0 0; }
+      input { padding: 4px 19px; float: left; }
     }
     .records-pagination { margin-bottom: 20px;
       ul { padding-left: 0; width: 262px; margin: 0 auto;
