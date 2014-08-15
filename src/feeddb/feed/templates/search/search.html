@@ -10,7 +10,8 @@
 {% block content_title %}<p class="col-xs-10 col-xs-offset-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis ullamcorper velit. Praesent hendrerit mauris et luctus lacinia. Cras ac ornare quam, vitae vulputate libero. Nullam volutpat mauris tincidunt pretium lacinia. Phasellus posuere aliquam sem sit amet facilisis. Quisque placerat elit eu est adipiscing, a porttitor libero laoreet. Nunc posuere adipiscing mauris, sit amet tempus augue tincidunt ac. Duis porta arcu sed leo bibendum interdum. To access data contained within the XMA portal please click <a href="http://xmaportal.org">here</a>.</p>{% endblock %}
 
 {% block content %}
-<form method="get" action=".">
+<form method="post" action=".">
+{% csrf_token %}
 <div class="row">
     <table class="search-box table col-xs-12">
       <!-- {{ form.as_table }} -->
@@ -69,7 +70,7 @@
       </tr>
       {% for result in page.object_list %}
         <tr>
-          <td class="choose"><input type="checkbox" name="viewby" value="blank" /></td>
+          <td class="choose"><input type="checkbox" name="trial" value="{{ result.object.id }}" /></td>
           <td class="column2"><a href="">{{ result.object.title }}</a></td>
           <td class="column3"><a href="">{{ result.object.start | date:"M j, Y" | default:"unknown" }}</a></td>
           <td class="column4"><a href="">{{ result.object.session.experiment.subject.taxon }}</a></td>
@@ -87,17 +88,21 @@
             {% endfor %}
           </td>
         </tr>
-        {% empty %}
-          <p>No results found.</p>
+      {% empty %}
+        <p>No results found.</p>
       {% endfor %}
     </table>
     <div class="row">
       <div class="records-selection col-xs-8 col-xs-offset-2 col-lg-6 col-lg-offset-3">
         <p>Add selected records to collection:</p>
-        <select class="chosen-select">
-          <option>Existing collection</option>
-          <option>Add new collection</option>
+        <select class="chosen-select" name="bucket">
+          <option value=""> - Select - </option>
+          {% for bucket in user.bucket_related.all %}
+            <option value="{{bucket.id}}">{{bucket}}</option>
+          {% endfor %}
+          <option value="add new bucket">add new bucket</option>
         </select>
+        <input type="submit" name="put_bucket" value="add to bucket" />
       </div>
     </div>
 

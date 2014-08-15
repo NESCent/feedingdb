@@ -143,12 +143,6 @@ class Searcher(object):
             if key in self.indexed_fields and value:
                 filter_list.append( (key, value) )
 
-        import logging
-        logger = logging.getLogger(__name__)
-
-        logger.info(filter_list)
-        logger.info(filters)
-
         return filter_list
 
     def _facets(self):
