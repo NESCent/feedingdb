@@ -17,6 +17,7 @@ from feeddb.explorer.models import *
 from feeddb.feed.models import *
 from feeddb.explorer.forms import *
 from django.conf import settings
+from django.contrib import messages
 
 def portal_page(request):
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'content': 'Welcome!'  })
@@ -40,18 +41,15 @@ def bucket_add(request):
         if form.is_valid():
             form.instance.created_by = request.user
             form.save()
-            message = "successfully added the bucket."
-            request.user.message_set.create(message=message)
+            messages.success(request, "successfully added the bucket.")
             c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
             return render_to_response('explorer/bucket_detail.html', c)
         else:
-            message = "failed to add the bucket."
+            messages.error(request, "failed to add the bucket.")
     else:
         bucket = Bucket()
         form = BucketModelForm(instance=bucket)
     
-    if message!=None:
-        request.user.message_set.create(message=message)
     c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
     return render_to_response('explorer/bucket_add.html', c)
 
@@ -61,16 +59,16 @@ def bucket_delete(request, id):
     try:
         bucket = Bucket.objects.get(pk=id)
     except Bucket.DoesNotExist:
-        request.user.message_set.create(message='Bucket with primary key %s does not exist.' % id)
+        messages.error(request, 'Bucket with primary key %s does not exist.' % id)
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
     #check if the user is the owner of the bucket. If not return error page 
     if bucket.created_by.pk != request.user.pk:
-        request.user.message_set.create(message='Sorry, you are not allowed to delete a bucket owned by another user.')
+        messages.error(request, 'Sorry, you are not allowed to delete a bucket owned by another user.')
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
     bucket.delete()
-    request.user.message_set.create(message='successfully deleted the bucket:%s' % bucket)
+    messages.success(request, 'successfully deleted the bucket:%s' % bucket)
     return HttpResponseRedirect('/explorer/bucket/')
 
 # VG-claim: Finishing this view in the 1st pass needs only  
@@ -83,13 +81,13 @@ def bucket_detail(request, id):
     try:
         bucket = Bucket.objects.get(pk=id)
     except Bucket.DoesNotExist:
-        request.user.message_set.create(message='Bucket with primary key %s does not exist.' % id)
+        messages.error(request, 'Bucket with primary key %s does not exist.' % id)
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
 
     #check if the user is the owner of the bucket. If not return error page 
     if bucket.created_by.pk != request.user.pk:
-        request.user.message_set.create(message='Sorry, you are not allowed to view/edit a bucket owned by another user.')
+        messages.error(request, 'Sorry, you are not allowed to view/edit a bucket owned by another user.')
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
         
@@ -97,14 +95,12 @@ def bucket_detail(request, id):
         form = BucketModelForm(request.POST, instance=bucket)
         if form.is_valid():
             form.save()
-            message = "successfully updated update the record."
+            messages.success(request, "successfully updated update the record.")
         else:
-            message = "failed to update the record."
+            messages.error(request, "failed to update the record.")
     else:
         form = BucketModelForm(instance=bucket)
     
-    if message!=None:
-        request.user.message_set.create(message=message)
     c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
     return render_to_response('explorer/bucket_detail.html', c)
 
@@ -115,15 +111,14 @@ def bucket_download(request, id):
     try:
         bucket = Bucket.objects.get(pk=id)
     except Bucket.DoesNotExist:
-        request.user.message_set.create(message='Bucket with primary key %s does not exist.' % id)
+        messages.error(request, 'Bucket with primary key %s does not exist.' % id)
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
 
     if request.method=='POST':
         zipfile_name= request.POST['zipfile_name']
         if zipfile_name=="":
-            message = 'no zip file name selected.'
-            request.user.message_set.create(message=message)
+            messages.error(request, 'no zip file name selected.')
             c = RequestContext(request, {'title': 'FeedDB Explorer'})
             return render_to_response('explorer/base.html', c)
         if not zipfile_name.endswith(".zip"):   
@@ -149,8 +144,7 @@ def bucket_download(request, id):
                 field_selected.append(item[0])
                 message += item[0]+"\n"
         if  (download_choice=="0" or  download_choice=="2") and  len(field_selected) ==0:
-            message = 'no fields selected.'
-            request.user.message_set.create(message=message)
+            messages.error(request, 'no fields selected.')
             c = RequestContext(request, {'title': 'FeedDB Explorer'})
             return render_to_response('explorer/base.html', c)
         meta_selected = {}
@@ -169,8 +163,7 @@ def bucket_download(request, id):
                 channel_selected.append(item[0])
                 message += item[0]+"\n"
         if  (channel_choice=="1" and len(channel_selected) ==0):
-            message = 'no channels selected.'
-            request.user.message_set.create(message=message)
+            messages.error(request, 'no channels selected.')
             c = RequestContext(request, {'title': 'FeedDB Explorer'})
             return render_to_response('explorer/base.html', c)
         channel_download = []
@@ -191,8 +184,7 @@ def bucket_download(request, id):
         try:
             os.makedirs(tempdir)
         except OSError, err:
-            message = 'failed to create folder for storing downloaded files.'
-            request.user.message_set.create(message=message)
+            messages.error(request, 'failed to create folder for storing downloaded files.')
             c = RequestContext(request, {'title': 'FeedDB Explorer'})
             return render_to_response('explorer/base.html', c)
         
@@ -389,8 +381,7 @@ def bucket_download(request, id):
                     for ch in channel_download:
                         if ch[0] in rows:
                             if int(ch[1]) > len(rows[ch[0]]):
-                                message = "Error in channel lineup positions for trial: %s" % ch[0]
-                                request.user.message_set.create(message=message)
+                                messages.error(request, "Error in channel lineup positions for trial: %s" % ch[0])
                                 c = RequestContext(request, {'title': 'FeedDB Explorer'})
                                 return render_to_response('explorer/base.html', c)
                             newrow.append(rows[ch[0]][int(ch[1])-1])
@@ -404,8 +395,6 @@ def bucket_download(request, id):
         os.rmdir(tempdir)
         return response
     #end of if request.POST
-    if message!=None and message!="":
-        request.user.message_set.create(message=message)
     meta_forms =[]
     meta_forms.append(StudyModelForm())
     meta_forms.append(SubjectModelForm())
@@ -507,16 +496,14 @@ def trial_search_put(request):
         if(item[1]=="on"):
             trial_selected.append(item[0])
     if len(trial_selected) ==0:
-        message = 'no trial selected.'
-        request.user.message_set.create(message=message)
+        messages.error(request, 'no trial selected.')
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no trial selected.'})
         return render_to_response('explorer/base.html', c)
     #check if new bucket selected
     bucket = None
     bucket_selected = request.POST['bucket']
     if bucket_selected ==None or bucket_selected =="":
-        message = 'no bucket selected.'
-        request.user.message_set.create(message=message)
+        messages.error(request, 'no bucket selected.')
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no bucket selected.'})
         return render_to_response('explorer/base.html', c)
     if request.POST['bucket']!='add new bucket':
@@ -539,7 +526,7 @@ def trial_search_put(request):
             assoc = TrialInBucket(trial=trial, bin = bucket)
             assoc.save()
     
-    request.user.message_set.create(message='successfully put the selected trials to the bucket')
+    messages.success(request, 'successfully put the selected trials to the bucket')
     return HttpResponseRedirect('/explorer/bucket/%s/' % bucket.id)
 
 def bucket_remove_trials(request, id):
@@ -551,17 +538,17 @@ def bucket_remove_trials(request, id):
         if(item[1]=="on"):
             trial_selected.append(item[0])
     if len(trial_selected) ==0:
-        request.user.message_set.create(message='no trials selected')
+        messages.error(request, 'no trials selected')
         return HttpResponseRedirect('/explorer/bucket/%s/' % id)
     #check if bucket exists
     try:
         bucket = Bucket.objects.get(pk=id)
     except Trial.DoesNotExist:
-        request.user.message_set.create(message='Bucket with primary key %(key)r does not exist.' % {'key': escape(id)})
+        messages.error(request, 'Bucket with primary key %(key)r does not exist.' % {'key': escape(id)})
         return HttpResponseRedirect('/explorer/bucket/%s/' % id)
     #check if the user is the owner of the bucket. If not return error page 
     if bucket.created_by.pk != request.user.pk:
-        request.user.message_set.create(message='Sorry, you are not allowed to change a bucket owned by another user.')
+        messages.error(request, 'Sorry, you are not allowed to change a bucket owned by another user.')
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
     #remove trials from the bucket
@@ -570,7 +557,7 @@ def bucket_remove_trials(request, id):
         assocs = TrialInBucket.objects.filter(Q(trial__id__exact=trial_id) & Q(bin__id__exact=bucket.id))
         for assoc in assocs:
             assoc.delete()
-    request.user.message_set.create(message='successfully removed the selected trials from the bucket')
+    messages.success(request, 'successfully removed the selected trials from the bucket')
     return HttpResponseRedirect('/explorer/bucket/%s/' % id)
     
 def trial_detail(request, id): 
@@ -590,30 +577,30 @@ def trial_remove(request, id, bucket_id):
     try:
         trial = Trial.objects.get(pk=id)
     except Trial.DoesNotExist:
-        request.user.message_set.create(message='Trial with primary key %(key)r does not exist.' % {'key': escape(id)})
+        messages.error(request, 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)})
         c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
         return render_to_response('explorer/base.html', c)
 
     try:
         bucket = Bucket.objects.get(pk=bucket_id)
     except Bucket.DoesNotExist:
-        request.user.message_set.create(message='Bucket with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
+        messages.error(request, 'Bucket with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
         return HttpResponseRedirect('/explorer/trial/%s/' % id)
 
     #check if the user is the owner of the bucket. If not return error page 
     if bucket.created_by.pk != request.user.pk:
-        request.user.message_set.create(message='Sorry, you are not allowed to change a bucket owned by another user.')
+        messages.error(request, 'Sorry, you are not allowed to change a bucket owned by another user.')
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
             
     try:
         assoc = TrialInBucket.objects.filter(Q(trial__id__exact=id) & Q(bin__id__exact=bucket_id))
     except TrialInBucket.DoesNotExist:
-        request.user.message_set.create(message='Trial: %s is not in the bucket: %s.' % (trial, bucket))
+        messages.error(request, 'Trial: %s is not in the bucket: %s.' % (trial, bucket))
         return HttpResponseRedirect('/explorer/trial/%s/' % id)
     
     assoc.delete()
-    request.user.message_set.create(message='Trial: %s has been successfully removed from the bucket: %s.' % (trial, bucket))
+    messages.error(request, 'Trial: %s has been successfully removed from the bucket: %s.' % (trial, bucket))
     return HttpResponseRedirect('/explorer/trial/%s/' % id)
 
 def trial_add(request, id):
@@ -628,23 +615,23 @@ def trial_add(request, id):
         if request.POST['bucket_id']!='add new bucket':
             bucket_id = request.POST['bucket_id']
             if bucket_id==None or bucket_id =="":
-                request.user.message_set.create(message='no bucket specified')
+                messages.error(request, 'no bucket specified')
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
             try:
                 bucket = Bucket.objects.get(pk=bucket_id)
             except Bukcet.DoesNotExist:
-                request.user.message_set.create(message='Bucket with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
+                messages.error(request, 'Bucket with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
             #check if the user is the owner of the bucket. If not return error page 
             if bucket.created_by.pk != request.user.pk:
-                request.user.message_set.create(message='Sorry, you are not allowed to change a bucket owned by another user.')
+                messages.error(request, 'Sorry, you are not allowed to change a bucket owned by another user.')
                 c = RequestContext(request, {'title': 'FeedDB Explorer'})
                 return render_to_response('explorer/base.html', c)
  
         else: 
             new_bucket_name=request.POST['new_bucket_name']
             if new_bucket_name==None and new_bucket_name =="":
-                request.user.message_set.create(message='no new bucket name specified')
+                messages.error(request, 'no new bucket name specified')
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
             else:
                 bucket = Bucket()
@@ -655,12 +642,12 @@ def trial_add(request, id):
         #check if bucket already contains the trial
         assocs = TrialInBucket.objects.filter(Q(trial__id__exact=id) & Q(bin__id__exact=bucket.id))
         if len(assocs) >0:
-                request.user.message_set.create(message='trial already in the bucket')
+                messages.error(request, 'trial already in the bucket')
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
         #add trials to the bucket
         assoc = TrialInBucket(trial=trial, bin = bucket)
         assoc.save()
-        request.user.message_set.create(message='Trial: %s has been successfully added to the bucket: %s.' % (trial, bucket))
+        messages.success(request, 'Trial: %s has been successfully added to the bucket: %s.' % (trial, bucket))
         return HttpResponseRedirect('/explorer/trial/%s/' % id)
 
 def send_file(request, filename):
