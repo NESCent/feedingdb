@@ -146,7 +146,6 @@ class TrialIndex(SearchIndex, Indexable):
         return self.prepared_data
 
     def load_all_queryset(self):
-        logger.info('load all qs')
         return Trial.objects.all().prefetch_related('session__experiment__subject__taxon', 'bucket_set')
 
     def get_model(self):
