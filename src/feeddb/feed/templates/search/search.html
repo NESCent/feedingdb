@@ -73,7 +73,7 @@
       {% for result in page.object_list %}
         <tr>
           <td class="choose"><input type="checkbox" name="{{ result.object.id }}" value="on" /></td>
-          <td class="column2"><a href="">{{ result.object.title }}</a></td>
+          <td class="column2"><a href="{% url 'trial_detail' result.object.id %}">{{ result.object.title }}</a></td>
           <td class="column3"><a href="">{{ result.object.start | date:"M j, Y" | default:"unknown" }}</a></td>
           <td class="column4"><a href="">{{ result.object.session.experiment.subject.taxon }}</a></td>
           <td class="column5"><a href="">Mastication (FIXME)</a></td>
