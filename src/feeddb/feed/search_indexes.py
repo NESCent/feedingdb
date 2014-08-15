@@ -37,8 +37,10 @@ class TrialIndex(SearchIndex, Indexable):
     experiment_title = CharField(model_attr='session__experiment__title')
     study_title = CharField(model_attr='session__experiment__study__title')
 
+    taxon = CharField(model_attr='session__experiment__subject__taxon', faceted=True)
+
     #accession = CharField(model_attr='accession', null=True)
-    food_type = CharField(model_attr='food_type', null=True)
+    food_type = CharField(model_attr='food_type', null=True, faceted=True)
     food_size = CharField(model_attr='food_size', null=True)
     food_property = CharField(model_attr='food_property', null=True)
 
@@ -52,7 +54,7 @@ class TrialIndex(SearchIndex, Indexable):
     behaviorowl_secondary_ancestors = MultiValueField(faceted=True)
     behaviorowl_secondary_part_of = MultiValueField(faceted=True)
 
-    techniques = MultiValueField(indexed=False, stored=True)
+    techniques = MultiValueField(indexed=False, stored=True, faceted=True)
 
     # List of muscle labels for EMG and Sono sensors
     muscles_direct = MultiValueField()
@@ -146,7 +148,7 @@ class TrialIndex(SearchIndex, Indexable):
         return self.prepared_data
 
     def load_all_queryset(self):
-        return Trial.objects.all().prefetch_related('session__experiment__subject__taxon', 'bucket_set')
+        return Trial.objects.all().prefetch_related('bucket_set')
 
     def get_model(self):
         return Trial
