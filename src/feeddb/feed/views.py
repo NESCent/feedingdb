@@ -40,15 +40,24 @@ class FeedSearchView(FacetedSearchView):
     def __call__(self, request):
         self.request = request
 
-
         self.form = self.build_form()
+
+        # If we were POSTed to, guess the appropriate form. If it's the trial
+        # bucket form, use that gross view function. If it's the search form,
+        # we canonicalize the query and redirect to a GET request.
         if request.method == 'POST':
             if request.POST.get('put_bucket', None):
                 from feeddb.explorer.views import trial_search_put
                 return trial_search_put(request)
             else:
+                # get facet filters in sorted order
                 filters = self.form.searcher._clean_filters(request.POST)
                 filters = sorted(filters, key=filter_key)
+
+                # Add keywords and per_page arguments
+                #
+                # TODO: DRY this out by querying parameters from form class or
+                # using self.form.cleaned_data
                 q = request.POST.get('q', '')
                 per_page = request.POST.get('per_page', '')
                 if per_page:
@@ -56,6 +65,7 @@ class FeedSearchView(FacetedSearchView):
                 if q:
                     filters.insert(0, ('q', q) )
 
+                # Get our own URL, add filters to query string, and redirect.
                 url = reverse(self)
                 if len(filters):
                     url += '?' + urlencode(filters)
