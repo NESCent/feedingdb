@@ -70,21 +70,21 @@
       </tr>
       {% for result in page.object_list %}
         <tr>
-          <td class="choose"><input type="checkbox" name="trial" value="{{ result.object.id }}" /></td>
+          <td class="choose"><input type="checkbox" name="{{ result.object.id }}" value="on" /></td>
           <td class="column2"><a href="">{{ result.object.title }}</a></td>
           <td class="column3"><a href="">{{ result.object.start | date:"M j, Y" | default:"unknown" }}</a></td>
           <td class="column4"><a href="">{{ result.object.session.experiment.subject.taxon }}</a></td>
           <td class="column5"><a href="">Mastication (FIXME)</a></td>
           <td class="column6">
             {% for label in result.techniques %}
-              <a href="">{{ label }}</a>
+              <a href="">{{ label }}</a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </td>
           <td class="column7">{% for label in result.muscles_direct %}<a href="/{{ label }}">{{ label }}</a> {% endfor %}</td>
           <td class="column8"><a href="">{{ result.object.food_type }}</a></td>
           <td class="column9">
             {% for bucket in result.object.bucket_set.all %}
-              <a href="">{{ bucket }}{% if not forloop.last %}, {% endif %}</a>
+              <a href="">{{ bucket }}</a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </td>
         </tr>
@@ -126,7 +126,7 @@
 <script>
 // TODO: add spinner graphiczzz!!
 jQuery(document).on('ready', function() {
-  $('form :input').on('change', function() { this.form.submit(); });
+  $('form').find('.facet-group :input, #id_per_page :input').on('change', function() { this.form.submit(); });
 });
 </script>
 {% endblock extra_js %}

@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 import models
 
+from django.contrib import messages
+
 from haystack.views import FacetedSearchView
 from haystack.query import SearchQuerySet
 from forms import FeedSearchForm
@@ -48,30 +50,39 @@ class FeedSearchView(FacetedSearchView):
         if request.method == 'POST':
             if request.POST.get('put_bucket', None):
                 from feeddb.explorer.views import trial_search_put
-                return trial_search_put(request)
-            else:
-                # get facet filters in sorted order
-                filters = self.form.searcher._clean_filters(request.POST)
-                filters = sorted(filters, key=filter_key)
+                response = trial_search_put(request)
+                if isinstance(response, HttpResponseRedirect):
+                    return response
 
-                # Add keywords and per_page arguments
+                # If we're not using that response, reset the message queue
+                # that was emptied when rendering that response.
                 #
-                # TODO: DRY this out by querying parameters from form class or
-                # using self.form.cleaned_data
-                q = request.POST.get('q', '')
-                per_page = request.POST.get('per_page', '')
-                if per_page:
-                    filters.insert(0, ('per_page', per_page) )
-                if q:
-                    filters.insert(0, ('q', q) )
+                # FIXME: rewrite the trial_search_put view as a Form class
+                storage = messages.get_messages(request)
+                storage.used = False
 
-                # Get our own URL, add filters to query string, and redirect.
-                url = reverse(self)
-                if len(filters):
-                    url += '?' + urlencode(filters)
+            # get facet filters in sorted order
+            filters = self.form.searcher._clean_filters(request.POST)
+            filters = sorted(filters, key=filter_key)
 
-                return redirect(url)
+            # Add keywords and per_page arguments
+            #
+            # TODO: DRY this out by querying parameters from form class or
+            # using self.form.cleaned_data
+            q = request.POST.get('q', '')
+            per_page = request.POST.get('per_page', '')
+            if per_page:
+                filters.insert(0, ('per_page', per_page) )
+            if q:
+                filters.insert(0, ('q', q) )
 
+            # Get our own URL, add filters to query string, and redirect.
+            url = reverse(self)
+            if len(filters):
+                url += '?' + urlencode(filters)
+
+            return redirect(url)
+        
         self.query = self.get_query()
         self.results = self.get_results()
         return self.create_response()
