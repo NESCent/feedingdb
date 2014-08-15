@@ -16,7 +16,10 @@ class Migration(DataMigration):
             if loc.ontology_term:
                 print "Muscle: %s" % loc.ontology_term
                 sensor.muscle = loc.ontology_term
-                sensor.save()
+            else:
+                sensor.muscle = None
+
+            sensor.save()
 
     def backwards(self, orm):
         "Write your backwards methods here."
