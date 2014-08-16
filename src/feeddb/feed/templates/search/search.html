@@ -63,7 +63,7 @@
     </div>
     <table class="table table-striped table-bordered">
       <tr>
-        <th class="choose"><input type="checkbox" name="viewby" value="blank" /></th>
+        <th class="choose"><input type="checkbox" id="bucket_checkall" name="checkall" value="blank" /></th>
         <th class="column2">Trial Name</th>
         <th class="column3">Date (start date)</th>
         <th class="column4">Species</th>
@@ -147,6 +147,10 @@ jQuery(document).on('ready', function() {
     var show_bucket_name_field = (this.value == 'add new bucket');
     $('#new_bucket_div').toggle(show_bucket_name_field);
   }).change();
+
+  $('#bucket_checkall').on('change', function() {
+    $('.choose :checkbox').prop('checked', this.checked);
+  });
 });
 
 </script>
