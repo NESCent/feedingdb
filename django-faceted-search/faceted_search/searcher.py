@@ -37,7 +37,7 @@ class Searcher(object):
         * find a different way to configure facet behaviour, perhaps directly in the index class??? e.g. meta?
     '''
 
-    def __init__(self, model=None, facets={}, sort_config={}):
+    def __init__(self, model=None, facets={}, sort_config={}, queryset=None):
         self.model = model
         self.queryset = None
         self.field_facets = facets.get('fields', {})
@@ -45,6 +45,7 @@ class Searcher(object):
         self.query_facets = facets.get('queries', {})
         self.facets = FacetList()
         self.indexed_fields = connections['default'].get_unified_index().all_searchfields()
+        self.queryset = queryset if queryset is not None else SearchQuerySet()
         self.sort_config = sort_config
 
     def search(self, filters=None, keywords=None, order_by='', **kwargs):
@@ -59,7 +60,6 @@ class Searcher(object):
         logger.debug("Searching with filters %s" % filters)
         self.filters = filters or {}
         self.cleaned_filters = self._clean_filters(self.filters)
-        self.queryset = SearchQuerySet()
         self.use_default_order = not order_by
         self.order_by = self.clean_sort_order(order_by)
         self.keywords = keywords or self.filters.get(KEYWORD_PARAM, '')
