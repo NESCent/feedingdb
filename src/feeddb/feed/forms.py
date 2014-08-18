@@ -1,5 +1,6 @@
 from haystack.forms import FacetedSearchForm
 from haystack.inputs import AutoQuery, Exact, Clean
+from haystack.query import RelatedSearchQuerySet
 from inspector_panel import debug
 from django.forms.fields import ChoiceField
 from django.forms.widgets import RadioSelect
@@ -15,8 +16,11 @@ logger = logging.getLogger(__name__)
 
 my_facet_config = {
     'fields': {
-        'muscles': { 'label': 'Muscles' },
-        'muscles_part_of': { 'label': 'Part of Muscles' },
+        'muscles': { 'label': 'Muscle' },
+        'muscles_part_of': { 'label': 'Part of Muscle' },
+        'taxon': { 'label': 'Species' },
+        'food_type': { 'label': 'Food Type' },
+        'techniques': { 'label': 'Technique' },
     }
 }
 
@@ -32,7 +36,7 @@ class FeedSearchForm(FacetedSearchForm):
         self.filters = GET
 
         super(FeedSearchForm, self).__init__(GET, *args, **kwargs)
-        self.searcher = Searcher(model=Trial, facets=my_facet_config)
+        self.searcher = Searcher(model=Trial, facets=my_facet_config, queryset=RelatedSearchQuerySet())
 
     def no_query_found(self):
         """
@@ -50,7 +54,6 @@ class FeedSearchForm(FacetedSearchForm):
 
         sqs = self.searcher.search(filters=self.filters, keywords=q)
 
-        if self.load_all:
-            sqs = sqs.load_all()
+        sqs = sqs.load_all()
 
         return sqs
