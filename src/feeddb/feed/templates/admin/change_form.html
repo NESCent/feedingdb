@@ -66,7 +66,7 @@
 {% for inline_admin_formset in inline_admin_formsets %}
 
     {% include inline_admin_formset.opts.template %}
-<div class="row"><div class="col-xs-2 col-xs-offset-9">{% submit_row %}</div></div>
+<div class="row"><div class="col-xs-4 col-xs-offset-7">{% submit_row %}</div></div>
 {% endfor %}
 
 {% block after_related_objects %}{% endblock %}

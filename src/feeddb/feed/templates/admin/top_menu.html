@@ -1,8 +1,17 @@
 <ul>
-  <li class="col-xs-2"><a href="/">Home</a></li>
-  <li class="col-xs-2"><a href="/explorer/trial/search/">Search</a></li>
+  <li class="col-xs-2"><a href="/welcome">Home</a></li>
+  <li class="col-xs-2"><a href="/search/">Search</a></li>
   <li class="col-xs-2">{% ifnotequal user.first_name "anonymous" %}<a href="{% url "admin:feed_study_add" %}">{% else %}<a href="/login">{% endifnotequal %}Upload</a></li>
-  <li class="col-xs-3"><a href="">Vocabularies</a></li>
-  {% ifnotequal user.first_name "anonymous" %}<li class="col-xs-3"><a href="{% url "admin:feed_trial_changelist" %}?created_by={{user.pk}}">My Data</a></li>{% endifnotequal %}
+  <li class="col-xs-2"><a href="">Vocabularies</a></li>
+  <li class="col-xs-2 dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Browse Data</a>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="/admin/feed/study">Studies</a></li>
+      <li><a href="/admin/feed/experiment">Experiments</a></li>
+      <li><a href="/admin/feed/session">Sessions</a></li>
+      <li><a href="/admin/feed/trial">Trials</a></li>
+      <li><a href="/admin/feed/subject">Subjects</a></li>
+    </ul>
+  </li>  
+  {% ifnotequal user.first_name "anonymous" %}<li class="col-xs-2"><a href="{% url "admin:feed_trial_changelist" %}?created_by={{user.pk}}">My Data</a></li>{% endifnotequal %}
 </ul>
 

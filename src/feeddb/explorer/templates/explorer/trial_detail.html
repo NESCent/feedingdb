@@ -284,21 +284,21 @@ function bucket_changed(obj){
 }
 </script>
 
-Put this trial into my bucket: <form action="{% url "trial_add" trial.id %} " method="POST">
-<select name="bucket_id" onchange="bucket_changed(this)">
-<option value=""></option>
-{% for bucket in user.bucket_related.all %}
-<option value = "{{bucket.id}}" >{{bucket}}</option>
-{%endfor%}
-<option value = "add new bucket" >add new bucket</option>
-</select>
-<div id="new_bucket_div" style="display:none;"><br/>Enter name for the new bucket:<input name="new_bucket_name" size="20" /></div> 
-<input type="submit" value="put" />
-</form>
-<br/><br/><br/>
-
-           
-           {% for bucket in trial.bucket_set.all %}
+<div class="row">
+  <div class="records-selection col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
+    <p>Put this trial into my bucket:</p>
+    <form action="{% url "trial_add" trial.id %} " method="POST">
+      <select class="chosen-select" name="bucket_id" onchange="bucket_changed(this)">
+        <option value=""> - Select - </option>
+        {% for bucket in user.bucket_related.all %}
+        <option value = "{{bucket.id}}" >{{bucket}}</option>
+        {%endfor%}
+        <option value = "add new bucket" >add new bucket</option>
+      </select>
+      <div id="new_bucket_div" style="display:none;"><br/>Enter name for the new bucket:<input name="new_bucket_name" size="20" /></div> 
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </form>
+      {% for bucket in trial.bucket_set.all %}
             {%if forloop.first %}This trial is in following bucket(s):<br/><ul> {%endif%}
             {%ifequal bucket.created_by.id user.id %}
                 <li><a href="{% url "explorer.views.bucket_detail" bucket.id %}">{{bucket}}</a> [ <a title="remove the trial from this bucket" href="javascript: if(confirm('Do you really want to remove this trial from the bucket:{{bucket}}?')==true)window.location.href='{% url "explorer.views.trial_remove" trial.id bucket.id %}';">Remove</a> ]</li>
@@ -310,6 +310,8 @@ Put this trial into my bucket: <form action="{% url "trial_add" trial.id %} " me
            
 <br/><br/><br/>
  </div>       <!-- end of trail action -->
+</div>
+</div>
 
 
 {%endblock%}
