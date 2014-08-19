@@ -111,12 +111,13 @@
           {% endfor %}
           <option value="add new bucket">add new bucket</option>
         </select>
+        <input type="submit" name="put_bucket" value="Add to bucket" class="btn btn-primary" />
         <div id="new_bucket_div">
           <noscript>If entering a new bucket,</noscript>
-          Enter name for the new bucket:
-          <input name="new_bucket_name" size="20" />
+          <div class="col-xs-8 new-bucket">
+          <input name="new_bucket_name" size="20" placeholder="Enter new bucket name" />
+          </div>
         </div> 
-        <input type="submit" name="put_bucket" value="add to bucket" class="btn btn-primary" />
       </div>
     </div>
 
