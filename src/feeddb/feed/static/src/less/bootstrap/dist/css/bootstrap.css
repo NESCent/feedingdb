@@ -6532,9 +6532,19 @@ body main .records-selection .chosen-container-single {
   display: block;
   margin: 5px 20px 0 0;
 }
+body main .records-selection .chosen-container-single .chosen-search {
+  min-height: 30px;
+}
 body main .records-selection input {
   padding: 4px 19px;
   float: left;
+}
+body main .records-selection #new_bucket_div .new-bucket {
+  position: absolute;
+  left: 0;
+}
+body main .records-selection #new_bucket_div .new-bucket input {
+  width: 107%;
 }
 body main .records-pagination {
   margin-bottom: 20px;
