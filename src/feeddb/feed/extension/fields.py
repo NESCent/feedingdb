@@ -7,14 +7,14 @@ from django.contrib.admin.widgets import AdminSplitDateTime
 import datetime
 import time
 from django.forms.util import ErrorList, ValidationError
-from django.utils import formats
+from django.utils import formats, dateparse
 
 
 class FeedDateTimeField(Field):
     widget = AdminSplitDateTime
     def __init__(self, input_formats=None, *args, **kwargs):
         super(FeedDateTimeField, self).__init__(*args, **kwargs)
-        self.input_formats = input_formats or formats.get_format('DATETIME_FORMAT')
+        self.input_formats = input_formats or [formats.get_format('DATETIME_FORMAT')]
     
     def clean(self, value):
         """
@@ -45,4 +45,10 @@ class FeedDateTimeField(Field):
                 return datetime.datetime(*time.strptime(value, format)[:6])
             except ValueError:
                 continue
+
+        try:
+            return dateparse.parse_datetime(value)
+        except ValueError:
+            pass
+
         raise ValidationError(self.error_messages['invalid'])
