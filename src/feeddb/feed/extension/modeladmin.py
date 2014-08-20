@@ -1,6 +1,7 @@
 from django.contrib import admin
 from feeddb.feed.extension.widgets import FeedRelatedFieldWidgetWrapper
 from django import forms, template
+from django.core.urlresolvers import reverse_lazy
 from django.forms.formsets import all_valid
 from django.forms.models import modelform_factory, modelformset_factory, inlineformset_factory
 from django.forms.formsets import formset_factory
@@ -74,11 +75,11 @@ class FeedTabularInline(admin.TabularInline):
         return db_field.formfield(**kwargs)
 
 class SetupTabularInline(FeedTabularInline):
-    template = 'admin/edit_inline/setup_tabular.html'     
-    
+    template = 'admin/edit_inline/setup_tabular.html'
+
 class FeedModelAdmin(admin.ModelAdmin):
     view_inlines = []
-    list_per_page = 30 
+    list_per_page = 30
     list_max_show_all = 100
     # Custom templates (designed to be over-ridden in subclasses)
     view_form_template = None
@@ -90,12 +91,42 @@ class FeedModelAdmin(admin.ModelAdmin):
     tabbed = False
     tab_name = None
 
+    # Redirect destinations for "next step" functionality.
+    #
+    # These destinations have to be specified here rather than in the template
+    # for both technical reasons and for security reasons. Destinations are
+    # chosen by adding a submit button to the form with a `name` attribute
+    # equal to "_redirect_" followed by the key in the success_destinations
+    # dictionary. For example:
+    #
+    # In your template, add the special button:
+    #   <input type="submit" name="_redirect_MY_DESTINATION" value="Save and go to my destination">
+    # Then add the redirection URL here:
+    #   success_destinations = { 'MY_DESTINATION': 'some/url/to/which/to/redirect' }
+    #
+    # These redirects are currently used only on "add" and "change" responses
+    # which are not delivered to popup windows.  See
+    # get_redirect_destination(), response_add(), and response_change()
+    success_destinations = {
+        'add_experiment': reverse_lazy('admin:feed_experiment_add'),
+        'add_trial': reverse_lazy('admin:feed_trial_add'),
+        'add_session': reverse_lazy('admin:feed_session_add'),
+        'add_subject': reverse_lazy('admin:feed_subject_add'),
+    }
+
     def __init__(self, model, admin_site):
         super(FeedModelAdmin, self).__init__(model,admin_site)
         self.view_inline_instances = []
         for view_inline_class in self.view_inlines:
             view_inline_instance = view_inline_class(self.model, self.admin_site)
             self.view_inline_instances.append(view_inline_instance)
+
+    def get_redirect_destination(self, form_data, default=''):
+        if self.success_destinations:
+            for name in self.success_destinations:
+                if '_redirect_' + name in form_data:
+                    return self.success_destinations[name]
+        return default
 
     def get_urls(self):
         from django.conf.urls import patterns, url
@@ -122,10 +153,10 @@ class FeedModelAdmin(admin.ModelAdmin):
                 name='%s_%s_delete' % info),
             url(r'^(.+)/edit/$',
                 wrap(self.change_view),
-                name='%s_%s_change' % info),    
+                name='%s_%s_change' % info),
             url(r'^(.+)/clone/$',
                 wrap(self.clone_view),
-                name='%s_%s_clone' % info),    
+                name='%s_%s_clone' % info),
             url(r'^(.+)/$',
                 wrap(self.view_view),
                 name='%s_%s_view' % info),
@@ -141,13 +172,13 @@ class FeedModelAdmin(admin.ModelAdmin):
         permission to change *any* object of the given type.
         """
         p=super(FeedModelAdmin, self).has_change_permission(request, obj)
-        
+
         if not p:
             if obj == None:
                 return True
             return obj.created_by == request.user
-        
-        return p 
+
+        return p
 
     def has_delete_permission(self, request, obj=None):
         """
@@ -158,19 +189,19 @@ class FeedModelAdmin(admin.ModelAdmin):
         permission to delete *any* object of the given type.
         """
         p=super(FeedModelAdmin, self).has_delete_permission(request, obj)
-        
+
         if not p:
             if obj == None:
                 return True
             else:
                 return obj.created_by == request.user
 
-        return p   
+        return p
 
     def get_view_formsets(self, request, obj=None):
         for view_inline in self.view_inline_instances:
             yield view_inline.get_formset(request, obj)
-    
+
     def render_view_view(self, request, context, form_url='', obj=None):
         opts = self.model._meta
         app_label = opts.app_label
@@ -178,7 +209,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         context.update({
             'add': False,
             'change': False,
-            'view': True, 
+            'view': True,
             'has_add_permission': self.has_add_permission(request),
             'has_change_permission': self.has_change_permission(request, obj),
             'has_delete_permission': self.has_delete_permission(request, obj),
@@ -205,6 +236,7 @@ class FeedModelAdmin(admin.ModelAdmin):
                 "admin/view.html"
             ], context, context_instance=context_instance)
 
+
     def response_add(self, request, obj, post_url_continue='../%s/edit/'):
         """
         Determines the HttpResponse for the add_view stage.
@@ -214,14 +246,16 @@ class FeedModelAdmin(admin.ModelAdmin):
 
         msg = _('The %(name)s "%(obj)s" was added successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj)}
         self.message_user(request, msg)
+
+        # TODO: document when this is used. Maybe tabbed views? Others?
         if request.POST.has_key("_popup"):
             return HttpResponse('<script type="text/javascript">opener.dismissAddAnotherPopup(window, "%s", "%s");</script>' % \
                 # escape() calls force_unicode.
                 (escape(pk_value), escape(obj)))
-        
-        post_url = "../%d/edit" % pk_value
-        return HttpResponseRedirect(post_url)
-    
+
+        dest = self.get_redirect_destination(request.POST, '../%d/edit' % pk_value)
+        return HttpResponseRedirect(dest)
+
     @csrf_protect_m
     def delete_view(self, request, object_id, extra_context=None):
         "The 'delete' admin view for this model."
@@ -239,12 +273,12 @@ class FeedModelAdmin(admin.ModelAdmin):
         if not self.has_delete_permission(request, obj):
             raise PermissionDenied
         perms_needed=None
-        
-        
-      
+
+
+
         if obj is None:
             raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
-        
+
         deleted_objects = [mark_safe(u'%s: <a href="../../%s/">%s</a>' % (escape(force_unicode(capfirst(opts.verbose_name))), object_id, escape(obj))), []]
         perms_needed = set()
         associated_critical_objects = get_associated_critical_objects(obj)
@@ -264,7 +298,7 @@ class FeedModelAdmin(admin.ModelAdmin):
 
             post_url = self.get_response_url(request)
             return HttpResponseRedirect(post_url)
-        
+
         context = {
             "title": _("Are you sure?"),
             "object_name": force_unicode(opts.verbose_name),
@@ -283,7 +317,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             "admin/%s/delete_confirmation.html" % app_label,
             "admin/delete_confirmation.html"
         ], context, context_instance=context_instance)
- 
+
     """
     get response url after deleting an object
     """
@@ -295,30 +329,30 @@ class FeedModelAdmin(admin.ModelAdmin):
         pos = q_str.find('created_by')
         if pos != -1:
             return "%s?%s" % (post_url, q_str)
-        q_str= q_str.replace("=","/")    
-        return "../../../%s" % q_str        
+        q_str= q_str.replace("=","/")
+        return "../../../%s" % q_str
 
     """
     overwrite the function to set the created_by for any associated records before saving
-    """ 
+    """
     def save_formset(self, request, form, formset, change):
         for f in formset.forms:
             if f.instance:
                 if not f.instance.id:
                     f.instance.created_by = request.user
 
-        
+
         formset.save()
 
     """
     overwrite the function to set the created_by for any associated records before saving
-    """  
+    """
     def save_form(self, request, form, change):
         if form.instance:
             if not form.instance.id:
                 form.instance.created_by = request.user
         return form.save(commit=False)
- 
+
     def response_change(self, request, obj):
         """
         Determines the HttpResponse for the change_view stage.
@@ -327,8 +361,9 @@ class FeedModelAdmin(admin.ModelAdmin):
         pk_value = obj._get_pk_val()
         msg = _('The %(name)s "%(obj)s" was changed successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj)}
         self.message_user(request, msg)
-        
-        return HttpResponseRedirect("../edit")
+
+        dest = self.get_redirect_destination(request.POST, '../edit')
+        return HttpResponseRedirect(dest)
 
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         adminForm = context['adminform']
@@ -337,15 +372,15 @@ class FeedModelAdmin(admin.ModelAdmin):
         for formset in inline_admin_formsets:
             self.filter_formset_values(request, formset.formset,self.model,obj)
         return super(FeedModelAdmin, self).render_change_form(request, context, add, change, form_url, obj)
-        
+
     def clone_view(self, request, object_id, extra_context=None):
         "The 'clone' admin view for this model."
-        
+
         exclude = [TrialInBucket, Illustration]
         model = self.model
         opts = model._meta
         app_label = opts.app_label
-        
+
         try:
             obj = self.queryset(request).get(pk=unquote(object_id))
         except model.DoesNotExist:
@@ -353,7 +388,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             # permissions yet. We don't want an unauthenticated user to be able
             # to determine whether a given object exists.
             obj = None
-        
+
         if not self.has_add_permission(request):
             raise PermissionDenied
 
@@ -365,10 +400,10 @@ class FeedModelAdmin(admin.ModelAdmin):
             request.user.message_set.create(message=message)
             c = RequestContext(request, {})
             return render_to_response('error.html', c)
-            
+
         cloned_obj = duplicate(obj,exclude)
         cloned_obj.save()
-        
+
         msg = _('The %(name)s "%(obj)s" was cloned successfully. You may edit it now below.') % {'name': force_unicode(opts.verbose_name), 'obj': obj}
         self.message_user(request, msg)
         post_url="/admin/%s/%s/%d/edit" % (app_label, opts.object_name.lower(),cloned_obj.pk)
@@ -400,10 +435,10 @@ class FeedModelAdmin(admin.ModelAdmin):
         if request.GET.has_key("subject"):
             if form.fields.has_key("subject"):
                 form.fields["subject"].widget.widget.attrs['disabled']=""
-                
+
         setups = ["emgsetup","sonosetup","pressuresetup","forcesetup","strainsetup","kinematicssetup", "eventsetup"]
         channels = ["emgchannel","sonochannel","pressurechannel","forcechannel","strainchannel","kinematicschannel", "eventchannel"]
-        
+
         for s in setups:
             if request.GET.has_key(s):
                 if form.fields.has_key("setup"):
@@ -424,7 +459,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             if request.GET.has_key(s):
                 if form.fields.has_key(s):
                     form.fields[s].widget.widget.attrs['disabled']=""
-                                
+
         #context-based filter by url
         if  model == EmgChannel:
             if request.GET.has_key("emgsetup"):
@@ -485,26 +520,26 @@ class FeedModelAdmin(admin.ModelAdmin):
             else:
                 pass
         elif  model == Session:
-            if obj !=None and form.fields.has_key("channel"): 
+            if obj !=None and form.fields.has_key("channel"):
                 form.fields["channel"].queryset = Channel.objects.filter(setup__experiment = obj.experiment.id)
-            elif request.GET.has_key("experiment") and form.fields.has_key("channel"): 
+            elif request.GET.has_key("experiment") and form.fields.has_key("channel"):
                 form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=request.GET['experiment'])
             if obj and hasattr(obj, "session"):
-                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=obj.session.experiment.id)    
+                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=obj.session.experiment.id)
         elif  model == ChannelLineup:
             if form.fields.has_key("experiment"):
                 form.fields["experiment"].widget.widget.attrs['disabled']=""
             if form.fields.has_key("session"):
-                form.fields["session"].widget.widget.attrs['disabled']="" 
-            
-            if request.GET.has_key("session") and form.fields.has_key("channel"): 
+                form.fields["session"].widget.widget.attrs['disabled']=""
+
+            if request.GET.has_key("session") and form.fields.has_key("channel"):
                 sess = Session.objects.get(id=  request.GET['session'])
                 form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=sess.experiment.id)
             if obj and hasattr(obj, "session"):
                 form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=obj.session.experiment.id)
         #filter sensor choice for channel
         sensor_classes = [EmgSensor,SonoSensor,PressureSensor,ForceSensor,StrainSensor,KinematicsSensor]
-        
+
         sensor_class=None
         if hasattr(obj,'setup') and obj.setup.id:
             if(form.fields.has_key("setup")):
@@ -520,17 +555,17 @@ class FeedModelAdmin(admin.ModelAdmin):
                     form.fields["crystal1"].queryset = sensor_class.objects.filter(setup=obj.setup.id)
                 if(form.fields.has_key("crystal2")):
                     form.fields["crystal2"].queryset = sensor_class.objects.filter(setup=obj.setup.id)
-                
-                
-                
+
+
+
     def filter_formset_values(self, request, formset, model, obj):
         for form in formset.forms:
             self.filter_form_values(request, form, model, obj)
-    
+
     #overiten method to allow filtering in URL which is defaultly not allowed in 1.2.4
     def lookup_allowed(self, lookup, value):
         return True
-    
+
     def change_view(self,request,object_id,extra_context=None):
         #add extra context for tabs
         if(extra_context!=None):
@@ -544,7 +579,7 @@ class FeedModelAdmin(admin.ModelAdmin):
                 'tab_name': self.tab_name,
             }
         return super(FeedModelAdmin,self).change_view(request,object_id,extra_context)
-    
+
     #get context from the url if adding data
     def add_view(self, request, form_url='', extra_context=None):
         if not request.method == 'POST':
@@ -559,19 +594,19 @@ class FeedModelAdmin(admin.ModelAdmin):
                     extra_context.update(context)
                 else:
                     extra_context = context
-        return super(FeedModelAdmin,self).add_view(request, form_url, extra_context)  
-    
+        return super(FeedModelAdmin,self).add_view(request, form_url, extra_context)
+
     #get context object from the url parameter
     def get_context(self, request):
-        
+
         v= request.GET.get("experiment")
         if v!=None:
             return Experiment.objects.get(pk = v)
-            
+
         v= request.GET.get("emgsetup")
         if v!=None:
             return EmgSetup.objects.get(pk=v)
-        
+
         v= request.GET.get("sonosetup")
         if v!=None:
             return SonoSetup.objects.get(pk=v)
@@ -583,7 +618,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         v= request.GET.get("pressuresetup")
         if v!=None:
             return PressureSetup.objects.get(pk=v)
-        
+
         v= request.GET.get("forcesetup")
         if v!=None:
             return ForceSetup.objects.get(pk=v)
@@ -596,7 +631,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             return Session.objects.get(pk=v)
         v= request.GET.get("study")
         if v!=None:
-            return Study.objects.get(pk=v)  
+            return Study.objects.get(pk=v)
 
     def view_view(self, request, object_id, extra_context=None):
         "The 'View' admin view for this model."
@@ -622,9 +657,9 @@ class FeedModelAdmin(admin.ModelAdmin):
 
         ModelForm = self.get_form(request, obj)
         formsets = []
-        
+
         form = ModelForm(instance=obj)
-        	    
+
         prefixes = {}
         for FormSet in self.get_view_formsets(request, obj):
             prefix = FormSet.get_default_prefix()
@@ -664,10 +699,10 @@ class FeedModelAdmin(admin.ModelAdmin):
             'app_label': opts.app_label,
             'registry': registry,
         }
-        
+
         context.update(extra_context or {})
         return self.render_view_view(request, context, obj=obj)
-    
+
     def formfield_for_dbfield(self, db_field, **kwargs):
         request = kwargs.pop("request", None)
 
@@ -697,7 +732,7 @@ class FeedModelAdmin(admin.ModelAdmin):
 
     def changelist_view(self, request, extra_context=None):
         "The 'change list' admin view for this model."
-        from feeddb.feed.extension.changelist import FeedChangeList 
+        from feeddb.feed.extension.changelist import FeedChangeList
         opts = self.model._meta
         app_label = opts.app_label
         #if not self.has_change_permission(request, None):
@@ -777,7 +812,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             action_form.fields['action'].choices = self.get_action_choices(request)
         else:
             action_form = None
-        
+
         context = {
             'title': cl.title,
             'is_popup': cl.is_popup,
@@ -796,9 +831,9 @@ class FeedModelAdmin(admin.ModelAdmin):
         }
         context.update(extra_context or {})
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
-        
-        
-     
+
+
+
         return render_to_response(self.change_list_template or [
             'admin/%s/%s/change_list.html' % (app_label, opts.object_name.lower()),
             'admin/%s/change_list.html' % app_label,
@@ -807,7 +842,7 @@ class FeedModelAdmin(admin.ModelAdmin):
 
 class TermModelAdmin(FeedModelAdmin):
     change_list_template = "admin/term_change_list.html"
-    
+
 class FeedStackedInline(admin.StackedInline):
     template = 'admin/edit_inline/stacked.html'
     def formfield_for_dbfield(self, db_field, **kwargs):
@@ -836,7 +871,7 @@ class FeedStackedInline(admin.StackedInline):
                 return db_field.formfield(**kwargs)
 
         return db_field.formfield(**kwargs)
-        
+
 class DefaultModelAdmin(FeedModelAdmin):
     change_form_template = None
 
@@ -845,7 +880,7 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         form.save()
         experiment = form.instance
         self.add_techniques(request,experiment)
-        
+
     def add_techniques(self, request, new_experiment):
         "handle techniques for this experiment."
         #FIXME: consider refactoring this into a series of calls to technique-generic functions, to eliminate code repetition
@@ -863,7 +898,7 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         kinematicssetup=None
         has_event=False
         eventsetup=None
-        
+
         for s in new_experiment.setup_set.all():
             if hasattr(s,"emgsetup"):
                 has_emg = True
@@ -876,62 +911,62 @@ class ExperimentModelAdmin(DefaultModelAdmin):
                 strainsetup = s
             if hasattr(s, "forcesetup"):
                 has_force = True
-                forcesetup = s  
+                forcesetup = s
             if hasattr(s, "pressuresetup"):
                 has_pressure = True
-                pressuresetup = s       
+                pressuresetup = s
             if hasattr(s, "kinematicssetup"):
                 has_kinematics = True
-                kinematicssetup = s               
+                kinematicssetup = s
             if hasattr(s, "eventsetup"):
                 has_event = True
-                eventsetup = s   
+                eventsetup = s
         emg  = request.POST.get('technique_emg')
         if emg != None and emg == "on":
             if not has_emg:
                 self.add_technique(request,new_experiment, Techniques.ENUM.emg);
         #if emg == None and has_emg:
         #    self.delete_setup(emgsetup)
-            
+
         sono  = request.POST.get('technique_sono')
         if sono != None and sono == "on":
             if not has_sono:
                 self.add_technique(request,new_experiment, Techniques.ENUM.sono);
-        #if sono == None and has_sono: 
+        #if sono == None and has_sono:
         #    self.delete_setup(sonosetup)
-            
+
         strain  = request.POST.get('technique_strain')
         if strain != None and strain == "on":
             if not has_strain:
                 self.add_technique(request,new_experiment, Techniques.ENUM.strain);
-        #if strain == None and has_strain: 
+        #if strain == None and has_strain:
         #    self.delete_setup(strainsetup)
-        
+
         force  = request.POST.get('technique_force')
         if force != None and force == "on":
             if not has_force:
                 self.add_technique(request,new_experiment, Techniques.ENUM.force);
-        #if force == None and has_force: 
+        #if force == None and has_force:
         #    self.delete_setup(forcesetup)
-        
+
         pressure  = request.POST.get('technique_pressure')
         if pressure != None and pressure == "on":
             if not has_pressure:
                 self.add_technique(request,new_experiment, Techniques.ENUM.pressure);
-        #if pressure == None and has_pressure: 
-        #    self.delete_setup(pressuresetup)        
-        
+        #if pressure == None and has_pressure:
+        #    self.delete_setup(pressuresetup)
+
         kinematics  = request.POST.get('technique_kinematics')
         if kinematics != None and kinematics == "on":
             if not has_kinematics:
                 self.add_technique(request,new_experiment, Techniques.ENUM.kinematics);
-        #if kinematics == None and has_kinematics: 
-        #    self.delete_setup(kinematicssetup)                  
+        #if kinematics == None and has_kinematics:
+        #    self.delete_setup(kinematicssetup)
         event  = request.POST.get('technique_event')
         if event != None and event == "on":
             if not has_event:
                 self.add_technique(request,new_experiment, Techniques.ENUM.event);
-                
+
     def add_technique(self, request, experiment, technique):
         setup = Setup();
         setup.technique=technique
@@ -956,7 +991,7 @@ class ExperimentModelAdmin(DefaultModelAdmin):
             tech_setup = KinematicsSetup()
             setup.kinematicssetup = tech_setup
         elif technique==Techniques.ENUM.event:
-            tech_setup = EventSetup()    
+            tech_setup = EventSetup()
             setup.eventsetup = tech_setup
         tech_setup.experiment = experiment
         tech_setup.technique=technique
@@ -964,18 +999,18 @@ class ExperimentModelAdmin(DefaultModelAdmin):
 
         setup.created_by = request.user
         tech_setup.save()
-    
+
     def delete_setup(self,setup):
         if setup!=None:
             if hasattr(setup,"setup"):
                 setup.setup.delete()
             setup.delete()
-            
+
     def changelist_view(self, request, extra_context=None):
         experiment = None
         v= request.GET.get("experiment")
         if v!=None:
-            experiment = Experiment.objects.get(pk = v) 
+            experiment = Experiment.objects.get(pk = v)
         context = {
             'experiment': experiment,
             'has_change_permission': self.has_change_permission(request, experiment),
@@ -1008,7 +1043,7 @@ class ExperimentModelAdmin(DefaultModelAdmin):
                 techniques[5] = mark_safe("<a href='/admin/feed/kinematicssetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Kinematics" % (s.id, experiment.id))
             if hasattr(s, "eventsetup"):
                 techniques[6] = mark_safe("<a href='/admin/feed/eventsetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Time/Event" % (s.id, experiment.id))
-     
+
         if(extra_context!=None):
             extra_context.update({
                 'techniques': techniques,
@@ -1018,7 +1053,7 @@ class ExperimentModelAdmin(DefaultModelAdmin):
                 'techniques': techniques,
             }
         return super(ExperimentModelAdmin,self).change_view(request,object_id,extra_context)
-    
+
     #get context from the url if adding data
     def add_view(self, request, form_url='', extra_context=None):
         techniques =[]
@@ -1030,7 +1065,7 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_pressure'/>Pressure"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_kinematics'/>Kinematics"))
         techniques.append(mark_safe("<input type='checkbox' name = 'technique_event'/>Time/Event"))
-        
+
         if(extra_context!=None):
             extra_context.update({
                 'techniques': techniques,
@@ -1039,8 +1074,8 @@ class ExperimentModelAdmin(DefaultModelAdmin):
             extra_context= {
                 'techniques': techniques,
             }
-        return super(ExperimentModelAdmin,self).add_view(request, form_url, extra_context)  
-        
+        return super(ExperimentModelAdmin,self).add_view(request, form_url, extra_context)
+
 class SessionModelAdmin(FeedModelAdmin):
     def __init__(self, model, admin_site):
         super(SessionModelAdmin, self).__init__(model,admin_site)
@@ -1066,7 +1101,7 @@ class SessionModelAdmin(FeedModelAdmin):
     def editlist_view(self, request, extra_context=None):
         if request.GET.get("experiment") ==None:
             raise Http404("No experiment specified")
-        
+
         model = Experiment
         object_id = request.GET.get("experiment")
         opts = model._meta
@@ -1078,7 +1113,7 @@ class SessionModelAdmin(FeedModelAdmin):
             # permissions yet. We don't want an unauthenticated user to be able
             # to determine whether a given object exists.
             obj = None
-        
+
         if not self.has_change_permission(request, obj):
             raise PermissionDenied
 
@@ -1103,7 +1138,7 @@ class SessionModelAdmin(FeedModelAdmin):
                 errors.append(sessionformset.non_form_errors())
         else:
             sessionformset =FormSet(instance=obj)
-        
+
         context={
             'experiment': obj,
             'object_id': object_id,
@@ -1122,17 +1157,17 @@ class SessionModelAdmin(FeedModelAdmin):
         experiment = None
         v= request.GET.get("experiment")
         if v!=None:
-            experiment = Experiment.objects.get(pk = v) 
+            experiment = Experiment.objects.get(pk = v)
         context = {
             'experiment': experiment,
             'has_change_permission': self.has_change_permission(request, experiment),
         }
         return super(SessionModelAdmin, self). changelist_view( request, context)
-       
+
 class EmgSensorModelAdmin(DefaultModelAdmin):
     def __init__(self, model, admin_site):
         super(EmgSensorModelAdmin, self).__init__(model,admin_site)
-        
+
     def save_model(self, request, obj, form, change):
         form.save()
         try:
@@ -1140,33 +1175,33 @@ class EmgSensorModelAdmin(DefaultModelAdmin):
         except EmgChannel.DoesNotExist:
             emgchannel = EmgChannel()
             emgchannel.sensor=form.instance
-                    
+
         unit = request.POST['unit']
         filtering=request.POST['emg_filtering']
         amplification=request.POST['emg_amplification']
         rate=request.POST['rate']
         if unit!=None and unit!='':
-            emgchannel.unit = Unit.objects.get(pk=int(unit)) 
+            emgchannel.unit = Unit.objects.get(pk=int(unit))
         else:
             raise forms.ValidationError("Unit is required!")
-        
-        if filtering!=None and filtering!='':        
+
+        if filtering!=None and filtering!='':
             emgchannel.emg_filtering = Emgfiltering.objects.get(pk=int(filtering))
         else:
             raise forms.ValidationError("Emg Filtering is required!")
-                    
+
         if amplification!=None and amplification!='':
             emgchannel.emg_amplification = int(amplification)
         if rate!=None and rate!='':
-	        emgchannel.rate = int(rate)    
+	        emgchannel.rate = int(rate)
         emgchannel.name = form.instance.name
         emgchannel.setup = form.instance.setup
         emgchannel.save()
-        
+
 class EmgSetupModelAdmin(DefaultModelAdmin):
     def __init__(self, model, admin_site):
         super(EmgSetupModelAdmin, self).__init__(model,admin_site)
-        
+
     def save_formset(self, request, form, formset, change):
         instances = formset.save(commit=False)
         for instance in instances:
@@ -1183,7 +1218,7 @@ class EmgSetupModelAdmin(DefaultModelAdmin):
 	                    except EmgChannel.DoesNotExist:
 	                        emgchannel = EmgChannel()
 	                        emgchannel.sensor=ins
-	                    
+
 	                    unit = f.cleaned_data['unit']
 	                    filtering=f.cleaned_data['emg_filtering']
 	                    amplification=f.cleaned_data['emg_amplification']
@@ -1192,15 +1227,15 @@ class EmgSetupModelAdmin(DefaultModelAdmin):
 	                        emgchannel.unit = unit
 	                    else:
 	                        raise forms.ValidationError("Emg Unit is required!")
-	        
-	                    if filtering!=None and filtering!='':        
+
+	                    if filtering!=None and filtering!='':
 	                        emgchannel.emg_filtering = filtering
 	                    else:
 	                        raise forms.ValidationError("Emg Filtering is required!")
-	                    
+
 	                    if amplification!=None and amplification!='':
 	                        emgchannel.emg_amplification = int(amplification)
-	                    
+
 	                    if rate!=None and rate!='':
 	                        emgchannel.rate = int(rate)
 	                    emgchannel.name = ins.name
