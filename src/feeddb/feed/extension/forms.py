@@ -32,21 +32,21 @@ class SetupForm (DisableForeignKeyForm):
 
 
 class ExperimentChangeForm(DisableForeignKeyForm):
-    start = DateTimeField(required=False, help_text=DATE_HELP_TEXT)
-    end = DateTimeField(required=False, help_text=DATE_HELP_TEXT)
+    start = DateField(required=False, help_text=DATE_HELP_TEXT)
+    end = DateField(required=False, help_text=DATE_HELP_TEXT)
         
 
 class StudyChangeForm(forms.ModelForm):
-    start = DateTimeField(help_text=DATE_HELP_TEXT)
-    end = DateTimeField(required=False,help_text=DATE_HELP_TEXT)
+    start = DateField(help_text=DATE_HELP_TEXT)
+    end = DateField(required=False,help_text=DATE_HELP_TEXT)
 
 class SessionChangeForm(forms.ModelForm):
-    start = DateTimeField(required=False, help_text=DATE_HELP_TEXT)
-    end = DateTimeField(required=False, help_text=DATE_HELP_TEXT)
+    start = DateField(required=False, help_text=DATE_HELP_TEXT)
+    end = DateField(required=False, help_text=DATE_HELP_TEXT)
 
 class TrialChangeForm(forms.ModelForm):
-    start = DateTimeField(required=False)  # , help_text=DATE_HELP_TEXT)
-    end = DateTimeField(required=False)    # , help_text=DATE_HELP_TEXT)
+    start = DateField(required=False)  # , help_text=DATE_HELP_TEXT)
+    end = DateField(required=False)    # , help_text=DATE_HELP_TEXT)
 # Compared to the other containers above, Trial help_text is affected by models.py -- go figure why (VG)
 
 class EmgSensorChannelForm(forms.ModelForm):
