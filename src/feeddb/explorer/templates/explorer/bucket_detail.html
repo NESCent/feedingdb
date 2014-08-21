@@ -1,21 +1,35 @@
-{% extends "explorer/base.html" %}
+{% extends "admin/base.html" %}
 {% load explorer_display %}
 {% block extra_js %}
 <script type="text/javascript" src="/explorer/static/js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="/explorer/static/js/jquery.checkboxes.js"></script>
 {% endblock %}
+
+{% block pretitle %}
+<div class="row">
+  <h1>Download Trials</h1>
+  <h2>Collection Details</h2>
+  <hr />{% endblock %}
+</div>
 {% block content %}
 
-<h3>Bucket Detail</h3>
 <ul class="object-tools">
     <li><a href="{% url "explorer.views.bucket_download" form.instance.id %}" class="downloadlink">Download</a></li>
 </ul>
-<table>
-<form action="{% url "explorer.views.bucket_detail" form.instance.id %}" method="POST">
-     {% include "explorer/include/form.html" %}
-    <tr><td></td><td><input type="submit" value="Save" /></td></tr>
-</form>
-</table>
+<div class="row">
+    <form action="{% url "explorer.views.bucket_detail" form.instance.id %}" method="POST">
+            <div class="col-xs-8">
+              <div class="row">
+                <div class="col-xs-3">
+                  {% include "explorer/include/form.html" %}
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-3 col-xs-offset-1">
+              <button class="btn btn-default" type="submit">Save</button>
+            </div>
+    </form>
+</div>
 
 <script language="javascript">
 function checkbox_clicked(obj){
@@ -27,46 +41,46 @@ function checkbox_clicked(obj){
 }
 
 </script>
-<br/><br/>
-<h3>Trials</h3>
-<form action = "{% url "explorer.views.bucket_remove_trials" form.instance.id %}" method="POST" id="trial_form" name ="trial_form">
-<table>
-<tr>
-<th><input type="checkbox" id="select_all" onclick ="checkbox_clicked(this)" /></th>
-<th>Name</th>
-<th>Species</th>
-<th>Primary Behavior</th>
-<th>Food Type</th>
-<th>Techniques</th>
-<th>Muscle/Bone</th>
-<th class="bucket_header">Buckets</th>
-</tr>
-{% for trial in form.instance.trials.all %}
-<tr class="{% cycle 'row1'  'row2' %}">
-<td><input type="checkbox" name="{{trial.id}}" id="{{trial.id}}" class="check_trial" /></td>
-<td><a href="{% url "explorer.views.trial_detail" trial.id %}">{{trial.title}}</a></td>
-<td>{{trial.session.experiment.subject.taxon.genus}} {{trial.session.experiment.subject.taxon.species}}</td>
-<td>{{trial.behavior_primary}}</td>
-<td>{{trial.food_type}}</td>
-<td>
-{% display_technique trial  %}
-</td>
-<td>{% display_muscle trial  %}</td>
-<td class="bucket_column">
-{% for bucket in trial.bucket_set.all %}
-{%ifequal bucket.created_by.id user.id %}
-<a href="{% url "explorer.views.bucket_detail" bucket.id %}">{{bucket}}</a><br/>
-{%endifequal%}
-{% endfor %}
-</td>
-</tr>
-{% endfor %}
-
-<tr><th class="table_action" colspan = "8"><input type="submit" value="Remove selected records from the bucket" />
-</th>
-</tr>
-</table>
-</form>
-
+<div class="row">
+  <div class="col-xs-12">
+    <h3>Trials</h3>
+    <form action = "{% url "explorer.views.bucket_remove_trials" form.instance.id %}" method="POST" id="trial_form" name ="trial_form">
+      <table class="table table-striped table-bordered">
+        <tr>
+          <th><input type="checkbox" id="select_all" onclick ="checkbox_clicked(this)" /></th>
+          <th>Name</th>
+          <th>Species</th>
+          <th>Primary Behavior</th>
+          <th>Food Type</th>
+          <th>Techniques</th>
+          <th>Muscle/Bone</th>
+          <th class="bucket_header">Buckets</th>
+        </tr>
+        {% for trial in form.instance.trials.all %}
+        <tr class="{% cycle 'row1'  'row2' %}">
+          <td><input type="checkbox" name="{{trial.id}}" id="{{trial.id}}" class="check_trial" /></td>
+          <td><a href="{% url "explorer.views.trial_detail" trial.id %}">{{trial.title}}</a></td>
+          <td>{{trial.session.experiment.subject.taxon.genus}} {{trial.session.experiment.subject.taxon.species}}</td>
+          <td>{{trial.behavior_primary}}</td>
+          <td>{{trial.food_type}}</td>
+          <td>
+          {% display_technique trial  %}
+          </td>
+          <td>{% display_muscle trial  %}</td>
+          <td class="bucket_column">
+          {% for bucket in trial.bucket_set.all %}
+          {%ifequal bucket.created_by.id user.id %}
+          <a href="{% url "explorer.views.bucket_detail" bucket.id %}">{{bucket}}</a><br/>
+          {%endifequal%}
+          {% endfor %}
+          </td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <th class="table_action" colspan = "8"><input type="submit" value="Remove selected records from the bucket" /></th>
+        </tr>
+      </table>
+    </form>
+  </div>
 
 {% endblock %}
