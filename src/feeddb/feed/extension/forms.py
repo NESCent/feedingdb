@@ -11,7 +11,6 @@ from django.forms.formsets import BaseFormSet, formset_factory, DELETION_FIELD_N
 from django import forms
 from feeddb.feed.models import *
 from feeddb.feed.extension.widgets import *
-from feeddb.feed.extension.fields import FeedDateTimeField
 
 from django.db import models
 
@@ -33,21 +32,21 @@ class SetupForm (DisableForeignKeyForm):
 
 
 class ExperimentChangeForm(DisableForeignKeyForm):
-    start = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
-    end = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
+    start = DateTimeField(required=False, help_text=DATE_HELP_TEXT)
+    end = DateTimeField(required=False, help_text=DATE_HELP_TEXT)
         
 
 class StudyChangeForm(forms.ModelForm):
-    start = FeedDateTimeField(help_text=DATE_HELP_TEXT)
-    end = FeedDateTimeField(required=False,help_text=DATE_HELP_TEXT)
+    start = DateTimeField(help_text=DATE_HELP_TEXT)
+    end = DateTimeField(required=False,help_text=DATE_HELP_TEXT)
 
 class SessionChangeForm(forms.ModelForm):
-    start = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
-    end = FeedDateTimeField(required=False, help_text=DATE_HELP_TEXT)
+    start = DateTimeField(required=False, help_text=DATE_HELP_TEXT)
+    end = DateTimeField(required=False, help_text=DATE_HELP_TEXT)
 
 class TrialChangeForm(forms.ModelForm):
-    start = FeedDateTimeField(required=False)  # , help_text=DATE_HELP_TEXT)
-    end = FeedDateTimeField(required=False)    # , help_text=DATE_HELP_TEXT)
+    start = DateTimeField(required=False)  # , help_text=DATE_HELP_TEXT)
+    end = DateTimeField(required=False)    # , help_text=DATE_HELP_TEXT)
 # Compared to the other containers above, Trial help_text is affected by models.py -- go figure why (VG)
 
 class EmgSensorChannelForm(forms.ModelForm):
@@ -82,8 +81,8 @@ class SessionForm(forms.ModelForm):
     subj_notes = CharField(label = "Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
     position = IntegerField(label = "Position", help_text='the order of the recording session in the experiment', widget=forms.TextInput(attrs={'size': 3}))
-    start = FeedDateTimeField(required=False)
-    end = FeedDateTimeField(required=False)
+    start = DateTimeField(required=False)
+    end = DateTimeField(required=False)
     class Meta:
         model = Session
         exclude = ('channels','accession')

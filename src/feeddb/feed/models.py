@@ -5,7 +5,7 @@ import datetime
 from django.db.models.expressions import F
 
 
-DATETIME_HELP_TEXT = 'For older dates, type by hand "yyyy-mm-dd" for date and "hh:mm:ss" for time, for example "1990-10-22" and "15:45:00.  If start time is not known, use "00:00:00".'
+DATETIME_HELP_TEXT = 'For older dates, type by hand "yyyy-mm-dd" for example "1990-10-22"'
 # Only used for Trial here; the other containers are are affected through forms.py -- go figure (VG)
 BOOKKEEPING_HELP_TEXT = 'The reference to these data, as used in your lab notes or records (optional).'
 
