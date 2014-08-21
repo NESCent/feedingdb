@@ -1,0 +1,199 @@
+.search-results .blog_holder .portfolio_page span.date, .search-results .blog_holder .page span.date, .search-results .blog_holder .portfolio_page .post_info, .search-results .blog_holder .page  .post_info { display: none; }
+.search-results .blog_holder.blog_small_image article.portfolio_page .post_text .post_text_inner { min-height: inherit !important; }
+.search-results .blog_holder.blog_small_image article .post_image { display: none !important; }
+.search-results .blog_holder article .post_more { margin: 10px 0 0 0; }
+.search-results .blog_holder.blog_small_image article { margin: 0; }
+.search-results .pagination ul li span, .search-results .pagination ul li a:hover { background-color: #cf0a2c; }
+
+footer .column1 {
+position: relative;
+top: -18px;
+}
+.cta-header {
+background-color: #eee;
+padding: 4px 0;
+}
+.cta-header .extras span {
+float: left;
+color: #636363;
+font-family: Merriweather, sans-serif;
+margin-right: 35px;
+}
+.cta-header .extras a {
+font-weight: 600;
+font-family: Merriweather, sans-serif;
+}
+.cta-header .extras span a {
+font-weight: normal;
+}
+.extras { float: right; }
+
+header.sticky .side_menu_button a.search_button, header.sticky .side_menu_button a.search_button:hover {
+color: #000000;
+}
+.search-results .title.title_size_large h1, .single-portfolio_page h1 span { color: #ffffff; }
+.search-results .content .container {
+background-color: #ffffff;
+}
+.search-results .title_outer.with_image .title .title_holder .container, .title_outer .has_fixed_background.title .title_holder .container, .title_outer .has_background.title .title_holder .container { background-color: transparent; }
+.contact_form h5 {
+font-family:Merriweather, sans-serif;
+font-size: 17px;
+font-weight: 600;
+height: 22px;
+color: #636363;
+}
+.single-portfolio_page .two_columns_75_25>.column1 { width: 300px;
+float: none;
+margin: 40px auto;
+text-align: center; }
+.contact_section h2 { padding-bottom: 20px; }
+.google_map {
+margin: 0 0 87px;
+}
+.page-template-template-job-posting-php .title_subtitle_holder { padding-top: 100px !important; }
+.portal { color: rgb(255, 255, 255); border: 0px; background-color: #636363 !important; -o-border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -ms-border-radius: 4px; border-radius: 4px; padding: 5px 14px; }
+.portal:hover { background-color: rgb(207, 10, 44) !important; color: #ffffff !important; }
+.service_table_inner li {
+border-color: #eeeeee;
+}
+.services-copy { background: #ffffff; padding: 25px 15px; }
+.contact .contact_section h2 a { color: #CF0A2C !important; }
+.contact .title_text_shadow .title h1 { text-shadow: 1px 1px 6px rgba(0,0,0,0.9); }
+.contact .separator.small.center { display: none !important; }
+.counter.random.executed.animated { color: #ffffff !important; }
+.portfolio_slides .hover_feature_holder_inner .qbutton.small { display: none; }
+h1,h2,h3,h4,h5,h6 { text-transform: none; }
+.portfolio_slider .project_content { width: 75%; margin: 0 auto; }
+.portfolio_slider .project_content p.p1 { color: #ffffff; }
+.portfolio_slider h3.portfolio_title {position: absolute;
+bottom: 0;
+z-index: 20;
+width: 100%;
+text-align: center;
+background-color: #cf0a2c;
+color: #ffffff;
+padding: 20px;
+height: 84px;
+}
+#menu-top_menu span {
+color: #cf0a2c;
+}
+.contact .title_holder { padding-top: 150px !important; }
+.caroufredsel-next.hidden { display: block !important; }
+#menu-top_menu span:active { background-color: transparent; }
+#menu-top_menu span:hover,#menu-top_menu .active span  { color: #636363; }
+.service_table_inner li { padding: 20px !important; }
+.carousel-control { width: 10%; }
+.home .shader { display: none !important; }
+.home .parallax_section_holder { background-size: cover !important; }
+.parallax_section_holder {background-size: 100% !important; }
+.careers .testimonials .testimonial_text_inner p { color: #ffffff; }
+.careers .testimonials .testimonial_text_inner p.testimonial_author { font-size: 16px; }
+.team .title.title_size_large { padding-top: 100px !important; }
+.team .title_outer.with_image .title .title_subtitle_holder, .team .title_outer .has_fixed_background.title .title_subtitle_holder, .team .title_outer .has_background.title .title_subtitle_holder { padding-top: 30px !important; }
+.community .title_outer.with_image .title .title_subtitle_holder, .community .title_outer .has_fixed_background.title .title_subtitle_holder, .community .title_outer .has_background.title .title_subtitle_holder { padding-top: 340px; }
+.services .wpb_row .qbutton, .services .wpb_row .load_more a, .services .wpb_row .blog_load_more_button a { margin: 20px !important; }
+.services .wpb_row .qbutton, .services .wpb_row .load_more a, .services .wpb_row .blog_load_more_button a:hover { color:#ffffff !important; }
+.services .title_subtitle_holder { padding-top: 100px !important; }
+.q_accordion_holder.accordion .ui-accordion-header.ui-state-active .accordion_mark, .q_accordion_holder.accordion .ui-accordion-header.ui-state-active .accordion_mark { background-color: #cf0a2c !important; }
+.job-openings { padding-top: 100px !important; }
+header .q_logo img.normal { height: 22px !important; }
+.home .wpb_row .qbutton, .wpb_row .load_more a, .wpb_row .blog_load_more_button a { margin: 20px !important; }
+.page-template-template-job-posting-php .full_width { margin: 40px 0; }
+.page-template-template-job-posting-php .full_width p { margin: 0px 0 30px 0; }
+.page-template-template-job-posting-php .full_width p a:hover { color: #636363 !important; }
+.about-us .title_text_shadow .title h1 { text-shadow: 1px 1px 2px rgba(0,0,0,0.9); }
+
+.footer_top a:hover { text-decoration: underline; }
+.footer_top .q_social_icon_holder:hover i.simple_social { color: #cf0a2c !important; text-decoration: none; }
+.q_accordion_holder.accordion .ui-accordion-header.ui-state-active .accordion_mark_icon { background-image: url('http://pavelcomm.com/wp-content/uploads/2014/07/minus.png'); }
+.blog_holder { padding: 30px 0; }
+.single.single-post header { margin-bottom: 140px; }
+.single.single-post .title_holder { padding-top: 0px !important; }
+.single.single-post .title { background-image: none !important; }
+.single.single-post .title_outer { display: none; }
+
+nav.mobile_menu ul>li.has_sub>a span.mobile_arrow, nav.mobile_menu ul>li.has_sub>h3 span.mobile_arrow { width: 80px; height: 34px; }
+nav.mobile_menu ul li a { padding-right: 0px !important; }
+nav.mobile_menu ul>li.has_sub>a span.mobile_arrow i { padding-right: 10px !important; }
+
+.carousel-inner h2 { text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
+
+.contact .title img { display: none; }
+.contact .image_responsive { background: #ffffff; }
+.contact .title.title_size_large h1 { text-align: center; }
+.contact .title { background-image: none !important; }
+
+
+@media (min-width: 1001px) and (max-width: 1140px) {
+nav.main_menu>ul>li>a { padding: 0 8px; }
+}
+
+@media only screen and (max-width: 1000px) {
+.single.single-post header { margin-bottom: 0px; }
+}
+
+@media (max-width: 320px) {
+.carousel-inner h2 span { font-size: .9em!important;
+line-height: .75em!important; }
+.carousel-inner .left p { font-size: 1.2em !important; }
+.cta-header { display: none; }
+.side_menu_button { height: 61px !important; }
+.logo_wrapper { height: 66px !important; }
+.mobile_menu_button { height: 61px; }
+.home .wpb_row.section.vc_row-fluid, .services .wpb_row.section.vc_row-fluid { padding-top: 40px !important; }
+.home .separator.small.center { display: none; }
+.home .parallax_section_holder { display: none; }
+.home .tech-partners { padding-bottom: 0px !important; z-index: 100; }
+.home .tech-partners .wpb_column .separator.transparent.center { display: none !important; }
+.home .home-stats { display: none; }
+.home .testimonials { background: #ffffff; }
+
+
+.testimonial_text_inner p { font-size: 16px !important; margin-top: 30px; }
+
+.job-openings { padding-top: 10px !important; }
+.careers-testimonials { background-image: none !important; background-color: #636363; }
+.working-at-pavelcomm { padding-top: 40px !important; }
+.working-at-pavelcomm .separator { display: none; }
+.working-at-pavelcomm .wpb_text_column.wpb_content_element { padding: 20px; }
+.working-points { padding-top: 20px; }
+.vc_span4.wpb_column.column_container { margin-bottom: 0px; }
+.family-intro { padding-top: 20px !important; }
+.family-intro .wpb_column.column_container { margin-bottom: 0px !important; }
+.family-intro .separator { display: none; }
+.family-intro h2 { padding: 20px 0; }
+.tailor-made, .history { padding-top: 0px !important; padding-bottom: 0px !important; }
+.tailor-made .last { margin-bottom: 15px !important; }
+.team .title.title_size_large { padding-top: 0px !important; }
+.team h4 { padding: 0 20px !important; }
+.community .full_width { padding: 0 20px; }
+.community-inner { padding-top: 40px !important; }
+.community-inner .wpb_row.wpb_column { margin-bottom: 0px !important; }
+
+.careers .parallax_section_holder { background-position: 100% !important; height: 90px !important; min-height: inherit !important; }
+
+.about-us .tailor-made.wpb_row .wpb_column, .about-us .history.wpb_row .wpb_column, .about-us .history.wpb_row .wpb_column { margin-bottom: 0px !important; }
+.about-us .parallax_section_holder { display: none !important; }
+.about-us .history { padding-top: 40px !important; }
+
+.it-services ul { margin: 0 20px; }
+.it-services ul li h3 { font-size: 14px; }
+.services .intro, .it-services .intro, .voice-services .intro, .voice-services .intro2, .cabling-services .intro, .cabling-services .intro2  { padding-bottom: 0px !important; }
+.it-services .separator-row { padding: 10px 0 !important; }
+.it-services .services-row, .voice-services .services-row, .cabling-services .services-row { padding: 30px 0 !important; }
+
+.voice-services .separator-row, .cabling-services .separator-row { padding: 0px !important; }
+
+.cabling-services .title.title_size_large h1 { font-size: 26px; }
+.cabling-services .intro .vc_span12.wpb_column.column_container { margin-bottom: 0px !important; }
+
+.contact .wpb_wrapper { text-align: center; margin-bottom: 40px; }
+
+.mobile-off { display: none !important; }
+
+.testimonials { padding: 40px 0 0px 0 !important; }
+.testimonials.testimonials_carousel { padding-top: 0px !important; }
+.testimonials .separator { display: none; }
+}

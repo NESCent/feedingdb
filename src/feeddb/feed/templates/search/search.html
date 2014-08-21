@@ -77,20 +77,20 @@
         <tr>
           <td class="choose"><input type="checkbox" name="{{ result.object.id }}" value="on" /></td>
           <td class="column2"><a href="{% url 'trial_detail' result.object.id %}">{{ result.object.title }}</a></td>
-          <td class="column3"><a href="">{{ result.object.start | date:"M j, Y" | default:"unknown" }}</a></td>
-          <td class="column4"><a href="">{{ result.taxon }}</a></td>
-          <td class="column5"><a href="">Mastication (FIXME)</a></td>
+          <td class="column3">{{ result.object.start | date:"M j, Y" | default:"unknown" }}</td>
+          <td class="column4">{{ result.taxon }}</td>
+          <td class="column5">Mastication (FIXME)</td>
           <td class="column6">
             {% for label in result.techniques %}
-              <a href="">{{ label }}</a>{% if not forloop.last %}, {% endif %}
+              {{ label }}{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </td>
           <td class="column7">
             {% for label in result.muscles_direct %}
-              <a href="/{{ label }}">{{ label }}</a>{% if not forloop.last %}, {% endif %}
+              {{ label }}{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </td>
-          <td class="column8"><a href="">{{ result.object.food_type }}</a></td>
+          <td class="column8">{{ result.object.food_type }}</td>
           <td class="column9">
             {% for bucket in result.object.bucket_set.all %}
               <a href="">{{ bucket }}</a>{% if not forloop.last %}, {% endif %}

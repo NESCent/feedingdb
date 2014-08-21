@@ -6428,6 +6428,7 @@ body.search table.search-box th label {
 }
 body.search table.search-box td {
   border: 0;
+  font-size: 12px;
 }
 body.search aside {
   border-right: 2px solid #ccc;
@@ -6512,6 +6513,9 @@ body main table th {
 body main table th.choose {
   padding: 8px;
   width: 30px;
+}
+body main table td {
+  font-size: 12px;
 }
 body main table td.choose {
   padding: 8px;
