@@ -42,7 +42,7 @@
 		{% block form_top %}{% endblock %}
 <div>
 {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
-{% if save_on_top %}{% submit_row %}{% endif %}
+{% if save_on_top %}<!-- {% submit_row %} -->{% endif %}
 {% if errors %}
 <div class="row">
   <div class="col-xs-11">
@@ -50,7 +50,7 @@
       <p>
       {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
       </p>
-      <ul class="errorlist">{% for error in adminform.form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+      <div class="errorlist">{% for error in adminform.form.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>
     </div>
   </div>
 </div>
@@ -62,7 +62,6 @@
 
 {% for fieldset in adminform %}
   {% include "admin/includes/fieldset.html" %}
-  {% submit_row %}
 {% endfor %}
 
 {% block after_field_sets %}{% endblock %}
@@ -70,7 +69,6 @@
 {% for inline_admin_formset in inline_admin_formsets %}
 
     {% include inline_admin_formset.opts.template %}
-{% submit_row %}
 {% endfor %}
 
 {% block after_related_objects %}{% endblock %}
@@ -82,7 +80,7 @@
 
 {# JavaScript for prepopulated fields #}
 {% prepopulated_fields_js %}
-
+<input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
 </div>
 </form></div>
 {% endblock %}
