@@ -50,6 +50,22 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
   }
   hr { background: url('../../../../../img/hr.png') repeat-x; height: 2px; width: 100%; }
   
+  /* Alerts */
+  .alert { margin-top: 30px;
+    p { margin-top: 0 }
+  }
+  .alert-error { color: #a94442; background-color: #f2dede; border-color: #ebccd1; }
+  &.search .alert {
+    p { margin-top: 0 }
+  }
+  .required-notice { margin-bottom: 30px;
+    .glyphicon { 
+      &.glyphicon-asterisk { padding: 2px 2px 0 0; }
+    }
+  }
+  .glyphicon { 
+    &.glyphicon-asterisk { color: @orange; color: @orange-alpha; font-size: 10px; display: block; float: left; padding: 5px 2px 0 0; }
+  }
   /* Buttons */
   
   a.btn, .btn { color: @white; color: @white-alpha; font: 17px/26px @rockwell, serif; padding: 8px 23px; -webkit-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); -moz-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); border: 0; width: auto; border-radius: 0;
@@ -83,6 +99,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
         &:hover { background: @sky-blue; background: @sky-blue-alpha; }
         a { color: @pale-blue; color: @pale-blue-alpha; font: 300 21px @roboto; text-transform: uppercase; display: block; padding: 13px 0;
           &:hover { text-decoration: none; color: @pale-blue; color: @pale-blue-alpha; }
+          &:visited { color: @pale-blue; color: @pale-blue-alpha; }
         }
       }
     }
@@ -206,7 +223,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       }
       input { padding: 4px 19px; float: left; }
       #new_bucket_div { 
-        .new-bucket { position: absolute; left: 0;
+        .new-bucket { position: absolute; left: -38px;
           input { width: 107%; }
         }
       }
@@ -257,7 +274,11 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
 }
 
 /* Global helpers */
-.full-width { width: 100%; }
+.full-width, .vTextField { width: 100%; }
+
+/* Form helpers */
+.required label, label.required { font-weight: inherit !important; color: @orange !important; color: @orange-alpha !important; width: auto; }
+form .aligned p, form .aligned ul { margin-left: 0; padding-left: 0; }
 
 /* Custom media queries for larger screens */
 
@@ -268,6 +289,9 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       .records-selection {
         form {
           .chosen-container-single { width: 170px !important; }
+        }
+        #new_bucket_div {
+          .new-bucket {  }
         }
       }
     }

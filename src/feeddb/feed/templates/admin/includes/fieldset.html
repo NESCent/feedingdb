@@ -9,24 +9,24 @@
 	  {% for field in line %}
       {% if field.field.field.widget.is_hidden %}{{ field.field }}{%else%}
 	  <div class="row{% if line.errors %} errors{% endif %} {% for field in line %}{{ field.field.name }} {% endfor %} ">
-	  
-	  <div class="{% if not line.fields|length_is:"1" %} field-box{% endif %}">
-          {% if field.is_checkbox %}
-		      <div class="col-xs-2">{{ field.field }}{{ field.label_tag }}</div>
-          {% else %}
-              <div class="col-xs-2">{{ field.label_tag }}</div>
-              <div class="col-xs-9">
-			  {%if field.field.field.required %}
-			  <span class="required">
-			  {%else%}
-               <span>
-              {%endif%}
-			  {{ field.field }}
-			  </span>
-          {% endif %}
-          {% if field.field.field.help_text %}<p class="help">{{ field.field.field.help_text|safe }}</p>{% endif %}</div>
-      </div></div>
-     {% endif %}
+      <div class="{% if not line.fields|length_is:"1" %} field-box{% endif %}">
+        {% if field.is_checkbox %}
+		    <div class="col-xs-2">{{ field.field }}{{ field.label_tag }}{%if field.field.field.required %}*{%endif%}
+		    </div>
+        {% else %}
+        <div class="col-xs-2">
+        {%if field.field.field.required %}<span class="glyphicon glyphicon-asterisk"></span> {%endif%}{{ field.label_tag }}
+        </div>
+        <div class="col-xs-9">
+          <span>
+      		  {{ field.field }}
+      		</span>
+        {% endif %}
+        {% if field.field.field.help_text %}<p class="help">{{ field.field.field.help_text|safe }}</p>{% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
 	  {% endfor %}
       
   {% endfor %}

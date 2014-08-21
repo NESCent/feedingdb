@@ -6170,6 +6170,7 @@ body {
   background: url('../../../../../img/greyzz.png');
   color: #112e4f;
   /* Typography / Global */
+  /* Alerts */
   /* Buttons */
 }
 body h1 {
@@ -6221,6 +6222,33 @@ body hr {
   background: url('../../../../../img/hr.png') repeat-x;
   height: 2px;
   width: 100%;
+}
+body .alert {
+  margin-top: 30px;
+}
+body .alert p {
+  margin-top: 0;
+}
+body .alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+body.search .alert p {
+  margin-top: 0;
+}
+body .required-notice {
+  margin-bottom: 30px;
+}
+body .required-notice .glyphicon.glyphicon-asterisk {
+  padding: 2px 2px 0 0;
+}
+body .glyphicon.glyphicon-asterisk {
+  color: #da5400;
+  font-size: 10px;
+  display: block;
+  float: left;
+  padding: 5px 2px 0 0;
 }
 body a.btn,
 body .btn {
@@ -6334,6 +6362,9 @@ body nav ul li a {
 }
 body nav ul li a:hover {
   text-decoration: none;
+  color: #ceeded;
+}
+body nav ul li a:visited {
   color: #ceeded;
 }
 body .masthead {
@@ -6545,7 +6576,7 @@ body main .records-selection input {
 }
 body main .records-selection #new_bucket_div .new-bucket {
   position: absolute;
-  left: 0;
+  left: -38px;
 }
 body main .records-selection #new_bucket_div .new-bucket input {
   width: 107%;
@@ -6649,8 +6680,21 @@ body #clone-modal .row .chosen-container {
   width: 100% !important;
 }
 /* Global helpers */
-.full-width {
+.full-width,
+.vTextField {
   width: 100%;
+}
+/* Form helpers */
+.required label,
+label.required {
+  font-weight: inherit !important;
+  color: #da5400 !important;
+  width: auto;
+}
+form .aligned p,
+form .aligned ul {
+  margin-left: 0;
+  padding-left: 0;
 }
 /* Custom media queries for larger screens */
 /* Large devices (large desktops, 1200px and up) */
