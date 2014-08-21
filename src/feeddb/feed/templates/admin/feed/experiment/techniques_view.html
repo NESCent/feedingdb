@@ -1,6 +1,6 @@
 <fieldset class="module aligned">
 <div class="form-row ">
-              <label>Techniques:</label>
+              <label>Sensor Type:</label>
 			  {%ifequal original.setup_set.all|length 0 %}(No technique added for this experiment. Please click the edit button to add techniques.){%endifequal%}
 			  
 {% for setup in original.setup_set.all %}

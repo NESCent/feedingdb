@@ -86,11 +86,18 @@
           {% endif %}
 -->
        {% if messages %}
-         <ul class="messages">
-             {% for message in messages %}
-             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+       <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+        {% for message in messages %}
+         <div{% if message.tags %} class="messages alert alert-{{ message.tags }}"{% endif %} role="alert">
+             
+             <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
              {% endfor %}
-         </ul>
+         </div>
+        </div>
+      </div>
+      </div>
        {% endif %}
 
       <div class="masthead">

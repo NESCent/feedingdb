@@ -16,11 +16,11 @@ logger = logging.getLogger(__name__)
 
 my_facet_config = {
     'fields': {
-        'muscles': { 'label': 'Muscle' },
+        'muscles': { 'label': 'Anatomical Location' },
         'muscles_part_of': { 'label': 'Part of Muscle' },
         'taxon': { 'label': 'Species' },
         'food_type': { 'label': 'Food Type' },
-        'techniques': { 'label': 'Technique' },
+        'techniques': { 'label': 'Sensor Type' },
     }
 }
 

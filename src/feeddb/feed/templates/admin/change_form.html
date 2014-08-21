@@ -43,7 +43,8 @@
     {% endif %}{% endif %}
 </ul>
 {% endblock %}
-<p>Highlighted fields are required</p>
+
+
 <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">
 	{% csrf_token %}
 		{% block form_top %}{% endblock %}
@@ -51,11 +52,18 @@
 {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
 {% if save_on_top %}{% submit_row %}{% endif %}
 {% if errors %}
-    <p class="errornote">
-    {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
-    </p>
-    <ul class="errorlist">{% for error in adminform.form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+<div class="row">
+  <div class="col-xs-11">
+    <div class="messages alert alert-error">
+      <p>
+      {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+      </p>
+      <ul class="errorlist">{% for error in adminform.form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+</div>
 {% endif %}
+<p class="required-notice"><span class="glyphicon glyphicon-asterisk"></span> Required fields</p>
 
 {% for fieldset in adminform %}
   {% include "admin/includes/fieldset.html" %}
@@ -78,6 +86,14 @@
 
 {# JavaScript for prepopulated fields #}
 {% prepopulated_fields_js %}
+{% if 'study' == opts.model_name %}
+<input type="submit" name="_redirect_add_experiment" value="Next Step: Add Experiment">
+{% elif 'experiment' == opts.model_name %}
+<input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
+{% elif 'session' == opts.model_name %}
+<input type="submit" name="_redirect_add_trial" value="Next Step: Add Trial">
+
+{% endif %}
 
 </div>
 </form>

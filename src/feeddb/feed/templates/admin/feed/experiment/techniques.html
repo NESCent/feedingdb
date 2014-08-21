@@ -1,10 +1,14 @@
 {% load i18n admin_modify feedmedia %}
 <fieldset class="module aligned">
-<div class="form-row ">
-   <label>Techniques:</label>
-   {% for value in techniques %}
+<div class="row">
+  <div class="col-xs-2">
+   <label>Sensor Type:</label>
+  </div>
+  <div class="col-xs-9">
+    {% for value in techniques %}
       {{value}}&nbsp;&nbsp;&nbsp;&nbsp;		
-{% endfor %}
+    {% endfor %}
+  </div>
 </div>
 {% submit_row %}
 </fieldset>
