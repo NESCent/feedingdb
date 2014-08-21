@@ -246,6 +246,7 @@ class Study(FeedBaseModel):
     funding = models.CharField(max_length=255, blank = True, null=True, help_text = "Funding agency, grant name, number, award date, etc.")
     approval = models.CharField(max_length=255, blank = True, null=True,
                                 help_text = "A reference to approval documentation for Animal Care and Use or for Human Subjects, if it was secured.")
+    notes = models.TextField( blank = True, null=True)
 
     def __unicode__(self):
         return self.title
@@ -253,12 +254,6 @@ class Study(FeedBaseModel):
         ordering = ["title"]
         verbose_name_plural = "Studies"
 
-class StudyPrivate(FeedBaseModel):
-    study = models.ForeignKey(Study)
-    notes = models.TextField( blank = True, null=True)
-    class Meta:
-        verbose_name = "Study - Private Information"
-        verbose_name_plural = "Study - Private Information"
 '''
 '''
 class Subject(FeedBaseModel):
