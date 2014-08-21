@@ -93,7 +93,7 @@
           <td class="column8">{{ result.object.food_type }}</td>
           <td class="column9">
             {% for bucket in result.object.bucket_set.all %}
-              <a href="">{{ bucket }}</a>{% if not forloop.last %}, {% endif %}
+              <a href="{% url 'explorer.views.bucket_detail' bucket.id %}">{{ bucket }}</a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </td>
         </tr>

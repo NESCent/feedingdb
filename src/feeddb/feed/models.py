@@ -5,7 +5,7 @@ import datetime
 from django.db.models.expressions import F
 
 
-DATETIME_HELP_TEXT = 'For older dates, type by hand "yyyy-mm-dd" for date and "hh:mm:ss" for time, for example "1990-10-22" and "15:45:00.  If start time is not known, use "00:00:00".'
+DATETIME_HELP_TEXT = 'For older dates, type by hand "yyyy-mm-dd" for example "1990-10-22"'
 # Only used for Trial here; the other containers are are affected through forms.py -- go figure (VG)
 BOOKKEEPING_HELP_TEXT = 'The reference to these data, as used in your lab notes or records (optional).'
 
@@ -246,6 +246,7 @@ class Study(FeedBaseModel):
     funding = models.CharField(max_length=255, blank = True, null=True, help_text = "Funding agency, grant name, number, award date, etc.")
     approval = models.CharField(max_length=255, blank = True, null=True,
                                 help_text = "A reference to approval documentation for Animal Care and Use or for Human Subjects, if it was secured.")
+    notes = models.TextField( blank = True, null=True)
 
     def __unicode__(self):
         return self.title
@@ -253,12 +254,6 @@ class Study(FeedBaseModel):
         ordering = ["title"]
         verbose_name_plural = "Studies"
 
-class StudyPrivate(FeedBaseModel):
-    study = models.ForeignKey(Study)
-    notes = models.TextField( blank = True, null=True)
-    class Meta:
-        verbose_name = "Study - Private Information"
-        verbose_name_plural = "Study - Private Information"
 '''
 '''
 class Subject(FeedBaseModel):

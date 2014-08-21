@@ -578,7 +578,7 @@ class FeedModelAdmin(admin.ModelAdmin):
                 'tabbed': self.tabbed,
                 'tab_name': self.tab_name,
             }
-        return super(FeedModelAdmin,self).change_view(request,object_id,extra_context)
+        return super(FeedModelAdmin,self).change_view(request, object_id, extra_context=extra_context)
 
     #get context from the url if adding data
     def add_view(self, request, form_url='', extra_context=None):
