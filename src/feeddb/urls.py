@@ -21,8 +21,6 @@ urlpatterns = patterns('',
     (r'^$', 'feeddb.feed.views.index'),
     #(r'^$', include('feeddb.feed.urls')),
 
-    # TODO: restore explorer URLs if they are desired. This line causes an
-    # error when using the django debug toolbar.
     (r'^explorer/', include('feeddb.explorer.urls')),
 
     (r'^about', 'feeddb.feed.views.about'),
