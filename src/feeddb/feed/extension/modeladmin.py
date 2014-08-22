@@ -33,6 +33,7 @@ from feeddb.feed.extension.changelist import *
 from feeddb.feed.extension.util import *
 from django.template import RequestContext
 from django.contrib.admin.views.main import IncorrectLookupParameters
+from django.contrib import messages
 
 #for 1.2.4
 from django.views.decorators.csrf import csrf_protect
@@ -127,6 +128,13 @@ class FeedModelAdmin(admin.ModelAdmin):
                 if '_redirect_' + name in form_data:
                     return self.success_destinations[name]
         return default
+
+    def save_model(self, request, obj, form, change):
+        obj.save();
+
+        request.feed_upload_status.update_with_object(obj)
+        self.message_user(request, 'updated with obj %s' % obj)
+        self.message_user(request, unicode(request.session['feed_upload_status']))
 
     def get_urls(self):
         from django.conf.urls import patterns, url
@@ -366,11 +374,15 @@ class FeedModelAdmin(admin.ModelAdmin):
         return HttpResponseRedirect(dest)
 
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
-        adminForm = context['adminform']
-        inline_admin_formsets = context['inline_admin_formsets']
-        self.filter_form_values(request, adminForm.form,self.model,obj)
-        for formset in inline_admin_formsets:
-            self.filter_formset_values(request, formset.formset,self.model,obj)
+        # Get default form values from session
+        request.feed_upload_status.apply_defaults_to_form(context['adminform'].form)
+        
+        # Get default form values from GET (overriding session)
+        self.filter_form_values(request, context['adminform'].form, self.model, obj)
+
+        for formset in context['inline_admin_formsets']:
+            self.filter_formset_values(request, formset.formset, self.model, obj)
+
         return super(FeedModelAdmin, self).render_change_form(request, context, add, change, form_url, obj)
 
     def clone_view(self, request, object_id, extra_context=None):
@@ -423,6 +435,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             form.fields["study"].queryset = Study.objects.filter(created_by=request.user)
 
         #disable corresponding foreign key select box if the data object is already specified in the url
+        # TODO: restrict subject selection based on study selection. Perhaps django-smart-selects module?
         if request.GET.has_key("study"):
             if form.fields.has_key("study"):
                 form.fields["study"].widget.widget.attrs['disabled']=""
@@ -568,16 +581,14 @@ class FeedModelAdmin(admin.ModelAdmin):
 
     def change_view(self,request,object_id,extra_context=None):
         #add extra context for tabs
-        if(extra_context!=None):
-            extra_context.update({
-                'tabbed': self.tabbed,
-                'tab_name': self.tab_name,
-            })
-        else:
-            extra_context= {
-                'tabbed': self.tabbed,
-                'tab_name': self.tab_name,
-            }
+        if extra_context == None:
+            extra_context = {}
+
+        extra_context.update({
+            'tabbed': self.tabbed,
+            'tab_name': self.tab_name,
+        })
+
         return super(FeedModelAdmin,self).change_view(request, object_id, extra_context=extra_context)
 
     #get context from the url if adding data
@@ -880,6 +891,7 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         form.save()
         experiment = form.instance
         self.add_techniques(request,experiment)
+        request.feed_upload_status.update_with_object(experiment)
 
     def add_techniques(self, request, new_experiment):
         "handle techniques for this experiment."
