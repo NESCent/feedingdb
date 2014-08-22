@@ -45,8 +45,7 @@
     <aside>
       <h3>Filter Results</h3>
       {% show_facets facet_items 'taxon' %}
-      {% show_facets facet_items 'muscles' %}
-      {% show_facets facet_items 'muscles_part_of' %}
+      {% show_facets facet_items 'analoc' %}
       {% show_facets facet_items 'techniques' %}
       {% show_facets facet_items 'food_type' %}
     </aside>
@@ -86,7 +85,7 @@
             {% endfor %}
           </td>
           <td class="column7">
-            {% for label in result.muscles_direct %}
+            {% for label in result.analoc_direct %}
               {{ label }}{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </td>
