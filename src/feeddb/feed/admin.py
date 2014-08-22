@@ -85,6 +85,7 @@ class EmgSensorViewInline(FeedTabularInline):
 
 class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
+    exclude = ['location_controlled', 'location_freetext']
     extra = 5
     form = EmgSensorChannelForm
     formset = OrderedFormset
@@ -92,11 +93,13 @@ class EmgSensorInline(FeedTabularInline):
 class SonoSensorInline(SetupTabularInline):
     model = SonoSensor
     extra = 4
+    exclude = ['location_controlled', 'location_freetext']
     form = SonoSensorForm
 
 class SonoSensorViewInline(FeedTabularInline):
     model = SonoSensor
     extra = 0
+    exclude = ['location_controlled', 'location_freetext']
     form = SonoSensorForm
 
 class StrainSensorInline(SetupTabularInline):

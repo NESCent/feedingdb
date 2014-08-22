@@ -71,6 +71,10 @@ class OwlTerm(models.Model):
         """
         return dict(rdfs_is_class=True)
 
+    @classmethod
+    def default_qs(cls):
+        return cls.objects.filter(**(cls.default_qs_filter_args())).order_by('label')
+
     def part_of_classes(self):
         return self.bfo_part_of_some.filter(**(self.default_qs_filter_args()))
 
