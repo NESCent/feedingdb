@@ -1,0 +1,46 @@
+{% comment %}
+This template is used to render the "upload steps" block. You have access to
+the most recently edited study, experiment, session, and trial. You can also follow
+all the relationships to the other elements of the data set.
+
+Some useful variables: (indentation indicates recommended structure with "for" loops)
+    study
+    study.subject_set.count
+    study.subject_set.all
+        subject
+    study.experiment_set.count
+    study.experiment_set.all
+        experiment
+        experiment.session_set.count
+        experiment.session_set.all
+            session
+            session.trial_set.count
+            session.trial_set.all
+                trial
+
+    known_status - Boolean, whether we have information or not
+
+{% endcomment %}
+{% if known_status %}
+<div>
+    <div class="study">
+        Study: {{ study }}
+        <div> Experiments: {{ study.experiment_set.count }}
+        {% for experiment in study.experiment_set.all %}
+            <div>Exp: {{ experiment }}</div>
+        {% empty %}
+            None
+        {% endfor %}
+        </div>
+
+        <div> Subjects: {{ study.subject_set.count }}
+        {% for subject in study.subject_set.all %}
+            <div>Subject: {{ subject }}</div>
+        {% empty %}
+            None
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+Known: {{ known_status }}

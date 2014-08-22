@@ -67,6 +67,7 @@ MIDDLEWARE_CLASSES = (
    'debug_toolbar.middleware.DebugToolbarMiddleware',
    'django.middleware.csrf.CsrfViewMiddleware',
    'feeddb.feed.extension.middleware.AnonymousAccessMiddleware',
+   'feeddb.feed.middleware.FeedUploadStatusMiddleware',
    'pagination.middleware.PaginationMiddleware',
    
 )
@@ -99,6 +100,8 @@ INSTALLED_APPS = (
    #'inspector_panel',
    'faceted_search',
 )
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 ### Debug toolbar configuration
 def custom_toolbar_show(request):
