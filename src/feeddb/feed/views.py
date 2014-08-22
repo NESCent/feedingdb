@@ -118,7 +118,8 @@ class FeedSearchView(FacetedSearchView):
     def pager_params(self, page_no):
         params = self.request.GET.copy()
 
-        if page_no == 1:
+        # Remove page parameter for first page
+        if page_no == 1 and params.get('page', False):
             params.pop('page')
         else:
             params['page'] = page_no
