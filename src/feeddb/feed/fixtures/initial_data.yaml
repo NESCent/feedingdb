@@ -36,7 +36,7 @@
       and participates in oropharyngeal behavior.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000002
   model: feed.muscleowl
   pk: 4449
@@ -46,7 +46,7 @@
     obo_definition: None
     rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4681, 4663, 5197]
+    rdfs_subClassOf_ancestors: [4663, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000005
   model: feed.muscleowl
   pk: 4450
@@ -67,7 +67,7 @@
       IX).
     rdfs_comment: Request new term.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4681, 5197, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000007
   model: feed.muscleowl
   pk: 4452
@@ -80,12 +80,12 @@
       a non-ceratohyal part of the hyoid apparatus
     rdfs_comment: Request new term.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4452, 4681]
+    rdfs_subClassOf_ancestors: [5194, 4663, 4681, 5197, 4452]
     uri: http://purl.obolibrary.org/obo/MFMO_0000006
   model: feed.muscleowl
   pk: 4453
 - fields:
-    bfo_part_of_some: [5194, 4660, 5197, 4612, 4663, 4681, 4581]
+    bfo_part_of_some: [4681, 5194, 5197, 4660, 4663, 4612, 4581]
     label: cricopharyngeus muscle
     obo_definition: The cricopharyngeus is a pharyngeal arch 4/6 muscle that participates
       in oral/pharyngeal behaviors and is innervated by the pharyngeal plexus and
@@ -94,7 +94,7 @@
       acts as a sphincter between the pharynx and esophagus.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000009
   model: feed.muscleowl
   pk: 4454
@@ -137,7 +137,7 @@
       plexus of Vagus (CN X) and attaches to the hyoid apparatus and the midline raphe.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/mfmo.owl#middle_pharyngeal_constrictor_muscle
   model: feed.muscleowl
   pk: 4458
@@ -167,7 +167,7 @@
     obo_definition: None
     rdfs_comment: Term in Uberon is equivalent but the definition needs revision,
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4570, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4570]
     uri: http://purl.obolibrary.org/obo/mfmo.owl#hypoglossal_nerve
   model: feed.muscleowl
   pk: 4461
@@ -187,47 +187,47 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4452, 4681]
+    rdfs_subClassOf_ancestors: [5194, 4663, 4681, 5197, 4452]
     uri: http://purl.obolibrary.org/obo/MFMO0000212
   model: feed.muscleowl
   pk: 4463
 - fields:
-    bfo_part_of_some: [5194, 4564, 4621, 5197, 4494, 4663, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4663, 4621, 4494, 4564]
     label: intrinsic circularis
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 5197, 4663, 4574, 4681]
+    rdfs_subClassOf_ancestors: [4564, 4574, 4663, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO0000213
   model: feed.muscleowl
   pk: 4464
 - fields:
-    bfo_part_of_some: [5194, 4564, 4663, 5197, 4546, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4663, 4564, 4546]
     label: mandibulohyoideus part 2
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000210
   model: feed.muscleowl
   pk: 4465
 - fields:
-    bfo_part_of_some: [5194, 4564, 4663, 5197, 4681, 4546]
+    bfo_part_of_some: [4681, 5194, 5197, 4663, 4564, 4546]
     label: mandibulohyoideus part 3
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000211
   model: feed.muscleowl
   pk: 4466
 - fields:
-    bfo_part_of_some: [5194, 4564, 4621, 5197, 4494, 4663, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4663, 4621, 4494, 4564]
     label: longitudinal intrinsic tongue muscle
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 5197, 4663, 4574, 4681]
+    rdfs_subClassOf_ancestors: [4564, 4574, 4663, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO0000216
   model: feed.muscleowl
   pk: 4467
@@ -237,17 +237,17 @@
     obo_definition: None
     rdfs_comment: FEED spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000217
   model: feed.muscleowl
   pk: 4468
 - fields:
-    bfo_part_of_some: [5194, 4564, 5197, 4621, 4494, 4663, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4663, 4621, 4494, 4564]
     label: dorsoventral intrinsic tongue muscle
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 5197, 4663, 4574, 4681]
+    rdfs_subClassOf_ancestors: [4564, 4574, 4663, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO0000214
   model: feed.muscleowl
   pk: 4469
@@ -272,14 +272,14 @@
   model: feed.muscleowl
   pk: 4471
 - fields:
-    bfo_part_of_some: [4488, 4691, 4663]
+    bfo_part_of_some: [4691, 4488, 4663]
     label: levator veli palatini
     obo_definition: The levator veli palatini is part of the soft palate that attaches
       to the cranial base, pharyngotympanic tube and the soft palate and is innervated
       by Cranial Nerve X via the pharyngeal plexus.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4458, 4663, 5197, 4661, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4612, 4663, 4661, 5197, 5194, 4681, 4458]
     uri: http://purl.obolibrary.org/obo/mfmo.owl#levator_veli_palatini
   model: feed.muscleowl
   pk: 4472
@@ -289,7 +289,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000133
   model: feed.muscleowl
   pk: 4473
@@ -301,7 +301,7 @@
       muscle, and lateral to the depressor supercillii muscle.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000132
   model: feed.muscleowl
   pk: 4474
@@ -311,7 +311,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000131
   model: feed.muscleowl
   pk: 4475
@@ -321,7 +321,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000130
   model: feed.muscleowl
   pk: 4476
@@ -338,7 +338,7 @@
       al.., 2011., also DuBrul, 1980.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000137
   model: feed.muscleowl
   pk: 4477
@@ -348,7 +348,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000136
   model: feed.muscleowl
   pk: 4478
@@ -358,7 +358,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000135
   model: feed.muscleowl
   pk: 4479
@@ -368,7 +368,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000134
   model: feed.muscleowl
   pk: 4480
@@ -378,7 +378,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000139
   model: feed.muscleowl
   pk: 4481
@@ -393,7 +393,7 @@
       1980.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000138
   model: feed.muscleowl
   pk: 4482
@@ -403,7 +403,7 @@
     obo_definition: None
     rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4570, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4570]
     uri: http://purl.obolibrary.org/obo/UBERON_0001759
   model: feed.muscleowl
   pk: 4483
@@ -461,7 +461,7 @@
       arch '
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4691, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4691]
     uri: http://purl.obolibrary.org/obo/MFMO_0000100
   model: feed.muscleowl
   pk: 4488
@@ -561,7 +561,7 @@
     obo_definition: None
     rdfs_comment: Term in Uberon is equivalent.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 5121, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 4663, 5197, 5194, 5013]
     uri: http://purl.obolibrary.org/obo/MFMO_0000049
   model: feed.muscleowl
   pk: 4498
@@ -594,7 +594,7 @@
       plexus.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4681, 4612]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/mfmo.owl#palatopharyngeus_muscle
   model: feed.muscleowl
   pk: 4501
@@ -634,7 +634,7 @@
     obo_definition: None
     rdfs_comment: FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000168
   model: feed.muscleowl
   pk: 4505
@@ -644,7 +644,7 @@
     obo_definition: None
     rdfs_comment: FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000169
   model: feed.muscleowl
   pk: 4506
@@ -654,7 +654,7 @@
     obo_definition: None
     rdfs_comment: Not a part of the thyroarytenoid in Uberon.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4584, 4663, 5197, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4612, 4584, 4663, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO0000160
   model: feed.muscleowl
   pk: 4507
@@ -664,7 +664,7 @@
     obo_definition: None
     rdfs_comment: FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4452, 4681]
+    rdfs_subClassOf_ancestors: [5194, 4663, 4681, 5197, 4452]
     uri: http://purl.obolibrary.org/obo/MFMO0000161
   model: feed.muscleowl
   pk: 4508
@@ -674,7 +674,7 @@
     obo_definition: None
     rdfs_comment: FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000162
   model: feed.muscleowl
   pk: 4509
@@ -684,7 +684,7 @@
     obo_definition: None
     rdfs_comment: FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4619, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 5197, 5194, 4619]
     uri: http://purl.obolibrary.org/obo/MFMO0000164
   model: feed.muscleowl
   pk: 4510
@@ -694,7 +694,7 @@
     obo_definition: None
     rdfs_comment: FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4619, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 5197, 5194, 4619]
     uri: http://purl.obolibrary.org/obo/MFMO0000165
   model: feed.muscleowl
   pk: 4511
@@ -704,7 +704,7 @@
     obo_definition: None
     rdfs_comment: FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4619, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 5197, 5194, 4619]
     uri: http://purl.obolibrary.org/obo/MFMO0000166
   model: feed.muscleowl
   pk: 4512
@@ -714,7 +714,7 @@
     obo_definition: None
     rdfs_comment: FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000167
   model: feed.muscleowl
   pk: 4513
@@ -735,7 +735,7 @@
       symphysis, UBERON_0006606)
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4524, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4524]
     uri: http://purl.obolibrary.org/obo/MFMO0000147
   model: feed.muscleowl
   pk: 4515
@@ -785,7 +785,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000140
   model: feed.muscleowl
   pk: 4520
@@ -799,7 +799,7 @@
       Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011., also DuBrul, 1980.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000141
   model: feed.muscleowl
   pk: 4521
@@ -819,7 +819,7 @@
     obo_definition: None
     rdfs_comment: Term in Uberon is equivalent, but definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4626, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4626]
     uri: http://purl.obolibrary.org/obo/MFMO0000149
   model: feed.muscleowl
   pk: 4523
@@ -855,7 +855,7 @@
       innervated by the facial nerve (CN VII).
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000058
   model: feed.muscleowl
   pk: 4526
@@ -871,7 +871,7 @@
       cervicale and myoides muscles.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000059
   model: feed.muscleowl
   pk: 4527
@@ -881,7 +881,7 @@
     obo_definition: None
     rdfs_comment: Request new term but definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4611, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4611]
     uri: http://purl.obolibrary.org/obo/MFMO_0000052
   model: feed.muscleowl
   pk: 4528
@@ -891,7 +891,7 @@
     obo_definition: part of the hyoid apparatus
     rdfs_comment: Request new term but definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4611, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4611]
     uri: http://purl.obolibrary.org/obo/MFMO_0000053
   model: feed.muscleowl
   pk: 4529
@@ -901,7 +901,7 @@
     obo_definition: None
     rdfs_comment: Term in Uberon is equivalent.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4691, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4691]
     uri: http://purl.obolibrary.org/obo/MFMO_0000050
   model: feed.muscleowl
   pk: 4530
@@ -921,7 +921,7 @@
     obo_definition: articular part of the mandible bone
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4524, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4524]
     uri: http://purl.obolibrary.org/obo/MFMO_0000056
   model: feed.muscleowl
   pk: 4532
@@ -954,7 +954,7 @@
     obo_definition: None
     rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4570, 4663, 4483]
+    rdfs_subClassOf_ancestors: [4483, 4663, 4570]
     uri: http://purl.obolibrary.org/obo/UBERON_0003716
   model: feed.muscleowl
   pk: 4535
@@ -974,7 +974,7 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4619, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 5197, 5194, 4619]
     uri: http://purl.obolibrary.org/obo/MFMO0000201
   model: feed.muscleowl
   pk: 4537
@@ -984,7 +984,7 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4619, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 5197, 5194, 4619]
     uri: http://purl.obolibrary.org/obo/MFMO0000200
   model: feed.muscleowl
   pk: 4538
@@ -994,7 +994,7 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000203
   model: feed.muscleowl
   pk: 4539
@@ -1004,17 +1004,17 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4619, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 5197, 5194, 4619]
     uri: http://purl.obolibrary.org/obo/MFMO0000202
   model: feed.muscleowl
   pk: 4540
 - fields:
-    bfo_part_of_some: [5194, 4564, 5197, 4663, 4542, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4663, 4564, 4542]
     label: genioglossus medial
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000205
   model: feed.muscleowl
   pk: 4541
@@ -1024,37 +1024,37 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000204
   model: feed.muscleowl
   pk: 4542
 - fields:
-    bfo_part_of_some: [5194, 4564, 4663, 5197, 4542, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4663, 4564, 4542]
     label: genioglossus internal
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000207
   model: feed.muscleowl
   pk: 4543
 - fields:
-    bfo_part_of_some: [5194, 4564, 5197, 4663, 4542, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4663, 4564, 4542]
     label: genioglossus lateral
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000206
   model: feed.muscleowl
   pk: 4544
 - fields:
-    bfo_part_of_some: [5194, 4564, 4663, 5197, 4546, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4663, 4564, 4546]
     label: mandibulohyoideus part 1
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000209
   model: feed.muscleowl
   pk: 4545
@@ -1064,29 +1064,29 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000208
   model: feed.muscleowl
   pk: 4546
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4681, 4557, 4513]
+    bfo_part_of_some: [4681, 4513, 5197, 4672, 4663, 5194, 4557]
     label: adductor mandibulae externus superficialis posterior
     obo_definition: None
     rdfs_comment: 'Uberon has a couple of terms (e.g., UBERON_2000311) that refer
       to the entire adductor mandibulae complex but not individual parts. '
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000178
   model: feed.muscleowl
   pk: 4547
 - fields:
-    bfo_part_of_some: [5194, 4672, 5197, 4663, 4681, 4557, 4513]
+    bfo_part_of_some: [4681, 4513, 5197, 4672, 4663, 5194, 4557]
     label: adductor mandibulae externus superficialis anterior
     obo_definition: None
     rdfs_comment: 'Uberon has a couple of terms (e.g., UBERON_2000311) that refer
       to the entire adductor mandibulae complex but not individual parts. '
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000177
   model: feed.muscleowl
   pk: 4548
@@ -1101,85 +1101,85 @@
   model: feed.muscleowl
   pk: 4549
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4681, 4513]
+    bfo_part_of_some: [4681, 4513, 5197, 4672, 4663, 5194]
     label: adductor mandibulae externus medialis
     obo_definition: None
     rdfs_comment: 'Uberon has a couple of terms (e.g., UBERON_2000311) that refer
       to the entire adductor mandibulae complex but not individual parts. '
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000170
   model: feed.muscleowl
   pk: 4550
 - fields:
-    bfo_part_of_some: [5194, 4672, 5197, 4663, 4681, 4513]
+    bfo_part_of_some: [4681, 4513, 5197, 4672, 4663, 5194]
     label: adductor mandibulae externus profundus
     obo_definition: None
     rdfs_comment: 'Uberon has a couple of terms (e.g., UBERON_2000311) that refer
       to the entire adductor mandibulae complex but not individual parts. '
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000179
   model: feed.muscleowl
   pk: 4551
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4681, 4557, 4513]
+    bfo_part_of_some: [4681, 4513, 5197, 4672, 4663, 5194, 4557]
     label: retractor anguli oris
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000176
   model: feed.muscleowl
   pk: 4552
 - fields:
-    bfo_part_of_some: [5194, 4672, 5197, 4663, 4681, 4557, 4513]
+    bfo_part_of_some: [4681, 4513, 5197, 4672, 4663, 5194, 4557]
     label: mLAO
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000175
   model: feed.muscleowl
   pk: 4553
 - fields:
-    bfo_part_of_some: [5194, 4672, 5197, 4663, 4681, 4513, 4550]
+    bfo_part_of_some: [4681, 4513, 5197, 4672, 4663, 5194, 4550]
     label: posterior head of mAMEM
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000174
   model: feed.muscleowl
   pk: 4554
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4681, 4513, 4550]
+    bfo_part_of_some: [4681, 4513, 5197, 4672, 4663, 5194, 4550]
     label: anteromedial head of mAMEM
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000173
   model: feed.muscleowl
   pk: 4555
 - fields:
-    bfo_part_of_some: [5194, 4672, 5197, 4663, 4681, 4550, 4513]
+    bfo_part_of_some: [4681, 4513, 5197, 4672, 4663, 5194, 4550]
     label: ventrolateral head of mAMEM
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000172
   model: feed.muscleowl
   pk: 4556
 - fields:
-    bfo_part_of_some: [5194, 4672, 5197, 4663, 4681, 4513]
+    bfo_part_of_some: [4681, 4513, 5197, 4672, 4663, 5194]
     label: adductor mandibulae externus superficialis
     obo_definition: None
     rdfs_comment: 'Uberon has a couple of terms (e.g., UBERON_2000311) that refer
       to the entire adductor mandibulae complex but not individual parts. '
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000171
   model: feed.muscleowl
   pk: 4557
@@ -1229,7 +1229,7 @@
     obo_definition: None
     rdfs_comment: FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4619, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 5197, 5194, 4619]
     uri: http://purl.obolibrary.org/obo/MFMO0000163
   model: feed.muscleowl
   pk: 4562
@@ -1239,7 +1239,7 @@
     obo_definition: None
     rdfs_comment: Request new term but the definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4483, 4570, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4483, 4570]
     uri: http://purl.obolibrary.org/obo/UBERON_0011325
   model: feed.muscleowl
   pk: 4563
@@ -1249,7 +1249,7 @@
     obo_definition: Muscles innervated by the hypoglossal nerve (Cranial Nerve XII).
     rdfs_comment: Request new term.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000062
   model: feed.muscleowl
   pk: 4564
@@ -1300,7 +1300,7 @@
       superior to the first cervical vertebrae.
     rdfs_comment: Request new term.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4594, 4570, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4594, 4570]
     uri: http://purl.obolibrary.org/obo/MFMO_0000092
   model: feed.muscleowl
   pk: 4569
@@ -1320,7 +1320,7 @@
     obo_definition: None
     rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4594, 4570, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4594, 4570]
     uri: http://purl.obolibrary.org/obo/MFMO_0000091
   model: feed.muscleowl
   pk: 4571
@@ -1333,7 +1333,7 @@
       Cranial Nerve X via the pharyngeal plexus.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/mfmo.owl#superior_pharyngeal_constrictor_muscle
   model: feed.muscleowl
   pk: 4572
@@ -1346,17 +1346,17 @@
       Burrows et al., 2011)
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000123
   model: feed.muscleowl
   pk: 4573
 - fields:
-    bfo_part_of_some: [5194, 4564, 4663, 5197, 4494, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4663, 4494, 4564]
     label: transverse intrinsic tongue muscle
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000215
   model: feed.muscleowl
   pk: 4574
@@ -1408,7 +1408,7 @@
       the tongue and is innervated by Cranial Nerve X via the pharyngeal plexus.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/mfmo.owl#palatoglossus_muscle
   model: feed.muscleowl
   pk: 4579
@@ -1428,7 +1428,7 @@
     obo_definition: None
     rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/UBERON_0007268
   model: feed.muscleowl
   pk: 4581
@@ -1438,7 +1438,7 @@
     obo_definition: None
     rdfs_comment: Uberon definition pretty good but human-centric.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4588, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4612, 4588, 4663, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO0000155
   model: feed.muscleowl
   pk: 4582
@@ -1448,7 +1448,7 @@
     obo_definition: None
     rdfs_comment: Uberon definition pretty good.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4588, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4612, 4588, 4663, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO0000154
   model: feed.muscleowl
   pk: 4583
@@ -1458,7 +1458,7 @@
     obo_definition: None
     rdfs_comment: Uberon definition is pretty good but human-centric.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000157
   model: feed.muscleowl
   pk: 4584
@@ -1470,7 +1470,7 @@
       \ this muscle a part of the arytenoid muscle complex but some workers describe\
       \ it as a separate muscle."
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4588, 5197, 4612, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4612, 4588, 4663, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO0000156
   model: feed.muscleowl
   pk: 4585
@@ -1482,7 +1482,7 @@
       innervation) of ceratocricoid muscles but not the whole muscle (at least not
       in the Ontobee subset of the FMA.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4587, 5197, 4612, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4612, 4587, 4663, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO0000151
   model: feed.muscleowl
   pk: 4586
@@ -1497,7 +1497,7 @@
       of a "cricoarytenoid" class, but there is no anatomical basis for this class
       other than the similar names.'
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4612, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000150
   model: feed.muscleowl
   pk: 4587
@@ -1507,7 +1507,7 @@
     obo_definition: None
     rdfs_comment: Uberon definition okay but wiki ref is very human-centric
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000153
   model: feed.muscleowl
   pk: 4588
@@ -1517,7 +1517,7 @@
     obo_definition: None
     rdfs_comment: Uberon definition is pretty good but human-centric
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000152
   model: feed.muscleowl
   pk: 4589
@@ -1527,18 +1527,18 @@
     obo_definition: None
     rdfs_comment: Not in Ontobee.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4584, 4663, 5197, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4612, 4584, 4663, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO0000159
   model: feed.muscleowl
   pk: 4590
 - fields:
-    bfo_part_of_some: [5194, 4584, 5197, 4663, 4612, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4663, 4584, 4612]
     label: vocalis
     obo_definition: None
     rdfs_comment: Uberon properly notes that the vocalis is a part of the thyroarytenoid
       muscle.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4584, 4681, 4612]
+    rdfs_subClassOf_ancestors: [4612, 4584, 4663, 4672, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO0000158
   model: feed.muscleowl
   pk: 4591
@@ -1568,7 +1568,7 @@
     obo_definition: None
     rdfs_comment: ''
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4570, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4570]
     uri: http://purl.obolibrary.org/obo/mfmo.owl#spinal_nerve
   model: feed.muscleowl
   pk: 4594
@@ -1578,7 +1578,7 @@
     obo_definition: part of the hyoid apparatus
     rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4611, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4611]
     uri: http://purl.obolibrary.org/obo/UBERON_0011611
   model: feed.muscleowl
   pk: 4595
@@ -1598,7 +1598,7 @@
     obo_definition: None
     rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4570, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4570]
     uri: http://purl.obolibrary.org/obo/UBERON_0001649
   model: feed.muscleowl
   pk: 4597
@@ -1633,22 +1633,22 @@
   model: feed.muscleowl
   pk: 4600
 - fields:
-    bfo_part_of_some: [5194, 4672, 5197, 4663, 4603, 4604, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4604, 4603]
     label: pterygoideus externus
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000182
   model: feed.muscleowl
   pk: 4601
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4603, 4604, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4604, 4603]
     label: pterygoideus internus
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000183
   model: feed.muscleowl
   pk: 4602
@@ -1659,27 +1659,27 @@
     rdfs_comment: 'Uberon has a couple of terms (e.g., UBERON_2000311) that refer
       to the entire adductor mandibulae complex but not individual parts. '
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000180
   model: feed.muscleowl
   pk: 4603
 - fields:
-    bfo_part_of_some: [5194, 4672, 5197, 4663, 4603, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4603]
     label: pterygoideus
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000181
   model: feed.muscleowl
   pk: 4604
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4603, 4607, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4607, 4603]
     label: pseudotemporalis profundus
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000186
   model: feed.muscleowl
   pk: 4605
@@ -1689,47 +1689,47 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000187
   model: feed.muscleowl
   pk: 4606
 - fields:
-    bfo_part_of_some: [5194, 4672, 5197, 4663, 4603, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4603]
     label: pseudotemporalis
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000184
   model: feed.muscleowl
   pk: 4607
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4603, 4607, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4607, 4603]
     label: pseudotemporalis superficialis
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000185
   model: feed.muscleowl
   pk: 4608
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4601, 4603, 4604, 4681]
+    bfo_part_of_some: [4601, 4603, 4604, 4663, 4672, 4681, 5194, 5197]
     label: pterygoideus atypicus
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000188
   model: feed.muscleowl
   pk: 4609
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4601, 4603, 4604, 4681]
+    bfo_part_of_some: [4601, 4603, 4604, 4663, 4672, 4681, 5194, 5197]
     label: pterygoideus typicus
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000189
   model: feed.muscleowl
   pk: 4610
@@ -1749,7 +1749,7 @@
     obo_definition: Muscles innervated by the vagus nerve (Cranial Nerve X).
     rdfs_comment: Request new term.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4681, 4663, 5197]
+    rdfs_subClassOf_ancestors: [4663, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000010
   model: feed.muscleowl
   pk: 4612
@@ -1790,7 +1790,7 @@
       and it is innervated by the hypoglossal nerve (CN XII).
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4564, 4663, 5197, 5194, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000063
   model: feed.muscleowl
   pk: 4616
@@ -1803,7 +1803,7 @@
       hyoid apparatus.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000061
   model: feed.muscleowl
   pk: 4617
@@ -1816,7 +1816,7 @@
       is found superficial to the mylohyoid muscle.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000060
   model: feed.muscleowl
   pk: 4618
@@ -1826,7 +1826,7 @@
     obo_definition: Muscles innervated by a spinal nerve.
     rdfs_comment: Request new term.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4681, 4663, 5197]
+    rdfs_subClassOf_ancestors: [4663, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000067
   model: feed.muscleowl
   pk: 4619
@@ -1839,19 +1839,19 @@
       '
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000066
   model: feed.muscleowl
   pk: 4620
 - fields:
-    bfo_part_of_some: [4663, 4494]
+    bfo_part_of_some: [4494, 4663]
     label: intrinsic tongue muscle
     obo_definition: The intrinsic tongue muscles are an integral part of the tongue
       and completely contained within the tongue that are innervated by Cranial Nerve
       XII.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000065
   model: feed.muscleowl
   pk: 4621
@@ -1862,7 +1862,7 @@
       and it is innervated by the hypoglossal nerve (CN XII).
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4564, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4663, 4564, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000064
   model: feed.muscleowl
   pk: 4622
@@ -1874,7 +1874,7 @@
       appratus and the scapula.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4619, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 5197, 5194, 4619]
     uri: http://purl.obolibrary.org/obo/MFMO_0000069
   model: feed.muscleowl
   pk: 4623
@@ -1885,7 +1885,7 @@
       hyoid apparatus and is innervated by the first cervical nerve (C1).
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4619, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 5197, 5194, 4619]
     uri: http://purl.obolibrary.org/obo/MFMO_0000068
   model: feed.muscleowl
   pk: 4624
@@ -1957,12 +1957,12 @@
     obo_definition: None
     rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4570, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4570]
     uri: http://purl.obolibrary.org/obo/MFMO_0000093
   model: feed.muscleowl
   pk: 4631
 - fields:
-    bfo_part_of_some: [4488, 4691, 4663]
+    bfo_part_of_some: [4691, 4488, 4663]
     label: tensor veli palatini
     obo_definition: The tensor veli palatini is a muscle of the soft palate that attaches
       to the cranial base and pharyngotympanic tube, wraps around the pterygoid hamulus
@@ -1970,7 +1970,7 @@
       by the trigeminal nerve (cranial nerve (V3)).
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000089
   model: feed.muscleowl
   pk: 4632
@@ -1982,7 +1982,7 @@
       root of the zygomatic arch.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4638, 4681]
+    rdfs_subClassOf_ancestors: [4638, 4663, 4672, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO_0000088
   model: feed.muscleowl
   pk: 4633
@@ -1993,18 +1993,18 @@
       muscle that attaches to the medial surface of the zygomatic arch
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4675, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [5197, 4663, 4672, 4675, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO_0000081
   model: feed.muscleowl
   pk: 4634
 - fields:
-    bfo_part_of_some: [5194, 4672, 5197, 4663, 4679, 4681, 4675]
+    bfo_part_of_some: [4679, 4681, 5194, 5197, 4672, 4663, 4675]
     label: pars reflexa
     obo_definition: The pars reflexa is a separable part of the superficial masseter
       muscle that attaches to the medial surface of the mandible.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4675, 4663, 4679, 4681]
+    rdfs_subClassOf_ancestors: [4675, 4663, 4672, 5197, 5194, 4681, 4679]
     uri: http://purl.obolibrary.org/obo/MFMO_0000080
   model: feed.muscleowl
   pk: 4635
@@ -2016,18 +2016,18 @@
       and attaches to the cranial base and the medial side of the mandibular angle.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000083
   model: feed.muscleowl
   pk: 4636
 - fields:
-    bfo_part_of_some: [5194, 4672, 5197, 4675, 4663, 4634, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4634, 4675]
     label: zygomaticomandibularis, infraorbital portion
     obo_definition: The zygomaticomandibularis infraorbital part, is a separable part
       of the zygomaticomandibularis that runs through the infraorbital foramen
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4675, 4663, 4634, 4681]
+    rdfs_subClassOf_ancestors: [4675, 4634, 4663, 4672, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO_0000082
   model: feed.muscleowl
   pk: 4637
@@ -2039,7 +2039,7 @@
       the cranial vault) and mandible.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000085
   model: feed.muscleowl
   pk: 4638
@@ -2054,13 +2054,13 @@
   model: feed.muscleowl
   pk: 4639
 - fields:
-    bfo_part_of_some: [5194, 4672, 5197, 4663, 4638, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4638]
     label: superficial temporalis muscle
     obo_definition: The superficial temporalis muscle is a separable part of the temporalis
       muscle that attaches to the temporalis fascia
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4638, 4681]
+    rdfs_subClassOf_ancestors: [4638, 4663, 4672, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO_0000087
   model: feed.muscleowl
   pk: 4640
@@ -2081,7 +2081,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4596, 4499, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4499, 4596]
     uri: http://purl.obolibrary.org/obo/MFMO0000128
   model: feed.muscleowl
   pk: 4642
@@ -2091,7 +2091,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000129
   model: feed.muscleowl
   pk: 4643
@@ -2124,7 +2124,7 @@
       muscle. '
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000126
   model: feed.muscleowl
   pk: 4646
@@ -2140,7 +2140,7 @@
       al.., 2011.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000127
   model: feed.muscleowl
   pk: 4647
@@ -2152,7 +2152,7 @@
       homogous muscles.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000120
   model: feed.muscleowl
   pk: 4648
@@ -2166,7 +2166,7 @@
       al., 2011)
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4663, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000122
   model: feed.muscleowl
   pk: 4649
@@ -2176,7 +2176,7 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000191
   model: feed.muscleowl
   pk: 4650
@@ -2186,27 +2186,27 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000190
   model: feed.muscleowl
   pk: 4651
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4650, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4650]
     label: levator pterygoidei
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000193
   model: feed.muscleowl
   pk: 4652
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4650, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4650]
     label: levator bulbi
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000192
   model: feed.muscleowl
   pk: 4653
@@ -2216,17 +2216,17 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000195
   model: feed.muscleowl
   pk: 4654
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4650, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4650]
     label: protractor pterygoidei
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000194
   model: feed.muscleowl
   pk: 4655
@@ -2236,17 +2236,17 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000197
   model: feed.muscleowl
   pk: 4656
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4656, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4656]
     label: intermandibularis anterior
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000196
   model: feed.muscleowl
   pk: 4657
@@ -2256,7 +2256,7 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000199
   model: feed.muscleowl
   pk: 4658
@@ -2266,7 +2266,7 @@
     obo_definition: None
     rdfs_comment: From FEED reptile spreadsheet
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4450, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO0000198
   model: feed.muscleowl
   pk: 4659
@@ -2279,18 +2279,18 @@
       midline raphe.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4612, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/http://purl.obolibrary.org/obo/UBERON_0001570
   model: feed.muscleowl
   pk: 4660
 - fields:
-    bfo_part_of_some: [4488, 4691, 4663]
+    bfo_part_of_some: [4691, 4488, 4663]
     label: uvular muscle
     obo_definition: The muscle of the uvuli is an integral part of the soft palate
       and is innervated by Cranial Nerve X (Vagus via the pharyngeal plexus).
     rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/mfmo.owl#uvular_muscle
   model: feed.muscleowl
   pk: 4661
@@ -2302,7 +2302,7 @@
       attaches to the midline raphe linking right and left mylohyoid and the mandible.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000084
   model: feed.muscleowl
   pk: 4662
@@ -2327,14 +2327,14 @@
   model: feed.muscleowl
   pk: 4664
 - fields:
-    bfo_part_of_some: [5194, 4672, 4663, 5197, 4638, 4681]
+    bfo_part_of_some: [4681, 5194, 5197, 4672, 4663, 4638]
     label: deep temporalis muscle
     obo_definition: The deep temporalis muscle is a separable part of the temporalis
       muscle that  that attaches to the bony wall of the braincase and is deep to
       the superficial temporalis.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 4663, 5197, 4638, 4681]
+    rdfs_subClassOf_ancestors: [4638, 4663, 4672, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO_0000086
   model: feed.muscleowl
   pk: 4665
@@ -2386,7 +2386,7 @@
       appratus and the sternum.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4619, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 5197, 5194, 4619]
     uri: http://purl.obolibrary.org/obo/MFMO_0000070
   model: feed.muscleowl
   pk: 4670
@@ -2398,7 +2398,7 @@
       cartilage and the sternum.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4619, 4663, 5197, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 5197, 5194, 4619]
     uri: http://purl.obolibrary.org/obo/MFMO_0000071
   model: feed.muscleowl
   pk: 4671
@@ -2408,7 +2408,7 @@
     obo_definition: Muscle innervated by the trigeminal nerve (Cranial Nerve V).
     rdfs_comment: Request new term.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4681, 4663, 5197]
+    rdfs_subClassOf_ancestors: [4663, 4681, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000072
   model: feed.muscleowl
   pk: 4672
@@ -2420,7 +2420,7 @@
       superficial to mylohyoid muscle, and lacks the midline raphe.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000073
   model: feed.muscleowl
   pk: 4673
@@ -2433,7 +2433,7 @@
       and the cranial base.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000074
   model: feed.muscleowl
   pk: 4674
@@ -2445,7 +2445,7 @@
       (CN V), and attaches to mandible and zygomatic arch.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4672, 4663, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/MFMO_0000075
   model: feed.muscleowl
   pk: 4675
@@ -2456,7 +2456,7 @@
       that is attached to anterior root of zygomatic arch
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4663, 4681, 4675]
+    rdfs_subClassOf_ancestors: [5197, 4663, 4672, 4675, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO_0000076
   model: feed.muscleowl
   pk: 4676
@@ -2467,7 +2467,7 @@
       attaches to lateral surface and/or ventral border of zygomatic arch.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4675, 4663, 4681]
+    rdfs_subClassOf_ancestors: [5197, 4663, 4672, 4675, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO_0000077
   model: feed.muscleowl
   pk: 4677
@@ -2478,7 +2478,7 @@
       muscle that attaches to the postero-ventral surface of the zygomatic arch.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4675, 4663, 4677, 4681]
+    rdfs_subClassOf_ancestors: [4675, 4663, 4672, 5197, 5194, 4677, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO_0000078
   model: feed.muscleowl
   pk: 4678
@@ -2490,7 +2490,7 @@
       angle.
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4672, 5197, 4675, 4663, 4681]
+    rdfs_subClassOf_ancestors: [5197, 4663, 4672, 4675, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/MFMO_0000079
   model: feed.muscleowl
   pk: 4679
@@ -2503,7 +2503,7 @@
       orangutans. Winkler, 1991
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4618, 4663, 5197, 4450, 4681]
+    rdfs_subClassOf_ancestors: [4450, 4618, 4663, 5197, 5194, 4681]
     uri: http://purl.obolibrary.org/obo/mfmo.owl#orangutan_posterior_digastric_muscle
   model: feed.muscleowl
   pk: 4680
@@ -2533,7 +2533,7 @@
     obo_definition: None
     rdfs_comment: Request new term but the definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4524, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4524]
     uri: http://purl.obolibrary.org/obo/MFMO_0000055
   model: feed.muscleowl
   pk: 4683
@@ -2543,7 +2543,7 @@
     obo_definition: None
     rdfs_comment: Term in Uberon is equivalent but the definition needs revision.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4490, 4663]
+    rdfs_subClassOf_ancestors: [4663, 4490]
     uri: http://purl.obolibrary.org/obo/MFMO_0000103
   model: feed.muscleowl
   pk: 4684
@@ -2607,7 +2607,7 @@
       '
     rdfs_comment: Ready for review.
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4663, 5197, 4612, 4681]
+    rdfs_subClassOf_ancestors: [4681, 4663, 4612, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/mfmo.owl#salpingopharyngeus_muscle
   model: feed.muscleowl
   pk: 4690
@@ -2790,7 +2790,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4790, 5197, 4720, 5147, 5096, 5121, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 4790, 5147, 5096, 4720, 5197, 5194, 5013]
     uri: http://purl.obolibrary.org/obo/GO_0042734
   model: feed.muscleowl
   pk: 4707
@@ -2928,7 +2928,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 5121, 5096, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 5096, 5197, 5194, 5013]
     uri: http://purl.obolibrary.org/obo/GO_0044456
   model: feed.muscleowl
   pk: 4720
@@ -3204,7 +3204,7 @@
       an organism or a community of organisms.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5013, 5197]
+    rdfs_subClassOf_ancestors: [5013, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/ENVO_0002036
   model: feed.muscleowl
   pk: 4745
@@ -3435,7 +3435,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168]
+    rdfs_subClassOf_ancestors: [5168, 5195]
     uri: http://purl.obolibrary.org/obo/GO_0008150
   model: feed.muscleowl
   pk: 4766
@@ -3588,7 +3588,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4970, 5085, 5198, 5170, 4914, 5120]
+    rdfs_subClassOf_ancestors: [5120, 4970, 5085, 4914, 5194, 5198, 5170]
     uri: http://purl.obolibrary.org/obo/PATO_0000141
   model: feed.muscleowl
   pk: 4781
@@ -3693,7 +3693,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 5121, 5096, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 5096, 5197, 5194, 5013]
     uri: http://purl.obolibrary.org/obo/GO_0044464
   model: feed.muscleowl
   pk: 4790
@@ -3865,7 +3865,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 5037, 4968, 5154, 4969]
+    rdfs_subClassOf_ancestors: [4968, 4969, 5168, 5154, 5037, 5195]
     uri: http://purl.obolibrary.org/obo/GO_0016881
   model: feed.muscleowl
   pk: 4806
@@ -4139,7 +4139,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 4867, 4766, 5041]
+    rdfs_subClassOf_ancestors: [4766, 5041, 4867, 5168, 5195]
     uri: http://purl.obolibrary.org/obo/GO_0044403
   model: feed.muscleowl
   pk: 4828
@@ -4433,7 +4433,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4790, 5197, 5096, 5121, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 4790, 5096, 5197, 5194, 5013]
     uri: http://purl.obolibrary.org/obo/GO_0005634
   model: feed.muscleowl
   pk: 4854
@@ -4443,7 +4443,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5168, 4766, 5195]
+    rdfs_subClassOf_ancestors: [4766, 5195, 5168]
     uri: http://purl.obolibrary.org/obo/GO_0050896
   model: feed.muscleowl
   pk: 4855
@@ -4586,7 +4586,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5041, 4766, 5168, 5195]
+    rdfs_subClassOf_ancestors: [4766, 5041, 5195, 5168]
     uri: http://purl.obolibrary.org/obo/GO_0044419
   model: feed.muscleowl
   pk: 4867
@@ -5099,7 +5099,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4970, 5085, 5198, 5170, 5120]
+    rdfs_subClassOf_ancestors: [5120, 4970, 5085, 5194, 5198, 5170]
     uri: http://purl.obolibrary.org/obo/PATO_0000051
   model: feed.muscleowl
   pk: 4914
@@ -5109,7 +5109,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4970, 5085, 5198, 5170, 4914, 5120]
+    rdfs_subClassOf_ancestors: [5120, 4970, 5085, 4914, 5194, 5198, 5170]
     uri: http://purl.obolibrary.org/obo/PATO_0000052
   model: feed.muscleowl
   pk: 4915
@@ -5119,7 +5119,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 5121, 4919, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 5197, 5194, 4919, 5013]
     uri: http://purl.obolibrary.org/obo/CL_0000540
   model: feed.muscleowl
   pk: 4916
@@ -5155,7 +5155,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 5121, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 5013, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/CL_0000000
   model: feed.muscleowl
   pk: 4919
@@ -5200,7 +5200,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4790, 5197, 5121, 5096, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 4790, 5096, 5197, 5194, 5013]
     uri: http://purl.obolibrary.org/obo/GO_0042995
   model: feed.muscleowl
   pk: 4923
@@ -5268,7 +5268,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 5121, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 5013, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/CARO_0001000
   model: feed.muscleowl
   pk: 4929
@@ -5278,7 +5278,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 4929, 5121, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 4929, 5197, 5194, 5013]
     uri: http://purl.obolibrary.org/obo/CARO_0001001
   model: feed.muscleowl
   pk: 4930
@@ -5379,7 +5379,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4970, 5085, 5198, 5170, 4914, 5120, 4915]
+    rdfs_subClassOf_ancestors: [4914, 4915, 4970, 5085, 5120, 5170, 5194, 5198]
     uri: http://purl.obolibrary.org/obo/PATO_0001199
   model: feed.muscleowl
   pk: 4940
@@ -5540,8 +5540,8 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 4867, 4959, 4855, 4766, 5015, 5040, 5041,
-      5042, 5084]
+    rdfs_subClassOf_ancestors: [5040, 5041, 5042, 4855, 4867, 4766, 4959, 5168, 5084,
+      5195, 5015]
     uri: http://purl.obolibrary.org/obo/GO_0051850
   model: feed.muscleowl
   pk: 4955
@@ -5584,7 +5584,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5168, 4766, 4855, 5195]
+    rdfs_subClassOf_ancestors: [4766, 4855, 5195, 5168]
     uri: http://purl.obolibrary.org/obo/GO_0007610
   model: feed.muscleowl
   pk: 4959
@@ -5683,7 +5683,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 5154, 5037]
+    rdfs_subClassOf_ancestors: [5037, 5154, 5168, 5195]
     uri: http://purl.obolibrary.org/obo/GO_0016874
   model: feed.muscleowl
   pk: 4968
@@ -5693,7 +5693,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 5037, 4968, 5154]
+    rdfs_subClassOf_ancestors: [4968, 5154, 5037, 5168, 5195]
     uri: http://purl.obolibrary.org/obo/GO_0016879
   model: feed.muscleowl
   pk: 4969
@@ -5703,7 +5703,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5085, 5198]
+    rdfs_subClassOf_ancestors: [5085, 5198, 5194]
     uri: http://purl.obolibrary.org/obo/PATO_0000001
   model: feed.muscleowl
   pk: 4970
@@ -6088,7 +6088,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 4806, 5037, 4968, 5154, 4969]
+    rdfs_subClassOf_ancestors: [4968, 4969, 5168, 5154, 5037, 5195, 4806]
     uri: http://purl.obolibrary.org/obo/GO_0019787
   model: feed.muscleowl
   pk: 5006
@@ -6140,7 +6140,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 4828, 5168, 4867, 4766, 5041]
+    rdfs_subClassOf_ancestors: [5041, 4867, 4766, 5168, 5195, 4828]
     uri: http://purl.obolibrary.org/obo/GO_0085030
   model: feed.muscleowl
   pk: 5011
@@ -6150,7 +6150,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 4828, 5168, 4867, 4766, 5041]
+    rdfs_subClassOf_ancestors: [5041, 4867, 4766, 5168, 5195, 4828]
     uri: http://purl.obolibrary.org/obo/GO_0085031
   model: feed.muscleowl
   pk: 5012
@@ -6161,7 +6161,7 @@
       is independent of that of other entities and can be maintained through time.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197]
+    rdfs_subClassOf_ancestors: [5197, 5194]
     uri: http://purl.obolibrary.org/obo/BFO_0000040
   model: feed.muscleowl
   pk: 5013
@@ -6181,7 +6181,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 4959, 4855, 4766]
+    rdfs_subClassOf_ancestors: [4766, 4959, 4855, 5168, 5195]
     uri: http://purl.obolibrary.org/obo/GO_0007631
   model: feed.muscleowl
   pk: 5015
@@ -6191,7 +6191,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4790, 5197, 4923, 5121, 5096, 5013, 5122]
+    rdfs_subClassOf_ancestors: [4790, 4923, 5013, 5096, 5121, 5122, 5194, 5197]
     uri: http://purl.obolibrary.org/obo/GO_0043005
   model: feed.muscleowl
   pk: 5016
@@ -6313,7 +6313,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 5037, 5107, 5154, 5171]
+    rdfs_subClassOf_ancestors: [5107, 5168, 5154, 5037, 5195, 5171]
     uri: http://purl.obolibrary.org/obo/GO_0016301
   model: feed.muscleowl
   pk: 5027
@@ -6414,7 +6414,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 4806, 5006, 5037, 4968, 5154, 4969]
+    rdfs_subClassOf_ancestors: [4806, 4968, 4969, 5006, 5037, 5154, 5168, 5195]
     uri: http://purl.obolibrary.org/obo/GO_0004842
   model: feed.muscleowl
   pk: 5036
@@ -6424,7 +6424,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 5154]
+    rdfs_subClassOf_ancestors: [5154, 5168, 5195]
     uri: http://purl.obolibrary.org/obo/GO_0003824
   model: feed.muscleowl
   pk: 5037
@@ -6434,7 +6434,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197]
+    rdfs_subClassOf_ancestors: [5197, 5194]
     uri: http://purl.obolibrary.org/obo/BFO_0000141
   model: feed.muscleowl
   pk: 5038
@@ -6444,7 +6444,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 5121, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 5013, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/CARO_0010000
   model: feed.muscleowl
   pk: 5039
@@ -6454,7 +6454,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 4959, 4855, 4766, 5041]
+    rdfs_subClassOf_ancestors: [5041, 4855, 4766, 4959, 5168, 5195]
     uri: http://purl.obolibrary.org/obo/GO_0051705
   model: feed.muscleowl
   pk: 5040
@@ -6464,7 +6464,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [4766, 5168, 5195]
+    rdfs_subClassOf_ancestors: [4766, 5195, 5168]
     uri: http://purl.obolibrary.org/obo/GO_0051704
   model: feed.muscleowl
   pk: 5041
@@ -6474,7 +6474,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 4867, 4766, 5041]
+    rdfs_subClassOf_ancestors: [4766, 5041, 4867, 5168, 5195]
     uri: http://purl.obolibrary.org/obo/GO_0051702
   model: feed.muscleowl
   pk: 5042
@@ -6791,7 +6791,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 4828, 5168, 4867, 4766, 5041]
+    rdfs_subClassOf_ancestors: [5041, 4867, 4766, 5168, 5195, 4828]
     uri: http://purl.obolibrary.org/obo/GO_0072519
   model: feed.muscleowl
   pk: 5072
@@ -6922,7 +6922,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 4959, 4855, 4766, 5015]
+    rdfs_subClassOf_ancestors: [4855, 4766, 4959, 5168, 5195, 5015]
     uri: http://purl.obolibrary.org/obo/GO_0051816
   model: feed.muscleowl
   pk: 5084
@@ -6936,7 +6936,7 @@
       circumstances.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5198]
+    rdfs_subClassOf_ancestors: [5198, 5194]
     uri: http://purl.obolibrary.org/obo/BFO_0000020
   model: feed.muscleowl
   pk: 5085
@@ -6949,7 +6949,7 @@
       some kinds of natural, social or institutional contexts.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5198, 5085, 5169]
+    rdfs_subClassOf_ancestors: [5169, 5085, 5198, 5194]
     uri: http://purl.obolibrary.org/obo/BFO_0000023
   model: feed.muscleowl
   pk: 5086
@@ -7059,7 +7059,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 5121, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 5013, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/CARO_0000014
   model: feed.muscleowl
   pk: 5096
@@ -7170,7 +7170,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5168, 5037, 5154, 5195]
+    rdfs_subClassOf_ancestors: [5154, 5195, 5037, 5168]
     uri: http://purl.obolibrary.org/obo/GO_0016740
   model: feed.muscleowl
   pk: 5107
@@ -7267,7 +7267,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4790, 5197, 4720, 5147, 5121, 5096, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 4790, 5147, 5096, 4720, 5197, 5194, 5013]
     uri: http://purl.obolibrary.org/obo/GO_0045211
   model: feed.muscleowl
   pk: 5116
@@ -7310,7 +7310,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4970, 5085, 5198]
+    rdfs_subClassOf_ancestors: [5085, 5198, 4970, 5194]
     uri: http://purl.obolibrary.org/obo/PATO_0001241
   model: feed.muscleowl
   pk: 5120
@@ -7320,7 +7320,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5013, 5197, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5013, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/CARO_0000003
   model: feed.muscleowl
   pk: 5121
@@ -7330,7 +7330,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5013, 5197]
+    rdfs_subClassOf_ancestors: [5013, 5197, 5194]
     uri: http://purl.obolibrary.org/obo/CARO_0000006
   model: feed.muscleowl
   pk: 5122
@@ -7340,7 +7340,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4790, 5197, 4923, 5121, 5016, 5096, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 4790, 5096, 5197, 5194, 5016, 5013, 4923]
     uri: http://purl.obolibrary.org/obo/GO_0030425
   model: feed.muscleowl
   pk: 5123
@@ -7603,7 +7603,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4790, 5197, 5121, 5096, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 4790, 5096, 5197, 5194, 5013]
     uri: http://purl.obolibrary.org/obo/GO_0016020
   model: feed.muscleowl
   pk: 5147
@@ -7670,7 +7670,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5197, 5096, 5121, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 5096, 5197, 5194, 5013]
     uri: http://purl.obolibrary.org/obo/GO_0045202
   model: feed.muscleowl
   pk: 5153
@@ -7680,7 +7680,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168]
+    rdfs_subClassOf_ancestors: [5168, 5195]
     uri: http://purl.obolibrary.org/obo/GO_0003674
   model: feed.muscleowl
   pk: 5154
@@ -7732,7 +7732,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4790, 5197, 4923, 5121, 5016, 5096, 5013, 5122]
+    rdfs_subClassOf_ancestors: [5122, 5121, 4790, 5096, 5197, 5194, 5016, 5013, 4923]
     uri: http://purl.obolibrary.org/obo/GO_0030424
   model: feed.muscleowl
   pk: 5159
@@ -7847,7 +7847,7 @@
       circumstances.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5085, 5198]
+    rdfs_subClassOf_ancestors: [5085, 5198, 5194]
     uri: http://purl.obolibrary.org/obo/BFO_0000017
   model: feed.muscleowl
   pk: 5169
@@ -7857,7 +7857,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 5085, 5198]
+    rdfs_subClassOf_ancestors: [5085, 5198, 5194]
     uri: http://purl.obolibrary.org/obo/BFO_0000019
   model: feed.muscleowl
   pk: 5170
@@ -7867,7 +7867,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5195, 5168, 5037, 5107, 5154]
+    rdfs_subClassOf_ancestors: [5154, 5107, 5037, 5168, 5195]
     uri: http://purl.obolibrary.org/obo/GO_0016772
   model: feed.muscleowl
   pk: 5171
@@ -8116,7 +8116,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [5194, 4970, 5085, 4781, 5198, 5170, 4914, 5120]
+    rdfs_subClassOf_ancestors: [4781, 4914, 4970, 5085, 5120, 5170, 5194, 5198]
     uri: http://purl.obolibrary.org/obo/PATO_0002124
   model: feed.muscleowl
   pk: 5193
@@ -8474,7 +8474,7 @@
     obo_definition: Ingestion using the cheiridia of the forelimb (e.g., hands).
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [50, 57, 51]
+    rdfs_subClassOf_ancestors: [57, 51, 50]
     uri: http://purl.obolibrary.org/obo/OPBO_0000034
   model: feed.behaviorowl
   pk: 30
@@ -8484,7 +8484,7 @@
     obo_definition: Ingestion using the cheiridia of the hindlimb (e.g., feet).
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [51, 57, 50]
+    rdfs_subClassOf_ancestors: [57, 51, 50]
     uri: http://purl.obolibrary.org/obo/OPBO_0000037
   model: feed.behaviorowl
   pk: 31
@@ -8932,7 +8932,7 @@
     obo_definition: Ingestion using the dentition.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [51, 57, 50]
+    rdfs_subClassOf_ancestors: [57, 51, 50]
     uri: http://purl.obolibrary.org/obo/OPBO_0000019
   model: feed.behaviorowl
   pk: 74
@@ -9186,7 +9186,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 169, 292, 270, 380, 531]
+    rdfs_subClassOf_ancestors: [168, 169, 270, 292, 380, 531]
     uri: http://purl.obolibrary.org/obo/GO_0044456
   model: feed.behaviorowl
   pk: 97
@@ -9355,7 +9355,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [485, 271, 465, 378, 227, 136, 293]
+    rdfs_subClassOf_ancestors: [136, 227, 271, 293, 378, 465, 485]
     uri: http://purl.obolibrary.org/obo/GO_0019787
   model: feed.behaviorowl
   pk: 113
@@ -9542,7 +9542,7 @@
       an organism or a community of organisms.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [531, 380, 270]
+    rdfs_subClassOf_ancestors: [380, 270, 531]
     uri: http://purl.obolibrary.org/obo/ENVO_0002036
   model: feed.behaviorowl
   pk: 130
@@ -9745,7 +9745,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [415, 465, 464, 378]
+    rdfs_subClassOf_ancestors: [465, 415, 464, 378]
     uri: http://purl.obolibrary.org/obo/GO_0044419
   model: feed.behaviorowl
   pk: 148
@@ -9877,7 +9877,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 380, 477, 169, 531, 500, 292, 454, 270]
+    rdfs_subClassOf_ancestors: [380, 454, 270, 168, 477, 531, 292, 500, 169]
     uri: http://purl.obolibrary.org/obo/GO_0030425
   model: feed.behaviorowl
   pk: 160
@@ -9961,7 +9961,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [169, 531, 380, 270]
+    rdfs_subClassOf_ancestors: [380, 270, 169, 531]
     uri: http://purl.obolibrary.org/obo/CARO_0000003
   model: feed.behaviorowl
   pk: 168
@@ -9971,7 +9971,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [531, 380, 270]
+    rdfs_subClassOf_ancestors: [380, 270, 531]
     uri: http://purl.obolibrary.org/obo/CARO_0000006
   model: feed.behaviorowl
   pk: 169
@@ -9993,7 +9993,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 380, 477, 270, 169, 531, 500, 292, 454]
+    rdfs_subClassOf_ancestors: [380, 454, 270, 168, 477, 531, 292, 500, 169]
     uri: http://purl.obolibrary.org/obo/GO_0030424
   model: feed.behaviorowl
   pk: 171
@@ -10111,7 +10111,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [292, 380, 477, 270, 169, 531, 97, 168, 459]
+    rdfs_subClassOf_ancestors: [459, 380, 270, 168, 477, 531, 292, 97, 169]
     uri: http://purl.obolibrary.org/obo/GO_0042734
   model: feed.behaviorowl
   pk: 182
@@ -10380,7 +10380,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [292, 380, 477, 270, 169, 531, 168]
+    rdfs_subClassOf_ancestors: [168, 169, 270, 292, 380, 477, 531]
     uri: http://purl.obolibrary.org/obo/GO_0005634
   model: feed.behaviorowl
   pk: 206
@@ -10436,7 +10436,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [464, 378, 465]
+    rdfs_subClassOf_ancestors: [465, 464, 378]
     uri: http://purl.obolibrary.org/obo/GO_0050896
   model: feed.behaviorowl
   pk: 211
@@ -10611,7 +10611,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [136, 293, 378, 485, 465]
+    rdfs_subClassOf_ancestors: [465, 378, 485, 136, 293]
     uri: http://purl.obolibrary.org/obo/GO_0016879
   model: feed.behaviorowl
   pk: 227
@@ -10621,7 +10621,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [381, 350, 456, 270]
+    rdfs_subClassOf_ancestors: [270, 381, 456, 350]
     uri: http://purl.obolibrary.org/obo/PATO_0001241
   model: feed.behaviorowl
   pk: 228
@@ -10757,7 +10757,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [465, 211, 464, 378]
+    rdfs_subClassOf_ancestors: [465, 464, 211, 378]
     uri: http://purl.obolibrary.org/obo/GO_0007610
   model: feed.behaviorowl
   pk: 240
@@ -10823,7 +10823,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 380, 477, 270, 169, 531, 97, 292, 459]
+    rdfs_subClassOf_ancestors: [459, 380, 270, 168, 477, 531, 292, 97, 169]
     uri: http://purl.obolibrary.org/obo/GO_0045211
   model: feed.behaviorowl
   pk: 246
@@ -11078,7 +11078,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [467, 381, 350, 456, 270, 508, 228, 507]
+    rdfs_subClassOf_ancestors: [228, 270, 350, 381, 456, 467, 507, 508]
     uri: http://purl.obolibrary.org/obo/PATO_0001199
   model: feed.behaviorowl
   pk: 268
@@ -11111,7 +11111,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [136, 227, 293, 378, 485, 465]
+    rdfs_subClassOf_ancestors: [136, 227, 293, 378, 465, 485]
     uri: http://purl.obolibrary.org/obo/GO_0016881
   model: feed.behaviorowl
   pk: 271
@@ -11159,7 +11159,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [378, 136, 485, 465]
+    rdfs_subClassOf_ancestors: [465, 378, 485, 136]
     uri: http://purl.obolibrary.org/obo/GO_0016740
   model: feed.behaviorowl
   pk: 275
@@ -11215,7 +11215,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [148, 378, 415, 464, 465]
+    rdfs_subClassOf_ancestors: [465, 378, 415, 148, 464]
     uri: http://purl.obolibrary.org/obo/GO_0044403
   model: feed.behaviorowl
   pk: 280
@@ -11235,8 +11235,8 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [211, 348, 240, 148, 465, 378, 533, 415, 414, 495,
-      464]
+    rdfs_subClassOf_ancestors: [211, 465, 464, 148, 414, 415, 533, 240, 378, 495,
+      348]
     uri: http://purl.obolibrary.org/obo/GO_0051850
   model: feed.behaviorowl
   pk: 282
@@ -11337,7 +11337,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 169, 270, 380, 531]
+    rdfs_subClassOf_ancestors: [270, 380, 168, 169, 531]
     uri: http://purl.obolibrary.org/obo/CARO_0000014
   model: feed.behaviorowl
   pk: 292
@@ -11347,7 +11347,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [485, 136, 465, 378]
+    rdfs_subClassOf_ancestors: [465, 378, 485, 136]
     uri: http://purl.obolibrary.org/obo/GO_0016874
   model: feed.behaviorowl
   pk: 293
@@ -11735,7 +11735,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 169, 292, 270, 380, 531]
+    rdfs_subClassOf_ancestors: [168, 169, 270, 292, 380, 531]
     uri: http://purl.obolibrary.org/obo/GO_0045202
   model: feed.behaviorowl
   pk: 329
@@ -11975,7 +11975,7 @@
       circumstances.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [381, 270]
+    rdfs_subClassOf_ancestors: [270, 381]
     uri: http://purl.obolibrary.org/obo/BFO_0000020
   model: feed.behaviorowl
   pk: 350
@@ -11988,7 +11988,7 @@
       some kinds of natural, social or institutional contexts.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [466, 350, 381, 270]
+    rdfs_subClassOf_ancestors: [270, 381, 466, 350]
     uri: http://purl.obolibrary.org/obo/BFO_0000023
   model: feed.behaviorowl
   pk: 351
@@ -12221,7 +12221,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [467, 381, 453, 350, 456, 270, 228, 507]
+    rdfs_subClassOf_ancestors: [228, 270, 350, 381, 453, 456, 467, 507]
     uri: http://purl.obolibrary.org/obo/PATO_0002124
   model: feed.behaviorowl
   pk: 372
@@ -12503,7 +12503,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 169, 270, 380, 531]
+    rdfs_subClassOf_ancestors: [270, 380, 168, 169, 531]
     uri: http://purl.obolibrary.org/obo/CARO_0001000
   model: feed.behaviorowl
   pk: 398
@@ -12682,7 +12682,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [378, 465, 464]
+    rdfs_subClassOf_ancestors: [465, 378, 464]
     uri: http://purl.obolibrary.org/obo/GO_0051704
   model: feed.behaviorowl
   pk: 415
@@ -12999,7 +12999,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [136, 275, 378, 485, 465]
+    rdfs_subClassOf_ancestors: [465, 378, 485, 136, 275]
     uri: http://purl.obolibrary.org/obo/GO_0016772
   model: feed.behaviorowl
   pk: 444
@@ -13009,7 +13009,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 169, 270, 380, 531]
+    rdfs_subClassOf_ancestors: [270, 380, 168, 169, 531]
     uri: http://purl.obolibrary.org/obo/CARO_0010000
   model: feed.behaviorowl
   pk: 445
@@ -13106,7 +13106,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [467, 381, 350, 456, 270, 228, 507]
+    rdfs_subClassOf_ancestors: [228, 270, 350, 381, 456, 467, 507]
     uri: http://purl.obolibrary.org/obo/PATO_0000141
   model: feed.behaviorowl
   pk: 453
@@ -13116,7 +13116,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 380, 477, 270, 169, 531, 292]
+    rdfs_subClassOf_ancestors: [168, 169, 270, 292, 380, 477, 531]
     uri: http://purl.obolibrary.org/obo/GO_0042995
   model: feed.behaviorowl
   pk: 454
@@ -13137,7 +13137,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [381, 350, 270]
+    rdfs_subClassOf_ancestors: [270, 381, 350]
     uri: http://purl.obolibrary.org/obo/PATO_0000001
   model: feed.behaviorowl
   pk: 456
@@ -13168,7 +13168,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 380, 477, 270, 169, 531, 292]
+    rdfs_subClassOf_ancestors: [168, 169, 270, 292, 380, 477, 531]
     uri: http://purl.obolibrary.org/obo/GO_0016020
   model: feed.behaviorowl
   pk: 459
@@ -13178,7 +13178,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [136, 275, 378, 444, 485, 465]
+    rdfs_subClassOf_ancestors: [136, 378, 444, 465, 485, 275]
     uri: http://purl.obolibrary.org/obo/GO_0016301
   model: feed.behaviorowl
   pk: 460
@@ -13244,7 +13244,7 @@
       circumstances.
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [381, 350, 270]
+    rdfs_subClassOf_ancestors: [270, 381, 350]
     uri: http://purl.obolibrary.org/obo/BFO_0000017
   model: feed.behaviorowl
   pk: 466
@@ -13254,7 +13254,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [381, 350, 270]
+    rdfs_subClassOf_ancestors: [270, 381, 350]
     uri: http://purl.obolibrary.org/obo/BFO_0000019
   model: feed.behaviorowl
   pk: 467
@@ -13332,7 +13332,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 169, 270, 380, 531]
+    rdfs_subClassOf_ancestors: [270, 380, 168, 169, 531]
     uri: http://purl.obolibrary.org/obo/CL_0000000
   model: feed.behaviorowl
   pk: 474
@@ -13364,7 +13364,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 169, 292, 270, 380, 531]
+    rdfs_subClassOf_ancestors: [168, 169, 270, 292, 380, 531]
     uri: http://purl.obolibrary.org/obo/GO_0044464
   model: feed.behaviorowl
   pk: 477
@@ -13386,7 +13386,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [485, 113, 271, 465, 378, 227, 136, 293]
+    rdfs_subClassOf_ancestors: [113, 136, 227, 271, 293, 378, 465, 485]
     uri: http://purl.obolibrary.org/obo/GO_0004842
   model: feed.behaviorowl
   pk: 479
@@ -13447,7 +13447,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [136, 465, 378]
+    rdfs_subClassOf_ancestors: [465, 378, 136]
     uri: http://purl.obolibrary.org/obo/GO_0003824
   model: feed.behaviorowl
   pk: 485
@@ -13549,7 +13549,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [211, 240, 378, 464, 465]
+    rdfs_subClassOf_ancestors: [465, 378, 211, 240, 464]
     uri: http://purl.obolibrary.org/obo/GO_0007631
   model: feed.behaviorowl
   pk: 495
@@ -13600,7 +13600,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [168, 380, 477, 270, 169, 531, 292, 454]
+    rdfs_subClassOf_ancestors: [168, 169, 270, 292, 380, 454, 477, 531]
     uri: http://purl.obolibrary.org/obo/GO_0043005
   model: feed.behaviorowl
   pk: 500
@@ -13678,7 +13678,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [228, 270, 381, 456, 467, 350]
+    rdfs_subClassOf_ancestors: [228, 270, 350, 381, 456, 467]
     uri: http://purl.obolibrary.org/obo/PATO_0000051
   model: feed.behaviorowl
   pk: 507
@@ -13688,7 +13688,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [467, 381, 350, 456, 270, 228, 507]
+    rdfs_subClassOf_ancestors: [228, 270, 350, 381, 456, 467, 507]
     uri: http://purl.obolibrary.org/obo/PATO_0000052
   model: feed.behaviorowl
   pk: 508
@@ -13963,7 +13963,7 @@
     obo_definition: None
     rdfs_comment: None
     rdfs_is_class: true
-    rdfs_subClassOf_ancestors: [148, 378, 415, 464, 465]
+    rdfs_subClassOf_ancestors: [465, 378, 415, 148, 464]
     uri: http://purl.obolibrary.org/obo/GO_0051702
   model: feed.behaviorowl
   pk: 533
