@@ -27,3 +27,5 @@ class FeedUploadStatus():
             if form.fields.has_key(key):
                 form.fields[key].initial = value
 
+    def get_dict(self):
+        return self._data
