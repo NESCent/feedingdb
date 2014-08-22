@@ -124,10 +124,18 @@
   {% if page.has_previous or page.has_next %}
     <div class="row">
       <div class="records-pagination col-xs-3 col-xs-offset-4">
-        {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+        {% if page.has_previous %}<a href="?{{ page.previous_page_params }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
         |
-        {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+        {% if page.has_next %}<a href="?{{ page.next_page_params }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
       </div>
+      <ul>
+        {% comment %}
+        How to list page links, kind of.
+        {% for page_number in paginator.page_range %}
+          <li><a href="?{{ paginator.first_page_params }}&amp;page={{page_number }}">{{ page_number }}</a></li>
+        {% endfor %}
+        {% endcomment %}
+      </ul>
     </div>
   {% endif %}
   </div>

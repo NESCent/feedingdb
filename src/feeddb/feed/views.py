@@ -104,14 +104,33 @@ class FeedSearchView(FacetedSearchView):
         except (AttributeError, KeyError): # cleaned_data doesn't exist
             pass
 
-        return super(FeedSearchView, self).build_page()
+        (paginator, page) = super(FeedSearchView, self).build_page()
+
+        if page.has_next():
+            page.next_page_params = self.pager_params(page.next_page_number())
+        if page.has_previous():
+            page.previous_page_params = self.pager_params(page.previous_page_number())
+
+        paginator.first_page_params = self.pager_params(1)
+
+        return (paginator, page)
+
+    def pager_params(self, page_no):
+        params = self.request.GET.copy()
+
+        if page_no == 1:
+            params.pop('page')
+        else:
+            params['page'] = page_no
+
+        return params.urlencode()
 
     def extra_context(self):
         extra = super(FeedSearchView, self).extra_context()
         # trim down the facet_items: remove facets that don't supply extra constrictions
-        facet_lists = self.form.searcher.facets
-        for facet in facet_lists.facets:
+        facet_list = self.form.searcher.facets
+        for facet in facet_list.facets:
             self._filter_facet_items(facet, result_count=len(self.results))
 
-        extra['facet_items'] = facet_lists
+        extra['facet_items'] = facet_list
         return extra
