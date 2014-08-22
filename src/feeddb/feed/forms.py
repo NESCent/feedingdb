@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 my_facet_config = {
     'fields': {
         'analoc': { 'label': 'Anatomical Location' },
+        'behaviorowl_primary_ancestors': { 'label': 'Primary Behavior' },
         'taxon': { 'label': 'Species' },
         'food_type': { 'label': 'Food Type' },
         'techniques': { 'label': 'Sensor Type' },
