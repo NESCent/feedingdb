@@ -71,6 +71,10 @@ class OwlTerm(models.Model):
         """
         return dict(rdfs_is_class=True)
 
+    @classmethod
+    def default_qs(cls):
+        return cls.objects.filter(**(cls.default_qs_filter_args())).order_by('label')
+
     def part_of_classes(self):
         return self.bfo_part_of_some.filter(**(self.default_qs_filter_args()))
 
@@ -144,10 +148,26 @@ class Techniques(object):
         kinematics = 6
         event = 7
 
-    @staticmethod
-    def num2label(num):
-        return Techniques.__choices_dict.get(num, "Unknown Technique")
+    @classmethod
+    def num2label(cls, num):
+        return cls.__choices_dict.get(num, "Unknown Technique")
 
+    @classmethod
+    def get_setup_model(cls, technique):
+        if technique == cls.ENUM.emg:
+            return EmgSetup
+        elif technique == cls.ENUM.sono:
+            return SonoSetup
+        elif technique == cls.ENUM.strain:
+            return StrainSetup
+        elif technique == cls.ENUM.force:
+            return ForceSetup
+        elif technique == cls.ENUM.pressure:
+            return PressureSetup
+        elif technique == cls.ENUM.kinematics:
+            return KinematicsSetup
+        elif technique == cls.ENUM.event:
+            return EventSetup
 
 class Taxon(CvTerm):
     genus = models.CharField(max_length=255)

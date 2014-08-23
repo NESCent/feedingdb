@@ -56,6 +56,7 @@ class EmgSensorChannelForm(forms.ModelForm):
     emg_amplification = IntegerField(label = "Amplification",required=False, initial='', widget=forms.TextInput(attrs={'size': 5}))
     name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}))
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
+    muscle = forms.ModelChoiceField(label="Muscle", required=False, queryset=MuscleOwl.default_qs())
 
     def __init__(self, *args, **kwargs):
         channel=None
@@ -110,6 +111,7 @@ class SubjectForm(forms.ModelForm):
 class SonoSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=True)
+    muscle = forms.ModelChoiceField(label="Muscle", required=False, queryset=MuscleOwl.default_qs())
     
     class Meta:
         model = SonoSensor

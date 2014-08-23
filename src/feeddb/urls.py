@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url, include
 from django.conf import settings
+from django.http import HttpResponseRedirect
 from views import * 
 from feed.views import *
 
@@ -18,15 +19,13 @@ urlpatterns = patterns('',
      'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     (r'^admin/', include(admin.site.urls)),
     #(r'^feed/', include(admin.site.urls)),
-    (r'^$', 'feeddb.feed.views.index'),
+    (r'^$', 'feeddb.feed.views.welcome'),
     #(r'^$', include('feeddb.feed.urls')),
 
-    # TODO: restore explorer URLs if they are desired. This line causes an
-    # error when using the django debug toolbar.
     (r'^explorer/', include('feeddb.explorer.urls')),
 
     (r'^about', 'feeddb.feed.views.about'),
-    (r'^welcome', 'feeddb.feed.views.welcome'), 
+    (r'^welcome', lambda r: HttpResponseRedirect('/')), 
     (r'^login$', login_view),
     (r'^logout$', logout_view),
     (r'^search/', FeedSearchView()),
