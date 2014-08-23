@@ -6259,8 +6259,9 @@ body .btn {
   -moz-box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
   box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
   border: 0;
-  width: auto;
+  width: 100%;
   border-radius: 0;
+  margin-bottom: 20px;
 }
 body a.btn.btn-primary,
 body .btn.btn-primary {
@@ -6369,6 +6370,10 @@ body nav ul li a:visited {
 }
 body .masthead {
   padding: 32px 0;
+}
+body .masthead button {
+  width: auto;
+  margin-bottom: 0;
 }
 body.home h1 {
   text-align: center;
@@ -6682,7 +6687,21 @@ body #clone-modal .row .chosen-container {
 /* Global helpers */
 .full-width,
 .vTextField {
-  width: 100%;
+  width: 100% !important;
+}
+.top-element {
+  margin-bottom: 20px !important;
+}
+.radios label,
+.checkboxes label {
+  color: inherit;
+  font: inherit;
+}
+table input[type="radio"] {
+  margin-right: 20px;
+}
+table label {
+  font-weight: normal;
 }
 /* Form helpers */
 .required label,
