@@ -13,24 +13,31 @@
 </div>
 {% block content %}
 
-<ul class="object-tools">
-    <li><a href="{% url "explorer.views.bucket_download" form.instance.id %}" class="downloadlink">Download</a></li>
-</ul>
 <div class="row">
-    <form action="{% url "explorer.views.bucket_detail" form.instance.id %}" method="POST">
-            <div class="col-xs-8">
-              <div class="row">
-                <div class="col-xs-3">
-                  {% include "explorer/include/form.html" %}
-                  <label for="id_title">ygiog</label>
-                  {{ form.title }}
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-3 col-xs-offset-1">
-              <button class="btn btn-default" type="submit">Save</button>
-            </div>
-    </form>
+  <form action="{% url "explorer.views.bucket_detail" form.instance.id %}" method="POST">
+    <div class="col-xs-8">
+      <div class="row">
+        <div class="col-xs-3">
+          <label for="id_title">Title:</label>
+        </div>
+        <div class="col-xs-9">
+          {{ form.title }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">
+          <label for="id_description">Description:</label>
+        </div>
+        <div class="col-xs-9">
+          {{ form.description }}
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-3 col-xs-offset-1">
+      <button class="btn btn-default full-width top-element" type="submit">Save</button>
+      <a class="btn btn-primary" href="{% url "explorer.views.bucket_download" form.instance.id %}" class="downloadlink">Select Metadata</a></li>
+    </div>
+  </form>
 </div>
 
 <script language="javascript">
@@ -78,10 +85,12 @@ function checkbox_clicked(obj){
           </td>
         </tr>
         {% endfor %}
-        <tr>
-          <th class="table_action" colspan = "8"><input type="submit" value="Remove selected records from the bucket" /></th>
-        </tr>
       </table>
+      <div class="row">
+        <div class="col-xs-3 col-xs-offset-9">
+          <input class="btn btn-primary" type="submit" value="Remove selected records" />
+        </div>
+      </div>
     </form>
   </div>
 
