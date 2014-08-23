@@ -213,7 +213,6 @@ class FeedModelAdmin(admin.ModelAdmin):
     def render_view_view(self, request, context, form_url='', obj=None):
         opts = self.model._meta
         app_label = opts.app_label
-        ordered_objects = opts.get_ordered_objects()
         context.update({
             'add': False,
             'change': False,
@@ -223,7 +222,6 @@ class FeedModelAdmin(admin.ModelAdmin):
             'has_delete_permission': self.has_delete_permission(request, obj),
             'has_file_field': True, # FIXME - this should check if form or formsets have a FileField,
             'has_absolute_url': hasattr(self.model, 'get_absolute_url'),
-            'ordered_objects': ordered_objects,
             'form_url': mark_safe(form_url),
             'opts': opts,
             'content_type_id': ContentType.objects.get_for_model(self.model).id,
@@ -980,36 +978,14 @@ class ExperimentModelAdmin(DefaultModelAdmin):
                 self.add_technique(request,new_experiment, Techniques.ENUM.event);
 
     def add_technique(self, request, experiment, technique):
-        setup = Setup();
-        setup.technique=technique
-        setup.experiment = experiment
-        tech_setup = None
-        if technique==Techniques.ENUM.emg:
-            tech_setup = EmgSetup()
-            setup.emgsetup = tech_setup
-        elif technique==Techniques.ENUM.sono:
-            tech_setup = SonoSetup()
-            setup.sonosetup = tech_setup
-        elif technique==Techniques.ENUM.strain:
-            tech_setup = StrainSetup()
-            setup.strainsetup = tech_setup
-        elif technique==Techniques.ENUM.force:
-            tech_setup = ForceSetup()
-            setup.forcesetup = tech_setup
-        elif technique==Techniques.ENUM.pressure:
-            tech_setup = PressureSetup()
-            setup.pressuresetup = tech_setup
-        elif technique==Techniques.ENUM.kinematics:
-            tech_setup = KinematicsSetup()
-            setup.kinematicssetup = tech_setup
-        elif technique==Techniques.ENUM.event:
-            tech_setup = EventSetup()
-            setup.eventsetup = tech_setup
+        SetupModel = Techniques.get_setup_model(technique)
+
+        tech_setup = SetupModel()
         tech_setup.experiment = experiment
-        tech_setup.technique=technique
+        tech_setup.technique = technique
         tech_setup.created_by = request.user
 
-        setup.created_by = request.user
+        tech_setup.created_by = request.user
         tech_setup.save()
 
     def delete_setup(self,setup):

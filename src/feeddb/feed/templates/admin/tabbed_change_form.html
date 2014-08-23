@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/tabview.css" />
 {% endblock %}
 
-{% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
+{% block coltype %}colM{% endblock %}
 
 {% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
 
