@@ -14,6 +14,14 @@ from feeddb.feed.extension.widgets import *
 
 from django.db import models
 
+
+# Monkey-patch widgets.Select.render() to add the "chosen" class always
+oldRender = Select.render
+def newRender(self, *args, **kwargs):
+    self.attrs['class'] = 'chosen ' + self.attrs.get('class', '')
+    return oldRender(self, *args, **kwargs)
+Select.render = newRender
+
 DATE_HELP_TEXT = DATETIME_HELP_TEXT  #imported from feeddb.feed.models
 DISABLE_FIELDS = ['study','experiment','session','setup']
 
@@ -34,7 +42,6 @@ class SetupForm (DisableForeignKeyForm):
 class ExperimentChangeForm(DisableForeignKeyForm):
     start = DateField(required=False, help_text=DATE_HELP_TEXT)
     end = DateField(required=False, help_text=DATE_HELP_TEXT)
-        
 
 class StudyChangeForm(forms.ModelForm):
     start = DateField(help_text=DATE_HELP_TEXT)
