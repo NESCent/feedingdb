@@ -23,7 +23,7 @@
 <ul class="object-tools object-tools-top">
 	{% if change %}
                                {% ifequal opts.app_label "feed" %}
-		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><img src='/static/img/admin/icon_calendar.gif' alt='view' title='view'/></a></li>
+		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><img src='/static/img/admin/icon_calendar.gif' alt='view' title='viewn'/></a></li>
                                {% endifequal %}
 		{% if has_delete_permission %}
 			<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete/?experiment={{original.experiment.id}}" ><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a></li>

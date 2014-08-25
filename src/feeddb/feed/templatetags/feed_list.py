@@ -187,10 +187,10 @@ def feed_results(cl):
                 if cl.request.META['QUERY_STRING']:  
                     change_url = '%s/?%s' % (change_url, cl.request.META['QUERY_STRING'])
                     delete_url = '%s/?%s' % (delete_url, cl.request.META['QUERY_STRING'])
-            view_anchor = "<img src='%simg/admin/icon_calendar.gif' alt='view' title='view'/>" % settings.STATIC_PREFIX
-            change_anchor = "<img src='%simg/admin/icon_changelink.gif' alt='edit' title='edit'/>" % settings.STATIC_PREFIX
-            delete_anchor = "<img src='%simg/admin/icon_deletelink.gif' alt='delete' title='delete' />" % settings.STATIC_PREFIX
-            clone_anchor = "<img src='%simg/admin/copy-icon.png' alt='clone' title='clone' />" % settings.STATIC_PREFIX
+            view_anchor = "<span class='glyphicon glyphicon-eye-open' alt='%s'></span>" % settings.STATIC_PREFIX
+            change_anchor = "<span class='glyphicon glyphicon-pencil' alt='%s'></span>" % settings.STATIC_PREFIX
+            delete_anchor = "<span class='glyphicon glyphicon-remove' alt='%s'></span>" % settings.STATIC_PREFIX
+            clone_anchor = "<span class='glyphicon glyphicon-plus-sign' alt='%s'></span>" % settings.STATIC_PREFIX
             '''
             view_action = u'<li><a href="%s">%s</a></li>' % (view_url, view_anchor)
             change_action = u'<li><a href="%s">%s</a></li>' % (change_url, change_anchor)

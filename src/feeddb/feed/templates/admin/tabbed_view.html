@@ -19,9 +19,14 @@
 {% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
 
 {% block breadcrumbs %}{% if not is_popup %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="breadcrumbs">
 <div class="breadcrumbs">
 {% include "admin/includes/object_path.html" %}
 </div>
+    </div>
+  </div>
 {% endif %}{% endblock %}
 {% block content_title %}<h1>{% if change %}Edit{% else %}{% if view %}View{% else %}Add{% endif %}{% endif %}  {{ opts.object_name.lower}}</h1>{% endblock %}
 {% block content %}<div id="content-main">

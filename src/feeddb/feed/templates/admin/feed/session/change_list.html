@@ -7,18 +7,18 @@
 <script type="text/javascript" src="{% app_static_prefix %}js/tabview.js"></script>
 {% endblock %}
 
-{% block extrastyle %}
-{{ block.super }}
-<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/forms.css" />
-<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/tabview.css" />
-{% endblock %}
 
 
 {% block breadcrumbs %}
 {% if experiment %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="breadcrumbs">
 <div class="breadcrumbs">
 {% include "admin/includes/object_path.html" %}
 </div>
+    </div>
+  </div>
 {% else %}
 {{ block.super}}
 {% endif %}
