@@ -116,11 +116,15 @@ def bucket_download(request, id):
         return render_to_response('explorer/base.html', c)
 
     if request.method=='POST':
-        zipfile_name= request.POST['zipfile_name']
-        if zipfile_name=="":
-            messages.error(request, 'no zip file name selected.')
-            c = RequestContext(request, {'title': 'FeedDB Explorer'})
-            return render_to_response('explorer/base.html', c)
+        try:
+            zipfile_name = request.POST['zipfile_name']
+        except KeyError:
+            zipfile_name = bucket.default_zipfile_name()
+            if zipfile_name == "":
+                messages.error(request, 'no zip file name selected.')
+                c = RequestContext(request, {'title': 'FeedDB Explorer'})
+                return render_to_response('explorer/base.html', c)
+
         if not zipfile_name.endswith(".zip"):   
             zipfile_name +=".zip"
              
@@ -416,11 +420,9 @@ def bucket_download(request, id):
     meta_forms.append(PressureChannelModelForm())
     meta_forms.append(KinematicsChannelModelForm())
     meta_forms.append(EventChannelModelForm())
-    bucket_name = bucket.title.replace(' ','_').strip().lower()
-    bucket_name = "%s.zip" % bucket_name
+    file_name = bucket.default_zipfile_name()
     
-    
-    c = RequestContext(request, {'title': 'FeedDB Explorer', 'file_name': bucket_name, 'bucket':bucket, 'meta_forms':meta_forms})
+    c = RequestContext(request, {'title': 'FeedDB Explorer', 'file_name': file_name, 'bucket':bucket, 'meta_forms':meta_forms})
     return render_to_response('explorer/bucket_download.html', c)
 
 
