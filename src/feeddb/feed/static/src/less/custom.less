@@ -101,6 +101,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
           &:hover { text-decoration: none; color: @pale-blue; color: @pale-blue-alpha; }
           &:visited { color: @pale-blue; color: @pale-blue-alpha; }
         }
+        .dropdown-menu { background: @navy; background: @navy-alpha; }
       }
     }
   }
@@ -178,7 +179,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       table { margin-top: 30px; }
     }
   }
-  &.feed-study.change-form {
+  &.feed-study.change-form, &.feed-experiment.change-form, &.feed-session.change-form, &.feed-trial.change-form, &.change-list {
     .masthead { padding-bottom: 0; }
     main { padding: 0; }
   }
@@ -277,6 +278,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
 /* Global helpers */
 .full-width, .vTextField { width: 100% !important; }
 .top-element { margin-bottom: 20px !important; }
+.width-auto { width: auto !important; }
 .radios, .checkboxes {
   label { color: inherit; font: inherit; }
 }

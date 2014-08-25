@@ -6368,6 +6368,9 @@ body nav ul li a:hover {
 body nav ul li a:visited {
   color: #ceeded;
 }
+body nav ul li .dropdown-menu {
+  background: #112e4f;
+}
 body .masthead {
   padding: 32px 0;
 }
@@ -6498,10 +6501,18 @@ body.collection form a.btn {
 body.collection form table {
   margin-top: 30px;
 }
-body.feed-study.change-form .masthead {
+body.feed-study.change-form .masthead,
+body.feed-experiment.change-form .masthead,
+body.feed-session.change-form .masthead,
+body.feed-trial.change-form .masthead,
+body.change-list .masthead {
   padding-bottom: 0;
 }
-body.feed-study.change-form main {
+body.feed-study.change-form main,
+body.feed-experiment.change-form main,
+body.feed-session.change-form main,
+body.feed-trial.change-form main,
+body.change-list main {
   padding: 0;
 }
 body main {
@@ -6691,6 +6702,9 @@ body #clone-modal .row .chosen-container {
 }
 .top-element {
   margin-bottom: 20px !important;
+}
+.width-auto {
+  width: auto !important;
 }
 .radios label,
 .checkboxes label {
