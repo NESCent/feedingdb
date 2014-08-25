@@ -2,23 +2,31 @@
 {% load i18n %}
 
 {% block breadcrumbs %}
-<div class="breadcrumbs">
-	<ul id="crumbs">
-	<li><a href="../../../../">{% trans 'Home' %}</a></li>
-    <li><a href="../../../">{{ app_label|capfirst }}</a></li>
-    <li><a href="../../">{{ module_name }}</a></li>
-    <li><a href="../">{{ object|truncatewords:"18" }}</a></li>
-    <li>{% trans 'History' %}</li>
-	</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="breadcrumbs">
+      	<ul id="crumbs">
+        <li><a href="../../../../">{% trans 'Home' %}</a></li>
+        <span>/</span>
+        <li><a href="../../../">{{ app_label|capfirst }}</a></li>
+        <span>/</span>
+        <li><a href="../../">{{ module_name }}</a></li>
+        <span>/</span>
+        <li><a href="../">{{ object|truncatewords:"18" }}</a></li>
+        <span>/</span>
+        <li>{% trans 'History' %}</li>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 
-{% block content %}
-<div id="content-main">
-<div class="module">
 
+{% block content %}
+<div class="col-xs-12">
 {% if action_list %}
-    <table id="change-history">
+    <table id="change-history" class="table table-striped table-bordered">
         <thead>
         <tr>
             <th scope="col">{% trans 'Date/time' %}</th>
@@ -39,6 +47,5 @@
 {% else %}
     <p>{% trans "This object doesn't have a change history. It probably wasn't added via this admin site." %}</p>
 {% endif %}
-</div>
 </div>
 {% endblock %}

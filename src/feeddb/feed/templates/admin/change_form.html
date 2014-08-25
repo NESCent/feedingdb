@@ -7,13 +7,8 @@
   {% endblock %}
   {% block coltype %}colM{% endblock %}
   {% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
-  {% block breadcrumbs %}  
-    {% if not is_popup %}
-    <div class="breadcrumbs">
-      {% include "admin/includes/object_path.html" %}
-    </div>
-    {% endif %}
-  {% endblock %}
+  
+  {% block breadcrumbs %}{% endblock %}
   
   {% block content_title %}
     <h1>{% if change %}Edit {{ opts.object_name}}{% else %}Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a>{% endif %}</h1>
@@ -21,24 +16,26 @@
   {% endblock %}
 
   {% block content %}
-    <div class="col-xs-12">
+  <div class="col-xs-9">
       {% block object-tools %}
+          <div class="row">
+    <div class="col-xs-2 col-xs-offset-10 admin-tools">
       <ul class="object-tools object-tools-top">
         {% if change %}
         {% ifequal opts.app_label "feed" %}
-        <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><img src='/static/img/admin/icon_calendar.gif' alt='view' title='viewm'/></a></li>
+        <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><span class="glyphicon glyphicon-pencil"></span></a></li>
         {% endifequal %}
         {% if has_delete_permission %}
-        <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" ><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a></li>
+        <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" ><span class='glyphicon glyphicon-remove'></span></a></li>
         {% endif %}
         {% endif %}
         {% if has_change_permission %}
         {% if cloneable %}
-	     <li><a class="clonelink" href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/clone" ><img src='/static/img/admin/copy-icon.png' alt='clone' title='clone'/></a></li>
+	     <li><a class="clonelink" href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/clone" ><span class='glyphicon glyphicon-plus-sign'></span></a></li>
        {% endif %}	
        {% endif %}	
        {% if has_change_permission %}{% if not is_popup %}{% if object_id != None %} 
-       <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/history/" class="historylink">{% trans "History" %}</a></li>
+       <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/history/" class="historylink"><span class='glyphicon glyphicon-calendar'></span></a></li>
        <!-- {% if has_absolute_url %}
          <li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>
          {% endif%} -->
@@ -46,8 +43,9 @@
        {% endif %}
        {% endif %}
       </ul>
+    </div>
+    </div>
 {% endblock %}
-  <div class="col-xs-9">
     <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">
     {% csrf_token %}
     {% block form_top %}{% endblock %}
@@ -89,14 +87,18 @@
     {% prepopulated_fields_js %}
     <div class="row">
       <div class="col-xs-4 col-xs-offset-7">
+        {% if add %}
         {% if 'study' == opts.model_name %}
         <input class="btn btn-primary top-element" type="submit" name="_redirect_add_experiment" value="Next Step: Add Experiment">
         {% elif 'experiment' == opts.model_name %}
         <input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
         {% elif 'session' == opts.model_name %}
         <input type="submit" name="_redirect_add_trial" value="Next Step: Add Trial">
-      </div>
         {% endif %}
+        {% else %}
+        {% include "admin/submit_line.html" %}
+        {% endif %}
+      </div>
     </div>
   </form>
 </div>
@@ -104,10 +106,14 @@
 </div>
 {% elif 'trial' == opts.model_name %}
 </div>
+{% elif 'subject' == opts.model_name %}
+</div>
 {% endif %}
 
 {% endblock %}
+
 {% block sidebar %}
+{% if add %}
 <aside>
   <div class="col-xs-3 upload-steps">
     <h3>Upload Steps</h3>
@@ -122,7 +128,9 @@
   {% load upload_status %}
   {% upload_status_block %}
 </aside>
+{% endif %}
 {% endblock %}
+
 {% block modal %}
 <div class="modal fade" id="clone-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

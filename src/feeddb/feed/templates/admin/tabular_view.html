@@ -61,13 +61,13 @@
     				{% if has_change_permission %}
 					     {% if tabbed and inline_admin_formset.opts.tabbed %}
 					    	<a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><span class="glyphicon glyphicon-eye-open"></span></a>
-			    		    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" ><img src="{% app_static_prefix %}img/admin/icon_changelink.gif" alt="edit" title="edit" /></a>
-			 	    		<a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><img src="{% app_static_prefix %}img/admin/icon_deletelink.gif" alt="delete" title="delete" /></a>
+			    		    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-pencil"></span></a></a>
+			 	    		<a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-remove"></span></a></a>
 			             {% else %}
-			 	    		<a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><img src="{% app_static_prefix %}img/admin/icon_deletelink.gif" alt="delete" title="delete" /></a>
+			 	    		<a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-remove"></span></a></a>
 						 {% endif %}
 					{% else %}
-		    			<a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><img src="{% app_static_prefix %}img/admin/icon_calendar.gif" alt="view" title="viewq"/></a>
+		    			<a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><span class="glyphicon glyphicon-pencil"></span></a></a>
     	 			{% endif %}	 
     		    </td>
 				{% endifequal %}
