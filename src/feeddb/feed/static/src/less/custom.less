@@ -208,6 +208,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
         &.column2 {  }
         &.column3 {  }
         &.column9 {  }
+        &.action_header { width: 78px; }
       }
       td { font-size: 12px;
         &.choose {  }
@@ -216,6 +217,11 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
         &.column9 {  }
         &.choose { padding: 8px; width: 30px; }
         a { font-size: 12px; }
+        &.action { 
+          a { padding: 0 4px; 
+            &:last { padding: 0; }
+          }
+        }
       }
     }
     .records-selection { margin-bottom: 30px;

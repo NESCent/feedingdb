@@ -6561,6 +6561,9 @@ body main table th.choose {
   padding: 8px;
   width: 30px;
 }
+body main table th.action_header {
+  width: 78px;
+}
 body main table td {
   font-size: 12px;
 }
@@ -6570,6 +6573,12 @@ body main table td.choose {
 }
 body main table td a {
   font-size: 12px;
+}
+body main table td.action a {
+  padding: 0 4px;
+}
+body main table td.action a:last {
+  padding: 0;
 }
 body main .records-selection {
   margin-bottom: 30px;

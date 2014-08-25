@@ -19,6 +19,8 @@
 
 {% if not is_popup %}
   {% block breadcrumbs %}
+<div class="row">
+  <div class="col-xs-12">
     <div class="breadcrumbs">
     	<ul id="crumbs">
       <li><a href="/">
@@ -29,6 +31,8 @@
       </a></li -->
       <li>{{ cl.opts.verbose_name_plural|capfirst }}</li>
     </div>
+  </div>
+</div>
   {% endblock %}
 {% endif %}
 
