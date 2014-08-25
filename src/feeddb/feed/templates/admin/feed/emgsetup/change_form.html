@@ -7,17 +7,12 @@
 <script type="text/javascript" src="{% app_static_prefix %}js/tabview.js"></script>
 {% endblock %}
 
+{% block breadcrumbs %}{% endblock %}
+
 {% block extrastyle %}
 {{ block.super }}<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/forms.css" />
 <link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/tabview.css" />
 {% endblock %}
-
-{% block breadcrumbs %}
-{% if not is_popup %}
-<div class="breadcrumbs">
-{% include "admin/includes/object_path.html" %}
-</div>
-{% endif %}{% endblock %}
 
 {% block object-tools %}
 <ul class="object-tools object-tools-top">

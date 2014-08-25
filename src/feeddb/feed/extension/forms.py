@@ -18,7 +18,7 @@ from django.db import models
 # Monkey-patch widgets.Select.render() to add the "chosen" class always
 oldRender = Select.render
 def newRender(self, *args, **kwargs):
-    self.attrs['class'] = 'chosen ' + self.attrs.get('class', '')
+    self.attrs['class'] = 'chosen-select' + self.attrs.get('class', '')
     return oldRender(self, *args, **kwargs)
 Select.render = newRender
 
