@@ -8,6 +8,10 @@ class Bucket(feedmodels.FeedBaseModel):
     description = models.TextField(blank=True,null=True)
     trials = models.ManyToManyField(feedmodels.Trial, through='TrialInBucket')
 
+    def default_zipfile_name(self):
+        name = self.title.replace(' ', '_').strip().lower()
+        return "%s.zip" % name
+
     def __unicode__(self):
         return self.title
 
