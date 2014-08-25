@@ -7,7 +7,7 @@
 <fieldset class="module">
    <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h2>
    {{ inline_admin_formset.formset.non_form_errors }}
-   <table>
+   <table class="table table-bordered table-striped">
      <thead><tr>
      {% for field in inline_admin_formset.fields %}
        {% if not field.is_hidden  %}

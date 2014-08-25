@@ -1009,13 +1009,13 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         #add extra context for techniques
         experiment = Experiment.objects.get(pk=object_id)
         techniques =[]
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_emg'/>EMG"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_sono'/>Sono"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_strain'/>Strain"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_force'/>Force"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_pressure'/>Pressure"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_kinematics'/>Kinematics"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_event'/>Time/Event"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_emg'/><label class='col-xs-11'>EMG</label>"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_sono'/><label class='col-xs-11'>Sono</label>"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_strain'/><label class='col-xs-11'>Strain</label>"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_force'/><label class='col-xs-11'>Force</label>"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_pressure'/><label class='col-xs-11'>Pressure</label>"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_kinematics'/><label class='col-xs-11'>Kinematics</label>"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_event'/><label class='col-xs-11'>Time/Event</label>"))
         for s in experiment.setup_set.all():
             if hasattr(s,"emgsetup"):
                 techniques[0] = mark_safe("<a href='/admin/feed/emgsetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>EMG" % (s.id, experiment.id))
@@ -1046,13 +1046,13 @@ class ExperimentModelAdmin(DefaultModelAdmin):
     def add_view(self, request, form_url='', extra_context=None):
         techniques =[]
 
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_emg'/>EMG"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_sono'/>Sono"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_strain'/>Strain"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_force'/>Force"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_pressure'/>Pressure"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_kinematics'/>Kinematics"))
-        techniques.append(mark_safe("<input type='checkbox' name = 'technique_event'/>Time/Event"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_emg'/><label class='col-xs-11'>EMG</label>"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_sono'/><label class='col-xs-11'>Sono</label>"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_strain'/><label class='col-xs-11'>Strain</label>"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_force'/><label class='col-xs-11'>Force</label>"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_pressure'/><label class='col-xs-11'>Pressure</label>"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_kinematics'/><label class='col-xs-11'>Kinematics</label>"))
+        techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_event'/><label class='col-xs-11'>Time/Event</label>"))
 
         if(extra_context!=None):
             extra_context.update({

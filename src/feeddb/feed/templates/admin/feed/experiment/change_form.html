@@ -5,10 +5,7 @@
 <script type="text/javascript" src="{% app_static_prefix %}js/tabview.js"></script>
 {% endblock %}
 
-{% block extrastyle %}
-{{ block.super }}<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/forms.css" />
-<link rel="stylesheet" type="text/css" href="{% app_static_prefix %}css/tabview.css" />
-{% endblock %}
+
 
 {% block breadcrumbs %}
 {% if not is_popup %}
@@ -17,7 +14,7 @@
 </div>
 {% endif %}{% endblock %}
 
-{% block content_title %}<h1>{% if change %}Edit {{ opts.object_name.lower}}{% else %}Add {{ opts.object_name.lower}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing Experiment</a>{% endif %}</h1><hr />{% endblock %}
+{% block content_title %}<h1>{% if change %}Edit {{ opts.object_name}}{% else %}Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a>{% endif %}</h1><hr />{% endblock %}
 
 {% block content %}<div class="col-xs-9">
 	{% block object-tools %}
@@ -57,8 +54,7 @@
 {% endif %}
 <p class="required-notice"><span class="glyphicon glyphicon-asterisk"></span> Required fields</p>
 
-
-  {% include "admin/feed/experiment/techniques.html" %}
+{% include "admin/feed/experiment/techniques.html" %}
 
 {% for fieldset in adminform %}
   {% include "admin/includes/fieldset.html" %}
@@ -80,7 +76,11 @@
 
 {# JavaScript for prepopulated fields #}
 {% prepopulated_fields_js %}
-<input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
+    <div class="row">
+      <div class="col-xs-4 col-xs-offset-7">
+        <input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
+      </div>
+    </div>
 </div>
 </form></div>
 {% endblock %}

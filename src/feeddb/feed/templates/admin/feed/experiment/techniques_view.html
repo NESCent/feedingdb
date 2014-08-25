@@ -1,30 +1,30 @@
 <fieldset class="module aligned">
-<div class="form-row ">
+<div class="row">
               <label>Sensor Type:</label>
 			  {%ifequal original.setup_set.all|length 0 %}(No technique added for this experiment. Please click the edit button to add techniques.){%endifequal%}
 			  
 {% for setup in original.setup_set.all %}
-{% if setup.emgsetup %}EMG&nbsp;&nbsp;&nbsp;{% endif %}
+{% if setup.emgsetup %}<label>EMG</label>{% endif %}
 {%endfor%}
 
 {% for setup in original.setup_set.all %}
-{% if setup.sonosetup %}Sono&nbsp;&nbsp;&nbsp;{% endif %}
+{% if setup.sonosetup %}<label>Sono</label>{% endif %}
 {%endfor%}
 
 {% for setup in original.setup_set.all %}
-{% if setup.strainsetup %}Strain&nbsp;&nbsp;&nbsp;{% endif %}
+{% if setup.strainsetup %}<label>Strain</label>{% endif %}
 {%endfor%}
 
 {% for setup in original.setup_set.all %}
-{% if setup.forcesetup %}Bite Force&nbsp;&nbsp;&nbsp;{% endif %}
+{% if setup.forcesetup %}<label>Bite Force</label>{% endif %}
 {%endfor%}
 
 {% for setup in original.setup_set.all %}
-{% if setup.pressuresetup %}Pressure&nbsp;&nbsp;&nbsp;{% endif %}
+{% if setup.pressuresetup %}<label>Pressure</label>{% endif %}
 {%endfor%}
 
 {% for setup in original.setup_set.all %}
-{% if setup.kinematicssetup %}Kinematics&nbsp;&nbsp;&nbsp;{% endif %}
+{% if setup.kinematicssetup %}<label>Kinematics</label>{% endif %}
 {%endfor%}
 
 </div>

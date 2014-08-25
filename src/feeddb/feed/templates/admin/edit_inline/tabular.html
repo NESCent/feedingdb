@@ -1,17 +1,36 @@
 {% load display i18n feedmedia admin_modify %}
 <div class="inline-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
-{{ inline_admin_formset.formset.management_form }}
-<fieldset class="module">
-   <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h2>
-   {{ inline_admin_formset.formset.non_form_errors }}
-   <table>
+    {{ inline_admin_formset.formset.management_form }}
+    <fieldset class="module">
+       <h3>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h3>
+       {{ inline_admin_formset.formset.non_form_errors }}
+
+  <div class="row">
+    <div class="col-xs-11">
+   <table class="table" style="background: transparent;">
      <thead><tr>
      {% for field in inline_admin_formset.fields %}
     {% if not field.is_hidden  %}
          <th {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
         {% endif %}
      {% endfor %}
+  
+        {% for fieldset in inline_admin_form %}
+          {% for line in fieldset %}
+            {% for field in line %}
+			  {%if field.field.field.required %}   
+     			  <td class="{{ field.field.name }} required">
+			  {%else%}
+               <td class="{{ field.field.name }}">
+              {%endif%}
+			  {{ field.field.errors.as_ul }}
+              {{ field.field }}
+              </td>
+            {% endfor %}
+          {% endfor %}
+        {% endfor %}
+     
      <!-- % if inline_admin_formset.formset.can_delete %}<th>{% trans "Delete?" %}</th>{% endif % -->
 	 {% if inline_admin_formset.formset.model.is_clonable %}<th>{% trans "Clone" %}</th>{% endif %}
      </tr></thead>
@@ -63,8 +82,8 @@
 
      {% endfor %}
 
-   </table><p>
-<p><strong>*If you need to add more records than available empty rows, please click 'save' to save the data and additional space will be added following the existing records.</strong></p>
+   </table></div></div>
+<!-- <p><strong>*If you need to add more records than available empty rows, please click 'save' to save the data and additional space will be added following the existing records.</strong></p> -->
  
 </fieldset>
   </div>
