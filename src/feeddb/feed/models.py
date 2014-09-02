@@ -499,6 +499,7 @@ class Session(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255)
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
+    study = models.ForeignKey(Study, null=True)
     experiment = models.ForeignKey(Experiment)
     position = models.IntegerField(help_text='The numeric position of this recording session among the other sessions within the current experiment.')
     start = models.DateTimeField(blank = True, null=True)
@@ -515,6 +516,10 @@ class Session(FeedBaseModel):
     class Meta:
         ordering = ["position"]
 
+    def save(self):
+        self.study = self.experiment.study
+        return super(Session, self).save()
+
 
 # function to decide the upload_to for trial data file
 # upload_to = [media_root]/data/study_[study id]/experiment_[experiment id]/session_[session id]
@@ -529,6 +534,8 @@ class Trial(FeedBaseModel):
     title = models.CharField(max_length=255)
     bookkeeping = models.CharField("bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     session = models.ForeignKey(Session)
+    experiment = models.ForeignKey(Experiment, null=True)
+    study = models.ForeignKey(Study, null=True)
     position = models.IntegerField(help_text='The numeric position of this trial among the other trials within the current recording session.')
     start = models.DateTimeField( blank = True, null=True, help_text = DATETIME_HELP_TEXT)
     end = models.DateTimeField(blank = True, null=True, help_text = DATETIME_HELP_TEXT)
@@ -558,6 +565,11 @@ class Trial(FeedBaseModel):
     def taxon_name(self):
         return self.session.experiment.subject.taxon.label
     taxon_name.short_description = 'Species'
+
+    def save(self):
+        self.experiment = self.session.experiment
+        self.study = self.session.study
+        return super(Trial, self).save()
 
 class Illustration(FeedBaseModel):
     picture = models.FileField(verbose_name="picture",upload_to='illustrations',  blank = True, null=True)
