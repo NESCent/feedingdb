@@ -27,6 +27,8 @@ class SessionViewInline(FeedTabularInline):
     model = Session
     extra = 0
     fields = ('title', 'start', 'position', 'subj_restraint', 'subj_anesthesia_sedation')
+    tabbed = True
+    tab_name = 'Sessions'
 
 class TrialViewInline(FeedTabularInline):
     model = Trial
