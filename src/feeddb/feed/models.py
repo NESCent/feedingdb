@@ -251,8 +251,8 @@ class Study(FeedBaseModel):
     title = models.CharField(max_length=255,
                              help_text = "A descriptive name of this study.")
     bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
-    start = models.DateTimeField(blank = False, null=False)
-    end = models.DateTimeField( blank = True, null=True)
+    start = models.DateTimeField("Start Date", blank = False, null=False)
+    end = models.DateTimeField("End Date", blank = True, null=True)
     funding_agency = models.CharField(max_length=255, blank = True, null=True)
     approval_secured = models.CharField(max_length=255, blank = True, null=True,
                                         help_text = "Whether an approval for Animal Care and Use or for Human Subjects was secured (Yes, No, or N/A).")
