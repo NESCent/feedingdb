@@ -45,8 +45,6 @@ class SubjectViewInline(FeedTabularInline):
     tab_name="Subjects"
 
 class StudyAdmin(FeedModelAdmin):
-    # TODO: add sessions and trials tabs by adding special InlineModelAdmin subclasses
-    # which don't use a fk but instead an intermediate. Or determine that it is impossible.
     view_inlines = [SubjectViewInline, ExperimentViewInline, SessionViewInline, TrialViewInline]
     search_fields = ('title', 'description')
     list_display = ('title','start','end', 'funding_agency','approval_secured',)
