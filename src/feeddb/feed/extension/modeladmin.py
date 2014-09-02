@@ -42,7 +42,7 @@ from django.utils.decorators import method_decorator
 csrf_protect_m = method_decorator(csrf_protect)
 #end for 1.2.4
 
-class FeedTabularInline(admin.StackedInline):
+class FeedTabularInline(admin.TabularInline):
     template = 'admin/edit_inline/tabular.html'
     #change_form_template = 'admin/tabbed_change_form.html'
     tabbed = False
