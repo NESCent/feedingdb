@@ -74,7 +74,6 @@
         {% block nav-global %}{% endblock %}
       
       <!-- <div class="menu_div"></div> Old site content -->
-      
       {% block menu %}{% endblock %}
       
       {% block breadcrumbs %}<div class="breadcrumbs"><a href="/">{% trans 'Home' %}</a>{% if title %} &rsaquo; {{ title }}{% endif %}</div>{% endblock %}
@@ -82,8 +81,18 @@
       {% endif %}
       
           {% if messages %}
-          <ul class="messagelist">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+       <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+
+          <div class="messages alert alert-info">
+            {% for message in messages %}<p>{{ message }}</p>{% endfor %}
+          </div>
+      </div>
+       </div>
+       </div>
           {% endif %}
+<!--
        {% if messages %}
        <div class="container">
       <div class="row">
@@ -98,6 +107,7 @@
       </div>
       </div>
        {% endif %}
+-->
 
       <div class="masthead">
         <div class="container">

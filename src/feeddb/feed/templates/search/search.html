@@ -3,6 +3,9 @@
 {% block bodyclass %}search{% endblock %}
 {% load faceted_search_extras %}
 
+{% block breadcrumbs %}
+{% endblock %}
+
 {% block pretitle %}
 <div class="row">
   <h1>Search FEED</h1>
@@ -44,6 +47,7 @@
   <div class="col-xs-3">
     <aside>
       <h3>Filter Results</h3>
+      <p>Fields are optional. Multiple terms may be selected for each field.</p>
       {% show_facets facet_items 'taxon' %}
       {% show_facets facet_items 'behaviorowl_primary_ancestors' %}
       {% show_facets facet_items 'techniques' %}
@@ -64,14 +68,14 @@
     <table class="table table-striped table-bordered">
       <tr>
         <th class="choose"><input type="checkbox" id="bucket_checkall" name="checkall" value="blank" /></th>
-        <th class="column2">Trial Name</th>
-        <th class="column3">Start Date</th>
-        <th class="column4">Species</th>
-        <th class="column5">Primary<br />Behavior</th>
-        <th class="column6">Sensor Type</th>
-        <th class="column7">Anatomical<br />Location</th>
-        <th class="column8">Food Type</th>
-        <th class="column9">Collections</th>
+        <th class="column2">Trial Name<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
+        <th class="column3">Start Date<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
+        <th class="column4">Species<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
+        <th class="column5" style="width:90px;">Primary<br />Behavior<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
+        <th class="column6">Sensor Type<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
+        <th class="column7">Anatomical<br />Location<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
+        <th class="column8" style="width:102px;">Food Type<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
+        <th class="column9" style="width:105px;">Collections<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
       </tr>
       {% for result in page.object_list %}
         <tr>

@@ -8,6 +8,10 @@ $( document ).ready(function() {
 			autoScrollingMode: "onStart"
 		});
 
+  $("[data-toggle=tooltip]").tooltip();
+  
+  $( ".datepicker" ).datepicker();
+
 });
 
 
