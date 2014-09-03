@@ -6542,14 +6542,16 @@ body.feed-study.change-form .masthead,
 body.feed-experiment.change-form .masthead,
 body.feed-session.change-form .masthead,
 body.feed-trial.change-form .masthead,
-body.change-list .masthead {
+body.change-list .masthead,
+body.feed-behavior.change-form .masthead {
   padding-bottom: 0;
 }
 body.feed-study.change-form main,
 body.feed-experiment.change-form main,
 body.feed-session.change-form main,
 body.feed-trial.change-form main,
-body.change-list main {
+body.change-list main,
+body.feed-behavior.change-form main {
   padding: 0;
 }
 body main {
@@ -6666,6 +6668,22 @@ body main aside .upload-steps ul li {
   list-style-type: none;
   padding: 0 0 20px 0;
 }
+body #trial_form fieldset label {
+  margin-bottom: 10px;
+}
+body #trial_form fieldset p {
+  line-height: 26px;
+}
+body #behavior_form fieldset label {
+  margin-bottom: 10px;
+}
+body #behavior_form fieldset p {
+  line-height: 26px;
+}
+body #behavior_form .label {
+  text-align: left;
+  font-weight: normal;
+}
 body footer {
   background: #09192a;
   clear: left;
@@ -6757,6 +6775,12 @@ body #clone-modal .row .chosen-container {
   color: inherit;
   font: inherit;
 }
+.remove-sensor {
+  padding: 2px;
+}
+.remove-label {
+  margin-bottom: 5px;
+}
 table input[type="radio"] {
   margin-right: 20px;
 }
@@ -6769,11 +6793,16 @@ label.required {
   font-weight: inherit !important;
   color: #da5400 !important;
   width: auto;
+  float: none;
+  display: block;
 }
 form .aligned p,
 form .aligned ul {
   margin-left: 0;
   padding-left: 0;
+}
+.float-right {
+  float: right;
 }
 /* Custom media queries for larger screens */
 /* Large devices (large desktops, 1200px and up) */

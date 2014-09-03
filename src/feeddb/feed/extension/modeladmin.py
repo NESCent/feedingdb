@@ -1018,19 +1018,19 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         techniques.append(mark_safe("<input type='checkbox' class='col-xs-1' name = 'technique_event'/><label class='col-xs-11'>Time/Event</label>"))
         for s in experiment.setup_set.all():
             if hasattr(s,"emgsetup"):
-                techniques[0] = mark_safe("<a href='/admin/feed/emgsetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>EMG" % (s.id, experiment.id))
+                techniques[0] = mark_safe("<a class='col-xs-1 remove-sensor' href='/admin/feed/emgsetup/%d/delete/?experiment=%d'><span class='glyphicon glyphicon-remove'></span></a><span class='col-xs-11 remove-label'>EMG</span>" % (s.id, experiment.id))
             if hasattr(s, "sonosetup"):
-                techniques[1] = mark_safe("<a href='/admin/feed/sonosetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Sono" % (s.id, experiment.id))
+                techniques[1] = mark_safe("<a class='col-xs-1 remove-sensor' href='/admin/feed/sonosetup/%d/delete/?experiment=%d'><span class='glyphicon glyphicon-remove'></span></a><span class='col-xs-11 remove-label'>Sono</span>" % (s.id, experiment.id))
             if hasattr(s, "strainsetup"):
-                techniques[2] = mark_safe("<a href='/admin/feed/strainsetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Strain" % (s.id, experiment.id))
+                techniques[2] = mark_safe("<a class='col-xs-1 remove-sensor' href='/admin/feed/strainsetup/%d/delete/?experiment=%d'><span class='glyphicon glyphicon-remove'></span></a><span class='col-xs-11 remove-label'>Strain</span>" % (s.id, experiment.id))
             if hasattr(s, "forcesetup"):
-                techniques[3] = mark_safe("<a href='/admin/feed/forcesetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Force" % (s.id, experiment.id))
+                techniques[3] = mark_safe("<a class='col-xs-1 remove-sensor' href='/admin/feed/forcesetup/%d/delete/?experiment=%d'><span class='glyphicon glyphicon-remove'></span></a><span class='col-xs-11 remove-label'>Force</span>" % (s.id, experiment.id))
             if hasattr(s, "pressuresetup"):
-                techniques[4] = mark_safe("<a href='/admin/feed/pressuresetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Pressure" % (s.id, experiment.id))
+                techniques[4] = mark_safe("<a class='col-xs-1 remove-sensor' href='/admin/feed/pressuresetup/%d/delete/?experiment=%d'><span class='glyphicon glyphicon-remove'></span></a><span class='col-xs-11 remove-label'>Pressure</span>" % (s.id, experiment.id))
             if hasattr(s, "kinematicssetup"):
-                techniques[5] = mark_safe("<a href='/admin/feed/kinematicssetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Kinematics" % (s.id, experiment.id))
+                techniques[5] = mark_safe("<a class='col-xs-1 remove-sensor' href='/admin/feed/kinematicssetup/%d/delete/?experiment=%d'><span class='glyphicon glyphicon-remove'></span></a><span class='col-xs-11 remove-label'>Kinematics</span>" % (s.id, experiment.id))
             if hasattr(s, "eventsetup"):
-                techniques[6] = mark_safe("<a href='/admin/feed/eventsetup/%d/delete/?experiment=%d'><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a>Time/Event" % (s.id, experiment.id))
+                techniques[6] = mark_safe("<a class='col-xs-1 remove-sensor' href='/admin/feed/eventsetup/%d/delete/?experiment=%d'><span class='glyphicon glyphicon-remove'></span></a><span class='col-xs-11 remove-label'>Time/Event</span>" % (s.id, experiment.id))
 
         if(extra_context!=None):
             extra_context.update({

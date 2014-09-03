@@ -3,10 +3,11 @@
   {% if fieldset.name %}<h2>{{ fieldset.name }}</h2>{% endif %}
   {% if fieldset.description %}<div class="description">{{ fieldset.description|safe }}</div>{% endif %}
   {% for line in fieldset %}
-      <div class="form-row{% if line.errors %} errors{% endif %} {% for field in line %}{{ field.field.name }} {% endfor %} " >
+      <div class="row{% if line.errors %} errors{% endif %} {% for field in line %}{{ field.field.name }} {% endfor %} " >
       {% for field in line %}
       <div{% if not line.fields|length_is:"1" %} class="field-box"{% endif %} >
-          {{ field.label_tag }} {% display_readonly field adminform %}
+          <div class="col-xs-3">{{ field.label_tag }}</div>
+          <div class="col-xs-9"><p>{% display_readonly field adminform %}</p></div>
       </div>
       {% endfor %}
       </div>
