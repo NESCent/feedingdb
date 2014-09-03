@@ -23,10 +23,17 @@ class IllustrationViewInline(FeedTabularInline):
     extra = 0
     fields = ('picture', 'notes')
 
+class SessionViewInline(FeedTabularInline):
+    model = Session
+    extra = 0
+    fields = ('title', 'start', 'position', 'subj_restraint', 'subj_anesthesia_sedation')
+    tabbed = True
+    tab_name = 'Sessions'
+
 class TrialViewInline(FeedTabularInline):
     model = Trial
     extra = 0
-    fields = ['position', 'title', 'estimated_duration', 'food_type', 'behavior_primary']
+    fields = ('position', 'title', 'estimated_duration', 'food_type', 'behavior_primary')
     tabbed = True
     tab_name="Trials"
 
@@ -38,11 +45,13 @@ class SubjectViewInline(FeedTabularInline):
     tab_name="Subjects"
 
 class StudyAdmin(FeedModelAdmin):
-    view_inlines = [SubjectViewInline, ExperimentViewInline]
+    # TODO: add sessions and trials tabs by adding special InlineModelAdmin subclasses
+    # which don't use a fk but instead an intermediate. Or determine that it is impossible.
+    view_inlines = [SubjectViewInline, ExperimentViewInline, SessionViewInline, TrialViewInline]
     search_fields = ('title', 'description')
     list_display = ('title','start','end', 'funding_agency','approval_secured',)
     form = StudyChangeForm
-    tabbed = True
+    tabbed = False
 
 class ExperimentAdmin(ExperimentModelAdmin):
     inlines = [IllustrationInline]
