@@ -22,25 +22,34 @@ Some useful variables: (indentation indicates recommended structure with "for" l
 
 {% endcomment %}
 {% if known_status %}
-<div>
-    <div class="study">
-        Study: {{ study }}
-        <div> Experiments: {{ study.experiment_set.count }}
+<aside>
+  <div class="col-xs-3 upload-steps">
+    <h3>Upload Steps</h3>
+    <ul>
+        <li><a href="">Study: {{ study }}
+        <li><a href="">Experiments: {{ study.experiment_set.count }}
         {% for experiment in study.experiment_set.all %}
             <div>Exp: {{ experiment }}</div>
-        {% empty %}
-            None
         {% endfor %}
-        </div>
-
-        <div> Subjects: {{ study.subject_set.count }}
+        </a></li>
+        <li><a href="">Subjects: {{ study.subject_set.count }}
         {% for subject in study.subject_set.all %}
             <div>Subject: {{ subject }}</div>
-        {% empty %}
-            None
         {% endfor %}
-        </div>
-    </div>
-</div>
+        </a></li>
+        <li><a href="">Sessions: {{ experiment.session_set.count }}
+        {% for session in experiment.session_set.all %}
+            <div>Sessions: {{ session }}</div>
+        {% endfor %}
+        </a></li>
+        <li><a href="">Trials: {{ session.trial_set.count }}
+        {% for session in session.trial_set.all %}
+            <div>Sessions: {{ trial }}</div>
+        {% endfor %}
+        </a></li>
+        <li><a href="">Review</a>
+    </ul>
+  </div>
+</aside>
 {% endif %}
 Known: {{ known_status }}

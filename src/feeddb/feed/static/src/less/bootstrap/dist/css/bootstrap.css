@@ -6171,6 +6171,7 @@ body {
   color: #112e4f;
   /* Typography / Global */
   /* Alerts */
+  /* Modals */
   /* Buttons */
 }
 body h1 {
@@ -6249,6 +6250,12 @@ body .glyphicon.glyphicon-asterisk {
   display: block;
   float: left;
   padding: 5px 2px 0 0;
+}
+body .modal-body .alert {
+  margin-top: 0;
+}
+body .modal-body .modal-choices {
+  margin: 20px 0;
 }
 body a.btn,
 body .btn {
@@ -6488,9 +6495,20 @@ body.search table.search-box td {
   border: 0;
   font-size: 12px;
 }
+body.search table.table-striped th a {
+  margin: 0 0 0 4px;
+  font-size: 14px;
+}
+body.search table.table-striped th a:hover {
+  color: #007ecf;
+  text-decoration: none;
+}
 body.search aside {
   border-right: 2px solid #ccc;
   min-height: 300px;
+}
+body.search aside p {
+  margin-top: 0;
 }
 body.search aside .facet-group {
   margin-bottom: 30px;

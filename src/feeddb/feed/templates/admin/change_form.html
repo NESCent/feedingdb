@@ -23,7 +23,7 @@
       <ul class="object-tools object-tools-top">
         {% if change %}
         {% ifequal opts.app_label "feed" %}
-        <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><span class="glyphicon glyphicon-pencil"></span></a></li>
+<!--         <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><span class="glyphicon glyphicon-pencil"></span></a></li> -->
         {% endifequal %}
         {% if has_delete_permission %}
         <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" ><span class='glyphicon glyphicon-remove'></span></a></li>
@@ -102,9 +102,7 @@
     </div>
   </form>
 </div>
-{% if 'study' == opts.model_name %}
-</div>
-{% elif 'trial' == opts.model_name %}
+{% if 'trial' == opts.model_name %}
 </div>
 {% elif 'subject' == opts.model_name %}
 </div>
@@ -114,20 +112,8 @@
 
 {% block sidebar %}
 {% if add %}
-<aside>
-  <div class="col-xs-3 upload-steps">
-    <h3>Upload Steps</h3>
-    <ul>
-      <li><a href="">Study <span>#</span></a></li>
-      <li><a href="">Experiments <span>#</span></a></li>
-      <li><a href="">Sessions <span>#</span></a></li>
-      <li><a href="">Trials <span>#</span></a></li>
-      <li><a href="">Review <span>#</span></a></li>
-    </ul>
-  </div>
   {% load upload_status %}
   {% upload_status_block %}
-</aside>
 {% endif %}
 {% endblock %}
 
@@ -142,7 +128,7 @@
       <div class="modal-body">
         <form>
           <div class="row">
-            <div class="col-xs-2 col-xs-offset-1">
+            <div class="col-xs-3 col-xs-offset-1">
               <label>{{ opts.object_name}}:</label>
             </div>
             <div class="col-xs-5">
@@ -152,20 +138,29 @@
               </select>
             </div>
           </div>
-          <div class="row">
-            <div class="radio col-xs-11 col-xs-offset-1">
-              <label>
-               <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                 Clone only {{ opts.object_name.lower}} metadata
-              </label>
+          <div class="modal-choices">
+            <div class="row">
+              <div class="col-xs-1 col-xs-offset-1">
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+              </div>
+              <div class="col-xs-10">
+                <label>Clone only {{ opts.object_name.lower}} metadata</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-1 col-xs-offset-1">
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+              </div>
+              <div class="col-xs-10">
+                <label>Clone all {{ opts.object_name.lower}} metadata</label>
+              </div>
             </div>
           </div>
           <div class="row">
-            <div class="radio col-xs-11 col-xs-offset-1">
-              <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                  Clone {{ opts.object_name.lower}} metadata and all {{ opts.object_name.lower}} elements
-              </label>
+            <div class="col-xs-11 col-xs-offset-1">
+              <div class="alert alert-info">
+                <p>Cloned metadata can be modified or removed later from the Study Overview screen.</p>
+              </div>
             </div>
           </div>
         </form>

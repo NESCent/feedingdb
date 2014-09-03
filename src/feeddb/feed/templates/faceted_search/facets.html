@@ -3,7 +3,7 @@
 {% for facet in facets %}
     <div id='facet-{{facet.field}}' class='facet-group{% if facet.has_selected %} selected{% endif %} count-{{facet|length}}'>
       <label>{{ facet.label }}</label>
-      <select class="chosen-select" multiple name="{{facet.field}}">
+      <select class="chosen-select" multiple name="{{facet.field}}" data-placeholder="Click to add terms">
         {% show_facet_items facet %}
       </select>
     </div>
