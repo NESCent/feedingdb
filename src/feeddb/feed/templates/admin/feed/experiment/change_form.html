@@ -1,79 +1,96 @@
-{% extends "admin/change_form.html" %}
+{% extends "admin/base.html" %}
 {% load i18n admin_modify feedmedia %}
 
 {% block extrahead %}{{ block.super }}
 <script type="text/javascript" src="{% app_static_prefix %}js/tabview.js"></script>
 {% endblock %}
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}feed-experiment change-form{% endblock %}">
 
 {% block breadcrumbs %}{% endblock %}
 
-{% block content_title %}<h1>{% if change %}Edit {{ opts.object_name}}{% else %}Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a>{% endif %}</h1><hr />{% endblock %}
-
-{% block content %}<div class="col-xs-9">
-	{% block object-tools %}
-<ul class="object-tools object-tools-top">
-	{% if change %}
-                               {% ifequal opts.app_label "feed" %}
-		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><img src='/static/img/admin/icon_calendar.gif' alt='view' title='viewo'/></a></li>
-                               {% endifequal %}
-		{% if has_delete_permission %}
-			<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" ><img src='/static/img/admin/icon_deletelink.gif' alt='delete' title='delete'/></a></li>
-		{% endif %}
-	{% endif %}
-	{% if has_change_permission %}
-	{% if cloneable %}
-	     <li><a class="clonelink" href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/clone" ><img src='/static/img/admin/copy-icon.png' alt='clone' title='clone'/></a></li>
-    {% endif %}	
-	{% endif %}	
-</ul>
-{% endblock %}
-<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">
-	{% csrf_token %}
-		{% block form_top %}{% endblock %}
-<div>
-{% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
-{% if save_on_top %}<!-- {% submit_row %} -->{% endif %}
-{% if errors %}
+{% block pretitle %}
 <div class="row">
-  <div class="col-xs-11">
-    <div class="messages alert alert-error">
-      <p>
-      {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
-      </p>
-      {% for error in adminform.form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
-    </div>
+  <div class="col-xs-12">
+    <h1>{% if change %}Edit {{ opts.object_name}}{% else %}Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a>{% endif %}</h1>
+  </div>
+  <div class="col-xs-12">
+    <hr />
   </div>
 </div>
-{% endif %}
-<p class="required-notice"><span class="glyphicon glyphicon-asterisk"></span> Required fields</p>
+</div>
+</div>
+{% endblock %}
 
-{% include "admin/feed/experiment/techniques.html" %}
-
-{% for fieldset in adminform %}
-  {% include "admin/includes/fieldset.html" %}
-{% endfor %}
-
-{% block after_field_sets %}{% endblock %}
-
-{% for inline_admin_formset in inline_admin_formsets %}
-
-    {% include inline_admin_formset.opts.template %}
-{% endfor %}
-
-{% block after_related_objects %}{% endblock %}
-
-
-{% if adminform and add %}
-   <script type="text/javascript">document.getElementById("{{ adminform.first_field.auto_id }}").focus();</script>
-{% endif %}
-
-{# JavaScript for prepopulated fields #}
-{% prepopulated_fields_js %}
-    <div class="row">
-      <div class="col-xs-4 col-xs-offset-7">
-        <input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
+{% block content %}
+<div class="col-xs-9">
+	{% block object-tools %}
+	  <div class="row">
+      <div class="col-xs-2 col-xs-offset-10 admin-tools">
+        <ul class="object-tools object-tools-top">
+          {% if change %}
+            {% ifequal opts.app_label "feed" %}
+            <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><span class='glyphicon glyphicon-eye-open'></span></a></li>
+            {% endifequal %}
+            {% if has_delete_permission %}
+            <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" ><span class='glyphicon glyphicon-remove'></span></a></li>
+            {% endif %}
+          {% endif %}
+          {% if has_change_permission %}
+            {% if cloneable %}
+            <li><a class="clonelink" href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/clone" ><img src='/static/img/admin/copy-icon.png' alt='clone' title='clone'/></a></li>
+            {% endif %}	
+          {% endif %}	
+        </ul>
       </div>
     </div>
+{% endblock %}
+    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">
+      {% csrf_token %}
+      {% block form_top %}{% endblock %}
+      {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+      {% if save_on_top %}<!-- {% submit_row %} -->{% endif %}
+      {% if errors %}
+      <div class="row">
+        <div class="col-xs-9">
+          <div class="messages alert alert-error">
+            <p>
+            {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+            </p>
+            {% for error in adminform.form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      <p class="required-notice"><span class="glyphicon glyphicon-asterisk"></span> Required fields</p>
+
+      {% include "admin/feed/experiment/techniques.html" %}
+      
+      {% for fieldset in adminform %}
+        {% include "admin/includes/fieldset.html" %}
+      {% endfor %}
+      
+      {% block after_field_sets %}{% endblock %}
+      
+      {% for inline_admin_formset in inline_admin_formsets %}
+      
+          {% include inline_admin_formset.opts.template %}
+      {% endfor %}
+      
+      {% block after_related_objects %}{% endblock %}
+
+
+      {% if adminform and add %}
+         <script type="text/javascript">document.getElementById("{{ adminform.first_field.auto_id }}").focus();</script>
+      {% endif %}
+
+      {# JavaScript for prepopulated fields #}
+      {% prepopulated_fields_js %}
+      <div class="row">
+        <div class="col-xs-4 col-xs-offset-7">
+          <input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
-</form></div>
 {% endblock %}

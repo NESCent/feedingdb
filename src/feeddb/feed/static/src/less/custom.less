@@ -209,7 +209,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       table { margin-top: 30px; }
     }
   }
-  &.feed-study.change-form, &.feed-experiment.change-form, &.feed-session.change-form, &.feed-trial.change-form, &.change-list {
+  &.feed-study.change-form, &.feed-experiment.change-form, &.feed-session.change-form, &.feed-trial.change-form, &.change-list, &.feed-behavior.change-form {
     .masthead { padding-bottom: 0; }
     main { padding: 0; }
   }
@@ -283,6 +283,19 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       }
     }
   }
+  #trial_form {
+    fieldset {
+      label { margin-bottom: 10px; }
+      p { line-height: 26px; }
+    }
+  }
+  #behavior_form {
+    fieldset {
+      label { margin-bottom: 10px; }
+      p { line-height: 26px; }
+    }
+    .label { text-align: left; font-weight: normal; }
+  }
   footer { background: @dk-navy; background: @dk-navy-alpha; clear: left; border-bottom: 6px solid @orange; padding: 25px 0 42px 0;
     .logo { background: url('../../../../../img/footer-logo.png') no-repeat; width: 57px; height: 56px; display: block; text-indent: -10000px; overflow: hidden; margin: 0 0 12px 0; }
     ul { padding-left: 0;
@@ -318,14 +331,17 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
 .radios, .checkboxes {
   label { color: inherit; font: inherit; }
 }
+.remove-sensor { padding: 2px; }
+.remove-label { margin-bottom: 5px; }
 table {
   input[type="radio"] { margin-right: 20px; }
   label { font-weight: normal; }
 }
 
 /* Form helpers */
-.required label, label.required { font-weight: inherit !important; color: @orange !important; color: @orange-alpha !important; width: auto; }
+.required label, label.required { font-weight: inherit !important; color: @orange !important; color: @orange-alpha !important; width: auto; float: none; display: block; }
 form .aligned p, form .aligned ul { margin-left: 0; padding-left: 0; }
+.float-right { float: right; }
 
 /* Custom media queries for larger screens */
 

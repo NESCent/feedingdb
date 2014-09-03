@@ -27,9 +27,6 @@
       <li><a href="/">
         {% trans "Home" %}
       </a></li><span>/</span>
-       <!-- li><a href="../">
-         {{ app_label|capfirst }}
-      </a></li -->
       <li>{{ cl.opts.verbose_name_plural|capfirst }}</li>
     </div>
   </div>
@@ -55,7 +52,7 @@
 {% block content %}
     <div class="col-xs-12">
       {% block object-tools %}
-  {% comment %}
+      {% comment %}
        {{% if has_add_permission %}
           <ul class="object-tools object-tools-top">
             <li>
