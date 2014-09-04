@@ -4,9 +4,17 @@
   {% if fieldset.description %}<div class="description">{{ fieldset.description|safe }}</div>{% endif %}
   {% for line in fieldset %}
            
-	  {{ line.errors }}
       	
 	  {% for field in line %}
+      {# custom error display so we can use bootstrap markup #}
+      {% if field.field.errors %}
+        <ul>
+          {% for error in field.field.errors %}
+            <li>{{ error }} BLAH</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
       {% if field.field.field.widget.is_hidden %}{{ field.field }}{%else%}
 	  <div class="row {% if line.errors %} errors{% endif %}">
       <div class="{% if not line.fields|length_is:"1" %} field-box{% endif %}">
