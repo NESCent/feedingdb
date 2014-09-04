@@ -48,10 +48,6 @@ class StudyChangeForm(forms.ModelForm):
     #end = DateTimeField("ENDZ", required=False, help_text=DATE_HELP_TEXT)
     class Meta:
         model=Study
-        widgets = {
-            'start': DateTimeInput(),
-            'end': DateTimeInput(),
-        }
 
 class SessionChangeForm(forms.ModelForm):
     start = DateField(required=False, help_text=DATE_HELP_TEXT)
