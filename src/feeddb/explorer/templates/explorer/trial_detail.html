@@ -1,278 +1,294 @@
 {% extends "admin/base.html" %}
 {% load explorer_display %}
-{% block content_title %}<h1>Trial: {{trial.title}}</h1><hr />{% endblock %}
+
+{% block pretitle %}
+  <div class="masthead">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>Trial: {{trial.title}}</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <hr />
+	      </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
 
 {% block content %}
-
-<div class="panel-group" id="accordion">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Study</a>
-      </h3>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in">
-      <div class="panel-body">
-        <table class="detail_table">
-          <tr><td class='TdField'>Name</td><td class='TdValue'>{{trial.session.experiment.study.title}}</td></tr>
-          <tr><td class='TdField'>Start Date</td><td class='TdValue'>{{trial.session.experiment.study.start}}</td></tr>
-          <tr><td class='TdField'>End Date</td><td class='TdValue'>{{trial.session.experiment.study.end}}</td></tr>
-          <tr><td class='TdField'>Approval</td><td class='TdValue'>{{trial.session.experiment.study.approval_secured}}</td></tr>
-          <tr><td class='TdField'>Funding Acknowledgement</td><td class='TdValue'>{{trial.session.experiment.study.funding_agency}}</td></tr>
-          <tr><td class='TdField'>Description</td><td class='TdValue'>{{trial.session.experiment.study.description}}</td></tr>
-        </table>
+<div class="col-xs-12">
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Study</a>
+        </h3>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <table class="detail_table">
+            <tr><td class='TdField'>Name</td><td class='TdValue'>{{trial.session.experiment.study.title}}</td></tr>
+            <tr><td class='TdField'>Start Date</td><td class='TdValue'>{{trial.session.experiment.study.start}}</td></tr>
+            <tr><td class='TdField'>End Date</td><td class='TdValue'>{{trial.session.experiment.study.end}}</td></tr>
+            <tr><td class='TdField'>Approval</td><td class='TdValue'>{{trial.session.experiment.study.approval_secured}}</td></tr>
+            <tr><td class='TdField'>Funding Acknowledgement</td><td class='TdValue'>{{trial.session.experiment.study.funding_agency}}</td></tr>
+            <tr><td class='TdField'>Description</td><td class='TdValue'>{{trial.session.experiment.study.description}}</td></tr>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Research Subject</a>
-      </h3>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
-      <div class="panel-body">
-        <table class="detail_table">
-          <tr><td class='TdField'>Subject Name</td><td class='TdValue'>{{trial.session.experiment.subject.name}}</td></tr>
-          <tr><td class='TdField'>Genus</td><td class='TdValue'>{{trial.session.experiment.subject.taxon.genus}}</td></tr>
-          <tr><td class='TdField'>Species</td><td class='TdValue'>{{trial.session.experiment.subject.taxon.species}}</td></tr>
-          <tr><td class='TdField'>Common Name</td><td class='TdValue'>{{trial.session.experiment.subject.taxon.common_name}}</td></tr>
-          <tr><td class='TdField'>Breed/Stain</td><td class='TdValue'>{{trial.session.experiment.subject.breed}}</td></tr>
-          <tr><td class='TdField'>Sex</td><td class='TdValue'>{{trial.session.experiment.subject.sex}}</td></tr>
-          <tr><td class='TdField'>Source</td><td class='TdValue'>{{trial.session.experiment.subject.source}}</td></tr>
-          <tr><td class='TdField'>Notes</td><td class='TdValue'>{{trial.session.experiment.subject.notes}}</td></tr>
-          <tr><td class='TdField'>Illustrations</td><td class='TdValue'>
-          	<table>
-          	{% for illustration in trial.session.experiment.subject.illustration_set.all %}
-          	  <tr><td>{%display_file illustration.picture %}</td>
-          	  <td>{{illustration.notes}}</td>
-          	  </tr>
-          	{%endfor%}
-          	</table>
-          </td></tr>
-        </table>
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Research Subject</a>
+        </h3>
+      </div>
+      <div id="collapseTwo" class="panel-collapse collapse">
+        <div class="panel-body">
+          <table class="detail_table">
+            <tr><td class='TdField'>Subject Name</td><td class='TdValue'>{{trial.session.experiment.subject.name}}</td></tr>
+            <tr><td class='TdField'>Genus</td><td class='TdValue'>{{trial.session.experiment.subject.taxon.genus}}</td></tr>
+            <tr><td class='TdField'>Species</td><td class='TdValue'>{{trial.session.experiment.subject.taxon.species}}</td></tr>
+            <tr><td class='TdField'>Common Name</td><td class='TdValue'>{{trial.session.experiment.subject.taxon.common_name}}</td></tr>
+            <tr><td class='TdField'>Breed/Stain</td><td class='TdValue'>{{trial.session.experiment.subject.breed}}</td></tr>
+            <tr><td class='TdField'>Sex</td><td class='TdValue'>{{trial.session.experiment.subject.sex}}</td></tr>
+            <tr><td class='TdField'>Source</td><td class='TdValue'>{{trial.session.experiment.subject.source}}</td></tr>
+            <tr><td class='TdField'>Notes</td><td class='TdValue'>{{trial.session.experiment.subject.notes}}</td></tr>
+            <tr><td class='TdField'>Illustrations</td><td class='TdValue'>
+            	<table>
+            	{% for illustration in trial.session.experiment.subject.illustration_set.all %}
+            	  <tr><td>{%display_file illustration.picture %}</td>
+            	  <td>{{illustration.notes}}</td>
+            	  </tr>
+            	{%endfor%}
+            	</table>
+            </td></tr>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Experiment</a>
-      </h3>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse">
-      <div class="panel-body">
-        <table class="detail_table">
-          <tr><td class='TdField'>Title</td><td class='TdValue'>{{trial.session.experiment.title}}</td></tr>
-          <tr><td class='TdField'>Developmental Stage</td><td class='TdValue'>{{trial.session.experiment.subj_devstage}}</td></tr>
-          <tr><td class='TdField'>Instrumentation Note</td><td class='TdValue'>{{trial.session.experiment.impl_notes}}</td></tr>
-          <tr><td class='TdField'>Start Date</td><td class='TdValue'>{{trial.session.experiment.start}}</td></tr>
-          <tr><td class='TdField'>End Date</td><td class='TdValue'>{{trial.session.experiment.end}}</td></tr>
-          <tr><td class='TdField'>Age of Animal</td><td class='TdValue'>{{trial.session.experiment.subj_age}}</td></tr>
-          <tr><td class='TdField'>Age Units</td><td class='TdValue'>{{trial.session.experiment.subj_ageunit}}</td></tr>
-          <tr><td class='TdField'>Body Weight</td><td class='TdValue'>{{trial.session.experiment.subj_weight}}</td></tr>
-          <tr><td class='TdField'>Notes about Animal</td><td class='TdValue'>{{trial.session.experiment.subj_notes}}</td></tr>
-          <tr><td class='TdField'>Tooth Development </td><td class='TdValue'>{{trial.session.experiment.subj_tooth}}</td></tr>
-          <tr><td class='TdField'>Illustrations</td><td class='TdValue'>
-          	<table>
-          	{% for illustration in trial.session.experiment.illustration_set.all %}
-          	  <tr><td>{%display_file illustration.picture %}</td>
-          	  <td>{{illustration.notes}}</td>
-          	  </tr>
-          	{%endfor%}
-          	</table>
-          </td></tr>
-        </table>
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Experiment</a>
+        </h3>
+      </div>
+      <div id="collapseThree" class="panel-collapse collapse">
+        <div class="panel-body">
+          <table class="detail_table">
+            <tr><td class='TdField'>Title</td><td class='TdValue'>{{trial.session.experiment.title}}</td></tr>
+            <tr><td class='TdField'>Developmental Stage</td><td class='TdValue'>{{trial.session.experiment.subj_devstage}}</td></tr>
+            <tr><td class='TdField'>Instrumentation Note</td><td class='TdValue'>{{trial.session.experiment.impl_notes}}</td></tr>
+            <tr><td class='TdField'>Start Date</td><td class='TdValue'>{{trial.session.experiment.start}}</td></tr>
+            <tr><td class='TdField'>End Date</td><td class='TdValue'>{{trial.session.experiment.end}}</td></tr>
+            <tr><td class='TdField'>Age of Animal</td><td class='TdValue'>{{trial.session.experiment.subj_age}}</td></tr>
+            <tr><td class='TdField'>Age Units</td><td class='TdValue'>{{trial.session.experiment.subj_ageunit}}</td></tr>
+            <tr><td class='TdField'>Body Weight</td><td class='TdValue'>{{trial.session.experiment.subj_weight}}</td></tr>
+            <tr><td class='TdField'>Notes about Animal</td><td class='TdValue'>{{trial.session.experiment.subj_notes}}</td></tr>
+            <tr><td class='TdField'>Tooth Development </td><td class='TdValue'>{{trial.session.experiment.subj_tooth}}</td></tr>
+            <tr><td class='TdField'>Illustrations</td><td class='TdValue'>
+            	<table>
+            	{% for illustration in trial.session.experiment.illustration_set.all %}
+            	  <tr><td>{%display_file illustration.picture %}</td>
+            	  <td>{{illustration.notes}}</td>
+            	  </tr>
+            	{%endfor%}
+            	</table>
+            </td></tr>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Recording Session</a>
-      </h3>
-    </div>
-    <div id="collapseFour" class="panel-collapse collapse">
-      <div class="panel-body">
-        <table class="detail_table">
-          <tr><td class='TdField'>Start</td><td class='TdValue'>{{trial.session.start}}</td></tr>
-          <tr><td class='TdField'>End</td><td class='TdValue'>{{trial.session.end}}</td></tr>
-          <tr><td class='TdField'>Recording Session Order</td><td class='TdValue'>{{trial.session.position}}</td></tr>
-          <tr><td class='TdField'>Subject Anesthesia/Sedation</td><td class='TdValue'>{{trial.session.subj_anesthesia_sedation}}</td></tr>
-          <tr><td class='TdField'>Subject Restaint Method</td><td class='TdValue'>{{trial.session.subj_restraint}}</td></tr>
-          <tr><td class='TdField'>Subject Notes</td><td class='TdValue'>{{trial.session.subj_notes}}</td></tr>
-        </table>
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Recording Session</a>
+        </h3>
+      </div>
+      <div id="collapseFour" class="panel-collapse collapse">
+        <div class="panel-body">
+          <table class="detail_table">
+            <tr><td class='TdField'>Start</td><td class='TdValue'>{{trial.session.start}}</td></tr>
+            <tr><td class='TdField'>End</td><td class='TdValue'>{{trial.session.end}}</td></tr>
+            <tr><td class='TdField'>Recording Session Order</td><td class='TdValue'>{{trial.session.position}}</td></tr>
+            <tr><td class='TdField'>Subject Anesthesia/Sedation</td><td class='TdValue'>{{trial.session.subj_anesthesia_sedation}}</td></tr>
+            <tr><td class='TdField'>Subject Restaint Method</td><td class='TdValue'>{{trial.session.subj_restraint}}</td></tr>
+            <tr><td class='TdField'>Subject Notes</td><td class='TdValue'>{{trial.session.subj_notes}}</td></tr>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">Trial</a>
-      </h3>
-    </div>
-    <div id="collapseFive" class="panel-collapse collapse">
-      <div class="panel-body">
-        <table class="detail_table">
-          <tr><td class='TdField'>Trial Name </td><td class='TdValue'>{{trial.title }}</td></tr>
-          <tr><td class='TdField'>Trial Number</td><td class='TdValue'>{{trial.position }}</td></tr>
-          <tr><td class='TdField'>Primary Behavior </td><td class='TdValue'>{{trial.behavior_primary }}</td></tr>
-          <tr><td class='TdField'>Secondary Behaviors</td><td class='TdValue'>{{trial.behavior_secondary }}</td></tr>
-          <tr><td class='TdField'>Behavior Notes</td><td class='TdValue'>{{trial.behavior_notes }}</td></tr>
-          <tr><td class='TdField'>Estimated duration (sec) </td><td class='TdValue'>{{trial.estimated_duration}}</td></tr>
-          <tr><td class='TdField'>Food Type</td><td class='TdValue'>{{trial.food_type }}</td></tr>
-          <tr><td class='TdField'>Food Size</td><td class='TdValue'>{{trial.food_size }}</td></tr>
-          <tr><td class='TdField'>Material Properties of Food</td><td class='TdValue'>{{trial.food_property }}</td></tr>
-          <tr><td class='TdField'>Experimental Treatment</td><td class='TdValue'>{{trial.subj_treatment }}</td></tr>
-          <tr><td class='TdField'>Subject Notes</td><td class='TdValue'>{{trial.subj_notes}}</td></tr>
-          <tr><td class='TdField'>Waveform</td><td class='TdValue'>{%display_file trial.waveform_picture %}</td></tr>
-        </table>
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">Trial</a>
+        </h3>
+      </div>
+      <div id="collapseFive" class="panel-collapse collapse">
+        <div class="panel-body">
+          <table class="detail_table">
+            <tr><td class='TdField'>Trial Name </td><td class='TdValue'>{{trial.title }}</td></tr>
+            <tr><td class='TdField'>Trial Number</td><td class='TdValue'>{{trial.position }}</td></tr>
+            <tr><td class='TdField'>Primary Behavior </td><td class='TdValue'>{{trial.behavior_primary }}</td></tr>
+            <tr><td class='TdField'>Secondary Behaviors</td><td class='TdValue'>{{trial.behavior_secondary }}</td></tr>
+            <tr><td class='TdField'>Behavior Notes</td><td class='TdValue'>{{trial.behavior_notes }}</td></tr>
+            <tr><td class='TdField'>Estimated duration (sec) </td><td class='TdValue'>{{trial.estimated_duration}}</td></tr>
+            <tr><td class='TdField'>Food Type</td><td class='TdValue'>{{trial.food_type }}</td></tr>
+            <tr><td class='TdField'>Food Size</td><td class='TdValue'>{{trial.food_size }}</td></tr>
+            <tr><td class='TdField'>Material Properties of Food</td><td class='TdValue'>{{trial.food_property }}</td></tr>
+            <tr><td class='TdField'>Experimental Treatment</td><td class='TdValue'>{{trial.subj_treatment }}</td></tr>
+            <tr><td class='TdField'>Subject Notes</td><td class='TdValue'>{{trial.subj_notes}}</td></tr>
+            <tr><td class='TdField'>Waveform</td><td class='TdValue'>{%display_file trial.waveform_picture %}</td></tr>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">Setups</a>
-      </h3>
-    </div>
-    <div id="collapseSix" class="panel-collapse collapse">
-      <div class="panel-body">
-        <table class="detail_table">
-          <tr>
-            <th>ID</th>
-            <th>Technique</th>
-            <th>Sampling Rate</th>
-            <th>EMG Preamplifier</th>
-            <th>Sono Micrometer</th>
-            <th>Notes</th>
-            <th>Illustrations</th>
-          </tr>
-          {% for setup in trial.session.experiment.setup_set.all %}
-          <tr class="{% cycle 'row1' 'row2' %}">
-            <td>{{setup.id}}</td>
-            <td>{%technique_label setup.technique%}</td>
-            <td>{{setup.sampling_rate|default_if_none:""}}</td>
-            <td>{% display_preamplifier setup %}</td>
-            <td>{% display_sonomicrometer setup %}</td>
-            <td>{{setup.notes|default_if_none:""|truncatewords:50}}</td>
-            <td>
-              <table>
-                {% for illustration in setup.illustration_set.all %}
-                <tr><td>{%display_file illustration.picture %}</td>
-                  <td>{{illustration.notes}}</td>
-                </tr>
-                {%endfor%}
-              </table>
-            </td>
-          </tr>
-          {%endfor %}
-        </table>
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">Setups</a>
+        </h3>
+      </div>
+      <div id="collapseSix" class="panel-collapse collapse">
+        <div class="panel-body">
+          <table class="detail_table">
+            <tr>
+              <th>ID</th>
+              <th>Technique</th>
+              <th>Sampling Rate</th>
+              <th>EMG Preamplifier</th>
+              <th>Sono Micrometer</th>
+              <th>Notes</th>
+              <th>Illustrations</th>
+            </tr>
+            {% for setup in trial.session.experiment.setup_set.all %}
+            <tr class="{% cycle 'row1' 'row2' %}">
+              <td>{{setup.id}}</td>
+              <td>{%technique_label setup.technique%}</td>
+              <td>{{setup.sampling_rate|default_if_none:""}}</td>
+              <td>{% display_preamplifier setup %}</td>
+              <td>{% display_sonomicrometer setup %}</td>
+              <td>{{setup.notes|default_if_none:""|truncatewords:50}}</td>
+              <td>
+                <table>
+                  {% for illustration in setup.illustration_set.all %}
+                  <tr><td>{%display_file illustration.picture %}</td>
+                    <td>{{illustration.notes}}</td>
+                  </tr>
+                  {%endfor%}
+                </table>
+              </td>
+            </tr>
+            {%endfor %}
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">Sensors</a>
-      </h3>
-    </div>
-    <div id="collapseSeven" class="panel-collapse collapse">
-      <div class="panel-body">
-        <table class="detail_table">
-          <tr>
-            <th>ID</th>
-            <th>Setup ID</th>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Side</th>
-            <th>AP</th>
-            <th>DV</th>
-            <th>PD</th>
-            <th>ML</th>
-            <th>Axis Depth</th>
-            <th>Electrode Type</th>
-            <th>Notes</th>
-          </tr>
-          {% for setup in trial.session.experiment.setup_set.all %}
-          {% for sensor in setup.sensor_set.all|dictsort:"name" %}
-          <tr class="{% cycle 'row1' 'row2' %}">
-            <td>{{sensor.id}}</td>
-            <td>{{setup.id}}</td>
-            <td>{{sensor.name}}</td>
-            <td>{% display_location setup sensor %}</td>
-            <td>{{sensor.loc_side|default_if_none:""}}</td>
-            <td>{{sensor.loc_ap|default_if_none:""}}</td>
-            <td>{{sensor.loc_dv|default_if_none:""}}</td>
-            <td>{{sensor.loc_pd|default_if_none:""}}</td>
-            <td>{{sensor.loc_ml|default_if_none:""}}</td>
-            <td>{%display_axisdepth setup sensor %}</td>	  
-            <td>{%display_electrodetype setup sensor %}</td>	  
-            <td>{{sensor.notes|truncatewords:50|default_if_none:""}}</td>
-          </tr>
-          {%endfor %}
-          {%endfor %}
-        </table>
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">Sensors</a>
+        </h3>
+      </div>
+      <div id="collapseSeven" class="panel-collapse collapse">
+        <div class="panel-body">
+          <table class="detail_table">
+            <tr>
+              <th>ID</th>
+              <th>Setup ID</th>
+              <th>Name</th>
+              <th>Location</th>
+              <th>Side</th>
+              <th>AP</th>
+              <th>DV</th>
+              <th>PD</th>
+              <th>ML</th>
+              <th>Axis Depth</th>
+              <th>Electrode Type</th>
+              <th>Notes</th>
+            </tr>
+            {% for setup in trial.session.experiment.setup_set.all %}
+            {% for sensor in setup.sensor_set.all|dictsort:"name" %}
+            <tr class="{% cycle 'row1' 'row2' %}">
+              <td>{{sensor.id}}</td>
+              <td>{{setup.id}}</td>
+              <td>{{sensor.name}}</td>
+              <td>{% display_location setup sensor %}</td>
+              <td>{{sensor.loc_side|default_if_none:""}}</td>
+              <td>{{sensor.loc_ap|default_if_none:""}}</td>
+              <td>{{sensor.loc_dv|default_if_none:""}}</td>
+              <td>{{sensor.loc_pd|default_if_none:""}}</td>
+              <td>{{sensor.loc_ml|default_if_none:""}}</td>
+              <td>{%display_axisdepth setup sensor %}</td>	  
+              <td>{%display_electrodetype setup sensor %}</td>	  
+              <td>{{sensor.notes|truncatewords:50|default_if_none:""}}</td>
+            </tr>
+            {%endfor %}
+            {%endfor %}
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight">Channels</a>
-      </h3>
-    </div>
-    <div id="collapseEight" class="panel-collapse collapse">
-      <div class="panel-body">
-        <table class="detail_table">
-          <tr>
-            <th>Order</th>
-            <th>Name</th>
-            <th>Technique</th>
-            <th>Recording Rate</th>
-            <th>Unit</th>
-            <th>Sensor 1</th>
-            <th>Sensor 2</th>
-            <th>EMG Filtering</th>
-            <th>EMG Amplification</th>
-          </tr>
-          {% for lineup in trial.session.channellineup_set.all %}
-          <tr class="{% cycle 'row1' 'row2' %}">
-            <td>{{lineup.position}}</td>
-            {%if lineup.channel %}
-              <td>{{lineup.channel.name}}</td>
-              <td>{%technique_label lineup.channel.setup.technique%}</td>
-              <td>{{lineup.channel.rate|default_if_none:""}}</td>
-              <td>{%display_unit lineup%}</td>
-              <td>{%display_sensor1 lineup%}</td>
-              <td>{%display_sensor2 lineup%}</td>
-              <td>{%display_emg_filtering lineup%}</td>
-              <td>{%display_emg_amplification lineup%}</td>
-            {%else%}
-              <td>*deadchannel</td>
-              <td></td>
-              <td></td>
-              <td></td>     
-              <td></td> 
-              <td></td>
-              <td></td> 
-              <td></td> 
-            {% endif %}
-          </tr>
-          {%endfor %}
-        </table>
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight">Channels</a>
+        </h3>
+      </div>
+      <div id="collapseEight" class="panel-collapse collapse">
+        <div class="panel-body">
+          <table class="detail_table">
+            <tr>
+              <th>Order</th>
+              <th>Name</th>
+              <th>Technique</th>
+              <th>Recording Rate</th>
+              <th>Unit</th>
+              <th>Sensor 1</th>
+              <th>Sensor 2</th>
+              <th>EMG Filtering</th>
+              <th>EMG Amplification</th>
+            </tr>
+            {% for lineup in trial.session.channellineup_set.all %}
+            <tr class="{% cycle 'row1' 'row2' %}">
+              <td>{{lineup.position}}</td>
+              {%if lineup.channel %}
+                <td>{{lineup.channel.name}}</td>
+                <td>{%technique_label lineup.channel.setup.technique%}</td>
+                <td>{{lineup.channel.rate|default_if_none:""}}</td>
+                <td>{%display_unit lineup%}</td>
+                <td>{%display_sensor1 lineup%}</td>
+                <td>{%display_sensor2 lineup%}</td>
+                <td>{%display_emg_filtering lineup%}</td>
+                <td>{%display_emg_amplification lineup%}</td>
+              {%else%}
+                <td>*deadchannel</td>
+                <td></td>
+                <td></td>
+                <td></td>     
+                <td></td> 
+                <td></td>
+                <td></td> 
+                <td></td> 
+              {% endif %}
+            </tr>
+            {%endfor %}
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
 <script language="javascript">
 
 function bucket_changed(obj){
@@ -285,18 +301,28 @@ function bucket_changed(obj){
 </script>
 
 <div class="row">
-  <div class="records-selection col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
-    <p>Put this trial into my bucket:</p>
-    <form action="{% url "trial_add" trial.id %} " method="POST">
+  <div class="col-xs-3 col-xs-offset-2">
+    <p>Add this trial to my collection:</p>
+  </div>
+  <form action="{% url "trial_add" trial.id %} " method="POST">
+    <div class="col-xs-2">
       <select class="chosen-select" name="bucket_id" onchange="bucket_changed(this)">
         <option value=""> - Select - </option>
         {% for bucket in user.bucket_related.all %}
         <option value = "{{bucket.id}}" >{{bucket}}</option>
         {%endfor%}
-        <option value = "add new bucket" >add new bucket</option>
+        <option value = "add new collection" data-toggle="collapse" data-target="#new-collection" >Add new collection</option>
       </select>
-      <div id="new_bucket_div" style="display:none;"><br/>Enter name for the new bucket:<input name="new_bucket_name" size="20" /></div> 
-        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+    <div class="col-xs-3">
+      <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+    <div id="new-collection" class="collapse">
+      <noscript>If entering a new collection,</noscript>
+      <div class="col-xs-8 new-bucket">
+      <input name="new_bucket_name" size="20" placeholder="Enter new collection name" />
+      </div>
+    </div>
     </form>
       {% for bucket in trial.bucket_set.all %}
             {%if forloop.first %}This trial is in following bucket(s):<br/><ul> {%endif%}

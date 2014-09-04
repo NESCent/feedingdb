@@ -6331,8 +6331,9 @@ body header {
 body header .logo {
   float: left;
   background: url('../../../../../img/logo.png') no-repeat;
-  height: 71px;
-  padding: 50px 0 0 80px;
+  background-size: 163px;
+  height: 85px;
+  padding: 63px 0 0 180px;
   font: 400 21px 'PT Sans', sans-serif;
   color: #7c4600;
 }
@@ -6427,6 +6428,9 @@ body.home h1 span {
 }
 body.home p {
   color: #09192a;
+  font: 19px/21px 'PT Sans', sans-serif;
+}
+body.home p a {
   font: 19px/21px 'PT Sans', sans-serif;
 }
 body.home a.btn {
@@ -6651,12 +6655,12 @@ body main .records-selection {
 }
 body main .records-selection p {
   float: left;
-  margin: 6px 20px 0 0;
+  margin: 6px 0 0 0;
 }
 body main .records-selection .chosen-container-single {
   float: left;
   display: block;
-  margin: 5px 20px 0 0;
+  margin: 5px 0 0 0;
 }
 body main .records-selection .chosen-container-single .chosen-search {
   min-height: 30px;
@@ -6673,7 +6677,8 @@ body main .records-selection #new_bucket_div .new-bucket input {
   width: 107%;
 }
 body main .records-pagination {
-  margin-bottom: 20px;
+  margin: 0 auto 20px auto;
+  width: 120px;
 }
 body main .records-pagination ul {
   padding-left: 0;
@@ -6760,7 +6765,6 @@ body footer .partners h5 {
 }
 body footer .partners .col-xs-2 {
   padding-right: 0;
-  width: 13.6666667%;
 }
 body footer .partners .col-xs-2:first-child {
   padding-left: 15px;
@@ -6781,9 +6785,53 @@ body footer .partners .col-xs-2 .partner6 {
   text-indent: -10000px;
   overflow: hidden;
 }
+body footer .partners .col-xs-2 .partner1 {
+  display: block;
+  background: url('../../../../../images/nsf-logo.png') center no-repeat;
+  width: 76px;
+  height: 76px;
+  text-indent: -10000px;
+  overflow: hidden;
+}
+body footer .partners .col-xs-2 .partner2 {
+  display: block;
+  background: url('../../../../../images/ohio-logo.png') center no-repeat;
+  width: 76px;
+  height: 76px;
+  text-indent: -10000px;
+  overflow: hidden;
+  background-size: 68px;
+}
+body footer .partners .col-xs-2 .partner3 {
+  display: block;
+  background: url('../../../../../images/neomed-logo.png') center no-repeat;
+  width: 76px;
+  height: 76px;
+  text-indent: -10000px;
+  overflow: hidden;
+  background-size: 49px;
+}
+body footer .partners .col-xs-2 .partner4 {
+  display: block;
+  background: url('../../../../../images/COD-logo.png') center no-repeat;
+  width: 76px;
+  height: 76px;
+  text-indent: -10000px;
+  overflow: hidden;
+  background-size: 74px;
+}
+body footer .partners .col-xs-2 .partner5 {
+  display: block;
+  background: url('../../../../../images/duke-logo.png') center no-repeat;
+  width: 76px;
+  height: 76px;
+  text-indent: -10000px;
+  overflow: hidden;
+  background-size: 52px;
+}
 body footer .partners .col-xs-2 .nescent {
   display: block;
-  background: url('../../../../../img/nescent.png') no-repeat;
+  background: url('../../../../../images/nescent.png') center no-repeat;
   width: 76px;
   height: 76px;
   text-indent: -10000px;
@@ -6822,6 +6870,13 @@ table input[type="radio"] {
 }
 table label {
   font-weight: normal;
+}
+.error-text {
+  color: red;
+  margin-bottom: 0;
+}
+.chosen-container {
+  width: 100% !important;
 }
 /* Form helpers */
 .required label,
