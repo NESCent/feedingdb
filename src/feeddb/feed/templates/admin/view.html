@@ -30,18 +30,21 @@
     {% endif %}
 
 {% block pretitle %}
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{% if change %}Edit{% else %}{% if view %}View{% else %}Add{% endif %}{% endif %}  {{ opts.object_name.lower}}</h1>
+  <div class="masthead">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>{% if change %}Edit{% else %}{% if view %}View{% else %}Add{% endif %}{% endif %}  {{ opts.object_name.lower}}</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <hr />
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-xs-12">
-    <hr />
-  </div>
-</div>
-</div>
-</div>
 {% endblock %}
-
 
 {% block content %}
     {% block object-tools %}
@@ -102,7 +105,6 @@
 
 
   {% for inline_admin_formset in inline_admin_formsets %}
-    <div class="panel-group" id="accordion">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">
@@ -111,7 +113,7 @@
             </a>
           </h3>
         </div>
-        <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse in">
+        <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse">
           <div class="panel-body">
         {% with hide_formset_title=True %}
           {% comment %}

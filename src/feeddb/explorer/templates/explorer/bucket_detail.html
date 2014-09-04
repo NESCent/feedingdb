@@ -8,14 +8,26 @@
 {% block breadcrumbs %}{% endblock %}
 
 {% block pretitle %}
-<div class="row">
-  <h1>Download Trials</h1>
-  <h2>Collection Details</h2>
-  <hr />{% endblock %}
-</div>
-{% block content %}
+  <div class="masthead">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>Download Trials</h1>
+          <h2>Collection Details</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
 
+{% block content %}
 <div class="row">
+  <div class="col-xs-12">
   <form action="{% url "explorer.views.bucket_detail" form.instance.id %}" method="POST">
     <div class="col-xs-8">
       <div class="row">
@@ -58,14 +70,14 @@ function checkbox_clicked(obj){
     <form action = "{% url "explorer.views.bucket_remove_trials" form.instance.id %}" method="POST" id="trial_form" name ="trial_form">
       <table class="table table-striped table-bordered">
         <tr>
-          <th><input type="checkbox" id="select_all" onclick ="checkbox_clicked(this)" /></th>
+          <th style="width:28px;"><input type="checkbox" id="select_all" onclick ="checkbox_clicked(this)" /></th>
           <th>Name</th>
           <th>Species</th>
           <th>Primary Behavior</th>
           <th>Food Type</th>
           <th>Techniques</th>
           <th>Muscle/Bone</th>
-          <th class="bucket_header">Buckets</th>
+          <th class="bucket_header">My Data Collections</th>
         </tr>
         {% for trial in form.instance.trials.all %}
         <tr class="{% cycle 'row1'  'row2' %}">
@@ -94,6 +106,7 @@ function checkbox_clicked(obj){
         </div>
       </div>
     </form>
+  </div>
   </div>
 
 {% endblock %}

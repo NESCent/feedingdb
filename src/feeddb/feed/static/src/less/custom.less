@@ -44,8 +44,8 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
   h5 { font: 18px/35px @pt-sans, sans-serif; color: @dk-orange; color: @dk-orange-alpha; }
   h6 { font: 17px/26px @rockwell, serif; color: @orange; color: @orange-alpha; }
   p { font: 15px/19px @rockwell, serif; color: @navy; color: @navy-alpha; }
-  a, a:active { font: 15px/19px @rockwell, serif; color: @sky-blue; color: @sky-blue-alpha;
-    &:hover { color: @orange; color: @orange-alpha; }
+  a { font: 15px/19px @rockwell, serif; color: @sky-blue; color: @sky-blue-alpha;
+    &:hover, &:active { color: @orange; color: @orange-alpha; }
     &:visited { color: @lt-blue; color: @lt-blue-alpha; }
   }
   hr { background: url('../../../../../img/hr.png') repeat-x; height: 2px; width: 100%; }
@@ -109,7 +109,14 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
           &:hover { text-decoration: none; color: @pale-blue; color: @pale-blue-alpha; }
           &:visited { color: @pale-blue; color: @pale-blue-alpha; }
         }
-        .dropdown-menu { background: @navy; background: @navy-alpha; }
+        .dropdown-menu { background: @navy; background: @navy-alpha;
+          li { width: 100%;
+            a { text-align: left;
+              &:hover { background: @sky-blue; background: @sky-blue-alpha; }
+            }
+          }
+        }
+        .dropdown-toggle:focus { color: @pale-blue; color: @pale-blue-alpha; text-decoration: none; }
       }
     }
   }
@@ -206,10 +213,13 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       input {
       }
       button, a.btn { width: 100%; margin-bottom: 10px; }
-      table { margin-top: 30px; }
+      table { margin-top: 30px;
+        th { font-size: 14px; }
+        td { font-size: 14px; }
+      }
     }
   }
-  &.feed-study.change-form, &.feed-experiment.change-form, &.feed-session.change-form, &.feed-trial.change-form, &.change-list, &.feed-behavior.change-form {
+  &.feed-study.change-form, &.feed-experiment.change-form, &.feed-session.change-form, &.feed-trial.change-form, &.change-list, &.feed-behavior.change-form, &.history, &.feed-subject.change-form {
     .masthead { padding-bottom: 0; }
     main { padding: 0; }
   }
@@ -251,6 +261,12 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
           a { padding: 0 4px; 
             &:last { padding: 0; }
           }
+        }
+      }
+      &#change-history {
+        th {
+          &.date { width: 20%; }
+          &.user { width: 20%; }
         }
       }
     }
@@ -295,6 +311,13 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       p { line-height: 26px; }
     }
     .label { text-align: left; font-weight: normal; }
+  }
+  #study_form {
+    fieldset {
+      label { margin-bottom: 10px; }
+      p { line-height: 26px; }
+      .action_header { width: 84px; }
+    }
   }
   footer { background: @dk-navy; background: @dk-navy-alpha; clear: left; border-bottom: 6px solid @orange; padding: 25px 0 42px 0;
     .logo { background: url('../../../../../img/footer-logo.png') no-repeat; width: 57px; height: 56px; display: block; text-indent: -10000px; overflow: hidden; margin: 0 0 12px 0; }
