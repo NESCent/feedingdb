@@ -261,66 +261,17 @@ class FeedModelAdmin(admin.ModelAdmin):
         return HttpResponseRedirect(dest)
 
     @csrf_protect_m
-    def delete_view(self, request, object_id, extra_context=None):
-        "The 'delete' admin view for this model."
-        opts = self.model._meta
-        app_label = opts.app_label
+    def delete_view(self, *args, **kwargs):
+        """
+        Override ModelAdmin.delete_view() to augment template context with list
+        of "critical" objects.  These are objects which should cause pause to
+        deleters; the enforcement is in the template only.
+        """
 
-        try:
-            obj = self.queryset(request).get(pk=unquote(object_id))
-        except self.model.DoesNotExist:
-            # Don't raise Http404 just yet, because we haven't checked
-            # permissions yet. We don't want an unauthenticated user to be able
-            # to determine whether a given object exists.
-            obj = None
-
-        if not self.has_delete_permission(request, obj):
-            raise PermissionDenied
-        perms_needed=None
-
-
-
-        if obj is None:
-            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
-
-        deleted_objects = [mark_safe(u'%s: <a href="../../%s/">%s</a>' % (escape(force_unicode(capfirst(opts.verbose_name))), object_id, escape(obj))), []]
-        perms_needed = set()
-        associated_critical_objects = get_associated_critical_objects(obj)
-        if len(associated_critical_objects)==0:
-            #get_deleted_objects(deleted_objects, perms_needed, request.user, obj, opts, 1, self.admin_site)
-            # for 1.2.4
-            (deleted_objects, perms_needed) = get_deleted_objects((obj,), opts, request.user, self.admin_site)
-        perms_needed=None
-        if request.POST: # The user has already confirmed the deletion.
-            if perms_needed:
-                raise PermissionDenied
-            obj_display = force_unicode(obj)
-            self.log_deletion(request, obj, obj_display)
-            obj.delete()
-
-            self.message_user(request, _('The %(name)s "%(obj)s" was deleted successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj_display)})
-
-            post_url = self.get_response_url(request)
-            return HttpResponseRedirect(post_url)
-
-        context = {
-            "title": _("Are you sure?"),
-            "object_name": force_unicode(opts.verbose_name),
-            "object": obj,
-            "deleted_objects": deleted_objects,
-            "associated_critical_objects": associated_critical_objects,
-            "perms_lacking": perms_needed,
-            "opts": opts,
-            "root_path": reverse('admin:index'),
-            "app_label": app_label,
-        }
-        context.update(extra_context or {})
-        context_instance = template.RequestContext(request, current_app=self.admin_site.name)
-        return render_to_response(self.delete_confirmation_template or [
-            "admin/%s/%s/delete_confirmation.html" % (app_label, opts.object_name.lower()),
-            "admin/%s/delete_confirmation.html" % app_label,
-            "admin/delete_confirmation.html"
-        ], context, context_instance=context_instance)
+        res = super(FeedModelAdmin, self).delete_view(*args, **kwargs)
+        obj = res.context_data['object']
+        res.context_data['associated_critical_objects'] = get_associated_critical_objects(obj)
+        return res
 
     """
     get response url after deleting an object
