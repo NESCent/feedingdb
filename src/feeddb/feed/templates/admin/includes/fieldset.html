@@ -8,11 +8,13 @@
 	  {% for field in line %}
       {# custom error display so we can use bootstrap markup #}
       {% if field.field.errors %}
-        <ul>
+        <div class="row">
           {% for error in field.field.errors %}
-            <li>{{ error }} BLAH</li>
+            <div class="col-xs-8 col-xs-offset-3">
+              <p class="error-text"><span class="glyphicon glyphicon-asterisk"></span>{{ error }}</p>
+            </div>
           {% endfor %}
-        </ul>
+        </div>
       {% endif %}
 
       {% if field.field.field.widget.is_hidden %}{{ field.field }}{%else%}

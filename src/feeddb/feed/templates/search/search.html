@@ -15,7 +15,9 @@
         </div>
       </div>
       <div class="row">
-        <p class="col-xs-10 col-xs-offset-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis ullamcorper velit. Praesent hendrerit mauris et luctus lacinia. Cras ac ornare quam, vitae vulputate libero. Nullam volutpat mauris tincidunt pretium lacinia. Phasellus posuere aliquam sem sit amet facilisis. Quisque placerat elit eu est adipiscing, a porttitor libero laoreet. Nunc posuere adipiscing mauris, sit amet tempus augue tincidunt ac. Duis porta arcu sed leo bibendum interdum. To access data contained within the XMA portal please click <a href="http://xmaportal.org">here</a>.</p>
+        <div class="col-xs-10 col-xs-offset-1">
+          <p>Enter a search term to find physiologic data and associated metadata.  A search returns a list of Trials. To refine a search, you can filter by species, anatomical location, sensor type, and/or food type using Filter Results. After registering, you can create downloadable Data Collections of Trials. You can choose the channels of physiologic data and the metadata fields to retain in a Data Collection. The columns to the right of the Trial Name provide metadata to aid in selecting Trials. To access data contained within the XMA portal, please <a href="http://xmaportal.org">click here</a>.</p>
+	      </div>
       </div>
     </div>
   </div>
@@ -76,14 +78,14 @@
     <table class="table table-striped table-bordered">
       <tr>
         <th class="choose"><input type="checkbox" id="bucket_checkall" name="checkall" value="blank" /></th>
-        <th class="column2">Trial Name<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
-        <th class="column3">Trial Date<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
-        <th class="column4">Species<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
-        <th class="column5" style="width:90px;">Primary<br />Behavior<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
-        <th class="column6">Sensor Type<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
-        <th class="column7">Anatomical<br />Location<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
-        <th class="column8" style="width:102px;">Food Type<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
-        <th class="column9" style="width:105px;">My Data Collections<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></a></th>
+        <th class="column2">Trial Name<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="A single recording of physiologic data for a feeding behavior"></a></th>
+        <th class="column3">Trial Date<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="The Trial recording start date"></a></th>
+        <th class="column4">Species<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="Genus and species (Latin name) of the subject recorded during the Trial"></a></th>
+        <th class="column5" style="width:90px;">Primary<br />Behavior<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="The major feeding behavior recorded during the Trial"></a></th>
+        <th class="column6">Sensor Type<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="The types of sensors (e.g., strain, EMG) used to record the physiologic signals"></a></th>
+        <th class="column7">Anatomical<br />Location<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="The anatomical locations of the sensors"></a></th>
+        <th class="column8" style="width:102px;">Food Type<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="The type of food item processed during the Trial"></a></th>
+        <th class="column9" style="width:105px;">My Data Collections<a class="glyphicon glyphicon-info-sign" href="#" data-toggle="tooltip" data-placement="top" title="A list of the datasets compiled by users that contain downloadable physiologic data and/or metadata from this Trial"></a></th>
       </tr>
       {% for result in page.object_list %}
         <tr>
@@ -114,17 +116,23 @@
       {% endfor %}
     </table>
     <div class="row">
-      <div class="records-selection col-xs-11 col-xs-offset-1 col-lg-9 col-lg-offset-1">
-        <p>Add selected records to collection:</p>
+      <div class="records-selection">
+        <div class="col-xs-4 col-xs-offset-1">
+          <p>Add selected records to collection:</p>
+        </div>
+        <div class="col-xs-2">
         <select class="chosen-select" name="bucket">
           <option value=""> - Select - </option>
           {% for bucket in user.bucket_related.all %}
             <option value="{{bucket.id}}">{{bucket}}</option>
           {% endfor %}
-          <option value="add new bucket">add new collection</option>
+          <option value="add new bucket" data-toggle="collapse" data-target="#new-collection">Add new collection</option>
         </select>
-        <input type="submit" name="put_bucket" value="Add to collection" class="btn btn-primary width-auto" />
-        <div id="new_bucket_div">
+        </div>
+        <div class="col-xs-4">
+          <input type="submit" name="put_bucket" value="Add to collection" class="btn btn-primary" />
+        </div>
+        <div id="new-collection" class="collapse">
           <noscript>If entering a new collection,</noscript>
           <div class="col-xs-8 new-bucket">
           <input name="new_bucket_name" size="20" placeholder="Enter new collection name" />
@@ -135,10 +143,10 @@
 
   {% if page.has_previous or page.has_next %}
     <div class="row">
-      <div class="records-pagination col-xs-3 col-xs-offset-4">
-        {% if page.has_previous %}<a href="?{{ page.previous_page_params }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
-        |
-        {% if page.has_next %}<a href="?{{ page.next_page_params }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+      <div class="records-pagination">
+      {% if page.has_previous %}<a href="?{{ page.previous_page_params }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+      |
+      {% if page.has_next %}<a href="?{{ page.next_page_params }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
       </div>
       <ul>
         {% comment %}

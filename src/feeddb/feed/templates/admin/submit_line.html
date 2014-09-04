@@ -1,10 +1,21 @@
 {% load i18n %}
-<div class="submit-row" {% if is_popup %}style="overflow: auto;"{% endif %}>
 {% if change %}
-  <input type="submit" value="{% trans 'Save changes' %}" name="_save" {{ onclick_attrib }}/>
+  <div class="col-xs-4">
+    <input type="submit" value="{% trans 'Save changes' %}" name="_save" {{ onclick_attrib }}/>
+  </div>
 {% endif %}
-
-{% if show_save_as_new %}<input type="submit" value="{% trans 'Save as new' %}" name="_saveasnew" {{ onclick_attrib }}/>{%endif%}
-{% if show_save_and_add_another %}<input type="submit" value="{% trans 'Save and add another' %}" name="_addanother" {{ onclick_attrib }} />{% endif %}
-{% if show_save_and_continue %}<input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue" {{ onclick_attrib }}/>{% endif %}
-</div>
+{% if show_save_as_new %}
+  <div class="col-xs-4">
+    <input type="submit" value="{% trans 'Save as new' %}" name="_saveasnew" {{ onclick_attrib }}/>
+  </div>
+{% endif %}
+{% if show_save_and_add_another %}
+  <div class="col-xs-4">
+    <input type="submit" value="{% trans 'Save and add another' %}" name="_addanother" {{ onclick_attrib }} />
+  </div>
+{% endif %}
+{% if show_save_and_continue %}
+  <div class="col-xs-4">
+    <input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue" {{ onclick_attrib }}/>
+  </div>
+{% endif %}

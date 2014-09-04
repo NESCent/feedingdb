@@ -1,4 +1,4 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/base.html" %}
 {% load i18n %}
 
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load feedmedia %}{% app_static_prefix %}css/dashboard.css" />{% endblock %}
@@ -8,10 +8,21 @@
 {% block bodyclass %}home{% endblock %}
 
 {% block breadcrumbs %}{% endblock %}
-{% block pretitle %}<h1>Welcome to <span>FEED</span></h1>{% endblock %}
+{% block pretitle %}
+<div class="masthead">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Welcome to <span>FEED</span></h1>
+    </div>
+  </div>
+</div>
+{% endblock %}
 {% block content %}
-<div class="col-xs-8 col-xs-offset-2">
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis ullamcorper velit. Praesent hendrerit mauris et luctus lacinia. Cras ace quam, vulputate libero.Nullam volutpat mauris tincidunt pretium lacinia. Phasellus posuere aliquam sem sit amet facilisis. Quisque placerat elit eu est adipiscing, a porttitor libero laoreet vulputate.</p>
+<div class="col-xs-10 col-xs-offset-1">
+  <p>Feeding is critical to survival and a behavior during which numerous anatomical structures function in complex ways.  The evolution and diversification of mammals is a story that highlights changes in these structures over time. What we know about mammalian craniofacial evolution rests, in large part, on physiologic studies of the motor patterns of oral-pharyngeal muscles during feeding, and on the movements and forces within the feeding apparatus during these behaviors. Despite the pivotal role of feeding in mammalian evolution, broad-scale physiological analyses of phenotypic diversity and evolution are rare across vertebrates.</p>
+  <p>The Feeding Experiments End-user Database, or FEED, is a first step in providing the cyberinfrastructure so that experimental biologists studying organismal-level processes can synthesize data on feeding physiology and describe the functional, evolutionary and adaptive implications of this physiologic variation. FEED is a growing collection of physiologic data and associated metadata for a number of species. The physiologic data contain information on muscle activity, bone and muscle strain, jaw and oropharyngeal apparatus motion, and intra-oral pressure during feeding behaviors.</p>
+  <p>FEED is publically-available and the code is open source. It incorporates muscle anatomy and feeding behaviors ontologies. The data are searchable and can be downloaded in CSV format.</p>
+  <p>First-time visitors should read About FEED and will need to register before downloading or uploading data. If you use data from this website, please cite <a href="http://www.feedexp.org">feedexp.org</a>.</p>
 </div>
 <div class="col-xs-4 col-xs-offset-2">
   <a href="search" class="btn btn-default search" role="button">Search</a>

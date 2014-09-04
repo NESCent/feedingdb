@@ -96,7 +96,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
   }
 
   header { padding-top: 16px;
-    .logo { float: left; background: url('../../../../../img/logo.png') no-repeat; height: 71px; padding: 50px 0 0 80px; font: 400 21px @pt-sans; color: @dk-orange; color: @dk-orange-alpha; }
+    .logo { float: left; background: url('../../../../../img/logo.png') no-repeat; background-size: 163px; height: 85px; padding: 63px 0 0 180px; font: 400 21px @pt-sans; color: @dk-orange; color: @dk-orange-alpha; }
     .login { float: right; font: 400 12px @roboto; color: @navy; color: @navy-alpha;
       a { color: @sky-blue; color: @sky-blue-alpha; }
     }
@@ -142,7 +142,9 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
     h1 { text-align: center; font: 40px @roboto; text-transform: uppercase; font-weight: 700; color: @muted-blue; color: @muted-blue-alpha;
       span { color: @orange; color: @orange-alpha; }
     }
-    p { color: @dk-navy; color: @dk-navy-alpha; font: 19px/21px @pt-sans; }
+    p { color: @dk-navy; color: @dk-navy-alpha; font: 19px/21px @pt-sans;
+      a { font: 19px/21px @pt-sans; }
+    }
     a.btn { margin-top: 30px; height: 60px; text-align: center; padding: 20px 0 60px 42px; width: 100%; font: 30px @rockwell; color: rgb(255,255,255); color: rgba(255,255,255,1);
       &.search { background: url('../../../../../img/search.png') no-repeat @orange; background: url('../../../../../img/search.png') 98px 20px no-repeat @orange-alpha; }
       &.upload { background: url('../../../../../img/upload.png') no-repeat @goldenrod; background: url('../../../../../img/upload.png') 78px 20px no-repeat @goldenrod-alpha; }
@@ -271,8 +273,8 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       }
     }
     .records-selection { margin-bottom: 30px;
-      p { float: left; margin: 6px 20px 0 0; }
-      .chosen-container-single { float: left; display: block; margin: 5px 20px 0 0;
+      p { float: left; margin: 6px 0 0 0; }
+      .chosen-container-single { float: left; display: block; margin: 5px 0 0 0;
         .chosen-search { min-height: 30px; }
       }
       input { padding: 4px 19px; float: left; }
@@ -282,7 +284,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
         }
       }
     }
-    .records-pagination { margin-bottom: 20px;
+    .records-pagination { margin: 0 auto 20px auto; width: 120px;
       ul { padding-left: 0; width: 262px; margin: 0 auto;
         li { float: left; list-style: none; padding-left: 12px;
           a {  }
@@ -331,10 +333,15 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
     p { font: 12px/21px @roboto, sans-serif; color: rgb(255,255,255); color: rgba(255,255,255,1); }
     .partners { 
       h5 { font: 100 15px/21px @roboto, sans-serif; color: rgb(255,255,255); color: rgba(255,255,255,1); margin-top: 0; }
-      .col-xs-2 { padding-right: 0; width: 13.6666667%;
+      .col-xs-2 { padding-right: 0;
         &:first-child { padding-left: 15px; }
         .partner1, .partner2, .partner3, .partner4, .partner5, .partner6 { display: block; border-radius: 38px; -webkit-border-radius: 38px; -moz-border-radius: 38px; border: 1px solid rgb(255,255,255); border: 1px solid rgba(255,255,255,1); width: 76px; height: 76px; text-indent: -10000px; overflow: hidden; }
-        .nescent { display: block; background: url('../../../../../img/nescent.png') no-repeat; width: 76px; height: 76px; text-indent: -10000px; overflow: hidden; }
+        .partner1 { display: block; background: url('../../../../../images/nsf-logo.png') center no-repeat; width: 76px; height: 76px; text-indent: -10000px; overflow: hidden; }
+        .partner2 { display: block; background: url('../../../../../images/ohio-logo.png') center no-repeat; width: 76px; height: 76px; text-indent: -10000px; overflow: hidden; background-size: 68px; }
+        .partner3 { display: block; background: url('../../../../../images/neomed-logo.png') center no-repeat; width: 76px; height: 76px; text-indent: -10000px; overflow: hidden; background-size: 49px; }
+        .partner4 { display: block; background: url('../../../../../images/COD-logo.png') center no-repeat; width: 76px; height: 76px; text-indent: -10000px; overflow: hidden; background-size: 74px; }
+        .partner5 { display: block; background: url('../../../../../images/duke-logo.png') center no-repeat; width: 76px; height: 76px; text-indent: -10000px; overflow: hidden; background-size: 52px; }
+        .nescent { display: block; background: url('../../../../../images/nescent.png') center no-repeat; width: 76px; height: 76px; text-indent: -10000px; overflow: hidden; }
       }
     }
   }
@@ -360,6 +367,8 @@ table {
   input[type="radio"] { margin-right: 20px; }
   label { font-weight: normal; }
 }
+.error-text { color: red; margin-bottom: 0; }
+.chosen-container { width: 100% !important; }
 
 /* Form helpers */
 .required label, label.required { font-weight: inherit !important; color: @orange !important; color: @orange-alpha !important; width: auto; float: none; display: block; }
