@@ -9,16 +9,20 @@
 {% block breadcrumbs %}{% endblock %}
 
 {% block pretitle %}
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{% if change %}Edit {{ opts.object_name}}{% else %}Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a>{% endif %}</h1>
+  <div class="masthead">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>{% if change %}Edit {{ opts.object_name}}{% else %}Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a>{% endif %}</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <hr />
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-xs-12">
-    <hr />
-  </div>
-</div>
-</div>
-</div>
 {% endblock %}
 
 {% block content %}
@@ -87,7 +91,11 @@
       {% prepopulated_fields_js %}
       <div class="row">
         <div class="col-xs-4 col-xs-offset-7">
+          {% if add %}
           <input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
+        {% else %}
+        {% include "admin/submit_line.html" %}
+        {% endif %}
         </div>
       </div>
     </div>

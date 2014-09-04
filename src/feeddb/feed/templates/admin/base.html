@@ -76,9 +76,24 @@
       <!-- <div class="menu_div"></div> Old site content -->
       {% block menu %}{% endblock %}
       
-      {% block breadcrumbs %}<div class="breadcrumbs"><a href="/">{% trans 'Home' %}</a>{% if title %} &rsaquo; {{ title }}{% endif %}</div>{% endblock %}
-      
-      {% endif %}
+      {% block breadcrumbs %}
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="breadcrumbs">
+              <ul id="crumbs">
+                <li><a href="/">{% trans 'Home' %}</a></li>
+                {% if title %}<span>/</span>
+                <li>{{ title }}</li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endblock %}
+            
+            {% endif %}
       
           {% if messages %}
        <div class="container">
@@ -109,12 +124,10 @@
        {% endif %}
 -->
 
-      <div class="masthead">
-        <div class="container">
+
           {% block pretitle %}{% endblock %}
           {% block content_title %}{% if title %}{% endif %}{% endblock %}
-        </div>
-      </div>
+
       <main>
         <div class="container">
           <div class="row">

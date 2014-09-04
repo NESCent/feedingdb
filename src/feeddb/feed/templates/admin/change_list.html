@@ -20,16 +20,16 @@
 {% if not is_popup %}
   {% block breadcrumbs %}
 <div class="container">
-<div class="row">
-  <div class="col-xs-12">
-    <div class="breadcrumbs">
-    	<ul id="crumbs">
-      <li><a href="/">
-        {% trans "Home" %}
-      </a></li><span>/</span>
-      <li>{{ cl.opts.verbose_name_plural|capfirst }}</li>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="breadcrumbs">
+      	<ul id="crumbs">
+        <li><a href="/">
+          {% trans "Home" %}
+        </a></li><span>/</span>
+        <li>{{ cl.opts.verbose_name_plural|capfirst }}</li>
+      </div>
     </div>
-  </div>
   </div>
 </div>
   {% endblock %}
@@ -38,17 +38,22 @@
 {% block coltype %}flex{% endblock %}
 
 {% block pretitle %}
-<div class="row">
-  <div class="col-xs-12">
-    <h1>Browse {{ cl.opts.verbose_name_plural|capfirst }}</h1>
+  <div class="masthead">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>Browse {{ cl.opts.verbose_name_plural|capfirst }}</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <hr />
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-xs-12">
-    <hr />
-  </div>
-</div>
-</div>
-</div>
 {% endblock %}
+
 {% block content %}
     <div class="col-xs-12">
       {% block object-tools %}

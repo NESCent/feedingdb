@@ -6206,17 +6206,15 @@ body p {
   font: 15px/19px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #112e4f;
 }
-body a,
-body a:active {
+body a {
   font: 15px/19px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #007ecf;
 }
 body a:hover,
-body a:active:hover {
+body a:active {
   color: #da5400;
 }
-body a:visited,
-body a:active:visited {
+body a:visited {
   color: #638ebc;
 }
 body hr {
@@ -6378,6 +6376,19 @@ body nav ul li a:visited {
 body nav ul li .dropdown-menu {
   background: #112e4f;
 }
+body nav ul li .dropdown-menu li {
+  width: 100%;
+}
+body nav ul li .dropdown-menu li a {
+  text-align: left;
+}
+body nav ul li .dropdown-menu li a:hover {
+  background: #007ecf;
+}
+body nav ul li .dropdown-toggle:focus {
+  color: #ceeded;
+  text-decoration: none;
+}
 body .masthead {
   padding: 32px 0;
 }
@@ -6538,12 +6549,20 @@ body.collection form a.btn {
 body.collection form table {
   margin-top: 30px;
 }
+body.collection form table th {
+  font-size: 14px;
+}
+body.collection form table td {
+  font-size: 14px;
+}
 body.feed-study.change-form .masthead,
 body.feed-experiment.change-form .masthead,
 body.feed-session.change-form .masthead,
 body.feed-trial.change-form .masthead,
 body.change-list .masthead,
-body.feed-behavior.change-form .masthead {
+body.feed-behavior.change-form .masthead,
+body.history .masthead,
+body.feed-subject.change-form .masthead {
   padding-bottom: 0;
 }
 body.feed-study.change-form main,
@@ -6551,7 +6570,9 @@ body.feed-experiment.change-form main,
 body.feed-session.change-form main,
 body.feed-trial.change-form main,
 body.change-list main,
-body.feed-behavior.change-form main {
+body.feed-behavior.change-form main,
+body.history main,
+body.feed-subject.change-form main {
   padding: 0;
 }
 body main {
@@ -6619,6 +6640,12 @@ body main table td.action a {
 body main table td.action a:last {
   padding: 0;
 }
+body main table#change-history th.date {
+  width: 20%;
+}
+body main table#change-history th.user {
+  width: 20%;
+}
 body main .records-selection {
   margin-bottom: 30px;
 }
@@ -6683,6 +6710,15 @@ body #behavior_form fieldset p {
 body #behavior_form .label {
   text-align: left;
   font-weight: normal;
+}
+body #study_form fieldset label {
+  margin-bottom: 10px;
+}
+body #study_form fieldset p {
+  line-height: 26px;
+}
+body #study_form fieldset .action_header {
+  width: 84px;
 }
 body footer {
   background: #09192a;

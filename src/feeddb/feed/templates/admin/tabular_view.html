@@ -13,7 +13,7 @@
      <thead><tr>
      {% for field in inline_admin_formset.fields %}
        {% if not field.is_hidden  %}
-         <th {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
+         <th>{{ field.label|capfirst }}</th>
         {% endif %}
      {% endfor %}
 
@@ -34,19 +34,6 @@
  	        <tr><td colspan="{{ inline_admin_form.field_count }}">{{ inline_admin_form.form.non_field_errors }}</td></tr>
         {% endif %}
     	    <tr class="{% cycle row1,row2 %} {% if inline_admin_form.original or inline_admin_form.show_url %}has_original{% endif %}">
-        	<td class="original" >
-	        {% if inline_admin_form.has_auto_field %}{{ inline_admin_form.pk_field.field }}{% endif %}
-    	    {{ inline_admin_form.fk_field.field }}
-        	{% spaceless %}
-          		{% for fieldset in inline_admin_form %}
-            		{% for line in fieldset %}
-            			{% for field in line %}
-            				{% if field.is_hidden  %} {{ field.field }} {% endif %}
-            			{% endfor %}
-             		{% endfor %}
-          		{% endfor %}
-          	{% endspaceless %}
-        	</td>
 	        {% for fieldset in inline_admin_form %}
     		    {% for line in fieldset %}
             		{% for field in line %}
@@ -61,14 +48,10 @@
 				{% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
 				<td class="action">
     				{% if has_change_permission %}
-					     {% if tabbed and inline_admin_formset.opts.tabbed %}
 					    	<a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><span class="glyphicon glyphicon-eye-open"></span></a>
 			    		    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-pencil"></span></a></a>
 			 	    		<a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-remove"></span></a></a>
-			             {% else %}
-			 	    		<a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-remove"></span></a></a>
-						 {% endif %}
-					{% else %}
+                 {% else %}
 		    			<a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><span class="glyphicon glyphicon-pencil"></span></a></a>
     	 			{% endif %}	 
     		    </td>
