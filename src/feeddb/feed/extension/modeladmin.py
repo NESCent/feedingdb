@@ -133,8 +133,6 @@ class FeedModelAdmin(admin.ModelAdmin):
         obj.save();
 
         request.feed_upload_status.update_with_object(obj)
-        self.message_user(request, 'updated with obj %s' % obj)
-        self.message_user(request, unicode(request.session['feed_upload_status']))
 
     def get_urls(self):
         from django.conf.urls import patterns, url
