@@ -105,7 +105,10 @@
           <td class="column8">{{ result.object.food_type }}</td>
           <td class="column9">
             {% for bucket in result.object.bucket_set.all %}
-              <a href="{% url 'explorer.views.bucket_detail' bucket.id %}">{{ bucket }}</a>{% if not forloop.last %}, {% endif %}
+              {# we filter by user in the template so we can use the prefetched results #}
+              {% ifequal bucket.created_by user %}
+                <a href="{% url 'explorer.views.bucket_detail' bucket.id %}">{{ bucket }}</a>{% if not forloop.last %}, {% endif %}
+              {% endifequal %}
             {% endfor %}
           </td>
         </tr>
