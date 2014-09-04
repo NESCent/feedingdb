@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 from django.forms.util import ValidationError, ErrorList
 from django.forms.forms import BaseForm, get_declared_fields, NON_FIELD_ERRORS
 from django.forms.fields import *
-from django.forms.widgets import Select, SelectMultiple, HiddenInput, MultipleHiddenInput, SplitDateTimeWidget
+from django.forms.widgets import Select, SelectMultiple, HiddenInput, MultipleHiddenInput, DateInput
 from django.forms.widgets import media_property
 from django.forms.formsets import BaseFormSet, formset_factory, DELETION_FIELD_NAME
 from django import forms
@@ -49,8 +49,8 @@ class StudyChangeForm(forms.ModelForm):
     class Meta:
         model=Study
         widgets = {
-            'start': SplitDateTimeWidget(attrs={'class':'datepicker'}),
-            'end': SplitDateTimeWidget(attrs={'class':'datepicker'}),
+            'start': DateInput(attrs={'class':'datepicker'}),
+            'end': DateInput(attrs={'class':'datepicker'}),
         }
 
 class SessionChangeForm(forms.ModelForm):
