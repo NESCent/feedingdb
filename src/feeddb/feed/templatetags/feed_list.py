@@ -3,7 +3,7 @@ from django.contrib.admin.views.main import ALL_VAR, EMPTY_CHANGELIST_VALUE
 from django.contrib.admin.views.main import ORDER_VAR, ORDER_TYPE_VAR, PAGE_VAR, SEARCH_VAR
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
-from django.utils import dateformat
+from django.utils import formats
 from django.utils.html import escape, conditional_escape
 from django.utils.text import capfirst
 from django.utils.safestring import mark_safe
@@ -134,11 +134,11 @@ def feed_items_for_result(cl, result, form):
             elif isinstance(f, models.DateField) or isinstance(f, models.TimeField):
                 if field_val:
                     if isinstance(f, models.DateTimeField):
-                        result_repr = capfirst(dateformat.format(field_val, 'DATETIME_FORMAT'))
+                        result_repr = capfirst(formats.date_format(field_val, 'DATETIME_FORMAT'))
                     elif isinstance(f, models.TimeField):
-                        result_repr = capfirst(dateformat.time_format(field_val, 'TIME_FORMAT'))
+                        result_repr = capfirst(formats.time_format(field_val))
                     else:
-                        result_repr = capfirst(dateformat.format(field_val, 'DATE_FORMAT'))
+                        result_repr = capfirst(formats.date_format(field_val))
                 else:
                     result_repr = EMPTY_CHANGELIST_VALUE
                 row_class = ' class="nowrap"'
