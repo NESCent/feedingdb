@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.admin.views.main import ALL_VAR, EMPTY_CHANGELIST_VALUE
 from django.contrib.admin.views.main import ORDER_VAR, ORDER_TYPE_VAR, PAGE_VAR, SEARCH_VAR
@@ -179,10 +180,11 @@ def feed_results(cl):
     else:
         for res in cl.result_list:
             lst= list(feed_items_for_result(cl, res, None))
-            view_url = cl.url_for_result(res)
-            change_url = "%sedit" % view_url
-            delete_url = "%sdelete" % view_url
-            clone_url = "%sclone" % view_url
+            name_args = (cl.opts.app_label, cl.opts.model_name)
+            view_url = reverse('admin:%s_%s_view' % name_args, args=(res.pk,))
+            change_url = reverse('admin:%s_%s_change' % name_args, args=(res.pk,))
+            delete_url = reverse('admin:%s_%s_delete' % name_args, args=(res.pk,))
+            clone_url = reverse('admin:%s_%s_clone' % name_args, args=(res.pk,))
             if hasattr(cl, "request"):
                 if cl.request.META['QUERY_STRING']:  
                     change_url = '%s/?%s' % (change_url, cl.request.META['QUERY_STRING'])
