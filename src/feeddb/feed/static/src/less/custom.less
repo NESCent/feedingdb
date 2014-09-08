@@ -151,20 +151,21 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
     }
     .masthead { background: rgb(240,242,247); background: rgba(240,242,247,1);
     }
-    #makeMeScrollable div.scrollableArea * { /* width: 100%; height: 330px; overflow: hidden; */
-    	position: relative;
-    	display: block;
-    	float: left;
-    	margin: 0;
-    	padding: 0;
-    	/* If you don't want the images in the scroller to be selectable, try the following
-    		block of code. It's just a nice feature that prevent the images from
-    		accidentally becoming selected/inverted when the user interacts with the scroller. */
-    	-webkit-user-select: none;
-    	-khtml-user-select: none;
-    	-moz-user-select: none;
-    	-o-user-select: none;
-    	user-select: none;
+    #makeMeScrollable { 
+      .scrollWrapper { overflow: hidden;
+        div.scrollableArea * { 
+          position: relative;
+          display: block;
+          float: left;
+          margin: 0;
+          padding: 0;
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -o-user-select: none;
+          user-select: none;
+        }
+      }
     }
     footer { 
       p { font: 12px/21px @roboto, sans-serif; color: rgb(255,255,255); color: rgba(255,255,255,1); }
@@ -221,7 +222,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       }
     }
   }
-  &.feed-study.change-form, &.feed-experiment.change-form, &.feed-session.change-form, &.feed-trial.change-form, &.change-list, &.feed-behavior.change-form, &.history, &.feed-subject.change-form {
+  &.feed-study.change-form, &.feed-experiment.change-form, &.feed-session.change-form, &.feed-trial.change-form, &.change-list, &.feed-behavior.change-form, &.history, &.feed-subject.change-form, &.detail-view {
     .masthead { padding-bottom: 0; }
     main { padding: 0; }
   }
@@ -301,6 +302,14 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       }
     }
   }
+  #ui-datepicker-div { background: @white; background: @white-alpha; border: 1px solid @tan; border: 1px solid @tan-alpha; }
+  &.detail-view {
+    table {
+      td {
+        &.TdField { width: 164px; }
+      }
+    }
+  }
   #trial_form {
     fieldset {
       label { margin-bottom: 10px; }
@@ -369,6 +378,7 @@ table {
 }
 .error-text { color: red; margin-bottom: 0; }
 .chosen-container { width: 100% !important; }
+.align-right { text-align: right; }
 
 /* Form helpers */
 .required label, label.required { font-weight: inherit !important; color: @orange !important; color: @orange-alpha !important; width: auto; float: none; display: block; }
