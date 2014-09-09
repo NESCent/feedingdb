@@ -95,9 +95,9 @@ def bucket_detail(request, id):
         form = BucketModelForm(request.POST, instance=bucket)
         if form.is_valid():
             form.save()
-            messages.success(request, "successfully updated update the record.")
+            messages.success(request, "Saved all changes to collection.")
         else:
-            messages.error(request, "failed to update the record.")
+            messages.error(request, "Failed to save changes to collection.")
     else:
         form = BucketModelForm(instance=bucket)
     
@@ -498,14 +498,14 @@ def trial_search_put(request):
         if(item[1]=="on"):
             trial_selected.append(item[0])
     if len(trial_selected) ==0:
-        messages.error(request, 'no trial selected.')
+        messages.error(request, 'Please select one or more trials to add to your collection.')
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no trial selected.'})
         return render_to_response('explorer/base.html', c)
     #check if new bucket selected
     bucket = None
     bucket_selected = request.POST['bucket']
     if bucket_selected ==None or bucket_selected =="":
-        messages.error(request, 'no bucket selected.')
+        messages.error(request, 'Please select a collection to download trials.')
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no bucket selected.'})
         return render_to_response('explorer/base.html', c)
     if request.POST['bucket']!='add new bucket':
@@ -528,7 +528,7 @@ def trial_search_put(request):
             assoc = TrialInBucket(trial=trial, bin = bucket)
             assoc.save()
     
-    messages.success(request, 'successfully put the selected trials to the bucket')
+    messages.success(request, 'Trials have been added to your collection and are available for download.')
     return HttpResponseRedirect('/explorer/bucket/%s/' % bucket.id)
 
 def bucket_remove_trials(request, id):

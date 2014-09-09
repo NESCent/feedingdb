@@ -98,49 +98,40 @@
       {% endblock %}
             
             {% endif %}
-      
-          {% if messages %}
-       <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
 
-          <div class="messages alert alert-info">
-            {% for message in messages %}<p>{{ message }}</p>{% endfor %}
-          </div>
-      </div>
-       </div>
-       </div>
-          {% endif %}
-<!--
        {% if messages %}
        <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-        {% for message in messages %}
-         <div{% if message.tags %} class="messages alert alert-{{ message.tags }}"{% endif %} role="alert">
-             
-             <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+         <div class="row">
+           <div class="col-xs-12">
+             {% for message in messages %}
+             <div{% if message.tags %} class="messages alert alert-{{ message.tags }}"{% endif %} role="alert">
+               <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
              {% endfor %}
+             </div>
+           </div>
          </div>
-        </div>
-      </div>
-      </div>
+       </div>
        {% endif %}
--->
 
-
-          {% block pretitle %}{% endblock %}
-          {% block content_title %}{% if title %}{% endif %}{% endblock %}
+      {% block pretitle %}{% endblock %}
+      {% block content_title %}{% if title %}{% endif %}{% endblock %}
 
       <main>
         <div class="container">
           <div class="row">
-            {% block tabs %}{% endblock %}
+            {% block tabs %}
+            {% endblock %}
+            
             {% block content %}
-            {% block object-tools %}{% endblock %}
+            
+            {% block object-tools %}
+            {% endblock %}
+            
             {{ content }}
             {% endblock %}
-            {% block sidebar %}{% endblock %}
+            
+            {% block sidebar %}
+            {% endblock %}
           </div>
         </div> <!-- /.container -->
 

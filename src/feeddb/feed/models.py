@@ -557,7 +557,7 @@ class Trial(FeedBaseModel):
 
     data_file  = models.FileField(verbose_name="Data File",upload_to=get_data_upload_to ,  blank = True, null=True,
                                   help_text="A tab-delimited file with columns corresponding to the channel lineup specified in the Recording Session.")
-    waveform_picture = models.FileField(verbose_name="waveform picture", upload_to="pictures",  blank = True, null=True,
+    waveform_picture = models.FileField(verbose_name="illustration", upload_to="pictures",  blank = True, null=True,
                                         help_text="A picture (jpeg, pdf, etc.) as a graphical overview of data in the data file.")
 
     def __unicode__(self):
