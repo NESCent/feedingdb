@@ -29,6 +29,7 @@
 <div class="row">
   <div class="col-xs-12">
   <form action="{% url "explorer.views.bucket_detail" form.instance.id %}" method="POST">
+  {% csrf_token %}
     <div class="col-xs-8">
       <div class="row">
         <div class="col-xs-3">

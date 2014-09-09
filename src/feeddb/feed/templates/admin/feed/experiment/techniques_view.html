@@ -1,32 +1,32 @@
 <fieldset class="module aligned">
 <div class="row">
-              <label>Sensor Type:</label>
-			  {%ifequal original.setup_set.all|length 0 %}(No technique added for this experiment. Please click the edit button to add techniques.){%endifequal%}
-			  
-{% for setup in original.setup_set.all %}
-{% if setup.emgsetup %}<label>EMG</label>{% endif %}
-{%endfor%}
-
-{% for setup in original.setup_set.all %}
-{% if setup.sonosetup %}<label>Sono</label>{% endif %}
-{%endfor%}
-
-{% for setup in original.setup_set.all %}
-{% if setup.strainsetup %}<label>Strain</label>{% endif %}
-{%endfor%}
-
-{% for setup in original.setup_set.all %}
-{% if setup.forcesetup %}<label>Bite Force</label>{% endif %}
-{%endfor%}
-
-{% for setup in original.setup_set.all %}
-{% if setup.pressuresetup %}<label>Pressure</label>{% endif %}
-{%endfor%}
-
-{% for setup in original.setup_set.all %}
-{% if setup.kinematicssetup %}<label>Kinematics</label>{% endif %}
-{%endfor%}
-
+  <label>Sensor Type(s):</label>
+    {%ifequal original.setup_set.all|length 0 %}(No technique added for this experiment. Please click the edit button to add techniques.){%endifequal%}
+    <select class="chosen-select" multiple>
+      {% for setup in original.setup_set.all %}
+      {% if setup.emgsetup %}<option>EMG</option>{% endif %}
+      {%endfor%}
+      
+      {% for setup in original.setup_set.all %}
+      {% if setup.sonosetup %}<option>Sono</option>{% endif %}
+      {%endfor%}
+      
+      {% for setup in original.setup_set.all %}
+      {% if setup.strainsetup %}<option>Strain</option>{% endif %}
+      {%endfor%}
+      
+      {% for setup in original.setup_set.all %}
+      {% if setup.forcesetup %}<option>Bite Force</option>{% endif %}
+      {%endfor%}
+      
+      {% for setup in original.setup_set.all %}
+      {% if setup.pressuresetup %}<option>Pressure</option>{% endif %}
+      {%endfor%}
+      
+      {% for setup in original.setup_set.all %}
+      {% if setup.kinematicssetup %}<option>Kinematics</option>{% endif %}
+      {%endfor%}
+    </select>
 </div>
 			  
 </fieldset>
