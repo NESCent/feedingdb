@@ -47,6 +47,14 @@
 {% endblock %}
 
 {% block content %}
+  {% if 'experiment' == opts.model_name %}
+  {% elif 'kinematicssetup' == opts.model_name %}
+  {% elif 'sonossetup' == opts.model_name %}
+  {% elif 'emgsetup' == opts.model_name %}
+  {% elif 'strainsetup' == opts.model_name %}
+  {% elif 'forcesetup' == opts.model_name %}
+  {% elif 'pressuresetup' == opts.model_name %}
+  {% else %}
     {% block object-tools %}
         <div class="col-xs-2 col-xs-offset-10 admin-tools">
           <ul class="object-tools object-tools-top float-right">
@@ -71,6 +79,7 @@
         </div>
       </div>
 {% endblock %}
+{% endif %}
 
 {% block technique %}
 {% endblock %}

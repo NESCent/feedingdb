@@ -1,19 +1,21 @@
 {% load admin_list %}
 {% load i18n %}
 <div class="row">
-  <div class="col-xs-10">
+  <div class="col-xs-9">
     <h3>{{ cl.result_count }} {% ifequal cl.result_count 1 %}{{ cl.opts.verbose_name }}{% else %}{{ cl.opts.verbose_name_plural }}{% endifequal %}</h3>
   </div>
   {% if show_all_url %}
-  <div class="col-xs-2 records-list">
+  <div class="col-xs-3 records-list">
     {% if pagination_required %}
-    <p style="float:left;">Page: 
-  {% for i in page_range %}
-      {% paginator_number cl i %}
-  {% endfor %}
-    </p>
-  {% endif %}
-    <a href="{{ show_all_url }}" class="showall" style="float:right;">{% trans 'Show all' %}</a>
+    <div style="float:right;">
+      <p style="float:left; padding-right:10px;">Page: 
+        {% for i in page_range %}
+          {% paginator_number cl i %}
+        {% endfor %}
+      </p>
+      {% endif %}
+      <a href="{{ show_all_url }}" class="showall" style="float:right;">{% trans 'Show all' %}</a>
+    </div>
   </div>
   {% endif %}
   {% if cl.formset and cl.result_count %}<input type="submit" name="_save" class="default" value="{% trans 'Save' %}"/>{% endif %}

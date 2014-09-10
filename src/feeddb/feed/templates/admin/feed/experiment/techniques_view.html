@@ -1,32 +1,35 @@
-<fieldset class="module aligned">
 <div class="row">
-  <label>Sensor Type(s):</label>
-    {%ifequal original.setup_set.all|length 0 %}(No technique added for this experiment. Please click the edit button to add techniques.){%endifequal%}
-    <select class="chosen-select" multiple>
-      {% for setup in original.setup_set.all %}
-      {% if setup.emgsetup %}<option>EMG</option>{% endif %}
-      {%endfor%}
-      
-      {% for setup in original.setup_set.all %}
-      {% if setup.sonosetup %}<option>Sono</option>{% endif %}
-      {%endfor%}
-      
-      {% for setup in original.setup_set.all %}
-      {% if setup.strainsetup %}<option>Strain</option>{% endif %}
-      {%endfor%}
-      
-      {% for setup in original.setup_set.all %}
-      {% if setup.forcesetup %}<option>Bite Force</option>{% endif %}
-      {%endfor%}
-      
-      {% for setup in original.setup_set.all %}
-      {% if setup.pressuresetup %}<option>Pressure</option>{% endif %}
-      {%endfor%}
-      
-      {% for setup in original.setup_set.all %}
-      {% if setup.kinematicssetup %}<option>Kinematics</option>{% endif %}
-      {%endfor%}
-    </select>
+  <fieldset class="module aligned">
+    <div class="col-xs-2">
+      <label>Sensor Type:</label>
+    </div>
+    <div class="col-xs-10">
+      {%ifequal original.setup_set.all|length 0 %}(No technique added for this experiment. Please click the edit button to add techniques.){%endifequal%}
+        <ul>
+          {% for setup in original.setup_set.all %}
+          {% if setup.emgsetup %}<li>EMG</li>{% endif %}
+          {%endfor%}
+          
+          {% for setup in original.setup_set.all %}
+          {% if setup.sonosetup %}<li>Sono</li>{% endif %}
+          {%endfor%}
+          
+          {% for setup in original.setup_set.all %}
+          {% if setup.strainsetup %}<li>Strain</li>{% endif %}
+          {%endfor%}
+          
+          {% for setup in original.setup_set.all %}
+          {% if setup.forcesetup %}<li>Bite Force</li>{% endif %}
+          {%endfor%}
+          
+          {% for setup in original.setup_set.all %}
+          {% if setup.pressuresetup %}<li>Pressure</li>{% endif %}
+          {%endfor%}
+          
+          {% for setup in original.setup_set.all %}
+          {% if setup.kinematicssetup %}<li>Kinematics</li>{% endif %}
+          {%endfor%}
+        </ul>
+    </div>
+  </fieldset>
 </div>
-			  
-</fieldset>

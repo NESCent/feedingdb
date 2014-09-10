@@ -2332,7 +2332,7 @@ output {
   padding-top: 7px;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #555555;
+  color: #7c7c7c;
 }
 .form-control {
   display: block;
@@ -2341,7 +2341,7 @@ output {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #555555;
+  color: #7c7c7c;
   background-color: #ffffff;
   background-image: none;
   border: 1px solid #cccccc;
@@ -3487,7 +3487,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   font-size: 14px;
   font-weight: normal;
   line-height: 1;
-  color: #555555;
+  color: #7c7c7c;
   text-align: center;
   background-color: #eeeeee;
   border: 1px solid #cccccc;
@@ -3620,7 +3620,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-  color: #555555;
+  color: #7c7c7c;
   background-color: #ffffff;
   border: 1px solid #dddddd;
   border-bottom-color: transparent;
@@ -6180,7 +6180,7 @@ body h1 {
 }
 body h2,
 body h2.panel-title a {
-  font: 27px/26px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  font: 27px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #005a8b;
 }
 body h3,
@@ -6199,15 +6199,15 @@ body h5 {
   color: #7c4600;
 }
 body h6 {
-  font: 17px/26px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #da5400;
 }
 body p {
-  font: 15px/19px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  font: 15px/19px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #112e4f;
 }
 body a {
-  font: 15px/19px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  font: 15px/19px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #007ecf;
 }
 body a:hover,
@@ -6258,7 +6258,7 @@ body .modal-body .modal-choices {
 body a.btn,
 body .btn {
   color: #ffffff;
-  font: 17px/26px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   padding: 8px 23px;
   -webkit-box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
   -moz-box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
@@ -6289,7 +6289,7 @@ body form .row {
   margin-bottom: 20px;
 }
 body form label {
-  font: 17px/26px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #da5400;
 }
 body form label.aligned {
@@ -6312,7 +6312,7 @@ body form input[type="reset"],
 body form input[type="submit"] {
   background: #da5400;
   color: #ffffff;
-  font: 17px/26px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   padding: 8px 23px;
   -webkit-box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
   -moz-box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
@@ -6392,7 +6392,7 @@ body nav ul li .dropdown-toggle:focus {
   text-decoration: none;
 }
 body .masthead {
-  padding: 32px 0;
+  padding: 32px 0 0 0;
 }
 body .masthead button {
   width: auto;
@@ -6416,6 +6416,21 @@ body .admin-tools ul li {
   list-style: none;
   float: left;
   margin: 0 4px;
+}
+body .object-tools {
+  list-style-type: none;
+  padding-left: 0;
+}
+body .object-tools a span {
+  padding-right: 4px;
+}
+body .object-tools a:hover {
+  text-decoration: none;
+  color: #da5400;
+}
+body.home main,
+body.about main {
+  padding: 30px 0 54px 0;
 }
 body.home h1,
 body.about h1 {
@@ -6445,7 +6460,7 @@ body.about a.btn {
   text-align: center;
   padding: 20px 0 60px 42px;
   width: 100%;
-  font: 30px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
+  font: 30px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
   color: #ffffff;
 }
 body.home a.btn.search,
@@ -6461,6 +6476,7 @@ body.about a.btn.upload {
 body.home .masthead,
 body.about .masthead {
   background: #f0f2f7;
+  padding-bottom: 32px;
 }
 body.home #makeMeScrollable .scrollWrapper,
 body.about #makeMeScrollable .scrollWrapper {
@@ -6496,11 +6512,11 @@ body .viewby ul li {
   margin-right: 20px;
 }
 body.about p {
-  font: 15px/19px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  font: 15px/19px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #112e4f;
 }
 body.about p a {
-  font: 15px/19px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  font: 15px/19px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
 }
 body.about p.intro {
   color: #09192a;
@@ -6528,11 +6544,14 @@ body.about .box ul {
 }
 body.about .box ul li {
   padding-bottom: 10px;
-  font: 15px/19px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  font: 15px/19px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #112e4f;
 }
 body.about .box ul li a {
-  font: 15px/19px Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  font: 15px/19px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+}
+body.search main {
+  padding: 30px 0 54px 0;
 }
 body.search h1 {
   text-align: center;
@@ -6609,30 +6628,8 @@ body.collection form table th {
 body.collection form table td {
   font-size: 14px;
 }
-body.feed-study.change-form .masthead,
-body.feed-experiment.change-form .masthead,
-body.feed-session.change-form .masthead,
-body.feed-trial.change-form .masthead,
-body.change-list .masthead,
-body.feed-behavior.change-form .masthead,
-body.history .masthead,
-body.feed-subject.change-form .masthead,
-body.detail-view .masthead {
-  padding-bottom: 0;
-}
-body.feed-study.change-form main,
-body.feed-experiment.change-form main,
-body.feed-session.change-form main,
-body.feed-trial.change-form main,
-body.change-list main,
-body.feed-behavior.change-form main,
-body.history main,
-body.feed-subject.change-form main,
-body.detail-view main {
-  padding: 0;
-}
 body main {
-  padding: 30px 0 54px 0;
+  padding: 0;
 }
 body main .records-number p {
   margin: 0;
@@ -6678,7 +6675,7 @@ body main table th.choose {
   width: 30px;
 }
 body main table th.action_header {
-  width: 78px;
+  width: 85px;
 }
 body main table td {
   font-size: 12px;
@@ -6784,6 +6781,19 @@ body #study_form fieldset p {
 body #study_form fieldset .action_header {
   width: 84px;
 }
+body .Tabs .label-default {
+  background: #7c7c7c;
+  color: #ffffff;
+  padding: 8px 23px;
+  font-size: 14px;
+  font-weight: normal;
+}
+body .Tabs .label-default:hover {
+  background: #7c7c7c;
+}
+body .Tabs .label-default.Active {
+  background: #007ecf;
+}
 body footer {
   background: #09192a;
   clear: left;
@@ -6791,9 +6801,9 @@ body footer {
   padding: 25px 0 42px 0;
 }
 body footer .logo {
-  background: url('../../../../../img/footer-logo.png') no-repeat;
-  width: 57px;
-  height: 56px;
+  background: url('../../../../../images/footer-logo.png') no-repeat;
+  width: 165px;
+  height: 85px;
   display: block;
   text-indent: -10000px;
   overflow: hidden;
@@ -6801,8 +6811,6 @@ body footer .logo {
 }
 body footer ul {
   padding-left: 0;
-}
-body footer ul li {
   list-style-type: none;
 }
 body footer ul li a {
@@ -6817,95 +6825,89 @@ body footer p {
   font: 12px/21px 'Roboto', sans-serif, sans-serif;
   color: #ffffff;
 }
-body footer .partners h5 {
+body footer .partners h5,
+body footer .funding h5 {
   font: 100 15px/21px 'Roboto', sans-serif, sans-serif;
   color: #ffffff;
   margin-top: 0;
 }
-body footer .partners ul {
+body footer .partners ul,
+body footer .funding ul {
   padding-left: 0;
 }
-body footer .partners ul li {
+body footer .partners ul li,
+body footer .funding ul li {
   float: left;
-  padding-right: 16px;
+  margin-right: 16px;
+  width: 104px;
+  height: 104px;
 }
 body footer .partners ul li .partner1,
+body footer .funding ul li .partner1,
 body footer .partners ul li .partner2,
+body footer .funding ul li .partner2,
 body footer .partners ul li .partner3,
+body footer .funding ul li .partner3,
 body footer .partners ul li .partner4,
+body footer .funding ul li .partner4,
 body footer .partners ul li .partner5,
-body footer .partners ul li .partner6 {
+body footer .funding ul li .partner5,
+body footer .partners ul li .partner6,
+body footer .funding ul li .partner6,
+body footer .partners ul li .nescent,
+body footer .funding ul li .nescent,
+body footer .partners ul li .squishy,
+body footer .funding ul li .squishy {
   display: block;
-  border-radius: 38px;
-  -webkit-border-radius: 38px;
-  -moz-border-radius: 38px;
-  width: 76px;
-  height: 76px;
   text-indent: -10000px;
   overflow: hidden;
+  width: 100%;
+  height: 104px;
+  background-size: 92%;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
-body footer .partners ul li .partner1 {
+body footer .partners ul li .partner1,
+body footer .funding ul li .partner1 {
   display: block;
-  background: url('../../../../../images/nsf-logo.png') center no-repeat;
-  width: 76px;
-  height: 76px;
-  text-indent: -10000px;
-  overflow: hidden;
-  background-size: 100%;
+  background-image: url('../../../../../images/nsf-logo.png');
 }
-body footer .partners ul li .partner2 {
+body footer .partners ul li .partner2,
+body footer .funding ul li .partner2 {
   display: block;
-  background: url('../../../../../images/ohio-logo.png') center no-repeat;
-  width: 76px;
-  height: 76px;
-  text-indent: -10000px;
-  overflow: hidden;
-  background-size: 100%;
+  background-image: url('../../../../../images/ohio-logo.png');
 }
-body footer .partners ul li .partner3 {
+body footer .partners ul li .partner3,
+body footer .funding ul li .partner3 {
   display: block;
-  background: url('../../../../../images/neomed-logo.png') center no-repeat;
-  width: 76px;
-  height: 76px;
-  text-indent: -10000px;
-  overflow: hidden;
-  background-size: 72%;
+  background-image: url('../../../../../images/neomed-logo.png');
 }
-body footer .partners ul li .partner4 {
+body footer .partners ul li .partner4,
+body footer .funding ul li .partner4 {
   display: block;
-  background: url('../../../../../images/COD-logo.png') center no-repeat;
-  width: 76px;
-  height: 76px;
-  text-indent: -10000px;
-  overflow: hidden;
-  background-size: 100%;
+  background-image: url('../../../../../images/COD-logo.png');
 }
-body footer .partners ul li .partner5 {
+body footer .partners ul li .partner5,
+body footer .funding ul li .partner5 {
   display: block;
-  background: url('../../../../../images/duke-logo.png') center no-repeat;
-  width: 76px;
-  height: 76px;
-  text-indent: -10000px;
-  overflow: hidden;
-  background-size: 100%;
+  background-image: url('../../../../../images/duke-logo.png');
 }
-body footer .partners ul li .nescent {
+body footer .partners ul li .nescent,
+body footer .funding ul li .nescent {
   display: block;
-  background: url('../../../../../images/nescent.png') center no-repeat;
-  width: 76px;
-  height: 76px;
-  text-indent: -10000px;
-  overflow: hidden;
-  background-size: 100%;
+  background-image: url('../../../../../images/nescent.png');
 }
-body footer .partners ul li .squishy {
+body footer .partners ul li .squishy,
+body footer .funding ul li .squishy {
   display: block;
-  background: url('../../../../../images/squishy-logo.png') center no-repeat;
-  width: 76px;
-  height: 76px;
-  text-indent: -10000px;
-  overflow: hidden;
-  background-size: 100%;
+  background-image: url('../../../../../images/SQM-logo-no-mark-color.png');
+}
+body footer .partners p,
+body footer .funding p {
+  color: #7c7c7c;
+}
+body footer .subfooter {
+  margin-top: 20px;
 }
 body #clone-modal .row {
   margin-bottom: 0;
