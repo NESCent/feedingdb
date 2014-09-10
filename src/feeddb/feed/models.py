@@ -261,7 +261,7 @@ class Study(FeedBaseModel):
 
     # Previously private fields
     pi = models.CharField("PI", max_length=255, null=True)
-    organization = models.CharField(max_length=255, blank = True, null=True)
+    organization = models.CharField("Institutional Affiliation", max_length=255, blank = True, null=True)
     lab = models.CharField(max_length=255, blank = True, null=True)
     funding = models.CharField(max_length=255, blank = True, null=True, help_text = "Funding agency, grant name, number, award date, etc.")
     approval = models.CharField("Animal Use Approval (if applicable)", max_length=255, blank = True, null=True,
