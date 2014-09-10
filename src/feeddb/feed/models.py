@@ -264,7 +264,7 @@ class Study(FeedBaseModel):
     organization = models.CharField(max_length=255, blank = True, null=True)
     lab = models.CharField(max_length=255, blank = True, null=True)
     funding = models.CharField(max_length=255, blank = True, null=True, help_text = "Funding agency, grant name, number, award date, etc.")
-    approval = models.CharField(max_length=255, blank = True, null=True,
+    approval = models.CharField("Animal Use Approval (if applicable)", max_length=255, blank = True, null=True,
                                 help_text = "A reference to approval documentation for Animal Care and Use or for Human Subjects, if it was secured.")
     notes = models.TextField( blank = True, null=True)
 
