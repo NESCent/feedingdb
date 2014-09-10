@@ -15,7 +15,26 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <h1>{% if change %}Edit {{ opts.object_name}}{% elif 'subject' == opts.model_name %}Create New {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a></h1>{% else %}Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a>{% endif %}</h1>
+          <h1>
+            {% if change %}
+              Edit {{ opts.object_name}}
+              
+              {% elif add %}
+                {% if 'subject' == opts.model_name %}
+                  Create New {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a>
+                {% elif 'study' == opts.model_name %}
+                  Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
+                {% elif 'experiment' == opts.model_name %}
+                  Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
+                {% elif 'session' == opts.model_name %}
+                  Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
+                {% elif 'trial' == opts.model_name %}
+                  Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
+                {% else %}
+                  Add new {{ opts.object_name}}
+              {% endif %}
+            {% endif %}
+          </h1>
         </div>
       </div>
       <div class="row">
@@ -98,7 +117,11 @@
         {% if add %}
         {% if 'study' == opts.model_name %}
         <div class="col-xs-4 col-xs-offset-7">
-          <input class="btn btn-primary top-element" type="submit" name="_redirect_add_experiment" value="Next Step: Add Experiment">
+          <input class="btn btn-primary top-element" type="submit" name="_redirect_add_experiment" value="Next Step: Add Subject(s)">
+        </div>
+        {% elif 'subject' == opts.model_name %}
+        <div class="col-xs-4">
+          <input type="submit" name="_redirect_add_session" value="Next Step: Add Experiment">
         </div>
         {% elif 'experiment' == opts.model_name %}
         <div class="col-xs-4">
