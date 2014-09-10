@@ -539,7 +539,6 @@ class Trial(FeedBaseModel):
     position = models.IntegerField(help_text='The numeric position of this trial among the other trials within the current recording session.')
     start = models.DateTimeField( blank = True, null=True, help_text = DATETIME_HELP_TEXT)
     end = models.DateTimeField(blank = True, null=True, help_text = DATETIME_HELP_TEXT)
-    estimated_duration = models.PositiveIntegerField("Estimated duration (sec)", blank = True, null=True)
     subj_treatment = models.TextField("subject treatment",blank = True, null=True)
     subj_notes = models.TextField("subject notes", blank = True, null=True)
 
