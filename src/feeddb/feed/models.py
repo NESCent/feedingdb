@@ -251,8 +251,8 @@ class Study(FeedBaseModel):
     title = models.CharField(max_length=255,
                              help_text = "A descriptive name of this study.")
     bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
-    start = models.DateTimeField("Start Date", blank = False, null=False)
-    end = models.DateTimeField("End Date", blank = True, null=True)
+    start = models.DateField("Start Date", blank = False, null=False)
+    end = models.DateField("End Date", blank = True, null=True)
     funding_agency = models.CharField(max_length=255, blank = True, null=True)
     approval_secured = models.CharField(max_length=255, blank = True, null=True,
                                         help_text = "Whether an approval for Animal Care and Use or for Human Subjects was secured (Yes, No, or N/A).")
@@ -539,7 +539,6 @@ class Trial(FeedBaseModel):
     position = models.IntegerField(help_text='The numeric position of this trial among the other trials within the current recording session.')
     start = models.DateTimeField( blank = True, null=True, help_text = DATETIME_HELP_TEXT)
     end = models.DateTimeField(blank = True, null=True, help_text = DATETIME_HELP_TEXT)
-    estimated_duration = models.PositiveIntegerField("Estimated duration (sec)", blank = True, null=True)
     subj_treatment = models.TextField("subject treatment",blank = True, null=True)
     subj_notes = models.TextField("subject notes", blank = True, null=True)
 
