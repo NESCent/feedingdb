@@ -6173,6 +6173,7 @@ body {
   /* Alerts */
   /* Modals */
   /* Buttons */
+  /* Footer */
 }
 body h1 {
   font: 36px/24px 'Roboto', sans-serif, sans-serif;
@@ -6288,6 +6289,11 @@ body .btn.btn-default:hover {
 body form .row {
   margin-bottom: 20px;
 }
+body form .row.label {
+  display: block;
+  text-align: left;
+  padding: 0;
+}
 body form label {
   font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #da5400;
@@ -6296,6 +6302,9 @@ body form label.aligned {
   padding: 3px 10px 0 0;
   float: left;
   width: 8em;
+}
+body form label.required {
+  font-weight: 300 !important;
 }
 body form input,
 body form textarea {
@@ -6475,7 +6484,7 @@ body.about a.btn.upload {
 }
 body.home .masthead,
 body.about .masthead {
-  background: #f0f2f7;
+  background: #ffffff;
   padding-bottom: 32px;
 }
 body.home #makeMeScrollable .scrollWrapper,
@@ -6579,9 +6588,15 @@ body.search table.search-box td {
   border: 0;
   font-size: 12px;
 }
+body.search table.table-striped th {
+  position: relative;
+  padding-right: 20px;
+}
 body.search table.table-striped th a {
-  margin: 0 0 0 4px;
   font-size: 14px;
+  position: absolute;
+  top: 4px;
+  right: 3px;
 }
 body.search table.table-striped th a:hover {
   color: #007ecf;
@@ -6704,12 +6719,13 @@ body main .records-selection {
 }
 body main .records-selection p {
   float: left;
-  margin: 6px 0 0 0;
+  margin: 6px 40px 0 0;
 }
 body main .records-selection .chosen-container-single {
   float: left;
   display: block;
-  margin: 5px 0 0 0;
+  margin: 5px 40px 0 0;
+  width: 133px !important;
 }
 body main .records-selection .chosen-container-single .chosen-search {
   min-height: 30px;
@@ -6717,6 +6733,7 @@ body main .records-selection .chosen-container-single .chosen-search {
 body main .records-selection input {
   padding: 4px 19px;
   float: left;
+  width: 180px;
 }
 body main .records-selection #new_bucket_div .new-bucket {
   position: absolute;
@@ -6781,6 +6798,9 @@ body #study_form fieldset p {
 body #study_form fieldset .action_header {
   width: 84px;
 }
+body .Tabs {
+  margin-bottom: 20px;
+}
 body .Tabs .label-default {
   background: #7c7c7c;
   color: #ffffff;
@@ -6792,6 +6812,47 @@ body .Tabs .label-default:hover {
   background: #7c7c7c;
 }
 body .Tabs .label-default.Active {
+  background: #007ecf;
+}
+body .session-search {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+body .session-add {
+  background: transparent;
+}
+body #changelist-filter {
+  margin: 10px 0 0 0;
+}
+body #changelist-filter h3 {
+  float: left;
+  margin: 0;
+}
+body #changelist-filter h3:first-child {
+  padding-right: 6px;
+}
+body #changelist-filter ul {
+  float: left;
+  list-style: none;
+}
+body #changelist-filter ul li {
+  float: left;
+  padding-right: 4px;
+}
+body #changelist-filter ul li a {
+  display: block;
+  background: #7c7c7c;
+  color: #ffffff;
+  padding: 7px 19px;
+  font-size: 14px;
+  font-weight: normal;
+  border-radius: .25em;
+}
+body #changelist-filter ul li a:hover {
+  background: #7c7c7c;
+  text-decoration: none;
+}
+body #changelist-filter ul li.selected a {
   background: #007ecf;
 }
 body footer {

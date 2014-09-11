@@ -76,6 +76,17 @@
           <div class="errorlist">{% for error in cl.formset.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>
       {% endif %}
       <div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
+        {% block filters %}
+          {% if cl.has_filters %}
+          
+            <div id="changelist-filter">
+              <h3>{% trans 'Filter' %} </h3>
+              {% for spec in cl.filter_specs %}
+                {% admin_list_filter cl spec %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endblock %}
         {% block search %}
           <div class="row">
             {% search_form cl %}
@@ -85,15 +96,6 @@
 
         {% block date_hierarchy %}
           {% date_hierarchy cl %}
-        {% endblock %}
-  
-        {% block filters %}
-          {% if cl.has_filters %}
-            <div id="changelist-filter">
-              <h2>{% trans 'Filter' %}</h2>
-              {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
-            </div>
-          {% endif %}
         {% endblock %}
         
         <form action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}>

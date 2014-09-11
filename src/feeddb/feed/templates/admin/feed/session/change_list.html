@@ -7,22 +7,22 @@
 <script type="text/javascript" src="{% app_static_prefix %}js/tabview.js"></script>
 {% endblock %}
 
-
-
 {% block breadcrumbs %}
 {% if experiment %}
-<div class="row">
-  <div class="col-xs-12">
-    <div class="breadcrumbs">
-<div class="breadcrumbs">
-{% include "admin/includes/object_path.html" %}
-</div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="breadcrumbs">
+        {% include "admin/includes/object_path.html" %}
+      </div>
     </div>
   </div>
+</div>
 {% else %}
 {{ block.super}}
 {% endif %}
 {% endblock %}
+
 {% block tabs %}
 {% if experiment %}
 {% include "admin/feed/experiment/experiment_tab.html" %}
@@ -46,26 +46,39 @@
   </div>
 {% endblock %}
 
-
-      {% block result_list %}
-          {% if action_form and actions_on_top and cl.full_result_count %}{% admin_actions %}{% endif %}
-
+{% block content %}</div>
+  {% block search %}
+    <div class="row session-search">
+      {% search_form cl %}
+    </div>
+  {% endblock %}
+    <div class="row">
+      <div class="col-xs-12">
+        {% block result_list %}
+          {% if action_form and actions_on_top and cl.full_result_count %}
+            {% admin_actions %}
+          {% endif %}
           {% feed_result_list cl %}
-          {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
-                {% if has_add_permission %}
-{% if experiment %}
-{% if has_change_permission %}
-<p>
-<table width="50"><tr>
-<td class="form-row">
-<ul class="object-tools">
-    <li><a href="add/?experiment={{experiment.pk}}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add Session</a></li>
-</ul>
-</td>
-</tr>
-</table>
-</p>
- {% endif %}
-  {% endif %}
-      {% endif %}
-      {% endblock %}
+          {% if action_form and actions_on_bottom and cl.full_result_count %}
+            {% admin_actions %}
+          {% endif %}
+          {% if has_add_permission %}
+            {% if experiment %}
+              {% if has_change_permission %}
+                <table class="session-add">
+                  <tr>
+                    <td class="form-row">
+                      <ul class="object-tools">
+                        <li><a href="add/?experiment={{experiment.pk}}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add Session</a></li>
+                      </ul>
+                    </td>
+                  </tr>
+                </table>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endblock %}
+      </div>
+    </div>
+{% endblock %}
+
