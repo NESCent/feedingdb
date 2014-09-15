@@ -304,10 +304,20 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       .chosen-container-single { float: left; display: block; margin: 5px 40px 0 0; width: 133px !important;
         .chosen-search { min-height: 30px; }
       }
-      input { padding: 4px 19px; float: left; width: 180px; }
+      input, a.remove { padding: 4px 19px; float: left; width: 180px; }
       #new_bucket_div { 
         .new-bucket { position: absolute; left: -38px;
           input { width: 107%; }
+        }
+      }
+    }
+    .bucket-list { 
+      ul { padding-left: 0; float: left; list-style: none; width: 346px;
+        li { clear: both;
+          a { display: block;
+            &:first-child { float: left; margin-top: 6px; }
+            &.remove { float: right; }
+          }
         }
       }
     }
@@ -335,6 +345,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
         &.TdField { width: 164px; }
       }
     }
+    .records-selection { margin: 0 auto; width: 634px; }
   }
   #trial_form {
     fieldset {

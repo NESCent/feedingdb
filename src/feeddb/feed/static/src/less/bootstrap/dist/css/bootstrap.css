@@ -6730,7 +6730,8 @@ body main .records-selection .chosen-container-single {
 body main .records-selection .chosen-container-single .chosen-search {
   min-height: 30px;
 }
-body main .records-selection input {
+body main .records-selection input,
+body main .records-selection a.remove {
   padding: 4px 19px;
   float: left;
   width: 180px;
@@ -6741,6 +6742,25 @@ body main .records-selection #new_bucket_div .new-bucket {
 }
 body main .records-selection #new_bucket_div .new-bucket input {
   width: 107%;
+}
+body main .bucket-list ul {
+  padding-left: 0;
+  float: left;
+  list-style: none;
+  width: 346px;
+}
+body main .bucket-list ul li {
+  clear: both;
+}
+body main .bucket-list ul li a {
+  display: block;
+}
+body main .bucket-list ul li a:first-child {
+  float: left;
+  margin-top: 6px;
+}
+body main .bucket-list ul li a.remove {
+  float: right;
 }
 body main .records-pagination {
   margin: 0 auto 20px auto;
@@ -6772,6 +6792,10 @@ body #ui-datepicker-div {
 }
 body.detail-view table td.TdField {
   width: 164px;
+}
+body.detail-view .records-selection {
+  margin: 0 auto;
+  width: 634px;
 }
 body #trial_form fieldset label {
   margin-bottom: 10px;
