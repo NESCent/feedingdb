@@ -18,7 +18,6 @@
           <h1>
             {% if change %}
               Edit {{ opts.object_name}}
-              
               {% elif add %}
                 {% if 'subject' == opts.model_name %}
                   Create New {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a>
