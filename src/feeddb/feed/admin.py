@@ -33,7 +33,7 @@ class SessionViewInline(FeedTabularInline):
 class TrialViewInline(FeedTabularInline):
     model = Trial
     extra = 0
-    fields = ('position', 'title', 'estimated_duration', 'food_type', 'behavior_primary')
+    fields = ('position', 'title', 'food_type', 'behavior_primary')
     tabbed = True
     tab_name="Trials"
 
