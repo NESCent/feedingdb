@@ -265,12 +265,22 @@ class FeedModelAdmin(admin.ModelAdmin):
         """
         Override ModelAdmin.delete_view() to augment template context with list
         of "critical" objects.  These are objects which should cause pause to
-        deleters; the enforcement is in the template only.
+        deleters; the enforcement is in the template only and is not super
+        secure.
         """
 
         res = super(FeedModelAdmin, self).delete_view(*args, **kwargs)
-        obj = res.context_data['object']
-        res.context_data['associated_critical_objects'] = get_associated_critical_objects(obj)
+
+        # Add "associated critical objects" to context if possible.
+        try:
+            obj = res.context_data['object']
+            res.context_data['associated_critical_objects'] = get_associated_critical_objects(obj)
+        except AttributeError:
+            # This exception will happen if res is an HttpResponseRedirect or
+            # if context_data['object'] doesn't exist for some reason. In
+            # either case, not much we can do.
+            pass
+
         return res
 
     """
