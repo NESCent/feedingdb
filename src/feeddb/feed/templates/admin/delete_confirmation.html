@@ -1,40 +1,72 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/base.html" %}
 {% load i18n %}
 
 {% block breadcrumbs %}
-<div class="breadcrumbs">
-<ul id="crumbs">
-     <li><a href="../../../../">{% trans "Home" %}</a></li>
-     <li><a href="../../../">{{ app_label|capfirst }}</a></li>
-     <li><a href="../../">{{ opts.verbose_name_plural|capfirst }}</a></li>
-     <li><a href="../">{{ object|truncatewords:"18" }}</a></li>
-     <li>{% trans 'Delete' %}</li>
-</ul>	 
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="breadcrumbs">
+        <ul id="crumbs">
+             <li><a href="../../../../">{% trans "Home" %}</a></li><span>/</span>
+             <li><a href="../../../">{{ app_label|capfirst }}</a></li><span>/</span>
+             <li><a href="../../">{{ opts.verbose_name_plural|capfirst }}</a></li><span>/</span>
+             <li><a href="../">{{ object|truncatewords:"18" }}</a></li><span>/</span>
+             <li>{% trans 'Delete' %}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 
 {% block content %}
 
-{% if associated_critical_objects|length_is:"0" %}
-{% if perms_lacking %}
-    <p>{% blocktrans with object as escaped_object %}Deleting the {{ object_name }} '{{ escaped_object }}' would result in deleting related objects, but your account doesn't have permission to delete the following types of objects:{% endblocktrans %}</p>
-    <ul>
-    {% for obj in perms_lacking %}
-        <li>{{ obj }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>{% blocktrans with object as escaped_object %}Are you sure you want to delete the {{ object_name }} "{{ escaped_object }}"? All of the following related items will be deleted:{% endblocktrans %}</p>
-    <ul>{{ deleted_objects|unordered_list }}</ul>
-    <form action="" method="post">{% csrf_token %}
-    <div>
-    <input type="hidden" name="post" value="yes" />
-    <input type="submit" value="{% trans "Yes, I'm sure" %}" />
+  {% if associated_critical_objects|length_is:"0" %}
+    {% if perms_lacking %}
+      <div class="col-xs-12">
+        <div class="messages alert alert-danger">
+          <p>{% blocktrans with object as escaped_object %}Deleting the {{ object_name }} '{{ escaped_object }}' would result in deleting related objects, but your account doesn't have permission to delete the following types of objects:{% endblocktrans %}</p>
+          <ul>
+          {% for obj in perms_lacking %}
+              <li>{{ obj }}</li>
+          {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% else %}
+      <div class="col-xs-12">
+        <div class="messages alert alert-danger">
+          <p>{% blocktrans with object as escaped_object %}Are you sure you want to delete the {{ object_name }} "{{ escaped_object }}"? All of the following related items will be deleted:{% endblocktrans %}</p>
+        </div>
+      </div>
     </div>
-    </form>
-{% endif %}
-{% else %}
- <p>{% blocktrans with object as escaped_object %}Deleting the {{ object_name }} '{{ escaped_object }}' would result in deleting following related objects. To prevent possible data loss, you need to delete or remove the association to the following types of objects:{% endblocktrans %}</p>
-     <ul>{{ associated_critical_objects|unordered_list }}</ul>
-{% endif %}
+    <div class="row">
+      <div class="col-xs-12">
+        <ul>{{ deleted_objects|unordered_list }}</ul>
+      </div>
+    </div>
+    <div class="row">
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="col-xs-3">
+          <input type="hidden" name="post" value="yes" />
+          <input class="btn btn-primary" type="submit" value="{% trans "Yes, I&#39;m sure" %}" />
+        </div>
+        <div class="col-xs-3">
+          <input type="hidden" name="post" value="no" />
+          <input class="btn btn-default" type="submit" value="{% trans "Cancel" %}" />
+        </div>
+      </form>
+    </div>
+    {% endif %}
+  {% else %}
+    <div class="col-xs-12">
+      <div class="messages alert alert-danger">
+        <p>{% blocktrans with object as escaped_object %}Deleting the {{ object_name }} '{{ escaped_object }}' would result in deleting following related objects. To prevent possible data loss, you need to delete or remove the association to the following types of objects:{% endblocktrans %}</p>
+      </div>
+    </div>
+    <ul>{{ associated_critical_objects|unordered_list }}</ul>
+  </div>
+  {% endif %}
+  
 {% endblock %}

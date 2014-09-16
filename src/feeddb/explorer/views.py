@@ -27,7 +27,7 @@ def bucket_index(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login?next=%s' % request.path)
     buckets = Bucket.objects.filter(created_by=request.user)
-    c = RequestContext(request, {'title': 'FeedDB Explorer', 'buckets': buckets})
+    c = RequestContext(request, {'title': 'FeedDB Explorer', 'data collections': buckets})
     return render_to_response('explorer/bucket_list.html', c, mimetype="text/html")
 
 def bucket_add(request):
@@ -41,11 +41,11 @@ def bucket_add(request):
         if form.is_valid():
             form.instance.created_by = request.user
             form.save()
-            messages.success(request, "successfully added the bucket.")
+            messages.success(request, "successfully added the data collection.")
             c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
             return render_to_response('explorer/bucket_detail.html', c)
         else:
-            messages.error(request, "failed to add the bucket.")
+            messages.error(request, "failed to add the data collection.")
     else:
         bucket = Bucket()
         form = BucketModelForm(instance=bucket)
@@ -59,16 +59,16 @@ def bucket_delete(request, id):
     try:
         bucket = Bucket.objects.get(pk=id)
     except Bucket.DoesNotExist:
-        messages.error(request, 'Bucket with primary key %s does not exist.' % id)
+        messages.error(request, 'Data collection with primary key %s does not exist.' % id)
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
     #check if the user is the owner of the bucket. If not return error page 
     if bucket.created_by.pk != request.user.pk:
-        messages.error(request, 'Sorry, you are not allowed to delete a bucket owned by another user.')
+        messages.error(request, 'Sorry, you are not allowed to delete a data collection owned by another user.')
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
     bucket.delete()
-    messages.success(request, 'successfully deleted the bucket:%s' % bucket)
+    messages.success(request, 'successfully deleted the data collection:%s' % bucket)
     return HttpResponseRedirect('/explorer/bucket/')
 
 # VG-claim: Finishing this view in the 1st pass needs only  
@@ -81,13 +81,13 @@ def bucket_detail(request, id):
     try:
         bucket = Bucket.objects.get(pk=id)
     except Bucket.DoesNotExist:
-        messages.error(request, 'Bucket with primary key %s does not exist.' % id)
+        messages.error(request, 'Data collection with primary key %s does not exist.' % id)
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
 
     #check if the user is the owner of the bucket. If not return error page 
     if bucket.created_by.pk != request.user.pk:
-        messages.error(request, 'Sorry, you are not allowed to view/edit a bucket owned by another user.')
+        messages.error(request, 'Sorry, you are not allowed to view/edit a data collection owned by another user.')
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
         
@@ -95,9 +95,9 @@ def bucket_detail(request, id):
         form = BucketModelForm(request.POST, instance=bucket)
         if form.is_valid():
             form.save()
-            messages.success(request, "Saved all changes to collection.")
+            messages.success(request, "Saved all changes to data collection.")
         else:
-            messages.error(request, "Failed to save changes to collection.")
+            messages.error(request, "Failed to save changes to data collection.")
     else:
         form = BucketModelForm(instance=bucket)
     
@@ -111,7 +111,7 @@ def bucket_download(request, id):
     try:
         bucket = Bucket.objects.get(pk=id)
     except Bucket.DoesNotExist:
-        messages.error(request, 'Bucket with primary key %s does not exist.' % id)
+        messages.error(request, 'Data collection with primary key %s does not exist.' % id)
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
 
@@ -422,7 +422,7 @@ def bucket_download(request, id):
     meta_forms.append(EventChannelModelForm())
     file_name = bucket.default_zipfile_name()
     
-    c = RequestContext(request, {'title': 'FeedDB Explorer', 'file_name': file_name, 'bucket':bucket, 'meta_forms':meta_forms})
+    c = RequestContext(request, {'title': 'FeedDB Explorer', 'file_name': file_name, 'data collection':bucket, 'meta_forms':meta_forms})
     return render_to_response('explorer/bucket_download.html', c)
 
 
@@ -498,22 +498,22 @@ def trial_search_put(request):
         if(item[1]=="on"):
             trial_selected.append(item[0])
     if len(trial_selected) ==0:
-        messages.error(request, 'Please select one or more trials to add to your collection.')
+        messages.error(request, 'Please select one or more trials to add to your data collection.')
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no trial selected.'})
         return render_to_response('explorer/base.html', c)
     #check if new bucket selected
     bucket = None
     bucket_selected = request.POST['bucket']
     if bucket_selected ==None or bucket_selected =="":
-        messages.error(request, 'Please select a collection to download trials.')
-        c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no bucket selected.'})
+        messages.error(request, 'Please select a data collection to download trials.')
+        c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no data collection selected.'})
         return render_to_response('explorer/base.html', c)
-    if request.POST['bucket']!='add new bucket':
+    if request.POST['bucket']!='add new data collection':
         bucket = Bucket.objects.get(pk=bucket_selected)
     else: 
         new_bucket_name=request.POST['new_bucket_name']
         if new_bucket_name==None and new_bucket_name =="":
-            c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no new bucket name specified.'})
+            c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no new data collection name specified.'})
             return render_to_response('explorer/base.html', c)
         else:
             bucket = Bucket()
@@ -528,7 +528,7 @@ def trial_search_put(request):
             assoc = TrialInBucket(trial=trial, bin = bucket)
             assoc.save()
     
-    messages.success(request, 'Trials have been added to your collection and are available for download.')
+    messages.success(request, 'Trials have been added to your data collection and are available for download.')
     return HttpResponseRedirect('/explorer/bucket/%s/' % bucket.id)
 
 def bucket_remove_trials(request, id):
@@ -540,7 +540,7 @@ def bucket_remove_trials(request, id):
         if(item[1]=="on"):
             trial_selected.append(item[0])
     if len(trial_selected) ==0:
-        messages.error(request, 'no trials selected')
+        messages.error(request, 'No trials selected')
         return HttpResponseRedirect('/explorer/bucket/%s/' % id)
     #check if bucket exists
     try:
@@ -550,7 +550,7 @@ def bucket_remove_trials(request, id):
         return HttpResponseRedirect('/explorer/bucket/%s/' % id)
     #check if the user is the owner of the bucket. If not return error page 
     if bucket.created_by.pk != request.user.pk:
-        messages.error(request, 'Sorry, you are not allowed to change a bucket owned by another user.')
+        messages.error(request, 'Sorry, you are not allowed to change a data collection owned by another user.')
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
     #remove trials from the bucket
@@ -559,7 +559,7 @@ def bucket_remove_trials(request, id):
         assocs = TrialInBucket.objects.filter(Q(trial__id__exact=trial_id) & Q(bin__id__exact=bucket.id))
         for assoc in assocs:
             assoc.delete()
-    messages.success(request, 'successfully removed the selected trials from the bucket')
+    messages.success(request, 'successfully removed the selected trials from the data collection')
     return HttpResponseRedirect('/explorer/bucket/%s/' % id)
     
 def trial_detail(request, id): 
@@ -586,23 +586,23 @@ def trial_remove(request, id, bucket_id):
     try:
         bucket = Bucket.objects.get(pk=bucket_id)
     except Bucket.DoesNotExist:
-        messages.error(request, 'Bucket with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
+        messages.error(request, 'Data collection with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
         return HttpResponseRedirect('/explorer/trial/%s/' % id)
 
     #check if the user is the owner of the bucket. If not return error page 
     if bucket.created_by.pk != request.user.pk:
-        messages.error(request, 'Sorry, you are not allowed to change a bucket owned by another user.')
+        messages.error(request, 'Sorry, you are not allowed to change a data collection owned by another user.')
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
             
     try:
         assoc = TrialInBucket.objects.filter(Q(trial__id__exact=id) & Q(bin__id__exact=bucket_id))
     except TrialInBucket.DoesNotExist:
-        messages.error(request, 'Trial: %s is not in the bucket: %s.' % (trial, bucket))
+        messages.error(request, 'Trial: %s is not in the data collection: %s.' % (trial, bucket))
         return HttpResponseRedirect('/explorer/trial/%s/' % id)
     
     assoc.delete()
-    messages.error(request, 'Trial: %s has been successfully removed from the bucket: %s.' % (trial, bucket))
+    messages.error(request, 'Trial: %s has been successfully removed from the data collection: %s.' % (trial, bucket))
     return HttpResponseRedirect('/explorer/trial/%s/' % id)
 
 def trial_add(request, id):
@@ -614,26 +614,26 @@ def trial_add(request, id):
         except Trial.DoesNotExist:
             c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
             return render_to_response('explorer/error.html', c)
-        if request.POST['bucket_id']!='add new bucket':
+        if request.POST['bucket_id']!='add new data collection':
             bucket_id = request.POST['bucket_id']
             if bucket_id==None or bucket_id =="":
-                messages.error(request, 'no bucket specified')
+                messages.error(request, 'no data collection specified')
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
             try:
                 bucket = Bucket.objects.get(pk=bucket_id)
             except Bukcet.DoesNotExist:
-                messages.error(request, 'Bucket with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
+                messages.error(request, 'Data collection with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
             #check if the user is the owner of the bucket. If not return error page 
             if bucket.created_by.pk != request.user.pk:
-                messages.error(request, 'Sorry, you are not allowed to change a bucket owned by another user.')
+                messages.error(request, 'Sorry, you are not allowed to change a data collection owned by another user.')
                 c = RequestContext(request, {'title': 'FeedDB Explorer'})
                 return render_to_response('explorer/base.html', c)
  
         else: 
             new_bucket_name=request.POST['new_bucket_name']
             if new_bucket_name==None and new_bucket_name =="":
-                messages.error(request, 'no new bucket name specified')
+                messages.error(request, 'no new data collection name specified')
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
             else:
                 bucket = Bucket()
@@ -644,12 +644,12 @@ def trial_add(request, id):
         #check if bucket already contains the trial
         assocs = TrialInBucket.objects.filter(Q(trial__id__exact=id) & Q(bin__id__exact=bucket.id))
         if len(assocs) >0:
-                messages.error(request, 'trial already in the bucket')
+                messages.error(request, 'Trial is already included in data collection')
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
         #add trials to the bucket
         assoc = TrialInBucket(trial=trial, bin = bucket)
         assoc.save()
-        messages.success(request, 'Trial: %s has been successfully added to the bucket: %s.' % (trial, bucket))
+        messages.success(request, 'Trial: %s has been successfully added to the data collection: %s.' % (trial, bucket))
         return HttpResponseRedirect('/explorer/trial/%s/' % id)
 
 def send_file(request, filename):

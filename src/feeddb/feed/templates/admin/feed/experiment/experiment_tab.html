@@ -28,7 +28,7 @@
 	       {% endif %}
 
 	     {% endfor %}
-	     <a  class="label label-default {% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{object_id}}">Sessions1</a></div></div>
+	     <a  class="label label-default {% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{object_id}}">Sessions</a></div></div>
      {% endifequal %}
 	 
   
@@ -112,7 +112,7 @@
 	              <a  class="label label-default {% ifequal opts.object_name|lower 'eventsetup' %}Active{% endifequal %}" href="/admin/feed/eventsetup/{{setup.eventsetup.pk}}/{% if change %}edit{%endif %}">Time/Event</a>
 	           {% endif %}
 	 		{% endfor %}
-	      <a class="label label-default Active"  href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{experiment.pk}}">Sessions2</a>
+	      <a class="label label-default Active"  href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{experiment.pk}}">Sessions</a>
     </div>
 
      {% endif %}

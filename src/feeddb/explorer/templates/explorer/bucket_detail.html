@@ -13,7 +13,7 @@
       <div class="row">
         <div class="col-xs-12">
           <h1>Download Trials</h1>
-          <h2>Collection Details</h2>
+          <h2>My Data Collection Details</h2>
         </div>
       </div>
       <div class="row">
@@ -69,6 +69,7 @@ function checkbox_clicked(obj){
   <div class="col-xs-12">
     <h3>Trials</h3>
     <form action = "{% url "explorer.views.bucket_remove_trials" form.instance.id %}" method="POST" id="trial_form" name ="trial_form">
+      {% csrf_token %}
       <table class="table table-striped table-bordered">
         <tr>
           <th style="width:28px;"><input type="checkbox" id="select_all" onclick ="checkbox_clicked(this)" /></th>

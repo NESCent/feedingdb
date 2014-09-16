@@ -8,7 +8,6 @@
     <li>
       <a href="/admin/{{ app_label}}/experiment/{{experiment.id}}"> {{experiment|capfirst|escape|truncatewords:"18" }}</a>
     </li>
-    <span>/</span>
   {%endif%}
 
   {% ifequal object_id None %}

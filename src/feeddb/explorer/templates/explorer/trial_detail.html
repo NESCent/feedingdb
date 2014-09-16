@@ -141,7 +141,6 @@
             <tr><td class='TdField'>Primary Behavior </td><td class='TdValue'>{{trial.behavior_primary }}</td></tr>
             <tr><td class='TdField'>Secondary Behaviors</td><td class='TdValue'>{{trial.behavior_secondary }}</td></tr>
             <tr><td class='TdField'>Behavior Notes</td><td class='TdValue'>{{trial.behavior_notes }}</td></tr>
-            <tr><td class='TdField'>Estimated duration (sec) </td><td class='TdValue'>{{trial.estimated_duration}}</td></tr>
             <tr><td class='TdField'>Food Type</td><td class='TdValue'>{{trial.food_type }}</td></tr>
             <tr><td class='TdField'>Food Size</td><td class='TdValue'>{{trial.food_size }}</td></tr>
             <tr><td class='TdField'>Material Properties of Food</td><td class='TdValue'>{{trial.food_property }}</td></tr>
@@ -307,6 +306,7 @@ function bucket_changed(obj){
     <div class="records-selection">
       <p>Add this trial to my collection:</p>
       <form action="{% url "trial_add" trial.id %} " method="POST">
+      {% csrf_token %}
         <select class="chosen-select" name="bucket_id" onchange="bucket_changed(this)">
           <option value=""> - Select - </option>
           {% for bucket in user.bucket_related.all %}
@@ -314,7 +314,7 @@ function bucket_changed(obj){
           {%endfor%}
           <option value = "add new collection" data-toggle="collapse" data-target="#new-collection" >Add new collection</option>
         </select>
-        <input type="submit" value="Save" class="btn btn-primary" />
+        <input type="submit" value="Add" class="btn btn-primary" />
         <div id="new-collection" class="collapse">
           <noscript>If entering a new collection,</noscript>
           <div class="col-xs-8 new-bucket">
