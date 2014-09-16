@@ -105,9 +105,8 @@
     <div class="row">
     {% for inline_admin_formset in inline_admin_formsets %}
       {% include inline_admin_formset.opts.template %}
-      
-          {% submit_row %}
     {% endfor %}
+    {% submit_row %}
     {% block after_related_objects %}
     {% endblock %}
     {% if adminform and add %}
