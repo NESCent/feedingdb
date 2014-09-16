@@ -27,7 +27,7 @@ def bucket_index(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login?next=%s' % request.path)
     buckets = Bucket.objects.filter(created_by=request.user)
-    c = RequestContext(request, {'title': 'FeedDB Explorer', 'data collections': buckets})
+    c = RequestContext(request, {'title': 'FeedDB Explorer', 'data buckets': buckets})
     return render_to_response('explorer/bucket_list.html', c, mimetype="text/html")
 
 def bucket_add(request):
@@ -41,11 +41,11 @@ def bucket_add(request):
         if form.is_valid():
             form.instance.created_by = request.user
             form.save()
-            messages.success(request, "successfully added the data collection.")
+            messages.success(request, "Successfully added the data collection.")
             c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
             return render_to_response('explorer/bucket_detail.html', c)
         else:
-            messages.error(request, "failed to add the data collection.")
+            messages.error(request, "Failed to add the data collection.")
     else:
         bucket = Bucket()
         form = BucketModelForm(instance=bucket)
@@ -68,7 +68,7 @@ def bucket_delete(request, id):
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
     bucket.delete()
-    messages.success(request, 'successfully deleted the data collection:%s' % bucket)
+    messages.success(request, 'Successfully deleted the data collection:%s' % bucket)
     return HttpResponseRedirect('/explorer/bucket/')
 
 # VG-claim: Finishing this view in the 1st pass needs only  
@@ -121,7 +121,7 @@ def bucket_download(request, id):
         except KeyError:
             zipfile_name = bucket.default_zipfile_name()
             if zipfile_name == "":
-                messages.error(request, 'no zip file name selected.')
+                messages.error(request, 'No zip file name selected.')
                 c = RequestContext(request, {'title': 'FeedDB Explorer'})
                 return render_to_response('explorer/base.html', c)
 
@@ -148,7 +148,7 @@ def bucket_download(request, id):
                 field_selected.append(item[0])
                 message += item[0]+"\n"
         if  (download_choice=="0" or  download_choice=="2") and  len(field_selected) ==0:
-            messages.error(request, 'no fields selected.')
+            messages.error(request, 'No fields selected.')
             c = RequestContext(request, {'title': 'FeedDB Explorer'})
             return render_to_response('explorer/base.html', c)
         meta_selected = {}
@@ -167,7 +167,7 @@ def bucket_download(request, id):
                 channel_selected.append(item[0])
                 message += item[0]+"\n"
         if  (channel_choice=="1" and len(channel_selected) ==0):
-            messages.error(request, 'no channels selected.')
+            messages.error(request, 'No channels selected.')
             c = RequestContext(request, {'title': 'FeedDB Explorer'})
             return render_to_response('explorer/base.html', c)
         channel_download = []
@@ -188,7 +188,7 @@ def bucket_download(request, id):
         try:
             os.makedirs(tempdir)
         except OSError, err:
-            messages.error(request, 'failed to create folder for storing downloaded files.')
+            messages.error(request, 'Failed to create folder for storing downloaded files.')
             c = RequestContext(request, {'title': 'FeedDB Explorer'})
             return render_to_response('explorer/base.html', c)
         
@@ -422,7 +422,7 @@ def bucket_download(request, id):
     meta_forms.append(EventChannelModelForm())
     file_name = bucket.default_zipfile_name()
     
-    c = RequestContext(request, {'title': 'FeedDB Explorer', 'file_name': file_name, 'data collection':bucket, 'meta_forms':meta_forms})
+    c = RequestContext(request, {'title': 'FeedDB Explorer', 'file_name': file_name, 'bucket':bucket, 'meta_forms':meta_forms})
     return render_to_response('explorer/bucket_download.html', c)
 
 
@@ -506,14 +506,14 @@ def trial_search_put(request):
     bucket_selected = request.POST['bucket']
     if bucket_selected ==None or bucket_selected =="":
         messages.error(request, 'Please select a data collection to download trials.')
-        c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no data collection selected.'})
+        c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'No data collection selected.'})
         return render_to_response('explorer/base.html', c)
-    if request.POST['bucket']!='add new data collection':
+    if request.POST['bucket']!='Add new data bucket':
         bucket = Bucket.objects.get(pk=bucket_selected)
     else: 
         new_bucket_name=request.POST['new_bucket_name']
         if new_bucket_name==None and new_bucket_name =="":
-            c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'no new data collection name specified.'})
+            c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'No new bucket name specified.'})
             return render_to_response('explorer/base.html', c)
         else:
             bucket = Bucket()
@@ -559,7 +559,7 @@ def bucket_remove_trials(request, id):
         assocs = TrialInBucket.objects.filter(Q(trial__id__exact=trial_id) & Q(bin__id__exact=bucket.id))
         for assoc in assocs:
             assoc.delete()
-    messages.success(request, 'successfully removed the selected trials from the data collection')
+    messages.success(request, 'Successfully removed the selected trials from the data collection')
     return HttpResponseRedirect('/explorer/bucket/%s/' % id)
     
 def trial_detail(request, id): 
@@ -614,10 +614,10 @@ def trial_add(request, id):
         except Trial.DoesNotExist:
             c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
             return render_to_response('explorer/error.html', c)
-        if request.POST['bucket_id']!='add new data collection':
+        if request.POST['bucket_id']!='Add new bucket':
             bucket_id = request.POST['bucket_id']
             if bucket_id==None or bucket_id =="":
-                messages.error(request, 'no data collection specified')
+                messages.error(request, 'No data collection specified')
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
             try:
                 bucket = Bucket.objects.get(pk=bucket_id)
@@ -633,7 +633,7 @@ def trial_add(request, id):
         else: 
             new_bucket_name=request.POST['new_bucket_name']
             if new_bucket_name==None and new_bucket_name =="":
-                messages.error(request, 'no new data collection name specified')
+                messages.error(request, 'No new data collection name specified')
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
             else:
                 bucket = Bucket()

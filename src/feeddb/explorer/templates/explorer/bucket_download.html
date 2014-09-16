@@ -29,7 +29,7 @@ function select_allchannels_clicked(obj){
     <div class="row">
       <div class="col-xs-12">
         <h1>Download Trials</h1>
-        <h2>MY Data Collection Metadata: {{bucket}}</h2>
+        <h2>My Data Collection Metadata: {{bucket}}</h2>
       </div>
     </div>
     <div class="row">
@@ -56,7 +56,7 @@ function select_allchannels_clicked(obj){
       <div class="col-xs-3">
         <label for="id_description">Choose data to download:</label>
       </div>
-      <div class="col-xs-5 radios">
+      <div class="col-xs-5 radios download">
         <div class="row">
           <div class="col-xs-1">
             <input for="id_description" type="radio" name="download_choice" value="0" onclick="document.getElementById('meta_div').style.display='block';document.getElementById('channels_div').style.display='none';"/>
@@ -119,7 +119,7 @@ function select_allchannels_clicked(obj){
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <div id="channels_div" style="display:none;">
+    <div id="channels_div">
       <h3>Channel Selection</h3>
       <table class="table table-striped table-bordered">
         <tr><td  class="TdValue"><input type="radio"  name="channel_choice"  value ="0" onclick="document.getElementById('channels_sel_div').style.display='none';" checked="checked"/> <label>all channels: all trial files in current bucket will be downloaded as original files.</label> </td></tr>
