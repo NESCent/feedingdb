@@ -1,67 +1,95 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/base.html" %}
 {% load i18n %}
-
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load feedmedia %}{% app_static_prefix %}css/dashboard.css" />{% endblock %}
 
 {% block coltype %}colMS{% endblock %}
 
-{% block bodyclass %}dashboard{% endblock %}
+{% block bodyclass %}my-data{% endblock %}
 
-{% block breadcrumbs %}{% endblock %}
+{% block breadcrumbs %} {% endblock %}
 
-{% block content %}
-<div id="content-main">
- 
-
-<h3><a href="/admin/feed/study/add">Add a new study</a></h3>   
-<h3>My studies:</h3>
-<ul>
-{% for o in user.study_related.all|dictsort:"title"|slice:":6" %}
-{%ifnotequal forloop.counter 6 %} 
-    <li><a href="/admin/feed/study/{{o.id}}">{{o}}</a></li>
-{%endifnotequal%}
-
-{%ifequal forloop.counter 6 %} 
-    <li><a href="/admin/feed/study/?created_by={{user.id}}">More</a></li>
-{%endifequal%}	
-{% empty %}
-    <li>No studies contributed so far.</li>
-{%endfor%}
-</ul>
-<h3>My experiments:</h3>
-<ul>
-{% for o in user.experiment_related.all|dictsort:"title"|slice:":6" %}
-{%ifnotequal forloop.counter 6 %} 
-    <li><a href="/admin/feed/experiment/{{o.id}}">{{o}}</a></li>
-{%endifnotequal%}
-
-{%ifequal forloop.counter 6 %} 
-    <li><a href="/admin/feed/experiment/?created_by={{user.id}}">More</a></li>
-{%endifequal%}
-{% empty %}
-    <li>No experiments contributed so far.</li>
-
-{%endfor%}
-</ul>
-<h3>My trials:</h3>
-<ul>
-{% for o in user.trial_related.all|dictsort:"title"|slice:":11" %}
-{%ifnotequal forloop.counter 11 %} 
-    <li><a href="/admin/feed/trial/{{o.id}}">{{o}}</a></li>
-{%endifnotequal%}
-
-{%ifequal forloop.counter 11 %} 
-    <li><a href="/admin/feed/trial/?created_by={{user.id}}">More</a></li>
-{%endifequal%}
-{% empty %}
-    <li>No trials  contributed so far.</li>
-
-{%endfor%}
-
-
-</div>
+{% block pretitle %}
+  <div class="masthead">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>My Data
+          </h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
-{% block sidebar %}
-
+{% block content %}
+<div class="col-xs-12">
+  <div id="content-main">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3><a href="/admin/feed/study/add"><span class="glyphicon glyphicon-plus-sign"></span>Add a new study</a></h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">
+        <h3>My studies:</h3>
+      </div>
+      <div class="col-xs-9">
+        <ul>
+        {% for o in user.study_related.all|dictsort:"title"|slice:":6" %}
+          {%ifnotequal forloop.counter 6 %} 
+            <li><a href="/admin/feed/study/{{o.id}}">{{o}}</a></li>
+          {%endifnotequal%}
+          {%ifequal forloop.counter 6 %} 
+            <li><a href="/admin/feed/study/?created_by={{user.id}}">More</a></li>
+          {%endifequal%}
+          {% empty %}
+            <li>No studies contributed so far.</li>
+          {%endfor%}
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">
+        <h3>My experiments:</h3>
+      </div>
+      <div class="col-xs-9">
+        <ul>
+          {% for o in user.experiment_related.all|dictsort:"title"|slice:":6" %}
+            {%ifnotequal forloop.counter 6 %} 
+              <li><a href="/admin/feed/experiment/{{o.id}}">{{o}}</a></li>
+            {%endifnotequal%}
+            {%ifequal forloop.counter 6 %} 
+              <li><a href="/admin/feed/experiment/?created_by={{user.id}}">More</a></li>
+            {%endifequal%}
+            {% empty %}
+              <li>No experiments contributed so far.</li>
+          {%endfor%}
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">
+        <h3>My trials:</h3>
+      </div>
+      <div class="col-xs-9">
+        <ul>
+          {% for o in user.trial_related.all|dictsort:"title"|slice:":11" %}
+            {%ifnotequal forloop.counter 11 %} 
+              <li><a href="/admin/feed/trial/{{o.id}}">{{o}}</a></li>
+            {%endifnotequal%}
+            {%ifequal forloop.counter 11 %} 
+              <li><a href="/admin/feed/trial/?created_by={{user.id}}">More</a></li>
+            {%endifequal%}
+            {% empty %}
+              <li>No trials contributed so far.</li>
+          {%endfor%}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

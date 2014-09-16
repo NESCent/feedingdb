@@ -164,7 +164,7 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
     .masthead { background: @white; background: @white-alpha; padding-bottom: 32px;
     }
     #makeMeScrollable { 
-      .scrollWrapper { overflow: hidden;
+      .scrollWrapper { overflow: hidden; height: 300px;
         div.scrollableArea * { 
           position: relative;
           display: block;
@@ -390,7 +390,12 @@ body { background: url('../../../../../img/greyzz.png'); color: @navy; color: @n
       }
     }
   }
-  
+  &.my-data {
+    main {
+      span { padding-right: 4px; }
+      ul { margin-top: 30px; padding-left: 0; list-style: none; }
+    }
+  }
   
   /* Footer */
   

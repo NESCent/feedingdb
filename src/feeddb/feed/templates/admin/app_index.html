@@ -4,11 +4,21 @@
 {% if not is_popup %}
 
 {% block breadcrumbs %}
-<div class="breadcrumbs"><a href="../">
-{% trans "Home" %}</a> &rsaquo; 
-{% for app in app_list %}
-{% blocktrans with app.name as name %}{{ name }}{% endblocktrans %}
-{% endfor %}</div>{% endblock %}
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="breadcrumbs">
+              <ul id="crumbs">
+                <li><a href="/">{% trans 'Home' %}</a></li>
+                {% if title %}<span>/</span>
+                <li>My Data</li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
 
 {% endif %} 
 

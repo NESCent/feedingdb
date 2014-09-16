@@ -198,7 +198,6 @@ class EventChannelForm(forms.ModelForm):
 class TrialInlineForm(forms.ModelForm):
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
     position = IntegerField(label = "Position", widget=forms.TextInput(attrs={'size': 3}))
-    estimated_duration = IntegerField(label = "Estimated Duration (sec)", widget=forms.TextInput(attrs={'size': 10}), required=False)
     subj_notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     subj_treatment = CharField(label ="Subject Treatment",widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
 

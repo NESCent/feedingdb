@@ -6490,6 +6490,7 @@ body.about .masthead {
 body.home #makeMeScrollable .scrollWrapper,
 body.about #makeMeScrollable .scrollWrapper {
   overflow: hidden;
+  height: 300px;
 }
 body.home #makeMeScrollable .scrollWrapper div.scrollableArea *,
 body.about #makeMeScrollable .scrollWrapper div.scrollableArea * {
@@ -6878,6 +6879,14 @@ body #changelist-filter ul li a:hover {
 }
 body #changelist-filter ul li.selected a {
   background: #007ecf;
+}
+body.my-data main span {
+  padding-right: 4px;
+}
+body.my-data main ul {
+  margin-top: 30px;
+  padding-left: 0;
+  list-style: none;
 }
 body footer {
   background: #09192a;
