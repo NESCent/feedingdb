@@ -6167,7 +6167,7 @@ button.close {
 /* Colors */
 /* Typography */
 body {
-  background: url('../../../../../img/greyzz.png');
+  background: url('../../../../../images/greyzz.png');
   color: #112e4f;
   /* Typography / Global */
   /* Alerts */
@@ -6219,7 +6219,7 @@ body a:visited {
   color: #638ebc;
 }
 body hr {
-  background: url('../../../../../img/hr.png') repeat-x;
+  background: url('../../../../../images/hr.png') repeat-x;
   height: 2px;
   width: 100%;
 }
@@ -6339,7 +6339,7 @@ body header {
 }
 body header .logo {
   float: left;
-  background: url('../../../../../img/logo.png') no-repeat;
+  background: url('../../../../../images/logo.png') no-repeat;
   background-size: 163px;
   height: 85px;
   padding: 63px 0 0 180px;
@@ -6474,17 +6474,17 @@ body.about a.btn {
 }
 body.home a.btn.search,
 body.about a.btn.search {
-  background: url('../../../../../img/search.png') no-repeat #da5400;
-  background: url('../../../../../img/search.png') 98px 20px no-repeat #da5400;
+  background: url('../../../../../images/search.png') no-repeat #da5400;
+  background: url('../../../../../images/search.png') 98px 20px no-repeat #da5400;
 }
 body.home a.btn.upload,
 body.about a.btn.upload {
-  background: url('../../../../../img/upload.png') no-repeat #f29a00;
-  background: url('../../../../../img/upload.png') 78px 20px no-repeat #f29a00;
+  background: url('../../../../../images/upload.png') no-repeat #f29a00;
+  background: url('../../../../../images/upload.png') 78px 20px no-repeat #f29a00;
 }
 body.home .masthead,
 body.about .masthead {
-  background: #ffffff;
+  background: #eeeeee;
   padding-bottom: 32px;
 }
 body.home #makeMeScrollable .scrollWrapper,
@@ -6791,6 +6791,28 @@ body #ui-datepicker-div {
   background: #ffffff;
   border: 1px solid #988674;
 }
+body #ui-datepicker-div .ui-datepicker-prev-hover,
+body #ui-datepicker-div .ui-datepicker-next-hover {
+  top: 2px;
+}
+body #ui-datepicker-div .ui-datepicker-prev-hover {
+  left: 2px;
+}
+body #ui-datepicker-div .ui-datepicker-next-hover {
+  right: 2px;
+}
+body #ui-datepicker-div .ui-icon {
+  background-image: url('../../../../../images/ui-icons.png');
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+}
+body #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-w {
+  background-position: -80px -192px;
+}
+body #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-e {
+  background-position: -48px -192px;
+}
 body.detail-view table td.TdField {
   width: 164px;
 }
@@ -6822,6 +6844,16 @@ body #study_form fieldset p {
 }
 body #study_form fieldset .action_header {
   width: 84px;
+}
+body #subject_form fieldset td.original {
+  width: 0;
+  padding: 0;
+}
+body #subject_form fieldset td.notes {
+  height: 100px;
+}
+body #subject_form fieldset td.notes textarea {
+  height: 100px;
 }
 body .Tabs {
   margin-bottom: 20px;
@@ -6880,6 +6912,9 @@ body #changelist-filter ul li a:hover {
 body #changelist-filter ul li.selected a {
   background: #007ecf;
 }
+body.my-data main {
+  padding-bottom: 40px;
+}
 body.my-data main span {
   padding-right: 4px;
 }
@@ -6887,6 +6922,19 @@ body.my-data main ul {
   margin-top: 30px;
   padding-left: 0;
   list-style: none;
+}
+body #channels_div table input {
+  float: left;
+  display: block;
+  width: 20px;
+  margin: 7px 0 0;
+}
+body #channels_div table label {
+  float: left;
+  display: block;
+}
+body.login main {
+  padding-bottom: 40px;
 }
 body footer {
   background: #09192a;
@@ -7024,6 +7072,9 @@ body #clone-modal .row .chosen-container {
 .checkboxes label {
   color: inherit;
   font: inherit;
+}
+.radios.download input {
+  width: 20px;
 }
 .remove-sensor {
   padding: 2px;

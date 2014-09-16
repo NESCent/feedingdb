@@ -17,5 +17,5 @@ $( document ).ready(function() {
   $("select").on('change', function(ev) {
     $(ev.target).find('option:selected').click();
   });
-
+  
 });
