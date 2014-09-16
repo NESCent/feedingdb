@@ -1,8 +1,8 @@
-# VG: I suggest this usage for views.py: 
-#  This is where back end (DB access & data massaging) and 
-#  front end (presentation on web pages) are connected to each other. 
-#  We will only keep the connecting code here. 
-#  All non-trivial computations should be factored out separate modules. 
+# VG: I suggest this usage for views.py:
+#  This is where back end (DB access & data massaging) and
+#  front end (presentation on web pages) are connected to each other.
+#  We will only keep the connecting code here.
+#  All non-trivial computations should be factored out separate modules.
 
 import os, re, tempfile, zipfile, csv
 from django.core.servers.basehttp import FileWrapper
@@ -34,7 +34,7 @@ def bucket_add(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login?next=%s' % request.path)
     message=None
-    
+
     if request.method=='POST':
         bucket = Bucket(created_by=request.user)
         form = BucketModelForm(request.POST)
@@ -49,7 +49,7 @@ def bucket_add(request):
     else:
         bucket = Bucket()
         form = BucketModelForm(instance=bucket)
-    
+
     c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
     return render_to_response('explorer/bucket_add.html', c)
 
@@ -62,7 +62,7 @@ def bucket_delete(request, id):
         messages.error(request, 'Data collection with primary key %s does not exist.' % id)
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
-    #check if the user is the owner of the bucket. If not return error page 
+    #check if the user is the owner of the bucket. If not return error page
     if bucket.created_by.pk != request.user.pk:
         messages.error(request, 'Sorry, you are not allowed to delete a data collection owned by another user.')
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
@@ -71,9 +71,9 @@ def bucket_delete(request, id):
     messages.success(request, 'Successfully deleted the data collection:%s' % bucket)
     return HttpResponseRedirect('/explorer/bucket/')
 
-# VG-claim: Finishing this view in the 1st pass needs only  
-#     a detailed implementation of the bucket_detail.html template. 
-#  However, we'll later need to improve efficiency of DB lookups. 
+# VG-claim: Finishing this view in the 1st pass needs only
+#     a detailed implementation of the bucket_detail.html template.
+#  However, we'll later need to improve efficiency of DB lookups.
 def bucket_detail(request, id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login?next=%s' % request.path)
@@ -85,12 +85,12 @@ def bucket_detail(request, id):
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
 
-    #check if the user is the owner of the bucket. If not return error page 
+    #check if the user is the owner of the bucket. If not return error page
     if bucket.created_by.pk != request.user.pk:
         messages.error(request, 'Sorry, you are not allowed to view/edit a data collection owned by another user.')
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
-        
+
     if request.method=='POST':
         form = BucketModelForm(request.POST, instance=bucket)
         if form.is_valid():
@@ -100,7 +100,7 @@ def bucket_detail(request, id):
             messages.error(request, "Failed to save changes to data collection.")
     else:
         form = BucketModelForm(instance=bucket)
-    
+
     c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
     return render_to_response('explorer/bucket_detail.html', c)
 
@@ -125,9 +125,9 @@ def bucket_download(request, id):
                 c = RequestContext(request, {'title': 'FeedDB Explorer'})
                 return render_to_response('explorer/base.html', c)
 
-        if not zipfile_name.endswith(".zip"):   
+        if not zipfile_name.endswith(".zip"):
             zipfile_name +=".zip"
-             
+
         download_choice= request.POST['download_choice']
         channel_choice = request.POST['channel_choice']
         #meta_option= request.POST['meta_option']
@@ -139,8 +139,8 @@ def bucket_download(request, id):
         #    delimiter_char = ','
         #else:
         delimiter_char = ','
-       
-        
+
+
         #get selected fields
         field_selected = []
         for item in request.POST.items():
@@ -158,7 +158,7 @@ def bucket_download(request, id):
                 meta_selected[parts[1]]=[]
             parameter=parts[1]+":"+parts[2]
             meta_selected[parts[1]].append([parts[2],request.POST[parameter]])
-        
+
          #get selected channels
         channel_selected = []
         channel_headers=[]
@@ -191,7 +191,7 @@ def bucket_download(request, id):
             messages.error(request, 'Failed to create folder for storing downloaded files.')
             c = RequestContext(request, {'title': 'FeedDB Explorer'})
             return render_to_response('explorer/base.html', c)
-        
+
         #
         # create meta data if the user has chosen to do so
         #
@@ -201,7 +201,7 @@ def bucket_download(request, id):
             filenames["trials.csv"]=full_filename
 
             metaWriter = csv.writer(open(full_filename,"w"), delimiter=delimiter_char,  doublequote='false' , escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
-            
+
             #output trials
             #output headers
             headers=["Trial:ID"]
@@ -211,7 +211,7 @@ def bucket_download(request, id):
                     for v in value:
                         headers.append( v[1] )
             metaWriter.writerow(headers)
-        
+
             objects={}
             for trial in bucket.trials.all():
                 values=[trial.id]
@@ -224,15 +224,15 @@ def bucket_download(request, id):
                     if key in objects:
                         for v in value:
                             s=getattr(objects[key], v[0])
-                            if hasattr(s,'split'): 
+                            if hasattr(s,'split'):
                                 ss=s.split('\r\n')
                                 if len(ss)>1:
                                     s=' '.join(ss)
-                            
-                            values.append(s) 
-                            
+
+                            values.append(s)
+
                 metaWriter.writerow(values)
-        
+
             #output channels
             #generate channel headers
             headers=["Channel:ID"]
@@ -242,14 +242,14 @@ def bucket_download(request, id):
                           'PressureChannel','ForceChannel','StrainChannel','KinematicsChannel','EventChannel'):
                     for v in value:
                         headers.append( v[1] )
-            
+
             for key, value in meta_selected.items():
-                #generate headers for 2 meta data (specifically for crystal2 in sono data 
+                #generate headers for 2 meta data (specifically for crystal2 in sono data
                 if key in('Sensor','SonoSensor'):
                     for v in value:
                         headers.append( 'Sensor 2:%s' % v[1] )
-                        
-            channel_types = ['strainchannel','forcechannel','pressurechannel','kinematicschannel']        
+
+            channel_types = ['strainchannel','forcechannel','pressurechannel','kinematicschannel']
             for trial in bucket.trials.all():
                 #trial_name = trial.title.replace('.', '').replace(',', '').replace(' ', '_').strip().lower()
                 #filename = "trial_%d_%s_channels.csv" % (trial.id, trial_name)
@@ -265,7 +265,7 @@ def bucket_download(request, id):
                 for lineup in trial.session.channellineup_set.all():
                     objects={}
                     ch=lineup.channel
-                    
+
                     if ch == None:
                         values=["deadchannel"]
                     else:
@@ -286,20 +286,20 @@ def bucket_download(request, id):
                         if hasattr(ch,'eventchannel'):
                             objects["EventChannel"] = ch.eventchannel
                         if hasattr(ch,'pressurechannel'):
-                            objects["PressureChannel"] = ch.pressurechannel    
+                            objects["PressureChannel"] = ch.pressurechannel
                         if hasattr(ch,'strainchannel'):
-                            objects["StrainChannel"] = ch.strainchannel   
+                            objects["StrainChannel"] = ch.strainchannel
                         if hasattr(ch,'forcechannel'):
-                            objects["ForceChannel"] = ch.forcechannel   
+                            objects["ForceChannel"] = ch.forcechannel
                         if hasattr(ch,'kinematicschannel'):
-                            objects["KinematicsChannel"] = ch.kinematicschannel   
+                            objects["KinematicsChannel"] = ch.kinematicschannel
                         if hasattr(ch,'sonochannel'):
                             objects["SonoChannel"] = ch.sonochannel
                             objects["Sensor"] = ch.sonochannel.crystal1
                             objects["SonoSensor"] = ch.sonochannel.crystal1
                         if hasattr(ch,'emgchannel'):
                             objects["Sensor"] = ch.emgchannel.sensor
-                    
+
                     for key, value in meta_selected.items():
                         if key in('Setup','EmgSetup','SonoSetup','Sensor','EmgSensor','SonoSensor','Channel','EmgChannel','SonoChannel',
                                   'PressureChannel','ForceChannel','StrainChannel','KinematicsChannel','EventChannel'):
@@ -307,12 +307,12 @@ def bucket_download(request, id):
                                 s=''
                                 if key in objects and objects[key]!=None:
                                     s=getattr(objects[key], v[0])
-                                    if hasattr(s,'split'): #check if s is a string 
+                                    if hasattr(s,'split'): #check if s is a string
 		                                ss=s.split('\r\n')
 		                                if len(ss)>1:
 		                                    s=' '.join(ss)
-                                values.append(s)                 
-                           
+                                values.append(s)
+
                     #output the second crystal sensor information if it is sono channel
                     if hasattr(ch,'sonochannel'):
                         objects["Sensor"] = ch.sonochannel.crystal2
@@ -323,13 +323,13 @@ def bucket_download(request, id):
                                     s=''
                                     if key in objects:
 		                                s=getattr(objects[key], v[0])
-		                                if hasattr(s,'split'): 
+		                                if hasattr(s,'split'):
 		                                    ss=s.split('\r\n')
 		                                    if len(ss)>1:
 		                                        s=' '.join(ss)
-                                    values.append(s)                 
+                                    values.append(s)
                     metaWriter.writerow(values)
-                                        
+
                 f.close()
         #
         # put data files into the tmp zip
@@ -337,7 +337,7 @@ def bucket_download(request, id):
         data_files = {}
         if  (download_choice=="1" or  download_choice=="2"):
             # download all trial files
-            if channel_choice=="0": 
+            if channel_choice=="0":
                 for trial in bucket.trials.all():
                     #check if there is a data file
                     if(trial.data_file!=None and trial.data_file!=""):
@@ -364,11 +364,11 @@ def bucket_download(request, id):
                         reader = csv.reader(csvfile, dialect)
                         trial_readers[str(trial.id)]={"reader":reader,"hasmore":True,"file":csvfile}
                         total_trial_number += 1
-                        
+
                 rows ={}
                 newrow=[]
                 finished_file_number=0
-                
+
                 while finished_file_number<total_trial_number:
                     rows.clear()
                     for key in trial_readers:
@@ -380,7 +380,7 @@ def bucket_download(request, id):
                             finished_file_number += 1
                             trial_readers[key]["hasmore"]=False
                             trial_readers[key]["file"].close()
-                            
+
                     newrow=[]
                     for ch in channel_download:
                         if ch[0] in rows:
@@ -390,8 +390,8 @@ def bucket_download(request, id):
                                 return render_to_response('explorer/base.html', c)
                             newrow.append(rows[ch[0]][int(ch[1])-1])
                         else:
-                            newrow.append('')                  
-                    metaWriter.writerow(newrow)      
+                            newrow.append('')
+                    metaWriter.writerow(newrow)
                 f.close()
         response=send_zipfile(request, filenames,data_files, zipfile_name)
         for file, full_file in filenames.items():
@@ -405,7 +405,7 @@ def bucket_download(request, id):
     meta_forms.append(ExperimentModelForm())
     meta_forms.append(SessionModelForm())
     meta_forms.append(TrialModelForm())
-    
+
     meta_forms.append(SetupModelForm())
     meta_forms.append(EmgSetupModelForm())
     meta_forms.append(SonoSetupModelForm())
@@ -426,12 +426,12 @@ def bucket_download(request, id):
     return render_to_response('explorer/bucket_download.html', c)
 
 
-def trial_search(request): 
+def trial_search(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login?next=%s' % request.path)
-    if request.method == 'POST': 
+    if request.method == 'POST':
         query = Q()
-        form = SearchTrialForm(request.POST) 
+        form = SearchTrialForm(request.POST)
         emg_tech_id = Techniques.ENUM.emg
         sono_tech_id =Techniques.ENUM.sono
         if form.is_valid():
@@ -441,18 +441,18 @@ def trial_search(request):
             muscle = form.cleaned_data['muscle']
             behavior = form.cleaned_data['primary_behavior']
             if behavior!=None and behavior != "":
-                query = query & Q(behavior_primary__id__exact = behavior) 
+                query = query & Q(behavior_primary__id__exact = behavior)
             food = form.cleaned_data['food_type']
             item_per_page = int(form.cleaned_data['item_per_page'])
             page = int(form.cleaned_data['page'])
             if food!=None and food != "":
-                query = query & Q(food_type__icontains = food) 
+                query = query & Q(food_type__icontains = food)
             if muscle!=None and muscle != "":
                 muscle_emg_query =  Q(session__channels__setup__technique__exact = emg_tech_id) & Q(session__channels__emgchannel__sensor__location_controlled__id__exact = int(muscle))
                 muscle_sono_query =  Q(session__channels__setup__technique__exact = sono_tech_id) & (Q(session__channels__sonochannel__crystal1__location_controlled__id__exact = int(muscle)) | Q(session__channels__sonochannel__crystal2__location_controlled__id__exact = int(muscle)))
                 muscle_query =  muscle_emg_query | muscle_sono_query
                 query = query & muscle_query
-            
+
             sensor = form.cleaned_data['sensor']
             if sensor!=None and sensor != "":
                 #sensor_query = Q()
@@ -460,15 +460,15 @@ def trial_search(request):
                 #    if tq!=None and tq != "":
                 #sensor_query = sensor_query | Q(session__channels__setup__technique__id__exact = tq)
                 query = query & Q(session__channels__setup__technique__exact = int(sensor))
-            
+
             order_by = form.cleaned_data['order_by']
             if order_by in (None, ''):
                 order_by = 'session__experiment__subject__taxon'
             order_type = form.cleaned_data['order_type']
-            order_by_str = order_by 
+            order_by_str = order_by
             if order_type =="desc":
-                order_by_str = "-%s" % order_by  
-            
+                order_by_str = "-%s" % order_by
+
             start = (page-1)*item_per_page
             end = start + item_per_page
             results= Trial.objects.filter(query).distinct().order_by(order_by_str)
@@ -479,8 +479,8 @@ def trial_search(request):
             pages=[]
             for i in range(1,total_page+1):
                 pages.append(i)
-            results= Trial.objects.filter(query).distinct().order_by(order_by_str)[start:end]    
-            item_per_page_choice = [10,30,50,100,200]        
+            results= Trial.objects.filter(query).distinct().order_by(order_by_str)[start:end]
+            item_per_page_choice = [10,30,50,100,200]
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'form': form, 'total': total, 'item_per_page':item_per_page, 'item_per_page_choice':item_per_page_choice, 'page': page, 'pages': pages,'order_by':order_by, 'order_type':order_type, 'trials': results})
         return render_to_response('explorer/trial_list.html', c)
     else:
@@ -510,7 +510,7 @@ def trial_search_put(request):
         return render_to_response('explorer/base.html', c)
     if request.POST['bucket']!='Add new data bucket':
         bucket = Bucket.objects.get(pk=bucket_selected)
-    else: 
+    else:
         new_bucket_name=request.POST['new_bucket_name']
         if new_bucket_name==None and new_bucket_name =="":
             c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'No new bucket name specified.'})
@@ -527,7 +527,7 @@ def trial_search_put(request):
         if len(assocs) ==0:
             assoc = TrialInBucket(trial=trial, bin = bucket)
             assoc.save()
-    
+
     messages.success(request, 'Trials have been added to your data collection and are available for download.')
     return HttpResponseRedirect('/explorer/bucket/%s/' % bucket.id)
 
@@ -548,7 +548,7 @@ def bucket_remove_trials(request, id):
     except Trial.DoesNotExist:
         messages.error(request, 'Bucket with primary key %(key)r does not exist.' % {'key': escape(id)})
         return HttpResponseRedirect('/explorer/bucket/%s/' % id)
-    #check if the user is the owner of the bucket. If not return error page 
+    #check if the user is the owner of the bucket. If not return error page
     if bucket.created_by.pk != request.user.pk:
         messages.error(request, 'Sorry, you are not allowed to change a data collection owned by another user.')
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
@@ -561,8 +561,8 @@ def bucket_remove_trials(request, id):
             assoc.delete()
     messages.success(request, 'Successfully removed the selected trials from the data collection')
     return HttpResponseRedirect('/explorer/bucket/%s/' % id)
-    
-def trial_detail(request, id): 
+
+def trial_detail(request, id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login?next=%s' % request.path)
     try:
@@ -570,7 +570,13 @@ def trial_detail(request, id):
     except Trial.DoesNotExist:
         c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
         return render_to_response('explorer/error.html', c)
-    c = RequestContext(request, {'title': 'Trial Detail | FeedDB Explorer', 'trial': trial})
+
+    buckets = trial.bucket_set.filter(created_by=request.user)
+    c = RequestContext(request, {
+        'title': 'Trial Detail | FeedDB Explorer',
+        'trial': trial,
+        'buckets': buckets,
+    })
     return render_to_response('explorer/trial_detail.html', c)
 
 def trial_remove(request, id, bucket_id):
@@ -589,18 +595,18 @@ def trial_remove(request, id, bucket_id):
         messages.error(request, 'Data collection with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
         return HttpResponseRedirect('/explorer/trial/%s/' % id)
 
-    #check if the user is the owner of the bucket. If not return error page 
+    #check if the user is the owner of the bucket. If not return error page
     if bucket.created_by.pk != request.user.pk:
         messages.error(request, 'Sorry, you are not allowed to change a data collection owned by another user.')
         c = RequestContext(request, {'title': 'FeedDB Explorer'})
         return render_to_response('explorer/base.html', c)
-            
+
     try:
         assoc = TrialInBucket.objects.filter(Q(trial__id__exact=id) & Q(bin__id__exact=bucket_id))
     except TrialInBucket.DoesNotExist:
         messages.error(request, 'Trial: %s is not in the data collection: %s.' % (trial, bucket))
         return HttpResponseRedirect('/explorer/trial/%s/' % id)
-    
+
     assoc.delete()
     messages.error(request, 'Trial: %s has been successfully removed from the data collection: %s.' % (trial, bucket))
     return HttpResponseRedirect('/explorer/trial/%s/' % id)
@@ -624,13 +630,13 @@ def trial_add(request, id):
             except Bukcet.DoesNotExist:
                 messages.error(request, 'Data collection with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
-            #check if the user is the owner of the bucket. If not return error page 
+            #check if the user is the owner of the bucket. If not return error page
             if bucket.created_by.pk != request.user.pk:
                 messages.error(request, 'Sorry, you are not allowed to change a data collection owned by another user.')
                 c = RequestContext(request, {'title': 'FeedDB Explorer'})
                 return render_to_response('explorer/base.html', c)
- 
-        else: 
+
+        else:
             new_bucket_name=request.POST['new_bucket_name']
             if new_bucket_name==None and new_bucket_name =="":
                 messages.error(request, 'No new data collection name specified')
@@ -653,10 +659,10 @@ def trial_add(request, id):
         return HttpResponseRedirect('/explorer/trial/%s/' % id)
 
 def send_file(request, filename):
-    """                                                                         
-    Send a file through Django without loading the whole file into              
-    memory at once. The FileWrapper will turn the file object into an           
-    iterator for chunks of 8KB.                                                 
+    """
+    Send a file through Django without loading the whole file into
+    memory at once. The FileWrapper will turn the file object into an
+    iterator for chunks of 8KB.
     """
     wrapper = FileWrapper(file(filename))
     response = HttpResponse(wrapper, content_type='text/plain')
@@ -666,16 +672,16 @@ def send_file(request, filename):
     return response
 
 def send_zipfile(request, files, data_files, zipfilename):
-    """                                                                         
-    Create a ZIP file on disk and transmit it in chunks of 8KB,                 
-    without loading the whole file into memory. A similar approach can          
-    be used for large dynamic PDF files.                                        
+    """
+    Create a ZIP file on disk and transmit it in chunks of 8KB,
+    without loading the whole file into memory. A similar approach can
+    be used for large dynamic PDF files.
     """
     temp = tempfile.TemporaryFile()
     archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_DEFLATED)
     for file, filename in files.items():
         archive.write(filename, file)
-    
+
     for file, filename in data_files.items():
         archive.write(filename, file)
     archive.close()

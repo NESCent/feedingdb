@@ -5,7 +5,23 @@
 {% block extrahead %}{{ block.super }}
 <script type="text/javascript" src="../../../jsi18n/"></script>
 {{ media }}
-{% endblock %}
+{% endblock extrahead %}
+
+{% block extra_js %}
+<script>
+// Allow links to open accordions on this page by specifying ID in the hash
+(function($) {
+  $(document).on('ready', function() {
+    var anchor = window.location.hash.replace("#", "");
+    var $el = $('#' + anchor + '.collapse');
+    if ($el.length) {
+      $(".collapse.in").collapse('hide');
+      $el.collapse('show');
+    }
+  });
+})(jQuery);
+</script>
+{% endblock extra_js %}
 
 {% block coltype %}colM{% endblock %}
 

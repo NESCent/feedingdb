@@ -329,19 +329,17 @@ function bucket_changed(obj){
 <div class="row bucket-list">
   <div class="col-xs-8 col-xs-offset-2">
     <div class="records-selection">
-      {% for bucket in trial.bucket_set.all %}
+      {% for bucket in buckets %}
         {%if forloop.first %}
           <p>This trial is in following collection(s):</p>
-            <ul>
+          <ul>
         {%endif%}
-          {%ifequal bucket.created_by.id user.id %}
-              <li>
-                <a href="{% url "explorer.views.bucket_detail" bucket.id %}">{{bucket}}</a>
-                <a class="remove btn btn-default" title="Remove this trial from this collection" href="javascript: if(confirm('Please confirm you want to remove this trial from this collection:{{bucket}}?')==true)window.location.href='{% url "explorer.views.trial_remove" trial.id bucket.id %}';">Remove</a>
-              </li>
-          {%endifequal%}  
+            <li>
+              <a href="{% url "explorer.views.bucket_detail" bucket.id %}">{{bucket}}</a>
+              <a class="remove btn btn-default" title="Remove this trial from this collection" href="javascript: if(confirm('Please confirm you want to remove this trial from this collection:{{bucket}}?')==true)window.location.href='{% url "explorer.views.trial_remove" trial.id bucket.id %}';">Remove</a>
+            </li>
         {%if forloop.last %}
-            </ul>
+          </ul>
         {%endif%}
       {% endfor %}
     </div>
