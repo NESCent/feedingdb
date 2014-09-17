@@ -6954,6 +6954,9 @@ body #channels_div table label {
 body.login main {
   padding-bottom: 40px;
 }
+body.login footer {
+  margin-top: 0;
+}
 body footer {
   background: #09192a;
   clear: left;
