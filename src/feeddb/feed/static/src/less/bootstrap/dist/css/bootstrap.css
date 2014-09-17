@@ -6551,6 +6551,7 @@ body.about .box.box2 {
 }
 body.about .box ul {
   padding-left: 20px;
+  padding-top: 8px;
 }
 body.about .box ul li {
   padding-bottom: 10px;
@@ -6854,6 +6855,10 @@ body #subject_form fieldset td.notes {
 }
 body #subject_form fieldset td.notes textarea {
   height: 100px;
+}
+body.change-list .session-search {
+  margin-bottom: 0;
+  margin-top: 0;
 }
 body .Tabs {
   margin-bottom: 20px;
