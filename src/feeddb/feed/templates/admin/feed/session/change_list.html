@@ -52,6 +52,7 @@
       {% search_form cl %}
     </div>
   {% endblock %}
+  {% block pagination %}{% pagination cl %}{% endblock %}
     <div class="row">
       <div class="col-xs-12">
         {% block result_list %}

@@ -2,7 +2,7 @@
 {% load i18n %}
 <div class="row">
   <div class="col-xs-9">
-    <h3>{{ cl.result_count }} {% ifequal cl.result_count 1 %}{{ cl.opts.verbose_name }}{% else %}{{ cl.opts.verbose_name_plural }}{% endifequal %}</h3>
+    <h3>{{ cl.result_count }} {% ifequal cl.result_count 1 %}Result{% else %}Results{% endifequal %}</h3>
   </div>
   {% if show_all_url %}
   <div class="col-xs-3 records-list">

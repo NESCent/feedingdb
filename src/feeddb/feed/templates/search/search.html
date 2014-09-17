@@ -124,10 +124,10 @@
             <p>Add selected records to my data collection:</p>
             <select class="chosen-select" name="bucket">
               <option value=""> - Select - </option>
+              <option value="add new bucket" data-toggle="modal" data-target="#new_bucket_div">Add new collection</option>
               {% for bucket in user.bucket_related.all %}
                 <option value="{{bucket.id}}">{{bucket}}</option>
               {% endfor %}
-              <option value="add new bucket" data-toggle="modal" data-target="#new_bucket_div">Add new collection</option>
             </select>
             <input type="submit" name="put_bucket" value="Add" class="btn btn-primary" />
           </div>
