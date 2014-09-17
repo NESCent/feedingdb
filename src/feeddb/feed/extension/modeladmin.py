@@ -944,7 +944,6 @@ class ExperimentModelAdmin(DefaultModelAdmin):
         tech_setup.technique = technique
         tech_setup.created_by = request.user
 
-        tech_setup.created_by = request.user
         tech_setup.save()
 
     def delete_setup(self,setup):
