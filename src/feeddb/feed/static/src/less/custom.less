@@ -69,6 +69,9 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
   }
   .glyphicon { 
     &.glyphicon-asterisk { color: @orange; color: @orange-alpha; font-size: 10px; display: block; float: left; padding: 5px 2px 0 0; }
+    &.glyphicon-info-sign {
+      &:hover { text-decoration: none; }
+    }
   }
   
   /* Modals */
@@ -225,6 +228,9 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
       }
       &.table-striped {
         th { position: relative; padding-right: 20px;
+          .tooltip { font-weight: normal;
+            .tooltip-arrow { top: auto !important; }
+          }
           a { font-size: 14px; position: absolute; top: 4px; right: 3px;
             &:hover { color: @sky-blue; color: @sky-blue-alpha; text-decoration: none; }
           }
@@ -434,6 +440,7 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
     main { padding-bottom: 40px; }
     footer { margin-top: 0; }
   }
+  .chosen-container-multi .chosen-choices li.search-field input[type=text] { padding: 0 5px; height: auto; }
   /* Footer */
   
   footer { background: @dk-navy; background: @dk-navy-alpha; clear: left; border-bottom: 6px solid @orange; padding: 25px 0 42px 0; margin-top: 20px;

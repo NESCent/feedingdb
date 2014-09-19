@@ -6250,6 +6250,9 @@ body .glyphicon.glyphicon-asterisk {
   float: left;
   padding: 5px 2px 0 0;
 }
+body .glyphicon.glyphicon-info-sign:hover {
+  text-decoration: none;
+}
 body .modal-body .alert {
   margin-top: 0;
 }
@@ -6597,6 +6600,12 @@ body.search table.search-box td {
 body.search table.table-striped th {
   position: relative;
   padding-right: 20px;
+}
+body.search table.table-striped th .tooltip {
+  font-weight: normal;
+}
+body.search table.table-striped th .tooltip .tooltip-arrow {
+  top: auto !important;
 }
 body.search table.table-striped th a {
   font-size: 14px;
@@ -6956,6 +6965,10 @@ body.login main {
 }
 body.login footer {
   margin-top: 0;
+}
+body .chosen-container-multi .chosen-choices li.search-field input[type=text] {
+  padding: 0 5px;
+  height: auto;
 }
 body footer {
   background: #09192a;
