@@ -2,36 +2,59 @@
 {% load i18n %}
 
 {% block breadcrumbs %}
-<div class="breadcrumbs">
-     <a href="../../">{% trans "Home" %}</a> &rsaquo;
-     <a href="../">{{ app_label|capfirst }}</a> &rsaquo;
-     <a href="./">{{ opts.verbose_name_plural|capfirst }}</a> &rsaquo;
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="breadcrumbs">
+        <ul id="crumbs">
+          <li><a href="../../">{% trans "Home" %}</a></li><span>/</span>
+          <li><a href="../">{{ app_label|capfirst }}</a></li><span>/</span>
+          <li><a href="./">{{ opts.verbose_name_plural|capfirst }}</a></li><span>/</span>
      {% trans 'Delete multiple objects' %}
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 
 {% block content %}
 {% if perms_lacking %}
+<div class="col-xs-12">
+  <div class="messages alert alert-danger">
     <p>{% blocktrans %}Deleting the {{ object_name }} would result in deleting related objects, but your account doesn't have permission to delete the following types of objects:{% endblocktrans %}</p>
     <ul>
     {% for obj in perms_lacking %}
         <li>{{ obj }}</li>
     {% endfor %}
     </ul>
+  </div>
+</div>
 {% else %}
+<div class="col-xs-12">
+  <div class="messages alert alert-danger">
     <p>{% blocktrans %}Are you sure you want to delete the selected {{ object_name }} objects? All of the following objects and it's related items will be deleted:{% endblocktrans %}</p>
-    {% for deleteable_object in deletable_objects %}
-        <ul>{{ deleteable_object|unordered_list }}</ul>
-    {% endfor %}
-    <form action="" method="post">
-    <div>
-    {% for obj in queryset %}
-    <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk }}" />
-    {% endfor %}
-    <input type="hidden" name="action" value="delete_selected" />
-    <input type="hidden" name="post" value="yes" />
-    <input type="submit" value="{% trans "Yes, I'm sure" %}" />
+  </div>
+</div>
+<div class="row">
+  {% for deleteable_object in deletable_objects %}
+    <ul>{{ deleteable_object|unordered_list }}</ul>
+  {% endfor %}
+
+  <form action="" method="post">
+    {% csrf_token %}
+      <div class="col-xs-3">
+        {% for obj in queryset %}
+          <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk }}" />
+        {% endfor %}
+        <input type="hidden" name="action" value="delete_selected" />
+      </div>
+      <div class="col-xs-3">
+        <input type="hidden" name="post" value="yes" />
+        <input type="submit" value="{% trans "Yes, I&#39;m sure" %}" />
+      </div>
     </div>
-    </form>
+  </form>
+</div>
 {% endif %}
 {% endblock %}
