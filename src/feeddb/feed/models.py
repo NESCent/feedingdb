@@ -7,7 +7,7 @@ from django.db.models.expressions import F
 
 DATETIME_HELP_TEXT = 'For older dates, type by hand "yyyy-mm-dd" for example "1990-10-22"'
 # Only used for Trial here; the other containers are are affected through forms.py -- go figure (VG)
-BOOKKEEPING_HELP_TEXT = 'The reference to these data, as used in your lab notes or records (optional).'
+BOOKKEEPING_HELP_TEXT = 'Enter any text required for lab bookkeeping concerning the Study here'
 
 class FeedBaseModel(models.Model):
     """Base model for the whole project """
@@ -249,18 +249,24 @@ class Emgfiltering(CvTerm):
 #object models
 class Study(FeedBaseModel):
     title = models.CharField(max_length=255,
-                             help_text = "A descriptive name of this study.")
+                             help_text = "Enter a short title for the Study here")
     bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
-    start = models.DateField("Start Date", blank = False, null=False)
-    end = models.DateField("End Date", blank = True, null=True)
-    funding_agency = models.CharField(max_length=255, blank = True, null=True)
+    start = models.DateField("Start Date", blank = False, null=False,
+                             help_text = "The date that data collection for this Study began")
+    end = models.DateField("End Date", blank = True, null=True,
+                             help_text = "The date that data collection for this Study ended")
+    funding_agency = models.CharField(max_length=255, blank = True, null=True,
+                             help_text = "The agency that funded the research")
     approval_secured = models.CharField(max_length=255, blank = True, null=True,
-                                        help_text = "Whether an approval for Animal Care and Use or for Human Subjects was secured (Yes, No, or N/A).")
-    description = models.TextField()
-    resources = models.TextField("External Resources", blank = True, null=True)
+                                        help_text = "Affirmation that an institutional approval for Animal Care and Use or for Human Subjects was secured. Please read each statement very carefully. Data upload can not continue without checking the appropriate affirmation")
+    description = models.TextField(
+                             help_text = "A brief summary of the Study goals and data")
+    resources = models.TextField("External Resources", blank = True, null=True,
+                             help_text = "Published or other types of information relevant to interpreting the physiologic data can be cited here")
 
     # Previously private fields
-    pi = models.CharField("PI", max_length=255, null=True)
+    pi = models.CharField("PI", max_length=255, null=True,
+                             help_text = "The name of the PI of the lab where the data were collected and/or the grant that funded the research")
     organization = models.CharField("Institutional Affiliation", max_length=255, blank = True, null=True)
     lab = models.CharField(max_length=255, blank = True, null=True)
     funding = models.CharField(max_length=255, blank = True, null=True, help_text = "Funding agency, grant name, number, award date, etc.")

@@ -38,45 +38,53 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
+          {% if 'study' == opts.model_name %}
+            <p>Highlighted fields are required. Metadata are divided into Public and Private components.</p>
+          {% endif %}
           <hr />
+          {% if 'study' == opts.model_name %}
+          <h2>Study – Public Information</h2>
+          <p>Information that anyone can see and access concerning the Study</p>
+          {% endif %}
         </div>
       </div>
     </div>
   </div>
 {% endblock %}
 
-  {% block content %}
+{% block content %}
   <div class="col-xs-9">
-      {% block object-tools %}
-          <div class="row">
-    <div class="col-xs-2 col-xs-offset-10 admin-tools">
-      <ul class="object-tools object-tools-top">
-        {% if change %}
-          {% ifequal opts.app_label "feed" %}
+    {% block object-tools %}
+    <div class="row">
+      <div class="col-xs-2 col-xs-offset-10 admin-tools">
+        <ul class="object-tools object-tools-top">
+          {% if change %}
+            {% ifequal opts.app_label "feed" %}
   <!--         <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><span class="glyphicon glyphicon-pencil"></span></a></li> -->
-          {% endifequal %}
-          {% if has_delete_permission %}
-            <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" ><span class='glyphicon glyphicon-remove'></span></a></li>
+            {% endifequal %}
+            {% if has_delete_permission %}
+              <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" ><span class='glyphicon glyphicon-remove'></span></a></li>
+            {% endif %}
           {% endif %}
-        {% endif %}
-        {% if has_change_permission %}
-          {% if cloneable %}
-            <li><a class="clonelink" href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/clone" ><span class='glyphicon glyphicon-plus-sign'></span></a></li>
+          {% if has_change_permission %}
+            {% if cloneable %}
+              <li><a class="clonelink" href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/clone" ><span class='glyphicon glyphicon-plus-sign'></span></a></li>
+            {% endif %}	
           {% endif %}	
-        {% endif %}	
-        {% if has_change_permission %}
-          {% if not is_popup %}
-            {% if object_id != None %} 
-              <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/history/" class="historylink"><span class='glyphicon glyphicon-calendar'></span></a></li>
+          {% if has_change_permission %}
+            {% if not is_popup %}
+              {% if object_id != None %} 
+                <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/history/" class="historylink"><span class='glyphicon glyphicon-calendar'></span></a></li>
          <!-- {% if has_absolute_url %}
            <li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>
            {% endif%} -->
-           {% endif %}
-         {% endif %}
-       {% endif %}
-      </ul>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        </ul>
+      </div>
     </div>
-    </div>
+
 {% endblock %}
     <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">
     {% csrf_token %}
