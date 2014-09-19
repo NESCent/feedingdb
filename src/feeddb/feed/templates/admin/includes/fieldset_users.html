@@ -1,10 +1,10 @@
 {% load display i18n %}
+
 <fieldset class="module aligned {{ fieldset.classes }}">
   {% if fieldset.name %}<h2>{{ fieldset.name }}</h2>{% endif %}
   {% if fieldset.description %}<div class="description">{{ fieldset.description|safe }}</div>{% endif %}
   {% for line in fieldset %}
            
-      	
 	  {% for field in line %}
       {# custom error display so we can use bootstrap markup #}
       {% if field.field.errors %}
@@ -16,9 +16,8 @@
           {% endfor %}
         </div>
       {% endif %}
-
       {% if field.field.field.widget.is_hidden %}{{ field.field }}{%else%}
-      
+    
 	  <div class="row{% if line.errors %} errors{% endif %}">
       <div class="{% if not line.fields|length_is:"1" %} field-box{% endif %}">
         {% if field.is_checkbox %}

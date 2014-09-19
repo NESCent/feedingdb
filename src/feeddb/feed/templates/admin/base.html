@@ -26,11 +26,13 @@
 
       {% if not is_popup %}
       <header>
+      
         <div class="container">
           <div class="row">
             <div class="col-xs-12">
             <a href="/" class="logo">Feed Experiments End-user Database</a>
             <!-- <a href="/" class="login">Login</a> -->
+            
             {% if user.is_authenticated and user.is_staff %}
             <div class="login">
             	{% ifnotequal  user.first_name "anonymous" %}
@@ -52,18 +54,30 @@
                       <a href="{{ root_path }}password_change/">
                   {% endif %}
                   {% trans 'Change password' %}</a> /
-                    <a href="/logout?next=/admin/">
+                  
+                  {% if user.is_superuser %}
+                  <a href="{% url "admin:auth_group_changelist" %}">Manage groups</a> /
+                  <a href="{% url "admin:auth_group_add" %}">Add group</a> /
+                  <a href="{% url "admin:auth_user_changelist" %}">Manage users</a> /
+                  <a href="/change_form_users">Add users</a> /
+                  <a href="/logout?next=/admin/">
+                  {% endif %}
+                  
                   {% trans 'Log out' %}</a>
                 {% endifnotequal %}	
                 {% ifequal  user.first_name "anonymous" %}
                   <a href="/login">
                   {% trans 'Log in' %}</a>
                 {% endifequal %}	
+                
               {% endblock %}
               /
               <a href="">Help</a>
             </div> <!-- /.login -->
             {% endif %}
+
+
+
             </div>
           </div> <!-- /.row -->
         </div> <!-- /.container -->
