@@ -259,7 +259,7 @@ class Study(FeedBaseModel):
                              help_text = "The agency that funded the research")
     approval_secured = models.CharField(max_length=255, blank = True, null=True,
                                         help_text = "Affirmation that an institutional approval for Animal Care and Use or for Human Subjects was secured. Please read each statement very carefully. Data upload can not continue without checking the appropriate affirmation")
-    description = models.TextField(
+    description = models.TextField("Study Description",
                              help_text = "A brief summary of the Study goals and data")
     resources = models.TextField("External Resources", blank = True, null=True,
                              help_text = "Published or other types of information relevant to interpreting the physiologic data can be cited here")
