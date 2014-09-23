@@ -508,7 +508,7 @@ def trial_search_put(request):
         messages.error(request, 'Please select a data collection to download trials.')
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'No data collection selected.'})
         return render_to_response('explorer/base.html', c)
-    if request.POST['bucket']!='Add new data bucket':
+    if request.POST['bucket']!='add new bucket':
         bucket = Bucket.objects.get(pk=bucket_selected)
     else:
         new_bucket_name=request.POST['new_bucket_name']
