@@ -194,6 +194,9 @@ class AnatomicalLocation(CvTerm):
 
     # equivalent OWL term for migration
     ontology_term = models.ForeignKey(MuscleOwl, related_name="+", null=True)
+    class Meta:
+        verbose_name = 'Anatomical Location'
+        verbose_name_plural = 'Anatomical Locations'
 
 class Side(CvTerm):
     pass
