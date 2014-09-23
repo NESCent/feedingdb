@@ -1,5 +1,21 @@
 {% load i18n %}
-<div class="actions">
-    {% for field in action_form %}<label>{{ field.label }} {{ field }}</label>{% endfor %}
+<div class="row actions">
+  <div class="col-xs-10">
+{% for field in action_form %}
+    <label class="action">{{ field.label }}</label>
+    <label>
+      {{ field }}
+    </label>
+  {% endfor %}
     <button type="submit" class="button" title="{% trans "Run the selected action" %}" name="index" value="{{ action_index|default:0 }}">{% trans "Go" %}</button>
+  </div>
+  <div class="col-xs-2">
+    <div class="float-right">
+      {% if cl.has_filters %}
+      <a href="{% url "admin:auth_user_add" %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add User</a>
+      {% else %}
+      <a href="{% url "admin:auth_group_add" %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add Group</a>
+      {% endif %}
+    </div>
+  </div>
 </div>

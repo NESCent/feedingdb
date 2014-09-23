@@ -6879,6 +6879,33 @@ body.change-list .session-search {
   margin-bottom: 0;
   margin-top: 0;
 }
+body.change-list aside {
+  border-left: 2px solid #ccc;
+  min-height: 300px;
+  padding-left: 26px;
+  min-height: 438px;
+}
+body.change-list aside #changelist-filter {
+  margin: 0;
+}
+body.change-list aside #changelist-filter h3 {
+  float: none;
+  padding-bottom: 10px;
+}
+body.change-list aside #changelist-filter .user-filters {
+  clear: left;
+}
+body.change-list aside #changelist-filter .user-filters h3 {
+  font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  color: #da5400;
+  text-transform: none;
+}
+body.change-list aside #changelist-filter .user-filters ul {
+  padding-left: 0;
+}
+body.change-list aside #changelist-filter .user-filters ul li {
+  margin: 0 0 4px 0;
+}
 body .Tabs {
   margin-bottom: 20px;
 }
@@ -6965,6 +6992,19 @@ body.login main {
 }
 body.login footer {
   margin-top: 0;
+}
+body .actions .chosen-container {
+  width: 176px !important;
+}
+body .actions button {
+  padding: 0 15px;
+}
+body .actions a span {
+  padding-right: 4px;
+}
+body .actions a:hover {
+  text-decoration: none;
+  color: #da5400;
 }
 body .chosen-container-multi .chosen-choices li.search-field input[type=text] {
   padding: 0 5px;
@@ -7133,6 +7173,24 @@ table label {
 .align-right {
   text-align: right;
 }
+.float-right {
+  float: right;
+}
+.glyphicon-ok-sign,
+.glyphicon-minus-sign,
+.glyphicon-question-sign {
+  display: block;
+  text-align: center;
+}
+.glyphicon-ok-sign {
+  color: green;
+}
+.glyphicon-minus-sign {
+  color: red;
+}
+.glyphicon-question-sign {
+  color: #7c7c7c;
+}
 /* Form helpers */
 .required label,
 label.required {
@@ -7147,8 +7205,8 @@ form .aligned ul {
   margin-left: 0;
   padding-left: 0;
 }
-.float-right {
-  float: right;
+tr.clickable td:first-child {
+  width: 30px;
 }
 /* Custom media queries for larger screens */
 /* Large devices (large desktops, 1200px and up) */
