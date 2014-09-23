@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.conf import settings
 from django.contrib.admin.views.main import ALL_VAR, EMPTY_CHANGELIST_VALUE
 from django.contrib.admin.views.main import ORDER_VAR, ORDER_TYPE_VAR, PAGE_VAR, SEARCH_VAR
@@ -181,40 +181,61 @@ def feed_results(cl):
         for res in cl.result_list:
             lst= list(feed_items_for_result(cl, res, None))
             name_args = (cl.opts.app_label, cl.opts.model_name)
-            view_url = reverse('admin:%s_%s_view' % name_args, args=(res.pk,))
-            change_url = reverse('admin:%s_%s_change' % name_args, args=(res.pk,))
-            delete_url = reverse('admin:%s_%s_delete' % name_args, args=(res.pk,))
-            clone_url = reverse('admin:%s_%s_clone' % name_args, args=(res.pk,))
-            if hasattr(cl, "request"):
-                if cl.request.META['QUERY_STRING']:  
-                    change_url = '%s/?%s' % (change_url, cl.request.META['QUERY_STRING'])
-                    delete_url = '%s/?%s' % (delete_url, cl.request.META['QUERY_STRING'])
-            view_anchor = "<span class='glyphicon glyphicon-eye-open' alt='%s'></span>" % settings.STATIC_PREFIX
-            change_anchor = "<span class='glyphicon glyphicon-pencil' alt='%s'></span>" % settings.STATIC_PREFIX
-            delete_anchor = "<span class='glyphicon glyphicon-remove' alt='%s'></span>" % settings.STATIC_PREFIX
-            clone_anchor = "<span class='glyphicon glyphicon-plus-sign' alt='%s'></span>" % settings.STATIC_PREFIX
-            '''
-            view_action = u'<li><a href="%s">%s</a></li>' % (view_url, view_anchor)
-            change_action = u'<li><a href="%s">%s</a></li>' % (change_url, change_anchor)
-            delete_action = u'<li><a href="%s">%s</a></li>' % (delete_url, delete_anchor)
-            '''
-            view_action = u'<a href="%s">%s</a>' % (view_url, view_anchor)
-            change_action = u'<a href="%s">%s</a>' % (change_url, change_anchor)
-            delete_action = u'<a href="%s">%s</a>' % (delete_url, delete_anchor)
-            clone_action = u'<a href="%s">%s</a>' % (clone_url, clone_anchor)
+            try:
+                view_url = reverse('admin:%s_%s_view' % name_args, args=(res.pk,))
+                view_anchor = "<span class='glyphicon glyphicon-eye-open' alt='%s'></span>" % settings.STATIC_PREFIX
+                view_action = u'<a href="%s">%s</a>' % (view_url, view_anchor)
+            except NoReverseMatch:
+                view_action = ''
+
+            try:
+                change_url = reverse('admin:%s_%s_change' % name_args, args=(res.pk,))
+                if hasattr(cl, "request"):
+                    if cl.request.META['QUERY_STRING']:
+                        change_url = '%s/?%s' % (change_url, cl.request.META['QUERY_STRING'])
+
+                change_anchor = "<span class='glyphicon glyphicon-pencil' alt='%s'></span>" % settings.STATIC_PREFIX
+                change_action = u'<a href="%s">%s</a>' % (change_url, change_anchor)
+            except NoReverseMatch:
+                change_action = ''
+
+            try:
+                delete_url = reverse('admin:%s_%s_delete' % name_args, args=(res.pk,))
+                if hasattr(cl, "request"):
+                    if cl.request.META['QUERY_STRING']:
+                        delete_url = '%s/?%s' % (delete_url, cl.request.META['QUERY_STRING'])
+
+                delete_anchor = "<span class='glyphicon glyphicon-remove' alt='%s'></span>" % settings.STATIC_PREFIX
+                delete_action = u'<a href="%s">%s</a>' % (delete_url, delete_anchor)
+            except NoReverseMatch:
+                delete_action = ''
+
+            try:
+                clone_url = reverse('admin:%s_%s_clone' % name_args, args=(res.pk,))
+                clone_anchor = "<span class='glyphicon glyphicon-plus-sign' alt='%s'></span>" % settings.STATIC_PREFIX
+                clone_action = u'<a href="%s">%s</a>' % (clone_url, clone_anchor)
+            except NoReverseMatch:
+                clone_action = ''
+
             if hasattr(cl, "request"):
                 if cl.model_admin.has_change_permission (cl.request, res):
                     view_action = u'%s%s'  % (view_action, change_action)
                 if cl.model_admin.has_delete_permission (cl.request, res):
-                    view_action = u'%s%s'  % (view_action, delete_action)	
+                    view_action = u'%s%s'  % (view_action, delete_action)
                 if cl.model_admin.has_change_permission (cl.request, res):
-                    if cl.model.is_cloneable:
-                        view_action = u'%s%s'  % (view_action, clone_action)                    	
-            #lst.append(mark_safe(u'<td class="action"><ul class="feed-object-tools">%s</ul></td>' % view_action))
+                    try:
+                        if cl.model.is_cloneable:
+                            view_action = u'%s%s'  % (view_action, clone_action)
+                    except AttributeError:
+                        pass
+
             lst.append(mark_safe(u'<td class="action">%s</td>' % view_action))
             yield lst
 
-def feed_result_list(cl):
+@register.inclusion_tag("admin/change_list_results.html", takes_context=True)
+def feed_result_list(context, cl):
+    if not hasattr(cl, 'request') and 'request' in context:
+        cl.request = context['request']
     header_list = list(feed_result_headers(cl))
     act =   {"text": "action",
                "sortable": False,
@@ -225,4 +246,3 @@ def feed_result_list(cl):
     return {'cl': cl,
             'result_headers': header_list,
             'results': list(feed_results(cl))}
-feed_result_list = register.inclusion_tag("admin/change_list_results.html")(feed_result_list)
