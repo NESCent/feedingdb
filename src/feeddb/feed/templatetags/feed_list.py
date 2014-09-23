@@ -80,8 +80,10 @@ def feed_result_headers(cl):
                "class_attrib": mark_safe(th_classes and ' class="%s"' % ' '.join(th_classes) or '')}
 
 def _boolean_icon(field_val):
-    BOOLEAN_MAPPING = {True: 'yes', False: 'no', None: 'unknown'}
-    return mark_safe(u'<img src="%simg/admin/icon-%s.gif" alt="%s" />' % (settings.STATIC_PREFIX, BOOLEAN_MAPPING[field_val], field_val))
+    BOOLEAN_MAPPING = {True: 'ok-sign', False: 'minus-sign', None: 'question-sign'}
+    
+    return mark_safe(u'<span class="glyphicon glyphicon-%s"></span>' % ( BOOLEAN_MAPPING[field_val], ))
+        
 
 def feed_items_for_result(cl, result, form):
     first = True

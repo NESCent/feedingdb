@@ -57,9 +57,7 @@
                   
                   {% if user.is_superuser %}
                   <a href="{% url "admin:auth_group_changelist" %}">Manage groups</a> /
-                  <a href="{% url "admin:auth_group_add" %}">Add group</a> /
                   <a href="{% url "admin:auth_user_changelist" %}">Manage users</a> /
-                  <a href="{% url "admin:auth_user_add" %}">Add users</a> /
                   <a href="/logout?next=/admin/">
                   {% endif %}
                   

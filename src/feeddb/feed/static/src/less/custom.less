@@ -399,6 +399,17 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
   }
   &.change-list {
     .session-search { margin-bottom: 0; margin-top: 0; }
+    aside { border-left: 2px solid #ccc; min-height: 300px; padding-left: 26px; min-height: 438px;
+      #changelist-filter { margin: 0;
+        h3 { float: none; padding-bottom: 10px; }
+        .user-filters { clear: left;
+          h3 { font: 17px/26px @rockwell, serif; color: @orange; color: @orange-alpha; text-transform: none; }
+          ul { padding-left: 0;
+            li { margin: 0 0 4px 0; }
+          }
+        }
+      }
+    }
   }
   .Tabs { margin-bottom: 20px;
     .label-default { background: @gray; background: @gray-alpha; color: @white; color: @white-alpha; padding: 8px 23px; font-size: 14px; font-weight: normal;
@@ -439,6 +450,14 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
   &.login {
     main { padding-bottom: 40px; }
     footer { margin-top: 0; }
+  }
+  .actions { 
+    .chosen-container { width: 176px !important; }
+    button { padding: 0 15px; }
+    a {
+      span { padding-right: 4px; }
+      &:hover { text-decoration: none; color: @orange; color: @orange-alpha; }
+    }
   }
   .chosen-container-multi .chosen-choices li.search-field input[type=text] { padding: 0 5px; height: auto; }
   /* Footer */
@@ -501,11 +520,23 @@ table {
 .error-text { color: red; margin-bottom: 0; }
 .chosen-container { width: 100% !important; }
 .align-right { text-align: right; }
+.float-right { float: right; }
+.glyphicon-ok-sign, .glyphicon-minus-sign, .glyphicon-question-sign { display: block; text-align: center; }
+.glyphicon-ok-sign { color: green; }
+.glyphicon-minus-sign { color: red; }
+.glyphicon-question-sign { color: @gray; color: @gray-alpha; }
 
 /* Form helpers */
 .required label, label.required { font-weight: inherit !important; color: @orange !important; color: @orange-alpha !important; width: auto; float: none; display: block; }
 form .aligned p, form .aligned ul { margin-left: 0; padding-left: 0; }
-.float-right { float: right; }
+tr {
+  &.clickable {
+    td {
+      &:first-child { width: 30px; }
+    }
+  }
+}
+
 
 /* Custom media queries for larger screens */
 
