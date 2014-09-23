@@ -268,7 +268,7 @@ class Study(FeedBaseModel):
                              help_text = "Published or other types of information relevant to interpreting the physiologic data can be cited here")
 
     # Previously private fields
-    pi = models.CharField("PI", max_length=255, null=True,
+    pi = models.CharField("Lab PI", max_length=255, null=True,
                              help_text = "The name of the PI of the lab where the data were collected and/or the grant that funded the research")
     organization = models.CharField("Institutional Affiliation", max_length=255, blank = True, null=True)
     lab = models.CharField(max_length=255, blank = True, null=True)
