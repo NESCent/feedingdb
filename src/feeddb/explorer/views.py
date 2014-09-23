@@ -19,6 +19,8 @@ from feeddb.explorer.forms import *
 from django.conf import settings
 from django.contrib import messages
 
+import os.path
+
 def portal_page(request):
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'content': 'Welcome!'  })
     return render_to_response('explorer/index.html', c, mimetype="text/html")
@@ -508,7 +510,7 @@ def trial_search_put(request):
         messages.error(request, 'Please select a data collection to download trials.')
         c = RequestContext(request, {'title': 'FeedDB Explorer', 'message': 'No data collection selected.'})
         return render_to_response('explorer/base.html', c)
-    if request.POST['bucket']!='Add new data bucket':
+    if request.POST['bucket']!='add new bucket':
         bucket = Bucket.objects.get(pk=bucket_selected)
     else:
         new_bucket_name=request.POST['new_bucket_name']
@@ -677,13 +679,19 @@ def send_zipfile(request, files, data_files, zipfilename):
     without loading the whole file into memory. A similar approach can
     be used for large dynamic PDF files.
     """
+    def realpath(filename):
+        if not os.path.isabs(filename):
+            return os.path.join(settings.SITE_ROOT, filename);
+        return filename
+
     temp = tempfile.TemporaryFile()
     archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_DEFLATED)
     for file, filename in files.items():
-        archive.write(filename, file)
+        filename = os.path.join(settings.SITE_ROOT, filename);
+        archive.write(realpath(filename), file)
 
     for file, filename in data_files.items():
-        archive.write(filename, file)
+        archive.write(realpath(filename), file)
     archive.close()
     wrapper = FileWrapper(temp)
     response = HttpResponse(wrapper, content_type='application/zip')
