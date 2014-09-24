@@ -194,7 +194,7 @@ def feed_results(cl):
                 change_url = reverse('admin:%s_%s_change' % name_args, args=(res.pk,))
                 if hasattr(cl, "request"):
                     if cl.request.META['QUERY_STRING']:
-                        change_url = '%s/?%s' % (change_url, cl.request.META['QUERY_STRING'])
+                        change_url = '%s?%s' % (change_url, cl.request.META['QUERY_STRING'])
 
                 change_anchor = "<span class='glyphicon glyphicon-pencil' alt='%s'></span>" % settings.STATIC_PREFIX
                 change_action = u'<a href="%s">%s</a>' % (change_url, change_anchor)
@@ -204,8 +204,13 @@ def feed_results(cl):
             try:
                 delete_url = reverse('admin:%s_%s_delete' % name_args, args=(res.pk,))
                 if hasattr(cl, "request"):
-                    if cl.request.META['QUERY_STRING']:
-                        delete_url = '%s/?%s' % (delete_url, cl.request.META['QUERY_STRING'])
+                    qd = cl.request.GET.copy()
+                    if not 'cancel' in qd:
+                        qd['cancel'] = cl.request.get_full_path()
+                    if not 'next' in qd:
+                        qd['next'] = cl.request.get_full_path()
+
+                    delete_url = '%s?%s' % (delete_url, qd.urlencode(safe='/'))
 
                 delete_anchor = "<span class='glyphicon glyphicon-remove' alt='%s'></span>" % settings.STATIC_PREFIX
                 delete_action = u'<a href="%s">%s</a>' % (delete_url, delete_anchor)
