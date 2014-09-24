@@ -34,6 +34,12 @@ Next, you must dance a little jig in order to load muscle terms and run a dumb d
 ./manage.py migrate feed
 ```
 
+Next, load approval options.
+
+```
+./manage.py loaddata feeddb/feed/fixtures/approval_type.yaml
+```
+
 Then, load the schema and data into Solr:
 
 `sudo feeddb-refresh-solr`
