@@ -24,58 +24,56 @@
   
   <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
 
-      {% if not is_popup %}
+    {% if not is_popup %}
       <header>
       
         <div class="container">
           <div class="row">
             <div class="col-xs-12">
             <a href="/" class="logo">Feed Experiments End-user Database</a>
-            <!-- <a href="/" class="login">Login</a> -->
             
-            {% if user.is_authenticated and user.is_staff %}
-            <div class="login">
-            	{% ifnotequal  user.first_name "anonymous" %}
-                {% trans 'Welcome,' %}
-                <strong>{% firstof user.first_name user.username %}</strong>.
-              {% endifnotequal %}
-              
-              {% block userlinks %}
-                {% ifnotequal  user.first_name "anonymous" %}
-                  {% url "django-admindocs-docroot" as docsroot %}
-                    {% if docsroot %}
-                      <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
+              <div class="login">
+              {% if user.is_authenticated and user.is_staff %}
+              	{% ifnotequal  user.first_name "anonymous" %}
+                  {% trans 'Welcome,' %}
+                  <strong>{% firstof user.first_name user.username %}</strong>.
+                {% endifnotequal %}
+              {% endif %}
+                
+                {% block userlinks %}
+                  {% if user.is_authenticated and user.is_staff %}
+                  {% ifnotequal  user.first_name "anonymous" %}
+                    {% url "django-admindocs-docroot" as docsroot %}
+                      
+                      {% if docsroot %}
+                        <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
+                      {% endif %}
+                      
+                    {% url "admin:password_change" as password_change_url %}
+                    
+                    {% if password_change_url %}
+                      <a href="{{ password_change_url }}">
+                      {% else %}
+                        <a href="{{ root_path }}password_change/">
                     {% endif %}
-                
-                  {% url "admin:password_change" as password_change_url %}
-                  {% if password_change_url %}
-                    <a href="{{ password_change_url }}">
-                    {% else %}
-                      <a href="{{ root_path }}password_change/">
+                    
+                    {% trans 'Change password' %}</a> /
+                    
+                    {% if user.is_superuser %}
+                    <a href="{% url "admin:auth_group_changelist" %}">Manage groups</a> /
+                    <a href="{% url "admin:auth_user_changelist" %}">Manage users</a> /
+                    {% endif %}
+                    
+                    <a href="/logout?next=/admin/">
+                    {% trans 'Log out' %}</a>
+                  {% endifnotequal %}
+                  {% else %}
+                    <a href="/login">{% trans 'Log in' %}</a>
                   {% endif %}
-                  {% trans 'Change password' %}</a> /
-                  
-                  {% if user.is_superuser %}
-                  <a href="{% url "admin:auth_group_changelist" %}">Manage groups</a> /
-                  <a href="{% url "admin:auth_user_changelist" %}">Manage users</a> /
-                  <a href="/logout?next=/admin/">
-                  {% endif %}
-                  
-                  {% trans 'Log out' %}</a>
-                {% endifnotequal %}	
-                {% ifequal  user.first_name "anonymous" %}
-                  <a href="/login">
-                  {% trans 'Log in' %}</a>
-                {% endifequal %}	
-                
-              {% endblock %}
-              /
-              <a href="">Help</a>
-            </div> <!-- /.login -->
-            {% endif %}
-
-
-
+                {% endblock %}
+                /
+                <a href="">Help</a>
+              </div> <!-- /.login -->
             </div>
           </div> <!-- /.row -->
         </div> <!-- /.container -->
@@ -109,7 +107,7 @@
       </div>
       {% endblock %}
             
-            {% endif %}
+    {% endif %}
 
        {% if messages %}
        <div class="container">

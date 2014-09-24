@@ -19,19 +19,19 @@
 
 {% if not is_popup %}
   {% block breadcrumbs %}
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="breadcrumbs">
-      	<ul id="crumbs">
-        <li><a href="/">
-          {% trans "Home" %}
-        </a></li><span>/</span>
-        <li>{{ cl.opts.verbose_name_plural|capfirst }}</li>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="breadcrumbs">
+          	<ul id="crumbs">
+            <li><a href="/">
+              {% trans "Home" %}
+            </a></li><span>/</span>
+            <li>{{ cl.opts.verbose_name_plural|capfirst }}</li>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
   {% endblock %}
 {% endif %}
 

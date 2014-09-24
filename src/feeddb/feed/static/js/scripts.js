@@ -3,10 +3,13 @@ $( document ).ready(function() {
   $(".chosen-select").chosen();
 
   $("#makeMeScrollable").smoothDivScroll({
-			mousewheelScrolling: "allDirections",
-			manualContinuousScrolling: true,
-			autoScrollingMode: "onStart"
-		});
+      mousewheelScrolling: "vertical",
+      manualContinuousScrolling: true,
+      autoScrollingMode: "onStart",
+      mousewheelScrollingStep: 3,
+      autoScrollingStep: 1,
+      autoScrollingInterval: 20
+    });
 
   $("[data-toggle=tooltip]").tooltip();
   
