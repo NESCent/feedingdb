@@ -30,7 +30,7 @@
                 {% elif 'trial' == opts.model_name %}
                   Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
                 {% else %}
-                  Add new {{ opts.object_name}}
+                  Add New {{ opts.object_name}}
               {% endif %}
             {% endif %}
           </h1>
@@ -257,9 +257,11 @@
 {% endblock %}
 
 {% block sidebar %}
-  {% if add and 'user' != opts.model_name %}
-    {% load upload_status %}
-    {% upload_status_block %}
+  {% if add %}
+    {% if 'user' != opts.model_name and 'group' != opts.model_name %}
+      {% load upload_status %}
+      {% upload_status_block %}
+    {% endif %}
   {% endif %}
 {% endblock %}
 
