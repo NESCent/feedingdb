@@ -18,8 +18,20 @@
           <h1>
             {% if change %}
               Edit {{ opts.object_name}}
-                {% else %}
-                  Add new {{ opts.object_name}}
+            {% elif add %}
+              {% if 'subject' == opts.model_name %}
+                Add New {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a>
+              {% elif 'study' == opts.model_name %}
+                Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
+              {% elif 'experiment' == opts.model_name %}
+                Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
+              {% elif 'session' == opts.model_name %}
+                Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
+              {% elif 'trial' == opts.model_name %}
+                Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
+              {% else %}
+                Add new {{ opts.object_name}}
+              {% endif %}
             {% endif %}
           </h1>
         </div>
@@ -42,7 +54,7 @@
 
 {% block content %}
   <div class="col-xs-9">
-    {% block object-tools %}
+  {% block object-tools %}
     <div class="row">
       <div class="col-xs-2 col-xs-offset-10 admin-tools">
         <ul class="object-tools object-tools-top">
@@ -72,9 +84,9 @@
         </ul>
       </div>
     </div>
+  {% endblock %}
 
-{% endblock %}
-    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">
+  <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">
     {% csrf_token %}
     {% block form_top %}{% endblock %}
     {% if is_popup %}
@@ -102,7 +114,8 @@
       {% endif %}
     {% endfor %}
     
-
+    {% block after_field_sets %}
+    {% endblock %}
     
     <div class="row">
     {% for inline_admin_formset in inline_admin_formsets %}
@@ -119,29 +132,35 @@
     {% endif %}
     {# JavaScript for prepopulated fields #}
     {% prepopulated_fields_js %}
-        {% if add %}
-        {% if 'study' == opts.model_name %}
+    {% if add %}
+      {% if 'study' == opts.model_name %}
         <div class="col-xs-4 col-xs-offset-7">
           <input type="submit" name="_redirect_add_subject" value="Next Step: Add Subject(s)">
         </div>
-        {% elif 'subject' == opts.model_name %}
+      {% elif 'subject' == opts.model_name %}
         <div class="col-xs-4">
           <input type="submit" name="_redirect_add_experiment" value="Next Step: Add Experiment">
         </div>
-        {% elif 'experiment' == opts.model_name %}
+      {% elif 'experiment' == opts.model_name %}
         <div class="col-xs-4">
           <input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
         </div>
-        {% elif 'session' == opts.model_name %}
+      {% elif 'session' == opts.model_name %}
         <div class="col-xs-4">
           <input type="submit" name="_redirect_add_trial" value="Next Step: Add Trial">
         </div>
-        {% endif %}
-        {% else %}
-        {% include "admin/submit_line.html" %}
-        {% endif %}
+      {% endif %}
+    {% else %}
+      {% include "admin/submit_line.html" %}
+    {% endif %}
     </div>
     
+
+  </form>
+</div>
+
+{% endblock content %}
+
     {% block modal %}
     <div class="modal fade" id="clone-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -236,12 +255,7 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    {% endblock %}
-
-  </form>
-</div>
-
-{% endblock %}
+    {% endblock modal %}
 
 {% block sidebar %}
   {% if add and 'user' != opts.model_name %}
