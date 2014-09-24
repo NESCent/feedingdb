@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-  $(".chosen-select").chosen();
+  $(".chosen-select, select[multiple]").chosen();
 
   $("#makeMeScrollable").smoothDivScroll({
       mousewheelScrolling: "vertical",
@@ -12,7 +12,7 @@ $( document ).ready(function() {
     });
 
   $("[data-toggle=tooltip]").tooltip();
-  
+
   $( ".datepicker" ).datepicker();
 
   // Allow Bootstrap's data-toggle="collapse" to work on <option> elements by
@@ -20,5 +20,5 @@ $( document ).ready(function() {
   $("select").on('change', function(ev) {
     $(ev.target).find('option:selected').click();
   });
-  
+
 });
