@@ -9,6 +9,13 @@ DATETIME_HELP_TEXT = 'For older dates, type by hand "yyyy-mm-dd" for example "19
 # Only used for Trial here; the other containers are are affected through forms.py -- go figure (VG)
 BOOKKEEPING_HELP_TEXT = 'Enter any text required for lab bookkeeping concerning the Study here'
 
+class FeedUserProfile(models.Model):
+    user = models.OneToOneField(User, primary_key=True)
+    institutional_affiliation = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return u'Profile of user: %s' % self.user.username
+
 class FeedBaseModel(models.Model):
     """Base model for the whole project """
     created_by = models.ForeignKey(User, related_name="%(class)s_related", editable=False,  blank=True, null=True)
