@@ -48,6 +48,8 @@ class StudyAdmin(FeedModelAdmin):
     view_inlines = [SubjectViewInline, ExperimentViewInline, SessionViewInline, TrialViewInline]
     search_fields = ('title', 'description')
     list_display = ('title','start','end', 'funding_agency',)
+    # exclude old "approval" field
+    exclude = ('approval',)
     form = StudyChangeForm
     tabbed = False
 
@@ -75,6 +77,8 @@ class TrialAdmin(FeedModelAdmin):
     search_fields = ('title','bookkeeping','subj_notes','subj_treatment','food_type','food_property','behavior_primary__label','behavior_secondary','behavior_notes')
     list_display = ('title', 'session', 'taxon_name','food_type', 'behavior_primary','waveform_picture')
     form = TrialChangeForm
+    # hide old non-OWL behavior fields
+    exclude = ('behavior_primary','behavior_secondary',)
     ordering = ('position',)
     form = DisableForeignKeyForm
 
