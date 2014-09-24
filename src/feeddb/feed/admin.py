@@ -47,7 +47,7 @@ class SubjectViewInline(FeedTabularInline):
 class StudyAdmin(FeedModelAdmin):
     view_inlines = [SubjectViewInline, ExperimentViewInline, SessionViewInline, TrialViewInline]
     search_fields = ('title', 'description')
-    list_display = ('title','start','end', 'funding_agency','approval_secured',)
+    list_display = ('title','start','end', 'funding_agency',)
     form = StudyChangeForm
     tabbed = False
 
@@ -341,6 +341,7 @@ class AnatomicalLocationAdmin(TermModelAdmin):
 admin.site.register(Taxon, TaxonAdmin)
 admin.site.register(AnatomicalLocation, AnatomicalLocationAdmin)
 admin.site.register(Side,TermAdmin)
+admin.site.register(AnimalApprovalType)
 admin.site.register(DepthAxis,TermAdmin)
 admin.site.register(AnteriorPosteriorAxis,TermAdmin)
 admin.site.register(DorsalVentralAxis,TermAdmin)
