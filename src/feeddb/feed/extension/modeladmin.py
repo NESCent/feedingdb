@@ -671,33 +671,6 @@ class FeedModelAdmin(admin.ModelAdmin):
         context.update(extra_context or {})
         return self.render_view_view(request, context, obj=obj)
 
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        request = kwargs.pop("request", None)
-
-        if db_field.choices:
-            return self.formfield_for_choice_field(db_field, request, **kwargs)
-
-        if isinstance(db_field, (models.ForeignKey, models.ManyToManyField)):
-            if db_field.__class__ in self.formfield_overrides:
-                kwargs = dict(self.formfield_overrides[db_field.__class__], **kwargs)
-
-            if isinstance(db_field, models.ForeignKey):
-                formfield = self.formfield_for_foreignkey(db_field, request, **kwargs)
-            elif isinstance(db_field, models.ManyToManyField):
-                formfield = self.formfield_for_manytomany(db_field, request, **kwargs)
-
-            if formfield and db_field.name not in self.raw_id_fields:
-                formfield.widget = FeedRelatedFieldWidgetWrapper(formfield.widget, db_field.rel, self.admin_site)
-
-            return formfield
-
-        for klass in db_field.__class__.mro():
-            if klass in self.formfield_overrides:
-                kwargs = dict(self.formfield_overrides[klass], **kwargs)
-                return db_field.formfield(**kwargs)
-
-        return db_field.formfield(**kwargs)
-
     def changelist_view(self, request, extra_context=None):
         "The 'change list' admin view for this model."
         from feeddb.feed.extension.changelist import FeedChangeList
