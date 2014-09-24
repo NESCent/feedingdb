@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load i18n %}
+{% load i18n nextlink %}
 
 {% block breadcrumbs %}
 <div class="container">
@@ -50,11 +50,12 @@
         {% csrf_token %}
         <div class="col-xs-3">
           <input type="hidden" name="post" value="yes" />
+          <input type="hidden" name="next" value="{% next_url %}" />
           <input class="btn btn-primary" type="submit" value="{% trans "Yes, I&#39;m sure" %}" />
         </div>
         <div class="col-xs-3">
           <input type="hidden" name="post" value="no" />
-          <input class="btn btn-default" type="submit" value="{% trans "Cancel" %}" />
+          <a href="{% cancel_url %}" class="btn btn-default">{% trans "Cancel" %}</a>
         </div>
       </form>
     </div>
