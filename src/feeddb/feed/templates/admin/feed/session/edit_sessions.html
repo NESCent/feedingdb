@@ -15,14 +15,15 @@
 {% endblock %}
 
 
-{% block content %}<div id="content-main">
-{% block object-tools %}
-<ul class="object-tools object-tools-top">
-	{% if change %}
-                               <li><a href="/admin/feed/session/?experiment={{object_id}}" >{% trans "View" %}</a></li>
-                       {% endif %}
-</ul>
-{% endblock %}
+{% block content %}
+<div id="content-main">
+  {% block object-tools %}
+    <ul class="object-tools object-tools-top">
+      {% if change %}
+        <li><a href="/admin/feed/session/?experiment={{object_id}}" >{% trans "View" %}</a></li>
+      {% endif %}
+    </ul>
+  {% endblock %}
     {% if errors %}
         <p class="errornote">
         {% blocktrans count cl.formset.errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
