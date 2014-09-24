@@ -77,9 +77,7 @@
       <div class="row">
       
       {% for inline_admin_formset in inline_admin_formsets %}
-      
-          {% include inline_admin_formset.opts.template %}
-          {% submit_row %}
+        {% include inline_admin_formset.opts.template %}
       {% endfor %}
       
       {% block after_related_objects %}{% endblock %}
@@ -91,13 +89,18 @@
 
       {# JavaScript for prepopulated fields #}
       {% prepopulated_fields_js %}
+        
+      {% if add %}
         <div class="col-xs-4">
-          {% if add %}
           <input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
-        {% else %}
-        {% include "admin/submit_line.html" %}
-        {% endif %}
         </div>
+        <div class="col-xs-4">
+          <input type="submit" value="{% trans 'Save and Add Another' %}" name="_addanother" {{ onclick_attrib }} />
+        </div>
+        {% submit_row %}
+      {% else %}
+        {% include "admin/submit_line.html" %}
+      {% endif %}
     </div>
   </form>
 </div>

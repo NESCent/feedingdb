@@ -6875,6 +6875,10 @@ body #subject_form fieldset td.notes {
 body #subject_form fieldset td.notes textarea {
   height: 100px;
 }
+body #session_form fieldset td.original {
+  width: 0;
+  padding: 0;
+}
 body.change-list .session-search {
   margin-bottom: 0;
   margin-top: 0;
