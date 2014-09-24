@@ -105,6 +105,8 @@ INSTALLED_APPS = (
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
+AUTH_PROFILE_MODULE = 'feeddb.feed.models.FeedUserProfile'
+
 ### Debug toolbar configuration
 def custom_toolbar_show(request):
     return 'show_debug_toolbar' in request.session and request.session['show_debug_toolbar']

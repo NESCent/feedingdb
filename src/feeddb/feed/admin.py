@@ -344,9 +344,14 @@ class AnatomicalLocationAdmin(TermModelAdmin):
     list_filter = ('category',)
     ordering = ('category', 'label')
 
+class FeedUserProfileInline(FeedTabularInline):
+    model = FeedUserProfile
+    extra = 0
+
 class FeedUserAdmin(UserAdmin):
     # disable "fancy" two-select widget for multiple-select fields
     filter_horizontal = ()
+    inlines = [FeedUserProfileInline]
 
 class FeedGroupAdmin(GroupAdmin):
     # disable "fancy" two-select widget for multiple-select fields
