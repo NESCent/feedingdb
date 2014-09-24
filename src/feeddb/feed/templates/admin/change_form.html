@@ -154,8 +154,12 @@
         {% include "admin/submit_line.html" %}
         {% endif %}
     </div>
-    
-    {% block modal %}
+  </form>
+</div>
+
+{% endblock content %}
+
+  {% block modal %}
     <div class="modal fade" id="clone-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -249,12 +253,7 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    {% endblock %}
-
-  </form>
-</div>
-
-{% endblock %}
+  {% endblock modal %}
 
 {% block sidebar %}
   {% if add %}

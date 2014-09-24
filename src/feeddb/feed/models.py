@@ -117,6 +117,13 @@ class CvTerm(FeedBaseModel):
         ordering = ["label"]
         abstract = True
 
+class AnimalApprovalType(FeedBaseModel):
+    description = models.TextField()
+    is_cloneable = False
+
+    def __unicode__(self):
+        return self.description
+
 class DevelopmentStage(CvTerm):
     pass
 
@@ -260,8 +267,17 @@ class Study(FeedBaseModel):
                              help_text = "The date that data collection for this Study ended")
     funding_agency = models.CharField(max_length=255, blank = True, null=True,
                              help_text = "The agency that funded the research")
-    approval_secured = models.CharField(max_length=255, blank = True, null=True,
-                                        help_text = "Affirmation that an institutional approval for Animal Care and Use or for Human Subjects was secured. Please read each statement very carefully. Data upload can not continue without checking the appropriate affirmation")
+
+    approval_type = models.ManyToManyField(AnimalApprovalType, verbose_name="Approval Secured", blank=False, null=True,
+                             help_text =
+                                '''
+                                Affirmation that an institutional approval for
+                                Animal Care and Use or for Human Subjects was
+                                secured. Please read each statement very
+                                carefully. Data upload can not continue without
+                                checking the appropriate affirmation
+                                ''')
+
     description = models.TextField("Study Description",
                              help_text = "A brief summary of the Study goals and data")
     resources = models.TextField("External Resources", blank = True, null=True,
