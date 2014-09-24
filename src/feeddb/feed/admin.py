@@ -6,6 +6,9 @@ from feeddb.feed.extension.modeladmin import *
 from feeddb.feed.extension.forms import *
 from feeddb.feed.extension.formsets import *
 
+from django.contrib.auth.admin import UserAdmin, GroupAdmin
+from django.contrib.auth.models import User, Group
+
 class ExperimentViewInline(FeedTabularInline):
     model = Experiment
     extra = 0
@@ -341,6 +344,19 @@ class AnatomicalLocationAdmin(TermModelAdmin):
     list_filter = ('category',)
     ordering = ('category', 'label')
 
+class FeedUserAdmin(UserAdmin):
+    # disable "fancy" two-select widget for multiple-select fields
+    filter_horizontal = ()
+
+class FeedGroupAdmin(GroupAdmin):
+    # disable "fancy" two-select widget for multiple-select fields
+    filter_horizontal = ()
+
+admin.site.unregister(User)
+admin.site.register(User, FeedUserAdmin)
+
+admin.site.unregister(Group)
+admin.site.register(Group, FeedGroupAdmin)
 
 admin.site.register(Taxon, TaxonAdmin)
 admin.site.register(AnatomicalLocation, AnatomicalLocationAdmin)
