@@ -18,20 +18,8 @@
           <h1>
             {% if change %}
               Edit {{ opts.object_name}}
-            {% elif add %}
-              {% if 'subject' == opts.model_name %}
-                Add New {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a>
-              {% elif 'study' == opts.model_name %}
-                Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
-              {% elif 'experiment' == opts.model_name %}
-                Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
-              {% elif 'session' == opts.model_name %}
-                Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
-              {% elif 'trial' == opts.model_name %}
-                Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
-              {% else %}
-                Add new {{ opts.object_name}}
-              {% endif %}
+            {% else %}
+              Add new {{ opts.object_name}}
             {% endif %}
           </h1>
         </div>
@@ -114,8 +102,7 @@
       {% endif %}
     {% endfor %}
     
-    {% block after_field_sets %}
-    {% endblock %}
+
     
     <div class="row">
     {% for inline_admin_formset in inline_admin_formsets %}
