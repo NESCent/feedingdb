@@ -16,7 +16,7 @@ class ExperimentViewInline(FeedTabularInline):
     fields = ['title', 'subject','subj_devstage','start','end']
     tab_name = "Experiments"
 
-class IllustrationInline(FeedTabularInline):
+class IllustrationInline(FeedStackedInline):
     model = Illustration
     extra = 1
     fields = ('picture','notes')
@@ -276,7 +276,7 @@ class SonoChannelAdmin(DefaultModelAdmin):
     ordering = ('crystal1',)
 
 
-class ChannelLineupInline(FeedTabularInline):
+class ChannelLineupInline(FeedStackedInline):
     model = ChannelLineup
     extra = 8
     tabbed = True
@@ -344,7 +344,7 @@ class AnatomicalLocationAdmin(TermModelAdmin):
     list_filter = ('category',)
     ordering = ('category', 'label')
 
-class FeedUserProfileInline(FeedTabularInline):
+class FeedUserProfileInline(FeedStackedInline):
     model = FeedUserProfile
     extra = 0
 
