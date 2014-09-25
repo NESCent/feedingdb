@@ -15,25 +15,12 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <h1>
-            {% if change %}
-              Edit {{ opts.object_name}}
-            {% else %}
-              Add new {{ opts.object_name}}
-            {% endif %}
-          </h1>
+          <h1>Edit {{ opts.object_name}}</h1>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          {% if 'study' == opts.model_name %}
-            <p>Highlighted fields are required. Metadata are divided into Public and Private components.</p>
-          {% endif %}
           <hr />
-          {% if 'study' == opts.model_name %}
-          <h2>Study – Public Information</h2>
-          <p>Information that anyone can see and access concerning the Study</p>
-          {% endif %}
         </div>
       </div>
     </div>
@@ -102,8 +89,6 @@
       {% endif %}
     {% endfor %}
     
-
-    
     <div class="row">
     {% for inline_admin_formset in inline_admin_formsets %}
       {% include inline_admin_formset.opts.template %}
@@ -119,130 +104,12 @@
     {% endif %}
     {# JavaScript for prepopulated fields #}
     {% prepopulated_fields_js %}
-    {% if add %}
-      {% if 'study' == opts.model_name %}
-        <div class="col-xs-4 col-xs-offset-7">
-          <input type="submit" name="_redirect_add_subject" value="Next Step: Add Subject(s)">
-        </div>
-      {% elif 'subject' == opts.model_name %}
-        <div class="col-xs-4">
-          <input type="submit" name="_redirect_add_experiment" value="Next Step: Add Experiment">
-        </div>
-      {% elif 'experiment' == opts.model_name %}
-        <div class="col-xs-4">
-          <input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
-        </div>
-      {% elif 'session' == opts.model_name %}
-        <div class="col-xs-4">
-          <input type="submit" name="_redirect_add_trial" value="Next Step: Add Trial">
-        </div>
-      {% endif %}
-    {% else %}
-      {% include "admin/submit_line.html" %}
-    {% endif %}
+    {% include "admin/submit_line.html" %}
     </div>
-    
-
   </form>
 </div>
 
 {% endblock content %}
-
-    {% block modal %}
-    <div class="modal fade" id="clone-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h3 class="modal-title">Clone Existing {{ opts.object_name}}</h3>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="row">
-                <div class="col-xs-3 col-xs-offset-1">
-                  <label>{{ opts.object_name}}:</label>
-                </div>
-                <div class="col-xs-5">
-                  <select class="chosen-select" single>
-                    <option>Existing {{ opts.object_name.lower}}</option>
-                    <option>Study 1</option>
-                  </select>
-                </div>
-              </div>
-              <div class="modal-choices">
-                <div class="row">
-                  <div class="col-xs-1 col-xs-offset-1">
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                  </div>
-                  <div class="col-xs-10">
-                    <label>Clone only {{ opts.object_name.lower}} metadata</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-1 col-xs-offset-1">
-                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                  </div>
-                  <div class="col-xs-10">
-                    <label>Clone all metadata</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-11 col-xs-offset-1">
-                  <div class="alert alert-info">
-                    <p>Cloned metadata can be modified or removed later from the Study Overview screen.</p>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <div class="row">
-              <div class="col-xs-4 col-xs-offset-2">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-              <div class="col-xs-4">
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    
-    <!-- Create new taxon modal -->
-    
-    <div class="modal fade" id="taxon-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h3 class="modal-title">Create New Taxon</h3>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-xs-3 col-xs-offset-1">
-                <label>Name:</label>
-              </div>
-              <div class="col-xs-5">
-                <input name="new_taxon_name" size="20" placeholder="Enter new taxon name" />
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div class="row">
-              <div class="col-xs-4 col-xs-offset-2">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              </div>
-              <div class="col-xs-4">
-                <button type="button" class="btn btn-primary">Add</button>
-              </div>
-            </div>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    {% endblock modal %}
 
 {% block sidebar %}
   {% if add and 'user' != opts.model_name %}
