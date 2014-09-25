@@ -7010,6 +7010,18 @@ body .actions a:hover {
   text-decoration: none;
   color: #da5400;
 }
+body.users .check {
+  display: block;
+  width: 40px;
+  padding-right: 20px;
+  float: left;
+}
+body.users .chosen-container-multi .chosen-choices {
+  padding: 5px;
+}
+body.password-change main {
+  padding: 30px 0 0 0;
+}
 body .chosen-container-multi .chosen-choices li.search-field input[type=text] {
   padding: 0 5px;
   height: auto;
