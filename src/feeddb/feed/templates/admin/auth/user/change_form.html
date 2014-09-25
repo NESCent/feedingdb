@@ -89,7 +89,6 @@
       {% endif %}
     {% endfor %}
     
-    <div class="row">
     {% for inline_admin_formset in inline_admin_formsets %}
       {% include inline_admin_formset.opts.template %}
     {% endfor %}
@@ -98,7 +97,7 @@
     
     {% block after_related_objects %}
     {% endblock %}
-    
+    <div class="row">
     {% if adminform and add %}
       <script type="text/javascript">document.getElementById("{{ adminform.first_field.auto_id }}").focus();</script>
     {% endif %}

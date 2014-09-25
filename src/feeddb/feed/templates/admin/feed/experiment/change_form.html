@@ -74,7 +74,6 @@
       {% endfor %}
       
       {% block after_field_sets %}{% endblock %}
-      <div class="row">
       
       {% for inline_admin_formset in inline_admin_formsets %}
         {% include inline_admin_formset.opts.template %}
@@ -82,7 +81,7 @@
       
       {% block after_related_objects %}{% endblock %}
 
-
+      <div class="row">
       {% if adminform and add %}
          <script type="text/javascript">document.getElementById("{{ adminform.first_field.auto_id }}").focus();</script>
       {% endif %}
@@ -91,7 +90,7 @@
       {% prepopulated_fields_js %}
         
       {% if add %}
-        <div class="col-xs-4">
+        <div class="col-xs-4 col-xs-offset-3">
           <input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
         </div>
         <div class="col-xs-4">
