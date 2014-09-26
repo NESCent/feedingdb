@@ -169,7 +169,7 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
     button { width: auto; margin-bottom: 0; }
   }
   .breadcrumbs {
-    ul { padding-left: 0;
+    ul { padding-left: 0; font: 15px/19px @rockwell, serif;
       li { list-style: none; float: left; margin: 0 4px;
         a {  }
       }
@@ -339,6 +339,7 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
             &:last { padding: 0; }
           }
         }
+        
       }
       &#change-history {
         th {
@@ -445,6 +446,19 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
   }
   &.change-list {
     .session-search { margin-bottom: 0; margin-top: 0; }
+    main {
+      table {
+        &.table-striped {
+          th {
+            &.title { width: 246px; }
+            &.Species { width: 140px; }
+            &.Food.Type { width: 140px; }
+            &.Illustration { width: 92px; }
+            &.study { width: 280px; }
+          }
+        }
+      }
+    }
     aside { border-left: 2px solid #ccc; min-height: 300px; padding-left: 26px; min-height: 438px;
       #changelist-filter { margin: 0;
         h3 { float: none; padding-bottom: 10px; }
@@ -588,6 +602,22 @@ table {
 .glyphicon-question-sign { color: @gray; color: @gray-alpha; }
 .short-box {
   textarea { height: 120px; }
+}
+table {
+  tr {
+    &.clickable {
+      td {
+        &:first-child { width: auto; }
+      }
+    }
+    th {
+      &.action_header { width: 85px; }
+      &.label { display: table-cell; padding: 8px; font-size: 13px; text-align: left; border-radius: 0; }
+    }
+    td {
+      &.action { width: 85px; }
+    }
+  }
 }
 .large-table { overflow: auto; border: 1px solid #dddddd;
   table { background: transparent;
