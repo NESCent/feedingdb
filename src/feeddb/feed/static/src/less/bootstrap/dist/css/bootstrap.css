@@ -6329,6 +6329,9 @@ body form textarea {
   color: #988674;
   width: 100%;
 }
+body form textarea {
+  height: 120px;
+}
 body form button,
 body form input[type="button"],
 body form input[type="reset"],
