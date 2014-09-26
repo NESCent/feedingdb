@@ -247,7 +247,7 @@ def feed_result_list(context, cl):
     act =   {"text": "action",
                "sortable": False,
                "url": "",
-               "class_attrib": mark_safe(" class='action_header2'")}
+               "class_attrib": mark_safe(" class='action_header'")}
 
     header_list.append(act)
     return {'cl': cl,
