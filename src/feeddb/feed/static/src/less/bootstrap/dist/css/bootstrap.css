@@ -6178,6 +6178,7 @@ body {
 body h1 {
   font: 36px/24px 'Roboto', sans-serif, sans-serif;
   color: #112e4f;
+  text-transform: capitalize;
 }
 body h2,
 body h2.panel-title a {
