@@ -6254,6 +6254,16 @@ body .glyphicon.glyphicon-asterisk {
 body .glyphicon.glyphicon-info-sign:hover {
   text-decoration: none;
 }
+body .glyphicon.glyphicon-picture {
+  font-size: 18px;
+  display: block;
+  text-align: center;
+}
+body #accordion .glyphicon.glyphicon-picture {
+  font-size: 18px;
+  display: block;
+  text-align: left;
+}
 body .modal-body .alert {
   margin-top: 0;
 }
@@ -6602,6 +6612,10 @@ body.search table.table-striped th {
   position: relative;
   padding-right: 20px;
 }
+body.search table.table-striped th.choose {
+  padding: 8px;
+  width: 30px;
+}
 body.search table.table-striped th .tooltip {
   font-weight: normal;
 }
@@ -6845,13 +6859,22 @@ body #trial_form fieldset label {
   margin-bottom: 10px;
 }
 body #trial_form fieldset p {
-  line-height: 26px;
+  margin-top: 6px;
+}
+body #trial_form fieldset p .clearable-file-input {
+  display: block;
+}
+body #trial_form fieldset p .clearable-file-input input {
+  display: block;
+  width: 26px;
+  margin-top: 7px;
+  float: left;
+}
+body #trial_form fieldset p .clearable-file-input label {
+  margin-bottom: 0;
 }
 body #behavior_form fieldset label {
   margin-bottom: 10px;
-}
-body #behavior_form fieldset p {
-  line-height: 26px;
 }
 body #behavior_form .label {
   text-align: left;
@@ -6859,9 +6882,6 @@ body #behavior_form .label {
 }
 body #study_form fieldset label {
   margin-bottom: 10px;
-}
-body #study_form fieldset p {
-  line-height: 26px;
 }
 body #study_form fieldset .action_header {
   width: 84px;
@@ -7149,6 +7169,9 @@ body #clone-modal .row {
 body #clone-modal .row .chosen-container {
   width: 100% !important;
 }
+body.change-form main form .help {
+  margin-top: 6px;
+}
 /* Global helpers */
 .full-width,
 .vTextField {
@@ -7207,6 +7230,9 @@ table label {
 }
 .glyphicon-question-sign {
   color: #7c7c7c;
+}
+.short-box textarea {
+  height: 120px;
 }
 /* Form helpers */
 .required label,

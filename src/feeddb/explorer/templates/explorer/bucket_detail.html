@@ -27,10 +27,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
   <div class="col-xs-12">
   <form action="{% url "explorer.views.bucket_detail" form.instance.id %}" method="POST">
   {% csrf_token %}
+  <div class="row">
     <div class="col-xs-8">
       <div class="row">
         <div class="col-xs-3">
@@ -44,7 +44,7 @@
         <div class="col-xs-3">
           <label for="id_description">Description:</label>
         </div>
-        <div class="col-xs-9">
+        <div class="col-xs-9 short-box">
           {{ form.description }}
         </div>
       </div>
@@ -53,9 +53,10 @@
       <button class="btn btn-default full-width top-element" type="submit">Save</button>
       <a class="btn btn-primary" href="{% url "explorer.views.bucket_download" form.instance.id %}" class="downloadlink">Select Metadata</a></li>
     </div>
+    </div>
   </form>
 </div>
-
+</div>
 <script language="javascript">
 function checkbox_clicked(obj){
    if(obj.checked){
@@ -105,7 +106,7 @@ function checkbox_clicked(obj){
       </table>
       <div class="row">
         <div class="col-xs-3 col-xs-offset-9">
-          <input class="btn btn-primary" type="submit" value="Remove selected records" />
+          <input class="btn btn-primary" type="submit" value="Remove Selected Records" />
         </div>
       </div>
     </form>

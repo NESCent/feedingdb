@@ -8,7 +8,10 @@ $( document ).ready(function() {
       autoScrollingMode: "onStart",
       mousewheelScrollingStep: 3,
       autoScrollingStep: 1,
-      autoScrollingInterval: 20
+      autoScrollingInterval: 20,
+      autoScrollingStopped: function() { 
+        $("#makeMeScrollable").smoothDivScroll("startAutoScrolling");
+      }
     });
 
   $("[data-toggle=tooltip]").tooltip();
