@@ -6308,6 +6308,30 @@ body form .row.label {
   text-align: left;
   padding: 0;
 }
+body form tr.has_original td.original {
+  width: 0;
+  padding: 0;
+}
+body form tr.has_original td.original input {
+  width: 0;
+  padding: 0;
+}
+body form tr td.name input {
+  width: 70px;
+}
+body form tr td.notes textarea {
+  width: 200px;
+  height: 60px;
+}
+body form tr td.muscle .chosen-container {
+  width: 140px !important;
+}
+body form tr td.axisdepth .chosen-container {
+  width: 89px !important;
+}
+body form tr td.electrode_type .chosen-container {
+  width: 127px !important;
+}
 body form label {
   font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #da5400;
@@ -7183,6 +7207,9 @@ body.change-form main form .help {
 .top-element {
   margin-bottom: 20px !important;
 }
+.bottom-element {
+  margin-top: 20px;
+}
 .width-auto {
   width: auto !important;
 }
@@ -7236,6 +7263,10 @@ table label {
 }
 .short-box textarea {
   height: 120px;
+}
+.large-table {
+  overflow: auto;
+  border: 1px solid #dddddd;
 }
 /* Form helpers */
 .required label,

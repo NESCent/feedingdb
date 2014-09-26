@@ -101,6 +101,34 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
     .row { margin-bottom: 20px;
       &.label { display: block; text-align: left; padding: 0; }
     }
+    tr {
+      &.has_original {
+        td {
+          &.original { width: 0; padding: 0;
+            input { width: 0; padding: 0; }
+          }
+        }
+      }
+    }
+    tr {
+      td {
+        &.name {
+          input { width: 70px; }
+        }
+        &.notes {
+          textarea { width: 200px; height: 60px; }
+        }
+        &.muscle {
+          .chosen-container { width: 140px !important; }
+        }
+        &.axisdepth {
+          .chosen-container { width: 89px !important; }
+        }
+        &.electrode_type {
+          .chosen-container { width: 127px !important; }
+        }
+      }
+    }
     label { font: 17px/26px @rockwell, serif; color: @orange; color: @orange-alpha;
       &.aligned { padding: 3px 10px 0 0; float: left; width: 8em; }
       &.required { font-weight: 300 !important; }
@@ -534,6 +562,7 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
 /* Global helpers */
 .full-width, .vTextField { width: 100% !important; }
 .top-element { margin-bottom: 20px !important; }
+.bottom-element { margin-top: 20px; }
 .width-auto { width: auto !important; }
 .radios, .checkboxes {
   label { color: inherit; font: inherit; }
@@ -560,6 +589,7 @@ table {
 .short-box {
   textarea { height: 120px; }
 }
+.large-table { overflow: auto; border: 1px solid #dddddd; }
 /* Form helpers */
 .required label, label.required { font-weight: inherit !important; color: @orange !important; color: @orange-alpha !important; width: auto; float: none; display: block; }
 form .aligned p, form .aligned ul { margin-left: 0; padding-left: 0; }
