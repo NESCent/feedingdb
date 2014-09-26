@@ -6450,6 +6450,7 @@ body .masthead button {
 }
 body .breadcrumbs ul {
   padding-left: 0;
+  font: 15px/19px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
 }
 body .breadcrumbs ul li {
   list-style: none;
@@ -6931,6 +6932,21 @@ body.change-list .session-search {
   margin-bottom: 0;
   margin-top: 0;
 }
+body.change-list main table.table-striped th.title {
+  width: 246px;
+}
+body.change-list main table.table-striped th.Species {
+  width: 140px;
+}
+body.change-list main table.table-striped th.Food.Type {
+  width: 140px;
+}
+body.change-list main table.table-striped th.Illustration {
+  width: 92px;
+}
+body.change-list main table.table-striped th.study {
+  width: 280px;
+}
 body.change-list aside {
   border-left: 2px solid #ccc;
   min-height: 300px;
@@ -7263,6 +7279,22 @@ table label {
 }
 .short-box textarea {
   height: 120px;
+}
+table tr.clickable td:first-child {
+  width: auto;
+}
+table tr th.action_header {
+  width: 85px;
+}
+table tr th.label {
+  display: table-cell;
+  padding: 8px;
+  font-size: 13px;
+  text-align: left;
+  border-radius: 0;
+}
+table tr td.action {
+  width: 85px;
 }
 .large-table {
   overflow: auto;
