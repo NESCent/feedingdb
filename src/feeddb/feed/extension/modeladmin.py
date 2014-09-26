@@ -24,6 +24,7 @@ from django.utils.text import capfirst, get_text_list
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
+from feeddb.feed.util import FeedUploadStatus
 from feeddb.feed.models import  *
 from feeddb.explorer.models import  *
 from feeddb.feed.extension.forms import *
@@ -113,6 +114,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         'add_trial': reverse_lazy('admin:feed_trial_add'),
         'add_session': reverse_lazy('admin:feed_session_add'),
         'add_subject': reverse_lazy('admin:feed_subject_add'),
+        'study_view': FeedUploadStatus.current_study_view_url
     }
 
     def __init__(self, model, admin_site):
@@ -122,12 +124,16 @@ class FeedModelAdmin(admin.ModelAdmin):
             view_inline_instance = view_inline_class(self.model, self.admin_site)
             self.view_inline_instances.append(view_inline_instance)
 
-    def get_redirect_destination(self, form_data, default=''):
+    def get_redirect_destination(self, request, form_data, default=''):
+        ret = False
         if self.success_destinations:
             for name in self.success_destinations:
                 if '_redirect_' + name in form_data:
-                    return self.success_destinations[name]
-        return default
+                    if callable(self.success_destinations[name]):
+                        ret = self.success_destinations[name](request)
+                    else:
+                        ret = self.success_destinations[name]
+        return ret or default
 
     def save_model(self, request, obj, form, change):
         obj.save();
@@ -257,7 +263,7 @@ class FeedModelAdmin(admin.ModelAdmin):
                 # escape() calls force_unicode.
                 (escape(pk_value), escape(obj)))
 
-        dest = self.get_redirect_destination(request.POST, '../%d/edit' % pk_value)
+        dest = self.get_redirect_destination(request, request.POST, '../%d/edit' % pk_value)
         return HttpResponseRedirect(dest)
 
     @csrf_protect_m
