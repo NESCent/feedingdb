@@ -70,6 +70,20 @@
       <ul>{{ associated_critical_objects|unordered_list }}</ul>
     </div>
   </div>
+  <div class="row">
+    <form action="" method="post">
+      {% csrf_token %}
+      <div class="col-xs-3">
+        <input type="hidden" name="post" value="yes" />
+        <input type="hidden" name="next" value="{% next_url %}" />
+        <input class="btn btn-primary" type="submit" value="{% trans "Yes, I&#39;m Sure" %}" />
+      </div>
+      <div class="col-xs-3">
+        <input type="hidden" name="post" value="no" />
+        <a href="{% cancel_url %}" class="btn btn-default">{% trans "Cancel" %}</a>
+      </div>
+    </form>
+  </div>
   {% endif %}
   
 {% endblock %}
