@@ -589,7 +589,24 @@ table {
 .short-box {
   textarea { height: 120px; }
 }
-.large-table { overflow: auto; border: 1px solid #dddddd; }
+.large-table { overflow: auto; border: 1px solid #dddddd;
+  table { background: transparent;
+    tr {
+      td {
+        &.name {
+          input { width: 97px; }
+        }
+        &.location_freetext {
+          input { width: 117px; }
+        }
+      }
+    }
+  }
+}
+.clearable-file-input { display: block;
+  input { display: block; width: 26px; margin-top: 7px; float: left; }
+  label { margin-bottom: 0; }
+}
 /* Form helpers */
 .required label, label.required { font-weight: inherit !important; color: @orange !important; color: @orange-alpha !important; width: auto; float: none; display: block; }
 form .aligned p, form .aligned ul { margin-left: 0; padding-left: 0; }
