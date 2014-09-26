@@ -1,6 +1,8 @@
 {% extends "admin/feed/experiment/view.html" %}
 {% load i18n admin_modify feedmedia %}
 {% block object-tools %}
+{% if 'eventsetup' == opts.model_name %}
+{% else %}
           <div class="row">
     <div class="col-xs-2 col-xs-offset-10 admin-tools">
 <ul class="object-tools object-tools-top">
@@ -21,6 +23,7 @@
   {% if has_absolute_url %}<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>{% endif%}
 {% endif %}
 </ul></div></div>
+{% endif %}
 {% endblock %}
 {% block technique %}
 {% endblock %}
