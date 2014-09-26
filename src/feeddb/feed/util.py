@@ -29,3 +29,15 @@ class FeedUploadStatus():
 
     def get_dict(self):
         return self._data
+
+    @classmethod
+    def current_study_view_url(cls, request):
+        try:
+            self = request.session['feed_upload_status']
+            study_id = self._data['study']
+            if study_id:
+                return reverse_lazy('admin:feed_study_view', args=(study_id,))
+        except (AttributeError, KeyError):
+            pass
+
+        return False
