@@ -51,7 +51,7 @@
         <div class="col-xs-3">
           <input type="hidden" name="post" value="yes" />
           <input type="hidden" name="next" value="{% next_url %}" />
-          <input class="btn btn-primary" type="submit" value="{% trans "Yes, I&#39;m sure" %}" />
+          <input class="btn btn-primary" type="submit" value="{% trans "Yes, I&#39;m Sure" %}" />
         </div>
         <div class="col-xs-3">
           <input type="hidden" name="post" value="no" />
@@ -66,7 +66,9 @@
         <p>{% blocktrans with object as escaped_object %}Deleting the {{ object_name }} '{{ escaped_object }}' would result in deleting following related objects. To prevent possible data loss, you need to delete or remove the association to the following types of objects:{% endblocktrans %}</p>
       </div>
     </div>
-    <ul>{{ associated_critical_objects|unordered_list }}</ul>
+    <div class="col-xs-12">
+      <ul>{{ associated_critical_objects|unordered_list }}</ul>
+    </div>
   </div>
   {% endif %}
   

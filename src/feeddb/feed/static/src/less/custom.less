@@ -72,6 +72,12 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
     &.glyphicon-info-sign {
       &:hover { text-decoration: none; }
     }
+    &.glyphicon-picture { font-size: 18px; display: block; text-align: center; }
+  }
+  #accordion {
+    .glyphicon {
+      &.glyphicon-picture { font-size: 18px; display: block; text-align: left; }
+    }
   }
   
   /* Modals */
@@ -228,6 +234,7 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
       }
       &.table-striped {
         th { position: relative; padding-right: 20px;
+          &.choose { padding: 8px; width: 30px; }
           .tooltip { font-weight: normal;
             .tooltip-arrow { top: auto !important; }
           }
@@ -370,20 +377,23 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
   #trial_form {
     fieldset {
       label { margin-bottom: 10px; }
-      p { line-height: 26px; }
+      p { margin-top: 6px;
+        .clearable-file-input { display: block;
+          input { display: block; width: 26px; margin-top: 7px; float: left; }
+          label { margin-bottom: 0; }
+        }
+      }
     }
   }
   #behavior_form {
     fieldset {
       label { margin-bottom: 10px; }
-      p { line-height: 26px; }
     }
     .label { text-align: left; font-weight: normal; }
   }
   #study_form {
     fieldset {
       label { margin-bottom: 10px; }
-      p { line-height: 26px; }
       .action_header { width: 84px; }
     }
   }
@@ -511,6 +521,13 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
       }
     }
   }
+  &.change-form {
+    main {
+      form {
+        .help { margin-top: 6px; }
+      }
+    }
+  }
 }
 
 /* Global helpers */
@@ -539,7 +556,9 @@ table {
 .glyphicon-ok-sign { color: green; }
 .glyphicon-minus-sign { color: red; }
 .glyphicon-question-sign { color: @gray; color: @gray-alpha; }
-
+.short-box {
+  textarea { height: 120px; }
+}
 /* Form helpers */
 .required label, label.required { font-weight: inherit !important; color: @orange !important; color: @orange-alpha !important; width: auto; float: none; display: block; }
 form .aligned p, form .aligned ul { margin-left: 0; padding-left: 0; }
