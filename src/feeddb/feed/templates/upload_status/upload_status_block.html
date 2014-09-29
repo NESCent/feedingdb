@@ -27,26 +27,26 @@ Some useful variables: (indentation indicates recommended structure with "for" l
     <h3>Upload Steps</h3>
     <ul>
         <li><a href="{{ study.get_absolute_url }}">Study: {{ study }}</a></li>
+        <li>Subjects: {{ study.subject_set.count }}
+        {% for subject in study.subject_set.all %}
+            <div>Subject: {{ subject }}</div>
+        {% endfor %}
+        </li>
         <li>Experiments: {{ study.experiment_set.count }}
         {% for experiment in study.experiment_set.all %}
             <div><a href="{{ experiment.get_absolute_url }}">Exp: {{ experiment }}</a></div>
         {% endfor %}
         </a></li>
-        <li>Subjects: {{ study.subject_set.count }}
-        {% for subject in study.subject_set.all %}
-            <div>Subject: {{ subject }}</div>
-        {% endfor %}
-        </a></li>
         <li>Sessions: {{ experiment.session_set.count }}
         {% for session in experiment.session_set.all %}
-            <div>Sessions: {{ session }}</div>
+            <div>Session: {{ session }}</div>
         {% endfor %}
-        </a></li>
+        </li>
         <li>Trials: {{ session.trial_set.count }}
         {% for session in session.trial_set.all %}
-            <div>Sessions: {{ trial }}</div>
+            <div>Trial: {{ trial }}</div>
         {% endfor %}
-        </a></li>
+        </li>
         <li><a href="{{ study.get_absolute_url }}">Review</a>
     </ul>
   </div>
