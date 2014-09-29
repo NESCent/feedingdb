@@ -35,7 +35,7 @@ class FeedBaseModel(models.Model):
     def get_absolute_url(self):
         content_type = ContentType.objects.get_for_model(self.__class__)
         try:
-            return reverse('admin:%s_%s_vxiew' % (content_type.app_label, content_type.model), args=(self.id,))
+            return reverse('admin:%s_%s_view' % (content_type.app_label, content_type.model), args=(self.id,))
         except NoReverseMatch:
             return reverse('admin:%s_%s_change' % (content_type.app_label, content_type.model), args=(self.id,))
 
