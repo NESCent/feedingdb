@@ -588,7 +588,7 @@ class Trial(FeedBaseModel):
     food_size = models.CharField("Food Size (maximum dimension millimeters)", max_length=255,blank = True, null=True)
     food_property = models.CharField("Food Property", max_length=255,blank = True, null=True)
 
-    behavior_primary = models.ForeignKey(Behavior,verbose_name="Primary Behavior")
+    behavior_primary = models.ForeignKey(Behavior,verbose_name="Primary Behavior", null=True)
     behaviorowl_primary = models.ForeignKey(BehaviorOwl, verbose_name="Primary Behavior (OWL)", null=True, related_name="primary_in_trials")
 
     behavior_secondary = models.CharField("Secondary Behavior", max_length=255,blank = True, null=True)
