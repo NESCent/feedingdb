@@ -136,7 +136,8 @@ class FeedModelAdmin(admin.ModelAdmin):
         return ret or default
 
     def save_model(self, request, obj, form, change):
-        request.feed_upload_status.apply_defaults_to_instance(form.instance);
+        if not change:
+            request.feed_upload_status.apply_defaults_to_instance(form.instance);
         form.save();
         request.feed_upload_status.update_with_object(form.instance)
 
