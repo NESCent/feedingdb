@@ -62,6 +62,7 @@ class ExperimentAdmin(ExperimentModelAdmin):
     search_fields = ('title','study__title','subject__taxon__genus','subject__taxon__species','subject__taxon__common_name','subject__name','description','subject_notes','impl_notes')
     list_display = ('title','study', 'subject','subj_devstage')
     form = ExperimentChangeForm
+    exclude = ('study',)
     #list_filter = ('study', 'subject')
 
 
@@ -72,6 +73,7 @@ class SubjectAdmin(FeedModelAdmin):
     search_fields = ('name','study__title', 'breed','taxon__species', 'taxon__genus','taxon__common_name','source','sex','notes')
     list_display = ('name', 'study', 'taxon', 'breed','sex', 'source')
     #list_filter = ('study', 'taxon','sex')
+    exclude = ('study',)
     ordering = ('name',)
     form = DisableForeignKeyForm
 

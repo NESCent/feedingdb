@@ -136,9 +136,9 @@ class FeedModelAdmin(admin.ModelAdmin):
         return ret or default
 
     def save_model(self, request, obj, form, change):
-        obj.save();
-
-        request.feed_upload_status.update_with_object(obj)
+        request.feed_upload_status.apply_defaults_to_instance(form.instance);
+        form.save();
+        request.feed_upload_status.update_with_object(form.instance)
 
     def get_urls(self):
         from django.conf.urls import patterns, url

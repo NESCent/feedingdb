@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import reverse, NoReverseMatch
+
 from django.conf import settings
 import datetime
 from django.db.models.expressions import F
@@ -28,6 +31,13 @@ class FeedBaseModel(models.Model):
 
     def cloneable(self):
         return self.is_cloneable
+
+    def get_absolute_url(self):
+        content_type = ContentType.objects.get_for_model(self.__class__)
+        try:
+            return reverse('admin:%s_%s_vxiew' % (content_type.app_label, content_type.model), args=(self.id,))
+        except NoReverseMatch:
+            return reverse('admin:%s_%s_change' % (content_type.app_label, content_type.model), args=(self.id,))
 
     def save(self):
         now = datetime.datetime.today()
