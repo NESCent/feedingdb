@@ -29,22 +29,22 @@ Some useful variables: (indentation indicates recommended structure with "for" l
         <li><a href="{{ study.get_absolute_url }}">Study: {{ study }}</a></li>
         <li>Subjects: {{ study.subject_set.count }}
         {% for subject in study.subject_set.all %}
-            <div>Subject: {{ subject }}</div>
+            <div><a href="{{ subject.get_absolute_url }}">{{ subject }}</a></div>
         {% endfor %}
         </li>
         <li>Experiments: {{ study.experiment_set.count }}
         {% for experiment in study.experiment_set.all %}
-            <div><a href="{{ experiment.get_absolute_url }}">Exp: {{ experiment }}</a></div>
+            <div><a href="{{ experiment.get_absolute_url }}">{{ experiment }}</a></div>
         {% endfor %}
         </a></li>
         <li>Sessions: {{ experiment.session_set.count }}
         {% for session in experiment.session_set.all %}
-            <div>Session: {{ session }}</div>
+            <div><a href="{{ session.get_absolute_url }}">{{ session }}</a></div>
         {% endfor %}
         </li>
         <li>Trials: {{ session.trial_set.count }}
         {% for session in session.trial_set.all %}
-            <div>Trial: {{ trial }}</div>
+            <div><a href="{{ trial.get_absolute_url }}">{{ trial }}</a></div>
         {% endfor %}
         </li>
         <li><a href="{{ study.get_absolute_url }}">Review</a>
