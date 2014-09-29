@@ -30,7 +30,7 @@ class DisableForeignKeyForm (forms.ModelForm):
     def __init__(self, *args, **kwargs):
         for f in DISABLE_FIELDS:
             if f in self.base_fields:
-                self.base_fields[f].widget.attrs['disabled']=""
+                self.base_fields[f].widget.attrs['readonly']=""
         super(DisableForeignKeyForm, self).__init__(*args, **kwargs)    
 
 #exclude technique from all types of setups                 
@@ -61,7 +61,6 @@ class SessionChangeForm(forms.ModelForm):
 class TrialChangeForm(forms.ModelForm):
     start = DateField(required=False)  # , help_text=DATE_HELP_TEXT)
     end = DateField(required=False)    # , help_text=DATE_HELP_TEXT)
-# Compared to the other containers above, Trial help_text is affected by models.py -- go figure why (VG)
 
 class EmgSensorChannelForm(forms.ModelForm):
     rate = forms.IntegerField(label = "Recording Rate (Hz)", required=True, widget=forms.TextInput(attrs={'size': 5}))
