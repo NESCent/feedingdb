@@ -298,6 +298,7 @@ class SessionAdmin(SessionModelAdmin):
     list_display = ('title', 'experiment','position', 'start', 'subj_restraint','subj_anesthesia_sedation')
     search_fields = ('title','bookkeeping','experiment__title','subj_notes','subj_restraint__label','subj_anesthesia_sedation')
     ordering = ('position',)
+    exclude = ('study',)
     form = SessionChangeForm
     tabbed = True
     tab_name = "Session"
