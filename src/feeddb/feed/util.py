@@ -1,3 +1,6 @@
+from django.db.models.loading import get_model
+from django.db.models import ForeignKey
+from django.forms.models import ModelChoiceField
 from UserDict import UserDict
 # import the logging library
 import logging
@@ -26,6 +29,28 @@ class FeedUploadStatus():
         for key, value in self._data.items():
             if form.fields.has_key(key):
                 form.fields[key].initial = value
+
+    def apply_restricted_querysets_to_form(self, form):
+        """
+        General version:
+        For each field on the form, if it's referencing a model which has
+        a model reference field referencing a model of the same type as one we have,
+        then filter the list to include that.
+
+        Current basic version: filter by study only
+        """
+        Study = get_model('feed', 'study')
+        # iterate through fields on the form
+        for field_name, field_value in form.fields.items():
+            if isinstance(field_value, ModelChoiceField):
+                M = field_value.queryset.model
+                # iterate through 
+                for Mfield in M._meta.fields:
+                    if isinstance(Mfield, ForeignKey):
+                        Parent = Mfield.related.parent_model
+                        if Parent == Study:
+                            kwargs = { Mfield.name: self._data['study'] }
+                            form.fields[field_name].queryset = field_value.queryset.filter(**kwargs)
 
     def get_dict(self):
         return self._data
