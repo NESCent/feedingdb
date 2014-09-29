@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import reverse, NoReverseMatch
+
 from django.conf import settings
 import datetime
 from django.db.models.expressions import F
@@ -28,6 +31,13 @@ class FeedBaseModel(models.Model):
 
     def cloneable(self):
         return self.is_cloneable
+
+    def get_absolute_url(self):
+        content_type = ContentType.objects.get_for_model(self.__class__)
+        try:
+            return reverse('admin:%s_%s_view' % (content_type.app_label, content_type.model), args=(self.id,))
+        except NoReverseMatch:
+            return reverse('admin:%s_%s_change' % (content_type.app_label, content_type.model), args=(self.id,))
 
     def save(self):
         now = datetime.datetime.today()
@@ -324,7 +334,7 @@ class Subject(FeedBaseModel):
                               help_text = "E.g. wild-caught, zoo, laboratory raised, etc.")
     notes = models.TextField(blank = True, null=True, help_text="E.g., any relevant morphological data, such as muscle weights, muscle fiber angles, fiber types, CT scan images, anatomical drawings.")
     def __unicode__(self):
-        return self.name
+        return "%s / %s" % (self.study, self.name)
 
 class Experiment(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
@@ -543,7 +553,7 @@ class Session(FeedBaseModel):
     channels  = models.ManyToManyField(Channel, through='ChannelLineup')
 
     def __unicode__(self):
-        return self.title
+        return "%s / %s / %s" % (self.study.title, self.experiment.title, self.title)
 
     class Meta:
         ordering = ["position"]
@@ -578,7 +588,7 @@ class Trial(FeedBaseModel):
     food_size = models.CharField("Food Size (maximum dimension millimeters)", max_length=255,blank = True, null=True)
     food_property = models.CharField("Food Property", max_length=255,blank = True, null=True)
 
-    behavior_primary = models.ForeignKey(Behavior,verbose_name="Primary Behavior")
+    behavior_primary = models.ForeignKey(Behavior,verbose_name="Primary Behavior", null=True)
     behaviorowl_primary = models.ForeignKey(BehaviorOwl, verbose_name="Primary Behavior (OWL)", null=True, related_name="primary_in_trials")
 
     behavior_secondary = models.CharField("Secondary Behavior", max_length=255,blank = True, null=True)
