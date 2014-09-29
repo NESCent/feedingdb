@@ -30,6 +30,10 @@ class FeedUploadStatus():
             if form.fields.has_key(key):
                 form.fields[key].initial = value
 
+    def apply_defaults_to_instance(self, obj):
+        for key, value in self._data.items():
+            setattr(obj, key, value)
+
     def apply_restricted_querysets_to_form(self, form):
         """
         General version:
