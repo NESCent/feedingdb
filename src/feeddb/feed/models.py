@@ -606,6 +606,7 @@ class Trial(FeedBaseModel):
     def taxon_name(self):
         return self.session.experiment.subject.taxon.label
     taxon_name.short_description = 'Species'
+    taxon_name.admin_order_field = 'session__experiment__subject__taxon__label'
 
     def save(self):
         self.experiment = self.session.experiment
