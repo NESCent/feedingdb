@@ -285,14 +285,14 @@ class Study(FeedBaseModel):
     funding_agency = models.CharField(max_length=255, blank = True, null=True,
                              help_text = "The agency that funded the research")
 
-    approval_type = models.ManyToManyField(AnimalApprovalType, verbose_name="Approval Secured", blank=False, null=True,
+    approval_type = models.ForeignKey(AnimalApprovalType, verbose_name="Approval Secured", blank=False, null=True,
                              help_text =
                                 '''
                                 Affirmation that an institutional approval for
                                 Animal Care and Use or for Human Subjects was
                                 secured. Please read each statement very
                                 carefully. Data upload can not continue without
-                                checking the appropriate affirmation
+                                checking the appropriate affirmation.
                                 ''')
 
     description = models.TextField("Study Description",
