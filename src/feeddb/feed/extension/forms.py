@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 from django.forms.util import ValidationError, ErrorList
 from django.forms.forms import BaseForm, get_declared_fields, NON_FIELD_ERRORS
 from django.forms.fields import *
-from django.forms.widgets import Select, SelectMultiple, HiddenInput, MultipleHiddenInput, DateInput, CheckboxSelectMultiple
+from django.forms.widgets import Select, SelectMultiple, HiddenInput, MultipleHiddenInput, DateInput, RadioSelect
 from django.forms.widgets import media_property
 from django.forms.formsets import BaseFormSet, formset_factory, DELETION_FIELD_NAME
 from django import forms
@@ -31,9 +31,9 @@ class DisableForeignKeyForm (forms.ModelForm):
         for f in DISABLE_FIELDS:
             if f in self.base_fields:
                 self.base_fields[f].widget.attrs['readonly']=""
-        super(DisableForeignKeyForm, self).__init__(*args, **kwargs)    
+        super(DisableForeignKeyForm, self).__init__(*args, **kwargs)
 
-#exclude technique from all types of setups                 
+#exclude technique from all types of setups
 class SetupForm (DisableForeignKeyForm):
     class Meta:
         exclude = ('technique',)
@@ -46,13 +46,24 @@ class ExperimentChangeForm(DisableForeignKeyForm):
 class StudyChangeForm(forms.ModelForm):
     #start = DateTimeField("Start Date", help_text=DATE_HELP_TEXT)
     #end = DateTimeField("ENDZ", required=False, help_text=DATE_HELP_TEXT)
+    #approval_type = forms.ModelChoiceField(
+    #    queryset=AnimalApprovalType.objects.all(),
+    #    widget=RadioSelect(),
+    #    empty_label="No approval secured",
+    #    label="Approval Secured",
+    #    help_text
+    #)
     class Meta:
         model=Study
         widgets = {
             'start': DateInput(attrs={'class':'datepicker'}),
             'end': DateInput(attrs={'class':'datepicker'}),
-            'approval_type': CheckboxSelectMultiple(),
+            'approval_type': RadioSelect(),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(StudyChangeForm, self).__init__(*args, **kwargs)
+        self.fields['approval_type'].empty_label = 'No approval'
 
 class SessionChangeForm(forms.ModelForm):
     start = DateField(required=False, help_text=DATE_HELP_TEXT)
@@ -79,8 +90,8 @@ class EmgSensorChannelForm(forms.ModelForm):
                 channel = EmgChannel.objects.get(sensor__id__exact = sensor.id)
             except EmgChannel.DoesNotExist:
                 channel = None
-        if channel !=None:    
-            self.base_fields["unit"].initial = channel.unit.id 
+        if channel !=None:
+            self.base_fields["unit"].initial = channel.unit.id
             self.base_fields["emg_amplification"].initial = channel.emg_amplification
             self.base_fields["emg_filtering"].initial = channel.emg_filtering.id
             self.base_fields["rate"].initial = channel.rate
@@ -100,7 +111,7 @@ class SessionForm(forms.ModelForm):
     class Meta:
         model = Session
         exclude = ('channels','accession')
-        
+
 class ExperimentForm(forms.ModelForm):
     subject_notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     description = CharField(label ="Description",widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
@@ -125,7 +136,7 @@ class SonoSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=True)
     muscle = forms.ModelChoiceField(label="Muscle", required=False, queryset=MuscleOwl.default_qs())
-    
+
     class Meta:
         model = SonoSensor
         fields = ['name', 'location_controlled', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
@@ -140,11 +151,11 @@ class StrainSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}) , required=True)
     location_freetext = CharField(label = "Location", widget=forms.TextInput(attrs={'size': 10}) , required=True)
-    
+
     class Meta:
         model = StrainSensor
         fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
-        
+
 class StrainChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
@@ -157,7 +168,7 @@ class ForceSensorForm(forms.ModelForm):
     class Meta:
         model = ForceSensor
         fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
-                
+
 class ForceChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
@@ -169,11 +180,11 @@ class PressureSensorForm(forms.ModelForm):
     class Meta:
         model = PressureSensor
         fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
-                
+
 class PressureChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
-        model = PressureChannel        
+        model = PressureChannel
 
 class KinematicsSensorForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
@@ -182,19 +193,19 @@ class KinematicsSensorForm(forms.ModelForm):
     class Meta:
         model = KinematicsSensor
         fields = ['name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
-                
+
 class KinematicsChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
-        model = KinematicsChannel    
-        
+        model = KinematicsChannel
+
 class EventChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
     class Meta:
-        model = EventChannel        
-    
-    
-                
+        model = EventChannel
+
+
+
 class TrialInlineForm(forms.ModelForm):
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
     position = IntegerField(label = "Position", widget=forms.TextInput(attrs={'size': 3}))
@@ -220,12 +231,12 @@ class TrialForm(forms.ModelForm):
     #    if self.cleaned_data.get('remove_waveform_picture'):
     #        object.waveform_picture = ''
     #    return object
-    
+
     def __init__(self, *args, **kwargs):
         super(forms.ModelForm, self).__init__(*args, **kwargs)
         self.base_fields['data_file'].widget = self.base_fields['data_file'].hidden_widget()
         self.base_fields['data_file'].help_text ="Please upload data file after saving the new trial."
-        
+
     class Meta:
         model = Trial
 
@@ -233,9 +244,9 @@ class ChannelLineupForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.base_fields['channel'].empty_label='dead channel'
         super(ChannelLineupForm, self).__init__(*args, **kwargs)
-                
+
     class Meta:
-        model = ChannelLineup       
+        model = ChannelLineup
 
 
-       
+
