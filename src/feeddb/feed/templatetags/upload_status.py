@@ -1,6 +1,8 @@
 from django import template
 from django.db.models.loading import get_model
 from django.core.exceptions import ImproperlyConfigured
+from feeddb.feed.models import Study, Experiment, Session, Trial
+
 
 register = template.Library()
 
@@ -10,7 +12,14 @@ def upload_status_block(context):
     ret['known_status'] = True
     try:
         status = context['request'].feed_upload_status
-        ret.update(status.get_dict())
+        study = status._data['study']
+        ret.update({
+            'study': study,
+            'subjects': study.subject_set.all(),
+            'experiments': study.experiment_set.all(),
+            'sessions': Session.objects.filter(study=study),
+            'trials': Trial.objects.filter(study=study),
+        })
     except (KeyError, AttributeError):
         status = None
         ret['known_status'] = False
