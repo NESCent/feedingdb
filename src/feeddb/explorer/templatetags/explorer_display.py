@@ -209,7 +209,7 @@ def display_file(value):
     if value in (None, ''):
         return ""
     if is_image(value):
-        return u'<a href="%s%s" title="click to view full size image"><img width="100" src="%s%s"/></a><br/>' % (settings.MEDIA_URL, value, settings.MEDIA_URL,value)
+        return u'<a href="%s%s" title="click to view full size image" class="thumb"><img width="100" src="%s%s"/></a><br/>' % (settings.MEDIA_URL, value, settings.MEDIA_URL,value)
 
-    return u'<a href="%s%s"><img src="%s%s" width="32"/></a><br/>' % (settings.MEDIA_URL,value, settings.STATIC_PREFIX, 'images/image-file-icon.png')
+    return u'<a href="%s%s"><span class="glyphicon glyphicon-picture"' % (settings.MEDIA_URL,value,)
 display_file = register.simple_tag(display_file)
