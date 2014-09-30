@@ -6344,6 +6344,9 @@ body form label.aligned {
 body form label.required {
   font-weight: 300 !important;
 }
+body form input {
+  height: 42px;
+}
 body form input,
 body form textarea {
   border: 1px solid #988674;
@@ -6636,6 +6639,9 @@ body.search table.search-box td {
   border: 0;
   font-size: 12px;
 }
+body.search table.search-box td input {
+  height: 42px;
+}
 body.search table.table-striped th {
   position: relative;
   padding-right: 20px;
@@ -6718,7 +6724,7 @@ body main .records-list {
 }
 body main .records-list p {
   float: left;
-  margin: 0;
+  margin: 2px 0 0 0;
 }
 body main .records-list ul {
   float: right;
@@ -6740,6 +6746,7 @@ body main .records-list ul#id_per_page li label input {
   position: absolute;
   left: 0;
   width: 20px;
+  margin: 6px 0 0 0;
 }
 body main table {
   width: 100%;
@@ -6828,7 +6835,8 @@ body main .bucket-list ul li a.remove {
 }
 body main .records-pagination {
   margin: 0 auto 20px auto;
-  width: 120px;
+  width: 130px;
+  font: 15px/19px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
 }
 body main .records-pagination ul {
   padding-left: 0;
@@ -7337,6 +7345,12 @@ form .aligned ul {
 }
 tr.clickable td:first-child {
   width: 30px;
+}
+form input[type="checkbox"],
+form input[type="radio"] {
+  border: 0;
+  background-color: transparent;
+  height: auto;
 }
 /* Custom media queries for larger screens */
 /* Large devices (large desktops, 1200px and up) */
