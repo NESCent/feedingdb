@@ -24,6 +24,7 @@ from django.utils.text import capfirst, get_text_list
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
+from feeddb.feed.util import FeedUploadStatus
 from feeddb.feed.models import  *
 from feeddb.explorer.models import  *
 from feeddb.feed.extension.forms import *
@@ -113,6 +114,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         'add_trial': reverse_lazy('admin:feed_trial_add'),
         'add_session': reverse_lazy('admin:feed_session_add'),
         'add_subject': reverse_lazy('admin:feed_subject_add'),
+        'study_view': FeedUploadStatus.current_study_view_url
     }
 
     def __init__(self, model, admin_site):
@@ -122,17 +124,22 @@ class FeedModelAdmin(admin.ModelAdmin):
             view_inline_instance = view_inline_class(self.model, self.admin_site)
             self.view_inline_instances.append(view_inline_instance)
 
-    def get_redirect_destination(self, form_data, default=''):
+    def get_redirect_destination(self, request, form_data, default=''):
+        ret = False
         if self.success_destinations:
             for name in self.success_destinations:
                 if '_redirect_' + name in form_data:
-                    return self.success_destinations[name]
-        return default
+                    if callable(self.success_destinations[name]):
+                        ret = self.success_destinations[name](request)
+                    else:
+                        ret = self.success_destinations[name]
+        return ret or default
 
     def save_model(self, request, obj, form, change):
-        obj.save();
-
-        request.feed_upload_status.update_with_object(obj)
+        if not change:
+            request.feed_upload_status.apply_defaults_to_instance(form.instance);
+        form.save();
+        request.feed_upload_status.update_with_object(form.instance)
 
     def get_urls(self):
         from django.conf.urls import patterns, url
@@ -240,26 +247,6 @@ class FeedModelAdmin(admin.ModelAdmin):
                 "admin/view.html"
             ], context, context_instance=context_instance)
 
-
-    def response_add(self, request, obj, post_url_continue='../%s/edit/'):
-        """
-        Determines the HttpResponse for the add_view stage.
-        """
-        opts = obj._meta
-        pk_value = obj._get_pk_val()
-
-        msg = _('The %(name)s "%(obj)s" was added successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj)}
-        self.message_user(request, msg)
-
-        # TODO: document when this is used. Maybe tabbed views? Others?
-        if request.POST.has_key("_popup"):
-            return HttpResponse('<script type="text/javascript">opener.dismissAddAnotherPopup(window, "%s", "%s");</script>' % \
-                # escape() calls force_unicode.
-                (escape(pk_value), escape(obj)))
-
-        dest = self.get_redirect_destination(request.POST, '../%d/edit' % pk_value)
-        return HttpResponseRedirect(dest)
-
     @csrf_protect_m
     def delete_view(self, *args, **kwargs):
         """
@@ -333,8 +320,10 @@ class FeedModelAdmin(admin.ModelAdmin):
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         # Get default form values from session
         request.feed_upload_status.apply_defaults_to_form(context['adminform'].form)
+        request.feed_upload_status.apply_restricted_querysets_to_form(context['adminform'].form)
         
         # Get default form values from GET (overriding session)
+        # FIXME: disabled while working on BH-218
         self.filter_form_values(request, context['adminform'].form, self.model, obj)
 
         for formset in context['inline_admin_formsets']:
