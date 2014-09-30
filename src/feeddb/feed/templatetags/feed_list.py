@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse, NoReverseMatch
 from django.conf import settings
 from django.contrib.admin.views.main import ALL_VAR, EMPTY_CHANGELIST_VALUE
 from django.contrib.admin.views.main import ORDER_VAR, ORDER_TYPE_VAR, PAGE_VAR, SEARCH_VAR
+from django.contrib.admin.templatetags.admin_list import result_headers
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import formats
@@ -15,69 +16,6 @@ from feeddb.explorer.templatetags.explorer_display import display_file
 import datetime
 
 register = Library()
-
-def feed_result_headers(cl):
-    lookup_opts = cl.lookup_opts
-
-    for i, field_name in enumerate(cl.list_display):
-        attr = None
-        try:
-            f = lookup_opts.get_field(field_name)
-            admin_order_field = None
-        except models.FieldDoesNotExist:
-            # For non-field list_display values, check for the function
-            # attribute "short_description". If that doesn't exist, fall back
-            # to the method name. And __str__ and __unicode__ are special-cases.
-            if field_name == '__unicode__':
-                header = force_unicode(lookup_opts.verbose_name)
-            elif field_name == '__str__':
-                header = smart_str(lookup_opts.verbose_name)
-            else:
-                if callable(field_name):
-                    attr = field_name # field_name can be a callable
-                else:
-                    try:
-                        attr = getattr(cl.model_admin, field_name)
-                    except AttributeError:
-                        try:
-                            attr = getattr(cl.model, field_name)
-                        except AttributeError:
-                            raise AttributeError, \
-                                "'%s' model or '%s' objects have no attribute '%s'" % \
-                                    (lookup_opts.object_name, cl.model_admin.__class__, field_name)
-
-                try:
-                    header = attr.short_description
-                except AttributeError:
-                    if callable(field_name):
-                        header = field_name.__name__
-                    else:
-                        header = field_name
-                    header = header.replace('_', ' ')
-
-            # It is a non-field, but perhaps one that is sortable
-            admin_order_field = getattr(attr, "admin_order_field", None)
-            if not admin_order_field:
-                yield {"text": header}
-                continue
-
-            # So this _is_ a sortable non-field.  Go to the yield
-            # after the else clause.
-        else:
-            header = f.verbose_name
-
-        th_classes = []
-        new_order_type = 'asc'
-
-        # FIXME: throws error "'FeedChangeList' object has no attribute 'order_field'"
-        #if field_name == cl.order_field or admin_order_field == cl.order_field:
-        #    th_classes.append('sorted %sending' % cl.order_type.lower())
-        #    new_order_type = {'asc': 'desc', 'desc': 'asc'}[cl.order_type.lower()]
-
-        yield {"text": header,
-               "sortable": True,
-               "url": cl.get_query_string({ORDER_VAR: i, ORDER_TYPE_VAR: new_order_type}),
-               "class_attrib": mark_safe(th_classes and ' class="%s"' % ' '.join(th_classes) or '')}
 
 def _boolean_icon(field_val):
     BOOLEAN_MAPPING = {True: 'ok-sign', False: 'minus-sign', None: 'question-sign'}
@@ -243,7 +181,7 @@ def feed_results(cl):
 def feed_result_list(context, cl):
     if not hasattr(cl, 'request') and 'request' in context:
         cl.request = context['request']
-    header_list = list(feed_result_headers(cl))
+    header_list = list(result_headers(cl))
     act =   {"text": "action",
                "sortable": False,
                "url": "",
