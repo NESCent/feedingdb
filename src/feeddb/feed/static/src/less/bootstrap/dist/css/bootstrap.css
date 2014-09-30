@@ -7050,6 +7050,15 @@ body.my-data main ul {
   padding-left: 0;
   list-style: none;
 }
+body.my-data main table th.id {
+  width: 60px;
+}
+body.my-data main table th.num-trials {
+  width: 124px;
+}
+body.my-data main table th.action {
+  width: 74px;
+}
 body.my-data footer {
   margin-top: 0;
 }
