@@ -20,15 +20,15 @@
               Edit {{ opts.verbose_name }}
               {% elif add %}
                 {% if 'subject' == opts.model_name %}
-                  Add New {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</a>
+                  Add New {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</button>
                 {% elif 'study' == opts.model_name %}
-                  Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
+                  Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</button>
                 {% elif 'experiment' == opts.model_name %}
-                  Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
+                  Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</button>
                 {% elif 'session' == opts.model_name %}
-                  Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
+                  Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</button>
                 {% elif 'trial' == opts.model_name %}
-                  Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}
+                  Add {{ opts.object_name}} - or - <button class="btn btn-primary" data-toggle="modal" data-target="#clone-modal">Clone Existing {{ opts.object_name}}</button>
                 {% else %}
                   Add New {{ opts.object_name}}
               {% endif %}
