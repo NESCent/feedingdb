@@ -103,7 +103,7 @@
               <th>Action</th>
             </tr>
           </thead>
-          {% for b in buckets %}
+          {% for b in user.bucket_related.all|dictsort:"title" %}
           <tr  class="{% cycle 'row1' 'row2' %}">
             <td><a  href="{% url "explorer.views.bucket_detail" b.id %}">{{b.id}}</a></td>
             <td><a  href="{% url "explorer.views.bucket_detail" b.id %}">{{b.title}}</a></td>
