@@ -6779,6 +6779,9 @@ body main table td.action a {
 body main table td.action a:last {
   padding: 0;
 }
+body main table td table {
+  background: transparent;
+}
 body main table#change-history th.date {
   width: 20%;
 }
