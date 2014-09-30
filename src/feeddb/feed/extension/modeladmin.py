@@ -319,8 +319,9 @@ class FeedModelAdmin(admin.ModelAdmin):
 
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         # Get default form values from session
-        request.feed_upload_status.apply_defaults_to_form(context['adminform'].form)
-        request.feed_upload_status.apply_restricted_querysets_to_form(context['adminform'].form)
+        if add:
+            request.feed_upload_status.apply_defaults_to_form(context['adminform'].form)
+            request.feed_upload_status.apply_restricted_querysets_to_form(context['adminform'].form)
         
         # Get default form values from GET (overriding session)
         # FIXME: disabled while working on BH-218
