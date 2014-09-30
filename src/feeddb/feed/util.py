@@ -34,6 +34,17 @@ class FeedUploadStatus():
         for key, value in self._data.items():
             setattr(obj, key, value)
 
+    def object_is_in_study(self, obj):
+        try:
+            study = self._data['study']
+            if obj.study == study:
+                return True
+        except KeyError:
+            pass
+
+        return False
+
+
     def apply_restricted_querysets_to_form(self, form):
         """
         General version:
@@ -52,7 +63,7 @@ class FeedUploadStatus():
         for field_name, field_value in form.fields.items():
             if isinstance(field_value, ModelChoiceField):
                 M = field_value.queryset.model
-                # iterate through 
+                # iterate through
                 for Mfield in M._meta.fields:
                     if isinstance(Mfield, ForeignKey):
                         Parent = Mfield.related.parent_model

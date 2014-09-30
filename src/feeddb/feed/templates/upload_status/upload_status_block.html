@@ -21,7 +21,7 @@ Some useful variables: (indentation indicates recommended structure with "for" l
     known_status - Boolean, whether we have information or not
 
 {% endcomment %}
-{% if known_status %}
+{% if show_status %}
 <aside>
   <div class="col-xs-3 upload-steps">
     <h3>Upload Steps</h3>
@@ -52,4 +52,3 @@ Some useful variables: (indentation indicates recommended structure with "for" l
   </div>
 </aside>
 {% endif %}
-Known: {{ known_status }}
