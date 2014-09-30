@@ -274,12 +274,8 @@
   {% endblock modal %}
 
 {% block sidebar %}
-  {% if add %}
-    {% if 'user' != opts.model_name and 'group' != opts.model_name %}
-      {% load upload_status %}
-      {% upload_status_block %}
-    {% endif %}
-  {% endif %}
+  {% load upload_status %}
+  {% upload_status_block %}
 {% endblock %}
 
 {% block extra_js %}
