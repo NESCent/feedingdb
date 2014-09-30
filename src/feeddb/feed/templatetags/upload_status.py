@@ -23,7 +23,7 @@ def should_show_status(context, status):
     try:
         model_name = context['opts'].model_name
         # "original" is the unmodified object, added in ModelAdmin.change_view
-        obj = context['original']
+        obj = context.get('original', None)
         add = context.get('add', False)
 
     except KeyError as e:
@@ -40,7 +40,7 @@ def should_show_status(context, status):
         if add:
             return True
 
-        if status is not None and status.object_is_in_study(context['original']):
+        if status is not None and status.object_is_in_study(obj):
             return True
 
     return False

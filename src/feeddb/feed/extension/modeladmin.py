@@ -527,6 +527,10 @@ class FeedModelAdmin(admin.ModelAdmin):
         return True
 
     def change_view(self,request,object_id,extra_context=None):
+        obj = self.get_object(request, unquote(object_id))
+        if self.has_change_permission(request, obj):
+            request.feed_upload_status.update_with_object(obj)
+
         #add extra context for tabs
         if extra_context == None:
             extra_context = {}
@@ -593,6 +597,11 @@ class FeedModelAdmin(admin.ModelAdmin):
 
     def view_view(self, request, object_id, extra_context=None):
         "The 'View' admin view for this model."
+
+        obj = self.get_object(request, unquote(object_id))
+        if self.has_change_permission(request, obj):
+            request.feed_upload_status.update_with_object(obj)
+
         model = self.model
         opts = model._meta
 
