@@ -3,20 +3,12 @@ This template is used to render the "upload steps" block. You have access to
 the most recently edited study, experiment, session, and trial. You can also follow
 all the relationships to the other elements of the data set.
 
-Some useful variables: (indentation indicates recommended structure with "for" loops)
-    study
-    study.subject_set.count
-    study.subject_set.all
-        subject
-    study.experiment_set.count
-    study.experiment_set.all
-        experiment
-        experiment.session_set.count
-        experiment.session_set.all
-            session
-            session.trial_set.count
-            session.trial_set.all
-                trial
+Some useful variables:
+    study - study object
+    subjects - list of subjects attached to this study
+    experiments
+    sessions
+    trials
 
     known_status - Boolean, whether we have information or not
 
@@ -27,27 +19,27 @@ Some useful variables: (indentation indicates recommended structure with "for" l
     <h3>Upload Steps</h3>
     <ul>
         <li><a href="{{ study.get_absolute_url }}">Study: {{ study }}</a></li>
-        <li>Subjects: {{ study.subject_set.count }}
-        {% for subject in study.subject_set.all %}
+        <li>Subjects: {{ subjects|length }}
+        {% for subject in subjects %}
             <div><a href="{{ subject.get_absolute_url }}">{{ subject }}</a></div>
         {% endfor %}
         </li>
-        <li>Experiments: {{ study.experiment_set.count }}
-        {% for experiment in study.experiment_set.all %}
+        <li>Experiments: {{ experiments|length }}
+        {% for experiment in experiments %}
             <div><a href="{{ experiment.get_absolute_url }}">{{ experiment }}</a></div>
         {% endfor %}
         </a></li>
-        <li>Sessions: {{ experiment.session_set.count }}
-        {% for session in experiment.session_set.all %}
+        <li>Sessions: {{ sessions|length }}
+        {% for session in sessions %}
             <div><a href="{{ session.get_absolute_url }}">{{ session }}</a></div>
         {% endfor %}
         </li>
-        <li>Trials: {{ session.trial_set.count }}
-        {% for session in session.trial_set.all %}
+        <li>Trials: {{ trials|length}}
+        {% for trial in trials %}
             <div><a href="{{ trial.get_absolute_url }}">{{ trial }}</a></div>
         {% endfor %}
         </li>
-        <li><a href="{{ study.get_absolute_url }}">Review</a>
+        <li><a href="{{ study.get_absolute_url }}">Review</a></li>
     </ul>
   </div>
 </aside>
