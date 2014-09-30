@@ -62,6 +62,7 @@ class ExperimentAdmin(ExperimentModelAdmin):
     search_fields = ('title','study__title','subject__taxon__genus','subject__taxon__species','subject__taxon__common_name','subject__name','description','subject_notes','impl_notes')
     list_display = ('title','study', 'subject','subj_devstage')
     form = ExperimentChangeForm
+    exclude = ('study',)
     #list_filter = ('study', 'subject')
 
 
@@ -72,6 +73,7 @@ class SubjectAdmin(FeedModelAdmin):
     search_fields = ('name','study__title', 'breed','taxon__species', 'taxon__genus','taxon__common_name','source','sex','notes')
     list_display = ('name', 'study', 'taxon', 'breed','sex', 'source')
     #list_filter = ('study', 'taxon','sex')
+    exclude = ('study',)
     ordering = ('name',)
     form = DisableForeignKeyForm
 
@@ -80,8 +82,8 @@ class TrialAdmin(FeedModelAdmin):
     search_fields = ('title','bookkeeping','subj_notes','subj_treatment','food_type','food_property','behavior_primary__label','behavior_secondary','behavior_notes')
     list_display = ('title', 'session', 'taxon_name','food_type', 'behavior_primary','waveform_picture')
     form = TrialChangeForm
-    # hide old non-OWL behavior fields
-    exclude = ('behavior_primary','behavior_secondary',)
+    # hide old non-OWL behavior fields, hide dependent container references
+    exclude = ('behavior_primary', 'behavior_secondary', 'experiment', 'study',)
     ordering = ('position',)
     form = DisableForeignKeyForm
 
@@ -296,6 +298,7 @@ class SessionAdmin(SessionModelAdmin):
     list_display = ('title', 'experiment','position', 'start', 'subj_restraint','subj_anesthesia_sedation')
     search_fields = ('title','bookkeeping','experiment__title','subj_notes','subj_restraint__label','subj_anesthesia_sedation')
     ordering = ('position',)
+    exclude = ('study',)
     form = SessionChangeForm
     tabbed = True
     tab_name = "Session"
