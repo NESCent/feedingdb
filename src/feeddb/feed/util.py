@@ -44,6 +44,10 @@ class FeedUploadStatus():
         Current basic version: filter by study only
         """
         Study = get_model('feed', 'study')
+        study = self._data.get('study', None)
+        if study is None:
+            return
+
         # iterate through fields on the form
         for field_name, field_value in form.fields.items():
             if isinstance(field_value, ModelChoiceField):
@@ -53,7 +57,7 @@ class FeedUploadStatus():
                     if isinstance(Mfield, ForeignKey):
                         Parent = Mfield.related.parent_model
                         if Parent == Study:
-                            kwargs = { Mfield.name: self._data['study'] }
+                            kwargs = { Mfield.name: study }
                             form.fields[field_name].queryset = field_value.queryset.filter(**kwargs)
 
     def get_dict(self):
