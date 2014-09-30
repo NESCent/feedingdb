@@ -334,7 +334,7 @@ class Subject(FeedBaseModel):
                               help_text = "E.g. wild-caught, zoo, laboratory raised, etc.")
     notes = models.TextField(blank = True, null=True, help_text="E.g., any relevant morphological data, such as muscle weights, muscle fiber angles, fiber types, CT scan images, anatomical drawings.")
     def __unicode__(self):
-        return "%s / %s" % (self.study, self.name)
+        return self.name
 
 class Experiment(FeedBaseModel):
     accession = models.CharField(max_length=255, blank = True, null=True)
@@ -553,7 +553,7 @@ class Session(FeedBaseModel):
     channels  = models.ManyToManyField(Channel, through='ChannelLineup')
 
     def __unicode__(self):
-        return "%s / %s / %s" % (self.study.title, self.experiment.title, self.title)
+        return self.title
 
     class Meta:
         ordering = ["position"]
