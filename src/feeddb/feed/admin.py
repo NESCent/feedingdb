@@ -62,10 +62,8 @@ class ExperimentAdmin(FeedModelAdmin):
     search_fields = ('title','study__title','subject__taxon__genus','subject__taxon__species','subject__taxon__common_name','subject__name','description','subject_notes','impl_notes')
     list_display = ('title','study', 'subject','subj_devstage')
     form = ExperimentChangeForm
-    exclude = ('study',)
+    fields = ('setup_types', 'title', 'bookkeeping', 'subject', 'start', 'end', 'description', 'subj_devstage', 'subj_age', 'subj_ageunit', 'subj_weight', 'subj_tooth', 'subject_notes', 'impl_notes',)
     #list_filter = ('study', 'subject')
-
-
 
 class SubjectAdmin(FeedModelAdmin):
     inlines = [IllustrationInline]
