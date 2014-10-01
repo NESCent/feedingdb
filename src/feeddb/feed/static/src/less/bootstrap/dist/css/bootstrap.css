@@ -7252,6 +7252,9 @@ body.users main form .id_is_superuser p {
 body.users main form .id_groups .add-another {
   display: none;
 }
+body.users main form .datetime input {
+  margin: 5px 0;
+}
 /* Global helpers */
 .full-width,
 .vTextField {
@@ -7383,6 +7386,9 @@ form input[type="radio"] {
   border: 0;
   background-color: transparent;
   height: auto;
+}
+textarea {
+  resize: vertical;
 }
 /* Custom media queries for larger screens */
 /* Large devices (large desktops, 1200px and up) */
