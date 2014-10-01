@@ -6636,6 +6636,7 @@ body.search table.search-box th {
 }
 body.search table.search-box th label {
   padding-top: 5px;
+  text-transform: none;
 }
 body.search table.search-box td {
   border: 0;
