@@ -159,6 +159,17 @@ TECHNIQUE_CHOICES = (
                (7, u'Time/Event'),
                )
 
+TECHNIQUE_CHOICES_NAMED = (
+               (u'emgsetup', u'EMG'),
+               (u'sonosetup', u'Sono'),
+               (u'strainsetup', u'Strain'),
+               (u'forcesetup', u'Bite force'),
+               (u'pressuresetup', u'Pressure'),
+               (u'kinematicssetup', u'Kinematics'),
+               (u'eventsetup', u'Time/Event'),
+               (u'othersetup', u'Other'),
+               )
+
 class Techniques(object):
     CHOICES = TECHNIQUE_CHOICES
     __choices_dict = dict(TECHNIQUE_CHOICES)
@@ -359,23 +370,33 @@ class Experiment(FeedBaseModel):
     def __unicode__(self):
         return self.title
 
+    def has_setup_type(self, name, freshen=False):
+        """
+        Determine if the experiment has a setup of the specified type. Uses an
+        instance variable to cache results of the query; pass "freshen=True" to
+        force a new query.
+        """
+        if not hasattr(self, '_setups') or freshen:
+            self._setups = list(self.setup_set.all())
+
+        for setup in self._setups:
+            if hasattr(setup, name):
+                return True
+        return False
+
 class Setup(FeedBaseModel):
     is_cloneable=False
     experiment = models.ForeignKey(Experiment)
-    technique = models.IntegerField(choices=Techniques.CHOICES)
+    #technique = models.IntegerField(choices=Techniques.CHOICES)
     notes = models.TextField("Notes about all sensors and channels in this setup", blank = True, null=True)
     sampling_rate = models.IntegerField("Sampling Rate (Hz)", blank=True, null=True)
     class Meta:
         verbose_name = "Setup"
-    def __unicode__(self):
-        return "%s setup" % (Techniques.num2label(self.technique))
 
 class EmgSetup(Setup):
     preamplifier = models.CharField(max_length=255, blank = True, null=True)
     class Meta:
         verbose_name = "EMG Setup"
-    def __unicode__(self):
-        return "%s setup" % (Techniques.num2label(self.technique))
 
 class SonoSetup(Setup):
     sonomicrometer = models.CharField(max_length=255, blank = True, null=True)

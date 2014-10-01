@@ -38,10 +38,60 @@ class SetupForm (DisableForeignKeyForm):
     class Meta:
         exclude = ('technique',)
 
-
 class ExperimentChangeForm(DisableForeignKeyForm):
+    setup_types = MultipleChoiceField(label="Sensor Types", choices=TECHNIQUE_CHOICES_NAMED, required=False)
+
     start = DateField(required=False, help_text=DATE_HELP_TEXT)
     end = DateField(required=False, help_text=DATE_HELP_TEXT)
+
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.get('instance')
+        initial = kwargs.get('initial')
+        if instance is not None:
+            if initial is None:
+                initial = {}
+
+            setup_types = []
+            for name, label in TECHNIQUE_CHOICES_NAMED:
+                if instance.has_setup_type(name):
+                    setup_types.append(name)
+
+            initial['setup_types'] = setup_types
+            kwargs['initial'] = initial
+        return super(ExperimentChangeForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True, *args, **kwargs):
+        """
+        When saving the form, expand `setup_types` into a list of setups to
+        save, then duplicate the standard behavior from superclass.
+        """
+        from django.db.models.loading import get_model
+
+        experiment = super(ExperimentChangeForm, self).save(commit=False, *args, **kwargs)
+        setup_types = self.cleaned_data.get('setup_types', None)
+        self._setups_to_save = []
+        for setup_name in setup_types:
+            if not experiment.has_setup_type(setup_name):
+                TypedSetup = get_model('feed', setup_name)
+                setup = TypedSetup()
+                setup.experiment = experiment
+                # FIXME: should use request.user if available
+                setup.created_by = experiment.created_by
+                self._setups_to_save.append(setup)
+
+        save_m2m = self.save_m2m
+        def new_save_m2m():
+            save_m2m()
+            for setup in self._setups_to_save:
+                setup.save()
+
+        if commit:
+            experiment.save()
+            new_save_m2m()
+        else:
+            self.save_m2m = new_save_m2m
+
+        return experiment
 
 class StudyChangeForm(forms.ModelForm):
     #start = DateTimeField("Start Date", help_text=DATE_HELP_TEXT)
