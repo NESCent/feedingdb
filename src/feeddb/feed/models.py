@@ -271,7 +271,9 @@ class Unit(CvTerm):
 
 
 class Emgfiltering(CvTerm):
-    pass
+    class Meta:
+        verbose_name = "EMG Filtering"
+        verbose_name_plural = "EMG Filterings"
 
 #object models
 class Study(FeedBaseModel):
