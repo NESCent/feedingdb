@@ -6335,6 +6335,7 @@ body form tr td.electrode_type .chosen-container {
 body form label {
   font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #da5400;
+  text-transform: capitalize;
 }
 body form label.aligned {
   padding: 3px 10px 0 0;
@@ -6474,6 +6475,7 @@ body .admin-tools ul li {
 body .object-tools {
   list-style-type: none;
   padding-left: 0;
+  text-transform: capitalize;
 }
 body .object-tools a span {
   padding-right: 4px;
@@ -6593,7 +6595,7 @@ body.about .box {
   border: 1px solid #e8e5e2;
   padding: 10px 30px;
   margin-bottom: 30px;
-  min-height: 350px;
+  min-height: 366px;
 }
 body.about .box.box2 {
   min-height: inherit;
@@ -7235,6 +7237,21 @@ body #clone-modal .row .chosen-container {
 body.change-form main form .help {
   margin-top: 6px;
 }
+body.users main form .id_user_permissions p,
+body.users main form .id_groups p {
+  display: none;
+}
+body.users main form #id_password {
+  display: none;
+}
+body.users main form .id_is_active p,
+body.users main form .id_is_staff p,
+body.users main form .id_is_superuser p {
+  margin-top: 0;
+}
+body.users main form .id_groups .add-another {
+  display: none;
+}
 /* Global helpers */
 .full-width,
 .vTextField {
@@ -7357,6 +7374,9 @@ form .aligned ul {
 }
 tr.clickable td:first-child {
   width: 30px;
+}
+.action-checkbox-column {
+  width: 36px;
 }
 form input[type="checkbox"],
 form input[type="radio"] {

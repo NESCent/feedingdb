@@ -1,6 +1,6 @@
 {% load display i18n %}
 
-<fieldset class="module aligned {{ fieldset.classes }}">
+<fieldset class="module aligned {{ fieldset.classes }}{% if fieldset.name %}{{ fieldset.name }}{% endif %}">
   {% if fieldset.name %}
     <h3>{{ fieldset.name }}</h3>
   {% endif %}
@@ -25,7 +25,7 @@
         {{ field.field }}
       {%else%}
       
-        <div class="row{% if line.errors %} errors{% endif %}">
+        <div class="row{% if line.errors %} errors{% endif %} {{ field.field.id_for_label }}">
           <div class="{% if not line.fields|length_is:"1" %} field-box{% endif %}">
               <div class="col-xs-3">
                 {% if field.field.field.required %}

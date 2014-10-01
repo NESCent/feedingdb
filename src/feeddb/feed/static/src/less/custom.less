@@ -129,7 +129,7 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
         }
       }
     }
-    label { font: 17px/26px @rockwell, serif; color: @orange; color: @orange-alpha;
+    label { font: 17px/26px @rockwell, serif; color: @orange; color: @orange-alpha; text-transform: capitalize;
       &.aligned { padding: 3px 10px 0 0; float: left; width: 8em; }
       &.required { font-weight: 300 !important; }
     }
@@ -184,7 +184,7 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
       }
     }
   }
-  .object-tools { list-style-type: none; padding-left: 0;
+  .object-tools { list-style-type: none; padding-left: 0; text-transform: capitalize;
     a { 
       span { padding-right: 4px; }
       &:hover { text-decoration: none; color: @orange; color: @orange-alpha; }
@@ -239,7 +239,7 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
       }
     }
     hr { margin: 0 0 30px 0; }
-    .box { background: @white; background: @white-alpha; border: 1px solid @lt-tan; border: 1px solid @lt-tan-alpha; padding: 10px 30px; margin-bottom: 30px; min-height: 350px;
+    .box { background: @white; background: @white-alpha; border: 1px solid @lt-tan; border: 1px solid @lt-tan-alpha; padding: 10px 30px; margin-bottom: 30px; min-height: 366px;
       &.box2 { min-height: inherit; }
       ul { padding-left: 20px; padding-top: 8px;
         li { padding-bottom: 10px; font: 15px/19px @rockwell, serif; color: @navy; color: @navy-alpha;
@@ -581,6 +581,22 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
       }
     }
   }
+  &.users {
+    main {
+      form {
+        .id_user_permissions, .id_groups {
+          p { display: none; }
+        }
+        #id_password { display: none; }
+        .id_is_active, .id_is_staff, .id_is_superuser {
+          p { margin-top: 0; }
+        }
+        .id_groups {
+          .add-another { display: none; }
+        }
+      }
+    }
+  }
 }
 
 /* Global helpers */
@@ -657,6 +673,7 @@ tr {
     }
   }
 }
+.action-checkbox-column { width: 36px; }
 form {
   input[type="checkbox"], input[type="radio"] { border: 0; background-color: transparent; height: auto; }
 }
