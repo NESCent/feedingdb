@@ -60,7 +60,7 @@
         <ul class="object-tools object-tools-top">
           {% if change %}
             {% ifequal opts.app_label "feed" %}
-  <!--         <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><span class="glyphicon glyphicon-pencil"></span></a></li> -->
+              <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><span class='glyphicon glyphicon-eye-open'></span></a></li>
             {% endifequal %}
             {% if has_delete_permission %}
               <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" ><span class='glyphicon glyphicon-remove'></span></a></li>
