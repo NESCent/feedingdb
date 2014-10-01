@@ -88,10 +88,11 @@
         {% include "admin/includes/fieldset.html" %}
       {% endif %}
     {% endfor %}
-    
-    {% for inline_admin_formset in inline_admin_formsets %}
-      {% include inline_admin_formset.opts.template %}
-    {% endfor %}
+    {% if 'study' == opts.model_name %}
+      {% for inline_admin_formset in inline_admin_formsets %}
+        {% include inline_admin_formset.opts.template %}
+      {% endfor %}
+    {% endif %}
     
     {% submit_row %}
     
