@@ -22,6 +22,12 @@ class FeedUploadStatus():
         if name in FIELDS:
             self._data[name] = obj
             self._session.modified = True
+
+        for fname in FIELDS:
+            if hasattr(obj, fname):
+                self._data[fname] = getattr(obj, fname)
+                self._session.modified = True
+
         logger.info(self._data.keys())
 
     def apply_defaults_to_form(self, form):
@@ -33,6 +39,22 @@ class FeedUploadStatus():
     def apply_defaults_to_instance(self, obj):
         for key, value in self._data.items():
             setattr(obj, key, value)
+
+    def object_is_in_study(self, obj):
+        try:
+            study = self._data['study']
+            Study = get_model('feed', 'study')
+            if isinstance(obj, Study):
+                return study == obj
+            else:
+                return study == obj.study
+        except (KeyError, AttributeError):
+            # Either we don't have a stored study or the object isn't a Study
+            # and doesn't have a 'study' attribute
+            pass
+
+        return False
+
 
     def apply_restricted_querysets_to_form(self, form):
         """
@@ -52,7 +74,7 @@ class FeedUploadStatus():
         for field_name, field_value in form.fields.items():
             if isinstance(field_value, ModelChoiceField):
                 M = field_value.queryset.model
-                # iterate through 
+                # iterate through
                 for Mfield in M._meta.fields:
                     if isinstance(Mfield, ForeignKey):
                         Parent = Mfield.related.parent_model
