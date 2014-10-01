@@ -56,7 +56,7 @@ class StudyAdmin(FeedModelAdmin):
     form = StudyChangeForm
     tabbed = False
 
-class ExperimentAdmin(ExperimentModelAdmin):
+class ExperimentAdmin(FeedModelAdmin):
     inlines = [IllustrationInline]
     view_inlines = [IllustrationViewInline]
     search_fields = ('title','study__title','subject__taxon__genus','subject__taxon__species','subject__taxon__common_name','subject__name','description','subject_notes','impl_notes')
@@ -222,51 +222,51 @@ class EventChannelViewInline(FeedTabularInline):
 class EmgSetupAdmin(EmgSetupModelAdmin):
     inlines = [ IllustrationInline, EmgSensorInline]
     view_inlines = [IllustrationViewInline, EmgSensorViewInline]
-    list_display = ('technique', 'preamplifier','experiment')
-    list_filter = ('technique', 'experiment')
+    list_display = ('preamplifier','experiment')
+    list_filter = ('experiment',)
     ordering = ('preamplifier',)
     form = SetupForm
 
 class SonoSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,SonoSensorInline,SonoChannelInline]
     view_inlines = [IllustrationViewInline, SonoSensorViewInline, SonoChannelViewInline]
-    list_display = ('technique', 'sonomicrometer','experiment')
-    list_filter = ('technique', 'experiment')
+    list_display = ('sonomicrometer','experiment')
+    list_filter = ('experiment',)
     ordering = ('sonomicrometer',)
     form = SetupForm
 
 class StrainSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,StrainSensorInline,StrainChannelInline]
     view_inlines = [IllustrationViewInline, StrainSensorViewInline, StrainChannelViewInline]
-    list_display = ('technique', 'experiment')
-    list_filter = ('technique', 'experiment')
+    list_display = ('experiment',)
+    list_filter = ('experiment',)
     form = SetupForm
 
 class ForceSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,ForceSensorInline,ForceChannelInline]
     view_inlines = [IllustrationViewInline, ForceSensorViewInline, ForceChannelViewInline]
-    list_display = ('technique', 'experiment')
-    list_filter = ('technique', 'experiment')
+    list_display = ('experiment',)
+    list_filter = ('experiment',)
     form = SetupForm
 
 class PressureSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,PressureSensorInline,PressureChannelInline]
     view_inlines = [IllustrationViewInline, PressureSensorViewInline, PressureChannelViewInline]
-    list_display = ('technique', 'experiment')
-    list_filter = ('technique', 'experiment')
+    list_display = ('experiment',)
+    list_filter = ('experiment',)
 
 class KinematicsSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,KinematicsSensorInline,KinematicsChannelInline]
     view_inlines = [IllustrationViewInline, KinematicsSensorViewInline, KinematicsChannelViewInline]
-    list_display = ('technique', 'experiment')
-    list_filter = ('technique', 'experiment')
+    list_display = ('experiment',)
+    list_filter = ('experiment',)
     form = SetupForm
 
 class EventSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,EventChannelInline]
     view_inlines = [IllustrationViewInline, EventChannelViewInline]
-    list_display = ('technique', 'experiment')
-    list_filter = ('technique', 'experiment')
+    list_display = ('experiment',)
+    list_filter = ('experiment',)
     form = SetupForm
 
 class EmgChannelAdmin(DefaultModelAdmin):
