@@ -7255,6 +7255,9 @@ body.users main form .id_groups .add-another {
 body.users main form .datetime input {
   margin: 5px 0;
 }
+body.users main form .inline-group h3 {
+  display: none;
+}
 /* Global helpers */
 .full-width,
 .vTextField {
