@@ -39,11 +39,11 @@ def should_show_status(context, status):
         raise ImproperlyConfigured('upload_status_block can only be used on admin forms; missing needed context variable: %s' % e)
 
     Model = get_model('feed', model_name)
-
-
     from feeddb.feed.models import CvTerm, FeedBaseModel
 
-    if issubclass(Model, CvTerm):
+    if Model is None:
+        return False
+    elif issubclass(Model, CvTerm):
         return False
     elif issubclass(Model, FeedBaseModel):
         if add:
