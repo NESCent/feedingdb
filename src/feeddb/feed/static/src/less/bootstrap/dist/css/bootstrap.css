@@ -7424,6 +7424,9 @@ form input[type="radio"] {
 textarea {
   resize: vertical;
 }
+aside {
+  display: none;
+}
 /* Custom media queries for larger screens */
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
