@@ -69,10 +69,10 @@ class TrialIndex(SearchIndex, Indexable):
     created_at = DateTimeField(model_attr='created_at')
     updated_at = DateTimeField(model_attr='updated_at')
 
-    behaviorowl_primary = CharField(model_attr='behavior_primary')
+    behaviorowl_primary = CharField(model_attr='behaviorowl_primary', null=True)
     behaviorowl_primary_ancestors = MultiValueField(faceted=True)
     behaviorowl_primary_part_of = MultiValueField(faceted=True)
-    behaviorowl_secondary = CharField(model_attr='behavior_secondary')
+    behaviorowl_secondary = CharField(model_attr='behaviorowl_secondary', null=True)
     behaviorowl_secondary_ancestors = MultiValueField(faceted=True)
     behaviorowl_secondary_part_of = MultiValueField(faceted=True)
 
