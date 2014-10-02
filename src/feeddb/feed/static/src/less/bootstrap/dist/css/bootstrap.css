@@ -7238,6 +7238,33 @@ body #clone-modal .row .chosen-container {
 body.change-form main form .help {
   margin-top: 6px;
 }
+body.change-form main form span #id_approval_type {
+  list-style-type: none;
+}
+body.change-form main form span #id_approval_type label {
+  position: relative;
+  padding: 0 0 0 26px;
+  color: #112e4f;
+  line-height: 24px;
+  text-transform: none;
+}
+body.change-form main form span #id_approval_type label input {
+  position: absolute;
+  left: 0;
+  top: 1px;
+}
+body.change-form main form span .add-another {
+  display: none;
+}
+body.change-form main form .datetime {
+  margin-bottom: 0;
+}
+body.change-form main form .datetime input {
+  margin: 0 0 5px 0;
+}
+body.change-form main form .datetime input:last-child {
+  margin: 0;
+}
 body.users main form .id_user_permissions p,
 body.users main form .id_groups p {
   display: none;
