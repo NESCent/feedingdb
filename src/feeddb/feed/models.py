@@ -314,20 +314,28 @@ class Study(FeedBaseModel):
                              help_text = "Published or other types of information relevant to interpreting the physiologic data can be cited here")
 
     # Previously private fields
-    pi = models.CharField("Lab PI", max_length=255, null=True,
-                             help_text = "The name of the PI of the lab where the data were collected and/or the grant that funded the research")
     organization = models.CharField("Institutional Affiliation", max_length=255, blank = True, null=True)
     lab = models.CharField(max_length=255, blank = True, null=True)
     funding = models.CharField(max_length=255, blank = True, null=True, help_text = "Funding agency, grant name, number, award date, etc.")
     approval = models.CharField("Animal Use Approval (if applicable)", max_length=255, blank = True, null=True,
                                 help_text = "A reference to approval documentation for Animal Care and Use or for Human Subjects, if it was secured.")
-    notes = models.TextField( blank = True, null=True)
 
     def __unicode__(self):
         return self.title
     class Meta:
         ordering = ["title"]
         verbose_name_plural = "Studies"
+
+class StudyPrivate(FeedBaseModel):
+    study = models.OneToOneField(Study)
+
+    pi = models.CharField("Lab PI", max_length=255, null=True,
+                             help_text = "The name of the PI of the lab where the data were collected and/or the grant that funded the research")
+    notes = models.TextField("Private Notes", blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Study - Private Information"
+        verbose_name_plural = "Study - Private Information"
 
 '''
 '''
