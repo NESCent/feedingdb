@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-  $(".chosen-select, select[multiple]").chosen();
+  $(".chosen-select, select[multiple]").chosen({ search_contains: true });
 
   $("#makeMeScrollable").smoothDivScroll({
       mousewheelScrolling: "vertical",
