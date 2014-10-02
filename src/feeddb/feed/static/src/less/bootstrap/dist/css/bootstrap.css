@@ -6925,10 +6925,19 @@ body #behavior_form .label {
   text-align: left;
   font-weight: normal;
 }
-body #study_form fieldset label {
+body #study_form fieldset .row.id_approval_type_0 .col-xs-8 {
+  position: relative;
+  padding: 80px 0 0 0;
+}
+body #study_form fieldset .row.id_approval_type_0 .col-xs-8 p {
+  position: absolute;
+  top: 0;
+  margin-top: 5px;
+}
+body #study_form fieldset .row label {
   margin-bottom: 10px;
 }
-body #study_form fieldset .action_header {
+body #study_form fieldset .row .action_header {
   width: 84px;
 }
 body #subject_form fieldset td.original {
