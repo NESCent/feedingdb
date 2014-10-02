@@ -7245,8 +7245,11 @@ body.change-form main form span #id_approval_type label {
   position: relative;
   padding: 0 0 0 26px;
   color: #112e4f;
-  line-height: 24px;
+  line-height: 22px;
   text-transform: none;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 400;
 }
 body.change-form main form span #id_approval_type label input {
   position: absolute;
