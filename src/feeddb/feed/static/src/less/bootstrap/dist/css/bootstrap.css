@@ -6615,6 +6615,9 @@ body.about .box ul li a {
 body.search main {
   padding: 30px 0 54px 0;
 }
+body.search aside {
+  display: block;
+}
 body.search h1 {
   text-align: center;
 }
