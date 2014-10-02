@@ -9,6 +9,12 @@ from feeddb.feed.extension.formsets import *
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.contrib.auth.models import User, Group
 
+class StudyPrivateInline(admin.StackedInline):
+    model = StudyPrivate
+    extra = 1
+    max_num = 1
+    template = 'admin/edit_inline/studyprivate_stacked.html'
+
 class ExperimentViewInline(FeedTabularInline):
     model = Experiment
     extra = 0
@@ -48,6 +54,7 @@ class SubjectViewInline(FeedTabularInline):
     tab_name="Subjects"
 
 class StudyAdmin(FeedModelAdmin):
+    inlines = (StudyPrivateInline,)
     view_inlines = [SubjectViewInline, ExperimentViewInline, SessionViewInline, TrialViewInline]
     search_fields = ('title', 'description')
     list_display = ('title','start','end', 'funding_agency',)
