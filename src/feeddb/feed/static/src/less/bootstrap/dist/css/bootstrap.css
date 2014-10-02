@@ -7430,6 +7430,9 @@ textarea {
 aside {
   display: none;
 }
+form .chosen-container-multi .chosen-choices {
+  padding: 5px;
+}
 /* Custom media queries for larger screens */
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
