@@ -395,7 +395,7 @@ class Experiment(FeedBaseModel):
 class Setup(FeedBaseModel):
     is_cloneable=False
     experiment = models.ForeignKey(Experiment)
-    #technique = models.IntegerField(choices=Techniques.CHOICES)
+    technique = models.IntegerField(choices=Techniques.CHOICES)
     notes = models.TextField("Notes about all sensors and channels in this setup", blank = True, null=True)
     sampling_rate = models.IntegerField("Sampling Rate (Hz)", blank=True, null=True)
     class Meta:
