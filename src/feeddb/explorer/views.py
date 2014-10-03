@@ -26,9 +26,7 @@ def portal_page(request):
     return render_to_response('explorer/index.html', c, mimetype="text/html")
 
 def bucket_index(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login?next=%s' % request.path)
-    buckets = Bucket.objects.filter(created_by=request.user)
+    buckets = get_user_buckets(request)
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'data buckets': buckets})
     return render_to_response('explorer/bucket_list.html', c, mimetype="text/html")
 
@@ -41,6 +39,10 @@ def bucket_add(request):
             if request.user.id:
                 form.instance.created_by = request.user
             form.save()
+
+            if request.user.id is None:
+                anonymous_bucket_ids(request, form.instance.id)
+
             messages.success(request, "Successfully added the data collection.")
             c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
             return render_to_response('explorer/bucket_detail.html', c)
@@ -54,8 +56,6 @@ def bucket_add(request):
     return render_to_response('explorer/bucket_add.html', c)
 
 def bucket_delete(request, id):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login?next=%s' % request.path)
     bucket = get_bucket(request, id)
     bucket.delete()
     messages.success(request, 'Successfully deleted the data collection:%s' % bucket)
@@ -85,11 +85,17 @@ def anonymous_bucket_ids(request, id=None):
         request.session.modified = True
     return ids
 
+def get_user_buckets(request):
+    if request.user.id:
+        buckets = Bucket.objects.get(created_by=request.user)
+    else:
+        buckets = Bucket.objects.get(created_by__isnull=True, id__in=anonymous_bucket_ids(request))
+    return buckets
+
 # VG-claim: Finishing this view in the 1st pass needs only
 #     a detailed implementation of the bucket_detail.html template.
 #  However, we'll later need to improve efficiency of DB lookups.
 def bucket_detail(request, id):
-    # TODO: access control
     message=None
     bucket = get_bucket(request, id)
 
