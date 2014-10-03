@@ -63,6 +63,7 @@ def bucket_delete(request, id):
 
 def get_bucket(request, id):
     from django.http import Http404
+    id = int(id)
     try:
         if request.user.id:
             bucket = Bucket.objects.get(pk=id, created_by=request.user)
@@ -87,9 +88,9 @@ def anonymous_bucket_ids(request, id=None):
 
 def get_user_buckets(request):
     if request.user.id:
-        buckets = Bucket.objects.get(created_by=request.user)
+        buckets = Bucket.objects.filter(created_by=request.user)
     else:
-        buckets = Bucket.objects.get(created_by__isnull=True, id__in=anonymous_bucket_ids(request))
+        buckets = Bucket.objects.filter(created_by__isnull=True, id__in=anonymous_bucket_ids(request))
     return buckets
 
 # VG-claim: Finishing this view in the 1st pass needs only
@@ -522,6 +523,8 @@ def trial_search_put(request):
                 bucket.created_by = request.user
             bucket.title = new_bucket_name
             bucket.save()
+            if request.user.id is None:
+                anonymous_bucket_ids(request, bucket.id)
     #add trials to the bucket
     for trial_id in trial_selected:
         trial = Trial.objects.get(pk=trial_id)
