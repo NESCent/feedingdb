@@ -136,9 +136,6 @@ class FeedSearchView(FacetedSearchView):
             self._filter_facet_items(facet, result_count=len(self.results))
 
         extra['facet_items'] = facet_list
-        if self.request.user.id:
-            extra['available_buckets'] = self.request.user.bucket_related.all()
-        else:
-            # TODO: get buckets from session
-            extra['available_buckets'] = Bucket.objects.filter(created_by__isnull=True)
+        from feeddb.explorer.views import get_user_buckets
+        extra['available_buckets'] = get_user_buckets(self.request)
         return extra
