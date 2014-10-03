@@ -83,17 +83,18 @@ function checkbox_clicked(obj){
           <th>Muscle/Bone</th>
           <th class="bucket_header">My Data Collections</th>
         </tr>
-        {% for trial in form.instance.trials.all %}
+        {% for trial in trials %}
         <tr class="{% cycle 'row1'  'row2' %}">
           <td><input type="checkbox" name="{{trial.id}}" id="{{trial.id}}" class="check_trial" /></td>
           <td><a href="{% url "explorer.views.trial_detail" trial.id %}">{{trial.title}}</a></td>
           <td>{{trial.session.experiment.subject.taxon.genus}} {{trial.session.experiment.subject.taxon.species}}</td>
-          <td>{{trial.behavior_primary}}</td>
+          <td>{{trial.behaviorowl_primary}}</td>
           <td>{{trial.food_type}}</td>
           <td>
-          {% display_technique trial  %}
+          {#% display_technique trial  %#}
+          FIXME
           </td>
-          <td>{% display_muscle trial  %}</td>
+          <td>FIXME {#% display_muscle trial  %#}</td>
           <td class="bucket_column">
           {% for bucket in trial.bucket_set.all %}
           {%ifequal bucket.created_by.id user.id %}

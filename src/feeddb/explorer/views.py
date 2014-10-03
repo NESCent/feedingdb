@@ -111,7 +111,17 @@ def bucket_detail(request, id):
     else:
         form = BucketModelForm(instance=bucket)
 
-    c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
+    trials = bucket.trials.all().select_related(
+        'session__experiment__subject__taxon',
+        'behaviorowl_primary',
+        'food_type'
+        ).prefetch_related('bucket_set')
+
+    c = RequestContext(request, {
+        'title': 'FeedDB Explorer',
+        'form': form,
+        'trials': trials,
+        })
     return render_to_response('explorer/bucket_detail.html', c)
 
 def bucket_download(request, id):
