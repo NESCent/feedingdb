@@ -188,6 +188,15 @@ class Techniques(object):
         return cls.__choices_dict.get(num, "Unknown Technique")
 
     @classmethod
+    def name2num(cls, name):
+        i = 1
+        for n, l in TECHNIQUE_CHOICES_NAMED:
+            if n == name:
+               return i
+            ++i
+        return None
+
+    @classmethod
     def get_setup_model(cls, technique):
         if technique == cls.ENUM.emg:
             return EmgSetup

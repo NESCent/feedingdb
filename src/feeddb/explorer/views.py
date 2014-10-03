@@ -26,9 +26,7 @@ def portal_page(request):
     return render_to_response('explorer/index.html', c, mimetype="text/html")
 
 def bucket_index(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login?next=%s' % request.path)
-    buckets = Bucket.objects.filter(created_by=request.user)
+    buckets = get_user_buckets(request)
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'data buckets': buckets})
     return render_to_response('explorer/bucket_list.html', c, mimetype="text/html")
 
@@ -41,6 +39,10 @@ def bucket_add(request):
             if request.user.id:
                 form.instance.created_by = request.user
             form.save()
+
+            if request.user.id is None:
+                anonymous_bucket_ids(request, form.instance.id)
+
             messages.success(request, "Successfully added the data collection.")
             c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
             return render_to_response('explorer/bucket_detail.html', c)
@@ -54,8 +56,6 @@ def bucket_add(request):
     return render_to_response('explorer/bucket_add.html', c)
 
 def bucket_delete(request, id):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/login?next=%s' % request.path)
     bucket = get_bucket(request, id)
     bucket.delete()
     messages.success(request, 'Successfully deleted the data collection:%s' % bucket)
@@ -63,22 +63,40 @@ def bucket_delete(request, id):
 
 def get_bucket(request, id):
     from django.http import Http404
+    id = int(id)
     try:
         if request.user.id:
             bucket = Bucket.objects.get(pk=id, created_by=request.user)
         else:
-            # TODO: get bucket list from session
+            # check session for specified bucket id (throws ValueError if not found)
+            session_bucket_ids = anonymous_bucket_ids(request)
+            session_bucket_ids.index(id)
+
+            # get the bucket, with extra check that it's not owned by somebody else
             bucket = Bucket.objects.get(pk=id, created_by__isnull=True)
-    except Bucket.DoesNotExist:
+    except (Bucket.DoesNotExist, ValueError):
         raise Http404('You do not own a data collection with primary key %s.' % id)
 
     return bucket
+
+def anonymous_bucket_ids(request, id=None):
+    ids = request.session.setdefault('bucket_ids', [])
+    if id is not None:
+        ids.append(id)
+        request.session.modified = True
+    return ids
+
+def get_user_buckets(request):
+    if request.user.id:
+        buckets = Bucket.objects.filter(created_by=request.user)
+    else:
+        buckets = Bucket.objects.filter(created_by__isnull=True, id__in=anonymous_bucket_ids(request))
+    return buckets
 
 # VG-claim: Finishing this view in the 1st pass needs only
 #     a detailed implementation of the bucket_detail.html template.
 #  However, we'll later need to improve efficiency of DB lookups.
 def bucket_detail(request, id):
-    # TODO: access control
     message=None
     bucket = get_bucket(request, id)
 
@@ -93,7 +111,17 @@ def bucket_detail(request, id):
     else:
         form = BucketModelForm(instance=bucket)
 
-    c = RequestContext(request, {'title': 'FeedDB Explorer',  'form':form})
+    trials = bucket.trials.all().select_related(
+        'session__experiment__subject__taxon',
+        'behaviorowl_primary',
+        'food_type'
+        ).prefetch_related('bucket_set')
+
+    c = RequestContext(request, {
+        'title': 'FeedDB Explorer',
+        'form': form,
+        'trials': trials,
+        })
     return render_to_response('explorer/bucket_detail.html', c)
 
 def bucket_download(request, id):
@@ -505,6 +533,8 @@ def trial_search_put(request):
                 bucket.created_by = request.user
             bucket.title = new_bucket_name
             bucket.save()
+            if request.user.id is None:
+                anonymous_bucket_ids(request, bucket.id)
     #add trials to the bucket
     for trial_id in trial_selected:
         trial = Trial.objects.get(pk=trial_id)
