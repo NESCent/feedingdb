@@ -75,6 +75,7 @@ class ExperimentChangeForm(DisableForeignKeyForm):
                 TypedSetup = get_model('feed', setup_name)
                 setup = TypedSetup()
                 setup.experiment = experiment
+                setup.technique = Techniques.name2num(setup_name)
                 # FIXME: should use request.user if available
                 setup.created_by = experiment.created_by
                 self._setups_to_save.append(setup)
@@ -83,6 +84,8 @@ class ExperimentChangeForm(DisableForeignKeyForm):
         def new_save_m2m():
             save_m2m()
             for setup in self._setups_to_save:
+                # This line avoids an IntegrityError in setup.save(). Insanity.
+                setup.experiment = setup.experiment
                 setup.save()
 
         if commit:
