@@ -67,12 +67,23 @@ def get_bucket(request, id):
         if request.user.id:
             bucket = Bucket.objects.get(pk=id, created_by=request.user)
         else:
-            # TODO: get bucket list from session
+            # check session for specified bucket id (throws ValueError if not found)
+            session_bucket_ids = anonymous_bucket_ids(request)
+            session_bucket_ids.index(id)
+
+            # get the bucket, with extra check that it's not owned by somebody else
             bucket = Bucket.objects.get(pk=id, created_by__isnull=True)
-    except Bucket.DoesNotExist:
+    except (Bucket.DoesNotExist, ValueError):
         raise Http404('You do not own a data collection with primary key %s.' % id)
 
     return bucket
+
+def anonymous_bucket_ids(request, id=None):
+    ids = request.session.setdefault('bucket_ids', [])
+    if id is not None:
+        ids.append(id)
+        request.session.modified = True
+    return ids
 
 # VG-claim: Finishing this view in the 1st pass needs only
 #     a detailed implementation of the bucket_detail.html template.
