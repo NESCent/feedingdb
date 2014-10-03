@@ -12,6 +12,8 @@ from haystack.views import FacetedSearchView
 from haystack.query import SearchQuerySet
 from forms import FeedSearchForm
 
+from feeddb.explorer.models import Bucket
+
 import logging
 logger = logging.getLogger(__name__)
 
@@ -134,4 +136,9 @@ class FeedSearchView(FacetedSearchView):
             self._filter_facet_items(facet, result_count=len(self.results))
 
         extra['facet_items'] = facet_list
+        if self.request.user.id:
+            extra['available_buckets'] = user.bucket_related.all()
+        else:
+            # TODO: get buckets from session
+            extra['available_buckets'] = Bucket.objects.filter(created_by__isnull=True)
         return extra

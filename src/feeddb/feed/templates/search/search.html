@@ -127,7 +127,7 @@
             <select class="chosen-select" name="bucket">
               <option value=""> - Select - </option>
               <option value="add new bucket" data-toggle="modal" data-target="#new_bucket_div">Add new collection</option>
-              {% for bucket in user.bucket_related.all %}
+              {% for bucket in available_buckets %}
                 <option value="{{bucket.id}}">{{bucket}}</option>
               {% endfor %}
             </select>
