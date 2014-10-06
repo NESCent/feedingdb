@@ -1,6 +1,6 @@
 {% load i18n %}
 <div class="row actions">
-  <div class="col-xs-10">
+  <div class="col-xs-8">
 {% for field in action_form %}
     <label class="action">{{ field.label }}</label>
     <label>
@@ -9,10 +9,13 @@
   {% endfor %}
     <button type="submit" class="button" title="{% trans "Run the selected action" %}" name="index" value="{{ action_index|default:0 }}">{% trans "Go" %}</button>
   </div>
-  <div class="col-xs-2">
+  <div class="col-xs-4">
     <div class="float-right">
       {% if cl.has_filters %}
       <a href="{% url "admin:auth_user_add" %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add User</a>
+      <a href="/admin/explorer/bucket/" class="addlink collections"><span class="glyphicon glyphicon-eye-open"></span>Browse Collections</a>
+      {% elif 'buckets' == opts.model_name %}
+      <a href="{% url "admin:auth_bucket_add" %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add Collection</a>
       {% else %}
       <a href="{% url "admin:auth_group_add" %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add Group</a>
       {% endif %}
