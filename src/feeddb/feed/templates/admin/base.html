@@ -57,18 +57,18 @@
                         <a href="{{ root_path }}password_change/">
                     {% endif %}
                     
-                    {% trans 'Change password' %}</a> /
+                    {% trans 'Change Password' %}</a> /
                     
                     {% if user.is_superuser %}
-                    <a href="{% url "admin:auth_group_changelist" %}">Manage groups</a> /
-                    <a href="{% url "admin:auth_user_changelist" %}">Manage users</a> /
+                    <a href="{% url "admin:auth_group_changelist" %}">Manage Groups</a> /
+                    <a href="{% url "admin:auth_user_changelist" %}">Manage Users</a> /
                     {% endif %}
                     
                     <a href="/logout?next=/admin/">
-                    {% trans 'Log out' %}</a>
+                    {% trans 'Log Out' %}</a>
                   {% endifnotequal %}
                   {% else %}
-                    <a href="/login">{% trans 'Log in' %}</a>
+                    <a href="/login">{% trans 'Log In' %}</a>
                   {% endif %}
                 {% endblock %}
                 /
