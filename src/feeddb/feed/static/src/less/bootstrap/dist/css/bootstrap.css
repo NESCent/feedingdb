@@ -7366,6 +7366,9 @@ table label {
 .short-box textarea {
   height: 120px;
 }
+.addlink.collections {
+  padding-left: 10px;
+}
 table tr.clickable td:first-child {
   width: auto;
 }
