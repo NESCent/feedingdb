@@ -283,7 +283,7 @@ class SonoChannelAdmin(DefaultModelAdmin):
     ordering = ('crystal1',)
 
 
-class ChannelLineupInline(FeedStackedInline):
+class ChannelLineupInline(FeedTabularInline):
     model = ChannelLineup
     extra = 8
     tabbed = True

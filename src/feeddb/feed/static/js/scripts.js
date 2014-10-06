@@ -1,6 +1,10 @@
 $( document ).ready(function() {
 
-  $(".chosen-select, select[multiple]").chosen({ search_contains: true });
+  $(".chosen-select, select[multiple]").chosen({
+    search_contains: true
+   ,placeholder_text_multiple: "Click to add"
+   ,placeholder_text_single: "Click to add"
+  });
 
   $("#makeMeScrollable").smoothDivScroll({
       mousewheelScrolling: "vertical",
@@ -9,7 +13,7 @@ $( document ).ready(function() {
       mousewheelScrollingStep: 3,
       autoScrollingStep: 1,
       autoScrollingInterval: 20,
-      autoScrollingStopped: function() { 
+      autoScrollingStopped: function() {
         $("#makeMeScrollable").smoothDivScroll("startAutoScrolling");
       }
     });
