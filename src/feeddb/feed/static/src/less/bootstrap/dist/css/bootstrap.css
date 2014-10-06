@@ -6367,11 +6367,12 @@ body form input[type="submit"] {
   background: #da5400;
   color: #ffffff;
   font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
-  padding: 8px 23px;
+  padding: 8px 0;
   -webkit-box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
   -moz-box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
   box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
   border: 0;
+  text-align: center;
 }
 body form button:hover,
 body form input[type="button"]:hover,
