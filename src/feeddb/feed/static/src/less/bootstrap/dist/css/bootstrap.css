@@ -7301,6 +7301,9 @@ body.users main form .datetime input {
 body.users main form .inline-group h3 {
   display: none;
 }
+body.auth-group main form .id_permissions p {
+  display: none;
+}
 /* Global helpers */
 .full-width,
 .vTextField {
