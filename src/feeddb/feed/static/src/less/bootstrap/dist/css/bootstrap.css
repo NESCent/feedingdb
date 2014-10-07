@@ -6897,6 +6897,12 @@ body #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-e {
 body.detail-view table td.TdField {
   width: 164px;
 }
+body.detail-view table td.download-picture {
+  padding: 10px 0 0 0;
+}
+body.detail-view table td.download-picture a {
+  font-size: 16px;
+}
 body.detail-view .records-selection {
   margin: 0 auto;
   width: 634px;

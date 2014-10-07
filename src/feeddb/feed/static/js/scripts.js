@@ -27,5 +27,9 @@ $( document ).ready(function() {
   $("select").on('change', function(ev) {
     $(ev.target).find('option:selected').click();
   });
+  
+  $('.download-picture .glyphicon-picture').addClass('glyphicon-save');
+  $('.download-picture .glyphicon-picture').removeClass('glyphicon-picture');
+
 
 });

@@ -63,7 +63,7 @@
             <tr><td class='TdField'>Illustrations</td><td class='TdValue'>
             	<table>
             	{% for illustration in trial.session.experiment.subject.illustration_set.all %}
-            	  <tr><td>{%display_file illustration.picture %}</td>
+            	  <tr><td class="download-picture">{%display_file illustration.picture %}</td>
             	  <td>{{illustration.notes}}</td>
             	  </tr>
             	{%endfor%}
