@@ -47,6 +47,9 @@
           {% include "admin/includes/fieldset.html" %}
         {% endif %}
       {% endfor %}
+      {% for inline_admin_formset in inline_admin_formsets %}
+        {% include inline_admin_formset.opts.template %}
+      {% endfor %}
       <div class="row">
         <div class="col-xs-4 col-xs-offset-3">
           <input class="btn btn-primary" type="submit" value="{% trans 'Save &amp; Add Details' %}" name="_continue" {{ onclick_attrib }}/>
