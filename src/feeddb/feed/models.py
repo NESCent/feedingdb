@@ -14,7 +14,7 @@ BOOKKEEPING_HELP_TEXT = 'Enter any text required for lab bookkeeping concerning 
 
 class FeedUserProfile(models.Model):
     user = models.OneToOneField(User, primary_key=True)
-    institutional_affiliation = models.CharField(max_length=255)
+    institutional_affiliation = models.CharField(max_length=255, blank=True)
 
     def __unicode__(self):
         return u'Profile of user: %s' % self.user.username
