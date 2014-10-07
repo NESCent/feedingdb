@@ -22,7 +22,7 @@ class ExperimentViewInline(FeedTabularInline):
     fields = ['title', 'subject','subj_devstage','start','end']
     tab_name = "Experiments"
 
-class IllustrationInline(FeedStackedInline):
+class IllustrationInline(FeedTabularInline):
     model = Illustration
     extra = 1
     fields = ('picture','notes')

@@ -1,47 +1,49 @@
 {% load i18n %}
 {% if change %}
   {% if 'emgsetup' == opts.model_name %}
-    <div class="col-xs-9">
       <div class="col-xs-4">
         <input class="btn btn-primary bottom-element" type="submit" value="{% trans 'Save Changes' %}" name="_save" {{ onclick_attrib }}/>
       </div>
-    </div>
   {% elif 'strainsetup' == opts.model_name %}
-    <div class="col-xs-9">
       <div class="col-xs-4">
         <input class="btn btn-primary bottom-element" type="submit" value="{% trans 'Save Changes' %}" name="_save" {{ onclick_attrib }}/>
       </div>
-    </div>
   {% elif 'kinematicssetup' == opts.model_name %}
-    <div class="col-xs-9">
       <div class="col-xs-4">
         <input class="btn btn-primary bottom-element" type="submit" value="{% trans 'Save Changes' %}" name="_save" {{ onclick_attrib }}/>
       </div>
-    </div>
   {% elif 'sonosetup' == opts.model_name %}
-    <div class="col-xs-9">
       <div class="col-xs-4">
         <input class="btn btn-primary bottom-element" type="submit" value="{% trans 'Save Changes' %}" name="_save" {{ onclick_attrib }}/>
       </div>
-    </div>
   {% elif 'forcesetup' == opts.model_name %}
-    <div class="col-xs-9">
       <div class="col-xs-4">
         <input class="btn btn-primary bottom-element" type="submit" value="{% trans 'Save Changes' %}" name="_save" {{ onclick_attrib }}/>
       </div>
-    </div>
   {% elif 'pressuresetup' == opts.model_name %}
-    <div class="col-xs-9">
       <div class="col-xs-4">
         <input class="btn btn-primary bottom-element" type="submit" value="{% trans 'Save Changes' %}" name="_save" {{ onclick_attrib }}/>
       </div>
-    </div>
   {% elif 'eventsetup' == opts.model_name %}
-    <div class="col-xs-9">
       <div class="col-xs-4">
         <input class="btn btn-primary bottom-element" type="submit" value="{% trans 'Save Changes' %}" name="_save" {{ onclick_attrib }}/>
       </div>
-    </div>
+  {% elif 'study' == opts.model_name %}
+      <div class="col-xs-4 col-xs-offset-3">
+        <input class="btn btn-primary bottom-element" type="submit" value="{% trans 'Save Changes' %}" name="_save" {{ onclick_attrib }}/>
+      </div>
+  {% elif 'subject' == opts.model_name %}
+      <div class="col-xs-4">
+        <input class="btn btn-primary bottom-element" type="submit" value="{% trans 'Save Changes' %}" name="_save" {{ onclick_attrib }}/>
+      </div>
+  {% elif 'experiment' == opts.model_name %}
+      <div class="col-xs-4">
+        <input class="btn btn-primary bottom-element" type="submit" value="{% trans 'Save Changes' %}" name="_save" {{ onclick_attrib }}/>
+      </div>
+  {% elif 'session' == opts.model_name %}
+      <div class="col-xs-4">
+        <input class="btn btn-primary bottom-element" type="submit" value="{% trans 'Save Changes' %}" name="_save" {{ onclick_attrib }}/>
+      </div>
     {% else %}
       <div class="col-xs-4 col-xs-offset-3">
         <input class="btn btn-primary bottom-element" type="submit" value="{% trans 'Save Changes' %}" name="_save" {{ onclick_attrib }}/>
