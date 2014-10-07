@@ -386,17 +386,42 @@ class Experiment(FeedBaseModel):
 
     def has_setup_type(self, name, freshen=False):
         """
-        Determine if the experiment has a setup of the specified type. Uses an
-        instance variable to cache results of the query; pass "freshen=True" to
-        force a new query.
+        Determine if the experiment has a setup of the specified type.
         """
-        if not hasattr(self, '_setups') or freshen:
-            self._setups = list(self.setup_set.all())
-
-        for setup in self._setups:
+        for setup in self.get_setups(freshen):
             if hasattr(setup, name):
                 return True
         return False
+
+    def get_setups(self, freshen=False):
+        """
+        Uses an instance variable to cache results of the query; pass
+        "freshen=True" to force a new query.
+        """
+        if not hasattr(self, '_setups') or freshen:
+            self._setups = list(self.setup_set.order_by('pk'))
+
+        return self._setups
+
+    def get_setups_with_type(self, freshen=False):
+        if not hasattr(self, '_setup_types') or freshen:
+            self._setup_types = self._get_setup_types(self.get_setups(freshen=freshen))
+
+        return zip(self._setup_types, self._setups)
+
+    @staticmethod
+    def _get_setup_types(setups):
+        types = []
+        for setup in setups:
+            for setup_name, label in TECHNIQUE_CHOICES_NAMED:
+                if hasattr(setup, setup_name):
+                    types.append(setup_name)
+                    break
+            else:
+                # if no known type was found, save "unknown" as the type
+                types.append('unknown')
+
+        return types
 
 class Setup(FeedBaseModel):
     is_cloneable=False

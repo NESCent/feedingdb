@@ -114,7 +114,8 @@ class FeedModelAdmin(admin.ModelAdmin):
         'add_trial': reverse_lazy('admin:feed_trial_add'),
         'add_session': reverse_lazy('admin:feed_session_add'),
         'add_subject': reverse_lazy('admin:feed_subject_add'),
-        'study_view': FeedUploadStatus.current_study_view_url
+        'study_view': FeedUploadStatus.current_study_view_url,
+        'setup_or_session': FeedUploadStatus.next_setup_or_session_url,
     }
 
     def __init__(self, model, admin_site):
@@ -124,13 +125,19 @@ class FeedModelAdmin(admin.ModelAdmin):
             view_inline_instance = view_inline_class(self.model, self.admin_site)
             self.view_inline_instances.append(view_inline_instance)
 
-    def get_redirect_destination(self, request, form_data, default=''):
+    def get_redirect_destination(self, request, form_data, obj, default=''):
+        import logging
+
+        # Get an instance of a logger
+        logger = logging.getLogger(__name__)
         ret = False
         if self.success_destinations:
             for name in self.success_destinations:
                 if '_redirect_' + name in form_data:
+                    logger.info("trying %s" % name)
                     if callable(self.success_destinations[name]):
-                        ret = self.success_destinations[name](request)
+                        logger.info("calling %s" % name)
+                        ret = self.success_destinations[name](request, form_data, obj)
                     else:
                         ret = self.success_destinations[name]
         return ret or default
@@ -264,7 +271,7 @@ class FeedModelAdmin(admin.ModelAdmin):
                 # escape() calls force_unicode.
                 (escape(pk_value), escape(obj)))
 
-        dest = self.get_redirect_destination(request, request.POST, '../%d/edit' % pk_value)
+        dest = self.get_redirect_destination(request, request.POST, obj, '../%d/edit' % pk_value)
         return HttpResponseRedirect(dest)
 
     @csrf_protect_m
@@ -334,7 +341,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         msg = _('The %(name)s "%(obj)s" was changed successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj)}
         self.message_user(request, msg)
 
-        dest = self.get_redirect_destination(request.POST, '../edit')
+        dest = self.get_redirect_destination(request, request.POST, obj, '../edit')
         return HttpResponseRedirect(dest)
 
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
