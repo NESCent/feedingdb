@@ -48,7 +48,7 @@
         {% endif %}
       {% endfor %}
       {% for inline_admin_formset in inline_admin_formsets %}
-        {% include inline_admin_formset.opts.template %}
+        {% include "admin/edit_inline/hidden.html" %}
       {% endfor %}
       <div class="row">
         <div class="col-xs-4 col-xs-offset-3">
