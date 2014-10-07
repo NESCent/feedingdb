@@ -442,11 +442,34 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
     fieldset {
       td {
         &.original { width: 0; padding: 0; }
-        &.notes { height: 100px;
-          textarea { height: 100px; }
+        &.notes { height: 42px;
+          textarea { width: 100%; height: 42px; }
         }
       }
     }
+    .inline-group { margin-bottom: 30px; }
+  }
+  #experiment_form {
+    fieldset {
+      td {
+        &.original { width: 0; padding: 0; }
+        &.notes { height: 42px;
+          textarea { width: 100%; height: 42px; }
+        }
+      }
+    }
+    .inline-group { margin-bottom: 30px; }
+  }
+  #kinematicssetup_form, #sonosetup_form, #emgsetup_form, #strainsetup_form, #forcesetup_form, #pressuresetup_form, #eventsetup_form {
+    fieldset {
+      td {
+        &.original { width: 0; padding: 0; }
+        &.notes { height: 42px;
+          textarea { width: 100%; height: 42px; }
+        }
+      }
+    }
+    .inline-group { margin-bottom: 30px; }
   }
   #session_form {
     fieldset {
@@ -454,6 +477,7 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
         &.original { width: 0; padding: 0; }
       }
     }
+    .inline-group { margin-bottom: 30px; }
   }
   &.change-list {
     .session-search { margin-bottom: 0; margin-top: 0; }
@@ -682,7 +706,7 @@ table {
     }
   }
 }
-.large-table { overflow: auto; border: 1px solid #dddddd;
+.large-table { overflow: auto; border: 1px solid #dddddd; background: @white; background: @white-alpha;
   table { background: transparent;
     tr {
       td {
