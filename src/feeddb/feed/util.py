@@ -1,9 +1,13 @@
 from django.db.models.loading import get_model
 from django.db.models import ForeignKey
 from django.forms.models import ModelChoiceField
+from django.core.urlresolvers import reverse
 from UserDict import UserDict
 # import the logging library
 import logging
+from django.conf import settings
+
+from feeddb.feed.models import Study, Experiment, Setup, TECHNIQUE_CHOICES_NAMED
 #
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -43,7 +47,6 @@ class FeedUploadStatus():
     def object_is_in_study(self, obj):
         try:
             study = self._data['study']
-            Study = get_model('feed', 'study')
             if isinstance(obj, Study):
                 return study == obj
             else:
@@ -65,7 +68,6 @@ class FeedUploadStatus():
 
         Current basic version: filter by study only
         """
-        Study = get_model('feed', 'study')
         study = self._data.get('study', None)
         if study is None:
             return
@@ -86,12 +88,54 @@ class FeedUploadStatus():
         return self._data
 
     @classmethod
-    def current_study_view_url(cls, request):
+    def current_study_view_url(cls, request, form_data, obj):
         try:
-            self = request.session['feed_upload_status']
-            study_id = self._data['study']
-            if study_id:
-                return reverse_lazy('admin:feed_study_view', args=(study_id,))
+            self = request.feed_upload_status
+            study = self._data['study']
+            if study:
+                return reverse('admin:feed_study_view', args=(study.id,))
+        except (AttributeError, KeyError):
+            pass
+
+        return False
+
+    @classmethod
+    def next_setup_or_session_url(cls, request, form_data, obj):
+        try:
+            self = request.feed_upload_status
+            study = self._data['study']
+            logger.info('study %s' % study.id)
+            if type(obj) == Experiment and obj.study == study:
+                experiment = obj
+
+                if settings.DEBUG:
+                    logger.info('experiment %s' % experiment.id)
+                    logger.info('s with t %s' % unicode(experiment.get_setups_with_type(freshen=True)))
+                    logger.info('s %s' % unicode([s.id for s in experiment.get_setups(freshen=True)]))
+
+                for setup_name, setup in experiment.get_setups_with_type(freshen=True):
+                    return reverse('admin:feed_%s_change' % setup_name, args=(setup.id,))
+                else:
+                    return reverse('admin:feed_session_add')
+            elif isinstance(obj, Setup):
+                experiment = obj.experiment
+
+                if settings.DEBUG:
+                    logger.info('experiment %s' % experiment.id)
+                    logger.info('s with t %s' % unicode(experiment.get_setups_with_type(freshen=True)))
+                    logger.info('s %s' % unicode([s.id for s in experiment.get_setups(freshen=True)]))
+                    logger.info("isinstaance setup %d" % obj.id)
+
+                this_is_next = False
+                for setup_name, setup in experiment.get_setups_with_type(freshen=True):
+                    if this_is_next:
+                        return reverse('admin:feed_%s_change' % setup_name, args=(setup.id,))
+                    if setup.id == obj.id:
+                        this_is_next = True
+                else:
+                    return reverse('admin:feed_session_add')
+            logger.info("didn't send any url")
+
         except (AttributeError, KeyError):
             pass
 
