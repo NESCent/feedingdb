@@ -26,7 +26,7 @@ def print_clone(obj):
         # and having the save() method setting the study back to the study for
         # its session?
         #
-        # conversely, i also need to avoid making two copies of the same trial. 
+        # conversely, i also need to avoid making two copies of the same trial.
         #
         # this might mean some kind of network traversal, but i hope there is
         # something more straightforward. what about just keeping track of the
@@ -38,11 +38,60 @@ def print_clone(obj):
         if hasattr(field, 'related'):
             Parent = field.related.parent_model
             parent_type = ContentType.objects.get_for_model(s)
-            parent_name = 
+            parent_name =
             if Parent == User:
                 continue
             print_fields("%s.%s" % (prefix, field.name), Parent)
         else:
             print "%s.%s" % (prefix, field.name)
-    
-        
+
+
+def clone_session(session, experiment=None):
+    """
+    Modifies its argument to become the new session
+    """
+    copy_channels = True
+
+    if experiment is not None:
+        # we can't copy channels if we're changing experiment, because the channels
+        # are part of the setup which is part of the experiment.
+        #
+        # TODO: when we're copying an experiment, we need to be able to clone
+        # the channels while changing the experiment. Hrmph.
+        copy_channels = False
+        session.experiment = experiment
+
+    trials = session.trial_set.all()
+    if copy_channels:
+        channels = session.channels.all()
+        channellineups = session.channellineup_set.all()
+
+    session.id = None
+    session.pk = None
+    session.save()
+    for trial in trials:
+        clone_trial(trial, session=session)
+
+    if copy_channels:
+        # If we can copy channels, that means we're using the same setup, so we
+        # just need to copy the m2m relationships.
+        #
+        # Per Django docs, this would be a simple mapper of assigning the list
+        # of channels to the new m2m field, but we have a `through` table, so
+        # we have to make new relationships manually.
+        for lineup in channellineups:
+            clone_lineup(lineup, session=session)
+
+def clone_trial(trial, session=None):
+    _clone_basic(trial, session=session)
+
+def clone_lineup(lineup, session=None):
+    _clone_basic(lineup, session=session)
+
+def _clone_basic(thing, **kwargs):
+    thing.id = None
+    thing.pk = None
+    for key, value in kwargs:
+        setattr(thing, key, value)
+    thing.save()
+
