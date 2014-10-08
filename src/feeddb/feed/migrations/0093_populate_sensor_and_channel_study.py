@@ -7,11 +7,11 @@ from django.db import models
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        for sensor in orm.Sensor:
+        for sensor in orm.Sensor.objects.all():
             sensor.study = sensor.setup.study
             sensor.save()
 
-        for channel in orm.Channel:
+        for channel in orm.Channel.objects.all():
             channel.study = channel.setup.study
             channel.save()
 
