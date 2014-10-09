@@ -163,7 +163,7 @@ class SessionForm(forms.ModelForm):
     end = DateTimeField(required=False)
     class Meta:
         model = Session
-        exclude = ('channels','accession')
+        exclude = ('channels',)
 
 class ExperimentForm(forms.ModelForm):
     subject_notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
@@ -178,7 +178,7 @@ class ExperimentForm(forms.ModelForm):
     title = CharField(label = "Title", widget=forms.TextInput(attrs={'size': 10}))
     class Meta:
         model = Experiment
-        exclude = ('setups','accession')
+        exclude = ('setups',)
 
 class SubjectForm(forms.ModelForm):
     notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
@@ -275,7 +275,6 @@ class TrialInlineForm(forms.ModelForm):
 
     class Meta:
         model = Trial
-        exclude = ( 'accession', )
 
 class TrialForm(forms.ModelForm):
     #remove_waveform_picture = forms.BooleanField(required=False)

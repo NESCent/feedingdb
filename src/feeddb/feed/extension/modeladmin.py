@@ -400,10 +400,6 @@ class FeedModelAdmin(admin.ModelAdmin):
         return HttpResponseRedirect(post_url)
 
     def filter_form_values(self, request, form, model, obj):
-        #globally disabled the accession field
-        if form.fields.has_key("accession"):
-            form.fields["accession"].widget.attrs['disabled']=""
-
         #general set study choices from the user own data
         if form.fields.has_key("study"):
             form.fields["study"].queryset = Study.objects.filter(created_by=request.user)

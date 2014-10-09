@@ -1,10 +1,7 @@
-{{ object.accession }}
 {{ object.title }}
 {{ object.bookkeeping }}
-{{ object.session.accession }}
 {{ object.session.title }}
 {{ object.session.bookkeeping }}
-{{ object.session.experiment.accession }}
 {{ object.session.experiment.title }}
 {{ object.session.experiment.bookkeeping }}
 {{ object.session.experiment.study.title }}
