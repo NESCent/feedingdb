@@ -364,7 +364,6 @@ class Subject(FeedBaseModel):
         return self.name
 
 class Experiment(FeedBaseModel):
-    accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255)
     bookkeeping = models.CharField("Bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     study = models.ForeignKey(Study)
@@ -615,7 +614,6 @@ class EventChannel(Channel):
 
 
 class Session(FeedBaseModel):
-    accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255)
     bookkeeping = models.CharField("Bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     study = models.ForeignKey(Study)
@@ -649,7 +647,6 @@ def get_data_upload_to(instance, filename):
     return 'data/study_%d/experiment_%d/session_%d/%s' % (study.id, experiment.id,session.id, filename)
 
 class Trial(FeedBaseModel):
-    accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255)
     bookkeeping = models.CharField("Bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     session = models.ForeignKey(Session)
