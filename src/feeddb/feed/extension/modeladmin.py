@@ -348,14 +348,17 @@ class FeedModelAdmin(admin.ModelAdmin):
         # Get default form values from session
         if add:
             request.feed_upload_status.apply_defaults_to_form(context['adminform'].form)
-            request.feed_upload_status.apply_restricted_querysets_to_form(context['adminform'].form)
-        
-        # Get default form values from GET (overriding session)
-        # FIXME: disabled while working on BH-218
-        self.filter_form_values(request, context['adminform'].form, self.model, obj)
 
+        # Restrict values available in model select widgets based on session.
+        #
+        # First, apply to main form:
+        request.feed_upload_status.apply_restricted_querysets_to_form(context['adminform'].form)
+
+        # Second, apply to subforms (usually reverse FKs like channel lineups,
+        # sensors, illustrations)
         for formset in context['inline_admin_formsets']:
-            self.filter_formset_values(request, formset.formset, self.model, obj)
+            for form in formset.formset.forms:
+                request.feed_upload_status.apply_restricted_querysets_to_form(form)
 
         return super(FeedModelAdmin, self).render_change_form(request, context, add, change, form_url, obj)
 
@@ -398,152 +401,6 @@ class FeedModelAdmin(admin.ModelAdmin):
             if return_to !=None and return_to !="":
                 post_url=return_to
         return HttpResponseRedirect(post_url)
-
-    def filter_form_values(self, request, form, model, obj):
-        #general set study choices from the user own data
-        if form.fields.has_key("study"):
-            form.fields["study"].queryset = Study.objects.filter(created_by=request.user)
-
-        #disable corresponding foreign key select box if the data object is already specified in the url
-        # TODO: restrict subject selection based on study selection. Perhaps django-smart-selects module?
-        if request.GET.has_key("study"):
-            if form.fields.has_key("study"):
-                form.fields["study"].widget.widget.attrs['disabled']=""
-            if form.fields.has_key("subject"):
-                v= request.GET.get("study")
-                form.fields["subject"].queryset = Subject.objects.filter(study__id=v)
-        if request.GET.has_key("experiment"):
-            if form.fields.has_key("experiment"):
-                form.fields["experiment"].widget.widget.attrs['disabled']=""
-        if request.GET.has_key("subject"):
-            if form.fields.has_key("subject"):
-                form.fields["subject"].widget.widget.attrs['disabled']=""
-
-        setups = ["emgsetup","sonosetup","pressuresetup","forcesetup","strainsetup","kinematicssetup", "eventsetup"]
-        channels = ["emgchannel","sonochannel","pressurechannel","forcechannel","strainchannel","kinematicschannel", "eventchannel"]
-
-        for s in setups:
-            if request.GET.has_key(s):
-                if form.fields.has_key("setup"):
-                    if not  form.fields["setup"].widget.is_hidden:
-                        form.fields["setup"].widget.widget.attrs['disabled']=""
-                    form.fields["setup"].initial=request.GET[s]
-
-
-        if request.GET.has_key("session"):
-            if form.fields.has_key("session"):
-                form.fields["session"].widget.widget.attrs['disabled']=""
-
-        if request.GET.has_key("trial"):
-            if form.fields.has_key("trial"):
-                form.fields["trial"].widget.widget.attrs['disabled']=""
-
-        for s in channels:
-            if request.GET.has_key(s):
-                if form.fields.has_key(s):
-                    form.fields[s].widget.widget.attrs['disabled']=""
-
-        #context-based filter by url
-        if  model == EmgChannel:
-            if request.GET.has_key("emgsetup"):
-                form.fields["sensor"].queryset = EmgSensor.objects.filter(setup=request.GET['emgsetup'])
-                form.fields["setup"].initial=request.GET['emgsetup']
-                form.fields["setup"].widget.widget.attrs['disabled']=""
-        elif  model == EmgSensor:
-            if request.GET.has_key("emgsetup"):
-                form.fields["setup"].initial=request.GET['emgsetup']
-        elif  model == PressureChannel:
-            if request.GET.has_key("pressuresetup"):
-                form.fields["sensor"].queryset = PressureSensor.objects.filter(setup=request.GET['pressuresetup'])
-        elif model == PressureSetup:
-            if form.fields.has_key("sensor"):
-                form.fields["sensor"].queryset = PressureSensor.objects.filter(setup=obj)
-        elif model == StrainChannel:
-            if request.GET.has_key("strainsetup"):
-                form.fields["sensor"].queryset = StrainSensor.objects.filter(setup=request.GET['strainsetup'])
-        elif model == StrainSetup:
-            if form.fields.has_key("sensor"):
-                form.fields["sensor"].queryset = StrainSensor.objects.filter(setup=obj)
-        elif model == ForceChannel:
-            if request.GET.has_key("forcesetup"):
-                form.fields["sensor"].queryset = ForceSensor.objects.filter(setup=request.GET['forcesetup'])
-        elif model == ForceSetup:
-            if form.fields.has_key("sensor"):
-                form.fields["sensor"].queryset = ForceSensor.objects.filter(setup=obj)
-        elif model == KinematicsChannel:
-            if request.GET.has_key("kinematicssetup"):
-                form.fields["sensor"].queryset = KinematicsSensor.objects.filter(setup=request.GET['kinematicssetup'])
-        elif model == KinematicsSetup:
-            if form.fields.has_key("sensor"):
-                form.fields["sensor"].queryset = KinematicsSensor.objects.filter(setup=obj)
-        elif  model == Experiment:
-            if form.fields.has_key("subject") and obj:
-                form.fields["subject"].queryset = Subject.objects.filter(study=obj.study)
-        elif  model == Illustration:
-            for s in setups:
-                if request.GET.has_key(s):
-                    form.fields["setup"].initial=request.GET[s]
-            #if request.GET.has_key("sonosetup"):
-            #    form.fields["setup"].initial=request.GET['sonosetup']
-            #if request.GET.has_key("subject"):
-            #    form.fields["subject"].initial=request.GET['subject']
-        elif model == SonoChannel:
-            if request.GET.has_key("sonosetup"):
-                form.fields["crystal1"].queryset = SonoSensor.objects.filter(setup=request.GET['sonosetup'])
-                form.fields["crystal2"].queryset = SonoSensor.objects.filter(setup=request.GET['sonosetup'])
-                form.fields["setup"].initial=request.GET['sonosetup']
-                form.fields["setup"].widget.widget.attrs['disabled']=""
-        elif model == SonoSetup:
-            if form.fields.has_key("crystal1"):
-                form.fields["crystal1"].queryset = SonoSensor.objects.filter(setup=obj)
-                form.fields["crystal2"].queryset = SonoSensor.objects.filter(setup=obj)
-        elif  model == SonoSensor:
-            if request.GET.has_key("sonosetup"):
-                form.fields["setup"].initial=request.GET['sonosetup']
-            else:
-                pass
-        elif  model == Session:
-            if obj !=None and form.fields.has_key("channel"):
-                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment = obj.experiment.id)
-            elif request.GET.has_key("experiment") and form.fields.has_key("channel"):
-                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=request.GET['experiment'])
-            if obj and hasattr(obj, "session"):
-                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=obj.session.experiment.id)
-        elif  model == ChannelLineup:
-            if form.fields.has_key("experiment"):
-                form.fields["experiment"].widget.widget.attrs['disabled']=""
-            if form.fields.has_key("session"):
-                form.fields["session"].widget.widget.attrs['disabled']=""
-
-            if request.GET.has_key("session") and form.fields.has_key("channel"):
-                sess = Session.objects.get(id=  request.GET['session'])
-                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=sess.experiment.id)
-            if obj and hasattr(obj, "session"):
-                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=obj.session.experiment.id)
-        #filter sensor choice for channel
-        sensor_classes = [EmgSensor,SonoSensor,PressureSensor,ForceSensor,StrainSensor,KinematicsSensor]
-
-        sensor_class=None
-        if hasattr(obj,'setup') and obj.setup.id:
-            if(form.fields.has_key("setup")):
-                form.fields["setup"].widget.widget.attrs['disabled']=""
-            if hasattr(obj,'sensor'):
-                sensor_class= obj.sensor.__class__
-            if hasattr(obj,'crystal1'):
-                sensor_class= obj.crystal1.__class__
-            if sensor_class:
-                if(form.fields.has_key("sensor")):
-                    form.fields["sensor"].queryset = sensor_class.objects.filter(setup=obj.setup.id)
-                if(form.fields.has_key("crystal1")):
-                    form.fields["crystal1"].queryset = sensor_class.objects.filter(setup=obj.setup.id)
-                if(form.fields.has_key("crystal2")):
-                    form.fields["crystal2"].queryset = sensor_class.objects.filter(setup=obj.setup.id)
-
-
-
-    def filter_formset_values(self, request, formset, model, obj):
-        for form in formset.forms:
-            self.filter_form_values(request, form, model, obj)
 
     #overiten method to allow filtering in URL which is defaultly not allowed in 1.2.4
     def lookup_allowed(self, lookup, value):
