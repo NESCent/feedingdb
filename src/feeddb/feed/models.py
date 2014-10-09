@@ -653,7 +653,7 @@ class Trial(FeedBaseModel):
     experiment = models.ForeignKey(Experiment)
     study = models.ForeignKey(Study)
     position = models.IntegerField(help_text='The numeric position of this trial among the other trials within the current recording session.')
-    start = models.DateField( blank = True, null=True, help_text = DATETIME_HELP_TEXT)
+    start = models.DateField(null=True, help_text = DATETIME_HELP_TEXT)
     end = models.DateField(blank = True, null=True, help_text = DATETIME_HELP_TEXT)
     subj_treatment = models.TextField("Subject Treatment",blank = True, null=True)
     subj_notes = models.TextField("Subject Notes", blank = True, null=True)
