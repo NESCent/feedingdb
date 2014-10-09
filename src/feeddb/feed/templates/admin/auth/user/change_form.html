@@ -88,8 +88,9 @@
         {% include "admin/includes/fieldset.html" %}
       {% endif %}
     {% endfor %}
+    
     {% for inline_admin_formset in inline_admin_formsets %}
-      {{ inline_admin_formset.opts.model_name }}{% include inline_admin_formset.opts.template %}
+      {% include inline_admin_formset.opts.template %}
     {% endfor %}
     
     {% submit_row %}
