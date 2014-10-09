@@ -3,7 +3,7 @@ from feeddb.feed.management.commands import clone
 from feeddb.feed.models import Trial, Session, Experiment, Study
 
 class CloningTestCase(TestCase):
-    fixtures = [ 'test-feed-all-models' ]
+    fixtures = [ 'test-feed-all-models', 'test-users' ]
 
     def setUp(self):
         pass
@@ -28,6 +28,9 @@ class CloningTestCase(TestCase):
         clone.clone_trial(new_trial)
         self.assertTrialsDiffer(old_trial, new_trial)
 
+        # FIXME: it is decided that we do not support copying trials between
+        # sessions, or copying sessions between experiments, or copying
+        # experiments between studies.
         #####
         # Make a clone and assign it to another session
         experiment = old_trial.session.experiment
