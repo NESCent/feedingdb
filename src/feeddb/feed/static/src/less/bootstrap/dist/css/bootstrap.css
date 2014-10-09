@@ -6616,9 +6616,6 @@ body.about .box ul li a {
 body.search main {
   padding: 30px 0 54px 0;
 }
-body.search aside {
-  display: block;
-}
 body.search h1 {
   text-align: center;
 }
@@ -7508,9 +7505,6 @@ form input[type="radio"] {
 }
 textarea {
   resize: vertical;
-}
-aside {
-  display: none;
 }
 form .chosen-container-multi .chosen-choices {
   padding: 5px;
