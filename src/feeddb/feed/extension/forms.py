@@ -41,8 +41,11 @@ class SetupForm (DisableForeignKeyForm):
 class ExperimentChangeForm(DisableForeignKeyForm):
     setup_types = MultipleChoiceField(label="Sensor Types", choices=TECHNIQUE_CHOICES_NAMED, required=False)
 
-    start = DateField(required=False, help_text=DATE_HELP_TEXT)
-    end = DateField(required=False, help_text=DATE_HELP_TEXT)
+    class Meta:
+        widgets = {
+            'start': DateInput(attrs={'class':'datepicker'}),
+            'end': DateInput(attrs={'class':'datepicker'}),
+        }
 
     def __init__(self, *args, **kwargs):
         instance = kwargs.get('instance')
@@ -119,12 +122,18 @@ class StudyChangeForm(forms.ModelForm):
         self.fields['approval_type'].empty_label = 'No approval'
 
 class SessionChangeForm(forms.ModelForm):
-    start = DateField(required=False, help_text=DATE_HELP_TEXT)
-    end = DateField(required=False, help_text=DATE_HELP_TEXT)
+    class Meta:
+        widgets = {
+            'start': DateInput(attrs={'class':'datepicker'}),
+            'end': DateInput(attrs={'class':'datepicker'}),
+        }
 
 class TrialChangeForm(forms.ModelForm):
-    start = DateField(required=False)  # , help_text=DATE_HELP_TEXT)
-    end = DateField(required=False)    # , help_text=DATE_HELP_TEXT)
+    class Meta:
+        widgets = {
+            'start': DateInput(attrs={'class':'datepicker'}),
+            'end': DateInput(attrs={'class':'datepicker'}),
+        }
 
 class EmgSensorChannelForm(forms.ModelForm):
     rate = forms.IntegerField(label = "Recording Rate (Hz)", required=True, widget=forms.TextInput(attrs={'size': 5}))
@@ -272,22 +281,6 @@ class TrialInlineForm(forms.ModelForm):
     food_property = CharField(label = "Food Property", widget=forms.TextInput(attrs={'size': 5}), required=False)
     food_size = CharField(label = "Food Size(maximum dimension millimeters)", widget=forms.TextInput(attrs={'size': 5}), required=False)
     food_type = CharField(label = "Food Type", widget=forms.TextInput(attrs={'size': 5}), required=False)
-
-    class Meta:
-        model = Trial
-
-class TrialForm(forms.ModelForm):
-    #remove_waveform_picture = forms.BooleanField(required=False)
-    #def save(self, *args, **kwargs):
-    #    object = super(TrialForm, self).save(*args, **kwargs)
-    #    if self.cleaned_data.get('remove_waveform_picture'):
-    #        object.waveform_picture = ''
-    #    return object
-
-    def __init__(self, *args, **kwargs):
-        super(forms.ModelForm, self).__init__(*args, **kwargs)
-        self.base_fields['data_file'].widget = self.base_fields['data_file'].hidden_widget()
-        self.base_fields['data_file'].help_text ="Please upload data file after saving the new trial."
 
     class Meta:
         model = Trial

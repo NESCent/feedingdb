@@ -83,14 +83,12 @@ class SubjectAdmin(FeedModelAdmin):
     form = DisableForeignKeyForm
 
 class TrialAdmin(FeedModelAdmin):
-    form = TrialForm
     search_fields = ('title','bookkeeping','subj_notes','subj_treatment','food_type','food_property','behavior_primary__label','behavior_secondary','behavior_notes')
     list_display = ('title', 'session', 'taxon_name','food_type', 'behavior_primary','waveform_picture')
     form = TrialChangeForm
     # hide old non-OWL behavior fields, hide dependent container references
     exclude = ('behavior_primary', 'behavior_secondary', 'experiment', 'study',)
     ordering = ('position',)
-    form = DisableForeignKeyForm
 
 class IllustrationAdmin(FeedModelAdmin):
     search_fields = ('notes', 'experiment','setup', 'subject')
