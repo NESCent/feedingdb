@@ -67,6 +67,12 @@ class FeedUploadStatus():
         then filter the list to include that.
 
         Current basic version: filter by study only
+        TODO: add filtering by experiment (for channel selector and ???)
+
+        Perhaps by this method: on each form field, look first for a trial,
+        then a session, then an experiment.
+
+        or perhaps by hard-coding the logic for each thing.
         """
         study = self._data.get('study', None)
         if study is None:
@@ -74,12 +80,16 @@ class FeedUploadStatus():
 
         # iterate through fields on the form
         for field_name, field_value in form.fields.items():
+            logger.info('on field %s', field_name)
             if isinstance(field_value, ModelChoiceField):
                 M = field_value.queryset.model
-                # iterate through
+                # iterate through fields on target model
                 for Mfield in M._meta.fields:
                     if isinstance(Mfield, ForeignKey):
                         Parent = Mfield.related.parent_model
+                        # if target model has a field pointing to the Study
+                        # model, filter the form field to only include target
+                        # models which are part of the current study.
                         if Parent == Study:
                             kwargs = { Mfield.name: study }
                             form.fields[field_name].queryset = field_value.queryset.filter(**kwargs)
