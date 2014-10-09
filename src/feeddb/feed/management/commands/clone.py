@@ -4,6 +4,7 @@ from django.db.models.loading import get_model
 
 from django.contrib.contenttypes.models import ContentType
 
+# from feeddb.feed.management.commands import clone
 class Command(BaseCommand):
     args = ''
     help = 'help'
@@ -14,7 +15,7 @@ class Command(BaseCommand):
         print_clone(obj)
 
 def print_clone(obj):
-    for related in obj._meta.get_all_related_objects()
+    for related in obj._meta.get_all_related_objects():
         '''
         related.model -> Model class containing the relation
         related.field -> name of field on Model
@@ -34,17 +35,6 @@ def print_clone(obj):
         # might take three saves, but eventually it will be updated to point to
         # the right session, experiment, and study.
 
-    for field in Model._meta.fields:
-        if hasattr(field, 'related'):
-            Parent = field.related.parent_model
-            parent_type = ContentType.objects.get_for_model(s)
-            parent_name =
-            if Parent == User:
-                continue
-            print_fields("%s.%s" % (prefix, field.name), Parent)
-        else:
-            print "%s.%s" % (prefix, field.name)
-
 
 def clone_session(session, experiment=None):
     """
@@ -58,6 +48,7 @@ def clone_session(session, experiment=None):
         #
         # TODO: when we're copying an experiment, we need to be able to clone
         # the channels while changing the experiment. Hrmph.
+        # (easy: change experiment before sending to this function!)
         copy_channels = False
         session.experiment = experiment
 
@@ -83,6 +74,7 @@ def clone_session(session, experiment=None):
             clone_lineup(lineup, session=session)
 
 def clone_trial(trial, session=None):
+    trial.title = 'Cloned Trial (was "%s")' % trial.title
     _clone_basic(trial, session=session)
 
 def clone_lineup(lineup, session=None):
@@ -91,7 +83,7 @@ def clone_lineup(lineup, session=None):
 def _clone_basic(thing, **kwargs):
     thing.id = None
     thing.pk = None
-    for key, value in kwargs:
+    for key, value in kwargs.iteritems():
         setattr(thing, key, value)
     thing.save()
 
