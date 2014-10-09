@@ -425,12 +425,17 @@ class Experiment(FeedBaseModel):
 
 class Setup(FeedBaseModel):
     is_cloneable=False
+    study = models.ForeignKey(Study)
     experiment = models.ForeignKey(Experiment)
     technique = models.IntegerField(choices=Techniques.CHOICES)
     notes = models.TextField("Notes about all sensors and channels in this setup", blank = True, null=True)
     sampling_rate = models.IntegerField("Sampling Rate (Hz)", blank=True, null=True)
     class Meta:
         verbose_name = "Setup"
+
+    def save(self):
+        self.study = self.experiment.study
+        return super(Setup, self).save()
 
 class EmgSetup(Setup):
     preamplifier = models.CharField(max_length=255, blank = True, null=True)
@@ -469,6 +474,7 @@ class EventSetup(Setup):
 
 
 class Sensor(FeedBaseModel):
+    study = models.ForeignKey(Study, null=True)
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length=255)
 
@@ -484,6 +490,10 @@ class Sensor(FeedBaseModel):
     notes = models.TextField( blank = True, null=True)
     def __unicode__(self):
         return self.name
+
+    def save(self):
+        self.study = self.setup.study
+        return super(Sensor, self).save()
 
 class EmgSensor(Sensor):
     location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=False,
@@ -531,6 +541,7 @@ class KinematicsSensor(Sensor):
 
 
 class Channel(FeedBaseModel):
+    study = models.ForeignKey(Study, null=True)
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length = 255)
     rate = models.IntegerField("Recording Rate (Hz)")
@@ -538,6 +549,10 @@ class Channel(FeedBaseModel):
 
     def __unicode__(self):
         return self.name
+
+    def save(self):
+        self.study = self.setup.study
+        return super(Sensor, self).save()
 
 class EmgChannel(Channel):
     unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : Techniques.ENUM.emg},
