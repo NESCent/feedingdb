@@ -7330,6 +7330,7 @@ body.change-form main form span #id_approval_type label input {
   position: absolute;
   left: 0;
   top: 1px;
+  width: 14px;
 }
 body.change-form main form span .add-another {
   display: none;
