@@ -38,11 +38,6 @@ class FeedUploadStatus():
             else:
                 raise TypeError('Cannot update FeedUploadStatus with object of type %s' % type(obj))
 
-        name = type(obj).__name__.lower()
-        if name in FIELDS:
-            self._data[name] = obj
-            self._session.modified = True
-
         # When visiting a trial page, we should fill in all the parents.
         # However, when visiting a subject page, we should clear the saved
         # experiment, session, and trial.
@@ -57,13 +52,22 @@ class FeedUploadStatus():
                 if callable(val):
                     val = val()
                 self._data[fname] = val
+                logger.info('updated with %s: %s' % (fname, val))
                 self._session.modified = True
             else:
                 try:
                     del self._data[fname]
+                    logger.info('deleted %s, not present on %s' % (fname, obj))
                     self._session.modified = True
                 except KeyError:
                     pass
+
+        # Add our current object to the cache
+        name = type(obj).__name__.lower()
+        if name in FIELDS:
+            self._data[name] = obj
+            self._session.modified = True
+            logger.info('updated with %s: %s' % (name, obj))
 
         logger.info(self._data.keys())
 
