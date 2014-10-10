@@ -680,15 +680,21 @@ class Trial(FeedBaseModel):
     food_size = models.CharField("Food Size (maximum dimension millimeters)", max_length=255,blank = True, null=True)
     food_property = models.CharField("Food Property", max_length=255,blank = True, null=True)
 
-    behavior_primary = models.ForeignKey(Behavior,verbose_name="Primary Behavior", null=True)
-    behaviorowl_primary = models.ForeignKey(BehaviorOwl,
-        verbose_name="Primary Behavior (OWL)",
-        null=True,
-        related_name="primary_in_trials",
-        limit_choices_to=BehaviorOwl.default_qs_filter_args())
+    is_calibration = models.BooleanField("This is a Calibration", help_text="You must either check this box our select a behavior for this trial")
 
+    # deprecated in FEED2
+    behavior_primary = models.ForeignKey(Behavior, verbose_name="Primary Behavior", null=True, blank=True)
+
+    behaviorowl_primary = models.ForeignKey(BehaviorOwl,
+        verbose_name="Behavior",
+        null=True,
+        blank=True,
+        related_name="primary_in_trials",
+        limit_choices_to=BehaviorOwl.default_qs_filter_args()
+        help_text="If this is not a calibration, you must choose a behavior.")
+
+    # deprecated in FEED2
     behavior_secondary = models.CharField("Secondary Behavior", max_length=255,blank = True, null=True)
-    behaviorowl_secondary = models.ForeignKey(BehaviorOwl, verbose_name="Secondary Behavior (OWL)", null=True, related_name="secondary_in_trials")
 
     behavior_notes = models.TextField("Behavior Notes", blank = True, null=True)
 
