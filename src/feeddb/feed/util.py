@@ -33,7 +33,10 @@ class FeedUploadStatus():
         or Trial. Anything else might have weird results.
         """
         if type(obj) not in (Study, Subject, Experiment, Session, Trial):
-            raise TypeError('Cannot update FeedUploadStatus with object of type %s' % type(obj))
+            if isinstance(obj, Setup):
+                pass
+            else:
+                raise TypeError('Cannot update FeedUploadStatus with object of type %s' % type(obj))
 
         name = type(obj).__name__.lower()
         if name in FIELDS:
@@ -47,15 +50,8 @@ class FeedUploadStatus():
         # Why? For one, it might be part of a different study. For another, it
         # would produce weird results if the next page is an "add" page for a
         # trial or session.
-        clear_the_rest = False
         for fname in FIELDS:
-            if clear_the_rest:
-                try:
-                    del self._data[fname]
-                    self._session.modified = True
-                except KeyError:
-                    pass
-            elif hasattr(obj, fname):
+            if hasattr(obj, fname):
                 val = getattr(obj, fname)
                 # support function attributes
                 if callable(val):
@@ -63,7 +59,11 @@ class FeedUploadStatus():
                 self._data[fname] = val
                 self._session.modified = True
             else:
-                clear_the_rest = True
+                try:
+                    del self._data[fname]
+                    self._session.modified = True
+                except KeyError:
+                    pass
 
         logger.info(self._data.keys())
 
@@ -115,11 +115,11 @@ class FeedUploadStatus():
 
         # iterate through fields on the form
         for field_name, field_value in form.fields.items():
-            logger.info('on field %s', field_name)
             if isinstance(field_value, ModelChoiceField):
                 M = field_value.queryset.model
                 qs_args = dict(self.args_applicable_to_model(M))
                 if len(qs_args):
+                    logger.info('field %s: filter %s' % (field_name, qs_args))
                     form.fields[field_name].queryset = field_value.queryset.filter(**qs_args)
 
     def args_applicable_to_model(self, Model):

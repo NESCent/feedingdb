@@ -82,14 +82,15 @@
     {% endif %}
     <p class="required-notice"><span class="glyphicon glyphicon-asterisk"></span> Required fields</p>
     {% for fieldset in adminform %}
-      {% if 'user' == opts.model_name %}
-        {% include "admin/includes/fieldset_users.html" %}
-      {% else %}
-        {% include "admin/includes/fieldset.html" %}
+      {% include "admin/includes/fieldset_users.html" %}
+      {% if fieldset.name.lower == 'personal info' %}
+        {# add the "feed user profile" here so it appears at the bottom of "Personal info" #}
+        {# NB: If we add more inlines, they will also show here. This is probably OK. #}
+        {% for inline_admin_formset in inline_admin_formsets %}
+          {% include inline_admin_formset.opts.template %}
+        {% endfor %}
       {% endif %}
     {% endfor %}
-    
-
     
     {% submit_row %}
     

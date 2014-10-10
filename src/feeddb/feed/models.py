@@ -318,7 +318,7 @@ class Study(FeedBaseModel):
     title = models.CharField(max_length=255,
                              help_text = "Enter a short title for the Study here")
     bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
-    start = models.DateField("Start Date", blank = False, null=False,
+    start = models.DateField("Start Date", null=False,
                              help_text = "The date that data collection for this Study began")
     end = models.DateField("End Date", blank = True, null=True,
                              help_text = "The date that data collection for this Study ended")
@@ -386,7 +386,7 @@ class Experiment(FeedBaseModel):
     bookkeeping = models.CharField("Bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     study = models.ForeignKey(Study)
     subject = models.ForeignKey(Subject)
-    start = models.DateField( blank = True, null=True, help_text=DATETIME_HELP_TEXT)
+    start = models.DateField(null=True, help_text=DATETIME_HELP_TEXT)
     end = models.DateField(blank = True, null=True, help_text=DATETIME_HELP_TEXT)
     description = models.TextField(blank = True, null=True)
     subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="Subject Development Stage")
@@ -637,7 +637,7 @@ class Session(FeedBaseModel):
     study = models.ForeignKey(Study)
     experiment = models.ForeignKey(Experiment)
     position = models.IntegerField(help_text='The numeric position of this recording session among the other sessions within the current experiment.')
-    start = models.DateField(blank = True, null=True, help_text=DATETIME_HELP_TEXT)
+    start = models.DateField(null=True, help_text=DATETIME_HELP_TEXT)
     end = models.DateField(blank = True, null=True, help_text=DATETIME_HELP_TEXT)
     subj_notes = models.TextField("Subject Notes", blank = True, null=True)
     subj_restraint = models.ForeignKey(Restraint,verbose_name="Subject Restraint")
