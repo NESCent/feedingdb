@@ -180,6 +180,7 @@ TECHNIQUE_CHOICES = (
                (5, u'Pressure'),
                (6, u'Kinematics'),
                (7, u'Time/Event'),
+               (8, u'Other'),
                )
 
 TECHNIQUE_CHOICES_NAMED = (
@@ -205,6 +206,7 @@ class Techniques(object):
         pressure = 5
         kinematics = 6
         event = 7
+        other = 8
 
     @classmethod
     def num2label(cls, num):
@@ -235,6 +237,8 @@ class Techniques(object):
             return KinematicsSetup
         elif technique == cls.ENUM.event:
             return EventSetup
+        elif technique == cls.ENUM.other:
+            return OtherSetup
 
 class Taxon(CvTerm):
     genus = models.CharField(max_length=255)
@@ -492,6 +496,10 @@ class EventSetup(Setup):
     class Meta:
         verbose_name = "Time/Event Setup"
 
+class OtherSetup(Setup):
+    class Meta:
+        verbose_name = "Other Setup"
+
 
 class Sensor(FeedBaseModel):
     study = models.ForeignKey(Study, null=True)
@@ -633,6 +641,10 @@ class EventChannel(Channel):
     class Meta:
         verbose_name = "Time/Event Channel"
 
+class OtherChannel(Channel):
+    #Note: An OtherChannel is not associated with any Sensor
+    class Meta:
+        verbose_name = "Other Channel"
 
 class Session(FeedBaseModel):
     title = models.CharField(max_length=255)

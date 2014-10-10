@@ -266,7 +266,10 @@ class EventChannelForm(forms.ModelForm):
     class Meta:
         model = EventChannel
 
-
+class OtherChannelForm(forms.ModelForm):
+    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
+    class Meta:
+        model = OtherChannel
 
 class TrialInlineForm(forms.ModelForm):
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
