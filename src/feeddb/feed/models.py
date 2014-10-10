@@ -683,7 +683,7 @@ class Trial(FeedBaseModel):
     food_size = models.CharField("Food Size (maximum dimension millimeters)", max_length=255,blank = True, null=True)
     food_property = models.CharField("Food Property", max_length=255,blank = True, null=True)
 
-    is_calibration = models.BooleanField("Calibration", help_text="Clicking Calibration means that the trial data you upload will be for a calibration file that does not contain any feeding behavior.", default=False)
+    is_calibration = models.BooleanField("Calibration:", help_text="Clicking Calibration means that the trial data you upload will be for a calibration file that does not contain any feeding behavior.", default=False)
 
     # deprecated in FEED2
     behavior_primary = models.ForeignKey(Behavior, verbose_name="Primary Behavior", null=True, blank=True)
