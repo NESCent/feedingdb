@@ -121,7 +121,25 @@ class MuscleOwl(OwlTerm):
         )
 
 class BehaviorOwl(OwlTerm):
-    pass
+
+    @staticmethod
+    def default_qs_filter_args():
+        return dict(
+            # This is the "behavior" class, which may or may not be an appropriate filter
+            rdfs_subClassOf_ancestors__uri=u'http://purl.obolibrary.org/obo/OPBO_0000011'
+
+            # Other options include:
+            #
+            # >>> print "\n".join(["%s - %s" % (b.uri, b.label) for b in BehaviorOwl.objects.filter(label__contains='behavior') ])
+            # http://purl.obolibrary.org/obo/GO_0051705 - multi-organism behavior
+            # http://purl.obolibrary.org/obo/OPBO_0000012 - oral/pharyngeal behavior
+            # http://purl.obolibrary.org/obo/OPBO_0000011 - behavior
+            # http://purl.obolibrary.org/obo/OPBO_0000017 - feeding behavior
+            # http://purl.obolibrary.org/obo/OPBO_0000018 - ingestion behavior
+            # http://purl.obolibrary.org/obo/GO_0007610 - behavior
+            # http://purl.obolibrary.org/obo/GO_0007631 - feeding behavior
+            #
+        )
 
 #cvterms
 class CvTerm(FeedBaseModel):
@@ -497,7 +515,7 @@ class Sensor(FeedBaseModel):
 class EmgSensor(Sensor):
     location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=False,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
-    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True)
+    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
 
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="Electrode Depth", blank = True, null=True )
     electrode_type = models.ForeignKey(ElectrodeType,
@@ -513,7 +531,7 @@ class EmgSensor(Sensor):
 class SonoSensor(Sensor):
     location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=False,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
-    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True)
+    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
 
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="Crystal Depth", blank = True, null=True )
     def __unicode__(self):
@@ -663,7 +681,11 @@ class Trial(FeedBaseModel):
     food_property = models.CharField("Food Property", max_length=255,blank = True, null=True)
 
     behavior_primary = models.ForeignKey(Behavior,verbose_name="Primary Behavior", null=True)
-    behaviorowl_primary = models.ForeignKey(BehaviorOwl, verbose_name="Primary Behavior (OWL)", null=True, related_name="primary_in_trials")
+    behaviorowl_primary = models.ForeignKey(BehaviorOwl,
+        verbose_name="Primary Behavior (OWL)",
+        null=True,
+        related_name="primary_in_trials",
+        limit_choices_to=BehaviorOwl.default_qs_filter_args())
 
     behavior_secondary = models.CharField("Secondary Behavior", max_length=255,blank = True, null=True)
     behaviorowl_secondary = models.ForeignKey(BehaviorOwl, verbose_name="Secondary Behavior (OWL)", null=True, related_name="secondary_in_trials")
