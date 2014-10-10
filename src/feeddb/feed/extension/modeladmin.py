@@ -254,25 +254,22 @@ class FeedModelAdmin(admin.ModelAdmin):
                 "admin/view.html"
             ], context, context_instance=context_instance)
 
+    def response_post_save_add(self, request, obj):
+        """
+        Return the appropriate response after adding an object. Called only if
+        the "save" button clicked was not the "add another" or "continue"
+        button.
 
-    def response_add(self, request, obj, post_url_continue='../%s/edit/'):
+        This means we have to handle our custom "save & next step" buttons
+        here.
         """
-        Determines the HttpResponse for the add_view stage.
-        """
-        opts = obj._meta
         pk_value = obj._get_pk_val()
-
-        msg = _('The %(name)s "%(obj)s" was added successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj)}
-        self.message_user(request, msg)
-
-        # TODO: document when this is used. Maybe tabbed views? Others?
-        if request.POST.has_key("_popup"):
-            return HttpResponse('<script type="text/javascript">opener.dismissAddAnotherPopup(window, "%s", "%s");</script>' % \
-                # escape() calls force_unicode.
-                (escape(pk_value), escape(obj)))
-
         dest = self.get_redirect_destination(request, request.POST, obj, '../%d/edit' % pk_value)
+        # TODO: redirect to study overview page?
         return HttpResponseRedirect(dest)
+
+    def response_post_save_change(self, request, obj):
+        return self.response_post_save_add(request, obj)
 
     @csrf_protect_m
     def delete_view(self, *args, **kwargs):
@@ -331,18 +328,6 @@ class FeedModelAdmin(admin.ModelAdmin):
             if not form.instance.id:
                 form.instance.created_by = request.user
         return form.save(commit=False)
-
-    def response_change(self, request, obj):
-        """
-        Determines the HttpResponse for the change_view stage.
-        """
-        opts = obj._meta
-        pk_value = obj._get_pk_val()
-        msg = _('The %(name)s "%(obj)s" was changed successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj)}
-        self.message_user(request, msg)
-
-        dest = self.get_redirect_destination(request, request.POST, obj, '../edit')
-        return HttpResponseRedirect(dest)
 
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         # Get default form values from session
