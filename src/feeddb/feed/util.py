@@ -33,7 +33,10 @@ class FeedUploadStatus():
         or Trial. Anything else might have weird results.
         """
         if type(obj) not in (Study, Subject, Experiment, Session, Trial):
-            raise TypeError('Cannot update FeedUploadStatus with object of type %s' % type(obj))
+            if isinstance(obj, Setup):
+                pass
+            else:
+                raise TypeError('Cannot update FeedUploadStatus with object of type %s' % type(obj))
 
         name = type(obj).__name__.lower()
         if name in FIELDS:

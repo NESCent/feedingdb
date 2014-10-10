@@ -263,8 +263,8 @@ class FeedModelAdmin(admin.ModelAdmin):
         This means we have to handle our custom "save & next step" buttons
         here.
         """
-        pk_value = obj._get_pk_val()
-        dest = self.get_redirect_destination(request, request.POST, obj, '../%d/edit' % pk_value)
+        edit_url = reverse_lazy('admin:feed_%s_change' % type(obj).__name__.lower(), args=(obj.pk,))
+        dest = self.get_redirect_destination(request, request.POST, obj, edit_url)
         # TODO: redirect to study overview page?
         return HttpResponseRedirect(dest)
 
