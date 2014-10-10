@@ -107,6 +107,9 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 AUTH_PROFILE_MODULE = 'feeddb.feed.models.FeedUserProfile'
 
+MEDIA_ROOT='/server/feed-django/uploads'
+EXPLORER_TEMPORARY_FOLDER='/tmp'
+
 ### Debug toolbar configuration
 def custom_toolbar_show(request):
     #return True
