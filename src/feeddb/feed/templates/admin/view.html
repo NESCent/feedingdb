@@ -142,7 +142,14 @@
         </div>
         <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse">
           <div class="panel-body">
-        {% with hide_formset_title=True %}
+          {% if has_change_permission %}
+            <div class="row">
+              <div class="col-xs-12">
+                <h3 class="overview-add"><a href="/admin/feed/{{ inline_admin_formset.opts.verbose_name }}/add"><span class='glyphicon glyphicon-plus-sign'></span>Add Another {{ inline_admin_formset.opts.verbose_name }}</a></h3>
+              </div>
+            </div>
+          {% endif %}
+          {% with hide_formset_title=True %}
           {% comment %}
             We include tabular_view, which uses hide_formset_title to hide the
             title. If more significant modifications are required (e.g.,
