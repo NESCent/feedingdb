@@ -419,6 +419,10 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
           label { margin-bottom: 0; }
         }
       }
+      .id_is_calibration {
+        span { float: left; margin: 3px 0 0 0; width: 26px; }
+        p { margin-top: 4px; }
+      }
     }
   }
   #behavior_form {
@@ -611,18 +615,20 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
   &.change-form {
     main {
       form {
-        .help { margin-top: 6px; }
-          span {
-          #id_approval_type { list-style-type: none;
-            label { position: relative; padding: 0 0 0 26px; color: @navy; color: @navy-alpha; line-height: 22px; text-transform: none; margin-bottom: 20px; font-size: 16px; font-weight: 400;
-              input { position: absolute; left: 0; top: 1px; width: 14px; }
+        fieldset {
+          .help { margin-top: 6px; }
+            span {
+            #id_approval_type { list-style-type: none;
+              label { position: relative; padding: 0 0 0 26px; color: @navy; color: @navy-alpha; line-height: 22px; text-transform: none; margin-bottom: 20px; font-size: 16px; font-weight: 400;
+                input { position: absolute; left: 0; top: 1px; width: 14px; }
+              }
             }
+            .add-another { display: none; }
           }
-          .add-another { display: none; }
-        }
-        .datetime { margin-bottom: 0;
-          input { margin: 0 0 5px 0;
-            &:last-child { margin: 0; }
+          .datetime { margin-bottom: 0;
+            input { margin: 0 0 5px 0;
+              &:last-child { margin: 0; }
+            }
           }
         }
       }
