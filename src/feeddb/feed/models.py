@@ -69,11 +69,16 @@ class OwlTerm(models.Model):
     bfo_part_of_some = models.ManyToManyField('self',
         symmetrical=False, related_name='has_parts')
 
+    synonyms_comma_separated = models.CharField(max_length=1500, null=True)
+
     class Meta:
         abstract = True
 
     def __unicode__(self):
-        return self.label
+        if self.synonyms_comma_separated:
+            return "%s; aka %s" % (self.label, self.synonyms_comma_separated)
+        else:
+            return self.label
 
     def cloneable(self):
         return False
