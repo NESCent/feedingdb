@@ -39,6 +39,7 @@ class Command(BaseCommand):
 
         OboDefinition = URIRef('http://purl.obolibrary.org/obo/IAO_0000115')
         part_of_some = URIRef('http://purl.obolibrary.org/obo/BFO_0000050_some')
+        Synonym = URIRef(u'http://www.geneontology.org/formats/oboInOwl#hasSynonym')
 
         g = Graph()
         g.parse(args[1], 'xml')
@@ -55,6 +56,12 @@ class Command(BaseCommand):
             m.rdfs_is_class = (subject, RDF.type, OWL.Class) in g
             m.obo_definition = unicode(g.value(subject, OboDefinition, None))
             m.rdfs_comment = unicode(g.value(subject, RDFS.comment, None))
+            synonyms = [unicode(syn) for syn in g.objects(subject, Synonym)]
+            if len(synonyms):
+                m.synonyms_comma_separated = ", ".join(synonyms)
+            else:
+                m.synonyms_comma_separated = None
+
             m.save()
 
         # second pass, add the relationships
