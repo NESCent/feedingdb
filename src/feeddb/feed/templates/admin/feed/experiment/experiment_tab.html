@@ -4,29 +4,8 @@
      {% ifequal opts.object_name|lower "experiment" %}
        <a class="label label-default Active" href="/admin/feed/experiment/{{object_id}}/{% if change %}edit{%endif %}">Experiment</a>
 
-       {% for setup in original.setup_set.all %}
-         {% if setup.emgsetup %}
-           <a class='label label-default {% ifequal opts.object_name|lower "emgsetup" %}Active{% endifequal %}' href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/{% if change %}edit{%endif %}">EMG</a>
-         {% endif %}
-         {% if setup.sonosetup %}
-           <a  class="label label-default {% ifequal opts.object_name|lower 'sonosetup' %}Active{% endifequal %}" href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/{% if change %}edit{%endif %}">Sono</a>
-         {% endif %}
-         {% if setup.strainsetup %}
-           <a  class="label label-default {% ifequal opts.object_name|lower 'strainsetup' %}Active{% endifequal %}" href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/{% if change %}edit{%endif %}">Strain</a>
-         {% endif %}
-         {% if setup.forcesetup %}
-           <a  class="label label-default {% ifequal opts.object_name|lower 'forcesetup' %}Active{% endifequal %}" href="/admin/feed/forcesetup/{{setup.forcesetup.pk}}/{% if change %}edit{%endif %}">Bite Force</a>
-         {% endif %}
-         {% if setup.pressuresetup %}
-             <a  class="label label-default {% ifequal opts.object_name|lower 'pressuresetup' %}Active{% endifequal %}" href="/admin/feed/pressuresetup/{{setup.pressuresetup.pk}}/{% if change %}edit{%endif %}">Pressure</a>
-         {% endif %}
-         {% if setup.kinematicssetup %}
-             <a  class="label label-default {% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
-           {% endif %}
-         {% if setup.eventsetup %}
-             <a  class="label label-default {% ifequal opts.object_name|lower 'eventsetup' %}Active{% endifequal %}" href="/admin/feed/eventsetup/{{setup.eventsetup.pk}}/{% if change %}edit{%endif %}">Time/Event</a>
-         {% endif %}
-
+       {% for setup in original.get_setups %}
+         {% include "admin/feed/experiment/setup_tab_anchors.html" %}
        {% endfor %}
        <a  class="label label-default {% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{object_id}}">Sessions</a></div></div>
      {% endifequal %}
@@ -36,30 +15,10 @@
         {% ifnotequal opts.object_name None %}
        <a class="label label-default" href="/admin/feed/experiment/{{original.experiment.pk}}/{% if change %}edit{%endif %}">Experiment</a>
 
-       {% for setup in original.experiment.setup_set.all %}
-         {% if setup.emgsetup %}
-           <a class='label label-default {% ifequal opts.object_name|lower "emgsetup" %}Active{% endifequal %}' href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/{% if change %}edit{%endif %}">EMG</a>
-         {% endif %}
-         {% if setup.sonosetup %}
-           <a  class="label label-default {% ifequal opts.object_name|lower 'sonosetup' %}Active{% endifequal %}" href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/{% if change %}edit{%endif %}">Sono</a>
-         {% endif %}
-         {% if setup.strainsetup %}
-           <a  class="label label-default {% ifequal opts.object_name|lower 'strainsetup' %}Active{% endifequal %}" href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/{% if change %}edit{%endif %}">Strain</a>
-         {% endif %}
-         {% if setup.forcesetup %}
-           <a  class="label label-default {% ifequal opts.object_name|lower 'forcesetup' %}Active{% endifequal %}" href="/admin/feed/forcesetup/{{setup.forcesetup.pk}}/{% if change %}edit{%endif %}">Bite Force</a>
-         {% endif %}
-       {% if setup.pressuresetup %}
-           <a  class="label label-default {% ifequal opts.object_name|lower 'pressuresetup' %}Active{% endifequal %}" href="/admin/feed/pressuresetup/{{setup.pressuresetup.pk}}/{% if change %}edit{%endif %}">Pressure</a>
-         {% endif %}
-       {% if setup.kinematicssetup %}
-           <a  class="label label-default {% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
-         {% endif %}
-         {% if setup.eventsetup %}
-           <a  class="label label-default {% ifequal opts.object_name|lower 'eventsetup' %}Active{% endifequal %}" href="/admin/feed/eventsetup/{{setup.eventsetup.pk}}/{% if change %}edit{%endif %}">Time/Event</a>
-         {% endif %}
+       {% for setup in original.experiment.get_setups %}
+         {% include "admin/feed/experiment/setup_tab_anchors.html" %}
        {% endfor %}
-       <a  class="label label-default {% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{original.experiment.pk}}">Sessions3</a>
+       <a  class="label label-default {% if sessionformset %}Active{% endif %}" href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{original.experiment.pk}}">Sessions</a>
        </div></div>
        {% endifnotequal %}
      {% endifnotequal %}
@@ -89,29 +48,9 @@
 
   {% if experiment %}
       <a class="label label-default" href="/admin/feed/experiment/{{experiment.pk}}/{% if change %}edit{%endif %}">Experiment</a>
-        {% for setup in experiment.setup_set.all %}
-            {% if setup.emgsetup %}
-             <a class='label label-default {% ifequal opts.object_name|lower "emgsetup" %}Active{% endifequal %}' href="/admin/feed/emgsetup/{{setup.emgsetup.pk}}/{% if change %}edit{%endif %}">EMG</a>
-           {% endif %}
-           {% if setup.sonosetup %}
-             <a  class="label label-default {% ifequal opts.object_name|lower 'sonosetup' %}Active{% endifequal %}" href="/admin/feed/sonosetup/{{setup.sonosetup.pk}}/{% if change %}edit{%endif %}">Sono</a>
-           {% endif %}
-           {% if setup.strainsetup %}
-             <a  class="label label-default {% ifequal opts.object_name|lower 'strainsetup' %}Active{% endifequal %}" href="/admin/feed/strainsetup/{{setup.strainsetup.pk}}/{% if change %}edit{%endif %}">Strain</a>
-           {% endif %}
-           {% if setup.forcesetup %}
-             <a  class="label label-default {% ifequal opts.object_name|lower 'forcesetup' %}Active{% endifequal %}" href="/admin/feed/forcesetup/{{setup.forcesetup.pk}}/{% if change %}edit{%endif %}">Bite Force</a>
-           {% endif %}
-           {% if setup.pressuresetup %}
-               <a  class="label label-default {% ifequal opts.object_name|lower 'pressuresetup' %}Active{% endifequal %}" href="/admin/feed/pressuresetup/{{setup.pressuresetup.pk}}/{% if change %}edit{%endif %}">Pressure</a>
-             {% endif %}
-           {% if setup.kinematicssetup %}
-             <a  class="label label-default {% ifequal opts.object_name|lower 'kinematicssetup' %}Active{% endifequal %}" href="/admin/feed/kinematicssetup/{{setup.kinematicssetup.pk}}/{% if change %}edit{%endif %}">Kinematics</a>
-           {% endif %}
-           {% if setup.eventsetup %}
-            <a  class="label label-default {% ifequal opts.object_name|lower 'eventsetup' %}Active{% endifequal %}" href="/admin/feed/eventsetup/{{setup.eventsetup.pk}}/{% if change %}edit{%endif %}">Time/Event</a>
-           {% endif %}
-          {% endfor %}
+        {% for setup in experiment.get_setups %}
+          {% include "admin/feed/experiment/setup_tab_anchors.html" %}
+        {% endfor %}
         <a class="label label-default Active"  href="/admin/feed/session/{% if change %}edit/{%endif %}?experiment={{experiment.pk}}">Sessions</a>
     </div>
   {% endif %}
