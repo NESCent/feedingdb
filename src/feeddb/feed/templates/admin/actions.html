@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n admin_urls %}
 <div class="row actions">
   <div class="col-xs-8">
 {% for field in action_form %}
@@ -11,14 +11,8 @@
   </div>
   <div class="col-xs-4">
     <div class="float-right">
-      {% if cl.has_filters %}
-      <a href="{% url "admin:auth_user_add" %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add User</a>
-      <a href="/admin/explorer/bucket/" class="addlink collections"><span class="glyphicon glyphicon-eye-open"></span>Browse Collections</a>
-      {% elif 'buckets' == opts.model_name %}
-      <a href="{% url "admin:auth_bucket_add" %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add Collection</a>
-      {% else %}
-      <a href="{% url "admin:auth_group_add" %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add Group</a>
-      {% endif %}
+      {% url cl.opts|admin_urlname:'add' as add_url %}
+      <a href="{% add_preserved_filters add_url is_popup %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add {{ cl.opts.verbose_name }}</a>
     </div>
   </div>
 </div>
