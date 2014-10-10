@@ -7319,7 +7319,7 @@ body #clone-modal .row .chosen-container {
   width: 100% !important;
 }
 body.change-form main form fieldset .help {
-  margin-top: 6px;
+  margin-top: 4px;
 }
 body.change-form main form fieldset span #id_approval_type {
   list-style-type: none;
@@ -7351,6 +7351,14 @@ body.change-form main form fieldset .datetime input {
 }
 body.change-form main form fieldset .datetime input:last-child {
   margin: 0;
+}
+body.change-form main .overview-add {
+  float: right;
+  margin: 0;
+  text-transform: capitalize;
+}
+body.change-form main .overview-add span {
+  padding-right: 4px;
 }
 body.users main form .id_user_permissions p,
 body.users main form .id_groups p {
