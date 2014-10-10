@@ -29,7 +29,8 @@
     {% csrf_token %}
     <div class="row">
       <table class="search-box table col-xs-12">
-        <!-- {{ form.as_table }} -->
+        {# keep track of old query string so we can reset filters if user changes it #}
+        <input type="hidden" name="old_q" value="{{ form.q.value }}">
         <tbody>
           <tr>
             <th class="col-xs-offset-1 col-xs-3 col-lg-offset-1 col-lg-2">
