@@ -49,7 +49,7 @@ class FeedSearchForm(FacetedSearchForm):
         # Get keywords from form, defaulting to empty string
         try:
             q = self.cleaned_data['q']
-        except AttributeError:
+        except (AttributeError, KeyError): # if self.cleaned_data doesn't exist
             q = ''
 
         sqs = self.searcher.search(filters=self.filters, keywords=q)
