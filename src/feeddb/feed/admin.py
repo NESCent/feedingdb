@@ -104,7 +104,7 @@ class EmgSensorViewInline(FeedTabularInline):
 
 class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
-    exclude = ['location_controlled', 'location_freetext']
+    exclude = ['study', 'location_controlled', 'location_freetext']
     extra = 5
     form = EmgSensorChannelForm
     formset = OrderedFormset
@@ -112,33 +112,37 @@ class EmgSensorInline(FeedTabularInline):
 class SonoSensorInline(SetupTabularInline):
     model = SonoSensor
     extra = 4
-    exclude = ['location_controlled', 'location_freetext']
+    exclude = ['study', 'location_controlled', 'location_freetext']
     form = SonoSensorForm
 
 class SonoSensorViewInline(FeedTabularInline):
     model = SonoSensor
     extra = 0
-    exclude = ['location_controlled', 'location_freetext']
+    exclude = ['study', 'location_controlled', 'location_freetext']
     form = SonoSensorForm
 
 class StrainSensorInline(SetupTabularInline):
     model = StrainSensor
     extra = 3
+    exclude = ['study']
     form = StrainSensorForm
 
 class StrainSensorViewInline(FeedTabularInline):
     model = StrainSensor
     extra = 0
+    exclude = ['study']
     form = StrainSensorForm
 
 class ForceSensorInline(SetupTabularInline):
     model = ForceSensor
     extra = 3
+    exclude = ['study']
     form = ForceSensorForm
 
 class ForceSensorViewInline(FeedTabularInline):
     model = ForceSensor
     extra = 0
+    exclude = ['study']
     form = ForceSensorForm
 
 class PressureSensorInline(SetupTabularInline):
@@ -149,16 +153,19 @@ class PressureSensorInline(SetupTabularInline):
 class PressureSensorViewInline(FeedTabularInline):
     model = PressureSensor
     extra = 0
+    exclude = ['study']
     form = PressureSensorForm
 
 class KinematicsSensorInline(SetupTabularInline):
     model = KinematicsSensor
     extra = 3
+    exclude = ['study']
     form = KinematicsSensorForm
 
 class KinematicsSensorViewInline(FeedTabularInline):
     model = KinematicsSensor
     extra = 0
+    exclude = ['study']
     form = KinematicsSensorForm
 
 class ChannelInline(FeedTabularInline):
@@ -171,55 +178,67 @@ class ChannelInline(FeedTabularInline):
 class SonoChannelInline(FeedTabularInline):
     model = SonoChannel
     extra =5
+    exclude = ['study']
     form = SonoChannelForm
 
 class SonoChannelViewInline(FeedTabularInline):
     model = SonoChannel
+    exclude = ['study']
     extra = 0
 
 class StrainChannelInline(FeedTabularInline):
     model = StrainChannel
     extra =9
+    exclude = ['study']
     form = StrainChannelForm
 
 class StrainChannelViewInline(FeedTabularInline):
     model = StrainChannel
+    exclude = ['study']
     extra = 0
 
 class ForceChannelInline(FeedTabularInline):
     model = ForceChannel
     extra =9
+    exclude = ['study']
     form = ForceChannelForm
 
 class ForceChannelViewInline(FeedTabularInline):
     model = ForceChannel
+    exclude = ['study']
     extra = 0
 
 class PressureChannelInline(FeedTabularInline):
     model = PressureChannel
     extra =9
+    exclude = ['study']
     form = PressureChannelForm
 
 class PressureChannelViewInline(FeedTabularInline):
     model = PressureChannel
+    exclude = ['study']
     extra = 0
 
 class KinematicsChannelInline(FeedTabularInline):
     model = KinematicsChannel
     extra =9
+    exclude = ['study']
     form = KinematicsChannelForm
 
 class KinematicsChannelViewInline(FeedTabularInline):
     model = KinematicsChannel
+    exclude = ['study']
     extra = 0
 
 class EventChannelInline(FeedTabularInline):
     model = EventChannel
     extra =9
+    exclude = ['study']
     form = EventChannelForm
 
 class EventChannelViewInline(FeedTabularInline):
     model = EventChannel
+    exclude = ['study']
     extra = 0
 
 class EmgSetupAdmin(EmgSetupModelAdmin):
@@ -228,6 +247,7 @@ class EmgSetupAdmin(EmgSetupModelAdmin):
     list_display = ('preamplifier','experiment')
     list_filter = ('experiment',)
     ordering = ('preamplifier',)
+    exclude = ('study', 'experiment')
     form = SetupForm
 
 class SonoSetupAdmin(DefaultModelAdmin):
@@ -236,6 +256,7 @@ class SonoSetupAdmin(DefaultModelAdmin):
     list_display = ('sonomicrometer','experiment')
     list_filter = ('experiment',)
     ordering = ('sonomicrometer',)
+    exclude = ('study', 'experiment')
     form = SetupForm
 
 class StrainSetupAdmin(DefaultModelAdmin):
@@ -243,6 +264,7 @@ class StrainSetupAdmin(DefaultModelAdmin):
     view_inlines = [IllustrationViewInline, StrainSensorViewInline, StrainChannelViewInline]
     list_display = ('experiment',)
     list_filter = ('experiment',)
+    exclude = ('study', 'experiment')
     form = SetupForm
 
 class ForceSetupAdmin(DefaultModelAdmin):
@@ -250,6 +272,7 @@ class ForceSetupAdmin(DefaultModelAdmin):
     view_inlines = [IllustrationViewInline, ForceSensorViewInline, ForceChannelViewInline]
     list_display = ('experiment',)
     list_filter = ('experiment',)
+    exclude = ('study', 'experiment')
     form = SetupForm
 
 class PressureSetupAdmin(DefaultModelAdmin):
@@ -257,12 +280,14 @@ class PressureSetupAdmin(DefaultModelAdmin):
     view_inlines = [IllustrationViewInline, PressureSensorViewInline, PressureChannelViewInline]
     list_display = ('experiment',)
     list_filter = ('experiment',)
+    exclude = ('study', 'experiment')
 
 class KinematicsSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,KinematicsSensorInline,KinematicsChannelInline]
     view_inlines = [IllustrationViewInline, KinematicsSensorViewInline, KinematicsChannelViewInline]
     list_display = ('experiment',)
     list_filter = ('experiment',)
+    exclude = ('study', 'experiment')
     form = SetupForm
 
 class EventSetupAdmin(DefaultModelAdmin):
@@ -270,6 +295,7 @@ class EventSetupAdmin(DefaultModelAdmin):
     view_inlines = [IllustrationViewInline, EventChannelViewInline]
     list_display = ('experiment',)
     list_filter = ('experiment',)
+    exclude = ('study', 'experiment')
     form = SetupForm
 
 class EmgChannelAdmin(DefaultModelAdmin):
