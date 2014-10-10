@@ -8,7 +8,7 @@ import datetime
 from django.db.models.expressions import F
 
 
-DATETIME_HELP_TEXT = 'For older dates, type by hand "yyyy-mm-dd" for example "1990-10-22"'
+DATETIME_HELP_TEXT = ''
 # Only used for Trial here; the other containers are are affected through forms.py -- go figure (VG)
 BOOKKEEPING_HELP_TEXT = 'Enter any text required for lab bookkeeping concerning the Study here'
 
@@ -318,10 +318,8 @@ class Study(FeedBaseModel):
     title = models.CharField(max_length=255,
                              help_text = "Enter a short title for the Study here")
     bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
-    start = models.DateField("Start Date", null=False,
-                             help_text = "The date that data collection for this Study began")
-    end = models.DateField("End Date", blank = True, null=True,
-                             help_text = "The date that data collection for this Study ended")
+    start = models.DateField("Start Date", null=False)
+    end = models.DateField("End Date", blank = True, null=True)
     funding_agency = models.CharField(max_length=255, blank = True, null=True,
                              help_text = "The agency that funded the research")
 
@@ -386,8 +384,8 @@ class Experiment(FeedBaseModel):
     bookkeeping = models.CharField("Bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     study = models.ForeignKey(Study)
     subject = models.ForeignKey(Subject)
-    start = models.DateField(null=True, help_text=DATETIME_HELP_TEXT)
-    end = models.DateField(blank = True, null=True, help_text=DATETIME_HELP_TEXT)
+    start = models.DateField("Start Date", null=True, help_text=DATETIME_HELP_TEXT)
+    end = models.DateField("End Date", blank = True, null=True, help_text=DATETIME_HELP_TEXT)
     description = models.TextField(blank = True, null=True)
     subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="Subject Development Stage")
     subj_age = models.DecimalField("Subject Age",max_digits=19, decimal_places=5, blank = True, null=True,
