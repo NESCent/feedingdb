@@ -680,18 +680,18 @@ class Trial(FeedBaseModel):
     food_size = models.CharField("Food Size (maximum dimension millimeters)", max_length=255,blank = True, null=True)
     food_property = models.CharField("Food Property", max_length=255,blank = True, null=True)
 
-    is_calibration = models.BooleanField("This is a Calibration", help_text="You must either check this box or select a behavior for this trial", default=False)
+    is_calibration = models.BooleanField("This is a Calibration", help_text="You must either check this box or select a Feeding Behavior for this trial.", default=False)
 
     # deprecated in FEED2
     behavior_primary = models.ForeignKey(Behavior, verbose_name="Primary Behavior", null=True, blank=True)
 
     behaviorowl_primary = models.ForeignKey(BehaviorOwl,
-        verbose_name="Behavior",
+        verbose_name="Feeding Behavior",
         null=True,
         blank=True,
         related_name="primary_in_trials",
         limit_choices_to=BehaviorOwl.default_qs_filter_args(),
-        help_text="If this is not a calibration, you must choose a behavior.")
+        help_text="You must choose a Feeding Behavior unless you have checked that this is a Calibration Trial.")
 
     # deprecated in FEED2
     behavior_secondary = models.CharField("Secondary Behavior", max_length=255,blank = True, null=True)
