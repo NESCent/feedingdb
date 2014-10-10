@@ -690,7 +690,7 @@ class Trial(FeedBaseModel):
         null=True,
         blank=True,
         related_name="primary_in_trials",
-        limit_choices_to=BehaviorOwl.default_qs_filter_args()
+        limit_choices_to=BehaviorOwl.default_qs_filter_args(),
         help_text="If this is not a calibration, you must choose a behavior.")
 
     # deprecated in FEED2
