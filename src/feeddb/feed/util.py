@@ -7,12 +7,15 @@ from UserDict import UserDict
 import logging
 from django.conf import settings
 
-from feeddb.feed.models import Study, Experiment, Setup, TECHNIQUE_CHOICES_NAMED
+from feeddb.feed.models import Study, Subject, Experiment, Setup, Session, Trial
 #
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
-FIELDS = ('experiment', 'study', 'subject', 'session', 'trial')
+# These are the lowercase names of the model instances which we track, in order
+# of containing to contained. We can omit 'trial' because trials don't contain
+# anything.
+FIELDS = ('study', 'subject', 'experiment', 'session')
 
 class FeedUploadStatus():
     # TODO: Make sure we're only pickling IDs by overriding __getstate__ and __setstate__
@@ -22,15 +25,45 @@ class FeedUploadStatus():
         self._data = session.setdefault('feed_upload_status', {})
 
     def update_with_object(self, obj):
+        """
+        Update our "current objects" cache with the given object and all of the values
+        in any fields named in FIELDS.
+
+        We only expect to be called with a Study, Subject, Experiment, Session,
+        or Trial. Anything else might have weird results.
+        """
+        if type(obj) not in (Study, Subject, Experiment, Session, Trial):
+            raise TypeError('Cannot update FeedUploadStatus with object of type %s' % type(obj))
+
         name = type(obj).__name__.lower()
         if name in FIELDS:
             self._data[name] = obj
             self._session.modified = True
 
+        # When visiting a trial page, we should fill in all the parents.
+        # However, when visiting a subject page, we should clear the saved
+        # experiment, session, and trial.
+        #
+        # Why? For one, it might be part of a different study. For another, it
+        # would produce weird results if the next page is an "add" page for a
+        # trial or session.
+        clear_the_rest = False
         for fname in FIELDS:
-            if hasattr(obj, fname):
-                self._data[fname] = getattr(obj, fname)
+            if clear_the_rest:
+                try:
+                    del self._data[fname]
+                    self._session.modified = True
+                except KeyError:
+                    pass
+            elif hasattr(obj, fname):
+                val = getattr(obj, fname)
+                # support function attributes
+                if callable(val):
+                    val = val()
+                self._data[fname] = val
                 self._session.modified = True
+            else:
+                clear_the_rest = True
 
         logger.info(self._data.keys())
 
@@ -78,21 +111,39 @@ class FeedUploadStatus():
         if study is None:
             return
 
+        Model = type(form.instance)
+
         # iterate through fields on the form
         for field_name, field_value in form.fields.items():
             logger.info('on field %s', field_name)
             if isinstance(field_value, ModelChoiceField):
                 M = field_value.queryset.model
-                # iterate through fields on target model
-                for Mfield in M._meta.fields:
-                    if isinstance(Mfield, ForeignKey):
-                        Parent = Mfield.related.parent_model
-                        # if target model has a field pointing to the Study
-                        # model, filter the form field to only include target
-                        # models which are part of the current study.
-                        if Parent == Study:
-                            kwargs = { Mfield.name: study }
-                            form.fields[field_name].queryset = field_value.queryset.filter(**kwargs)
+                qs_args = dict(self.args_applicable_to_model(M))
+                if len(qs_args):
+                    form.fields[field_name].queryset = field_value.queryset.filter(**qs_args)
+
+    def args_applicable_to_model(self, Model):
+        """
+        Given a model, yield name-value pairs which would apply to a query on that model,
+        based on the data we have.
+
+        For each field on the model, check if we have a value by that name. If
+        we do, yield the (name, value) pair.
+
+        In addition, we have special cases for fields which are FKs to things
+        which have FKs to the things we know about.
+
+        """
+        for field in Model._meta.fields:
+            try:
+                if field.name == 'setup' and isinstance(field, ForeignKey):
+                    yield ('setup__experiment', self._data['experiment'])
+                else:
+                    yield (field.name, self._data[field.name])
+            except KeyError:
+                # If we can't look it up in self._data, don't worry about it.
+                pass
+
 
     def get_dict(self):
         return self._data
