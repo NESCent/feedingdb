@@ -6215,6 +6215,7 @@ body a {
 body a:hover,
 body a:active {
   color: #da5400;
+  text-decoration: none;
 }
 body a:visited {
   color: #638ebc;
@@ -6258,6 +6259,9 @@ body .glyphicon.glyphicon-picture {
   font-size: 18px;
   display: block;
   text-align: center;
+}
+body .glyphicon.glyphicon-save {
+  font-size: 18px;
 }
 body #accordion .glyphicon.glyphicon-picture {
   font-size: 18px;
