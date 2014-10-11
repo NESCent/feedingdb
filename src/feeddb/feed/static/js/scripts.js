@@ -31,5 +31,7 @@ $( document ).ready(function() {
   $('.download-picture .glyphicon-picture').addClass('glyphicon-save');
   $('.download-picture .glyphicon-picture').removeClass('glyphicon-picture');
 
+  $('.data_file .glyphicon-picture').addClass('glyphicon-save');
+  $('.data_file .glyphicon-picture').removeClass('glyphicon-picture');
 
 });
