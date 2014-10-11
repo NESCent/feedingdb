@@ -20,7 +20,7 @@ $( document ).ready(function() {
 
   $("[data-toggle=tooltip]").tooltip();
 
-  $( ".datepicker" ).datepicker({dateFormat: "yyyy-mm-dd" });
+  $( ".datepicker" ).datepicker({dateFormat: "yy-mm-dd" });
 
   // Allow Bootstrap's data-toggle="collapse" to work on <option> elements by
   // triggering the click event when the option is selected.
