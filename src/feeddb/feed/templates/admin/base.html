@@ -116,8 +116,8 @@
              {% for message in messages %}
              <div{% if message.tags %} class="messages alert alert-{{ message.tags }}"{% endif %} role="alert">
                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-             {% endfor %}
              </div>
+             {% endfor %}
            </div>
          </div>
        </div>
