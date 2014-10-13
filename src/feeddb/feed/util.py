@@ -24,7 +24,7 @@ class FeedUploadStatus():
         self._session = session
         self._data = session.setdefault('feed_upload_status', {})
 
-    def update_with_object(self, obj):
+    def update_with_object(self, obj, fail_silently=False):
         """
         Update our "current objects" cache with the given object and all of the values
         in any fields named in FIELDS.
@@ -36,7 +36,11 @@ class FeedUploadStatus():
             if isinstance(obj, Setup):
                 pass
             else:
-                raise TypeError('Cannot update FeedUploadStatus with object of type %s' % type(obj))
+                logger.warn("FeedUploadStatus: Attempted to update with unsupported '%s' object" % type(obj))
+                if fail_silently:
+                    return
+                else:
+                    raise TypeError('Cannot update FeedUploadStatus with object of type %s' % type(obj))
 
         # When visiting a trial page, we should fill in all the parents.
         # However, when visiting a subject page, we should clear the saved
