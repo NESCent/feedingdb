@@ -502,6 +502,11 @@ class OtherSetup(Setup):
     class Meta:
         verbose_name = "Other Setup"
 
+    class FeedMeta:
+        help_text = """
+        This sensor type should be used only if your sensors don't fit into any
+        of the other categories.
+        """
 
 class Sensor(FeedBaseModel):
     study = models.ForeignKey(Study, null=True)
