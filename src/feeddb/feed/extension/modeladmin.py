@@ -146,7 +146,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         if not change:
             request.feed_upload_status.apply_defaults_to_instance(form.instance);
         form.save();
-        request.feed_upload_status.update_with_object(form.instance)
+        request.feed_upload_status.update_with_object(form.instance, fail_silently=True)
 
     def get_urls(self):
         from django.conf.urls import patterns, url
@@ -394,7 +394,7 @@ class FeedModelAdmin(admin.ModelAdmin):
     def change_view(self,request,object_id,extra_context=None):
         obj = self.get_object(request, unquote(object_id))
         if obj is not None and self.has_change_permission(request, obj):
-            request.feed_upload_status.update_with_object(obj)
+            request.feed_upload_status.update_with_object(obj, fail_silently=True)
 
         #add extra context for tabs
         if extra_context == None:
@@ -465,7 +465,7 @@ class FeedModelAdmin(admin.ModelAdmin):
 
         obj = self.get_object(request, unquote(object_id))
         if self.has_change_permission(request, obj):
-            request.feed_upload_status.update_with_object(obj)
+            request.feed_upload_status.update_with_object(obj, fail_silently=True)
 
         model = self.model
         opts = model._meta
