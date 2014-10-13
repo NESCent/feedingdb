@@ -11,7 +11,7 @@
               <tr>
                 {% for field in inline_admin_formset.fields %}
                   {% if not field.is_hidden  %}
-                    <th {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
+                    <th class="{{ field.required|yesno:"required," }}" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
                   {% endif %}
                 {% endfor %}
                 {% if inline_admin_formset.formset.can_delete %}
