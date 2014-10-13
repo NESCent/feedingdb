@@ -12,7 +12,14 @@
             <tr>
               {% for field in inline_admin_formset.fields %}
                 {% if not field.is_hidden  %}
-                  <th {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
+
+                  {%if field.label.required %}
+                  <th class="{{ field.label }} required" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
+                  {%else%}
+                  <th class="{{ field.label }}" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
+                  {%endif%}
+
+
                 {% endif %}
               {% endfor %}
               {% for fieldset in inline_admin_form %}
