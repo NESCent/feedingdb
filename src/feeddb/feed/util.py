@@ -209,3 +209,11 @@ class FeedUploadStatus():
             pass
 
         return False
+
+
+class FeedAdminUtils():
+    @staticmethod
+    def has_instance_change_permission(request, obj):
+        if obj == None:
+            return True
+        return obj.created_by == request.user

@@ -40,6 +40,8 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
 
+from feeddb.feed.util import FeedAdminUtils
+
 csrf_protect_m = method_decorator(csrf_protect)
 #end for 1.2.4
 
@@ -48,6 +50,10 @@ class FeedTabularInline(admin.TabularInline):
     #change_form_template = 'admin/tabbed_change_form.html'
     tabbed = False
     tab_name = None
+
+    def has_change_permission(self, request, obj=None):
+        change_all = super(FeedTabularInline, self).has_change_permission(request, obj)
+        return change_all or FeedAdminUtils.has_instance_change_permission(request, obj)
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         request = kwargs.pop("request", None)
@@ -191,14 +197,8 @@ class FeedModelAdmin(admin.ModelAdmin):
         If `obj` is None, this should return True if the given request has
         permission to change *any* object of the given type.
         """
-        p=super(FeedModelAdmin, self).has_change_permission(request, obj)
-
-        if not p:
-            if obj == None:
-                return True
-            return obj.created_by == request.user
-
-        return p
+        change_all = super(FeedModelAdmin, self).has_change_permission(request, obj)
+        return change_all or FeedAdminUtils.has_instance_change_permission(request, obj)
 
     def has_delete_permission(self, request, obj=None):
         """
