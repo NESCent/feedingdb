@@ -658,10 +658,6 @@
         <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
         <obo:RO_0001900 rdf:resource="http://purl.obolibrary.org/obo/RO_0001901"/>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002131"/>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002331"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000066"/>
-        </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
 
@@ -731,11 +727,11 @@
         <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000063"/>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002086"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002092"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002091"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000062"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002091"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002092"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000062"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
@@ -771,12 +767,12 @@ time: atemporal</obo:IAO_0000118>
         <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000004"/>
         <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000067"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000066"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000066"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000066"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
@@ -787,58 +783,6 @@ time: atemporal</obo:IAO_0000118>
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_0000067">
         <rdfs:label xml:lang="en">contains process</rdfs:label>
         <obo:IAO_0000111 xml:lang="en">site of</obo:IAO_0000111>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/OPBO0000124 -->
-
-    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO0000124">
-        <rdfs:label xml:lang="en">lateral to</rdfs:label>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/OPBO0000125 -->
-
-    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO0000125">
-        <rdfs:label xml:lang="en">medial to</rdfs:label>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/OPBO0000142 -->
-
-    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO0000142">
-        <rdfs:label xml:lang="en">dorsal to</rdfs:label>
-        <oboInOwl:hasDbXref>PATO_0001233</oboInOwl:hasDbXref>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/OPBO0000143 -->
-
-    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO0000143">
-        <rdfs:label xml:lang="en">ventral to</rdfs:label>
-        <oboInOwl:hasDbXref>PATO_0001196</oboInOwl:hasDbXref>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/OPBO0000144 -->
-
-    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO0000144">
-        <rdfs:label xml:lang="en">angle</rdfs:label>
-        <oboInOwl:hasDbXref>PATO_0002326</oboInOwl:hasDbXref>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/OPBO0000218 -->
-
-    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO0000218">
-        <rdfs:label xml:lang="en">right</rdfs:label>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/PATO_0000367</oboInOwl:hasDbXref>
     </owl:ObjectProperty>
     
 
@@ -858,6 +802,58 @@ time: atemporal</obo:IAO_0000118>
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO_0000003">
         <rdfs:label>innervated by</rdfs:label>
         <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002134"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000124 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO_0000124">
+        <rdfs:label xml:lang="en">lateral to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000125 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO_0000125">
+        <rdfs:label xml:lang="en">medial to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000142 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO_0000142">
+        <rdfs:label xml:lang="en">dorsal to</rdfs:label>
+        <oboInOwl:hasDbXref>PATO_0001233</oboInOwl:hasDbXref>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000143 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO_0000143">
+        <rdfs:label xml:lang="en">ventral to</rdfs:label>
+        <oboInOwl:hasDbXref>PATO_0001196</oboInOwl:hasDbXref>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000144 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO_0000144">
+        <rdfs:label xml:lang="en">angle</rdfs:label>
+        <oboInOwl:hasDbXref>PATO_0002326</oboInOwl:hasDbXref>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000218 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/OPBO_0000218">
+        <rdfs:label xml:lang="en">right</rdfs:label>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/PATO_0000367</oboInOwl:hasDbXref>
     </owl:ObjectProperty>
     
 
@@ -1278,17 +1274,6 @@ boundary_of: http://purl.obolibrary.org/obo/RO_0002000</obo:IAO_0000115>
         <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A relation that holds between two linear structures that are approximately parallel to each other for their entire length. This relation is transitive. It i is agnostic about any parthood relationship between X and Y.</obo:IAO_0000115>
         <rdfs:comment>Example: if we define region of chromosome as any subdivision of a chromosome along its long axis, then we can define a region of chromosome that contains only gene x as &apos;chromosome region&apos; that coincident_with some &apos;gene x&apos;, where the term gene X corresponds to a genomic sequence.</rdfs:comment>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002323"/>
-        <rdfs:range>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000002"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/RO_0000053"/>
-                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/PATO_0001199"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </rdfs:range>
         <rdfs:domain>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
@@ -1300,6 +1285,17 @@ boundary_of: http://purl.obolibrary.org/obo/RO_0002000</obo:IAO_0000115>
                 </owl:intersectionOf>
             </owl:Class>
         </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000002"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/RO_0000053"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/PATO_0001199"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:range>
     </owl:ObjectProperty>
     
 
@@ -1765,6 +1761,10 @@ boundary_of: http://purl.obolibrary.org/obo/RO_0002000</obo:IAO_0000115>
         <obo:RO_0001900 rdf:resource="http://purl.obolibrary.org/obo/RO_0001901"/>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002130"/>
         <cito:citesAsAuthority rdf:resource="http://www.ncbi.nlm.nih.gov/pubmed/22402613"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002113"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
+        </owl:propertyChainAxiom>
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -1776,10 +1776,6 @@ boundary_of: http://purl.obolibrary.org/obo/RO_0002000</obo:IAO_0000115>
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002113"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
-        </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
 
@@ -2020,8 +2016,8 @@ Expands_to: T has_fasciculating_neuron_projection that synapse_in some R.</obo:I
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002323"/>
     </owl:ObjectProperty>
     <owl:Axiom>
-        <owl:annotatedTarget>The label for this relation was previously connected to. I relabeled this to &quot;continuous with&quot;. The standard notion of connectedness does not imply shared boundaries - e.g. Glasgow connected_to Edinburgh via M8; my patella connected_to my femur (via patellar-femoral joint)</owl:annotatedTarget>
         <dc:source>RO:cjm</dc:source>
+        <owl:annotatedTarget>The label for this relation was previously connected to. I relabeled this to &quot;continuous with&quot;. The standard notion of connectedness does not imply shared boundaries - e.g. Glasgow connected_to Edinburgh via M8; my patella connected_to my femur (via patellar-femoral joint)</owl:annotatedTarget>
         <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000232"/>
         <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/RO_0002150"/>
     </owl:Axiom>
@@ -2136,11 +2132,15 @@ Expands_to: T has_fasciculating_neuron_projection that synapse_in some R.</obo:I
         <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000125"/>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002320"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002206"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002254"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002162"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002215"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002162"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002202"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002162"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
@@ -2156,7 +2156,7 @@ Expands_to: T has_fasciculating_neuron_projection that synapse_in some R.</obo:I
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002162"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002202"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000051"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002162"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
@@ -2164,11 +2164,7 @@ Expands_to: T has_fasciculating_neuron_projection that synapse_in some R.</obo:I
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002162"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002254"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002162"/>
-        </owl:propertyChainAxiom>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000051"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002206"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002162"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
@@ -2377,9 +2373,9 @@ Expands_to: T has_fasciculating_neuron_projection that synapse_in some R.</obo:I
 
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002206">
         <rdfs:label xml:lang="en">expressed in</rdfs:label>
+        <obo:IAO_0000117 xml:lang="en">Chris Mungall</obo:IAO_0000117>
         <obo:IAO_0000115>x expressed in y if and only if there is a gene expression process (GO:0010467) that occurs in y, and one of the following holds: (i) x is a gene, and x is transcribed into a transcript as part of the gene expression process (ii) x is a transcript, and the transcription of x is part of the gene expression process (iii) x is a mature gene product such as a protein, and x was translated or otherwise processes from a transcript that was transcribed as part of this gene expression process</obo:IAO_0000115>
         <obo:IAO_0000112>&apos;neural crest cell&apos; SubClassOf expresses some &apos;Wnt1 gene&apos;</obo:IAO_0000112>
-        <obo:IAO_0000117 xml:lang="en">Chris Mungall</obo:IAO_0000117>
         <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000002"/>
         <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000004"/>
         <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000125"/>
@@ -2404,14 +2400,6 @@ Expands_to: T has_fasciculating_neuron_projection that synapse_in some R.</obo:I
         <obo:IAO_0000119>FBbt</obo:IAO_0000119>
         <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000125"/>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002202"/>
-        <rdfs:range>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0010000"/>
-                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CL_0000000"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:range>
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -2420,6 +2408,14 @@ Expands_to: T has_fasciculating_neuron_projection that synapse_in some R.</obo:I
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0010000"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CL_0000000"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
     </owl:ObjectProperty>
     
 
@@ -2451,12 +2447,12 @@ Expands_to: T has_fasciculating_neuron_projection that synapse_in some R.</obo:I
         <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000125"/>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002418"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002230"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002211"/>
-        </owl:propertyChainAxiom>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002211"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002230"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002211"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
@@ -2985,8 +2981,8 @@ Expands_to: T has_fasciculating_neuron_projection that synapse_in some R.</obo:I
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002295"/>
     </owl:ObjectProperty>
     <owl:Axiom>
-        <obo:IAO_0000116>from SIO</obo:IAO_0000116>
         <owl:annotatedTarget>has product</owl:annotatedTarget>
+        <obo:IAO_0000116>from SIO</obo:IAO_0000116>
         <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000118"/>
         <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/RO_0002297"/>
     </owl:Axiom>
@@ -3081,6 +3077,10 @@ Expands_to: T has_fasciculating_neuron_projection that synapse_in some R.</obo:I
         <obo:IAO_0000117>Chris Mungall</obo:IAO_0000117>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0000057"/>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002337"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002313"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000051"/>
+        </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
 
@@ -3224,8 +3224,8 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002215"/>
     </owl:ObjectProperty>
     <owl:Axiom>
-        <dc:contributor>http://www.arabidopsis.org/</dc:contributor>
         <owl:annotatedTarget xml:lang="en">enables</owl:annotatedTarget>
+        <dc:contributor>http://www.arabidopsis.org/</dc:contributor>
         <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/RO_0002327"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#label"/>
     </owl:Axiom>
@@ -3275,11 +3275,11 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <obo:IAO_0000115>c involved_in p if and only if c enables some process p&apos;, and p&apos; is part of p</obo:IAO_0000115>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002431"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002327"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002331"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002331"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002327"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
@@ -3365,6 +3365,10 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <obo:IAO_0000115>This relationship holds between p and l when p is a transport or localization process in which the outcome is to move some cargo c from some initial location l to some destination.</obo:IAO_0000115>
         <obo:IAO_0000117>Chris Mungall</obo:IAO_0000117>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002344"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002338"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
+        </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
 
@@ -3376,6 +3380,10 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <obo:IAO_0000117>Chris Mungall</obo:IAO_0000117>
         <obo:IAO_0000115>This relationship holds between p and l when p is a transport or localization process in which the outcome is to move some cargo c from a an initial location to some destination l.</obo:IAO_0000115>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002344"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002339"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
+        </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
 
@@ -3387,6 +3395,10 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <obo:IAO_0000115>Holds between p and c when p is a transportation or localization process and the outcome of this process is to move c to a destination that is part of some s, where the start location of c is part of the region that surrounds s.</obo:IAO_0000115>
         <obo:IAO_0000117>Chris Mungall</obo:IAO_0000117>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002313"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002340"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000051"/>
+        </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
 
@@ -3437,6 +3449,10 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002345">
         <rdfs:label xml:lang="en">exports</rdfs:label>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002313"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002345"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000051"/>
+        </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
 
@@ -3647,15 +3663,15 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002375"/>
     </owl:ObjectProperty>
     <owl:Axiom>
-        <owl:annotatedTarget>drains to</owl:annotatedTarget>
-        <dc:source rdf:resource="http://dbpedia.org/ontology/drainsTo"/>
-        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000118"/>
-        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/RO_0002376"/>
-    </owl:Axiom>
-    <owl:Axiom>
         <owl:annotatedTarget>Deschutes River tributary_of Columbia River</owl:annotatedTarget>
         <dc:source>GAZ</dc:source>
         <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000112"/>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/RO_0002376"/>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedTarget>drains to</owl:annotatedTarget>
+        <dc:source rdf:resource="http://dbpedia.org/ontology/drainsTo"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000118"/>
         <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/RO_0002376"/>
     </owl:Axiom>
     <owl:Axiom>
@@ -3938,11 +3954,11 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002213"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002406"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002407"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002406"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002406"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002406"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002407"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002407"/>
@@ -3972,16 +3988,16 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000428"/>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002212"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002408"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002409"/>
-        </owl:propertyChainAxiom>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002409"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002408"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002408"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002408"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002408"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002409"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
@@ -4115,11 +4131,11 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <obo:IAO_0000115>c involved in regulation of p if c is involved in some &apos;p&apos; and p&apos; regulates some p</obo:IAO_0000115>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002431"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002331"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002327"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002211"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002327"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002331"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002211"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
@@ -4149,11 +4165,11 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:label>involved in negative regulation of</rdfs:label>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002428"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002327"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002331"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002212"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002331"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002327"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002212"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
@@ -4270,6 +4286,7 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:seeAlso>http://eol.org/schema/terms/preysUpon</rdfs:seeAlso>
         <obo:IAO_0000112>Baleen whale preys on krill</obo:IAO_0000112>
         <obo:IAO_0000115>An interaction relationship involving a predation process, where the subject consumes all or part of the target</obo:IAO_0000115>
+        <obo:IAO_0000118>is subject of predation interaction with</obo:IAO_0000118>
         <obo:IAO_0000118>preys upon</obo:IAO_0000118>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002438"/>
     </owl:ObjectProperty>
@@ -4365,6 +4382,13 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <obo:IAO_0000112>Pediculus humanus capitis parasite of human</obo:IAO_0000112>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002443"/>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002454"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002462"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002468"/>
+            <rdf:Description>
+                <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002463"/>
+            </rdf:Description>
+        </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
 
@@ -4480,7 +4504,6 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:label>host of</rdfs:label>
         <obo:IAO_0000232>The term host is usually used for the larger (macro) of the two members of a symbiosis (GO)</obo:IAO_0000232>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002440"/>
-        <owl:propertyDisjointWith rdf:resource="http://purl.obolibrary.org/obo/RO_0002454"/>
     </owl:ObjectProperty>
     
 
@@ -4499,6 +4522,7 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
 
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002455">
         <rdfs:label>pollinates</rdfs:label>
+        <obo:IAO_0000118>is subject of pollination interaction with</obo:IAO_0000118>
         <obo:IAO_0000116>This relation is intended to be used for biotic pollination - e.g. a bee pollinating a flowering plant. Some kinds of pollination may be semibiotic - e.g. wind can have the role of pollinator. We would use a separate relation for this.</obo:IAO_0000116>
         <rdfs:seeAlso>http://eol.org/schema/terms/pollinates</rdfs:seeAlso>
         <obo:IAO_0000112>Bees pollinate Flowers</obo:IAO_0000112>
@@ -4512,6 +4536,7 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002456">
         <rdfs:label>pollinated by</rdfs:label>
         <obo:IAO_0000118>has polinator</obo:IAO_0000118>
+        <obo:IAO_0000118>is target of pollination interaction with</obo:IAO_0000118>
         <rdfs:seeAlso>http://eol.org/schema/terms/hasPollinator</rdfs:seeAlso>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002442"/>
         <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002455"/>
@@ -4533,6 +4558,7 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
 
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002458">
         <rdfs:label>preyed upon by</rdfs:label>
+        <obo:IAO_0000118>is target of predation interaction with</obo:IAO_0000118>
         <obo:IAO_0000118>has predator</obo:IAO_0000118>
         <rdfs:seeAlso>http://eol.org/schema/terms/HasPredator</rdfs:seeAlso>
         <rdfs:seeAlso>http://polytraits.lifewatchgreece.eu/terms/PRED</rdfs:seeAlso>
@@ -4650,6 +4676,7 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
 
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002470">
         <rdfs:label>eats</rdfs:label>
+        <obo:IAO_0000118>is subject of eating interaction with</obo:IAO_0000118>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002438"/>
     </owl:ObjectProperty>
     
@@ -4659,6 +4686,7 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
 
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002471">
         <rdfs:label>is eaten by</rdfs:label>
+        <obo:IAO_0000118>is target of eating interaction with</obo:IAO_0000118>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002438"/>
     </owl:ObjectProperty>
     
@@ -4668,7 +4696,8 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
 
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002472">
         <rdfs:label>is evidence for</rdfs:label>
-        <obo:IAO_0000115>A relationship between a piece of evidence and an assertion where the evidence lends support to the assertion</obo:IAO_0000115>
+        <obo:IAO_0000115>A relationship between a piece of evidence a and some entity b, where b is  an information content entity, material entity or process, and 
+the a supports either the existence of b, or the truth value of b.</obo:IAO_0000115>
     </owl:ObjectProperty>
     
 
@@ -4892,24 +4921,24 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:label>existence starts during or after</rdfs:label>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002487"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002496"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002496"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000062"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002258"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002496"/>
-        </owl:propertyChainAxiom>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002496"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002082"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002258"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002496"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002496"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
@@ -4922,6 +4951,10 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002487"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002497"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000063"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002497"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002082"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
@@ -4929,16 +4962,12 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002497"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002497"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002497"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002497"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000063"/>
-        </owl:propertyChainAxiom>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002497"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
@@ -5189,7 +5218,6 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <obo:IAO_0000115>x overlaps the sequence of x if and only if x has a subsequence z and z is a subsequence of y.</obo:IAO_0000115>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002131"/>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002514"/>
-        <owl:propertyDisjointWith rdf:resource="http://purl.obolibrary.org/obo/RO_0002527"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002524"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002525"/>
@@ -5316,6 +5344,35 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:seeAlso>x is an allelopath of y iff  xis an organism produces one or more biochemicals that influence the growth, survival, and reproduction of y</rdfs:seeAlso>
         <obo:IAO_0000119>http://en.wikipedia.org/wiki/Allelopathy</obo:IAO_0000119>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002437"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002556 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002556">
+        <rdfs:label>pathogen of</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002454"/>
+        <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002557"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002557 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002557">
+        <rdfs:label>has pathogen</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002453"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002558 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002558">
+        <rdfs:label>has evidence</rdfs:label>
+        <rdfs:comment>x has evidence y iff , x is  an information content entity, material entity or process, and y supports either the existence of x, or the truth value of x.</rdfs:comment>
+        <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002472"/>
     </owl:ObjectProperty>
     
 
@@ -7900,23 +7957,6 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
     
 
 
-    <!-- http://purl.obolibrary.org/obo/OPBO0000220 -->
-
-    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO0000220">
-        <rdfs:label xml:lang="en">rumination</rdfs:label>
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000013"/>
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000014"/>
-        <obo:IAO_0000119>FEED Working Group</obo:IAO_0000119>
-        <obo:IAO_0000115>A mastication behavior in which regurgitated food is re-masticated.</obo:IAO_0000115>
-        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
-        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
-        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
-    </owl:Class>
-    
-
-
     <!-- http://purl.obolibrary.org/obo/OPBO_0000011 -->
 
     <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000011">
@@ -7953,6 +7993,7 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <oboInOwl:hasDbXref>NBO_0000073</oboInOwl:hasDbXref>
         <obo:IAO_0000115>A part of feeding behavior during which food breakdown (mechanical and chemical) by structure(s) of the oropharyngeal apparatus occurs.</obo:IAO_0000115>
         <rdfs:comment>mastication is a synonym of chewing in the NBO</rdfs:comment>
+        <oboInOwl:hasBroadSynonym>chews</oboInOwl:hasBroadSynonym>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
@@ -8020,13 +8061,7 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
-                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000013"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
-                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000038"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000043"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -8038,7 +8073,13 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
-                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000043"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000038"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000013"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>GO: eating behavior and feeding behavior are both terms. Our definition removes the use of &quot;associated with&quot;.</rdfs:comment>
@@ -8060,6 +8101,7 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
                 <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <oboInOwl:hasBroadSynonym>tongue feeding</oboInOwl:hasBroadSynonym>
         <obo:IAO_0000115>Ingestion is part of feeding behavior during which there is movement of a food or liquid from outside the body into the oral cavity or pharynx.</obo:IAO_0000115>
         <rdfs:comment>GO term for Ingestion is a Cellular Process</rdfs:comment>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
@@ -8108,6 +8150,7 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000018"/>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000019"/>
+        <oboInOwl:hasExactSynonym>incision</oboInOwl:hasExactSynonym>
         <obo:IAO_0000115>ingestion using the incisor teeth.</obo:IAO_0000115>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
@@ -8156,6 +8199,7 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000018"/>
         <obo:IAO_0000115>Ingestion using a procured and/or manufactured instrument.</obo:IAO_0000115>
+        <oboInOwl:hasSynonym>tool-aided ingestion</oboInOwl:hasSynonym>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
@@ -8283,6 +8327,8 @@ However, this is not possible in OWL. We instead make this relation a sub-relati
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000018"/>
         <obo:IAO_0000115>Ingestion using the tongue.</obo:IAO_0000115>
+        <oboInOwl:hasSynonym>lapping</oboInOwl:hasSynonym>
+        <oboInOwl:hasSynonym>lingual prehension</oboInOwl:hasSynonym>
         <oboInOwl:hasSynonym>tongue ingestion</oboInOwl:hasSynonym>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
@@ -8398,6 +8444,7 @@ ISBN 1139471368, 9781139471367</obo:IAO_0000119>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000038"/>
+        <oboInOwl:hasSynonym>liquid transport</oboInOwl:hasSynonym>
         <obo:IAO_0000115>An intraoral transport behavior during which there is movement of liquid from the lips through the oral cavity and into the pharynx that occurs prior to a swallow and that involves coordinated and stereotypical movements of jaws, tongue, and hyoid.</obo:IAO_0000115>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
@@ -8442,6 +8489,7 @@ ISBN 1139471368, 9781139471367</obo:IAO_0000119>
         <rdfs:label>isometric bite</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000057"/>
         <obo:IAO_0000115>An isometric bite is a type of oral/pharyngeal behavior during which bite force is produced with no motion of the jaws and that is often elicited in a controlled experimental setting.</obo:IAO_0000115>
     </owl:Class>
     
@@ -8462,6 +8510,316 @@ ISBN 1139471368, 9781139471367</obo:IAO_0000119>
         <oboInOwl:hasSynonym>swallowing</oboInOwl:hasSynonym>
         <obo:IAO_0000115>A part of feeding behavior during which there is movement of food or liquid from out of the oropharynx and into the esophagus.</obo:IAO_0000115>
         <oboInOwl:hasDbXref>NBO_0000545</oboInOwl:hasDbXref>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000050 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000050">
+        <rdfs:label xml:lang="en">liquid swallow</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000043"/>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000051 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000051">
+        <rdfs:label xml:lang="en">solid swallow</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000043"/>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000052 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000052">
+        <rdfs:label xml:lang="en">sucking</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <oboInOwl:hasSynonym>suction feeding</oboInOwl:hasSynonym>
+        <oboInOwl:hasSynonym>aspiration feeding</oboInOwl:hasSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000053 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000053">
+        <rdfs:label xml:lang="en">regurgitation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:IAO_0000115>A feeding behavior during which there is movement of food or liquid into the oral and/or pharyngeal cavity from the esophagus.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000054 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000054">
+        <rdfs:label xml:lang="en">complete feeding sequence</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
+        <obo:IAO_0000115>A period of behavioral activity that is comprised of the sequential Ingestion, Intraoral Transport, and Swallow of a food bolus.</obo:IAO_0000115>
+        <oboInOwl:hasBroadSynonym>transport sequence</oboInOwl:hasBroadSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000055 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000055">
+        <rdfs:label xml:lang="en">complete drinking sequence</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000054"/>
+        <obo:IAO_0000115>A period of behavioral activity that is comprised of the sequential Ingestion, Intraoral Transport, and Swallow of a liquid bolus (aliquot is a synonym of liquid bolus)</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000056 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000056">
+        <rdfs:label xml:lang="en">feeding sequence</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000057 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000057">
+        <rdfs:label xml:lang="en">bite</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000061 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000061">
+        <rdfs:label xml:lang="en">suckling</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000062 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000062">
+        <rdfs:label xml:lang="en">vocalization behavior</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000063 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000063">
+        <rdfs:label xml:lang="en">respiratory system process</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000064 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000064">
+        <rdfs:label xml:lang="en">respiratory gaseous exchange</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000063"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000065 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000065">
+        <rdfs:label xml:lang="en">tongue flick</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:IAO_0000115>Tongue flick is a chemosensory behavior that involves the protrusion of the tongue outside of the mouth and that often precedes feeding.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000066 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000066">
+        <rdfs:label xml:lang="en">capture</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:IAO_0000115>Capture is an ingestion behavior where the jaw and/or tongue are used in prehension of prey.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000067 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000067">
+        <rdfs:label xml:lang="en">manipulation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:IAO_0000115>Manipulation is a feeding behavior that is movement of the food around the oral cavity.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000068 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000068">
+        <rdfs:label xml:lang="en">re-positioning</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:IAO_0000115>Re-positioning is a feeding behavior that is a kind of manipulation of the food object within the oral cavity</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000069 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000069">
+        <rdfs:label xml:lang="en">crush</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:IAO_0000115>A type of chewing behavior  during which a single jaw closure often to kill something</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000070 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000070">
+        <rdfs:label xml:lang="en">pharyngeal compression</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:IAO_0000115>A type of feeding behavior during which the pharynx is constricted to move food posteriorly.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000071 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000071">
+        <rdfs:label xml:lang="en">lick</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:IAO_0000115>Lick is protrusion of the tongue outside of the mouth.</obo:IAO_0000115>
+        <oboInOwl:hasSynonym>licking</oboInOwl:hasSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000072 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000072">
+        <rdfs:label xml:lang="en">tear</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:IAO_0000115>Tear is an inertial reduction during which prehension occurs and movements of the head are used to reduce the size of a larger food object.</obo:IAO_0000115>
+        <oboInOwl:hasSynonym>tearing</oboInOwl:hasSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000073 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000073">
+        <rdfs:label xml:lang="en">inertial transport</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000038"/>
+        <obo:IAO_0000115>Inertial transport is a feeding behavior during which a food item moves through the oropharynx based on inertia.</obo:IAO_0000115>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000074 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000074">
+        <rdfs:label xml:lang="en">tooth walk</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000038"/>
+        <obo:IAO_0000115>Tooth Walk is a unilateral progression of the jaws over the prey</obo:IAO_0000115>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000075 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000075">
+        <rdfs:label xml:lang="en">inertial reduction</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:IAO_0000115>Inertial reduction is an ingestion behavior during which food breakdown occurs by using the inertia of the prey item.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000076 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000076">
+        <rdfs:label xml:lang="en">roll</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000075"/>
+        <obo:IAO_0000115>Roll is an intertial reduction involving long axis body rotation.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000077 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000077">
+        <rdfs:label xml:lang="en">pharyngeal packing</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <obo:IAO_0000115>A type of feeding behavior during which transport of food down the pharynx is facilitated by the back of the tongue pushing the food into the pharynx.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/OPBO_0000220 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/OPBO_0000220">
+        <rdfs:label xml:lang="en">rumination</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000013"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000014"/>
+        <obo:IAO_0000119>FEED Working Group</obo:IAO_0000119>
+        <obo:IAO_0000115>A mastication behavior in which regurgitated food is re-masticated.</obo:IAO_0000115>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000011"/>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000012"/>
         <obo:BFO_0000050_some rdf:resource="http://purl.obolibrary.org/obo/OPBO_0000017"/>
