@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, filename, *args, **options):
         import csv
-        
+
         qs = MuscleOwl.objects.filter(**MuscleOwl.default_qs_filter_args())
 
         with open(filename, 'rU') as csvfile:
@@ -18,25 +18,21 @@ class Command(BaseCommand):
                 try:
                     al_pk = long(row['pk'])
                     owl_uri = row['uri']
-                    owl_label = row['label MFMO FEED2 including new mammal muscles (yellow)']
                 except ValueError:
-                    # usually means that row['pk'] is not a valid long
+                    # usually means that row['pk'] is not a valid long; skip
+                    # this row.
                     continue
 
                 al = AnatomicalLocation.objects.get(id=al_pk)
                 if al:
                     try:
-                        try: 
-                            match = qs.filter(label__iexact=owl_label).get()
-                        except ObjectDoesNotExist:
-                            match = qs.filter(label__iexact=(owl_label + " muscle")).get()
+                        match = qs.filter(uri__iexact=owl_uri).get()
                     except ObjectDoesNotExist:
-                        print "No match for %d" % al_pk
+                        print "No match for %d: %s" % (al_pk, owl_uri)
                         match = None
 
                     al.ontology_term = match
                     al.save()
-
 
         # Now we can update the actual sensors
         for Sensor in (EmgSensor, SonoSensor):
