@@ -42,7 +42,7 @@ class SessionViewInline(FeedTabularInline):
 class TrialViewInline(FeedTabularInline):
     model = Trial
     extra = 0
-    fields = ('position', 'title', 'food_type', 'behavior_primary')
+    fields = ('position', 'title', 'food_type', 'behaviorowl_primary')
     tabbed = True
     tab_name="Trials"
 
@@ -84,7 +84,7 @@ class SubjectAdmin(FeedModelAdmin):
 
 class TrialAdmin(FeedModelAdmin):
     search_fields = ('title','bookkeeping','subj_notes','subj_treatment','food_type','food_property','behavior_primary__label','behavior_secondary','behavior_notes')
-    list_display = ('title', 'session', 'taxon_name','food_type', 'behavior_primary','waveform_picture')
+    list_display = ('title', 'session', 'taxon_name','food_type', 'behaviorowl_primary','waveform_picture')
     form = TrialChangeForm
     # hide old non-OWL behavior fields, hide dependent container references
     exclude = ('behavior_primary', 'behavior_secondary', 'experiment', 'study',)
@@ -358,10 +358,10 @@ class EmgSensorAdmin(EmgSensorModelAdmin):
 class SonoSensorAdmin(DefaultModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('setup','name', 'location_controlled', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes')
+            'fields': ('setup','name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes')
         }),
     )
-    ordering = ('name', 'location_controlled',)
+    ordering = ('name', 'muscle',)
 
 class CommonSensorAdmin(DefaultModelAdmin):
     fieldsets = (
