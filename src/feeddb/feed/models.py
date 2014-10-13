@@ -129,6 +129,8 @@ class BehaviorOwl(OwlTerm):
 
     @staticmethod
     def default_qs_filter_args():
+        # TODO: fix the restrictions below based on feedback from client
+        return dict(rdfs_is_class=True)
         return dict(
             # This is the "behavior" class, which may or may not be an appropriate filter
             rdfs_subClassOf_ancestors__uri=u'http://purl.obolibrary.org/obo/OPBO_0000011'
@@ -500,6 +502,11 @@ class OtherSetup(Setup):
     class Meta:
         verbose_name = "Other Setup"
 
+    class FeedMeta:
+        help_text = """
+        This sensor type should be used only if your sensors don't fit into any
+        of the other categories.
+        """
 
 class Sensor(FeedBaseModel):
     study = models.ForeignKey(Study, null=True)
@@ -524,7 +531,7 @@ class Sensor(FeedBaseModel):
         return super(Sensor, self).save()
 
 class EmgSensor(Sensor):
-    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=False,
+    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
     muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
 
@@ -540,7 +547,7 @@ class EmgSensor(Sensor):
         ordering = ["id"]
 
 class SonoSensor(Sensor):
-    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=False,
+    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
     muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
 
@@ -580,7 +587,7 @@ class Channel(FeedBaseModel):
 
     def save(self):
         self.study = self.setup.study
-        return super(Sensor, self).save()
+        return super(Channel, self).save()
 
 class EmgChannel(Channel):
     unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : Techniques.ENUM.emg},
