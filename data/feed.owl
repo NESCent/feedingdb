@@ -61,6 +61,18 @@
     
 
 
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasExactSynonym -->
+
+    <owl:AnnotationProperty rdf:about="&oboInOwl;hasExactSynonym"/>
+    
+
+
+    <!-- http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym -->
+
+    <owl:AnnotationProperty rdf:about="&oboInOwl;hasRelatedSynonym"/>
+    
+
+
     <!-- http://www.geneontology.org/formats/oboInOwl#hasSynonym -->
 
     <owl:AnnotationProperty rdf:about="&oboInOwl;hasSynonym"/>
@@ -90,58 +102,6 @@
     
 
 
-    <!-- http://purl.obolibrary.org/obo/MFMO0000124 -->
-
-    <owl:ObjectProperty rdf:about="&obo;MFMO0000124">
-        <rdfs:label xml:lang="en">lateral to</rdfs:label>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000125 -->
-
-    <owl:ObjectProperty rdf:about="&obo;MFMO0000125">
-        <rdfs:label xml:lang="en">medial to</rdfs:label>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000142 -->
-
-    <owl:ObjectProperty rdf:about="&obo;MFMO0000142">
-        <rdfs:label xml:lang="en">dorsal to</rdfs:label>
-        <oboInOwl:hasDbXref>PATO_0001233</oboInOwl:hasDbXref>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000143 -->
-
-    <owl:ObjectProperty rdf:about="&obo;MFMO0000143">
-        <rdfs:label xml:lang="en">ventral to</rdfs:label>
-        <oboInOwl:hasDbXref>PATO_0001196</oboInOwl:hasDbXref>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000144 -->
-
-    <owl:ObjectProperty rdf:about="&obo;MFMO0000144">
-        <rdfs:label xml:lang="en">angle</rdfs:label>
-        <oboInOwl:hasDbXref>PATO_0002326</oboInOwl:hasDbXref>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000218 -->
-
-    <owl:ObjectProperty rdf:about="&obo;MFMO0000218">
-        <rdfs:label xml:lang="en">right</rdfs:label>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/PATO_0000367</oboInOwl:hasDbXref>
-    </owl:ObjectProperty>
-    
-
-
     <!-- http://purl.obolibrary.org/obo/MFMO_0000001 -->
 
     <owl:ObjectProperty rdf:about="&obo;MFMO_0000001">
@@ -158,6 +118,64 @@
         <rdfs:label>innervated by</rdfs:label>
         <owl:inverseOf rdf:resource="&obo;RO_0002134"/>
     </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000124 -->
+
+    <owl:ObjectProperty rdf:about="&obo;MFMO_0000124">
+        <rdfs:label xml:lang="en">lateral to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000125 -->
+
+    <owl:ObjectProperty rdf:about="&obo;MFMO_0000125">
+        <rdfs:label xml:lang="en">medial to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000142 -->
+
+    <owl:ObjectProperty rdf:about="&obo;MFMO_0000142">
+        <rdfs:label xml:lang="en">dorsal to</rdfs:label>
+        <oboInOwl:hasDbXref>PATO_0001233</oboInOwl:hasDbXref>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000143 -->
+
+    <owl:ObjectProperty rdf:about="&obo;MFMO_0000143">
+        <rdfs:label xml:lang="en">ventral to</rdfs:label>
+        <oboInOwl:hasDbXref>PATO_0001196</oboInOwl:hasDbXref>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000144 -->
+
+    <owl:ObjectProperty rdf:about="&obo;MFMO_0000144">
+        <rdfs:label xml:lang="en">angle</rdfs:label>
+        <oboInOwl:hasDbXref>PATO_0002326</oboInOwl:hasDbXref>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000218 -->
+
+    <owl:ObjectProperty rdf:about="&obo;MFMO_0000218">
+        <rdfs:label xml:lang="en">right</rdfs:label>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/PATO_0000367</oboInOwl:hasDbXref>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002131 -->
+
+    <owl:ObjectProperty rdf:about="&obo;RO_0002131"/>
     
 
 
@@ -178,6 +196,12 @@
     <!-- http://purl.obolibrary.org/obo/RO_0002202 -->
 
     <owl:ObjectProperty rdf:about="&obo;RO_0002202"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002221 -->
+
+    <owl:ObjectProperty rdf:about="&obo;RO_0002221"/>
     
 
 
@@ -307,1422 +331,41 @@
     
 
 
-    <!-- http://purl.obolibrary.org/obo/MFMO0000120 -->
+    <!-- http://purl.obolibrary.org/http://purl.obolibrary.org/obo/MFMO_0000310 -->
 
-    <owl:Class rdf:about="&obo;MFMO0000120">
-        <rdfs:label xml:lang="en">caninus</rdfs:label>
+    <owl:Class rdf:about="http://purl.obolibrary.org/&obo;MFMO_0000310">
+        <rdfs:label>inferior pharyngeal constrictor muscle</rdfs:label>
         <owl:equivalentClass>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
+                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0002397"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000008"/>
                     </owl:Restriction>
                     <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;mfmo.owl#attached_to_lateral_surface_of"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0002109"/>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000106"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0002375"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0003716"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
                     </owl:Restriction>
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
-        <oboInOwl:hasExactSynonym>lateral dilator of the nostril</oboInOwl:hasExactSynonym>
-        <obo:IAO_0000115>lateral dilator of the nostril (external nares). In humans, the levator anguli oris is sometimes called Caninus, but these are probably not homogous muscles.</obo:IAO_0000115>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000122 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000122">
-        <rdfs:label xml:lang="en">mentalis</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000147"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000058"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001835"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;RO_0002163"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000123"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <obo:IAO_0000115>A muscle of facial expression, innervated by the facial nerve, attached to the skin of the lower lip and inferior to the lower lip (in humans this region is called the chin or mental region), the orbicularis oris muscle, and the mandible in the symphyseal region. See Diogo et al., 2009; Burrows et al., 2011)</obo:IAO_0000115>
-        <oboInOwl:hasDbXref>UBERON_0008596</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000123 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000123">
-        <rdfs:label xml:lang="en">depressor labii inferioris</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO0000124"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000122"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000058"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001684"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001835"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;RO_0002163"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000122"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;mfmo.owl#superficial_to"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000122"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <oboInOwl:hasExactSynonym>depressor of the lower lip</oboInOwl:hasExactSynonym>
-        <obo:IAO_0000115>A muscle of facial expression, innervated by the facial nerve, attached to the skin of the lower lip, orbicularis oris muscle, and mandible, and superficial and lateral to the mentalis muscle. See Diogo et al., 2009; Burrows et al., 2011)</obo:IAO_0000115>
-        <oboInOwl:hasExactSynonym>quadratus labii inferioris</oboInOwl:hasExactSynonym>
-        <oboInOwl:hasDbXref>UBERON_0001581</oboInOwl:hasDbXref>
-        <oboInOwl:hasExactSynonym>quadratus menti</oboInOwl:hasExactSynonym>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000126 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000126">
-        <rdfs:label xml:lang="en">depressor anguli oris</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO0000124"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000123"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000058"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001684"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001835"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;mfmo.owl#superficial_to"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000059"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <obo:IAO_0000115>A muscle of facial expression, innervated by the facial nerve, attached to the mandible, skin of the lower lip in the region of the angle of the oral opening, orbicularis oris, and lateral to the depressor anguli oris muscle. </obo:IAO_0000115>
-        <oboInOwl:hasDbXref>UBERON_0008597</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000127 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000127">
-        <rdfs:label xml:lang="en">occipitalis</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000128"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000099"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <obo:IAO_0000115>A muscle of the skin of the head (scalp), innervated by the facial nerve, attached to the cranium in the nuchal (occipital) region and to the facia of the scalp (galea aponurotica or epicranial aponeurosis in humans). In mammals other than humans, there is no large facia present and the most rostral fibers of the occipitalis are attached to the skin near or even overlapping with the fibers of the frontalis muscle.See Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011.</obo:IAO_0000115>
-        <oboInOwl:hasExactSynonym>occipital belly of occipitofrontalis or epicranius (humans)</oboInOwl:hasExactSynonym>
-        <oboInOwl:hasExactSynonym>venter occipitalis (humans)</oboInOwl:hasExactSynonym>
-        <oboInOwl:hasDbXref>UBERON_0010947</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000128 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000128">
-        <rdfs:label xml:lang="en">occipital region of cranium</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000048"/>
-                    <rdf:Description rdf:about="&obo;UBERON_0005902"/>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000048"/>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000129 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000129">
-        <rdfs:label>A muscle of the skin of the head (scalp), innervated by the facial nerve, attached to facia of the skin superior to the orbits (superciliary region), overlapping with the procerus muscles, and attched to the facia of the scalp (galea aponurotica or epicranial aponeurosis in humans). In mammals other than humans, there is no large facia present and the most rostral fibers of the occipitalis are attached to the skin near or even overlapping with the fibers of the frontalis muscle.See Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011.</rdfs:label>
-        <rdfs:label xml:lang="en">frontalis</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000149"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom>
-                            <owl:Class>
-                                <owl:intersectionOf rdf:parseType="Collection">
-                                    <rdf:Description rdf:about="&obo;MFMO_0000099"/>
-                                    <owl:Restriction>
-                                        <owl:onProperty rdf:resource="&obo;MFMO0000142"/>
-                                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000148"/>
-                                    </owl:Restriction>
-                                </owl:intersectionOf>
-                            </owl:Class>
-                        </owl:someValuesFrom>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;RO_0002131"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000131"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000130 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000130">
-        <rdfs:label xml:lang="en">orbicularis oculi</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <oboInOwl:hasDbXref>UBERON_0001578</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000131 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000131">
-        <rdfs:label xml:lang="en">procerus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <oboInOwl:hasDbXref>UBERON_0008588</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000132 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000132">
-        <rdfs:label xml:lang="en">corrugator supercilii</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <obo:IAO_0000115>Muscle of facial expression, attached to  the skin in the medial palpebral region and the superciliary region, lateral and deep to the procerus muscle, and lateral to the depressor supercillii muscle.</obo:IAO_0000115>
-        <oboInOwl:hasDbXref>FMA_46794</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000133 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000133">
-        <rdfs:label xml:lang="en">depressor supercilii</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <oboInOwl:hasDbXref>UBERON_0008591</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000134 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000134">
-        <rdfs:label xml:lang="en">nasalis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <oboInOwl:hasDbXref>UBERON_0010953</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000135 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000135">
-        <rdfs:label xml:lang="en">levator labii superioris alaeque nasi</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <oboInOwl:hasDbXref>UBERON_0008592</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000136 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000136">
-        <rdfs:label xml:lang="en">levator labii superioris</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <oboInOwl:hasDbXref>UBERON_0001580</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000137 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000137">
-        <rdfs:label xml:lang="en">zygomaticus minor</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO0000142"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000138"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO0000142"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000099"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000057"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000058"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000109"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <oboInOwl:hasDbXref>UBERON_0008594</oboInOwl:hasDbXref>
-        <oboInOwl:hasExactSynonym>musculus quadratus labii superioris, zygomatic head</oboInOwl:hasExactSynonym>
-        <oboInOwl:hasRelatedSynonym>auriculolabialis superior</oboInOwl:hasRelatedSynonym>
-        <oboInOwl:hasExactSynonym>square muscle of the upper lip, zygomatic head</oboInOwl:hasExactSynonym>
-        <obo:IAO_0000115>Facial muscle attached to the orbicularis oris muscle, anterior root of the zygomatic arch (zygomatic bone or maxilla), and skin in the region of the caudal border of the orbicularis oculi muscle. The muscle is often described as having two heads, one attached to the maxilla and the other attached to the skin overlying the orbicularis oculi.  In many mammals this muscle also has an attachment to the cartilage of the external ear, in which case it is called the auriculolabialis superior. See Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011., also DuBrul, 1980.</obo:IAO_0000115>
-        <oboInOwl:hasExactSynonym>musculus zygomaticus minor</oboInOwl:hasExactSynonym>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000138 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000138">
-        <rdfs:label xml:lang="en">zygomaticus major</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO0000142"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000059"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO0000143"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000137"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000145"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000146"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000057"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <oboInOwl:hasExactSynonym>zygomatic muscle</oboInOwl:hasExactSynonym>
-        <oboInOwl:hasDbXref>UBERON_0008593</oboInOwl:hasDbXref>
-        <oboInOwl:hasRelatedSynonym>auriculolabialis superior</oboInOwl:hasRelatedSynonym>
-        <obo:IAO_0000115>Facial muscle attached to the modiolus, corner (angle) of the mouth, and zygomatic bone. This muscle is ventral to the zygomaticus minor and dorsal to the platysma muscle.  In many mammals this muscle also has an attachment to the cartilage of the external ear, in which case it is called the auriculolabialis inferior. See Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011., also DuBrul, 1980.</obo:IAO_0000115>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000139 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000139">
-        <rdfs:label xml:lang="en">levator anguli oris</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <oboInOwl:hasDbXref>UBERON_0008595</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000140 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000140">
-        <rdfs:label xml:lang="en">depressor septi nasi</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <oboInOwl:hasDbXref>UBERON_0008589</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000141 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000141">
-        <rdfs:label xml:lang="en">risorius</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO0000142"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000059"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO0000143"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000138"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000075"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000099"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <obo:IAO_0000115>Facial muscle that attaches to the fascia of the masseter muscle and the facia of the skin in the region of the corner (angle) of the mouth. Even in species in which this muscle is present, it is highly variable. A true risorius muscle may only be present in Hominins (humans and great apes). See Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011., also DuBrul, 1980.</obo:IAO_0000115>
-        <oboInOwl:hasDbXref>UBERON_0008598</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000145 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000145">
-        <rdfs:label xml:lang="en">angle of oral opening</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;MFMO0000144"/>
-                <owl:someValuesFrom rdf:resource="&obo;UBERON_0000166"/>
-            </owl:Restriction>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;UBERON_0000166"/>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000146 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000146">
-        <rdfs:label xml:lang="en">zygomatic bone</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;UBERON_0000465"/>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0001683</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000147 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000147">
-        <rdfs:label xml:lang="en">symphyseal region</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;UBERON_0001684"/>
-        <obo:IAO_0000115>The region of the mandible on or near the midline (near the mandiblular symphysis, UBERON_0006606)</obo:IAO_0000115>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000148 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000148">
-        <rdfs:label xml:lang="en">orbit</rdfs:label>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_2001967</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000149 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000149">
-        <rdfs:label xml:lang="en">scalp</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000099"/>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0000403</oboInOwl:hasDbXref>
-        <rdfs:comment>Term in Uberon is equivalent, but definition needs revision.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000150 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000150">
-        <rdfs:label xml:lang="en">posterior cricoarytenoid</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000010"/>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0008572</oboInOwl:hasDbXref>
-        <rdfs:comment>Uberon definition is pretty good but human-centric.
-
-In Uberon the posterior cricoarytenoid and lateral cricoarytenoid are subClasses of a &quot;cricoarytenoid&quot; class, but there is no anatomical basis for this class other than the similar names.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000151 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000151">
-        <rdfs:label xml:lang="en">ceratocricoideus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO0000150"/>
-        <rdfs:comment>FMA has numerous terms that refer to various parts (fascicles, fascia, innervation) of ceratocricoid muscles but not the whole muscle (at least not in the Ontobee subset of the FMA.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000152 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000152">
-        <rdfs:label xml:lang="en">lateral cricoarytenoideus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000010"/>
-        <rdfs:comment>Uberon definition is pretty good but human-centric</rdfs:comment>
-        <oboInOwl:hasDbXref>UBERON_0008573</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000153 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000153">
-        <rdfs:label xml:lang="en">arytenoideus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000010"/>
-        <rdfs:comment>Uberon definition okay but wiki ref is very human-centric</rdfs:comment>
-        <oboInOwl:hasDbXref>UBERON_0010958</oboInOwl:hasDbXref>
-        <oboInOwl:hasExactSynonym>arytenoid muscle</oboInOwl:hasExactSynonym>
-        <oboInOwl:hasExactSynonym>musculus arytenoideus</oboInOwl:hasExactSynonym>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000154 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000154">
-        <rdfs:label xml:lang="en">transverse arytenoideus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO0000153"/>
-        <rdfs:comment>Uberon definition pretty good.</rdfs:comment>
-        <oboInOwl:hasDbXref>UBERON_0008574</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000155 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000155">
-        <rdfs:label xml:lang="en">oblique arytenoideus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO0000153"/>
-        <oboInOwl:hasDbXref>UBERON_0008575</oboInOwl:hasDbXref>
-        <rdfs:comment>Uberon definition pretty good but human-centric.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000156 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000156">
-        <rdfs:label xml:lang="en">aryepiglotticus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO0000153"/>
-        <rdfs:comment>Defintion in Uberon is okay but human-centric. 
-
-We consider this muscle a part of the arytenoid muscle complex but some workers describe it as a separate muscle.</rdfs:comment>
-        <oboInOwl:hasDbXref>UBERON_0011025</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000157 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000157">
-        <rdfs:label xml:lang="en">thyroarytenoideus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000010"/>
-        <rdfs:comment>Uberon definition is pretty good but human-centric.</rdfs:comment>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0008576</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000158 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000158">
-        <rdfs:label xml:lang="en">vocalis</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000072"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO0000157"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO0000157"/>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0008577</oboInOwl:hasDbXref>
-        <oboInOwl:hasExactSynonym>aryvocalis</oboInOwl:hasExactSynonym>
-        <rdfs:comment>Uberon properly notes that the vocalis is a part of the thyroarytenoid muscle.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000159 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000159">
-        <rdfs:label xml:lang="en">superior thyroarytenoideus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO0000157"/>
-        <rdfs:comment>Not in Ontobee.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000160 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000160">
-        <rdfs:label xml:lang="en">thyroepiglotticus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO0000157"/>
-        <rdfs:comment>Not a part of the thyroarytenoid in Uberon.</rdfs:comment>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0010927</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000161 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000161">
-        <rdfs:label xml:lang="en">branchiohyoideus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000007"/>
-        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000162 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000162">
-        <rdfs:label xml:lang="en">constrictor colli</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000163 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000163">
-        <rdfs:label xml:lang="en">spinalis capitis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
-        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000164 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000164">
-        <rdfs:label xml:lang="en">obliquus capitis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
-        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000165 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000165">
-        <rdfs:label xml:lang="en">longus capitis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
-        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000166 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000166">
-        <rdfs:label xml:lang="en">rectus cervicis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
-        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000167 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000167">
-        <rdfs:label xml:lang="en">Adductor Mandibulae Externus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <oboInOwl:hasExactSynonym>mAME</oboInOwl:hasExactSynonym>
-        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
-        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000168 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000168">
-        <rdfs:label xml:lang="en">adductor Mandibulae Internus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
-        <oboInOwl:hasExactSynonym>mAMI</oboInOwl:hasExactSynonym>
-        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000169 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000169">
-        <rdfs:label xml:lang="en">intramandibularis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000170 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000170">
-        <rdfs:label xml:lang="en">adductor mandibulae externus medialis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000167"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-        <oboInOwl:hasExactSynonym>mAMEM</oboInOwl:hasExactSynonym>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000171 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000171">
-        <rdfs:label xml:lang="en">adductor mandibulae externus superficialis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000167"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-        <oboInOwl:hasExactSynonym>mAMES</oboInOwl:hasExactSynonym>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000172 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000172">
-        <rdfs:label xml:lang="en">ventrolateral head of mAMEM</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000170"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <oboInOwl:hasExactSynonym>mAMEMa</oboInOwl:hasExactSynonym>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-        <oboInOwl:hasExactSynonym>ventrolateral head of adductor mandibulae externus medialis</oboInOwl:hasExactSynonym>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000173 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000173">
-        <rdfs:label xml:lang="en">anteromedial head of mAMEM</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000170"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-        <oboInOwl:hasExactSynonym>mAMEMb</oboInOwl:hasExactSynonym>
-        <oboInOwl:hasExactSynonym>anteromedial head of adductor mandibulae externus medialis</oboInOwl:hasExactSynonym>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000174 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000174">
-        <rdfs:label xml:lang="en">posterior head of mAMEM</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000170"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <oboInOwl:hasExactSynonym>mAMEMc</oboInOwl:hasExactSynonym>
-        <oboInOwl:hasExactSynonym>posterior head of adductor mandibulae externus medialis</oboInOwl:hasExactSynonym>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000175 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000175">
-        <rdfs:label xml:lang="en">mLAO</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000171"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-        <oboInOwl:hasExactSynonym>levator anguli oris</oboInOwl:hasExactSynonym>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000176 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000176">
-        <rdfs:label xml:lang="en">retractor anguli oris</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000171"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000177 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000177">
-        <rdfs:label xml:lang="en">adductor mandibulae externus superficialis anterior</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000171"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000178 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000178">
-        <rdfs:label xml:lang="en">adductor mandibulae externus superficialis posterior</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000171"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000179 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000179">
-        <rdfs:label xml:lang="en">adductor mandibulae externus profundus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000167"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <oboInOwl:hasExactSynonym>mAMEP</oboInOwl:hasExactSynonym>
-        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000180 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000180">
-        <rdfs:label xml:lang="en">adductor mandibulae internus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <oboInOwl:hasExactSynonym>mAMI</oboInOwl:hasExactSynonym>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000181 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000181">
-        <rdfs:label xml:lang="en">pterygoideus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000180"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-        <oboInOwl:hasExactSynonym>mPt</oboInOwl:hasExactSynonym>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000182 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000182">
-        <rdfs:label xml:lang="en">pterygoideus externus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000181"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000183 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000183">
-        <rdfs:label xml:lang="en">pterygoideus internus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000181"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000184 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000184">
-        <rdfs:label xml:lang="en">pseudotemporalis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000180"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <oboInOwl:hasExactSynonym>mPst</oboInOwl:hasExactSynonym>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000185 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000185">
-        <rdfs:label xml:lang="en">pseudotemporalis superficialis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000184"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000186 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000186">
-        <rdfs:label xml:lang="en">pseudotemporalis profundus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000184"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000187 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000187">
-        <rdfs:label xml:lang="en">intramandibularis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000188 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000188">
-        <rdfs:label xml:lang="en">pterygoideus atypicus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000182"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <oboInOwl:hasExactSynonym>mPtAt</oboInOwl:hasExactSynonym>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000189 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000189">
-        <rdfs:label xml:lang="en">pterygoideus typicus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000182"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-        <oboInOwl:hasExactSynonym>mPtTy</oboInOwl:hasExactSynonym>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000190 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000190">
-        <rdfs:label xml:lang="en">adductor mandibulae posterior</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000191 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000191">
-        <rdfs:label xml:lang="en">constrictor internus dorsalis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <oboInOwl:hasExactSynonym>mCID</oboInOwl:hasExactSynonym>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000192 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000192">
-        <rdfs:label xml:lang="en">levator bulbi</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000191"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-        <oboInOwl:hasExactSynonym>mLBul</oboInOwl:hasExactSynonym>
-        <oboInOwl:hasDbXref>UBERON_3010651</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000193 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000193">
-        <rdfs:label xml:lang="en">levator pterygoidei</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000191"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000194 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000194">
-        <rdfs:label xml:lang="en">protractor pterygoidei</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000191"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000195 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000195">
-        <rdfs:label xml:lang="en">intermandibularis posterior</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000196 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000196">
-        <rdfs:label xml:lang="en">intermandibularis anterior</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000197"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000197 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000197">
-        <rdfs:label xml:lang="en">intermandibularis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <oboInOwl:hasDbXref>UBERON_0010931</oboInOwl:hasDbXref>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000198 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000198">
-        <rdfs:label xml:lang="en">depressor mandibulae</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000199 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000199">
-        <rdfs:label xml:lang="en">cervicomandibularis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000200 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000200">
-        <rdfs:label xml:lang="en">omohyoideus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000201 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000201">
-        <rdfs:label xml:lang="en">sternohyoideus superficialis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000202 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000202">
-        <rdfs:label xml:lang="en">sternohyoideus profundus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000203 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000203">
-        <rdfs:label xml:lang="en">hyoglossus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000204 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000204">
-        <rdfs:label xml:lang="en">genioglossus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000205 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000205">
-        <rdfs:label xml:lang="en">genioglossus medial</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000204"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000206 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000206">
-        <rdfs:label xml:lang="en">genioglossus lateral</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000204"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000207 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000207">
-        <rdfs:label xml:lang="en">genioglossus internal</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000204"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000208 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000208">
-        <rdfs:label xml:lang="en">mandibulohyoideus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000209 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000209">
-        <rdfs:label xml:lang="en">mandibulohyoideus part 1</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000208"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000210 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000210">
-        <rdfs:label xml:lang="en">mandibulohyoideus part 2</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000208"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000211 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000211">
-        <rdfs:label xml:lang="en">mandibulohyoideus part 3</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO0000208"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000212 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000212">
-        <rdfs:label xml:lang="en">branchiohyoideus</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000007"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000213 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000213">
-        <rdfs:label xml:lang="en">intrinsic circularis</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000065"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000214 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000214">
-        <rdfs:label xml:lang="en">dorsoventral intrinsic tongue muscle</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000065"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000215 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000215">
-        <rdfs:label xml:lang="en">transverse intrinsic tongue muscle</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000065"/>
-            </owl:Restriction>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000216 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000216">
-        <rdfs:label xml:lang="en">longitudinal intrinsic tongue muscle</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000065"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/MFMO0000217 -->
-
-    <owl:Class rdf:about="&obo;MFMO0000217">
-        <rdfs:label xml:lang="en">transversus mandibulae</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&obo;RO_0002371"/>
-                <owl:onClass rdf:resource="&obo;UBERON_0001684"/>
-                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:qualifiedCardinality>
-            </owl:Restriction>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
-        <rdfs:comment>FEED spreadsheet</rdfs:comment>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0001570</oboInOwl:hasDbXref>
+        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
+        <rdfs:comment>Ready for review.</rdfs:comment>
+        <obo:IAO_0000115>This is a pharyngeal arch 4/6 muscle that is integral to the pharyngeal tube, participates in oral/pharyngeal behaviors, is innervated by the pharyngeal plexus of the vagus n. (CNX) and attaches to the laryngeal cartilages and the midline raphe.</obo:IAO_0000115>
     </owl:Class>
     
 
@@ -1890,11 +533,11 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
                     <rdf:Description rdf:about="&obo;MFMO_0000010"/>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0007268"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/&obo;MFMO_0000310"/>
                     </owl:Restriction>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                        <owl:someValuesFrom rdf:resource="&obo;&obo;UBERON_0001570"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0007268"/>
                     </owl:Restriction>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
@@ -2269,7 +912,7 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
                     <rdf:Description rdf:about="&obo;UBERON_0001630"/>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
-                        <owl:someValuesFrom rdf:resource="&obo;mfmo.owl#hypoglossal_nerve"/>
+                        <owl:someValuesFrom rdf:resource="&obo;mfmo.owl#MFMO_0000301"/>
                     </owl:Restriction>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="&obo;RO_0002202"/>
@@ -2288,7 +931,7 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
     <!-- http://purl.obolibrary.org/obo/MFMO_0000063 -->
 
     <owl:Class rdf:about="&obo;MFMO_0000063">
-        <rdfs:label>genioglossus muscle</rdfs:label>
+        <rdfs:label>Eutherian genioglossus muscle</rdfs:label>
         <owl:equivalentClass>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
@@ -2409,7 +1052,7 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
                     <rdf:Description rdf:about="&obo;UBERON_0001630"/>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
-                        <owl:someValuesFrom rdf:resource="&obo;mfmo.owl#spinal_nerve"/>
+                        <owl:someValuesFrom rdf:resource="&obo;mfmo.owl#MFMO_0000300"/>
                     </owl:Restriction>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="&obo;RO_0002202"/>
@@ -2596,14 +1239,6 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
                         <owl:someValuesFrom rdf:resource="&obo;UBERON_0001685"/>
                     </owl:Restriction>
                     <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;RO_0002163"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000060"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;RO_0002163"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000084"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
                         <owl:onProperty rdf:resource="&obo;mfmo.owl#superficial_to"/>
                         <owl:someValuesFrom rdf:resource="&obo;MFMO_0000084"/>
                     </owl:Restriction>
@@ -2612,8 +1247,8 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
         </owl:equivalentClass>
         <rdfs:comment>Ready for review.</rdfs:comment>
         <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0010943</oboInOwl:hasDbXref>
-        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
-        <obo:IAO_0000115>The anterior digastric is a pharyngeal arch I muscle that participates in oral/pharygeal behaviors and is innervated by the nerve to mylohyoid and superficial to mylohyoid muscle, and lacks the midline raphe.</obo:IAO_0000115>
+        <obo:IAO_0000119>http://www.feedexp.org/</obo:IAO_0000119>
+        <obo:IAO_0000115>The anterior digastric is a pharyngeal arch I muscle that participates in oral/pharygeal behaviors and is innervated by the nerve to mylohyoid (a branch of the third division of the trigeminal nerve), is attached to the mandible and to the hyoid apparatus, and it is superficial to mylohyoid muscle.</obo:IAO_0000115>
     </owl:Class>
     
 
@@ -2637,10 +1272,10 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
+        <obo:IAO_0000119>http://www.feedexp.org/</obo:IAO_0000119>
         <obo:IAO_0000115>Pharyngeal arch 1 muscle that participates in oral/pharyngeal behaviors, is innervated by the lateral pterygoid nerve branches, and attaches to the condylar process of the mandible and temporomandibular joint (TMJ) capsule, and the cranial base.</obo:IAO_0000115>
         <rdfs:comment>Ready for review.</rdfs:comment>
         <oboInOwl:hasSynonym>external pterygoid muscle</oboInOwl:hasSynonym>
-        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
         <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0006719</oboInOwl:hasDbXref>
     </owl:Class>
     
@@ -2788,7 +1423,7 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
     <!-- http://purl.obolibrary.org/obo/MFMO_0000080 -->
 
     <owl:Class rdf:about="&obo;MFMO_0000080">
-        <rdfs:label>pars reflexa</rdfs:label>
+        <rdfs:label>masseter muscle, pars reflexa</rdfs:label>
         <rdfs:subClassOf rdf:resource="&obo;MFMO_0000079"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -2834,7 +1469,7 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
     <!-- http://purl.obolibrary.org/obo/MFMO_0000082 -->
 
     <owl:Class rdf:about="&obo;MFMO_0000082">
-        <rdfs:label>zygomaticomandibularis, infraorbital portion</rdfs:label>
+        <rdfs:label>zygomaticomandibularis muscle, infraorbital portion</rdfs:label>
         <rdfs:subClassOf rdf:resource="&obo;MFMO_0000081"/>
         <rdfs:subClassOf>
             <owl:Class>
@@ -3044,7 +1679,7 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
     <!-- http://purl.obolibrary.org/obo/MFMO_0000089 -->
 
     <owl:Class rdf:about="&obo;MFMO_0000089">
-        <rdfs:label>tensor veli palatini</rdfs:label>
+        <rdfs:label>tensor veli palatini muscle</rdfs:label>
         <owl:equivalentClass>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
@@ -3093,7 +1728,7 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
     <owl:Class rdf:about="&obo;MFMO_0000091">
         <rdfs:label>cervical plexus</rdfs:label>
         <rdfs:subClassOf rdf:resource="&obo;MFMO_0000090"/>
-        <rdfs:subClassOf rdf:resource="&obo;mfmo.owl#spinal_nerve"/>
+        <rdfs:subClassOf rdf:resource="&obo;mfmo.owl#MFMO_0000300"/>
         <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0003725</oboInOwl:hasDbXref>
         <rdfs:comment>Term in Uberon is equivalent but the definition needs revision.</rdfs:comment>
     </owl:Class>
@@ -3105,7 +1740,7 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
     <owl:Class rdf:about="&obo;MFMO_0000092">
         <rdfs:label>first cervical nerve</rdfs:label>
         <rdfs:subClassOf rdf:resource="&obo;MFMO_0000090"/>
-        <rdfs:subClassOf rdf:resource="&obo;mfmo.owl#spinal_nerve"/>
+        <rdfs:subClassOf rdf:resource="&obo;mfmo.owl#MFMO_0000300"/>
         <obo:IAO_0000115>Spinal nerve (paired) emerging from the first cervical segment superior to the first cervical vertebrae.</obo:IAO_0000115>
         <rdfs:comment>Request new term.</rdfs:comment>
     </owl:Class>
@@ -3354,10 +1989,1724 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
     
 
 
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000120 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000120">
+        <rdfs:label xml:lang="en">caninus muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0002397"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;mfmo.owl#attached_to_lateral_surface_of"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0002109"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <obo:IAO_0000115>lateral dilator of the nostril (external nares). In humans, the levator anguli oris is sometimes called Caninus, but these are probably not homogous muscles.</obo:IAO_0000115>
+        <oboInOwl:hasExactSynonym>lateral dilator of the nostril</oboInOwl:hasExactSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000122 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000122">
+        <rdfs:label xml:lang="en">mentalis muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000058"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000147"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001835"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasDbXref>UBERON_0008596</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>A muscle of facial expression, innervated by the facial nerve, attached to the skin of the lower lip and inferior to the lower lip (in humans this region is called the chin or mental region), the orbicularis oris muscle, and the mandible in the symphyseal region. See Diogo et al., 2009; Burrows et al., 2011)</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000123 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000123">
+        <rdfs:label xml:lang="en">depressor labii inferioris muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000058"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001684"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001835"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;mfmo.owl#superficial_to"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000122"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasExactSynonym>quadratus menti</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasDbXref>UBERON_0001581</oboInOwl:hasDbXref>
+        <oboInOwl:hasExactSynonym>depressor of the lower lip</oboInOwl:hasExactSynonym>
+        <obo:IAO_0000115>A muscle of facial expression, innervated by the facial nerve, attached to the skin of the lower lip, orbicularis oris muscle, and mandible, and superficial and lateral to the mentalis muscle. See Diogo et al., 2009; Burrows et al., 2011)</obo:IAO_0000115>
+        <oboInOwl:hasExactSynonym>quadratus labii inferioris</oboInOwl:hasExactSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000126 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000126">
+        <rdfs:label xml:lang="en">depressor anguli oris muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000058"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001684"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001835"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000124"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000123"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;mfmo.owl#superficial_to"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000059"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <obo:IAO_0000115>A muscle of facial expression, innervated by the facial nerve, attached to the mandible, skin of the lower lip in the region of the angle of the oral opening, orbicularis oris, and lateral to the depressor anguli oris muscle. </obo:IAO_0000115>
+        <oboInOwl:hasDbXref>UBERON_0008597</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000127 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000127">
+        <rdfs:label xml:lang="en">occipitalis muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000099"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000128"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasExactSynonym>occipital belly of occipitofrontalis or epicranius (humans)</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasExactSynonym>venter occipitalis (humans)</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasDbXref>UBERON_0010947</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>A muscle of the skin of the head (scalp), innervated by the facial nerve, attached to the cranium in the nuchal (occipital) region and to the facia of the scalp (galea aponurotica or epicranial aponeurosis in humans). In mammals other than humans, there is no large facia present and the most rostral fibers of the occipitalis are attached to the skin near or even overlapping with the fibers of the frontalis muscle.See Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000128 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000128">
+        <rdfs:label xml:lang="en">occipital region of cranium</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000048"/>
+                    <rdf:Description rdf:about="&obo;UBERON_0005902"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000048"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000129 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000129">
+        <rdfs:label>A muscle of the skin of the head (scalp), innervated by the facial nerve, attached to facia of the skin superior to the orbits (superciliary region), overlapping with the procerus muscles, and attched to the facia of the scalp (galea aponurotica or epicranial aponeurosis in humans). In mammals other than humans, there is no large facia present and the most rostral fibers of the occipitalis are attached to the skin near or even overlapping with the fibers of the frontalis muscle.See Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011.</rdfs:label>
+        <rdfs:label xml:lang="en">frontalis muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000149"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="&obo;MFMO_0000099"/>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="&obo;MFMO_0000142"/>
+                                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000148"/>
+                                    </owl:Restriction>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;RO_0002131"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000131"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000130 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000130">
+        <rdfs:label xml:lang="en">orbicularis oculi muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasDbXref>UBERON_0001578</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000131 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000131">
+        <rdfs:label xml:lang="en">procerus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasDbXref>UBERON_0008588</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000132 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000132">
+        <rdfs:label xml:lang="en">corrugator supercilii muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasDbXref>FMA_46794</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>Muscle of facial expression, attached to  the skin in the medial palpebral region and the superciliary region, lateral and deep to the procerus muscle, and lateral to the depressor supercillii muscle.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000133 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000133">
+        <rdfs:label xml:lang="en">depressor supercilii muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasDbXref>UBERON_0008591</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000134 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000134">
+        <rdfs:label xml:lang="en">nasalis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasDbXref>UBERON_0010953</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000135 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000135">
+        <rdfs:label xml:lang="en">levator labii superioris alaeque nasi muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasDbXref>UBERON_0008592</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000136 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000136">
+        <rdfs:label xml:lang="en">levator labii superioris muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasDbXref>UBERON_0001580</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000137 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000137">
+        <rdfs:label xml:lang="en">zygomaticus minor</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000057"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000058"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000109"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000142"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000099"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000142"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000138"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <obo:IAO_0000115>Facial muscle attached to the orbicularis oris muscle, anterior root of the zygomatic arch (zygomatic bone or maxilla), and skin in the region of the caudal border of the orbicularis oculi muscle. The muscle is often described as having two heads, one attached to the maxilla and the other attached to the skin overlying the orbicularis oculi.  In many mammals this muscle also has an attachment to the cartilage of the external ear, in which case it is called the auriculolabialis superior. See Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011., also DuBrul, 1980.</obo:IAO_0000115>
+        <oboInOwl:hasExactSynonym>musculus zygomaticus minor</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasRelatedSynonym>auriculolabialis superior</oboInOwl:hasRelatedSynonym>
+        <oboInOwl:hasExactSynonym>musculus quadratus labii superioris, zygomatic head</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasExactSynonym>square muscle of the upper lip, zygomatic head</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasDbXref>UBERON_0008594</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000138 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000138">
+        <rdfs:label xml:lang="en">zygomaticus major</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000057"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000145"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000146"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000142"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000059"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000143"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000137"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasDbXref>UBERON_0008593</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>Facial muscle attached to the modiolus, corner (angle) of the mouth, and zygomatic bone. This muscle is ventral to the zygomaticus minor and dorsal to the platysma muscle.  In many mammals this muscle also has an attachment to the cartilage of the external ear, in which case it is called the auriculolabialis inferior. See Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011., also DuBrul, 1980.</obo:IAO_0000115>
+        <oboInOwl:hasExactSynonym>zygomatic muscle</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasRelatedSynonym>auriculolabialis superior</oboInOwl:hasRelatedSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000139 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000139">
+        <rdfs:label xml:lang="en">levator anguli oris muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasDbXref>UBERON_0008595</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000140 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000140">
+        <rdfs:label xml:lang="en">depressor septi nasi muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <oboInOwl:hasDbXref>UBERON_0008589</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000141 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000141">
+        <rdfs:label xml:lang="en">risorius muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000005"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000075"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000099"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000142"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000059"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000143"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000138"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <obo:IAO_0000115>Facial muscle that attaches to the fascia of the masseter muscle and the facia of the skin in the region of the corner (angle) of the mouth. Even in species in which this muscle is present, it is highly variable. A true risorius muscle may only be present in Hominins (humans and great apes). See Diogo 2008; Diogo et al., 2009; Burrows et al.., 2011., also DuBrul, 1980.</obo:IAO_0000115>
+        <oboInOwl:hasDbXref>UBERON_0008598</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000145 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000145">
+        <rdfs:label xml:lang="en">angle of oral opening</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;MFMO_0000144"/>
+                <owl:someValuesFrom rdf:resource="&obo;UBERON_0000166"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;UBERON_0000166"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000146 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000146">
+        <rdfs:label xml:lang="en">zygomatic bone</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;UBERON_0000465"/>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0001683</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000147 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000147">
+        <rdfs:label xml:lang="en">symphyseal region</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;UBERON_0001684"/>
+        <obo:IAO_0000115>The region of the mandible on or near the midline (near the mandiblular symphysis, UBERON_0006606)</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000148 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000148">
+        <rdfs:label xml:lang="en">orbit</rdfs:label>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_2001967</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000149 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000149">
+        <rdfs:label xml:lang="en">scalp</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000099"/>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0000403</oboInOwl:hasDbXref>
+        <rdfs:comment>Term in Uberon is equivalent, but definition needs revision.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000150 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000150">
+        <rdfs:label xml:lang="en">posterior cricoarytenoid muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000010"/>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0008572</oboInOwl:hasDbXref>
+        <rdfs:comment>Uberon definition is pretty good but human-centric.
+
+In Uberon the posterior cricoarytenoid and lateral cricoarytenoid are subClasses of a &quot;cricoarytenoid&quot; class, but there is no anatomical basis for this class other than the similar names.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000151 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000151">
+        <rdfs:label xml:lang="en">ceratocricoideus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000150"/>
+        <rdfs:comment>FMA has numerous terms that refer to various parts (fascicles, fascia, innervation) of ceratocricoid muscles but not the whole muscle (at least not in the Ontobee subset of the FMA.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000152 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000152">
+        <rdfs:label xml:lang="en">lateral cricoarytenoideus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000010"/>
+        <oboInOwl:hasDbXref>UBERON_0008573</oboInOwl:hasDbXref>
+        <rdfs:comment>Uberon definition is pretty good but human-centric</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000153 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000153">
+        <rdfs:label xml:lang="en">arytenoideus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000010"/>
+        <rdfs:comment>Uberon definition okay but wiki ref is very human-centric</rdfs:comment>
+        <oboInOwl:hasExactSynonym>musculus arytenoideus</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasDbXref>UBERON_0010958</oboInOwl:hasDbXref>
+        <oboInOwl:hasExactSynonym>arytenoid muscle</oboInOwl:hasExactSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000154 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000154">
+        <rdfs:label xml:lang="en">transverse arytenoideus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000153"/>
+        <rdfs:comment>Uberon definition pretty good.</rdfs:comment>
+        <oboInOwl:hasDbXref>UBERON_0008574</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000155 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000155">
+        <rdfs:label xml:lang="en">oblique arytenoideus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000153"/>
+        <oboInOwl:hasDbXref>UBERON_0008575</oboInOwl:hasDbXref>
+        <rdfs:comment>Uberon definition pretty good but human-centric.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000156 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000156">
+        <rdfs:label xml:lang="en">aryepiglotticus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000153"/>
+        <rdfs:comment>Defintion in Uberon is okay but human-centric. 
+
+We consider this muscle a part of the arytenoid muscle complex but some workers describe it as a separate muscle.</rdfs:comment>
+        <oboInOwl:hasDbXref>UBERON_0011025</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000157 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000157">
+        <rdfs:label xml:lang="en">thyroarytenoideus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000010"/>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0008576</oboInOwl:hasDbXref>
+        <rdfs:comment>Uberon definition is pretty good but human-centric.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000158 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000158">
+        <rdfs:label xml:lang="en">vocalis muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000157"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000157"/>
+        <oboInOwl:hasExactSynonym>aryvocalis</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0008577</oboInOwl:hasDbXref>
+        <rdfs:comment>Uberon properly notes that the vocalis is a part of the thyroarytenoid muscle.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000159 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000159">
+        <rdfs:label xml:lang="en">superior thyroarytenoideus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000157"/>
+        <rdfs:comment>Not in Ontobee.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000160 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000160">
+        <rdfs:label xml:lang="en">thyroepiglotticus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000157"/>
+        <rdfs:comment>Not a part of the thyroarytenoid in Uberon.</rdfs:comment>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0010927</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000161 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000161">
+        <rdfs:label xml:lang="en">branchiohyoideus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000007"/>
+        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000162 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000162">
+        <rdfs:label xml:lang="en">constrictor colli muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000163 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000163">
+        <rdfs:label xml:lang="en">spinalis capitis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
+        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000164 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000164">
+        <rdfs:label xml:lang="en">obliquus capitis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
+        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000165 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000165">
+        <rdfs:label xml:lang="en">longus capitis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
+        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000166 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000166">
+        <rdfs:label xml:lang="en">rectus cervicis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
+        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000167 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000167">
+        <rdfs:label xml:lang="en">adductor mandibulae externus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
+        <oboInOwl:hasExactSynonym>mAME</oboInOwl:hasExactSynonym>
+        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000168 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000168">
+        <rdfs:label xml:lang="en">adductor mandibulae internus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <oboInOwl:hasExactSynonym>mAMI</oboInOwl:hasExactSynonym>
+        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
+        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000169 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000169">
+        <rdfs:label xml:lang="en">intramandibularis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:comment>FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000170 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000170">
+        <rdfs:label xml:lang="en">adductor mandibulae externus medialis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000167"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+        <oboInOwl:hasExactSynonym>mAMEM</oboInOwl:hasExactSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000171 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000171">
+        <rdfs:label xml:lang="en">adductor mandibulae externus superficialis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000167"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <oboInOwl:hasExactSynonym>mAMES</oboInOwl:hasExactSynonym>
+        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000172 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000172">
+        <rdfs:label xml:lang="en">ventrolateral head of mAMEM</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000170"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+        <oboInOwl:hasExactSynonym>ventrolateral head of adductor mandibulae externus medialis</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasExactSynonym>mAMEMa</oboInOwl:hasExactSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000173 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000173">
+        <rdfs:label xml:lang="en">anteromedial head of mAMEM</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000170"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <oboInOwl:hasExactSynonym>mAMEMb</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasExactSynonym>anteromedial head of adductor mandibulae externus medialis</oboInOwl:hasExactSynonym>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000174 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000174">
+        <rdfs:label xml:lang="en">posterior head of mAMEM</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000170"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+        <oboInOwl:hasExactSynonym>posterior head of adductor mandibulae externus medialis</oboInOwl:hasExactSynonym>
+        <oboInOwl:hasExactSynonym>mAMEMc</oboInOwl:hasExactSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000175 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000175">
+        <rdfs:label xml:lang="en">mLAO</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000171"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <oboInOwl:hasExactSynonym>levator anguli oris</oboInOwl:hasExactSynonym>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000176 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000176">
+        <rdfs:label xml:lang="en">retractor anguli oris muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000171"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000177 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000177">
+        <rdfs:label xml:lang="en">adductor mandibulae externus superficialis anterior muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000171"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000178 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000178">
+        <rdfs:label xml:lang="en">adductor mandibulae externus superficialis posterior muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000171"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000179 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000179">
+        <rdfs:label xml:lang="en">adductor mandibulae externus profundus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000167"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+        <oboInOwl:hasExactSynonym>mAMEP</oboInOwl:hasExactSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000181 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000181">
+        <rdfs:label xml:lang="en">pterygoideus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <oboInOwl:hasExactSynonym>mPt</oboInOwl:hasExactSynonym>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000182 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000182">
+        <rdfs:label xml:lang="en">pterygoideus externus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000181"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000183 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000183">
+        <rdfs:label xml:lang="en">pterygoideus internus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000181"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000184 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000184">
+        <rdfs:label xml:lang="en">pseudotemporalis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <oboInOwl:hasExactSynonym>mPst</oboInOwl:hasExactSynonym>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000185 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000185">
+        <rdfs:label xml:lang="en">pseudotemporalis superficialis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000184"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000186 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000186">
+        <rdfs:label xml:lang="en">pseudotemporalis profundus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000184"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000188 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000188">
+        <rdfs:label xml:lang="en">pterygoideus atypicus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000182"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <oboInOwl:hasExactSynonym>mPtAt</oboInOwl:hasExactSynonym>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000189 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000189">
+        <rdfs:label xml:lang="en">pterygoideus typicus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000182"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+        <oboInOwl:hasExactSynonym>mPtTy</oboInOwl:hasExactSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000190 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000190">
+        <rdfs:label xml:lang="en">adductor mandibulae posterior muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:comment>Uberon has a couple of terms (e.g., UBERON_2000311) that refer to the entire adductor mandibulae complex but not individual parts. </rdfs:comment>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000191 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000191">
+        <rdfs:label xml:lang="en">constrictor internus dorsalis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <oboInOwl:hasExactSynonym>mCID</oboInOwl:hasExactSynonym>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000192 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000192">
+        <rdfs:label xml:lang="en">levator bulbi muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000191"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <oboInOwl:hasDbXref>UBERON_3010651</oboInOwl:hasDbXref>
+        <oboInOwl:hasExactSynonym>mLBul</oboInOwl:hasExactSynonym>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000193 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000193">
+        <rdfs:label xml:lang="en">levator pterygoidei muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000191"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000194 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000194">
+        <rdfs:label xml:lang="en">protractor pterygoidei muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000191"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000195 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000195">
+        <rdfs:label xml:lang="en">intermandibularis posterior muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000196 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000196">
+        <rdfs:label xml:lang="en">intermandibularis anterior muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000197"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000197 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000197">
+        <rdfs:label xml:lang="en">intermandibularis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <oboInOwl:hasDbXref>UBERON_0010931</oboInOwl:hasDbXref>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000198 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000198">
+        <rdfs:label xml:lang="en">depressor mandibulae muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000199 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000199">
+        <rdfs:label xml:lang="en">cervicomandibularis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000005"/>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000200 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000200">
+        <rdfs:label xml:lang="en">omohyoideus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000201 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000201">
+        <rdfs:label xml:lang="en">sternohyoideus superficialis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000202 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000202">
+        <rdfs:label xml:lang="en">sternohyoideus profundus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000067"/>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000203 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000203">
+        <rdfs:label xml:lang="en">m. hyoglossus</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000204 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000204">
+        <rdfs:label xml:lang="en">genioglossus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000205 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000205">
+        <rdfs:label xml:lang="en">genioglossus medial muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000204"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000206 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000206">
+        <rdfs:label xml:lang="en">genioglossus lateral muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000204"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000207 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000207">
+        <rdfs:label xml:lang="en">genioglossus internal muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000204"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000208 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000208">
+        <rdfs:label xml:lang="en">mandibulohyoideus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000209 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000209">
+        <rdfs:label xml:lang="en">mandibulohyoideus part 1 muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000208"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000210 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000210">
+        <rdfs:label xml:lang="en">mandibulohyoideus part 2 muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000208"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000211 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000211">
+        <rdfs:label xml:lang="en">mandibulohyoideus part 3 muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000208"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000213 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000213">
+        <rdfs:label xml:lang="en">intrinsic circularis muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000065"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000214 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000214">
+        <rdfs:label xml:lang="en">dorsoventral intrinsic tongue muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000065"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000215 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000215">
+        <rdfs:label xml:lang="en">transverse intrinsic tongue muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000065"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000216 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000216">
+        <rdfs:label xml:lang="en">longitudinal intrinsic tongue muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000065"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>From FEED reptile spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000217 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000217">
+        <rdfs:label xml:lang="en">transversus mandibulae muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&obo;RO_0002371"/>
+                <owl:onClass rdf:resource="&obo;UBERON_0001684"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000072"/>
+        <rdfs:comment>FEED spreadsheet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000302 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000302">
+        <rdfs:label>orangutan posterior digastric muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000060"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000044"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001684"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001647"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;mfmo.owl#superficial_to"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000084"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <obo:IAO_0000115>The posterior digastric muscle in orangutans does not have an attachment to the hyoid apparatus. It is attached to the posterior edge of the ascending ramus of the mandible. The anterior digastric muscle is absent in orangutans. Winkler, 1991</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000303 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000303">
+        <rdfs:label xml:lang="en">stylopharyngeus muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000007"/>
+        <oboInOwl:hasDefinition>The stylopharyngeus muscle attaches to the styloid process of the temporal bone, the pharynx, and the thyroid cartilage and it is innervated by the glossopharyngeal nerve (CN IX).</oboInOwl:hasDefinition>
+        <oboInOwl:hasDbXref>UBERON_0008804</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000304 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000304">
+        <rdfs:label>levator veli palatini muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000100"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000044"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000097"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000100"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
+        <obo:IAO_0000115>The levator veli palatini is part of the soft palate that attaches to the cranial base, pharyngotympanic tube and the soft palate and is innervated by Cranial Nerve X via the pharyngeal plexus.</obo:IAO_0000115>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0008585</oboInOwl:hasDbXref>
+        <rdfs:comment>Ready for review.</rdfs:comment>
+        <oboInOwl:hasSynonym>levator palati</oboInOwl:hasSynonym>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000305 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000305">
+        <rdfs:label>palatoglossus muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000100"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000107"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0001574</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>Palatoglossus is a muscle that attaches to the soft palate and the tongue and is innervated by Cranial Nerve X via the pharyngeal plexus.</obo:IAO_0000115>
+        <rdfs:comment>Ready for review.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000306 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000306">
+        <rdfs:label>palatopharyngeus muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000094"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000100"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0010234</oboInOwl:hasDbXref>
+        <rdfs:comment>Ready for review.</rdfs:comment>
+        <obo:IAO_0000115>Palatopharyngeus is a muscle that attaches to the palatine bones, soft palate, and pharynx and is innervated by Cranial Nerve X via the pharyngeal plexus.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000307 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000307">
+        <rdfs:label>superior pharyngeal constrictor muscle</rdfs:label>
+        <rdfs:label>salpingopharyngeus muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000045"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000103"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001684"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011349"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000097"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000110"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <obo:IAO_0000115>Salpingopharyngeus is a muscle that attaches to pharyngotympanic tube and the pharynx and is innervated by pharyngeal plexus of CN X and participates in oral/pharyngeal behaviors
+</obo:IAO_0000115>
+        <rdfs:comment>Ready for review.</rdfs:comment>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0010937</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>The superior constrictor is a muscle that is an integral part of the pharyngeal tube that is attached to the mandible, pterygomandibular raphe, basioccipital bone, pterygoid process and midline raphe and is innervated by Cranial Nerve X via the pharyngeal plexus.</obo:IAO_0000115>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0006329</oboInOwl:hasDbXref>
+        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000308 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000308">
+        <rdfs:label>uvular muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000100"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000100"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0010235</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>The muscle of the uvuli is an integral part of the soft palate and is innervated by Cranial Nerve X (Vagus via the pharyngeal plexus).</obo:IAO_0000115>
+        <rdfs:comment>Term in Uberon is equivalent but the definition needs revision.</rdfs:comment>
+        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000312 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000312">
+        <rdfs:label>middle pharyngeal constrictor muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000008"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001685"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
+        <rdfs:comment>Ready for review.</rdfs:comment>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0010749</oboInOwl:hasDbXref>
+        <oboInOwl:hasSynonym>hyopharyngeus</oboInOwl:hasSynonym>
+        <obo:IAO_0000115>The middle constrictor is a pharyngeal arches 4/6 muscle that participates in oral/pharyngeal behaviors and is innervated by the pharyngeal plexus of Vagus (CN X) and attaches to the hyoid apparatus and the midline raphe.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000324 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000324">
+        <rdfs:label xml:lang="en">cricothyroid muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0002375"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;mfmo.owl#attached_to_lateral_surface_of"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000106"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0001566</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>Intrinsic muscle of the larynx, innervated by the external division of the laryngeal nerve, a branch of the vagus nerve. It attaches to the anterolateral surface of the cricoid cartilage and the external surface of the thyroid cartilage.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000325 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000325">
+        <rdfs:label xml:lang="en">superior pharyngeal constrictor muscle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000010"/>
+        <obo:IAO_0000115>The superior constrictor is a muscle that is an integral part of the pharyngeal tube that is attached to the mandible, pterygomandibular raphe, basioccipital bone, pterygoid process and midline raphe and is innervated by Cranial Nerve X via the pharyngeal plexus.</obo:IAO_0000115>
+        <oboInOwl:hasDbXref>UBERON_0006329</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/MFMO_0000326 -->
+
+    <owl:Class rdf:about="&obo;MFMO_0000326">
+        <rdfs:label xml:lang="en">thyrohyoid muscle</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;RO_0002005"/>
+                        <owl:someValuesFrom rdf:resource="&obo;mfmo.owl#MFMO_0000301"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;attaches_to"/>
+                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000106"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&obo;attaches_to"/>
+                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001685"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000062"/>
+        <oboInOwl:hasDbXref>UBERON_0001110</oboInOwl:hasDbXref>
+        <obo:IAO_0000115>The thyrohyoid is a somitic muscle that participates in oral/pharyngeal behaviors and is innervated by C1 and Cranial Nerve XII (hypoglossal); it attaches to the thyroid cartilage and the hyoid apparatus.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
     <!-- http://purl.obolibrary.org/obo/UBERON_0000166 -->
 
     <owl:Class rdf:about="&obo;UBERON_0000166">
         <rdfs:label>oral opening</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/UBERON_0000209 -->
+
+    <owl:Class rdf:about="&obo;UBERON_0000209">
+        <rdfs:label>frontal bone</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;UBERON_0000465"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/UBERON_0000210 -->
+
+    <owl:Class rdf:about="&obo;UBERON_0000210">
+        <rdfs:label>parietal bone</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;UBERON_0000465"/>
     </owl:Class>
     
 
@@ -3400,6 +3749,15 @@ We consider this muscle a part of the arytenoid muscle complex but some workers 
         <rdfs:subClassOf rdf:resource="&obo;MFMO_0000090"/>
         <rdfs:comment>Term in Uberon is equivalent but the definition needs revision.</rdfs:comment>
         <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0001649</oboInOwl:hasDbXref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/UBERON_0001678 -->
+
+    <owl:Class rdf:about="&obo;UBERON_0001678">
+        <rdfs:label>temporal bone</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;UBERON_0000465"/>
     </owl:Class>
     
 
@@ -3593,331 +3951,27 @@ Uberon &apos;external definition&apos; is better.</rdfs:comment>
     
 
 
-    <!-- http://purl.obolibrary.org/obo/http://purl.obolibrary.org/obo/UBERON_0001570 -->
+    <!-- http://purl.obolibrary.org/obo/mfmo.owl#MFMO_0000300 -->
 
-    <owl:Class rdf:about="&obo;&obo;UBERON_0001570">
-        <rdfs:label>inferior pharyngeal constrictor muscle</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000008"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000106"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0002375"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0003716"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Ready for review.</rdfs:comment>
-        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
-        <obo:IAO_0000115>This is a pharyngeal arch 4/6 muscle that is integral to the pharyngeal tube, participates in oral/pharyngeal behaviors, is innervated by the pharyngeal plexus of the vagus n. (CNX) and attaches to the laryngeal cartilages and the midline raphe.</obo:IAO_0000115>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0001570</oboInOwl:hasDbXref>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/mfmo.owl#hypoglossal_nerve -->
-
-    <owl:Class rdf:about="&obo;mfmo.owl#hypoglossal_nerve">
-        <rdfs:label>hypoglossal nerve</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000090"/>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0001650</oboInOwl:hasDbXref>
-        <rdfs:comment>Term in Uberon is equivalent but the definition needs revision,</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/mfmo.owl#levator_veli_palatini -->
-
-    <owl:Class rdf:about="&obo;mfmo.owl#levator_veli_palatini">
-        <rdfs:label>levator veli palatini</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000100"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000044"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000097"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000100"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="&obo;mfmo.owl#middle_pharyngeal_constrictor_muscle"/>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0008585</oboInOwl:hasDbXref>
-        <rdfs:comment>Ready for review.</rdfs:comment>
-        <oboInOwl:hasSynonym>levator palati</oboInOwl:hasSynonym>
-        <obo:IAO_0000115>The levator veli palatini is part of the soft palate that attaches to the cranial base, pharyngotympanic tube and the soft palate and is innervated by Cranial Nerve X via the pharyngeal plexus.</obo:IAO_0000115>
-        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/mfmo.owl#middle_pharyngeal_constrictor_muscle -->
-
-    <owl:Class rdf:about="&obo;mfmo.owl#middle_pharyngeal_constrictor_muscle">
-        <rdfs:label>middle pharyngeal constrictor muscle</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000008"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001685"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Ready for review.</rdfs:comment>
-        <obo:IAO_0000115>The middle constrictor is a pharyngeal arches 4/6 muscle that participates in oral/pharyngeal behaviors and is innervated by the pharyngeal plexus of Vagus (CN X) and attaches to the hyoid apparatus and the midline raphe.</obo:IAO_0000115>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0010749</oboInOwl:hasDbXref>
-        <oboInOwl:hasSynonym>hyopharyngeus</oboInOwl:hasSynonym>
-        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/mfmo.owl#orangutan_posterior_digastric_muscle -->
-
-    <owl:Class rdf:about="&obo;mfmo.owl#orangutan_posterior_digastric_muscle">
-        <rdfs:label>orangutan posterior digastric muscle</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000060"/>
-        <rdfs:subClassOf>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000044"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001684"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001647"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;mfmo.owl#superficial_to"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000084"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </rdfs:subClassOf>
-        <obo:IAO_0000115>The posterior digastric muscle in orangutans does not have an attachment to the hyoid apparatus. It is attached to the posterior edge of the ascending ramus of the mandible. The anterior digastric muscle is absent in orangutans. Winkler, 1991</obo:IAO_0000115>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/mfmo.owl#palatoglossus_muscle -->
-
-    <owl:Class rdf:about="&obo;mfmo.owl#palatoglossus_muscle">
-        <rdfs:label>palatoglossus muscle</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000100"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000107"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0001574</oboInOwl:hasDbXref>
-        <obo:IAO_0000115>Palatoglossus is a muscle that attaches to the soft palate and the tongue and is innervated by Cranial Nerve X via the pharyngeal plexus.</obo:IAO_0000115>
-        <rdfs:comment>Ready for review.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/mfmo.owl#palatopharyngeus_muscle -->
-
-    <owl:Class rdf:about="&obo;mfmo.owl#palatopharyngeus_muscle">
-        <rdfs:label>palatopharyngeus muscle</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000094"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000100"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0010234</oboInOwl:hasDbXref>
-        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
-        <rdfs:comment>Ready for review.</rdfs:comment>
-        <obo:IAO_0000115>Palatopharyngeus is a muscle that attaches to the palatine bones, soft palate, and pharynx and is innervated by Cranial Nerve X via the pharyngeal plexus.</obo:IAO_0000115>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/mfmo.owl#salpingopharyngeus_muscle -->
-
-    <owl:Class rdf:about="&obo;mfmo.owl#salpingopharyngeus_muscle">
-        <rdfs:label>salpingopharyngeus muscle</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000097"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000110"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <obo:IAO_0000115>Salpingopharyngeus is a muscle that attaches to pharyngotympanic tube and the pharynx and is innervated by pharyngeal plexus of CN X and participates in oral/pharyngeal behaviors
-</obo:IAO_0000115>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0010937</oboInOwl:hasDbXref>
-        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
-        <rdfs:comment>Ready for review.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/mfmo.owl#spinal_nerve -->
-
-    <owl:Class rdf:about="&obo;mfmo.owl#spinal_nerve">
+    <owl:Class rdf:about="&obo;mfmo.owl#MFMO_0000300">
         <rdfs:label>spinal nerve</rdfs:label>
         <rdfs:subClassOf rdf:resource="&obo;MFMO_0000090"/>
-        <rdfs:comment>Not sure what the point of having two classes in Uberon - Uberon1780 and Uberon5197.  I think they are, more or less, equivalent.  I prefer 5197 - RED
-Term(s) in Uberon are equivalent but the definition needs revision.</rdfs:comment>
         <rdfs:comment></rdfs:comment>
         <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0001780</oboInOwl:hasDbXref>
         <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0005197</oboInOwl:hasDbXref>
+        <rdfs:comment>Not sure what the point of having two classes in Uberon - Uberon1780 and Uberon5197.  I think they are, more or less, equivalent.  I prefer 5197 - RED
+Term(s) in Uberon are equivalent but the definition needs revision.</rdfs:comment>
     </owl:Class>
     
 
 
-    <!-- http://purl.obolibrary.org/obo/mfmo.owl#superior_pharyngeal_constrictor_muscle -->
+    <!-- http://purl.obolibrary.org/obo/mfmo.owl#MFMO_0000301 -->
 
-    <owl:Class rdf:about="&obo;mfmo.owl#superior_pharyngeal_constrictor_muscle">
-        <rdfs:label>superior pharyngeal constrictor muscle</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000045"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000103"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0001684"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011349"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0006329</oboInOwl:hasDbXref>
-        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
-        <rdfs:comment>Ready for review.</rdfs:comment>
-        <obo:IAO_0000115>The superior constrictor is a muscle that is an integral part of the pharyngeal tube that is attached to the mandible, pterygomandibular raphe, basioccipital bone, pterygoid process and midline raphe and is innervated by Cranial Nerve X via the pharyngeal plexus.</obo:IAO_0000115>
-    </owl:Class>
-    
-
-
-    <!-- http://purl.obolibrary.org/obo/mfmo.owl#uvular_muscle -->
-
-    <owl:Class rdf:about="&obo;mfmo.owl#uvular_muscle">
-        <rdfs:label>uvular muscle</rdfs:label>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&obo;MFMO_0000010"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;BFO_0000050"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000100"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000001"/>
-                        <owl:someValuesFrom rdf:resource="&obo;MFMO_0000100"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&obo;MFMO_0000003"/>
-                        <owl:someValuesFrom rdf:resource="&obo;UBERON_0011325"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Term in Uberon is equivalent but the definition needs revision.</rdfs:comment>
-        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0010235</oboInOwl:hasDbXref>
-        <obo:IAO_0000119>http://www.feedexp.org/wiki/Mammalian_Muscle_Ontology_Workshop</obo:IAO_0000119>
-        <obo:IAO_0000115>The muscle of the uvuli is an integral part of the soft palate and is innervated by Cranial Nerve X (Vagus via the pharyngeal plexus).</obo:IAO_0000115>
+    <owl:Class rdf:about="&obo;mfmo.owl#MFMO_0000301">
+        <rdfs:label>hypoglossal nerve</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;MFMO_0000090"/>
+        <rdfs:comment>Term in Uberon is equivalent but the definition needs revision,</rdfs:comment>
+        <oboInOwl:hasDbXref>http://purl.obolibrary.org/obo/UBERON_0001650</oboInOwl:hasDbXref>
     </owl:Class>
     
 
@@ -4017,7 +4071,7 @@ Term(s) in Uberon are equivalent but the definition needs revision.</rdfs:commen
         <rdf:type>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://xmlns.com/foaf/0.1/depicts"/>
-                <owl:someValuesFrom rdf:resource="&obo;mfmo.owl#palatopharyngeus_muscle"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000306"/>
             </owl:Restriction>
         </rdf:type>
         <rdfs:label>Human palatopharyngeus muscle</rdfs:label>
@@ -4032,7 +4086,7 @@ Term(s) in Uberon are equivalent but the definition needs revision.</rdfs:commen
         <rdf:type>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://xmlns.com/foaf/0.1/depicts"/>
-                <owl:someValuesFrom rdf:resource="&obo;&obo;UBERON_0001570"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/&obo;MFMO_0000310"/>
             </owl:Restriction>
         </rdf:type>
         <rdfs:label>Human inferior pharyngeal constrictor muscle</rdfs:label>
@@ -4164,7 +4218,7 @@ Term(s) in Uberon are equivalent but the definition needs revision.</rdfs:commen
         <rdf:type>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://xmlns.com/foaf/0.1/depicts"/>
-                <owl:someValuesFrom rdf:resource="&obo;mfmo.owl#middle_pharyngeal_constrictor_muscle"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000312"/>
             </owl:Restriction>
         </rdf:type>
         <rdfs:label>Human middle pharyngeal constrictor muscle</rdfs:label>
@@ -4203,7 +4257,7 @@ Term(s) in Uberon are equivalent but the definition needs revision.</rdfs:commen
         <rdf:type>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://xmlns.com/foaf/0.1/depicts"/>
-                <owl:someValuesFrom rdf:resource="&obo;mfmo.owl#superior_pharyngeal_constrictor_muscle"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000307"/>
             </owl:Restriction>
         </rdf:type>
         <rdfs:label>Human superior pharyngeal constrictor muscle</rdfs:label>
@@ -4218,7 +4272,7 @@ Term(s) in Uberon are equivalent but the definition needs revision.</rdfs:commen
         <rdf:type>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://xmlns.com/foaf/0.1/depicts"/>
-                <owl:someValuesFrom rdf:resource="&obo;mfmo.owl#uvular_muscle"/>
+                <owl:someValuesFrom rdf:resource="&obo;MFMO_0000308"/>
             </owl:Restriction>
         </rdf:type>
         <rdfs:label>Human uvular muscle</rdfs:label>
