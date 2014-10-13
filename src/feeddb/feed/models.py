@@ -524,7 +524,7 @@ class Sensor(FeedBaseModel):
         return super(Sensor, self).save()
 
 class EmgSensor(Sensor):
-    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=False,
+    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
     muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
 
@@ -540,7 +540,7 @@ class EmgSensor(Sensor):
         ordering = ["id"]
 
 class SonoSensor(Sensor):
-    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=False,
+    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
     muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
 
