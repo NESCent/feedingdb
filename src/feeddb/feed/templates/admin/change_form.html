@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_modify feedmedia %}
+{% load i18n admin_modify feedmedia feed_util %}
 {% block extrahead %}{{ block.super }}
 
 <script type="text/javascript" src="../../../jsi18n/"></script>
@@ -38,6 +38,8 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
+          {# TODO: format help text a little better #}
+          {% model_help_text original %}
           {% if 'study' == opts.model_name %}
             <p>Highlighted fields are required. Metadata are divided into Public and Private components.</p>
           {% endif %}
