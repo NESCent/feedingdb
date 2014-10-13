@@ -580,7 +580,7 @@ class Channel(FeedBaseModel):
 
     def save(self):
         self.study = self.setup.study
-        return super(Sensor, self).save()
+        return super(Channel, self).save()
 
 class EmgChannel(Channel):
     unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : Techniques.ENUM.emg},
