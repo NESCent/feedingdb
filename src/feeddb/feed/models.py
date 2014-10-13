@@ -540,7 +540,18 @@ class EmgSensor(Sensor):
         verbose_name="Electrode Type", blank = True, null=True )
 
     def __unicode__(self):
-        return 'EMG Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.location_controlled.label, self.loc_side.label)
+        subs = { 'name': self.name }
+        try:
+            subs['muscle'] = self.muscle.label
+        except AttributeError:
+            subs['muscle'] = 'None'
+
+        try:
+            subs['side'] = self.loc_side.label
+        except AttributeError:
+            subs['side'] = 'None'
+
+        return 'EMG Sensor: %(name)s (Muscle: %(muscle)s, Side: %(side)s)' % subs
 
     class Meta:
         verbose_name = "EMG Electrode"
@@ -597,7 +608,18 @@ class EmgChannel(Channel):
     emg_amplification = models.IntegerField(blank=True,null=True,verbose_name = "Amplification")
 
     def __unicode__(self):
-        return 'EMG Channel: %s (Muscle: %s, Side: %s) '  % (self.name, self.sensor.location_controlled.label, self.sensor.loc_side.label)
+        subs = { 'name': self.name }
+        try:
+            subs['muscle'] = self.sensor.muscle.label
+        except AttributeError:
+            subs['muscle'] = 'None'
+
+        try:
+            subs['side'] = self.sensor.loc_side.label
+        except AttributeError:
+            subs['side'] = 'None'
+
+        return 'EMG Channel: %(name)s (Muscle: %(muscle)s, Side: %(side)s) '  % subs
     class Meta:
         verbose_name = "EMG Channel"
 
