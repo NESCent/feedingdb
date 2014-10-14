@@ -6328,7 +6328,7 @@ body form tr td.notes textarea {
   height: 60px;
 }
 body form tr td.muscle .chosen-container {
-  width: 140px !important;
+  width: 300px !important;
 }
 body form tr td.axisdepth .chosen-container {
   width: 89px !important;
@@ -6994,15 +6994,6 @@ body #eventsetup_form fieldset td.original {
   width: 0;
   padding: 0;
 }
-body #kinematicssetup_form fieldset td.notes,
-body #sonosetup_form fieldset td.notes,
-body #emgsetup_form fieldset td.notes,
-body #strainsetup_form fieldset td.notes,
-body #forcesetup_form fieldset td.notes,
-body #pressuresetup_form fieldset td.notes,
-body #eventsetup_form fieldset td.notes {
-  height: 42px;
-}
 body #kinematicssetup_form fieldset td.notes textarea,
 body #sonosetup_form fieldset td.notes textarea,
 body #emgsetup_form fieldset td.notes textarea,
@@ -7010,8 +7001,7 @@ body #strainsetup_form fieldset td.notes textarea,
 body #forcesetup_form fieldset td.notes textarea,
 body #pressuresetup_form fieldset td.notes textarea,
 body #eventsetup_form fieldset td.notes textarea {
-  width: 100%;
-  height: 42px;
+  width: 120px;
 }
 body #kinematicssetup_form .inline-group,
 body #sonosetup_form .inline-group,
