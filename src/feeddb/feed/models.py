@@ -122,7 +122,7 @@ class MuscleOwl(OwlTerm):
             # the ultimate ancestor class for muscles
             #
             # URI: http://purl.obolibrary.org/obo/UBERON_0001630
-            rdfs_subClassOf_ancestors__label='muscle organ'
+            rdfs_subClassOf_ancestors__uri='http://purl.obolibrary.org/obo/UBERON_0001630'
         )
 
 class BehaviorOwl(OwlTerm):
