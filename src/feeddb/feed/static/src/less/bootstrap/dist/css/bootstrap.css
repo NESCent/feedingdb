@@ -6473,6 +6473,7 @@ body .breadcrumbs ul span {
 }
 body .admin-tools ul {
   padding-left: 0;
+  margin: 25px 0 0 0;
 }
 body .admin-tools ul li {
   list-style: none;
@@ -6865,12 +6866,20 @@ body main .records-pagination ul li {
 body main aside .upload-steps {
   border-left: 2px solid #005a8b;
 }
+body main aside .upload-steps h2 {
+  margin-top: 17px;
+}
 body main aside .upload-steps ul {
   padding-left: 0;
 }
 body main aside .upload-steps ul li {
   list-style-type: none;
   padding: 0 0 20px 0;
+  font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  color: #005a8b;
+}
+body.view aside .upload-steps {
+  border-left: 0;
 }
 body #ui-datepicker-div {
   background: #ffffff;
@@ -7542,6 +7551,9 @@ table tr td.position {
 }
 .clearable-file-input label {
   margin-bottom: 0;
+}
+.panel-default > .panel-heading {
+  background: url('../../../../../images/greyzz.png');
 }
 /* Form helpers */
 .required label,

@@ -193,7 +193,7 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
     }
   }
   .admin-tools {
-    ul { padding-left: 0;
+    ul { padding-left: 0; margin: 25px 0 0 0;
       li { list-style: none; float: left; margin: 0 4px;
         a {  }
       }
@@ -397,12 +397,18 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
     }
     aside {
       .upload-steps { border-left: 2px solid @muted-blue; border-left: 2px solid @muted-blue-alpha;
+        h2 { margin-top: 17px; }
         ul { padding-left: 0;
-          li { list-style-type: none; padding: 0 0 20px 0;
+          li { list-style-type: none; padding: 0 0 20px 0; font: 17px/26px @rockwell, serif; color: @muted-blue; color: @muted-blue-alpha;
             
           }
         }
       }
+    }
+  }
+  &.view {
+    aside {
+      .upload-steps { border-left: 0; }
     }
   }
   #ui-datepicker-div { background: @white; background: @white-alpha; border: 1px solid @tan; border: 1px solid @tan-alpha;
@@ -774,6 +780,7 @@ table {
   input { display: block; width: 26px; margin-top: 7px; float: left; }
   label { margin-bottom: 0; }
 }
+.panel-default > .panel-heading { background: url('../../../../../images/greyzz.png'); }
 /* Form helpers */
 .required label, label.required { font-weight: inherit !important; color: @orange !important; color: @orange-alpha !important; width: auto; float: none; display: block; }
 form .aligned p, form .aligned ul { margin-left: 0; padding-left: 0; }
