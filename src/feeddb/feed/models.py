@@ -381,7 +381,7 @@ class Subject(FeedBaseModel):
 
     study = models.ForeignKey(Study)
     taxon = models.ForeignKey(Taxon, help_text="""
-        If you can't find the taxon you want, <a href="/admin/feed/taxon/add">add a new taxon</a> and then reload this page.
+        If you can't find the taxon you want, <a href="/admin/feed/taxon/add" target="_blank">add a new taxon</a> and then reload this page.
         """)
     name = models.CharField(max_length=255)
     breed = models.CharField(max_length=255, blank = True, null=True)
