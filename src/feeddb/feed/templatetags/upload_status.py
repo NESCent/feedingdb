@@ -36,7 +36,7 @@ def should_show_status(context, status):
         add = context.get('add', False)
 
     except KeyError as e:
-        raise ImproperlyConfigured('upload_status_block can only be used on admin forms; missing needed context variable: %s' % e)
+        raise ImproperlyConfigured('upload_status_block can only be used on admin view, change, or add pages; missing needed context variable: %s' % e)
 
     Model = get_model('feed', model_name)
     from feeddb.feed.models import CvTerm, FeedBaseModel
@@ -47,7 +47,8 @@ def should_show_status(context, status):
         return False
     elif issubclass(Model, FeedBaseModel):
         if add:
-            return True
+            # suppress the block on the Study page
+            return Model != Study
 
         if status is not None and status.object_is_in_study(obj):
             return True
