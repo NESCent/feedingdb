@@ -18,8 +18,10 @@
     @dk-navy-alpha: rgba(9,25,42,1);
     @lt-blue: rgb(99,142,188);
     @lt-blue-alpha: rgba(99,142,188,1);
-    @hover-blue: rgb(122,159,198);
-    @hover-blue-alpha: rgba(122,159,198,1);
+    @button-blue: rgb(122,159,198);
+    @button-blue-alpha: rgba(122,159,198,1);
+    @hover-blue: rgb(142,173,206);
+    @hover-blue-alpha: rgba(142,173,206,1);
     
     @goldenrod: rgb(242,154,0);
     @goldenrod-alpha: rgb(242,154,0,1);
@@ -101,7 +103,7 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
   a.btn.btn-primary, .btn.btn-primary { background: @orange; background: @orange-alpha;
     &:hover { background: @hover-orange; background: @hover-orange-alpha; }
   }
-  a.btn.btn-default, .btn.btn-default { background: @lt-blue; background: @lt-blue-alpha;
+  a.btn.btn-default, .btn.btn-default { background: @button-blue; background: @button-blue-alpha;
     &:hover { background: @hover-blue; background: @hover-blue-alpha; color: @white; color: @white-alpha; }
   }
   
@@ -195,13 +197,16 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
   .admin-tools {
     ul { padding-left: 0; margin: 25px 0 0 0;
       li { list-style: none; float: left; margin: 0 4px;
+        &:last-child { margin-right: 0; }
         a {  }
       }
     }
   }
   .object-tools { list-style-type: none; padding-left: 0; text-transform: capitalize;
     a { 
-      span { padding-right: 4px; }
+      span { padding-right: 4px;
+        &:last-child { padding-right: 0; }
+      }
       &:hover { text-decoration: none; color: @orange; color: @orange-alpha; }
     }
   }

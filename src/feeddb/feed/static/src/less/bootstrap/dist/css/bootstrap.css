@@ -6297,11 +6297,11 @@ body .btn.btn-primary:hover {
 }
 body a.btn.btn-default,
 body .btn.btn-default {
-  background: #638ebc;
+  background: #7a9fc6;
 }
 body a.btn.btn-default:hover,
 body .btn.btn-default:hover {
-  background: #7a9fc6;
+  background: #8eadce;
   color: #ffffff;
 }
 body form .row {
@@ -6477,6 +6477,9 @@ body .admin-tools ul li {
   float: left;
   margin: 0 4px;
 }
+body .admin-tools ul li:last-child {
+  margin-right: 0;
+}
 body .object-tools {
   list-style-type: none;
   padding-left: 0;
@@ -6484,6 +6487,9 @@ body .object-tools {
 }
 body .object-tools a span {
   padding-right: 4px;
+}
+body .object-tools a span:last-child {
+  padding-right: 0;
 }
 body .object-tools a:hover {
   text-decoration: none;

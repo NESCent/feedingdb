@@ -64,8 +64,8 @@
   <div class="col-xs-9">
     {% block object-tools %}
     <div class="row">
-      <div class="col-xs-2 col-xs-offset-10 admin-tools">
-        <ul class="object-tools object-tools-top">
+      <div class="col-xs-2 col-xs-offset-9 admin-tools">
+        <ul class="object-tools object-tools-top float-right">
           {% if change %}
             {% ifequal opts.app_label "feed" %}
               <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><span class='glyphicon glyphicon-eye-open'></span></a></li>

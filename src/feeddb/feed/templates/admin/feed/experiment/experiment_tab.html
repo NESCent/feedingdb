@@ -23,29 +23,6 @@
        {% endifnotequal %}
      {% endifnotequal %}
 
-     {% if not experiment %}
-         {% block object-tools %}
-          <div class="col-xs-2 admin-tools">
-            <ul class="object-tools object-tools-top float-right">
-              {% if has_change_permission %}
-                <li><a class="changelink" href="edit/" ><span class='glyphicon glyphicon-pencil'></span></a></li>
-              {% endif %}
-              {% if has_delete_permission %}
-                <li><a class="deletelink" href="delete/" ><span class='glyphicon glyphicon-remove'></span></a></li>
-              {% endif %}
-              {% if has_change_permission %}
-                {% if cloneable %}
-                  <li><a class="clonelink" href="clone/" ><span class='glyphicon glyphicon-plus-sign'></span></a></li>
-                {% endif %}
-              {% endif %}
-              {% if has_change_permission %}
-                <li><a href="history/" class="historylink"><span class='glyphicon glyphicon-calendar'></span></a></li>
-              {% endif %}
-            </ul>
-          </div>
-        {% endblock %}
-      {% endif %}
-
   {% if experiment %}
       <a class="label label-default" href="/admin/feed/experiment/{{experiment.pk}}/{% if change %}edit{%endif %}">Experiment</a>
         {% for setup in experiment.get_setups %}
