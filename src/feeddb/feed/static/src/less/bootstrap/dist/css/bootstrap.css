@@ -7003,6 +7003,25 @@ body #pressuresetup_form fieldset td.notes textarea,
 body #eventsetup_form fieldset td.notes textarea {
   width: 120px;
 }
+body #kinematicssetup_form fieldset td.notes textarea.vLargeTextField,
+body #sonosetup_form fieldset td.notes textarea.vLargeTextField,
+body #emgsetup_form fieldset td.notes textarea.vLargeTextField,
+body #strainsetup_form fieldset td.notes textarea.vLargeTextField,
+body #forcesetup_form fieldset td.notes textarea.vLargeTextField,
+body #pressuresetup_form fieldset td.notes textarea.vLargeTextField,
+body #eventsetup_form fieldset td.notes textarea.vLargeTextField {
+  height: 118px;
+  width: 100%;
+}
+body #kinematicssetup_form fieldset td.picture,
+body #sonosetup_form fieldset td.picture,
+body #emgsetup_form fieldset td.picture,
+body #strainsetup_form fieldset td.picture,
+body #forcesetup_form fieldset td.picture,
+body #pressuresetup_form fieldset td.picture,
+body #eventsetup_form fieldset td.picture {
+  padding-right: 40px;
+}
 body #kinematicssetup_form .inline-group,
 body #sonosetup_form .inline-group,
 body #emgsetup_form .inline-group,
@@ -7461,6 +7480,24 @@ table tr th.label {
 }
 table tr td.action {
   width: 85px;
+}
+table tr td p.file-upload {
+  position: relative;
+}
+table tr td p.file-upload a {
+  font-size: 15px;
+  display: block;
+}
+table tr td p.file-upload span {
+  position: absolute;
+  top: -4px;
+  right: 0;
+}
+table tr td p.file-upload span input {
+  margin-top: 6px;
+}
+table tr td p.file-upload span label {
+  font-size: 15px;
 }
 .large-table {
   overflow: auto;
