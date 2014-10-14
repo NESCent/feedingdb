@@ -61,7 +61,7 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
   hr { background: url('../../../../../images/hr.png') repeat-x; height: 2px; width: 100%; }
   
   /* Alerts */
-  .alert { margin-top: 30px;
+  .alert { 
     p { margin-top: 0 }
   }
   .alert-error { color: #a94442; background-color: #f2dede; border-color: #ebccd1; }
@@ -400,7 +400,9 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
         h2 { margin-top: 17px; }
         ul { padding-left: 0;
           li { list-style-type: none; padding: 0 0 20px 0; font: 17px/26px @rockwell, serif; color: @muted-blue; color: @muted-blue-alpha;
-            
+            .review { color: @orange; color: @orange-alpha; font-size: 17px; position: relative; display: block; width: 82px; height: 22px;
+              span { position: absolute; right: 0; }
+            }
           }
         }
       }
@@ -763,7 +765,7 @@ table {
   }
 }
 .large-table { overflow: auto; border: 1px solid #dddddd; background: @white; background: @white-alpha;
-  table { background: transparent;
+  table { background: transparent; border-bottom: 2px solid #dddddd;
     tr {
       td {
         &.name {
@@ -795,12 +797,16 @@ tr {
 form {
   input[type="checkbox"], input[type="radio"] { border: 0; background-color: transparent; height: auto; }
 }
-textarea { resize: vertical; }
+textarea { resize: vertical; border: 1px solid @gray; }
 form {
   .chosen-container-multi {
     .chosen-choices { padding: 5px; }
   }
 }
+td.picture {
+  input { border: 0; padding: 0; }
+}
+#id_data_file, #id_waveform_picture { background: @white; background: @white-alpha; }
 
 /* Custom media queries for larger screens */
 
