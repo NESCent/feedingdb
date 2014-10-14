@@ -6228,9 +6228,6 @@ body hr {
   height: 2px;
   width: 100%;
 }
-body .alert {
-  margin-top: 30px;
-}
 body .alert p {
   margin-top: 0;
 }
@@ -6877,6 +6874,18 @@ body main aside .upload-steps ul li {
   padding: 0 0 20px 0;
   font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #005a8b;
+}
+body main aside .upload-steps ul li .review {
+  color: #da5400;
+  font-size: 17px;
+  position: relative;
+  display: block;
+  width: 82px;
+  height: 22px;
+}
+body main aside .upload-steps ul li .review span {
+  position: absolute;
+  right: 0;
 }
 body.view aside .upload-steps {
   border-left: 0;
@@ -7533,6 +7542,7 @@ table tr td.position {
 }
 .large-table table {
   background: transparent;
+  border-bottom: 2px solid #dddddd;
 }
 .large-table table tr td.name input {
   width: 97px;
@@ -7583,9 +7593,18 @@ form input[type="radio"] {
 }
 textarea {
   resize: vertical;
+  border: 1px solid #7c7c7c;
 }
 form .chosen-container-multi .chosen-choices {
   padding: 5px;
+}
+td.picture input {
+  border: 0;
+  padding: 0;
+}
+#id_data_file,
+#id_waveform_picture {
+  background: #ffffff;
 }
 /* Custom media queries for larger screens */
 /* Large devices (large desktops, 1200px and up) */
