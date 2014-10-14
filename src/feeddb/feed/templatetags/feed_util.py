@@ -1,5 +1,5 @@
 from django import template
-from django.db.models.loading import get_model
+from feeddb.feed.models import Techniques
 
 register = template.Library()
 
@@ -9,3 +9,7 @@ def model_help_text(obj):
         return obj.FeedMeta.__dict__
     except AttributeError:
         return {}
+
+@register.filter
+def technique_name(val):
+    return Techniques.num2label(val)
