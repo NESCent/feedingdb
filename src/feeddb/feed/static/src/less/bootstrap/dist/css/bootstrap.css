@@ -7511,6 +7511,9 @@ table tr td.notes textarea.vLargeTextField {
   height: 118px;
   width: 100%;
 }
+table tr td.position {
+  width: 40%;
+}
 .large-table {
   overflow: auto;
   border: 1px solid #dddddd;
