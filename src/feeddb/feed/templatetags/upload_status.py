@@ -54,3 +54,29 @@ def should_show_status(context, status):
             return True
 
     return False
+
+def get_status(context):
+    try:
+        status = context['request'].feed_upload_status
+    except (KeyError, AttributeError):
+        status = None
+    return status
+
+@register.inclusion_tag('upload_status/upload_status_current_containers.html', takes_context=True)
+def upload_status_current_containers(context):
+    # get the data for the upload status block, then remove the
+    try:
+        model_name = context['opts'].model_name
+    except KeyError as e:
+        raise ImproperlyConfigured('upload_status_block can only be used on admin view, change, or add pages; missing needed context variable: %s' % e)
+
+    status = get_status(context)
+    Model = get_model('feed', model_name)
+    ret = {}
+    if Model:
+        for fname, value in status._data.items():
+            if hasattr(Model, fname):
+                ret[fname] = value
+
+    ret['status_data'] = status._data
+    return ret

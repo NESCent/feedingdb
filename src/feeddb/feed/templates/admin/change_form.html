@@ -50,6 +50,12 @@
           {% endif %}
         </div>
       </div>
+      <div class="row">
+        <div class="col-xs-12">
+          {% load upload_status %}
+          {% upload_status_current_containers %}
+        </div>
+      </div>
     </div>
   </div>
 {% endblock %}
