@@ -37,7 +37,7 @@
     @pt-sans: 'PT Sans', sans-serif;
     @rockwell: 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
 
-body { background: url('../../../../../images/greyzz.png'); color: @navy; color: @navy-alpha;
+body { background: url('../../../../../images/satinweave.png'); color: @navy; color: @navy-alpha;
 
   /* Typography / Global */
 
@@ -98,6 +98,9 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
   a.btn.btn-default, .btn.btn-default { background: @goldenrod; background: @goldenrod-alpha;
     &:hover { background: @orange; background: @orange-alpha; color: @white; color: @white-alpha; }
   }
+  
+  /* Forms */
+  
   form {
     .row { margin-bottom: 20px;
       &.label { display: block; text-align: left; padding: 0; }
@@ -135,20 +138,25 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
       &.required { font-weight: 300 !important; }
     }
     input { height: 42px; }
-    input, textarea { border: 1px solid @tan; border: 1px solid @tan-alpha; background: @lt-tan; background: @lt-tan-alpha; padding: 7px 10px; font: 13px/26px @roboto, sans-serif; color: @tan; color: @tan-alpha; width: 100%; }
+    input, textarea { border: 1px solid @tan; border: 1px solid @tan-alpha; padding: 7px 10px; font: 13px/26px @roboto, sans-serif; color: @tan; color: @tan-alpha; width: 100%; }
     textarea { height: 120px; }
     button, input[type="button"], input[type="reset"], input[type="submit"] { background: @orange; background: @orange-alpha; color: @white; color: @white-alpha; font: 17px/26px @rockwell, serif; padding: 8px 0; -webkit-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); -moz-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); border: 0; text-align: center;
       &:hover { background: @goldenrod; background: @goldenrod-alpha; }
     }
   }
 
-  header { padding-top: 16px;
+/* Header */
+
+  header { padding: 16px 0 30px 0; background: @white; background: @white-alpha;
     .logo { float: left; background: url('../../../../../images/logo.png') no-repeat; background-size: 163px; height: 85px; padding: 63px 0 0 180px; font: 400 21px @pt-sans; color: @dk-orange; color: @dk-orange-alpha; }
     .login { float: right; font: 400 12px @roboto; color: @navy; color: @navy-alpha;
       a { color: @sky-blue; color: @sky-blue-alpha; }
     }
   }
-  nav { margin-top: 30px; background: @navy; background: @navy-alpha;
+
+/* Nav */
+
+  nav { background: @navy; background: @navy-alpha;
     ul { padding-left: 0;
       li { list-style-type: none; float: left; text-align: center;
         &:hover { background: @sky-blue; background: @sky-blue-alpha; }
@@ -192,7 +200,7 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
     }
   }
   &.home, &.about {
-    main { padding: 30px 0 54px 0; }
+    main { padding: 30px 0 54px 0; background: url('../../../../../images/greyzz.png'); }
     h1 { text-align: center; font: 40px @roboto; text-transform: uppercase; font-weight: 700; color: @muted-blue; color: @muted-blue-alpha;
       span { color: @orange; color: @orange-alpha; }
     }
