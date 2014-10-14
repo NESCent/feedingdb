@@ -28,7 +28,7 @@ class PositionBaseInlineFormSet(BaseInlineFormSet):
             if self.forms[0].fields.has_key("position"):
                 positions = []
                 for f in self.forms:
-                    p=f._raw_value("position")
+                    p=f.cleaned_data.get("position", None)
                     if p != None and p!="":
                         if f.fields.has_key('DELETE'): 
                             if f._raw_value('DELETE')!="on":
