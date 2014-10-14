@@ -6967,6 +6967,10 @@ body #subject_form fieldset td.notes textarea {
   width: 100%;
   height: 42px;
 }
+body #subject_form fieldset td.notes textarea.vLargeTextField {
+  height: 118px;
+  width: 100%;
+}
 body #subject_form .inline-group {
   margin-bottom: 30px;
 }
@@ -7002,16 +7006,6 @@ body #forcesetup_form fieldset td.notes textarea,
 body #pressuresetup_form fieldset td.notes textarea,
 body #eventsetup_form fieldset td.notes textarea {
   width: 120px;
-}
-body #kinematicssetup_form fieldset td.notes textarea.vLargeTextField,
-body #sonosetup_form fieldset td.notes textarea.vLargeTextField,
-body #emgsetup_form fieldset td.notes textarea.vLargeTextField,
-body #strainsetup_form fieldset td.notes textarea.vLargeTextField,
-body #forcesetup_form fieldset td.notes textarea.vLargeTextField,
-body #pressuresetup_form fieldset td.notes textarea.vLargeTextField,
-body #eventsetup_form fieldset td.notes textarea.vLargeTextField {
-  height: 118px;
-  width: 100%;
 }
 body #kinematicssetup_form fieldset td.picture,
 body #sonosetup_form fieldset td.picture,
@@ -7498,6 +7492,10 @@ table tr td p.file-upload span input {
 }
 table tr td p.file-upload span label {
   font-size: 15px;
+}
+table tr td.notes textarea.vLargeTextField {
+  height: 118px;
+  width: 100%;
 }
 .large-table {
   overflow: auto;
