@@ -1,0 +1,19 @@
+{% load i18n display feedmedia %}
+{% for r in registry %}
+	{% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
+		{% if has_change_permission %}
+			{% if tabbed and inline_admin_formset.opts.tabbed %}
+			<p>
+			<table width="50"><tr>
+			<td class="form-row">
+			<ul class="object-tools">
+			    <li><a class="addlink" href="/admin/{{opts.app_label}}/{% display_classname inline_admin_formset %}/add/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-plus-sign"></span>{% trans "Add " %}{{inline_admin_formset.opts.verbose_name}}</a></li>
+			</ul>
+			</td>
+			</tr>
+			</table>
+			</p >     
+			{% endif %}
+	   {% endif %}
+    {% endifequal %}
+{% endfor %}
