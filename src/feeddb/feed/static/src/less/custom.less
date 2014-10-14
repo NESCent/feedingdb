@@ -472,7 +472,12 @@ body { background: url('../../../../../images/greyzz.png'); color: @navy; color:
       td {
         &.original { width: 0; padding: 0; }
         &.notes { 
-          textarea { width: 120px; }
+          textarea { width: 120px;
+            &.vLargeTextField { height: 118px; width: 100%; }
+          }
+        }
+        &.picture { padding-right: 40px;
+          
         }
       }
     }
@@ -715,6 +720,15 @@ table {
     }
     td {
       &.action { width: 85px; }
+      p {
+        &.file-upload { position: relative; 
+          a { font-size: 15px; display: block; }
+          span { position: absolute; top: -4px; right: 0;
+            input { margin-top: 6px; }
+            label { font-size: 15px; }
+          }
+        }
+      }
     }
   }
 }
