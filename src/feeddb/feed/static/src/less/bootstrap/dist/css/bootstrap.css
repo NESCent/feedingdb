@@ -6167,12 +6167,15 @@ button.close {
 /* Colors */
 /* Typography */
 body {
-  background: url('../../../../../images/greyzz.png');
+  background: url('../../../../../images/satinweave.png');
   color: #112e4f;
   /* Typography / Global */
   /* Alerts */
   /* Modals */
   /* Buttons */
+  /* Forms */
+  /* Header */
+  /* Nav */
   /* Footer */
 }
 body h1 {
@@ -6355,7 +6358,6 @@ body form input {
 body form input,
 body form textarea {
   border: 1px solid #988674;
-  background: #e8e5e2;
   padding: 7px 10px;
   font: 13px/26px 'Roboto', sans-serif, sans-serif;
   color: #988674;
@@ -6385,7 +6387,8 @@ body form input[type="submit"]:hover {
   background: #f29a00;
 }
 body header {
-  padding-top: 16px;
+  padding: 16px 0 30px 0;
+  background: #ffffff;
 }
 body header .logo {
   float: left;
@@ -6405,7 +6408,6 @@ body header .login a {
   color: #007ecf;
 }
 body nav {
-  margin-top: 30px;
   background: #112e4f;
 }
 body nav ul {
@@ -6492,6 +6494,7 @@ body .object-tools a:hover {
 body.home main,
 body.about main {
   padding: 30px 0 54px 0;
+  background: url('../../../../../images/greyzz.png');
 }
 body.home h1,
 body.about h1 {
