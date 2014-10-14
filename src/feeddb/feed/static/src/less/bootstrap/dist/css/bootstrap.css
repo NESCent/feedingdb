@@ -7007,6 +7007,16 @@ body #pressuresetup_form fieldset td.notes textarea,
 body #eventsetup_form fieldset td.notes textarea {
   width: 120px;
 }
+body #kinematicssetup_form fieldset td.notes textarea.vLargeTextField,
+body #sonosetup_form fieldset td.notes textarea.vLargeTextField,
+body #emgsetup_form fieldset td.notes textarea.vLargeTextField,
+body #strainsetup_form fieldset td.notes textarea.vLargeTextField,
+body #forcesetup_form fieldset td.notes textarea.vLargeTextField,
+body #pressuresetup_form fieldset td.notes textarea.vLargeTextField,
+body #eventsetup_form fieldset td.notes textarea.vLargeTextField {
+  height: 118px;
+  width: 100%;
+}
 body #kinematicssetup_form fieldset td.picture,
 body #sonosetup_form fieldset td.picture,
 body #emgsetup_form fieldset td.picture,
@@ -7428,6 +7438,10 @@ table label {
 .error-text {
   color: red;
   margin-bottom: 0;
+}
+.error-text .glyphicon.glyphicon-asterisk {
+  padding: 0 2px 0 0;
+  color: red;
 }
 .chosen-container {
   width: 100% !important;
