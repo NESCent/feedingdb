@@ -51,8 +51,7 @@
         <div class="col-xs-10">
           <h1>{% if change %}Edit{% else %}{% if view %}View{% else %}Add{% endif %}{% endif %} {{ opts.verbose_name }}</h1>
         </div>
-        {% if 'experiment' == opts.model_name %}
-        {% elif 'kinematicssetup' == opts.model_name %}
+        {% if 'kinematicssetup' == opts.model_name %}
         {% elif 'sonossetup' == opts.model_name %}
         {% elif 'emgsetup' == opts.model_name %}
         {% elif 'strainsetup' == opts.model_name %}
@@ -98,6 +97,9 @@
 {% block content %}
 {% block technique %}
 {% endblock %}
+{% if 'experiment' == opts.model_name %}
+<div class="row">
+{% endif %}
   <div class="col-xs-9">
     <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% block form_top %}{% endblock %}
 
@@ -162,7 +164,7 @@
 <!--% submit_row % -->
 </div>
 </form>
-  </div>
+</div>
 {% endblock %}
 {% block sidebar %}
   {% load upload_status %}
