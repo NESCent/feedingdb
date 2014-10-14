@@ -18,11 +18,15 @@
     @dk-navy-alpha: rgba(9,25,42,1);
     @lt-blue: rgb(99,142,188);
     @lt-blue-alpha: rgba(99,142,188,1);
+    @hover-blue: rgb(122,159,198);
+    @hover-blue-alpha: rgba(122,159,198,1);
     
     @goldenrod: rgb(242,154,0);
     @goldenrod-alpha: rgb(242,154,0,1);
     @orange: rgb(218,84,0);
     @orange-alpha: rgba(218,84,0,1);
+    @hover-orange: rgb(224,109,38);
+    @hover-orange-alpha: rgba(224,109,38,1);
     @lt-orange: rgb(231,144,89);
     @lt-orange-alpha: rgba(231,144,89,1);
     @muted-orange: rgb(187,89,3);
@@ -95,10 +99,10 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
   a.btn, .btn { color: @white; color: @white-alpha; font: 17px/26px @rockwell, serif; padding: 8px 23px; -webkit-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); -moz-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); border: 0; width: 100%; border-radius: 0; margin-bottom: 20px;
   }
   a.btn.btn-primary, .btn.btn-primary { background: @orange; background: @orange-alpha;
-    &:hover { background: @goldenrod; background: @goldenrod-alpha; }
+    &:hover { background: @hover-orange; background: @hover-orange-alpha; }
   }
-  a.btn.btn-default, .btn.btn-default { background: @lt-orange; background: @lt-orange-alpha;
-    &:hover { background: @orange; background: @orange-alpha; color: @white; color: @white-alpha; }
+  a.btn.btn-default, .btn.btn-default { background: @lt-blue; background: @lt-blue-alpha;
+    &:hover { background: @hover-blue; background: @hover-blue-alpha; color: @white; color: @white-alpha; }
   }
   
   /* Forms */
@@ -143,7 +147,7 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
     input, textarea { border: 1px solid @tan; border: 1px solid @tan-alpha; padding: 7px 10px; font: 13px/26px @roboto, sans-serif; color: @tan; color: @tan-alpha; width: 100%; }
     textarea { height: 120px; }
     button, input[type="button"], input[type="reset"], input[type="submit"] { background: @orange; background: @orange-alpha; color: @white; color: @white-alpha; font: 17px/26px @rockwell, serif; padding: 8px 0; -webkit-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); -moz-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); border: 0; text-align: center;
-      &:hover { background: @goldenrod; background: @goldenrod-alpha; }
+      &:hover { background: @hover-orange; background: @hover-orange-alpha; }
     }
   }
 

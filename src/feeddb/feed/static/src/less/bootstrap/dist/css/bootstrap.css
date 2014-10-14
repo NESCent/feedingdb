@@ -6296,15 +6296,15 @@ body .btn.btn-primary {
 }
 body a.btn.btn-primary:hover,
 body .btn.btn-primary:hover {
-  background: #f29a00;
+  background: #e06d26;
 }
 body a.btn.btn-default,
 body .btn.btn-default {
-  background: #e79059;
+  background: #638ebc;
 }
 body a.btn.btn-default:hover,
 body .btn.btn-default:hover {
-  background: #da5400;
+  background: #7a9fc6;
   color: #ffffff;
 }
 body form .row {
@@ -6384,7 +6384,7 @@ body form button:hover,
 body form input[type="button"]:hover,
 body form input[type="reset"]:hover,
 body form input[type="submit"]:hover {
-  background: #f29a00;
+  background: #e06d26;
 }
 body header {
   padding: 16px 0 30px 0;
