@@ -1,3 +1,4 @@
+{% load feed_util %}
 {{ object.title }}
 {{ object.bookkeeping }}
 {{ object.session.title }}
@@ -42,6 +43,7 @@
 {{ object.session.experiment.impl_notes }}
 
 {% for setup in object.session.experiment.setup_set.all %}
+  {{ setup.technique|technique_name }}
   {{ setup.notes }}
   {% for illustration in setup.illustration_set.all %}
     {{ illustration.notes }}
@@ -50,7 +52,13 @@
     {{ sensor.name }}
     {{ sensor.location_freetext }}
     {{ sensor.notes }}
-    {# TODO: add more sensor fields. axes? electrode type? muscle name? #}
+    {{ sensor.emgsensor.muscle }}
+    {{ sensor.sonosensor.muscle }}
+
+    {% comment %}
+      Question: should I include other sensor fields that come from controlled
+      vocabularies? For example: axes? electrode type?
+    {% endcomment %}
   {% endfor %}
 {% endfor %}
 
@@ -69,8 +77,6 @@
   {{ channel.name }}
   {{ channel.notes }}
 {% endfor %}
-
-{# TODO: add setup type ("technique") here #}
 
 {{ object.position }}
 {{ object.start }}
