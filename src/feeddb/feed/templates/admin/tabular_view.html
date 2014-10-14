@@ -6,80 +6,19 @@
 {{ inline_admin_formset.formset.management_form }}
 <fieldset class="module">
   {% if not hide_formset_title %}
-    <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h2>
+    <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }} YOYO</h2>
   {% endif %}
    {{ inline_admin_formset.formset.non_form_errors }}
    <table class="table table-bordered table-striped">
-     <thead><tr>
-     {% for field in inline_admin_formset.fields %}
-       {% if not field.is_hidden  %}
-         <th>{{ field.label|capfirst }}</th>
-        {% endif %}
-     {% endfor %}
-
-     {% for r in registry %}
-        {% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
-		<!-- % if has_change_permission %}
-		{% if tabbed and inline_admin_formset.opts.tabbed % -->
-     		<th class="action_header">{% trans "Action" %}</th>
-	 	<!-- % endif %}
-	 	{% endif % -->
-	    {% endifequal %}
-{% endfor %}
-     </tr></thead>
+   {% include "admin/tabular_view_header.html" %}
 
   {% for inline_admin_form in inline_admin_formset %}
-	 {%ifnotequal inline_admin_form.original None %}
-        {% if inline_admin_form.form.non_field_errors %}
- 	        <tr><td colspan="{{ inline_admin_form.field_count }}">{{ inline_admin_form.form.non_field_errors }}</td></tr>
-        {% endif %}
-    	    <tr class="{% cycle row1,row2 %} {% if inline_admin_form.original or inline_admin_form.show_url %}has_original{% endif %}">
-	        {% for fieldset in inline_admin_form %}
-    		    {% for line in fieldset %}
-            		{% for field in line %}
-               			<td class="{{ field.field.name }}">
-              				{{ field.field.errors.as_ul }}
-              				{% display_readonly field inline_admin_form %}
-             			</td>
-            		{% endfor %}
-          		{% endfor %}
-        	{% endfor %}
-			{% for r in registry %}
-				{% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
-				<td class="action">
-    				{% if has_change_permission %}
-					    	<a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><span class="glyphicon glyphicon-eye-open"></span></a>
-			    		    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-pencil"></span></a></a>
-			 	    		<a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-remove"></span></a></a>
-                 {% else %}
-		    			<a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><span class="glyphicon glyphicon-eye-open"></span></a></a>
-    	 			{% endif %}	 
-    		    </td>
-				{% endifequal %}
-			{% endfor %}
-        </tr>
-	{%endifnotequal %}
+    {% include "admin/tabular_view_row.html" %}
   {% endfor %}
    </table>
 
-{% for r in registry %}
-	{% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
-		{% if has_change_permission %}
-			{% if tabbed and inline_admin_formset.opts.tabbed %}
-			<p>
-			<table width="50"><tr>
-			<td class="form-row">
-			<ul class="object-tools">
-			    <li><a class="addlink" href="/admin/{{opts.app_label}}/{% display_classname inline_admin_formset %}/add/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-plus-sign"></span>{% trans "Add " %}{{inline_admin_formset.opts.verbose_name}}</a></li>
-			</ul>
-			</td>
-			</tr>
-			</table>
-			</p >     
-			{% endif %}
-	   {% endif %}
-    {% endifequal %}
-{% endfor %}
+   {% include "admin/tabular_view_after_table.html" %}
+
 </fieldset>
   </div>
 
