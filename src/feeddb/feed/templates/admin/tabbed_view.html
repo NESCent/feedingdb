@@ -10,7 +10,7 @@
 
 {% block coltype %}colM{% endblock %}
 
-{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form view{% endblock %}
 
 {% if not is_popup %}
   {% block breadcrumbs %}
@@ -38,22 +38,11 @@
   <div class="masthead">
     <div class="container">
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-10">
           <h1>{% if change %}Edit{% else %}{% if view %}View{% else %}Add{% endif %}{% endif %} {{ opts.verbose_name }}</h1>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <hr />
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock %}
-
-{% block content %}
     {% block object-tools %}
-        <div class="col-xs-2 col-xs-offset-10 admin-tools">
+        <div class="col-xs-2 admin-tools">
           <ul class="object-tools object-tools-top float-right">
             {% if has_change_permission %}
               <li><a class="changelink" href="edit/" ><span class='glyphicon glyphicon-pencil'></span></a></li>
@@ -77,13 +66,21 @@
           </ul>
         </div>
       </div>
+    {% endblock %}
+      <div class="row">
+        <div class="col-xs-12">
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
-
+{% block content %}
 {% block technique %}
 {% endblock %}
-<div class="row">
-  <div class="col-xs-12">
+
+  <div class="col-xs-9">
     <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% block form_top %}{% endblock %}
 
       {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
@@ -139,7 +136,10 @@
   {% endfor %}
 <!--% submit_row % -->
 </div>
-</form>
+
 </div>
 {% endblock %}
-
+{% block sidebar %}
+  {% load upload_status %}
+  {% upload_status_block %}
+{% endblock %}
