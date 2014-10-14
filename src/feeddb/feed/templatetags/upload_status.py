@@ -36,8 +36,7 @@ def should_show_status(context, status):
         add = context.get('add', False)
 
     except KeyError as e:
-        # TODO: allow this, so we can work on view pages.
-        raise ImproperlyConfigured('upload_status_block can only be used on admin forms; missing needed context variable: %s' % e)
+        raise ImproperlyConfigured('upload_status_block can only be used on admin view, change, or add pages; missing needed context variable: %s' % e)
 
     Model = get_model('feed', model_name)
     from feeddb.feed.models import CvTerm, FeedBaseModel
