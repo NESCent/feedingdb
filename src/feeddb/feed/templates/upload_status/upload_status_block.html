@@ -21,22 +21,22 @@ Some useful variables:
         <li><a href="{{ study.get_absolute_url }}">Study: {{ study }}</a></li>
         <li>Subjects: {{ subjects|length }}
         {% for subject in subjects %}
-            <div><a href="{{ subject.get_absolute_url }}">{{ subject }}</a></div>
+            <div><a href="{{ subject.get_absolute_url }}/collapse1">{{ subject }}</a></div>
         {% endfor %}
         </li>
         <li>Experiments: {{ experiments|length }}
         {% for experiment in experiments %}
-            <div><a href="{{ experiment.get_absolute_url }}">{{ experiment }}</a></div>
+            <div><a href="{{ experiment.get_absolute_url }}/collapse2">{{ experiment }}</a></div>
         {% endfor %}
         </a></li>
         <li>Sessions: {{ sessions|length }}
         {% for session in sessions %}
-            <div><a href="{{ session.get_absolute_url }}">{{ session }}</a></div>
+            <div><a href="{{ session.get_absolute_url }}/collapse3">{{ session }}</a></div>
         {% endfor %}
         </li>
         <li>Trials: {{ trials|length}}
         {% for trial in trials %}
-            <div><a href="{{ trial.get_absolute_url }}">{{ trial }}</a></div>
+            <div><a href="{{ trial.get_absolute_url }}/collapse4">{{ trial }}</a></div>
         {% endfor %}
         </li>
         <li><a href="{{ study.get_absolute_url }}">Review</a></li>
