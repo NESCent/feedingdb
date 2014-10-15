@@ -2,6 +2,7 @@ from django.db.models.loading import get_model
 from django.db.models import ForeignKey
 from django.forms.models import ModelChoiceField
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from UserDict import UserDict
 # import the logging library
 import logging
@@ -23,6 +24,35 @@ class FeedUploadStatus():
     def __init__(self, session=None):
         self._session = session
         self._data = session.setdefault('feed_upload_status', {})
+
+    def update_with_querystring(self, GET):
+        """
+        Update status with QS pairs like "experiment=32&session=287". Argument
+        must be a QueryDict.
+
+        Returns the modified get_params if modifications were made; otherwise
+        returns False.
+        """
+        get_params = False
+        updated_params = False
+        for fname in FIELDS:
+            try:
+                pk = GET[fname]
+                obj = get_model('feed', fname).objects.get(pk=pk)
+            except (KeyError, ObjectDoesNotExist):
+                continue
+
+            self.update_with_object(obj)
+            if not get_params:
+                get_params = GET.copy()
+
+            del get_params[fname]
+            updated_params = True
+
+        if updated_params:
+            return get_params
+        else:
+            return False
 
     def update_with_object(self, obj, fail_silently=False):
         """
