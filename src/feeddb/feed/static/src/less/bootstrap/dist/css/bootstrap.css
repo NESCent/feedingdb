@@ -7636,6 +7636,10 @@ form .chosen-container-multi .chosen-choices {
 td.picture input {
   border: 0;
   padding: 0;
+  height: 28px;
+  padding: 6px 0 0 0;
+  position: relative;
+  overflow: visible;
 }
 #id_data_file,
 #id_waveform_picture {
@@ -7650,6 +7654,33 @@ td.picture input {
 }
 .panel-heading .accordion-toggle.collapsed:before {
   content: "\e080";
+}
+input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+input[type="file"]::before {
+  content: 'Browse';
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  -webkit-border-radius: 3px !important;
+  padding: 0 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+  position: absolute;
+  top: 0;
+}
+input[type="file"]:hover::before {
+  border-color: black;
+}
+input[type="file"]:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 /* Custom media queries for larger screens */
 /* Large devices (large desktops, 1200px and up) */
