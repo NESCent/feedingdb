@@ -6460,17 +6460,18 @@ body .masthead .context-block h2 {
   margin: 0;
   font-family: 'Roboto', sans-serif, sans-serif;
   color: #112e4f;
+  text-transform: capitalize;
 }
 body .masthead .context-block h3 {
   font: 22px/26px 'Roboto', sans-serif, sans-serif;
   color: #112e4f;
-  text-transform: none;
+  text-transform: capitalize;
   margin: 10px 0;
 }
 body .masthead .context-block h4 {
   font: 18px/18px 'Roboto', sans-serif, sans-serif;
   color: #112e4f;
-  text-transform: none;
+  text-transform: capitalize;
 }
 body .breadcrumbs ul {
   padding-left: 0;
