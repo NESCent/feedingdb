@@ -427,13 +427,19 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
     aside {
       .upload-steps { border-left: 0; }
     }
-
-    fieldset {
-      .row { margin-bottom: 10px;
-        label { margin: 0; }
+    #study_form, #trial_form {
+      fieldset {
+        .row {
+          label { margin: 0; }
+        }
       }
     }
-    
+    fieldset {
+      .row { 
+        label { margin: 0; line-height: normal; }
+        p { margin: 0; line-height: normal; }
+      }
+    } 
   }
   #ui-datepicker-div { background: @white; background: @white-alpha; border: 1px solid @tan; border: 1px solid @tan-alpha;
     .ui-datepicker-prev-hover, .ui-datepicker-next-hover { top: 2px; }
