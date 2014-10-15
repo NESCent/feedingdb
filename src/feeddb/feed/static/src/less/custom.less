@@ -415,7 +415,7 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
         h2 { margin-top: 17px; }
         ul { padding-left: 0;
           li { list-style-type: none; padding: 0 0 20px 0; font: 17px/26px @rockwell, serif; color: @muted-blue; color: @muted-blue-alpha;
-            .review { color: @orange; color: @orange-alpha; font-size: 17px; position: relative; display: block; width: 82px; height: 22px;
+            .review { font-size: 17px; position: relative; display: block; width: 82px; height: 22px;
               span { position: absolute; right: 0; }
             }
           }
@@ -838,7 +838,7 @@ td.picture {
 #id_data_file, #id_waveform_picture { background: @white; background: @white-alpha; padding: 12px 10px;
   &::before { top: 7px; }
 }
-.panel-heading .accordion-toggle:before { font-family: 'Glyphicons Halflings'; content: "\e114"; float: left; color: @orange; color: @orange-alpha; padding: 0 10px 0 0; }
+.panel-heading .accordion-toggle:before { font-family: 'Glyphicons Halflings'; content: "\e114"; float: right; color: @orange; color: @orange-alpha; padding: 0 10px 0 0; }
 .panel-heading .accordion-toggle.collapsed:before { content: "\e080"; }
 
 input[type="file"]::-webkit-file-upload-button {
@@ -885,5 +885,9 @@ input[type="file"]:active::before {
       }
     }
   }
+}
+
+@-moz-document url-prefix() {
+  fieldset { display: table-cell; }
 }
 

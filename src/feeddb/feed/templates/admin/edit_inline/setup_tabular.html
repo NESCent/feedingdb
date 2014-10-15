@@ -1,5 +1,4 @@
 {% load display i18n feedmedia admin_modify %}
-<div class="col-xs-9">
 <div class="inline-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
     {{ inline_admin_formset.formset.management_form }}
@@ -92,5 +91,5 @@
   {# <ul class="tools"> #}
   {#   <li><a class="add" href="">Add another {{ inline_admin_formset.opts.verbose_name|title }}</a></li> #}
   {# </ul> #}
-</div>
+
 </div>
