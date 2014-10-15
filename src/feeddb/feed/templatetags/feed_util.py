@@ -16,5 +16,4 @@ def technique_name(val):
 
 @register.filter
 def formset_length(formset):
-    return 0
     return len(formset.formset.initial_forms) + len(formset.formset.extra_forms)
