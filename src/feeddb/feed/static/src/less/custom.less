@@ -835,7 +835,9 @@ form {
 td.picture {
   input { border: 0; padding: 0; height: 28px; padding: 6px 0 0 0; position: relative; overflow: visible; }
 }
-#id_data_file, #id_waveform_picture { background: @white; background: @white-alpha; }
+#id_data_file, #id_waveform_picture { background: @white; background: @white-alpha; padding: 12px 10px;
+  &::before { top: 7px; }
+}
 .panel-heading .accordion-toggle:before { font-family: 'Glyphicons Halflings'; content: "\e114"; float: left; color: @orange; color: @orange-alpha; padding: 0 10px 0 0; }
 .panel-heading .accordion-toggle.collapsed:before { content: "\e080"; }
 

@@ -7650,6 +7650,11 @@ td.picture input {
 #id_data_file,
 #id_waveform_picture {
   background: #ffffff;
+  padding: 12px 10px;
+}
+#id_data_file::before,
+#id_waveform_picture::before {
+  top: 7px;
 }
 .panel-heading .accordion-toggle:before {
   font-family: 'Glyphicons Halflings';
