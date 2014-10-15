@@ -63,21 +63,6 @@
           {% if action_form and actions_on_bottom and cl.full_result_count %}
             {% admin_actions %}
           {% endif %}
-          {% if has_add_permission %}
-            {% if experiment %}
-              {% if has_change_permission %}
-                <table class="session-add">
-                  <tr>
-                    <td class="form-row">
-                      <ul class="object-tools">
-                        <li><a href="add/?experiment={{experiment.pk}}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add Session</a></li>
-                      </ul>
-                    </td>
-                  </tr>
-                </table>
-              {% endif %}
-            {% endif %}
-          {% endif %}
         {% endblock %}
       </div>
     </div>

@@ -15,9 +15,9 @@ class Bucket(feedmodels.FeedBaseModel):
     def __unicode__(self):
         return self.title
 
+    class Meta:
+        verbose_name = "Collection"
 
 class TrialInBucket(models.Model):
     trial = models.ForeignKey(feedmodels.Trial)
     bin = models.ForeignKey(Bucket)
-
-

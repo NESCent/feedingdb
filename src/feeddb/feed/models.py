@@ -8,13 +8,13 @@ import datetime
 from django.db.models.expressions import F
 
 
-DATETIME_HELP_TEXT = 'For older dates, type by hand "yyyy-mm-dd" for example "1990-10-22"'
+DATETIME_HELP_TEXT = ''
 # Only used for Trial here; the other containers are are affected through forms.py -- go figure (VG)
 BOOKKEEPING_HELP_TEXT = 'Enter any text required for lab bookkeeping concerning the Study here'
 
 class FeedUserProfile(models.Model):
     user = models.OneToOneField(User, primary_key=True)
-    institutional_affiliation = models.CharField(max_length=255)
+    institutional_affiliation = models.CharField(max_length=255, blank=True)
 
     def __unicode__(self):
         return u'Profile of user: %s' % self.user.username
@@ -69,11 +69,16 @@ class OwlTerm(models.Model):
     bfo_part_of_some = models.ManyToManyField('self',
         symmetrical=False, related_name='has_parts')
 
+    synonyms_comma_separated = models.CharField(max_length=1500, null=True)
+
     class Meta:
         abstract = True
 
     def __unicode__(self):
-        return self.label
+        if self.synonyms_comma_separated:
+            return "%s; aka %s" % (self.label, self.synonyms_comma_separated)
+        else:
+            return self.label
 
     def cloneable(self):
         return False
@@ -117,11 +122,31 @@ class MuscleOwl(OwlTerm):
             # the ultimate ancestor class for muscles
             #
             # URI: http://purl.obolibrary.org/obo/UBERON_0001630
-            rdfs_subClassOf_ancestors__label='muscle organ'
+            rdfs_subClassOf_ancestors__uri='http://purl.obolibrary.org/obo/UBERON_0001630'
         )
 
 class BehaviorOwl(OwlTerm):
-    pass
+
+    @staticmethod
+    def default_qs_filter_args():
+        # TODO: fix the restrictions below based on feedback from client
+        return dict(rdfs_is_class=True)
+        return dict(
+            # This is the "behavior" class, which may or may not be an appropriate filter
+            rdfs_subClassOf_ancestors__uri=u'http://purl.obolibrary.org/obo/OPBO_0000011'
+
+            # Other options include:
+            #
+            # >>> print "\n".join(["%s - %s" % (b.uri, b.label) for b in BehaviorOwl.objects.filter(label__contains='behavior') ])
+            # http://purl.obolibrary.org/obo/GO_0051705 - multi-organism behavior
+            # http://purl.obolibrary.org/obo/OPBO_0000012 - oral/pharyngeal behavior
+            # http://purl.obolibrary.org/obo/OPBO_0000011 - behavior
+            # http://purl.obolibrary.org/obo/OPBO_0000017 - feeding behavior
+            # http://purl.obolibrary.org/obo/OPBO_0000018 - ingestion behavior
+            # http://purl.obolibrary.org/obo/GO_0007610 - behavior
+            # http://purl.obolibrary.org/obo/GO_0007631 - feeding behavior
+            #
+        )
 
 #cvterms
 class CvTerm(FeedBaseModel):
@@ -157,6 +182,7 @@ TECHNIQUE_CHOICES = (
                (5, u'Pressure'),
                (6, u'Kinematics'),
                (7, u'Time/Event'),
+               (8, u'Other'),
                )
 
 TECHNIQUE_CHOICES_NAMED = (
@@ -182,6 +208,7 @@ class Techniques(object):
         pressure = 5
         kinematics = 6
         event = 7
+        other = 8
 
     @classmethod
     def num2label(cls, num):
@@ -212,6 +239,8 @@ class Techniques(object):
             return KinematicsSetup
         elif technique == cls.ENUM.event:
             return EventSetup
+        elif technique == cls.ENUM.other:
+            return OtherSetup
 
 class Taxon(CvTerm):
     genus = models.CharField(max_length=255)
@@ -300,10 +329,8 @@ class Study(FeedBaseModel):
     title = models.CharField(max_length=255,
                              help_text = "Enter a short title for the Study here")
     bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
-    start = models.DateField("Start Date", blank = False, null=False,
-                             help_text = "The date that data collection for this Study began")
-    end = models.DateField("End Date", blank = True, null=True,
-                             help_text = "The date that data collection for this Study ended")
+    start = models.DateField("Start Date", null=False)
+    end = models.DateField("End Date", blank = True, null=True)
     funding_agency = models.CharField(max_length=255, blank = True, null=True,
                              help_text = "The agency that funded the research")
 
@@ -364,13 +391,12 @@ class Subject(FeedBaseModel):
         return self.name
 
 class Experiment(FeedBaseModel):
-    accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255)
     bookkeeping = models.CharField("Bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     study = models.ForeignKey(Study)
     subject = models.ForeignKey(Subject)
-    start = models.DateTimeField( blank = True, null=True)
-    end = models.DateTimeField(blank = True, null=True)
+    start = models.DateField("Start Date", null=True, help_text=DATETIME_HELP_TEXT)
+    end = models.DateField("End Date", blank = True, null=True, help_text=DATETIME_HELP_TEXT)
     description = models.TextField(blank = True, null=True)
     subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="Subject Development Stage")
     subj_age = models.DecimalField("Subject Age",max_digits=19, decimal_places=5, blank = True, null=True,
@@ -386,26 +412,56 @@ class Experiment(FeedBaseModel):
 
     def has_setup_type(self, name, freshen=False):
         """
-        Determine if the experiment has a setup of the specified type. Uses an
-        instance variable to cache results of the query; pass "freshen=True" to
-        force a new query.
+        Determine if the experiment has a setup of the specified type.
         """
-        if not hasattr(self, '_setups') or freshen:
-            self._setups = list(self.setup_set.all())
-
-        for setup in self._setups:
+        for setup in self.get_setups(freshen):
             if hasattr(setup, name):
                 return True
         return False
 
+    def get_setups(self, freshen=False):
+        """
+        Uses an instance variable to cache results of the query; pass
+        "freshen=True" to force a new query.
+        """
+        if not hasattr(self, '_setups') or freshen:
+            self._setups = list(self.setup_set.order_by('pk'))
+
+        return self._setups
+
+    def get_setups_with_type(self, freshen=False):
+        if not hasattr(self, '_setup_types') or freshen:
+            self._setup_types = self._get_setup_types(self.get_setups(freshen=freshen))
+
+        return zip(self._setup_types, self._setups)
+
+    @staticmethod
+    def _get_setup_types(setups):
+        types = []
+        for setup in setups:
+            for setup_name, label in TECHNIQUE_CHOICES_NAMED:
+                if hasattr(setup, setup_name):
+                    types.append(setup_name)
+                    break
+            else:
+                # if no known type was found, save "unknown" as the type
+                types.append('unknown')
+
+        return types
+
 class Setup(FeedBaseModel):
     is_cloneable=False
+    study = models.ForeignKey(Study)
     experiment = models.ForeignKey(Experiment)
     technique = models.IntegerField(choices=Techniques.CHOICES)
     notes = models.TextField("Notes about all sensors and channels in this setup", blank = True, null=True)
     sampling_rate = models.IntegerField("Sampling Rate (Hz)", blank=True, null=True)
     class Meta:
         verbose_name = "Setup"
+
+    def save(self):
+        self.study = self.experiment.study
+        return super(Setup, self).save()
 
 class EmgSetup(Setup):
     preamplifier = models.CharField(max_length=255, blank = True, null=True)
@@ -442,8 +498,18 @@ class EventSetup(Setup):
     class Meta:
         verbose_name = "Time/Event Setup"
 
+class OtherSetup(Setup):
+    class Meta:
+        verbose_name = "Other Setup"
+
+    class FeedMeta:
+        help_text = """
+        This sensor type should be used only if your sensors don't fit into any
+        of the other categories.
+        """
 
 class Sensor(FeedBaseModel):
+    study = models.ForeignKey(Study, null=True)
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length=255)
 
@@ -460,26 +526,41 @@ class Sensor(FeedBaseModel):
     def __unicode__(self):
         return self.name
 
+    def save(self):
+        self.study = self.setup.study
+        return super(Sensor, self).save()
+
 class EmgSensor(Sensor):
-    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=False,
+    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
-    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True)
+    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
 
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="Electrode Depth", blank = True, null=True )
     electrode_type = models.ForeignKey(ElectrodeType,
         verbose_name="Electrode Type", blank = True, null=True )
 
     def __unicode__(self):
-        return 'EMG Sensor: %s (Muscle: %s, Side: %s) '  % (self.name, self.location_controlled.label, self.loc_side.label)
+        subs = { 'name': self.name }
+        try:
+            subs['muscle'] = self.muscle.label
+        except AttributeError:
+            subs['muscle'] = 'None'
+
+        try:
+            subs['side'] = self.loc_side.label
+        except AttributeError:
+            subs['side'] = 'None'
+
+        return 'EMG Sensor: %(name)s (Muscle: %(muscle)s, Side: %(side)s)' % subs
 
     class Meta:
         verbose_name = "EMG Electrode"
         ordering = ["id"]
 
 class SonoSensor(Sensor):
-    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=False,
+    location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
-    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True)
+    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
 
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="Crystal Depth", blank = True, null=True )
     def __unicode__(self):
@@ -506,6 +587,7 @@ class KinematicsSensor(Sensor):
 
 
 class Channel(FeedBaseModel):
+    study = models.ForeignKey(Study, null=True)
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length = 255)
     rate = models.IntegerField("Recording Rate (Hz)")
@@ -513,6 +595,10 @@ class Channel(FeedBaseModel):
 
     def __unicode__(self):
         return self.name
+
+    def save(self):
+        self.study = self.setup.study
+        return super(Channel, self).save()
 
 class EmgChannel(Channel):
     unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : Techniques.ENUM.emg},
@@ -522,7 +608,18 @@ class EmgChannel(Channel):
     emg_amplification = models.IntegerField(blank=True,null=True,verbose_name = "Amplification")
 
     def __unicode__(self):
-        return 'EMG Channel: %s (Muscle: %s, Side: %s) '  % (self.name, self.sensor.location_controlled.label, self.sensor.loc_side.label)
+        subs = { 'name': self.name }
+        try:
+            subs['muscle'] = self.sensor.muscle.label
+        except AttributeError:
+            subs['muscle'] = 'None'
+
+        try:
+            subs['side'] = self.sensor.loc_side.label
+        except AttributeError:
+            subs['side'] = 'None'
+
+        return 'EMG Channel: %(name)s (Muscle: %(muscle)s, Side: %(side)s) '  % subs
     class Meta:
         verbose_name = "EMG Channel"
 
@@ -573,16 +670,19 @@ class EventChannel(Channel):
     class Meta:
         verbose_name = "Time/Event Channel"
 
+class OtherChannel(Channel):
+    #Note: An OtherChannel is not associated with any Sensor
+    class Meta:
+        verbose_name = "Other Channel"
 
 class Session(FeedBaseModel):
-    accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255)
     bookkeeping = models.CharField("Bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     study = models.ForeignKey(Study)
     experiment = models.ForeignKey(Experiment)
     position = models.IntegerField(help_text='The numeric position of this recording session among the other sessions within the current experiment.')
-    start = models.DateTimeField(blank = True, null=True)
-    end = models.DateTimeField(blank = True, null=True)
+    start = models.DateField("Start Date", null=True, help_text=DATETIME_HELP_TEXT)
+    end = models.DateField("End Date", blank = True, null=True, help_text=DATETIME_HELP_TEXT)
     subj_notes = models.TextField("Subject Notes", blank = True, null=True)
     subj_restraint = models.ForeignKey(Restraint,verbose_name="Subject Restraint")
     subj_anesthesia_sedation = models.CharField("Subject Anesthesia / Sedation", max_length=255,  blank = True, null=True)
@@ -609,15 +709,14 @@ def get_data_upload_to(instance, filename):
     return 'data/study_%d/experiment_%d/session_%d/%s' % (study.id, experiment.id,session.id, filename)
 
 class Trial(FeedBaseModel):
-    accession = models.CharField(max_length=255, blank = True, null=True)
     title = models.CharField(max_length=255)
     bookkeeping = models.CharField("Bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     session = models.ForeignKey(Session)
     experiment = models.ForeignKey(Experiment)
     study = models.ForeignKey(Study)
     position = models.IntegerField(help_text='The numeric position of this trial among the other trials within the current recording session.')
-    start = models.DateTimeField( blank = True, null=True, help_text = DATETIME_HELP_TEXT)
-    end = models.DateTimeField(blank = True, null=True, help_text = DATETIME_HELP_TEXT)
+    start = models.DateField("Start Date", null=True, help_text = DATETIME_HELP_TEXT)
+    end = models.DateField("End Date", blank = True, null=True, help_text = DATETIME_HELP_TEXT)
     subj_treatment = models.TextField("Subject Treatment",blank = True, null=True)
     subj_notes = models.TextField("Subject Notes", blank = True, null=True)
 
@@ -625,11 +724,21 @@ class Trial(FeedBaseModel):
     food_size = models.CharField("Food Size (maximum dimension millimeters)", max_length=255,blank = True, null=True)
     food_property = models.CharField("Food Property", max_length=255,blank = True, null=True)
 
-    behavior_primary = models.ForeignKey(Behavior,verbose_name="Primary Behavior", null=True)
-    behaviorowl_primary = models.ForeignKey(BehaviorOwl, verbose_name="Primary Behavior (OWL)", null=True, related_name="primary_in_trials")
+    is_calibration = models.BooleanField("Calibration:", help_text="Clicking Calibration means that the trial data you upload will be for a calibration file that does not contain any feeding behavior.", default=False)
 
+    # deprecated in FEED2
+    behavior_primary = models.ForeignKey(Behavior, verbose_name="Primary Behavior", null=True, blank=True)
+
+    behaviorowl_primary = models.ForeignKey(BehaviorOwl,
+        verbose_name="Feeding Behavior",
+        null=True,
+        blank=True,
+        related_name="primary_in_trials",
+        limit_choices_to=BehaviorOwl.default_qs_filter_args(),
+        help_text="You must choose a Feeding Behavior unless you have checked that this is a Calibration Trial.")
+
+    # deprecated in FEED2
     behavior_secondary = models.CharField("Secondary Behavior", max_length=255,blank = True, null=True)
-    behaviorowl_secondary = models.ForeignKey(BehaviorOwl, verbose_name="Secondary Behavior (OWL)", null=True, related_name="secondary_in_trials")
 
     behavior_notes = models.TextField("Behavior Notes", blank = True, null=True)
 

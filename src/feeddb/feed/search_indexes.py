@@ -72,9 +72,6 @@ class TrialIndex(SearchIndex, Indexable):
     behaviorowl_primary = CharField(model_attr='behaviorowl_primary', null=True)
     behaviorowl_primary_ancestors = MultiValueField(faceted=True)
     behaviorowl_primary_part_of = MultiValueField(faceted=True)
-    behaviorowl_secondary = CharField(model_attr='behaviorowl_secondary', null=True)
-    behaviorowl_secondary_ancestors = MultiValueField(faceted=True)
-    behaviorowl_secondary_part_of = MultiValueField(faceted=True)
 
     techniques = MultiValueField(indexed=False, stored=True, faceted=True)
 
@@ -114,21 +111,9 @@ class TrialIndex(SearchIndex, Indexable):
 
     @fail_with_return_value([])
     #@unicodeify_list
-    def prepare_behaviorowl_secondary_ancestors(self, obj):
-        # TODO: should we be including the original behaviorowl here?
-        return obj.behaviorowl_secondary.ancestor_classes_inclusive()
-
-    @fail_with_return_value([])
-    #@unicodeify_list
     def prepare_behaviorowl_primary_part_of(self, obj):
         # TODO: should we be including the original behaviorowl here?
         return obj.behaviorowl_primary.part_of_classes_inclusive()
-
-    @fail_with_return_value([])
-    #@unicodeify_list
-    def prepare_behaviorowl_secondary_part_of(self, obj):
-        # TODO: should we be including the original behaviorowl here?
-        return obj.behaviorowl_secondary.part_of_classes_inclusive()
 
     def prepare(self, obj):
         """

@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.core.management.base import BaseCommand, CommandError
 from django.core.exceptions import ObjectDoesNotExist
-from feeddb.feed.models import MuscleOwl, AnatomicalLocation
+from feeddb.feed.models import MuscleOwl, AnatomicalLocation, EmgSensor, SonoSensor
 
 class Command(BaseCommand):
     args = '<file>'
@@ -9,28 +9,34 @@ class Command(BaseCommand):
 
     def handle(self, filename, *args, **options):
         import csv
-        
+
         qs = MuscleOwl.objects.filter(**MuscleOwl.default_qs_filter_args())
 
         with open(filename, 'rU') as csvfile:
             reader = csv.DictReader(csvfile, delimiter=',', quotechar='"')
             for row in reader:
-                al_pk = row['pk']
-                owl_uri = row['uri']
-                owl_label = row['label MFMO FEED2 including new mammal muscles (yellow)']
+                try:
+                    al_pk = long(row['pk'])
+                    owl_uri = row['uri']
+                except ValueError:
+                    # usually means that row['pk'] is not a valid long; skip
+                    # this row.
+                    continue
 
-                if al_pk:
-                    al_pk = long(al_pk)
+                al = AnatomicalLocation.objects.get(id=al_pk)
+                if al:
                     try:
-                        try: 
-                            match = qs.filter(label__iexact=owl_label).get()
-                        except ObjectDoesNotExist:
-                            match = qs.filter(label__iexact=(owl_label + " muscle")).get()
+                        match = qs.filter(uri__iexact=owl_uri).get()
                     except ObjectDoesNotExist:
-                        print "No match for %d" % al_pk
-                        continue
+                        print "No match for %d: %s" % (al_pk, owl_uri)
+                        match = None
 
-                    al = AnatomicalLocation.objects.get(id=al_pk)
                     al.ontology_term = match
                     al.save()
+
+        # Now we can update the actual sensors
+        for Sensor in (EmgSensor, SonoSensor):
+            for s in Sensor.objects.filter(location_controlled__ontology_term__isnull=False):
+                s.muscle = s.location_controlled.ontology_term
+                s.save()
 

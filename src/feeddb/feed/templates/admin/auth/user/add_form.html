@@ -20,39 +20,43 @@
 
 {% block content %}
   <div class="col-xs-9">
-  <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">
-    {% csrf_token %}
-    {% block form_top %}{% endblock %}
-    {% if is_popup %}
-    <input type="hidden" name="_popup" value="1" />
-    {% endif %}
-    {% if errors %}
-    <div class="row">
-      <div class="col-xs-11">
-        <div class="messages alert alert-error">
-          <p>
-          {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
-          </p>
-          <div class="errorlist">{% for error in adminform.form.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>
+    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">
+      {% csrf_token %}
+      {% block form_top %}
+      {% endblock %}
+      {% if is_popup %}
+      <input type="hidden" name="_popup" value="1" />
+      {% endif %}
+      {% if errors %}
+      <div class="row">
+        <div class="col-xs-11">
+          <div class="messages alert alert-error">
+            <p>
+            {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+            </p>
+            <div class="errorlist">{% for error in adminform.form.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>
+          </div>
         </div>
       </div>
-    </div>
-    {% endif %}
-    <p class="required-notice"><span class="glyphicon glyphicon-asterisk"></span> Required fields</p>
-    {% for fieldset in adminform %}
-      {% if 'user' == opts.model_name %}
-        {% include "admin/includes/fieldset_users.html" %}
-      {% else %}
-        {% include "admin/includes/fieldset.html" %}
       {% endif %}
-    {% endfor %}
-    </div>
-    <div class="row">
-      <div class="col-xs-4 col-xs-offset-3">
-        <input type="submit" value="{% trans 'Save &amp; Add Details' %}" name="_continue" {{ onclick_attrib }}/>
+      <p class="required-notice"><span class="glyphicon glyphicon-asterisk"></span> Required fields</p>
+      {% for fieldset in adminform %}
+        {% if 'user' == opts.model_name %}
+          {% include "admin/includes/fieldset_users.html" %}
+        {% else %}
+          {% include "admin/includes/fieldset.html" %}
+        {% endif %}
+      {% endfor %}
+      {% for inline_admin_formset in inline_admin_formsets %}
+        {% include "admin/edit_inline/hidden.html" %}
+      {% endfor %}
+      <div class="row">
+        <div class="col-xs-4 col-xs-offset-3">
+          <input class="btn btn-primary" type="submit" value="{% trans 'Save &amp; Add Details' %}" name="_continue" {{ onclick_attrib }}/>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
 {% endblock content %}
 

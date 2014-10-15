@@ -1,6 +1,6 @@
-{% load i18n %}
+{% load i18n admin_urls %}
 <div class="row actions">
-  <div class="col-xs-10">
+  <div class="col-xs-8">
 {% for field in action_form %}
     <label class="action">{{ field.label }}</label>
     <label>
@@ -9,13 +9,10 @@
   {% endfor %}
     <button type="submit" class="button" title="{% trans "Run the selected action" %}" name="index" value="{{ action_index|default:0 }}">{% trans "Go" %}</button>
   </div>
-  <div class="col-xs-2">
+  <div class="col-xs-4">
     <div class="float-right">
-      {% if cl.has_filters %}
-      <a href="{% url "admin:auth_user_add" %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add User</a>
-      {% else %}
-      <a href="{% url "admin:auth_group_add" %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add Group</a>
-      {% endif %}
+      {% url cl.opts|admin_urlname:'add' as add_url %}
+      <a href="{% add_preserved_filters add_url is_popup %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add {{ cl.opts.verbose_name }}</a>
     </div>
   </div>
 </div>

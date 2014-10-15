@@ -20,12 +20,18 @@ $( document ).ready(function() {
 
   $("[data-toggle=tooltip]").tooltip();
 
-  $( ".datepicker" ).datepicker();
+  $( ".datepicker" ).datepicker({dateFormat: "yy-mm-dd" });
 
   // Allow Bootstrap's data-toggle="collapse" to work on <option> elements by
   // triggering the click event when the option is selected.
   $("select").on('change', function(ev) {
     $(ev.target).find('option:selected').click();
   });
+  
+  $('.download-picture .glyphicon-picture').addClass('glyphicon-save');
+  $('.download-picture .glyphicon-picture').removeClass('glyphicon-picture');
+
+  $('.data_file .glyphicon-picture').addClass('glyphicon-save');
+  $('.data_file .glyphicon-picture').removeClass('glyphicon-picture');
 
 });

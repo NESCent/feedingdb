@@ -1,0 +1,32 @@
+{% load display i18n feedmedia %}
+{# included from admin/tabular_view.html #}
+	 {%ifnotequal inline_admin_form.original None %}
+        {% if inline_admin_form.form.non_field_errors %}
+ 	        <tr><td colspan="{{ inline_admin_form.field_count }}">{{ inline_admin_form.form.non_field_errors }}</td></tr>
+        {% endif %}
+    	    <tr class="{% cycle row1,row2 %} {% if inline_admin_form.original or inline_admin_form.show_url %}has_original{% endif %}">
+	        {% for fieldset in inline_admin_form %}
+    		    {% for line in fieldset %}
+            		{% for field in line %}
+               			<td class="{{ field.field.name }}">
+              				{{ field.field.errors.as_ul }}
+              				{% display_readonly field inline_admin_form %}
+             			</td>
+            		{% endfor %}
+          		{% endfor %}
+        	{% endfor %}
+			{% for r in registry %}
+				{% ifequal r inline_admin_formset.opts.verbose_name.lower  %}
+				<td class="action">
+    				{% if has_change_permission %}
+					    	<a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><span class="glyphicon glyphicon-eye-open"></span></a>
+			    		    <a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/edit/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-pencil"></span></a></a>
+			 	    		<a  href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/delete/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-remove"></span></a></a>
+                 {% else %}
+		    			<a href="/admin/{{opts.app_label}}/{% display_classname inline_admin_form %}/{{inline_admin_form.original.id}}/" ><span class="glyphicon glyphicon-eye-open"></span></a></a>
+    	 			{% endif %}	 
+    		    </td>
+				{% endifequal %}
+			{% endfor %}
+        </tr>
+	{%endifnotequal %}
