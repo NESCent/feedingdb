@@ -51,13 +51,6 @@
         <div class="col-xs-10">
           <h1>{% if change %}Edit{% else %}{% if view %}View{% else %}Add{% endif %}{% endif %} {{ opts.verbose_name }}</h1>
         </div>
-        {% if 'kinematicssetup' == opts.model_name %}
-        {% elif 'sonossetup' == opts.model_name %}
-        {% elif 'emgsetup' == opts.model_name %}
-        {% elif 'strainsetup' == opts.model_name %}
-        {% elif 'forcesetup' == opts.model_name %}
-        {% elif 'pressuresetup' == opts.model_name %}
-        {% else %}
           {% block object-tools %}
           <div class="col-xs-2 admin-tools">
             <ul class="object-tools object-tools-top float-right">
@@ -83,7 +76,6 @@
             </ul>
           </div>
           {% endblock %}
-        {% endif %}
       </div>
       <div class="row">
         <div class="col-xs-12">
@@ -98,6 +90,21 @@
 {% block technique %}
 {% endblock %}
 {% if 'experiment' == opts.model_name %}
+<div class="row">
+{% elif 'eventsetup' == opts.model_name %}
+<div class="row">
+{% elif 'sonosetup' == opts.model_name %}
+<div class="row">
+{% elif 'kinematicssetup' == opts.model_name %}
+<div class="row">
+{% elif 'strainsetup' == opts.model_name %}
+<div class="row">
+{% elif 'forcesetup' == opts.model_name %}
+<div class="row">
+{% elif 'pressuresetup' == opts.model_name %}
+<div class="row">
+{% elif 'othersetup' == opts.model_name %}
+<div class="row">
 {% elif 'emgsetup' == opts.model_name %}
 <div class="row">
 {% endif %}

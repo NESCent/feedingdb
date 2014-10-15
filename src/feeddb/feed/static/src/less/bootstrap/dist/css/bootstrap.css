@@ -7503,6 +7503,9 @@ table label {
 .addlink.collections {
   padding-left: 10px;
 }
+.table {
+  margin-bottom: 0;
+}
 table tr.clickable td:first-child {
   width: auto;
 }
