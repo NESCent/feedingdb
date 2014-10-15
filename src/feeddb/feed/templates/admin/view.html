@@ -123,7 +123,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="accordion-toggle">
           {{ opts.verbose_name|capfirst }}
         </a>
       </h3>
@@ -141,7 +141,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}" class="accordion-toggle collapsed">
               {{ inline_admin_formset.opts.verbose_name_plural|capfirst }}
             </a>
           </h3>
