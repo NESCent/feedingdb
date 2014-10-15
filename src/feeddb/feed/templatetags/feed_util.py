@@ -25,7 +25,7 @@ def add_new_to_container_url(regrouped):
     try:
         container = regrouped['grouper']
         containertypename = type(container).__name__.lower()
-        subtypename = type(regrouped['list'].pop().original).__name__.lower()
+        subtypename = type(regrouped['list'][0].original).__name__.lower()
         return reverse('admin:feed_%s_add' % subtypename) + '?%s=%d' % (containertypename, container.id)
     except KeyError:
         raise ImproperlyConfigured('add_new_to_container_url requires as an argument a "regrouped" item container')
