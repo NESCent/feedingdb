@@ -129,6 +129,15 @@ class SessionChangeForm(forms.ModelForm):
         }
 
 class TrialChangeForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(TrialChangeForm, self).clean()
+        is_calibration = cleaned_data['is_calibration']
+        behavior = cleaned_data['behaviorowl_primary']
+        if behavior is None and not is_calibration:
+            raise ValidationError('You must either check "Calibration" or choose a behavior')
+
+        return cleaned_data
+
     class Meta:
         widgets = {
             'start': DateInput(attrs={'class':'datepicker'}),
