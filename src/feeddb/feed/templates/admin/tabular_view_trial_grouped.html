@@ -12,8 +12,15 @@
     {% regroup inline_admin_formset by original.session as trials_by_session %}
     {% for trials in trials_by_session %}
       {% ifnotequal trials.grouper None %}
-          <h4>{{ trials.grouper }}</h4>
-          <table class="table table-bordered table-striped">
+        <div class="row">
+          <div class="col-xs-9">
+            <h4>{{ trials.grouper }}</h4>
+          </div>
+          <div class="col-xs-3">
+            <h3 class="overview-add"><a class="addlink" href="/admin/{{opts.app_label}}/{% display_classname inline_admin_formset %}/add/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-plus-sign"></span>{% trans "Add Another " %}{{inline_admin_formset.opts.verbose_name}}</a></h3>
+          </div>
+        </div>
+          <table class="table table-bordered table-striped overview">
           {% include "admin/tabular_view_header.html" %}
           {% for inline_admin_form in trials.list %}
             {% include "admin/tabular_view_row.html" %}

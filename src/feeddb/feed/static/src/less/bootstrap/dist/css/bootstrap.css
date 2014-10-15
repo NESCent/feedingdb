@@ -6803,6 +6803,9 @@ body main table#change-history th.date {
 body main table#change-history th.user {
   width: 20%;
 }
+body main table.overview td.position {
+  width: 10%;
+}
 body main .records-selection {
   margin-bottom: 30px;
 }
@@ -7398,7 +7401,7 @@ body.change-form main form fieldset .datetime input:last-child {
 }
 body.change-form main .overview-add {
   float: right;
-  margin: 0;
+  margin: 9px 0 0 0;
   text-transform: capitalize;
 }
 body.change-form main .overview-add span {
