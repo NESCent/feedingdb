@@ -21,6 +21,7 @@ class ExperimentViewInline(FeedTabularInline):
     tabbed = True
     fields = ['title', 'subject','subj_devstage','start','end']
     tab_name = "Experiments"
+    template = 'admin/tabular_view.html'
 
 class IllustrationInline(FeedTabularInline):
     model = Illustration
@@ -31,20 +32,23 @@ class IllustrationViewInline(FeedTabularInline):
     model = Illustration
     extra = 0
     fields = ('picture', 'notes')
+    template = 'admin/tabular_view.html'
 
 class SessionViewInline(FeedTabularInline):
     model = Session
     extra = 0
-    fields = ('title', 'start', 'position', 'subj_restraint', 'subj_anesthesia_sedation')
+    fields = ('title', 'experiment', 'start', 'position', 'subj_restraint', 'subj_anesthesia_sedation')
     tabbed = True
     tab_name = 'Sessions'
+    template = 'admin/tabular_view_session_grouped.html'
 
 class TrialViewInline(FeedTabularInline):
     model = Trial
     extra = 0
-    fields = ('position', 'title', 'food_type', 'behaviorowl_primary')
+    fields = ('position', 'session', 'title', 'food_type', 'behaviorowl_primary')
     tabbed = True
     tab_name="Trials"
+    template = 'admin/tabular_view_trial_grouped.html'
 
 
 class SubjectViewInline(FeedTabularInline):
@@ -52,6 +56,7 @@ class SubjectViewInline(FeedTabularInline):
     extra = 0
     tabbed = True
     tab_name="Subjects"
+    template = 'admin/tabular_view.html'
 
 class StudyAdmin(FeedModelAdmin):
     inlines = (StudyPrivateInline,)
@@ -101,6 +106,7 @@ class EmgSensorViewInline(FeedTabularInline):
     exclude = ['location_freetext']
     extra = 0
     form = EmgSensorChannelForm
+    template = 'admin/tabular_view.html'
 
 class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
@@ -120,6 +126,7 @@ class SonoSensorViewInline(FeedTabularInline):
     extra = 0
     exclude = ['study', 'location_controlled', 'location_freetext']
     form = SonoSensorForm
+    template = 'admin/tabular_view.html'
 
 class StrainSensorInline(SetupTabularInline):
     model = StrainSensor
@@ -132,6 +139,7 @@ class StrainSensorViewInline(FeedTabularInline):
     extra = 0
     exclude = ['study']
     form = StrainSensorForm
+    template = 'admin/tabular_view.html'
 
 class ForceSensorInline(SetupTabularInline):
     model = ForceSensor
@@ -144,6 +152,7 @@ class ForceSensorViewInline(FeedTabularInline):
     extra = 0
     exclude = ['study']
     form = ForceSensorForm
+    template = 'admin/tabular_view.html'
 
 class PressureSensorInline(SetupTabularInline):
     model = PressureSensor
@@ -155,6 +164,7 @@ class PressureSensorViewInline(FeedTabularInline):
     extra = 0
     exclude = ['study']
     form = PressureSensorForm
+    template = 'admin/tabular_view.html'
 
 class KinematicsSensorInline(SetupTabularInline):
     model = KinematicsSensor
@@ -167,6 +177,7 @@ class KinematicsSensorViewInline(FeedTabularInline):
     extra = 0
     exclude = ['study']
     form = KinematicsSensorForm
+    template = 'admin/tabular_view.html'
 
 class ChannelInline(FeedTabularInline):
     model = Channel
@@ -185,6 +196,7 @@ class SonoChannelViewInline(FeedTabularInline):
     model = SonoChannel
     exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
 
 class StrainChannelInline(FeedTabularInline):
     model = StrainChannel
@@ -196,6 +208,7 @@ class StrainChannelViewInline(FeedTabularInline):
     model = StrainChannel
     exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
 
 class ForceChannelInline(FeedTabularInline):
     model = ForceChannel
@@ -207,6 +220,7 @@ class ForceChannelViewInline(FeedTabularInline):
     model = ForceChannel
     exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
 
 class PressureChannelInline(FeedTabularInline):
     model = PressureChannel
@@ -218,6 +232,7 @@ class PressureChannelViewInline(FeedTabularInline):
     model = PressureChannel
     exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
 
 class KinematicsChannelInline(FeedTabularInline):
     model = KinematicsChannel
@@ -229,6 +244,7 @@ class KinematicsChannelViewInline(FeedTabularInline):
     model = KinematicsChannel
     exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
 
 class EventChannelInline(FeedTabularInline):
     model = EventChannel
@@ -240,6 +256,7 @@ class EventChannelViewInline(FeedTabularInline):
     model = EventChannel
     exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
 
 class OtherChannelInline(FeedTabularInline):
     model = OtherChannel
@@ -251,6 +268,7 @@ class OtherChannelViewInline(FeedTabularInline):
     model = OtherChannel
     exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
 
 class EmgSetupAdmin(EmgSetupModelAdmin):
     inlines = [ IllustrationInline, EmgSensorInline]
@@ -340,6 +358,7 @@ class ChannelLineupViewInline(FeedTabularInline):
     extra = 0
     tab_name="Channel Lineup"
     form = ChannelLineupForm
+    template = 'admin/tabular_view.html'
 
 class SessionAdmin(SessionModelAdmin):
     inlines = [ChannelLineupInline]
