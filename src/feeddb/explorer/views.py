@@ -66,7 +66,10 @@ def get_bucket(request, id):
     id = int(id)
     try:
         if request.user.id:
-            bucket = Bucket.objects.get(pk=id, created_by=request.user)
+            if request.user.is_superuser:
+                bucket = Bucket.objects.get(pk=id)
+            else:
+                bucket = Bucket.objects.get(pk=id, created_by=request.user)
         else:
             # check session for specified bucket id (throws ValueError if not found)
             session_bucket_ids = anonymous_bucket_ids(request)
