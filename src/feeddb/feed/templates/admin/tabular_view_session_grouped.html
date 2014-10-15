@@ -1,4 +1,4 @@
-{% load display i18n feedmedia %}
+{% load display i18n feedmedia feed_util %}
 
 <div class="inline-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
@@ -17,7 +17,7 @@
             <h4>{{ sessions.grouper }}</h4>
           </div>
           <div class="col-xs-3">
-            <h3 class="overview-add"><a class="addlink" href="/admin/{{opts.app_label}}/{% display_classname inline_admin_formset %}/add/?{{ opts.object_name.lower }}={{object_id}}" ><span class="glyphicon glyphicon-plus-sign"></span>{% trans "Add Another " %}{{inline_admin_formset.opts.verbose_name}}</a></h3>
+            <h3 class="overview-add"><a class="addlink" href="{% add_new_to_container_url sessions %}" ><span class="glyphicon glyphicon-plus-sign"></span>{% trans "Add Another " %}{{inline_admin_formset.opts.verbose_name}}</a></h3>
           </div>
         </div>
         <table class="table table-bordered table-striped overview">
