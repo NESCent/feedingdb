@@ -7704,5 +7704,9 @@ input[type="file"]:active::before {
   fieldset {
     display: table-cell;
   }
+  #id_data_file,
+  #id_waveform_picture {
+    padding: 0;
+  }
 }
 /*# sourceMappingURL=bootstrap.css.map */
