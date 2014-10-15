@@ -7650,6 +7650,7 @@ td.picture input {
 #id_waveform_picture {
   background: #ffffff;
   padding: 12px 10px;
+  position: relative;
 }
 #id_data_file::before,
 #id_waveform_picture::before {
