@@ -6902,7 +6902,6 @@ body main aside .upload-steps ul li {
   color: #005a8b;
 }
 body main aside .upload-steps ul li .review {
-  color: #da5400;
   font-size: 17px;
   position: relative;
   display: block;
@@ -7659,7 +7658,7 @@ td.picture input {
 .panel-heading .accordion-toggle:before {
   font-family: 'Glyphicons Halflings';
   content: "\e114";
-  float: left;
+  float: right;
   color: #da5400;
   padding: 0 10px 0 0;
 }
@@ -7698,6 +7697,11 @@ input[type="file"]:active::before {
 @media (min-width: 1200px) {
   body main .records-selection form .chosen-container-single {
     width: 170px !important;
+  }
+}
+@-moz-document url-prefix() {
+  fieldset {
+    display: table-cell;
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
