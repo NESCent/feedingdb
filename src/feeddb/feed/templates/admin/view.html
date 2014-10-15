@@ -142,7 +142,7 @@
         <div class="panel-heading">
           <h3 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}" class="accordion-toggle collapsed">
-              {{ inline_admin_formset.opts.verbose_name_plural|capfirst }}
+              {{ inline_admin_formset.opts.verbose_name_plural|capfirst }} ({{ inline_admin_formset|length }})
             </a>
           </h3>
         </div>
