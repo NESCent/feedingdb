@@ -6916,11 +6916,17 @@ body main aside .upload-steps ul li .review span {
 body.view aside .upload-steps {
   border-left: 0;
 }
-body.view fieldset .row {
-  margin-bottom: 10px;
+body.view #study_form fieldset .row label,
+body.view #trial_form fieldset .row label {
+  margin: 0;
 }
 body.view fieldset .row label {
   margin: 0;
+  line-height: normal;
+}
+body.view fieldset .row p {
+  margin: 0;
+  line-height: normal;
 }
 body #ui-datepicker-div {
   background: #ffffff;
