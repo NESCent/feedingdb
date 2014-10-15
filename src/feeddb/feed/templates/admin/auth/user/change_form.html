@@ -90,10 +90,7 @@
           {% include inline_admin_formset.opts.template %}
         {% endfor %}
       {% endif %}
-    {% endfor %}
-    
-    {% submit_row %}
-    
+    {% endfor %}    
     {% block after_related_objects %}
     {% endblock %}
     <div class="row">
@@ -109,12 +106,6 @@
 
 {% endblock content %}
 
-{% block sidebar %}
-  {% if add and 'user' != opts.model_name %}
-    {% load upload_status %}
-    {% upload_status_block %}
-  {% endif %}
-{% endblock %}
 
 {% block extra_js %}
 
