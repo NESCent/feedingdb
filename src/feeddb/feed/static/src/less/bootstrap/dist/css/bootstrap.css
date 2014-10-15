@@ -7659,7 +7659,7 @@ td.picture input {
 .panel-heading .accordion-toggle:before {
   font-family: 'Glyphicons Halflings';
   content: "\e114";
-  float: left;
+  float: right;
   color: #da5400;
   padding: 0 10px 0 0;
 }
