@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_modify feedmedia %}
+{% load i18n admin_modify feedmedia feed_util %}
 {% block extrahead %}{{ block.super }}
 
 <script type="text/javascript" src="../../../jsi18n/"></script>
@@ -38,6 +38,8 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
+          {# TODO: format help text a little better #}
+          {% model_help_text original %}
           {% if 'study' == opts.model_name %}
             <p>Highlighted fields are required. Metadata are divided into Public and Private components.</p>
           {% endif %}
@@ -48,6 +50,12 @@
           {% endif %}
         </div>
       </div>
+      <div class="row context-block">
+        <div class="col-xs-12">
+          {% load upload_status %}
+          {% upload_status_current_containers %}
+        </div>
+      </div>
     </div>
   </div>
 {% endblock %}
@@ -56,8 +64,8 @@
   <div class="col-xs-9">
     {% block object-tools %}
     <div class="row">
-      <div class="col-xs-2 col-xs-offset-10 admin-tools">
-        <ul class="object-tools object-tools-top">
+      <div class="col-xs-2 col-xs-offset-9 admin-tools">
+        <ul class="object-tools object-tools-top float-right">
           {% if change %}
             {% ifequal opts.app_label "feed" %}
               <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><span class='glyphicon glyphicon-eye-open'></span></a></li>
@@ -119,13 +127,6 @@
     
     {% for inline_admin_formset in inline_admin_formsets %}
       {% include inline_admin_formset.opts.template %}
-        {% if 'session' == opts.model_name %}
-          <div class="row">
-            <div class="col-xs-9 col-xs-offset-3">
-              <p style="color:#da5400;">* If you need to add more records than available empty rows, please click 'save' to save the data and additional space will be added following the existing records.</p>
-            </div>
-          </div>
-        {% endif %}
     {% endfor %}
         
     {% block after_related_objects %}
@@ -136,46 +137,7 @@
     {% endif %}
     {# JavaScript for prepopulated fields #}
     {% prepopulated_fields_js %}
-        {% if add %}
-          {% if 'study' == opts.model_name %}
-          <div class="col-xs-4 col-xs-offset-3">
-            <input type="submit" name="_redirect_add_subject" value="Next Step: Add Subject(s)">
-          </div>
-          {% elif 'subject' == opts.model_name %}
-          <div class="col-xs-4 col-xs-offset-3">
-            <input type="submit" name="_redirect_add_experiment" value="Next Step: Add Experiment">
-          </div>
-          <div class="col-xs-4">
-            <input type="submit" value="{% trans 'Save &amp; Add Another' %}" name="_addanother" {{ onclick_attrib }} />
-          </div>
-          {% elif 'experiment' == opts.model_name %}
-          <div class="col-xs-4 col-xs-offset-3">
-            <input type="submit" name="_redirect_add_session" value="Next Step: Add Session">
-          </div>
-          <div class="col-xs-4">
-            <input type="submit" value="{% trans 'Save &amp; Add Another' %}" name="_addanother" {{ onclick_attrib }} />
-          </div>
-          {% elif 'session' == opts.model_name %}
-          <div class="col-xs-4">
-            <input type="submit" name="_redirect_add_trial" value="Next Step: Add Trial">
-          </div>
-            <div class="col-xs-4">
-              <input class="btn btn-primary" type="submit" value="{% trans 'Save &amp; Add More Records' %}" name="_save" {{ onclick_attrib }}/>
-            </div>
-          <div class="col-xs-4">
-            <input type="submit" value="{% trans 'Save &amp; Add Another' %}" name="_addanother" {{ onclick_attrib }} />
-          </div>
-          {% elif 'trial' == opts.model_name %}
-          <div class="col-xs-4 col-xs-offset-3">
-            <input type="submit" value="{% trans 'Next Step: Save &amp; Review' %}" name="_redirect_study_view" {{ onclick_attrib }} />
-          </div>
-          <div class="col-xs-4">
-            <input type="submit" value="{% trans 'Save &amp; Add Another' %}" name="_addanother" {{ onclick_attrib }} />
-          </div>
-          {% endif %}
-        {% else %}
-          {% include "admin/submit_line.html" %}
-        {% endif %}
+    {% include "admin/submit_line.html" %}
     </div>
   </form>
 </div>

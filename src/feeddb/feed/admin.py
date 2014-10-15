@@ -21,8 +21,9 @@ class ExperimentViewInline(FeedTabularInline):
     tabbed = True
     fields = ['title', 'subject','subj_devstage','start','end']
     tab_name = "Experiments"
+    template = 'admin/tabular_view.html'
 
-class IllustrationInline(FeedStackedInline):
+class IllustrationInline(FeedTabularInline):
     model = Illustration
     extra = 1
     fields = ('picture','notes')
@@ -31,20 +32,23 @@ class IllustrationViewInline(FeedTabularInline):
     model = Illustration
     extra = 0
     fields = ('picture', 'notes')
+    template = 'admin/tabular_view.html'
 
 class SessionViewInline(FeedTabularInline):
     model = Session
     extra = 0
-    fields = ('title', 'start', 'position', 'subj_restraint', 'subj_anesthesia_sedation')
+    fields = ('title', 'experiment', 'start', 'position', 'subj_restraint', 'subj_anesthesia_sedation')
     tabbed = True
     tab_name = 'Sessions'
+    template = 'admin/tabular_view_session_grouped.html'
 
 class TrialViewInline(FeedTabularInline):
     model = Trial
     extra = 0
-    fields = ('position', 'title', 'food_type', 'behavior_primary')
+    fields = ('position', 'session', 'title', 'food_type', 'behaviorowl_primary')
     tabbed = True
     tab_name="Trials"
+    template = 'admin/tabular_view_trial_grouped.html'
 
 
 class SubjectViewInline(FeedTabularInline):
@@ -52,6 +56,7 @@ class SubjectViewInline(FeedTabularInline):
     extra = 0
     tabbed = True
     tab_name="Subjects"
+    template = 'admin/tabular_view.html'
 
 class StudyAdmin(FeedModelAdmin):
     inlines = (StudyPrivateInline,)
@@ -83,14 +88,12 @@ class SubjectAdmin(FeedModelAdmin):
     form = DisableForeignKeyForm
 
 class TrialAdmin(FeedModelAdmin):
-    form = TrialForm
     search_fields = ('title','bookkeeping','subj_notes','subj_treatment','food_type','food_property','behavior_primary__label','behavior_secondary','behavior_notes')
-    list_display = ('title', 'session', 'taxon_name','food_type', 'behavior_primary','waveform_picture')
+    list_display = ('title', 'session', 'taxon_name','food_type', 'behaviorowl_primary','waveform_picture')
     form = TrialChangeForm
     # hide old non-OWL behavior fields, hide dependent container references
     exclude = ('behavior_primary', 'behavior_secondary', 'experiment', 'study',)
     ordering = ('position',)
-    form = DisableForeignKeyForm
 
 class IllustrationAdmin(FeedModelAdmin):
     search_fields = ('notes', 'experiment','setup', 'subject')
@@ -103,10 +106,11 @@ class EmgSensorViewInline(FeedTabularInline):
     exclude = ['location_freetext']
     extra = 0
     form = EmgSensorChannelForm
+    template = 'admin/tabular_view.html'
 
 class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
-    exclude = ['location_controlled', 'location_freetext']
+    exclude = ['study', 'location_controlled', 'location_freetext']
     extra = 5
     form = EmgSensorChannelForm
     formset = OrderedFormset
@@ -114,34 +118,41 @@ class EmgSensorInline(FeedTabularInline):
 class SonoSensorInline(SetupTabularInline):
     model = SonoSensor
     extra = 4
-    exclude = ['location_controlled', 'location_freetext']
+    exclude = ['study', 'location_controlled', 'location_freetext']
     form = SonoSensorForm
 
 class SonoSensorViewInline(FeedTabularInline):
     model = SonoSensor
     extra = 0
-    exclude = ['location_controlled', 'location_freetext']
+    exclude = ['study', 'location_controlled', 'location_freetext']
     form = SonoSensorForm
+    template = 'admin/tabular_view.html'
 
 class StrainSensorInline(SetupTabularInline):
     model = StrainSensor
     extra = 3
+    exclude = ['study']
     form = StrainSensorForm
 
 class StrainSensorViewInline(FeedTabularInline):
     model = StrainSensor
     extra = 0
+    exclude = ['study']
     form = StrainSensorForm
+    template = 'admin/tabular_view.html'
 
 class ForceSensorInline(SetupTabularInline):
     model = ForceSensor
     extra = 3
+    exclude = ['study']
     form = ForceSensorForm
 
 class ForceSensorViewInline(FeedTabularInline):
     model = ForceSensor
     extra = 0
+    exclude = ['study']
     form = ForceSensorForm
+    template = 'admin/tabular_view.html'
 
 class PressureSensorInline(SetupTabularInline):
     model = PressureSensor
@@ -151,17 +162,22 @@ class PressureSensorInline(SetupTabularInline):
 class PressureSensorViewInline(FeedTabularInline):
     model = PressureSensor
     extra = 0
+    exclude = ['study']
     form = PressureSensorForm
+    template = 'admin/tabular_view.html'
 
 class KinematicsSensorInline(SetupTabularInline):
     model = KinematicsSensor
     extra = 3
+    exclude = ['study']
     form = KinematicsSensorForm
 
 class KinematicsSensorViewInline(FeedTabularInline):
     model = KinematicsSensor
     extra = 0
+    exclude = ['study']
     form = KinematicsSensorForm
+    template = 'admin/tabular_view.html'
 
 class ChannelInline(FeedTabularInline):
     model = Channel
@@ -173,56 +189,86 @@ class ChannelInline(FeedTabularInline):
 class SonoChannelInline(FeedTabularInline):
     model = SonoChannel
     extra =5
+    exclude = ['study']
     form = SonoChannelForm
 
 class SonoChannelViewInline(FeedTabularInline):
     model = SonoChannel
+    exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
 
 class StrainChannelInline(FeedTabularInline):
     model = StrainChannel
     extra =9
+    exclude = ['study']
     form = StrainChannelForm
 
 class StrainChannelViewInline(FeedTabularInline):
     model = StrainChannel
+    exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
 
 class ForceChannelInline(FeedTabularInline):
     model = ForceChannel
     extra =9
+    exclude = ['study']
     form = ForceChannelForm
 
 class ForceChannelViewInline(FeedTabularInline):
     model = ForceChannel
+    exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
 
 class PressureChannelInline(FeedTabularInline):
     model = PressureChannel
     extra =9
+    exclude = ['study']
     form = PressureChannelForm
 
 class PressureChannelViewInline(FeedTabularInline):
     model = PressureChannel
+    exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
 
 class KinematicsChannelInline(FeedTabularInline):
     model = KinematicsChannel
     extra =9
+    exclude = ['study']
     form = KinematicsChannelForm
 
 class KinematicsChannelViewInline(FeedTabularInline):
     model = KinematicsChannel
+    exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
 
 class EventChannelInline(FeedTabularInline):
     model = EventChannel
     extra =9
+    exclude = ['study']
     form = EventChannelForm
 
 class EventChannelViewInline(FeedTabularInline):
     model = EventChannel
+    exclude = ['study']
     extra = 0
+    template = 'admin/tabular_view.html'
+
+class OtherChannelInline(FeedTabularInline):
+    model = OtherChannel
+    extra =9
+    exclude = ['study']
+    form = OtherChannelForm
+
+class OtherChannelViewInline(FeedTabularInline):
+    model = OtherChannel
+    exclude = ['study']
+    extra = 0
+    template = 'admin/tabular_view.html'
 
 class EmgSetupAdmin(EmgSetupModelAdmin):
     inlines = [ IllustrationInline, EmgSensorInline]
@@ -230,6 +276,7 @@ class EmgSetupAdmin(EmgSetupModelAdmin):
     list_display = ('preamplifier','experiment')
     list_filter = ('experiment',)
     ordering = ('preamplifier',)
+    exclude = ('study', 'experiment', 'technique')
     form = SetupForm
 
 class SonoSetupAdmin(DefaultModelAdmin):
@@ -238,6 +285,7 @@ class SonoSetupAdmin(DefaultModelAdmin):
     list_display = ('sonomicrometer','experiment')
     list_filter = ('experiment',)
     ordering = ('sonomicrometer',)
+    exclude = ('study', 'experiment', 'technique')
     form = SetupForm
 
 class StrainSetupAdmin(DefaultModelAdmin):
@@ -245,6 +293,7 @@ class StrainSetupAdmin(DefaultModelAdmin):
     view_inlines = [IllustrationViewInline, StrainSensorViewInline, StrainChannelViewInline]
     list_display = ('experiment',)
     list_filter = ('experiment',)
+    exclude = ('study', 'experiment', 'technique')
     form = SetupForm
 
 class ForceSetupAdmin(DefaultModelAdmin):
@@ -252,6 +301,7 @@ class ForceSetupAdmin(DefaultModelAdmin):
     view_inlines = [IllustrationViewInline, ForceSensorViewInline, ForceChannelViewInline]
     list_display = ('experiment',)
     list_filter = ('experiment',)
+    exclude = ('study', 'experiment', 'technique')
     form = SetupForm
 
 class PressureSetupAdmin(DefaultModelAdmin):
@@ -259,12 +309,15 @@ class PressureSetupAdmin(DefaultModelAdmin):
     view_inlines = [IllustrationViewInline, PressureSensorViewInline, PressureChannelViewInline]
     list_display = ('experiment',)
     list_filter = ('experiment',)
+    exclude = ('study', 'experiment', 'technique')
 
 class KinematicsSetupAdmin(DefaultModelAdmin):
     inlines = [ IllustrationInline,KinematicsSensorInline,KinematicsChannelInline]
     view_inlines = [IllustrationViewInline, KinematicsSensorViewInline, KinematicsChannelViewInline]
     list_display = ('experiment',)
     list_filter = ('experiment',)
+    exclude = ('study', 'experiment')
+    exclude = ('study', 'experiment', 'technique')
     form = SetupForm
 
 class EventSetupAdmin(DefaultModelAdmin):
@@ -272,6 +325,15 @@ class EventSetupAdmin(DefaultModelAdmin):
     view_inlines = [IllustrationViewInline, EventChannelViewInline]
     list_display = ('experiment',)
     list_filter = ('experiment',)
+    exclude = ('study', 'experiment', 'technique')
+    form = SetupForm
+
+class OtherSetupAdmin(DefaultModelAdmin):
+    inlines = [ IllustrationInline,OtherChannelInline]
+    view_inlines = [IllustrationViewInline, OtherChannelViewInline]
+    list_display = ('experiment',)
+    list_filter = ('experiment',)
+    exclude = ('study', 'experiment', 'technique')
     form = SetupForm
 
 class EmgChannelAdmin(DefaultModelAdmin):
@@ -296,6 +358,7 @@ class ChannelLineupViewInline(FeedTabularInline):
     extra = 0
     tab_name="Channel Lineup"
     form = ChannelLineupForm
+    template = 'admin/tabular_view.html'
 
 class SessionAdmin(SessionModelAdmin):
     inlines = [ChannelLineupInline]
@@ -303,7 +366,7 @@ class SessionAdmin(SessionModelAdmin):
     list_display = ('title', 'experiment','position', 'start', 'subj_restraint','subj_anesthesia_sedation')
     search_fields = ('title','bookkeeping','experiment__title','subj_notes','subj_restraint__label','subj_anesthesia_sedation')
     ordering = ('position',)
-    exclude = ('study',)
+    exclude = ('study','experiment')
     form = SessionChangeForm
     tabbed = True
     tab_name = "Session"
@@ -314,10 +377,10 @@ class EmgSensorAdmin(EmgSensorModelAdmin):
 class SonoSensorAdmin(DefaultModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('setup','name', 'location_controlled', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes')
+            'fields': ('setup','name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes')
         }),
     )
-    ordering = ('name', 'location_controlled',)
+    ordering = ('name', 'muscle',)
 
 class CommonSensorAdmin(DefaultModelAdmin):
     fieldsets = (
@@ -400,6 +463,7 @@ admin.site.register(ForceSetup,ForceSetupAdmin)
 admin.site.register(PressureSetup,PressureSetupAdmin)
 admin.site.register(KinematicsSetup,KinematicsSetupAdmin)
 admin.site.register(EventSetup,EventSetupAdmin)
+admin.site.register(OtherSetup,OtherSetupAdmin)
 admin.site.register(EmgSensor, EmgSensorAdmin)
 admin.site.register(SonoSensor, SonoSensorAdmin)
 admin.site.register(ForceSensor, CommonSensorAdmin)
@@ -416,3 +480,4 @@ admin.site.register(ForceChannel, DefaultModelAdmin)
 admin.site.register(KinematicsChannel, DefaultModelAdmin)
 admin.site.register(PressureChannel, DefaultModelAdmin)
 admin.site.register(EventChannel, DefaultModelAdmin)
+admin.site.register(OtherChannel, DefaultModelAdmin)

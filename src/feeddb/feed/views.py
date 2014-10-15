@@ -63,15 +63,17 @@ class FeedSearchView(FacetedSearchView):
                 storage = messages.get_messages(request)
                 storage.used = False
 
-            # get facet filters in sorted order
-            filters = self.form.searcher._clean_filters(request.POST)
-            filters = sorted(filters, key=filter_key)
+            q = request.POST.get('q', '')
+            old_q = request.POST.get('old_q', '')
+            if q == old_q:
+                # get facet filters in sorted order
+                filters = self.form.searcher._clean_filters(request.POST)
+                filters = sorted(filters, key=filter_key)
+            else:
+                # if user changed search text, reset all filters
+                filters = []
 
             # Add keywords and per_page arguments
-            #
-            # TODO: DRY this out by querying parameters from form class or
-            # using self.form.cleaned_data
-            q = request.POST.get('q', '')
             per_page = request.POST.get('per_page', '')
             if per_page:
                 filters.insert(0, ('per_page', per_page) )

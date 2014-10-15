@@ -82,6 +82,15 @@ If it looks good, save it to the fixtures -- this gets reloaded on every migrati
 ./manage.py dumpdata --format yaml feed.MuscleOwl feed.BehaviorOwl > feeddb/feed/fixtures/initial_data.yaml
 ```
 
+Correspondence Between FEED1 CV terms and FEED2 OWL terms
+----
+
+Currently, we only have a correspondence for Muscle terms.
+
+```
+./manage.py loadmusclecorrespondence ../data/al_muscles_correspondence.csv
+```
+
 Servers
 ----
 

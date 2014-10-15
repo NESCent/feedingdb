@@ -40,6 +40,8 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
 
+from feeddb.feed.util import FeedAdminUtils
+
 csrf_protect_m = method_decorator(csrf_protect)
 #end for 1.2.4
 
@@ -48,6 +50,10 @@ class FeedTabularInline(admin.TabularInline):
     #change_form_template = 'admin/tabbed_change_form.html'
     tabbed = False
     tab_name = None
+
+    def has_change_permission(self, request, obj=None):
+        change_all = super(FeedTabularInline, self).has_change_permission(request, obj)
+        return change_all or FeedAdminUtils.has_instance_change_permission(request, obj)
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         request = kwargs.pop("request", None)
@@ -114,7 +120,8 @@ class FeedModelAdmin(admin.ModelAdmin):
         'add_trial': reverse_lazy('admin:feed_trial_add'),
         'add_session': reverse_lazy('admin:feed_session_add'),
         'add_subject': reverse_lazy('admin:feed_subject_add'),
-        'study_view': FeedUploadStatus.current_study_view_url
+        'study_view': FeedUploadStatus.current_study_view_url,
+        'setup_or_session': FeedUploadStatus.next_setup_or_session_url,
     }
 
     def __init__(self, model, admin_site):
@@ -124,13 +131,19 @@ class FeedModelAdmin(admin.ModelAdmin):
             view_inline_instance = view_inline_class(self.model, self.admin_site)
             self.view_inline_instances.append(view_inline_instance)
 
-    def get_redirect_destination(self, request, form_data, default=''):
+    def get_redirect_destination(self, request, form_data, obj, default=''):
+        import logging
+
+        # Get an instance of a logger
+        logger = logging.getLogger(__name__)
         ret = False
         if self.success_destinations:
             for name in self.success_destinations:
                 if '_redirect_' + name in form_data:
+                    logger.info("trying %s" % name)
                     if callable(self.success_destinations[name]):
-                        ret = self.success_destinations[name](request)
+                        logger.info("calling %s" % name)
+                        ret = self.success_destinations[name](request, form_data, obj)
                     else:
                         ret = self.success_destinations[name]
         return ret or default
@@ -139,7 +152,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         if not change:
             request.feed_upload_status.apply_defaults_to_instance(form.instance);
         form.save();
-        request.feed_upload_status.update_with_object(form.instance)
+        request.feed_upload_status.update_with_object(form.instance, fail_silently=True)
 
     def get_urls(self):
         from django.conf.urls import patterns, url
@@ -184,14 +197,8 @@ class FeedModelAdmin(admin.ModelAdmin):
         If `obj` is None, this should return True if the given request has
         permission to change *any* object of the given type.
         """
-        p=super(FeedModelAdmin, self).has_change_permission(request, obj)
-
-        if not p:
-            if obj == None:
-                return True
-            return obj.created_by == request.user
-
-        return p
+        change_all = super(FeedModelAdmin, self).has_change_permission(request, obj)
+        return change_all or FeedAdminUtils.has_instance_change_permission(request, obj)
 
     def has_delete_permission(self, request, obj=None):
         """
@@ -247,25 +254,22 @@ class FeedModelAdmin(admin.ModelAdmin):
                 "admin/view.html"
             ], context, context_instance=context_instance)
 
-
-    def response_add(self, request, obj, post_url_continue='../%s/edit/'):
+    def response_post_save_add(self, request, obj):
         """
-        Determines the HttpResponse for the add_view stage.
+        Return the appropriate response after adding an object. Called only if
+        the "save" button clicked was not the "add another" or "continue"
+        button.
+
+        This means we have to handle our custom "save & next step" buttons
+        here.
         """
-        opts = obj._meta
-        pk_value = obj._get_pk_val()
-
-        msg = _('The %(name)s "%(obj)s" was added successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj)}
-        self.message_user(request, msg)
-
-        # TODO: document when this is used. Maybe tabbed views? Others?
-        if request.POST.has_key("_popup"):
-            return HttpResponse('<script type="text/javascript">opener.dismissAddAnotherPopup(window, "%s", "%s");</script>' % \
-                # escape() calls force_unicode.
-                (escape(pk_value), escape(obj)))
-
-        dest = self.get_redirect_destination(request, request.POST, '../%d/edit' % pk_value)
+        edit_url = reverse_lazy('admin:feed_%s_change' % type(obj).__name__.lower(), args=(obj.pk,))
+        dest = self.get_redirect_destination(request, request.POST, obj, edit_url)
+        # TODO: redirect to study overview page?
         return HttpResponseRedirect(dest)
+
+    def response_post_save_change(self, request, obj):
+        return self.response_post_save_add(request, obj)
 
     @csrf_protect_m
     def delete_view(self, *args, **kwargs):
@@ -325,30 +329,21 @@ class FeedModelAdmin(admin.ModelAdmin):
                 form.instance.created_by = request.user
         return form.save(commit=False)
 
-    def response_change(self, request, obj):
-        """
-        Determines the HttpResponse for the change_view stage.
-        """
-        opts = obj._meta
-        pk_value = obj._get_pk_val()
-        msg = _('The %(name)s "%(obj)s" was changed successfully.') % {'name': force_unicode(opts.verbose_name), 'obj': force_unicode(obj)}
-        self.message_user(request, msg)
-
-        dest = self.get_redirect_destination(request.POST, '../edit')
-        return HttpResponseRedirect(dest)
-
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         # Get default form values from session
         if add:
             request.feed_upload_status.apply_defaults_to_form(context['adminform'].form)
-            request.feed_upload_status.apply_restricted_querysets_to_form(context['adminform'].form)
-        
-        # Get default form values from GET (overriding session)
-        # FIXME: disabled while working on BH-218
-        self.filter_form_values(request, context['adminform'].form, self.model, obj)
 
+        # Restrict values available in model select widgets based on session.
+        #
+        # First, apply to main form:
+        request.feed_upload_status.apply_restricted_querysets_to_form(context['adminform'].form)
+
+        # Second, apply to subforms (usually reverse FKs like channel lineups,
+        # sensors, illustrations)
         for formset in context['inline_admin_formsets']:
-            self.filter_formset_values(request, formset.formset, self.model, obj)
+            for form in formset.formset.forms:
+                request.feed_upload_status.apply_restricted_querysets_to_form(form)
 
         return super(FeedModelAdmin, self).render_change_form(request, context, add, change, form_url, obj)
 
@@ -392,164 +387,14 @@ class FeedModelAdmin(admin.ModelAdmin):
                 post_url=return_to
         return HttpResponseRedirect(post_url)
 
-    def filter_form_values(self, request, form, model, obj):
-        #globally disabled the accession field
-        if form.fields.has_key("accession"):
-            form.fields["accession"].widget.attrs['disabled']=""
-
-        #general set study choices from the user own data
-        if form.fields.has_key("study"):
-            form.fields["study"].queryset = Study.objects.filter(created_by=request.user)
-
-        #disable corresponding foreign key select box if the data object is already specified in the url
-        # TODO: restrict subject selection based on study selection. Perhaps django-smart-selects module?
-        if request.GET.has_key("study"):
-            if form.fields.has_key("study"):
-                form.fields["study"].widget.widget.attrs['disabled']=""
-            if form.fields.has_key("subject"):
-                v= request.GET.get("study")
-                form.fields["subject"].queryset = Subject.objects.filter(study__id=v)
-        if request.GET.has_key("experiment"):
-            if form.fields.has_key("experiment"):
-                form.fields["experiment"].widget.widget.attrs['disabled']=""
-        if request.GET.has_key("subject"):
-            if form.fields.has_key("subject"):
-                form.fields["subject"].widget.widget.attrs['disabled']=""
-
-        setups = ["emgsetup","sonosetup","pressuresetup","forcesetup","strainsetup","kinematicssetup", "eventsetup"]
-        channels = ["emgchannel","sonochannel","pressurechannel","forcechannel","strainchannel","kinematicschannel", "eventchannel"]
-
-        for s in setups:
-            if request.GET.has_key(s):
-                if form.fields.has_key("setup"):
-                    if not  form.fields["setup"].widget.is_hidden:
-                        form.fields["setup"].widget.widget.attrs['disabled']=""
-                    form.fields["setup"].initial=request.GET[s]
-
-
-        if request.GET.has_key("session"):
-            if form.fields.has_key("session"):
-                form.fields["session"].widget.widget.attrs['disabled']=""
-
-        if request.GET.has_key("trial"):
-            if form.fields.has_key("trial"):
-                form.fields["trial"].widget.widget.attrs['disabled']=""
-
-        for s in channels:
-            if request.GET.has_key(s):
-                if form.fields.has_key(s):
-                    form.fields[s].widget.widget.attrs['disabled']=""
-
-        #context-based filter by url
-        if  model == EmgChannel:
-            if request.GET.has_key("emgsetup"):
-                form.fields["sensor"].queryset = EmgSensor.objects.filter(setup=request.GET['emgsetup'])
-                form.fields["setup"].initial=request.GET['emgsetup']
-                form.fields["setup"].widget.widget.attrs['disabled']=""
-        elif  model == EmgSensor:
-            if request.GET.has_key("emgsetup"):
-                form.fields["setup"].initial=request.GET['emgsetup']
-        elif  model == PressureChannel:
-            if request.GET.has_key("pressuresetup"):
-                form.fields["sensor"].queryset = PressureSensor.objects.filter(setup=request.GET['pressuresetup'])
-        elif model == PressureSetup:
-            if form.fields.has_key("sensor"):
-                form.fields["sensor"].queryset = PressureSensor.objects.filter(setup=obj)
-        elif model == StrainChannel:
-            if request.GET.has_key("strainsetup"):
-                form.fields["sensor"].queryset = StrainSensor.objects.filter(setup=request.GET['strainsetup'])
-        elif model == StrainSetup:
-            if form.fields.has_key("sensor"):
-                form.fields["sensor"].queryset = StrainSensor.objects.filter(setup=obj)
-        elif model == ForceChannel:
-            if request.GET.has_key("forcesetup"):
-                form.fields["sensor"].queryset = ForceSensor.objects.filter(setup=request.GET['forcesetup'])
-        elif model == ForceSetup:
-            if form.fields.has_key("sensor"):
-                form.fields["sensor"].queryset = ForceSensor.objects.filter(setup=obj)
-        elif model == KinematicsChannel:
-            if request.GET.has_key("kinematicssetup"):
-                form.fields["sensor"].queryset = KinematicsSensor.objects.filter(setup=request.GET['kinematicssetup'])
-        elif model == KinematicsSetup:
-            if form.fields.has_key("sensor"):
-                form.fields["sensor"].queryset = KinematicsSensor.objects.filter(setup=obj)
-        elif  model == Experiment:
-            if form.fields.has_key("subject") and obj:
-                form.fields["subject"].queryset = Subject.objects.filter(study=obj.study)
-        elif  model == Illustration:
-            for s in setups:
-                if request.GET.has_key(s):
-                    form.fields["setup"].initial=request.GET[s]
-            #if request.GET.has_key("sonosetup"):
-            #    form.fields["setup"].initial=request.GET['sonosetup']
-            #if request.GET.has_key("subject"):
-            #    form.fields["subject"].initial=request.GET['subject']
-        elif model == SonoChannel:
-            if request.GET.has_key("sonosetup"):
-                form.fields["crystal1"].queryset = SonoSensor.objects.filter(setup=request.GET['sonosetup'])
-                form.fields["crystal2"].queryset = SonoSensor.objects.filter(setup=request.GET['sonosetup'])
-                form.fields["setup"].initial=request.GET['sonosetup']
-                form.fields["setup"].widget.widget.attrs['disabled']=""
-        elif model == SonoSetup:
-            if form.fields.has_key("crystal1"):
-                form.fields["crystal1"].queryset = SonoSensor.objects.filter(setup=obj)
-                form.fields["crystal2"].queryset = SonoSensor.objects.filter(setup=obj)
-        elif  model == SonoSensor:
-            if request.GET.has_key("sonosetup"):
-                form.fields["setup"].initial=request.GET['sonosetup']
-            else:
-                pass
-        elif  model == Session:
-            if obj !=None and form.fields.has_key("channel"):
-                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment = obj.experiment.id)
-            elif request.GET.has_key("experiment") and form.fields.has_key("channel"):
-                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=request.GET['experiment'])
-            if obj and hasattr(obj, "session"):
-                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=obj.session.experiment.id)
-        elif  model == ChannelLineup:
-            if form.fields.has_key("experiment"):
-                form.fields["experiment"].widget.widget.attrs['disabled']=""
-            if form.fields.has_key("session"):
-                form.fields["session"].widget.widget.attrs['disabled']=""
-
-            if request.GET.has_key("session") and form.fields.has_key("channel"):
-                sess = Session.objects.get(id=  request.GET['session'])
-                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=sess.experiment.id)
-            if obj and hasattr(obj, "session"):
-                form.fields["channel"].queryset = Channel.objects.filter(setup__experiment=obj.session.experiment.id)
-        #filter sensor choice for channel
-        sensor_classes = [EmgSensor,SonoSensor,PressureSensor,ForceSensor,StrainSensor,KinematicsSensor]
-
-        sensor_class=None
-        if hasattr(obj,'setup') and obj.setup.id:
-            if(form.fields.has_key("setup")):
-                form.fields["setup"].widget.widget.attrs['disabled']=""
-            if hasattr(obj,'sensor'):
-                sensor_class= obj.sensor.__class__
-            if hasattr(obj,'crystal1'):
-                sensor_class= obj.crystal1.__class__
-            if sensor_class:
-                if(form.fields.has_key("sensor")):
-                    form.fields["sensor"].queryset = sensor_class.objects.filter(setup=obj.setup.id)
-                if(form.fields.has_key("crystal1")):
-                    form.fields["crystal1"].queryset = sensor_class.objects.filter(setup=obj.setup.id)
-                if(form.fields.has_key("crystal2")):
-                    form.fields["crystal2"].queryset = sensor_class.objects.filter(setup=obj.setup.id)
-
-
-
-    def filter_formset_values(self, request, formset, model, obj):
-        for form in formset.forms:
-            self.filter_form_values(request, form, model, obj)
-
     #overiten method to allow filtering in URL which is defaultly not allowed in 1.2.4
     def lookup_allowed(self, lookup, value):
         return True
 
     def change_view(self,request,object_id,extra_context=None):
         obj = self.get_object(request, unquote(object_id))
-        if self.has_change_permission(request, obj):
-            request.feed_upload_status.update_with_object(obj)
+        if obj is not None and self.has_change_permission(request, obj):
+            request.feed_upload_status.update_with_object(obj, fail_silently=True)
 
         #add extra context for tabs
         if extra_context == None:
@@ -620,7 +465,7 @@ class FeedModelAdmin(admin.ModelAdmin):
 
         obj = self.get_object(request, unquote(object_id))
         if self.has_change_permission(request, obj):
-            request.feed_upload_status.update_with_object(obj)
+            request.feed_upload_status.update_with_object(obj, fail_silently=True)
 
         model = self.model
         opts = model._meta

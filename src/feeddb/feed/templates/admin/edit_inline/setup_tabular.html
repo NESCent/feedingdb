@@ -1,4 +1,5 @@
 {% load display i18n feedmedia admin_modify %}
+<div class="col-xs-9">
 <div class="inline-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
     {{ inline_admin_formset.formset.management_form }}
@@ -11,7 +12,7 @@
               <tr>
                 {% for field in inline_admin_formset.fields %}
                   {% if not field.is_hidden  %}
-                    <th {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
+                    <th class="{{ field.required|yesno:"required," }}" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}{{ field.required|yesno:" *,"}}</th>
                   {% endif %}
                 {% endfor %}
                 {% if inline_admin_formset.formset.can_delete %}
@@ -32,7 +33,7 @@
                 <td class="original">
                   {% if inline_admin_form.original or inline_admin_form.show_url %}
                   {% endif %}
-                    {% if inline_admin_form.has_auto_field %}
+                    {% if inline_admin_form.needs_explicit_pk_field %}
                       {{ inline_admin_form.pk_field.field }}
                     {% endif %}
                     {{ inline_admin_form.fk_field.field }}
@@ -71,12 +72,19 @@
               </tr>
             {% endfor %}
           </table>
-          <p>
-            <strong>
-              <div style="color:red;">Please save the sensors before they can be used in the channels form below.</div>
-                <br/>* If you need to add more records than available empty rows, please click 'save' to save the data and additional space will be added following the existing records.
-            </strong>
-          </p>
+          <div class="row">
+            <div class="col-xs-4">
+              <input class="btn btn-default bottom-element" type="submit" value="{% trans 'Add More' %}" name="_save" {{ onclick_attrib }}/>
+            </div>
+            <div class="col-xs-12">
+            <p>
+              <strong>
+                <div style="color:red;">Please save the sensors before they can be used in the channels form below.</div>
+                  <br/>* If you need to add more records than available empty rows, please click 'Add More' to save the data and additional space will be added following the existing records.
+              </strong>
+            </p>
+            </div>
+          </div>
         </div>
       </fieldset>
     </div>
@@ -84,5 +92,5 @@
   {# <ul class="tools"> #}
   {#   <li><a class="add" href="">Add another {{ inline_admin_formset.opts.verbose_name|title }}</a></li> #}
   {# </ul> #}
-
+</div>
 </div>

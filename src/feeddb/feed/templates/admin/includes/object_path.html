@@ -86,6 +86,17 @@
          </li>
          <span>/</span>
        {% endifequal %}
+
+       {% ifequal object_name "OtherSetup" %}
+         <li>
+           <a href="/admin/{{ app_label}}/study/{{context_object.experiment.study.id}}"> {{context_object.experiment.study|capfirst|escape|truncatewords:"18" }}</a>
+         </li>
+         <span>/</span>
+         <li>
+           <a href="/admin/{{ app_label}}/experiment/{{context_object.experiment.id}}"> {{context_object.experiment|capfirst|escape|truncatewords:"18" }}</a>
+         </li>
+         <span>/</span>
+       {% endifequal %}
        
        {% ifequal object_name "Session" %}
          <li>
@@ -443,6 +454,48 @@
           </li>
           <span>/</span>
         {% endifequal %} <!-- endifequal sonosetup -->
+
+        {% ifequal opts.object_name "OtherSensor" %}
+          <li>
+            <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.setup.experiment.study.id}}"> {{adminform.form.instance.setup.experiment.study|capfirst|escape|truncatewords:"18" }}</a>
+          </li>
+          <span>/</span>
+          <li>
+            <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.setup.experiment.id}}"> {{adminform.form.instance.setup.experiment|capfirst|escape|truncatewords:"18" }}</a>
+          </li>
+          <span>/</span>
+          <li>
+            <a href="/admin/{{ app_label}}/othersetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a>
+          </li>
+          <span>/</span>
+        {% endifequal %} <!-- endifequal othersensor -->
+        
+        {% ifequal opts.object_name "OtherChannel" %}
+          <li>
+            <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.setup.experiment.study.id}}"> {{adminform.form.instance.setup.experiment.study|capfirst|escape|truncatewords:"18" }}</a>
+          </li>
+          <span>/</span>
+          <li>
+            <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.setup.experiment.id}}"> {{adminform.form.instance.setup.experiment|capfirst|escape|truncatewords:"18" }}</a>
+          </li>
+          <span>/</span>
+          <li>
+            <a href="/admin/{{ app_label}}/othersetup/{{adminform.form.instance.setup.id}}"> {{adminform.form.instance.setup|capfirst|escape|truncatewords:"18" }}</a>
+          </li>
+          <span>/</span>
+        {% endifequal %} <!-- endifequal otherchannel -->
+
+        {% ifequal opts.object_name "OtherSetup" %}
+          <li>
+            <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.experiment.study.id}}"> {{adminform.form.instance.experiment.study|capfirst|escape|truncatewords:"18" }}</a>
+          </li>
+          <span>/</span>
+          <li>
+            <a href="/admin/{{ app_label}}/experiment/{{adminform.form.instance.experiment.id}}"> {{adminform.form.instance.experiment|capfirst|escape|truncatewords:"18" }}</a>
+          </li>
+          <span>/</span>
+        {% endifequal %} <!-- endifequal othersetup -->
+
 
         {% ifequal opts.object_name "Subject" %}
           <li>

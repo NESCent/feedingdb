@@ -211,5 +211,5 @@ def display_file(value):
     if is_image(value):
         return u'<a href="%s%s" title="click to view full size image" class="thumb"><img width="100" src="%s%s"/></a><br/>' % (settings.MEDIA_URL, value, settings.MEDIA_URL,value)
 
-    return u'<a href="%s%s"><span class="glyphicon glyphicon-picture"' % (settings.MEDIA_URL,value,)
+    return u'<a href="%s%s"><span class="glyphicon glyphicon-picture">' % (settings.MEDIA_URL,value,)
 display_file = register.simple_tag(display_file)

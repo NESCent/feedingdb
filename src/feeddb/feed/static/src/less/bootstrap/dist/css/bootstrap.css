@@ -6167,12 +6167,15 @@ button.close {
 /* Colors */
 /* Typography */
 body {
-  background: url('../../../../../images/greyzz.png');
+  background: url('../../../../../images/satinweave.png');
   color: #112e4f;
   /* Typography / Global */
   /* Alerts */
   /* Modals */
   /* Buttons */
+  /* Forms */
+  /* Header */
+  /* Nav */
   /* Footer */
 }
 body h1 {
@@ -6215,6 +6218,7 @@ body a {
 body a:hover,
 body a:active {
   color: #da5400;
+  text-decoration: none;
 }
 body a:visited {
   color: #638ebc;
@@ -6223,9 +6227,6 @@ body hr {
   background: url('../../../../../images/hr.png') repeat-x;
   height: 2px;
   width: 100%;
-}
-body .alert {
-  margin-top: 30px;
 }
 body .alert p {
   margin-top: 0;
@@ -6259,6 +6260,9 @@ body .glyphicon.glyphicon-picture {
   display: block;
   text-align: center;
 }
+body .glyphicon.glyphicon-save {
+  font-size: 18px;
+}
 body #accordion .glyphicon.glyphicon-picture {
   font-size: 18px;
   display: block;
@@ -6289,15 +6293,15 @@ body .btn.btn-primary {
 }
 body a.btn.btn-primary:hover,
 body .btn.btn-primary:hover {
-  background: #f29a00;
+  background: #e06d26;
 }
 body a.btn.btn-default,
 body .btn.btn-default {
-  background: #f29a00;
+  background: #7a9fc6;
 }
 body a.btn.btn-default:hover,
 body .btn.btn-default:hover {
-  background: #da5400;
+  background: #8eadce;
   color: #ffffff;
 }
 body form .row {
@@ -6324,7 +6328,7 @@ body form tr td.notes textarea {
   height: 60px;
 }
 body form tr td.muscle .chosen-container {
-  width: 140px !important;
+  width: 300px !important;
 }
 body form tr td.axisdepth .chosen-container {
   width: 89px !important;
@@ -6351,7 +6355,6 @@ body form input {
 body form input,
 body form textarea {
   border: 1px solid #988674;
-  background: #e8e5e2;
   padding: 7px 10px;
   font: 13px/26px 'Roboto', sans-serif, sans-serif;
   color: #988674;
@@ -6367,20 +6370,22 @@ body form input[type="submit"] {
   background: #da5400;
   color: #ffffff;
   font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
-  padding: 8px 23px;
+  padding: 8px 0;
   -webkit-box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
   -moz-box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
   box-shadow: 1px 0px 3px 0px rgba(4, 5, 5, 0.5);
   border: 0;
+  text-align: center;
 }
 body form button:hover,
 body form input[type="button"]:hover,
 body form input[type="reset"]:hover,
 body form input[type="submit"]:hover {
-  background: #f29a00;
+  background: #e06d26;
 }
 body header {
-  padding-top: 16px;
+  padding: 16px 0 30px 0;
+  background: #ffffff;
 }
 body header .logo {
   float: left;
@@ -6400,7 +6405,6 @@ body header .login a {
   color: #007ecf;
 }
 body nav {
-  margin-top: 30px;
   background: #112e4f;
 }
 body nav ul {
@@ -6452,6 +6456,23 @@ body .masthead button {
   width: auto;
   margin-bottom: 0;
 }
+body .masthead .context-block h2 {
+  margin: 0;
+  font-family: 'Roboto', sans-serif, sans-serif;
+  color: #112e4f;
+  text-transform: capitalize;
+}
+body .masthead .context-block h3 {
+  font: 22px/26px 'Roboto', sans-serif, sans-serif;
+  color: #112e4f;
+  text-transform: capitalize;
+  margin: 10px 0;
+}
+body .masthead .context-block h4 {
+  font: 18px/18px 'Roboto', sans-serif, sans-serif;
+  color: #112e4f;
+  text-transform: capitalize;
+}
 body .breadcrumbs ul {
   padding-left: 0;
   font: 15px/19px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
@@ -6466,11 +6487,15 @@ body .breadcrumbs ul span {
 }
 body .admin-tools ul {
   padding-left: 0;
+  margin: 25px 0 0 0;
 }
 body .admin-tools ul li {
   list-style: none;
   float: left;
   margin: 0 4px;
+}
+body .admin-tools ul li:last-child {
+  margin-right: 0;
 }
 body .object-tools {
   list-style-type: none;
@@ -6480,6 +6505,9 @@ body .object-tools {
 body .object-tools a span {
   padding-right: 4px;
 }
+body .object-tools a span:last-child {
+  padding-right: 0;
+}
 body .object-tools a:hover {
   text-decoration: none;
   color: #da5400;
@@ -6487,6 +6515,7 @@ body .object-tools a:hover {
 body.home main,
 body.about main {
   padding: 30px 0 54px 0;
+  background: url('../../../../../images/greyzz.png');
 }
 body.home h1,
 body.about h1 {
@@ -6614,9 +6643,6 @@ body.about .box ul li a {
 }
 body.search main {
   padding: 30px 0 54px 0;
-}
-body.search aside {
-  display: block;
 }
 body.search h1 {
   text-align: center;
@@ -6794,6 +6820,9 @@ body main table#change-history th.date {
 body main table#change-history th.user {
   width: 20%;
 }
+body main table.overview td.position {
+  width: 10%;
+}
 body main .records-selection {
   margin-bottom: 30px;
 }
@@ -6860,12 +6889,44 @@ body main .records-pagination ul li {
 body main aside .upload-steps {
   border-left: 2px solid #005a8b;
 }
+body main aside .upload-steps h2 {
+  margin-top: 17px;
+}
 body main aside .upload-steps ul {
   padding-left: 0;
 }
 body main aside .upload-steps ul li {
   list-style-type: none;
   padding: 0 0 20px 0;
+  font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
+  color: #005a8b;
+}
+body main aside .upload-steps ul li .review {
+  color: #da5400;
+  font-size: 17px;
+  position: relative;
+  display: block;
+  width: 82px;
+  height: 22px;
+}
+body main aside .upload-steps ul li .review span {
+  position: absolute;
+  right: 0;
+}
+body.view aside .upload-steps {
+  border-left: 0;
+}
+body.view #study_form fieldset .row label,
+body.view #trial_form fieldset .row label {
+  margin: 0;
+}
+body.view fieldset .row label {
+  margin: 0;
+  line-height: normal;
+}
+body.view fieldset .row p {
+  margin: 0;
+  line-height: normal;
 }
 body #ui-datepicker-div {
   background: #ffffff;
@@ -6896,6 +6957,12 @@ body #ui-datepicker-div .ui-icon.ui-icon-circle-triangle-e {
 body.detail-view table td.TdField {
   width: 164px;
 }
+body.detail-view table td.download-picture {
+  padding: 10px 0 0 0;
+}
+body.detail-view table td.download-picture a {
+  font-size: 16px;
+}
 body.detail-view .records-selection {
   margin: 0 auto;
   width: 634px;
@@ -6917,6 +6984,14 @@ body #trial_form fieldset p .clearable-file-input input {
 }
 body #trial_form fieldset p .clearable-file-input label {
   margin-bottom: 0;
+}
+body #trial_form fieldset .id_is_calibration span {
+  float: left;
+  margin: 3px 0 0 0;
+  width: 26px;
+}
+body #trial_form fieldset .id_is_calibration p {
+  margin-top: 4px;
 }
 body #behavior_form fieldset label {
   margin-bottom: 10px;
@@ -6945,14 +7020,86 @@ body #subject_form fieldset td.original {
   padding: 0;
 }
 body #subject_form fieldset td.notes {
-  height: 100px;
+  height: 42px;
 }
 body #subject_form fieldset td.notes textarea {
-  height: 100px;
+  width: 100%;
+  height: 42px;
+}
+body #subject_form fieldset td.notes textarea.vLargeTextField {
+  height: 118px;
+  width: 100%;
+}
+body #subject_form .inline-group {
+  margin-bottom: 30px;
+}
+body #experiment_form fieldset td.original {
+  width: 0;
+  padding: 0;
+}
+body #experiment_form fieldset td.notes {
+  height: 42px;
+}
+body #experiment_form fieldset td.notes textarea {
+  width: 100%;
+  height: 42px;
+}
+body #experiment_form .inline-group {
+  margin-bottom: 30px;
+}
+body #kinematicssetup_form fieldset td.original,
+body #sonosetup_form fieldset td.original,
+body #emgsetup_form fieldset td.original,
+body #strainsetup_form fieldset td.original,
+body #forcesetup_form fieldset td.original,
+body #pressuresetup_form fieldset td.original,
+body #eventsetup_form fieldset td.original {
+  width: 0;
+  padding: 0;
+}
+body #kinematicssetup_form fieldset td.notes textarea,
+body #sonosetup_form fieldset td.notes textarea,
+body #emgsetup_form fieldset td.notes textarea,
+body #strainsetup_form fieldset td.notes textarea,
+body #forcesetup_form fieldset td.notes textarea,
+body #pressuresetup_form fieldset td.notes textarea,
+body #eventsetup_form fieldset td.notes textarea {
+  width: 120px;
+}
+body #kinematicssetup_form fieldset td.notes textarea.vLargeTextField,
+body #sonosetup_form fieldset td.notes textarea.vLargeTextField,
+body #emgsetup_form fieldset td.notes textarea.vLargeTextField,
+body #strainsetup_form fieldset td.notes textarea.vLargeTextField,
+body #forcesetup_form fieldset td.notes textarea.vLargeTextField,
+body #pressuresetup_form fieldset td.notes textarea.vLargeTextField,
+body #eventsetup_form fieldset td.notes textarea.vLargeTextField {
+  height: 118px;
+  width: 100%;
+}
+body #kinematicssetup_form fieldset td.picture,
+body #sonosetup_form fieldset td.picture,
+body #emgsetup_form fieldset td.picture,
+body #strainsetup_form fieldset td.picture,
+body #forcesetup_form fieldset td.picture,
+body #pressuresetup_form fieldset td.picture,
+body #eventsetup_form fieldset td.picture {
+  padding-right: 40px;
+}
+body #kinematicssetup_form .inline-group,
+body #sonosetup_form .inline-group,
+body #emgsetup_form .inline-group,
+body #strainsetup_form .inline-group,
+body #forcesetup_form .inline-group,
+body #pressuresetup_form .inline-group,
+body #eventsetup_form .inline-group {
+  margin-bottom: 30px;
 }
 body #session_form fieldset td.original {
   width: 0;
   padding: 0;
+}
+body #session_form .inline-group {
+  margin-bottom: 30px;
 }
 body.change-list .session-search {
   margin-bottom: 0;
@@ -7247,13 +7394,13 @@ body #clone-modal .row {
 body #clone-modal .row .chosen-container {
   width: 100% !important;
 }
-body.change-form main form .help {
-  margin-top: 6px;
+body.change-form main form fieldset .help {
+  margin-top: 4px;
 }
-body.change-form main form span #id_approval_type {
+body.change-form main form fieldset span #id_approval_type {
   list-style-type: none;
 }
-body.change-form main form span #id_approval_type label {
+body.change-form main form fieldset span #id_approval_type label {
   position: relative;
   padding: 0 0 0 26px;
   color: #112e4f;
@@ -7263,22 +7410,31 @@ body.change-form main form span #id_approval_type label {
   font-size: 16px;
   font-weight: 400;
 }
-body.change-form main form span #id_approval_type label input {
+body.change-form main form fieldset span #id_approval_type label input {
   position: absolute;
   left: 0;
   top: 1px;
+  width: 14px;
 }
-body.change-form main form span .add-another {
+body.change-form main form fieldset span .add-another {
   display: none;
 }
-body.change-form main form .datetime {
+body.change-form main form fieldset .datetime {
   margin-bottom: 0;
 }
-body.change-form main form .datetime input {
+body.change-form main form fieldset .datetime input {
   margin: 0 0 5px 0;
 }
-body.change-form main form .datetime input:last-child {
+body.change-form main form fieldset .datetime input:last-child {
   margin: 0;
+}
+body.change-form main .overview-add {
+  float: right;
+  margin: 9px 0 0 0;
+  text-transform: capitalize;
+}
+body.change-form main .overview-add span {
+  padding-right: 4px;
 }
 body.users main form .id_user_permissions p,
 body.users main form .id_groups p {
@@ -7299,6 +7455,9 @@ body.users main form .datetime input {
   margin: 5px 0;
 }
 body.users main form .inline-group h3 {
+  display: none;
+}
+body.auth-group main form .id_permissions p {
   display: none;
 }
 /* Global helpers */
@@ -7339,6 +7498,10 @@ table label {
   color: red;
   margin-bottom: 0;
 }
+.error-text .glyphicon.glyphicon-asterisk {
+  padding: 0 2px 0 0;
+  color: red;
+}
 .chosen-container {
   width: 100% !important;
 }
@@ -7366,6 +7529,12 @@ table label {
 .short-box textarea {
   height: 120px;
 }
+.addlink.collections {
+  padding-left: 10px;
+}
+.table {
+  margin-bottom: 0;
+}
 table tr.clickable td:first-child {
   width: auto;
 }
@@ -7382,12 +7551,39 @@ table tr th.label {
 table tr td.action {
   width: 85px;
 }
+table tr td p.file-upload {
+  position: relative;
+}
+table tr td p.file-upload a {
+  font-size: 15px;
+  display: block;
+}
+table tr td p.file-upload span {
+  position: absolute;
+  top: -4px;
+  right: 0;
+}
+table tr td p.file-upload span input {
+  margin-top: 6px;
+}
+table tr td p.file-upload span label {
+  font-size: 15px;
+}
+table tr td.notes textarea.vLargeTextField {
+  height: 118px;
+  width: 100%;
+}
+table tr td.position {
+  width: 40%;
+}
 .large-table {
   overflow: auto;
   border: 1px solid #dddddd;
+  background: #ffffff;
 }
 .large-table table {
   background: transparent;
+  border-bottom: 2px solid #dddddd;
 }
 .large-table table tr td.name input {
   width: 97px;
@@ -7406,6 +7602,9 @@ table tr td.action {
 }
 .clearable-file-input label {
   margin-bottom: 0;
+}
+.panel-default > .panel-heading {
+  background: url('../../../../../images/greyzz.png');
 }
 /* Form helpers */
 .required label,
@@ -7435,12 +7634,64 @@ form input[type="radio"] {
 }
 textarea {
   resize: vertical;
-}
-aside {
-  display: none;
+  border: 1px solid #7c7c7c;
 }
 form .chosen-container-multi .chosen-choices {
   padding: 5px;
+}
+td.picture input {
+  border: 0;
+  padding: 0;
+  height: 28px;
+  padding: 6px 0 0 0;
+  position: relative;
+  overflow: visible;
+}
+#id_data_file,
+#id_waveform_picture {
+  background: #ffffff;
+  padding: 12px 10px;
+}
+#id_data_file::before,
+#id_waveform_picture::before {
+  top: 7px;
+}
+.panel-heading .accordion-toggle:before {
+  font-family: 'Glyphicons Halflings';
+  content: "\e114";
+  float: left;
+  color: #da5400;
+  padding: 0 10px 0 0;
+}
+.panel-heading .accordion-toggle.collapsed:before {
+  content: "\e080";
+}
+input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+input[type="file"]::before {
+  content: 'Browse';
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  -webkit-border-radius: 3px !important;
+  padding: 0 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+  position: absolute;
+  top: 0;
+}
+input[type="file"]:hover::before {
+  border-color: black;
+}
+input[type="file"]:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 /* Custom media queries for larger screens */
 /* Large devices (large desktops, 1200px and up) */
