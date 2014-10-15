@@ -120,6 +120,21 @@
         </div>
         <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse">
           <div class="panel-body">
+          {% if has_change_permission %}
+            {% if 'kinematicssetup' == opts.model_name %}
+            {% elif 'sonossetup' == opts.model_name %}
+            {% elif 'emgsetup' == opts.model_name %}
+            {% elif 'strainsetup' == opts.model_name %}
+            {% elif 'forcesetup' == opts.model_name %}
+            {% elif 'pressuresetup' == opts.model_name %}
+            {% else %}
+            <div class="row">
+              <div class="col-xs-12">
+                <h3 class="overview-add"><a href="/admin/feed/{{ inline_admin_formset.opts.verbose_name }}/add"><span class='glyphicon glyphicon-plus-sign'></span>Add Another {{ inline_admin_formset.opts.verbose_name }}</a></h3>
+              </div>
+            </div>
+            {% endif %}
+          {% endif %}
         {% with hide_formset_title=True %}
           {% comment %}
             We include tabular_view, which uses hide_formset_title to hide the
