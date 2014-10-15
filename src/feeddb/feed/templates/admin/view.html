@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_modify feedmedia %}
+{% load i18n admin_modify feedmedia feed_util %}
 
 {% block extrahead %}{{ block.super }}
 <script type="text/javascript" src="../../../jsi18n/"></script>
@@ -142,7 +142,7 @@
         <div class="panel-heading">
           <h3 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{forloop.counter}}" class="accordion-toggle collapsed">
-              {{ inline_admin_formset.opts.verbose_name_plural|capfirst }} ({{ inline_admin_formset|length }})
+              {{ inline_admin_formset.opts.verbose_name_plural|capfirst }} ({{ inline_admin_formset|formset_length }})
             </a>
           </h3>
         </div>
