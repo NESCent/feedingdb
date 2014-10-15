@@ -13,3 +13,7 @@ def model_help_text(obj):
 @register.filter
 def technique_name(val):
     return Techniques.num2label(val)
+
+@register.filter
+def formset_length(formset):
+    return len(formset.formset.initial_forms) + len(formset.formset.extra_forms)
