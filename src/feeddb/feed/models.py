@@ -513,9 +513,7 @@ class Sensor(FeedBaseModel):
     setup = models.ForeignKey(Setup)
     name = models.CharField(max_length=255)
 
-    location_freetext = models.CharField("Anatomical Location (free text)", max_length=255, blank = True, null=True)
-    #location_controlled  -- a companion field in some Sensor subclasses
-
+    # NB: location (anatomical or not) is included in subclasses
     loc_side = models.ForeignKey(Side, verbose_name="Side", null=False)
     loc_ap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="AP", blank = True, null=True )
     loc_dv = models.ForeignKey(DorsalVentralAxis, verbose_name="DV", blank = True, null=True )
@@ -533,7 +531,7 @@ class Sensor(FeedBaseModel):
 class EmgSensor(Sensor):
     location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
-    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
+    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
 
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="Electrode Depth", blank = True, null=True )
     electrode_type = models.ForeignKey(ElectrodeType,
@@ -560,7 +558,7 @@ class EmgSensor(Sensor):
 class SonoSensor(Sensor):
     location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
-    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
+    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
 
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="Crystal Depth", blank = True, null=True )
     def __unicode__(self):
@@ -570,18 +568,22 @@ class SonoSensor(Sensor):
         verbose_name = "Sono Crystal"
 
 class StrainSensor(Sensor):
+    anatomical_location_text = models.CharField("Anatomical Location", max_length=255, null=True)
     class Meta:
         verbose_name = "Strain Sensor"
 
 class ForceSensor(Sensor):
+    location_text = models.CharField("Location", max_length=255, null=True)
     class Meta:
         verbose_name = "Bite Force Sensor"
 
 class PressureSensor(Sensor):
+    location_text = models.CharField("Location", max_length=255, null=True)
     class Meta:
         verbose_name = "Pressure Sensor"
 
 class KinematicsSensor(Sensor):
+    anatomical_location_text = models.CharField("Anatomical Location", max_length=255, null=True)
     class Meta:
         verbose_name = "Kinematics Marker"
 
