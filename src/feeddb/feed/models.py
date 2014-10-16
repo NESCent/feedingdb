@@ -587,6 +587,10 @@ class KinematicsSensor(Sensor):
     class Meta:
         verbose_name = "Kinematics Marker"
 
+class OtherSensor(Sensor):
+    location_text = models.CharField("Location", max_length=255, null=True)
+    class Meta:
+        verbose_name = "Other Sensor"
 
 class Channel(FeedBaseModel):
     study = models.ForeignKey(Study, null=True)
@@ -674,6 +678,7 @@ class EventChannel(Channel):
 
 class OtherChannel(Channel):
     #Note: An OtherChannel is not associated with any Sensor
+    sensor = models.ForeignKey(OtherSensor, verbose_name="Sensor", null=True)
     class Meta:
         verbose_name = "Other Channel"
 

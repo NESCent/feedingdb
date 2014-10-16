@@ -103,14 +103,13 @@ class IllustrationAdmin(FeedModelAdmin):
 
 class EmgSensorViewInline(FeedTabularInline):
     model = EmgSensor
-    exclude = ['location_freetext']
     extra = 0
     form = EmgSensorChannelForm
     template = 'admin/tabular_view.html'
 
 class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
-    exclude = ['study', 'location_controlled', 'location_freetext']
+    exclude = ['study', 'location_controlled']
     extra = 5
     form = EmgSensorChannelForm
     formset = OrderedFormset
@@ -118,14 +117,13 @@ class EmgSensorInline(FeedTabularInline):
 class SonoSensorInline(SetupTabularInline):
     model = SonoSensor
     extra = 4
-    exclude = ['study', 'location_controlled', 'location_freetext']
-    form = SonoSensorForm
+    fields = ['name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
 
 class SonoSensorViewInline(FeedTabularInline):
     model = SonoSensor
     extra = 0
-    exclude = ['study', 'location_controlled', 'location_freetext']
-    form = SonoSensorForm
+    exclude = ['study', 'location_controlled']
+    fields = ['name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
     template = 'admin/tabular_view.html'
 
 class StrainSensorInline(SetupTabularInline):
@@ -169,15 +167,26 @@ class PressureSensorViewInline(FeedTabularInline):
 class KinematicsSensorInline(SetupTabularInline):
     model = KinematicsSensor
     extra = 3
-    exclude = ['study']
-    form = KinematicsSensorForm
+    fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
 
 class KinematicsSensorViewInline(FeedTabularInline):
     model = KinematicsSensor
     extra = 0
-    exclude = ['study']
-    form = KinematicsSensorForm
+    fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
     template = 'admin/tabular_view.html'
+
+class OtherSensorInline(SetupTabularInline):
+    model = OtherSensor
+    extra = 3
+    exclude = ['study']
+    fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
+
+class OtherSensorViewInline(FeedTabularInline):
+    model = OtherSensor
+    extra = 0
+    exclude = ['study']
+    template = 'admin/tabular_view.html'
+    fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
 
 class ChannelInline(FeedTabularInline):
     model = Channel
@@ -329,8 +338,8 @@ class EventSetupAdmin(DefaultModelAdmin):
     form = SetupForm
 
 class OtherSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,OtherChannelInline]
-    view_inlines = [IllustrationViewInline, OtherChannelViewInline]
+    inlines = [ IllustrationInline, OtherSensorInline, OtherChannelInline]
+    view_inlines = [IllustrationViewInline, OtherSensorViewInline, OtherChannelViewInline]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment', 'technique')
@@ -375,21 +384,16 @@ class EmgSensorAdmin(EmgSensorModelAdmin):
     form = EmgSensorChannelForm
 
 class SonoSensorAdmin(DefaultModelAdmin):
-    fieldsets = (
-        (None, {
-            'fields': ('setup','name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes')
-        }),
-    )
+    fields = ['name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
     ordering = ('name', 'muscle',)
 
-class CommonSensorAdmin(DefaultModelAdmin):
-    fieldsets = (
-        (None, {
-            'fields': ('setup','name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes')
-        }),
-    )
-    ordering = ('name', 'location_freetext',)
+class AnatomicalSensorAdmin(DefaultModelAdmin):
+    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
+    ordering = ('name', 'anatomical_location_text')
 
+class NonAnatomicalSensorAdmin(DefaultModelAdmin):
+    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
+    ordering = ('name', 'location_text')
 
 class ChannelLineupAdmin(FeedModelAdmin):
     list_display = ('position', 'session','channel')
@@ -466,10 +470,11 @@ admin.site.register(EventSetup,EventSetupAdmin)
 admin.site.register(OtherSetup,OtherSetupAdmin)
 admin.site.register(EmgSensor, EmgSensorAdmin)
 admin.site.register(SonoSensor, SonoSensorAdmin)
-admin.site.register(ForceSensor, CommonSensorAdmin)
-admin.site.register(StrainSensor, CommonSensorAdmin)
-admin.site.register(KinematicsSensor, CommonSensorAdmin)
-admin.site.register(PressureSensor, CommonSensorAdmin)
+admin.site.register(ForceSensor, NonAnatomicalSensorAdmin)
+admin.site.register(StrainSensor, AnatomicalSensorAdmin)
+admin.site.register(KinematicsSensor, AnatomicalSensorAdmin)
+admin.site.register(PressureSensor, NonAnatomicalSensorAdmin)
+admin.site.register(OtherSensor, NonAnatomicalSensorAdmin)
 admin.site.register(ChannelLineup, ChannelLineupAdmin)
 admin.site.register(Illustration,IllustrationAdmin)
 #admin.site.register(EmgChannel,EmgChannelAdmin)
