@@ -17,23 +17,21 @@ def trial_muscles(obj):
             yield channel.sonochannel.crystal1.muscle
             yield channel.sonochannel.crystal2.muscle
 
-CHANNEL_TYPES_HAVING_LOCATION_FREETEXT = (
+CHANNEL_TYPES_HAVING_ANALOC_TEXT = (
     'strainchannel',
-    'forcechannel',
-    'pressurechannel',
     'kinematicschannel',
 )
 
 def trial_analocs(obj):
     """
-    Iterate over all channels having 'location_freetext" field which are
+    Iterate over all channels having `anatomical_location_text` field which are
     attached to a trial, yielding AnatomicalLocations
     """
     for channel in obj.session.channels.all():
-        for channeltype in CHANNEL_TYPES_HAVING_LOCATION_FREETEXT:
+        for channeltype in CHANNEL_TYPES_HAVING_ANALOC_TEXT:
             if hasattr(channel, channeltype):
                 typedchannel = getattr(channel, channeltype)
-                yield typedchannel.sensor.location_freetext
+                yield typedchannel.sensor.anatomical_location_text
 
 def fail_with_return_value(ret):
     def wrap(f):
