@@ -9,12 +9,12 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print "Trials missing OWL behavior:"
         for t in trials_missing_behaviorowl():
-            print "  %d: %s"
+            print "  %d: %s" % (t.id, t)
             try:
                 pk = t.behavior_primary.pk
             except AttributeError:
                 pk = 0
-            print "      behavior_primary: '%s' pk=%d" % (t.id, t, t.behavior_primary, pk)
+            print "      behavior_primary: '%s' pk=%d" % (t.behavior_primary, pk)
             print "  %s" % (t.get_absolute_url())
         else:
             print "  -- 0 trials -- "
