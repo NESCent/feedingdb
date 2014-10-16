@@ -7043,7 +7043,7 @@ body #experiment_form fieldset td.notes textarea {
   width: 100%;
   height: 42px;
 }
-body #experiment_form fieldset td.notes.vLargeTextField {
+body #experiment_form fieldset td.notes textarea.vLargeTextField {
   height: 118px;
   width: 100%;
 }
