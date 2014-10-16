@@ -133,7 +133,7 @@ class BehaviorOwl(OwlTerm):
         return dict(rdfs_is_class=True)
         return dict(
             # This is the "behavior" class, which may or may not be an appropriate filter
-            rdfs_subClassOf_ancestors__uri=u'http://purl.obolibrary.org/obo/OPBO_0000011'
+            rdfs_subClassOf_ancestors__uri=u'http://purl.obolibrary.org/obo/OPBO_0000012'
 
             # Other options include:
             #
