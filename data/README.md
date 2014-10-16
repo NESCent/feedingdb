@@ -23,12 +23,12 @@ cd ../src/
 ./manage.py loadowl b ../data/behavior.closure.owl
 ```
 
+As with all management comments, ensure you are in the appropriate python environment for your site. If you installed Django globally, you should be set. Otherwise, you need to activate the right virtualenv before `./manage.py` will work.
+
 Updates to the "correspondence" spreadsheets
 ----
 
-Currently only updates to the Muscle ontology are supported. 
-
-Download a CSV from Google Docs or export from Excel; the file must have columns titled `pk` (the primary key of the FEED1 term) and `uri` (the URI/IRI of the FEED2 ontology term). Save this in `al_muscles_correspondence.csv`. For example:
+Download a CSV from Google Docs or export from Excel; the file must have columns titled `pk` (the primary key of the FEED1 term) and `uri` (the URI/IRI of the FEED2 ontology term). Save this in `al_muscles_correspondence.csv` for muscles or `behavior_correspondence.csv` for behaviors. For example:
 
 ```
 pk,uri
@@ -41,10 +41,11 @@ pk,uri
 
 You can have other columns in the file if you wish; they will be ignored. You may quote columns with a double-quote `"` and you must separate columns with a comma `,`.
 
-Then run this command to import the correspondence and update all data in the DB:
+Then run one or both of these commands to import the correspondence(s) and update all legacy data in the DB:
 
 ```
-./manage.py loadmusclecorrespondence al_muscles_correspondence.csv
+./manage.py loadcorrespondence m al_muscles_correspondence.csv
+./manage.py loadcorrespondence b behavior_correspondence.csv
 ```
 
 If the FEED2 term cannot be found for any row, a message is printed showing the `pk` and `uri` value (including blank `uri` values). For example, this is a normal import with six unmigrated terms:
@@ -56,4 +57,33 @@ No match for 38:
 No match for 4: 
 No match for 31: 
 No match for 29: 
+```
+
+
+Looking for FEED1 data which is now missing terms
+----
+
+Because the correspondence is incomplete, it is possible that some sensors or trials that had values in FEED1 will be missing values in FEED2. These have to be fixed manually, but you can get a list of them with this command:
+
+```
+./manage.py liststuffmissingstuff
+```
+
+For example:
+
+```
+Trials missing OWL behavior:
+  325: awefffffff
+      behavior_primary: 'None' pk=0
+  /admin/feed/trial/325/
+Sensors missing muscle:
+  1436: EMG Sensor: 1 (Muscle: None, Side: Left) (EMG)
+      location_controlled: 'JEZ Muscle' (pk=54)
+  /admin/feed/emgsensor/1436/
+  1437: EMG Sensor: 2 (Muscle: None, Side: Left) (EMG)
+      location_controlled: 'JEZ Muscle' (pk=54)
+  /admin/feed/emgsensor/1437/
+  1438: EMG Sensor: 3 (Muscle: None, Side: Left) (EMG)
+      location_controlled: 'JEZ Muscle' (pk=54)
+  /admin/feed/emgsensor/1438/
 ```
