@@ -306,6 +306,8 @@ class ElectrodeType(CvTerm):
     pass
 
 class Behavior(CvTerm):
+    # equivalent OWL term for migration
+    ontology_term = models.ForeignKey(BehaviorOwl, related_name="+", null=True)
     pass
 
 class Restraint(CvTerm):
