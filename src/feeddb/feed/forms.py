@@ -54,6 +54,8 @@ class FeedSearchForm(FacetedSearchForm):
 
         sqs = self.searcher.search(filters=self.filters, keywords=q)
 
+        sqs = sqs.order_by('taxon')
+
         sqs = sqs.load_all()
 
         return sqs
