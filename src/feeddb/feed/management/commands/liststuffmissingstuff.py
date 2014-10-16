@@ -16,8 +16,6 @@ class Command(BaseCommand):
                 pk = 0
             print "      behavior_primary: '%s' pk=%d" % (t.behavior_primary, pk)
             print "  %s" % (t.get_absolute_url())
-        else:
-            print "  -- 0 trials -- "
 
         print "Sensors missing muscle:"
         for typename, s in sensors_missing_muscle():
@@ -28,8 +26,6 @@ class Command(BaseCommand):
                 pk = 0
             print "      location_controlled: '%s' (pk=%d)" % (s.location_controlled, pk)
             print "  %s" % (s.get_absolute_url())
-        else:
-            print "  -- 0 sensors --"
 
 def trials_missing_behaviorowl():
     return Trial.objects.filter(behaviorowl_primary__isnull=True).select_related('behavior_primary')
