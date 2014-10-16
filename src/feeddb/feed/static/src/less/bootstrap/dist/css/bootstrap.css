@@ -7043,6 +7043,10 @@ body #experiment_form fieldset td.notes textarea {
   width: 100%;
   height: 42px;
 }
+body #experiment_form fieldset td.notes.vLargeTextField {
+  height: 118px;
+  width: 100%;
+}
 body #experiment_form .inline-group {
   margin-bottom: 30px;
 }
