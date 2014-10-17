@@ -412,6 +412,14 @@ class Experiment(FeedBaseModel):
     def __unicode__(self):
         return self.title
 
+    def typed_setups(self):
+        for setup in self.setup_set.all():
+            for setuptype in ('emgsetup', 'strainsetup', 'forcesetup', 'pressuresetup', 'kinematicssetup', 'eventsetup', 'othersetup'):
+                if hasattr(setup, setuptype):
+                    yield getattr(setup, setuptype)
+                    break
+            else:
+                raise ValueError("Setup %s (pk=%d) is not typed!" % (setup, setup.pk))
     def has_setup_type(self, name, freshen=False):
         """
         Determine if the experiment has a setup of the specified type.
@@ -464,6 +472,24 @@ class Setup(FeedBaseModel):
     def save(self):
         self.study = self.experiment.study
         return super(Setup, self).save()
+
+    def typed_sensors(self):
+        for sensor in self.sensor_set.all():
+            for sensortype in ('emgsensor', 'strainsensor', 'forcesensor', 'pressuresensor', 'kinematicssensor', 'eventsensor', 'othersensor'):
+                if hasattr(sensor, sensortype):
+                    yield getattr(sensor, sensortype)
+                    break
+            else:
+                raise ValueError("Sensor %s (pk=%d) is not typed!" % (sensor, sensor.pk))
+
+    def typed_channels(self):
+        for channel in self.channel_set.all():
+            for channeltype in ('emgchannel', 'strainchannel', 'forcechannel', 'pressurechannel', 'kinematicschannel', 'eventchannel', 'otherchannel'):
+                if hasattr(channel, channeltype):
+                    yield getattr(channel, channeltype)
+                    break
+            else:
+                raise ValueError("Channel %s (pk=%d) is not typed!" % (channel, channel.pk))
 
 class EmgSetup(Setup):
     preamplifier = models.CharField(max_length=255, blank = True, null=True)
