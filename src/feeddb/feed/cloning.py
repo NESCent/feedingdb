@@ -30,8 +30,8 @@ def clone_study(study):
         clone_experiment(experiment)
 
 def clone_experiment(experiment):
-    sessions = experiment.session_set.all()
-    setups = experiment.typed_setups()
+    sessions = list(experiment.session_set.all())
+    setups = list(experiment.typed_setups())
 
     _clone_basic(experiment)
 
@@ -45,10 +45,10 @@ def clone_experiment(experiment):
 
 def clone_setup(setup):
     # reverse foreign keys
-    channels = setup.typed_channels()
-    sensors = setup.typed_sensors()
+    channels = list(setup.typed_channels())
+    sensors = list(setup.typed_sensors())
     sensors_by_old_id  = dict([(s.id, s) for s in sensors])
-    illustrations = setup.illustration_set.all()
+    illustrations = list(setup.illustration_set.all())
 
     _clone_basic(setup)
 
