@@ -14,11 +14,4 @@ class Command(BaseCommand):
     def handle(self, modelname, pk, **options):
         app = options.get('app', 'feed')
         obj = get_model(app, modelname).objects.get(pk=pk)
-        if modelname == 'session':
-            clone_session(obj)
-        elif modelname == 'trial':
-            clone_trial(obj)
-        elif modelname == 'experiment':
-            clone_experiment(obj)
-        elif modelname == 'study':
-            clone_study(obj)
+        clone_supported_object(obj)    

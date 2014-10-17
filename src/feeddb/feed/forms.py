@@ -2,10 +2,11 @@ from haystack.forms import FacetedSearchForm
 from haystack.inputs import AutoQuery, Exact, Clean
 from haystack.query import RelatedSearchQuerySet
 from inspector_panel import debug
+from django import forms
 from django.forms.fields import ChoiceField
 from django.forms.widgets import RadioSelect
 
-from feeddb.feed.models import Trial
+from feeddb.feed.models import Trial, Session, Experiment, Study
 
 from faceted_search.searcher import Searcher
 
@@ -23,6 +24,24 @@ my_facet_config = {
         'techniques': { 'label': 'Sensor Type' },
     }
 }
+
+class ModelCloneForm(forms.Form):
+    source = forms.ModelChoiceField(queryset=None)
+
+    def __init__(self, container=None, *args, **kwargs):
+        super(ModelCloneForm, self).__init__(*args, **kwargs)
+        ContainerModel = type(container)
+
+        if ContainerModel == Session:
+            qs = Trial.objects.filter(session=container)
+        elif ContainerModel == Experiment:
+            qs = Session.objects.filter(experiment=container)
+        elif ContainerModel == Study:
+            qs = Experiment.objects.filter(study=container)
+        else:
+            raise ValueError("ModelCloneForm does not support model type %s" % ContainerModel)
+
+        self.fields['source'].queryset = qs
 
 class FeedSearchForm(FacetedSearchForm):
     per_page = ChoiceField(

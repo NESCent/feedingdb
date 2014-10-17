@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.db.models.loading import get_model
 from django.utils.http import urlencode
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
@@ -10,9 +11,10 @@ from django.contrib import messages
 
 from haystack.views import FacetedSearchView
 from haystack.query import SearchQuerySet
-from forms import FeedSearchForm
+from forms import FeedSearchForm, ModelCloneForm
 
 from feeddb.explorer.models import Bucket
+from django.views.generic.edit import FormView
 
 import logging
 logger = logging.getLogger(__name__)
@@ -36,6 +38,39 @@ def filter_key(f):
         index = 0
 
     return (index, f[0], f[1])
+
+class ModelCloneView(FormView):
+    form_class = ModelCloneForm
+    template_name = 'clone_form.html'
+
+    def dispatch(self, request, container_type='', container_pk='', *args, **kwargs):
+        self.container_type = container_type
+        self.container_pk = container_pk
+        return super(ModelCloneView, self).dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(ModelCloneView, self).get_form_kwargs()
+        pk = long(self.container_pk)
+        kwargs['container'] = get_model('feed', self.container_type).objects.get(pk=pk)
+        return kwargs
+
+    def form_valid(self, form):
+        from cloning import clone_supported_object
+        source = form.cleaned_data['source']
+        clone_supported_object(source)
+        self.dest = source
+        return super(ModelCloneView, self).form_valid(form)
+
+    def get_success_url(self):
+        return self.dest.get_absolute_url()
+
+def clone_view(request, container_type, container_pk):
+    container = get_model('feed', container_type).objects.get(pk=container_pk)
+
+    if request.method == 'POST':
+        form = ModelCloneForm(container, request.POST)
+    else:
+        form = ModelCloneForm(container)
 
 class FeedSearchView(FacetedSearchView):
     def __init__(self):

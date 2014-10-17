@@ -1,4 +1,16 @@
 from feeddb.feed.models import SonoChannel, EventChannel
+from django.conf import settings
+
+def clone_supported_object(obj):
+    modelname = type(obj).__name__.lower()
+    if modelname == 'session':
+        return clone_session(obj)
+    elif modelname == 'trial':
+        return clone_trial(obj)
+    elif modelname == 'experiment':
+        return clone_experiment(obj)
+    elif modelname == 'study':
+        return clone_study(obj)
 
 def clone_study(study):
     experiments = study.experiment_set.all()
@@ -90,7 +102,7 @@ def clone_lineup(lineup):
     _clone_basic(lineup)
 
 def _clone_basic(thing, **kwargs):
-    if DEBUG:
+    if settings.DEBUG:
         print "Old %s: %s (%d)" % (type(thing).__name__, thing, thing.pk)
 
     thing.id = None
@@ -101,6 +113,6 @@ def _clone_basic(thing, **kwargs):
         setattr(thing, key, value)
     thing.save()
 
-    if DEBUG:
+    if settings.DEBUG:
         print "New %s: %s (%d)" % (type(thing).__name__, thing, thing.pk)
 

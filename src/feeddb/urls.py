@@ -29,6 +29,7 @@ urlpatterns = patterns('',
     (r'^login$', login_view),
     (r'^logout$', logout_view),
     (r'^search/', FeedSearchView()),
+    (r'^clone_from_container/(?P<container_type>\w+)/(?P<container_pk>\d+)', ModelCloneView.as_view()),
 )
 
 if settings.DEBUG:
