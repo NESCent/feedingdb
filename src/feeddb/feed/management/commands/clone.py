@@ -18,6 +18,8 @@ class Command(BaseCommand):
             clone_trial(obj)
         elif modelname == 'experiment':
             clone_experiment(obj)
+        elif modelname == 'study':
+            clone_study(obj)
 
 def print_clone(obj):
     for related in obj._meta.get_all_related_objects():
@@ -42,6 +44,23 @@ def print_clone(obj):
 
 def _dict_by_attr(objects, attr):
     return dict([(getattr(o, attr), o) for o in objects])
+
+def clone_study(study):
+    experiments = study.experiment_set.all()
+    subjects = study.subject_set.all()
+    subjects_by_old_id = dict([(s.id, s) for s in subjects])
+
+    _clone_basic(study)
+
+    for subject in subjects:
+        # modifies `subject` in place and thus modifies `subjects_by_old_id`
+        subject.study = study
+        _clone_basic(subject)
+
+    for experiment in experiments:
+        experiment.subject = subjects_by_old_id[experiment.subject.id]
+        experiment.study = study
+        clone_experiment(experiment)
 
 def clone_experiment(experiment):
     sessions = experiment.session_set.all()
