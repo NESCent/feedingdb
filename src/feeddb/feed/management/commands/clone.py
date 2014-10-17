@@ -11,8 +11,13 @@ class Command(BaseCommand):
 
     def handle(self, modelname, pk, **options):
         app = options.get('app', 'feed')
-        obj = get_model(app, modelname).objects.get(pk)
-        print_clone(obj)
+        obj = get_model(app, modelname).objects.get(pk=pk)
+        if modelname == 'session':
+            clone_session(obj)
+        elif modelname == 'trial':
+            clone_trial(obj)
+        elif modelname == 'experiment':
+            clone_experiment(obj)
 
 def print_clone(obj):
     for related in obj._meta.get_all_related_objects():
@@ -40,36 +45,48 @@ def _dict_by_attr(objects, attr):
 
 def clone_experiment(experiment):
     sessions = experiment.session_set.all()
-    setups = experiment.setup_set.all()
-    
+    setups = experiment.typed_setups()
+
+    _clone_basic(experiment)
+
+    for setup in setups:
+        setup.experiment = experiment
+        clone_setup(setup)
+
+    for session in sessions:
+        session.experiment = experiment
+        clone_session(session)
+
 def clone_setup(setup):
     # reverse foreign keys
-    channels = setup.channel_set.all()
-    sensors = setup.sensor_set.all()
+    channels = setup.typed_channels()
+    sensors = setup.typed_sensors()
     sensors_by_old_id  = dict([(s.id, s) for s in sensors])
     illustrations = setup.illustration_set.all()
 
     _clone_basic(setup)
 
-    # trouble. each (typed) channel points to a typed sensor, and each sensor
-    # also points to the setup. Not every sensor has to be used by a channel.
-
     for sensor in sensors:
+        # This modifies `sensor` in place, so `sensors_by_old_id` will contain
+        # the new sensors when this loop finishes.
         _clone_basic(sensor, setup=setup)
     for channel in channels:
-        # TODO: I need to do different things for each channel and sensor type.
-        # For example, SonoChannel objects have two sensors (crystal1 and
-        # crystal2) but all the rest have a single sensor. And the sensor is
-        # typed, so it probably doesn't work to assign an untyped sensor to the
-        # attribute.
-        if hasattr(channel, 'sonochannel'):
-            new_crystal1 = sensors_by_old_id[channel.sonochannel.crystal1]
-            new_crystal2 = sensors_by_old_id[channel.sonochannel.crystal2]
+        # Each channel type has a different type of sensor, but, with the
+        # exception of SonoChannels and EventChannels, they are all stored on
+        # the same attribute
+        if type(channel) == SonoChannel:
+            new_crystal1 = sensors_by_old_id[channel.crystal1.id]
+            new_crystal2 = sensors_by_old_id[channel.crystal2.id]
             _clone_basic(channel, setup=setup, crystal1=new_crystal1, crystal2=new_crystal2)
-        else:
-            # FIXME: use typed sensor and typed channel here. i.e. channel.emgchannel.sensor
-            new_sensor = sensors_by_old_id[channel.sensor.id]
+        elif type(channel) == EventChannel:
+            _clone_basic(channel, setup=setup)
+        elif hasattr(channel, 'sensor'):
+            # This is for most channel types
+            old_sensor = channel.sensor
+            new_sensor = sensors_by_old_id[old_sensor.id]
             _clone_basic(channel, setup=setup, sensor=new_sensor)
+        else:
+            raise ValueError("Channel %s (pk=%d) is of unknown type %s" % (channel, channel.pk, type(channel)))
 
 def clone_session(session):
     """
@@ -79,29 +96,33 @@ def clone_session(session):
     trials = session.trial_set.all()
     channellineups = session.channellineup_set.all()
 
-    session.id = None
-    session.pk = None
-    session.save()
+    _clone_basic(session)
+
     for trial in trials:
-        clone_trial(trial, session=session)
+        trial.session = session
+        clone_trial(trial)
 
     # Per Django docs, this would be a simple mapper of assigning the list
     # of channels to the new m2m field, but we have a `through` table, so
     # we have to make new relationships manually.
     for lineup in channellineups:
-        clone_lineup(lineup, session=session)
+        lineup.session = session
+        clone_lineup(lineup)
 
 def clone_trial(trial):
-    trial.title = 'Cloned Trial (was "%s")' % trial.title
     _clone_basic(trial)
 
 def clone_lineup(lineup):
     _clone_basic(lineup)
 
 def _clone_basic(thing, **kwargs):
+    print "Old %s: %s (%d)" % (type(thing).__name__, thing, thing.pk)
     thing.id = None
     thing.pk = None
+    if hasattr(thing, 'title'):
+        thing.title = 'Clone of "%s"' % (thing.title)
     for key, value in kwargs.iteritems():
         setattr(thing, key, value)
     thing.save()
+    print "New %s: %s (%d)" % (type(thing).__name__, thing, thing.pk)
 
