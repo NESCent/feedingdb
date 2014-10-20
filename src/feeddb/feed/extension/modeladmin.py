@@ -411,6 +411,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         extra_context.update({
             'tabbed': self.tabbed,
             'tab_name': self.tab_name,
+            'is_clone': 'is_clone' in request.GET,
         })
 
         return super(FeedModelAdmin,self).change_view(request, object_id, extra_context=extra_context)
