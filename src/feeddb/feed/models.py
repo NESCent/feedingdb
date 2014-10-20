@@ -32,12 +32,21 @@ class FeedBaseModel(models.Model):
     def cloneable(self):
         return self.is_cloneable
 
-    def get_absolute_url(self):
+    def get_absolute_url(self, change=False):
         content_type = ContentType.objects.get_for_model(self.__class__)
-        try:
-            return reverse('admin:%s_%s_view' % (content_type.app_label, content_type.model), args=(self.id,))
-        except NoReverseMatch:
+        def change_url():
             return reverse('admin:%s_%s_change' % (content_type.app_label, content_type.model), args=(self.id,))
+        def view_url():
+            return reverse('admin:%s_%s_view' % (content_type.app_label, content_type.model), args=(self.id,))
+
+        if change:
+            return change_url()
+        else:
+            try:
+                return view_url()
+            except NoReverseMatch:
+                return change_url()
+
 
     def save(self):
         now = datetime.datetime.today()
