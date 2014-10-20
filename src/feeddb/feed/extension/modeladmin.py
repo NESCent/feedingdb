@@ -26,6 +26,7 @@ from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
 from feeddb.feed.util import FeedUploadStatus
 from feeddb.feed.models import  *
+from feeddb.feed.forms import *
 from feeddb.explorer.models import  *
 from feeddb.feed.extension.forms import *
 from feeddb.feed.extension.formsets import PositionBaseInlineFormSet
@@ -333,6 +334,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         # Get default form values from session
         if add:
             request.feed_upload_status.apply_defaults_to_form(context['adminform'].form)
+            context['clone_form'] = ModelCloneForm.factory(self, request)
 
         # Restrict values available in model select widgets based on session.
         #
@@ -409,18 +411,19 @@ class FeedModelAdmin(admin.ModelAdmin):
 
     #get context from the url if adding data
     def add_view(self, request, form_url='', extra_context=None):
+        if extra_context == None:
+            extra_context = {}
+
         if not request.method == 'POST':
-            context_object=self.get_context(request)
-            if(context_object !=None):
+            context_object = self.get_context(request)
+            if context_object != None:
                 context = {
                     'context_object': context_object,
                     'object_name': context_object.__class__.__name__,
                     'has_change_permission': self.has_change_permission(request, context_object),
                 }
-                if(extra_context!=None):
-                    extra_context.update(context)
-                else:
-                    extra_context = context
+                extra_context.update(context)
+
         return super(FeedModelAdmin,self).add_view(request, form_url, extra_context)
 
     #get context object from the url parameter
