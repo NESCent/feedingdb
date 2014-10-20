@@ -7,7 +7,7 @@ from django.forms.fields import ChoiceField, BooleanField
 from django.forms.widgets import RadioSelect
 from django.core.urlresolvers import reverse
 
-from feeddb.feed.models import Trial, Session, Experiment, Study
+from feeddb.feed.models import Trial, Session, Experiment, Subject, Study
 
 from faceted_search.searcher import Searcher
 
@@ -31,7 +31,10 @@ class ModelCloneForm(forms.Form):
     recurse = forms.BooleanField()
 
     def __init__(self, container=None, *args, **kwargs):
+        self.clone_subject = kwargs.pop('clone_subject', False)
+
         super(ModelCloneForm, self).__init__(*args, **kwargs)
+
         ContainerModel = type(container)
 
         if ContainerModel == Session:
@@ -39,7 +42,10 @@ class ModelCloneForm(forms.Form):
         elif ContainerModel == Experiment:
             qs = Session.objects.filter(experiment=container)
         elif ContainerModel == Study:
-            qs = Experiment.objects.filter(study=container)
+            if self.clone_subject:
+                qs = Subject.objects.filter(study=container)
+            else:
+                qs = Experiment.objects.filter(study=container)
         elif container == None:
             qs = Study.objects.all()
         else:
@@ -52,6 +58,11 @@ class ModelCloneForm(forms.Form):
         "Get url for action attribute of form tag. See ../urls.py"
         if self.container == None:
             return reverse('clone_study')
+        elif self.clone_subject:
+            kwargs = {
+                'container_pk': self.container.pk,
+            }
+            return reverse('clone_subject_from_study', kwargs=kwargs)
         else:
             kwargs = {
                 'container_type': type(self.container).__name__.lower(),
@@ -84,7 +95,10 @@ class ModelCloneForm(forms.Form):
         except KeyError:
             pass
 
-        return cls(container=container)
+        if context['opts'].model_name == 'subject':
+            return cls(container=container, clone_subject=True)
+        else:
+            return cls(container=container)
 
 class FeedSearchForm(FacetedSearchForm):
     per_page = ChoiceField(

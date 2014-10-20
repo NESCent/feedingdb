@@ -9,6 +9,8 @@ def clone_supported_object(obj, recurse=True):
         return clone_trial(obj, recurse=recurse)
     elif modelname == 'experiment':
         return clone_experiment(obj, recurse=recurse)
+    elif modelname == 'subject':
+        return clone_subject(obj, recurse=recurse)
     elif modelname == 'study':
         return clone_study(obj, recurse=recurse)
 
@@ -23,7 +25,7 @@ def clone_study(study, recurse=True):
     for subject in subjects:
         # modifies `subject` in place and thus modifies `subjects_by_old_id`
         subject.study = study
-        _clone_basic(subject)
+        clone_subject(subject)
 
     if not recurse:
         return
@@ -32,6 +34,9 @@ def clone_study(study, recurse=True):
         experiment.subject = subjects_by_old_id[experiment.subject.id]
         experiment.study = study
         clone_experiment(experiment)
+
+def clone_subject(subject, recurse=True):
+    _clone_basic(subject)
 
 def clone_experiment(experiment, recurse=True):
     setups = list(experiment.typed_setups())

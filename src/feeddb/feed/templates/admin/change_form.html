@@ -164,7 +164,7 @@
                   {{ form.source }}
                 </div>
               </div>
-              {% if opts.model_name == 'trial' %}
+              {% if opts.model_name == 'trial' or opts.model_name == 'subject' %}
               <input type="hidden" name="{{ form.recurse.html_name }}" value="do_not" />
               {% else %}
               <div class="modal-choices">
