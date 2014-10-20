@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.conf import settings
-import models
+from models import Study, Experiment, Session, Trial
 
 from django.contrib import messages
 
@@ -41,8 +41,16 @@ def filter_key(f):
     return (index, f[0], f[1])
 
 class ModelCloneView(FormView):
+    """
+    This view provides a POST endpoint for the ModelCloneForm, which is only
+    accessible on model add pages via a modal form.
+
+    The form should always succeed; it redirects to the new object.
+    """
+
     form_class = ModelCloneForm
     template_name = 'clone_form.html'
+    http_method_names = ['post']
 
     def dispatch(self, request, container_type=None, container_pk=None, *args, **kwargs):
         self.container_type = container_type
@@ -58,18 +66,39 @@ class ModelCloneView(FormView):
             kwargs['container'] = None
         return kwargs
 
+    def _make_message(self, source, recurse):
+        if type(source) == Study:
+            if recurse:
+                return 'New study created. Please edit the study and all its experiments, sessions, and trials.'
+            else:
+                return 'New study created. Please edit the study.'
+        elif type(source) == Experiment:
+            if recurse:
+                return 'New experiment created. Please edit the experiment and all its sessions and trials.'
+            else:
+                return 'New experiment created. Please edit the experiment.'
+        elif type(source) == Session:
+            if recurse:
+                return 'New session created. Please edit the session and all its trials.'
+            else:
+                return 'New session created. Please edit the session.'
+        elif type(source) == Trial:
+            return 'New trial created. Please edit the trial.'
+
     def form_valid(self, form):
         from cloning import clone_supported_object
         source = form.cleaned_data['source']
         recurse = form.cleaned_data['recurse']
         clone_supported_object(source, recurse=recurse)
         self.dest = source
+
+        messages.info(self.request, self._make_message(source, recurse))
+
         return super(ModelCloneView, self).form_valid(form)
 
     def get_success_url(self):
-        "Redirect to newly created object when successful"
-        messages.info(self.request, 'Clone successful. Please edit all cloned items.')
-        return self.dest.get_absolute_url()
+        "Redirect to newly created object's edit form when successful"
+        return self.dest.get_absolute_url(change=True)
 
 def clone_view(request, container_type, container_pk):
     container = get_model('feed', container_type).objects.get(pk=container_pk)
