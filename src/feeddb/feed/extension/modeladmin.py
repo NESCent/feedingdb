@@ -347,6 +347,12 @@ class FeedModelAdmin(admin.ModelAdmin):
             for form in formset.formset.forms:
                 request.feed_upload_status.apply_restricted_querysets_to_form(form)
 
+        if 'is_clone' in request.GET:
+            if hasattr(obj, 'title'):
+                context['adminform'].form.initial['title'] = ''
+            elif hasattr(obj, 'name'):
+                context['adminform'].form.initial['name'] = ''
+
         return super(FeedModelAdmin, self).render_change_form(request, context, add, change, form_url, obj)
 
     def clone_view(self, request, object_id, extra_context=None):
