@@ -98,7 +98,7 @@ class ModelCloneView(FormView):
 
     def get_success_url(self):
         "Redirect to newly created object's edit form when successful"
-        return self.dest.get_absolute_url(change=True)
+        return self.dest.get_absolute_url(change=True) + '?is_clone'
 
 def clone_view(request, container_type, container_pk):
     container = get_model('feed', container_type).objects.get(pk=container_pk)
