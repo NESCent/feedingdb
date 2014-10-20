@@ -2,10 +2,12 @@ from haystack.forms import FacetedSearchForm
 from haystack.inputs import AutoQuery, Exact, Clean
 from haystack.query import RelatedSearchQuerySet
 from inspector_panel import debug
-from django.forms.fields import ChoiceField
+from django import forms
+from django.forms.fields import ChoiceField, BooleanField
 from django.forms.widgets import RadioSelect
+from django.core.urlresolvers import reverse
 
-from feeddb.feed.models import Trial
+from feeddb.feed.models import Trial, Session, Experiment, Study
 
 from faceted_search.searcher import Searcher
 
@@ -23,6 +25,66 @@ my_facet_config = {
         'techniques': { 'label': 'Sensor Type' },
     }
 }
+
+class ModelCloneForm(forms.Form):
+    source = forms.ModelChoiceField(queryset=None)
+    recurse = forms.BooleanField()
+
+    def __init__(self, container=None, *args, **kwargs):
+        super(ModelCloneForm, self).__init__(*args, **kwargs)
+        ContainerModel = type(container)
+
+        if ContainerModel == Session:
+            qs = Trial.objects.filter(session=container)
+        elif ContainerModel == Experiment:
+            qs = Session.objects.filter(experiment=container)
+        elif ContainerModel == Study:
+            qs = Experiment.objects.filter(study=container)
+        elif container == None:
+            qs = Study.objects.all()
+        else:
+            raise ValueError("ModelCloneForm does not support container model type %s" % ContainerModel)
+
+        self.fields['source'].queryset = qs
+        self.container = container
+
+    def action_url(self):
+        "Get url for action attribute of form tag. See ../urls.py"
+        if self.container == None:
+            return reverse('clone_study')
+        else:
+            kwargs = {
+                'container_type': type(self.container).__name__.lower(),
+                'container_pk': self.container.pk,
+            }
+            return reverse('clone_from_container', kwargs=kwargs)
+
+    def clean(self):
+        cleaned_data = super(ModelCloneForm, self).clean()
+        if self.data['recurse'] == 'do_not':
+            cleaned_data['recurse'] = False
+        elif self.data['recurse'] == 'do':
+            cleaned_data['recurse'] = True
+        return cleaned_data
+
+    @classmethod
+    def factory(cls, modeladmin, request):
+        context = {
+            'opts': modeladmin.model._meta,
+            'request': request
+        }
+        from feeddb.feed.templatetags.upload_status import get_current_containers
+        containers = get_current_containers(context)
+        try:
+            # move down the tree until they don't exist anymore
+            container = None
+            container = containers['study']
+            container = containers['experiment']
+            container = containers['session']
+        except KeyError:
+            pass
+
+        return cls(container=container)
 
 class FeedSearchForm(FacetedSearchForm):
     per_page = ChoiceField(

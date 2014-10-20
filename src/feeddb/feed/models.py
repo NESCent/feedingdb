@@ -32,12 +32,21 @@ class FeedBaseModel(models.Model):
     def cloneable(self):
         return self.is_cloneable
 
-    def get_absolute_url(self):
+    def get_absolute_url(self, change=False):
         content_type = ContentType.objects.get_for_model(self.__class__)
-        try:
-            return reverse('admin:%s_%s_view' % (content_type.app_label, content_type.model), args=(self.id,))
-        except NoReverseMatch:
+        def change_url():
             return reverse('admin:%s_%s_change' % (content_type.app_label, content_type.model), args=(self.id,))
+        def view_url():
+            return reverse('admin:%s_%s_view' % (content_type.app_label, content_type.model), args=(self.id,))
+
+        if change:
+            return change_url()
+        else:
+            try:
+                return view_url()
+            except NoReverseMatch:
+                return change_url()
+
 
     def save(self):
         now = datetime.datetime.today()
@@ -412,6 +421,14 @@ class Experiment(FeedBaseModel):
     def __unicode__(self):
         return self.title
 
+    def typed_setups(self):
+        for setup in self.setup_set.all():
+            for setuptype in ('emgsetup', 'strainsetup', 'forcesetup', 'pressuresetup', 'kinematicssetup', 'eventsetup', 'othersetup'):
+                if hasattr(setup, setuptype):
+                    yield getattr(setup, setuptype)
+                    break
+            else:
+                raise ValueError("Setup %s (pk=%d) is not typed!" % (setup, setup.pk))
     def has_setup_type(self, name, freshen=False):
         """
         Determine if the experiment has a setup of the specified type.
@@ -464,6 +481,24 @@ class Setup(FeedBaseModel):
     def save(self):
         self.study = self.experiment.study
         return super(Setup, self).save()
+
+    def typed_sensors(self):
+        for sensor in self.sensor_set.all():
+            for sensortype in ('emgsensor', 'strainsensor', 'forcesensor', 'pressuresensor', 'kinematicssensor', 'eventsensor', 'othersensor'):
+                if hasattr(sensor, sensortype):
+                    yield getattr(sensor, sensortype)
+                    break
+            else:
+                raise ValueError("Sensor %s (pk=%d) is not typed!" % (sensor, sensor.pk))
+
+    def typed_channels(self):
+        for channel in self.channel_set.all():
+            for channeltype in ('emgchannel', 'strainchannel', 'forcechannel', 'pressurechannel', 'kinematicschannel', 'eventchannel', 'otherchannel'):
+                if hasattr(channel, channeltype):
+                    yield getattr(channel, channeltype)
+                    break
+            else:
+                raise ValueError("Channel %s (pk=%d) is not typed!" % (channel, channel.pk))
 
 class EmgSetup(Setup):
     preamplifier = models.CharField(max_length=255, blank = True, null=True)
