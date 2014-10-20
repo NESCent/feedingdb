@@ -52,9 +52,10 @@ class ModelCloneView(FormView):
     template_name = 'clone_form.html'
     http_method_names = ['post']
 
-    def dispatch(self, request, container_type=None, container_pk=None, *args, **kwargs):
+    def dispatch(self, request, container_type=None, container_pk=None, clone_subject=False, *args, **kwargs):
         self.container_type = container_type
         self.container_pk = container_pk
+        self.clone_subject = clone_subject
         return super(ModelCloneView, self).dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
@@ -64,6 +65,7 @@ class ModelCloneView(FormView):
             kwargs['container'] = get_model('feed', self.container_type).objects.get(pk=pk)
         elif self.container_type == None:
             kwargs['container'] = None
+        kwargs['clone_subject'] = self.clone_subject
         return kwargs
 
     def _make_message(self, source, recurse):
