@@ -6742,6 +6742,9 @@ body.collection form table th {
 body.collection form table td {
   font-size: 14px;
 }
+body.collection-detail #trial_form th:first-child {
+  width: 30px !important;
+}
 body.collection-detail footer {
   margin-top: 0;
 }
