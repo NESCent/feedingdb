@@ -1,21 +1,22 @@
 from feeddb.feed.models import SonoChannel, EventChannel
 from django.conf import settings
 
-def clone_supported_object(obj):
+def clone_supported_object(obj, recurse=True):
     modelname = type(obj).__name__.lower()
     if modelname == 'session':
-        return clone_session(obj)
+        return clone_session(obj, recurse=recurse)
     elif modelname == 'trial':
-        return clone_trial(obj)
+        return clone_trial(obj, recurse=recurse)
     elif modelname == 'experiment':
-        return clone_experiment(obj)
+        return clone_experiment(obj, recurse=recurse)
     elif modelname == 'study':
-        return clone_study(obj)
+        return clone_study(obj, recurse=recurse)
 
-def clone_study(study):
-    experiments = study.experiment_set.all()
+def clone_study(study, recurse=True):
     subjects = study.subject_set.all()
     subjects_by_old_id = dict([(s.id, s) for s in subjects])
+    if recurse:
+        experiments = study.experiment_set.all()
 
     _clone_basic(study)
 
@@ -24,20 +25,27 @@ def clone_study(study):
         subject.study = study
         _clone_basic(subject)
 
+    if not recurse:
+        return
+
     for experiment in experiments:
         experiment.subject = subjects_by_old_id[experiment.subject.id]
         experiment.study = study
         clone_experiment(experiment)
 
-def clone_experiment(experiment):
-    sessions = list(experiment.session_set.all())
+def clone_experiment(experiment, recurse=True):
     setups = list(experiment.typed_setups())
+    if recurse:
+        sessions = list(experiment.session_set.all())
 
     _clone_basic(experiment)
 
     for setup in setups:
         setup.experiment = experiment
         clone_setup(setup)
+
+    if not recurse:
+        return
 
     for session in sessions:
         session.experiment = experiment
@@ -74,15 +82,19 @@ def clone_setup(setup):
         else:
             raise ValueError("Channel %s (pk=%d) is of unknown type %s" % (channel, channel.pk, type(channel)))
 
-def clone_session(session):
+def clone_session(session, recurse=True):
     """
     Modifies its argument to become the new session
     """
 
-    trials = session.trial_set.all()
     channellineups = session.channellineup_set.all()
+    if recurse:
+        trials = session.trial_set.all()
 
     _clone_basic(session)
+
+    if not recurse:
+        return
 
     for trial in trials:
         trial.session = session
@@ -95,7 +107,7 @@ def clone_session(session):
         lineup.session = session
         clone_lineup(lineup)
 
-def clone_trial(trial):
+def clone_trial(trial, recurse=True):
     _clone_basic(trial)
 
 def clone_lineup(lineup):

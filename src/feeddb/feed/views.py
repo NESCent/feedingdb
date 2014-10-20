@@ -4,6 +4,7 @@ from django.db.models.loading import get_model
 from django.utils.http import urlencode
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 from django.conf import settings
 import models
 
@@ -43,25 +44,31 @@ class ModelCloneView(FormView):
     form_class = ModelCloneForm
     template_name = 'clone_form.html'
 
-    def dispatch(self, request, container_type='', container_pk='', *args, **kwargs):
+    def dispatch(self, request, container_type=None, container_pk=None, *args, **kwargs):
         self.container_type = container_type
         self.container_pk = container_pk
         return super(ModelCloneView, self).dispatch(request, *args, **kwargs)
 
     def get_form_kwargs(self):
         kwargs = super(ModelCloneView, self).get_form_kwargs()
-        pk = long(self.container_pk)
-        kwargs['container'] = get_model('feed', self.container_type).objects.get(pk=pk)
+        if self.container_type and self.container_pk:
+            pk = long(self.container_pk)
+            kwargs['container'] = get_model('feed', self.container_type).objects.get(pk=pk)
+        elif self.container_type == None:
+            kwargs['container'] = None
         return kwargs
 
     def form_valid(self, form):
         from cloning import clone_supported_object
         source = form.cleaned_data['source']
-        clone_supported_object(source)
+        recurse = form.cleaned_data['recurse']
+        clone_supported_object(source, recurse=recurse)
         self.dest = source
         return super(ModelCloneView, self).form_valid(form)
 
     def get_success_url(self):
+        "Redirect to newly created object when successful"
+        messages.info(self.request, 'Clone successful. Please edit all cloned items.')
         return self.dest.get_absolute_url()
 
 def clone_view(request, container_type, container_pk):
@@ -121,7 +128,7 @@ class FeedSearchView(FacetedSearchView):
                 url += '?' + urlencode(filters)
 
             return redirect(url)
-        
+
         self.query = self.get_query()
         self.results = self.get_results()
         return self.create_response()

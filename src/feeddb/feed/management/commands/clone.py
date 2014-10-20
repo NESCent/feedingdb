@@ -14,4 +14,4 @@ class Command(BaseCommand):
     def handle(self, modelname, pk, **options):
         app = options.get('app', 'feed')
         obj = get_model(app, modelname).objects.get(pk=pk)
-        clone_supported_object(obj)    
+        clone_supported_object(obj, recurse=False)

@@ -62,9 +62,7 @@ def get_status(context):
         status = None
     return status
 
-@register.inclusion_tag('upload_status/upload_status_current_containers.html', takes_context=True)
-def upload_status_current_containers(context):
-    # get the data for the upload status block, then remove the
+def get_current_containers(context):
     try:
         model_name = context['opts'].model_name
     except KeyError as e:
@@ -78,5 +76,16 @@ def upload_status_current_containers(context):
             if hasattr(Model, fname):
                 ret[fname] = value
 
+    ret['model_name'] =  model_name
+    ret['Model'] = Model
+    ret['status'] = status
     ret['status_data'] = status._data
     return ret
+
+@register.inclusion_tag('upload_status/upload_status_current_containers.html', takes_context=True)
+def upload_status_current_containers(context):
+    return get_current_containers(context)
+
+@register.simple_tag(takes_context=True)
+def upload_status_clone_url(context):
+    ret = get_current_containers(context)
