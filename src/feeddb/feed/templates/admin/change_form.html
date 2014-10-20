@@ -148,41 +148,62 @@
     <div class="modal fade" id="clone-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h3 class="modal-title">Clone Existing {{ opts.object_name}}</h3>
-          </div>
-          <div class="modal-body">
-            <form>
+          {% with clone_form as form %}
+          <form method="post" action="{{ form.action_url }}">
+            {% csrf_token %}
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h3 class="modal-title">Clone Existing {{ opts.object_name}}</h3>
+            </div>
+            <div class="modal-body">
               <div class="row">
                 <div class="col-xs-3 col-xs-offset-1">
-                  <label>{{ opts.object_name}}:</label>
+                  <label for="{{ form.source.id_for_label }}">Choose {{ opts.object_name }}:</label>
                 </div>
                 <div class="col-xs-5">
-                  <select class="chosen-select" single>
-                    <option>Existing {{ opts.object_name.lower}}</option>
-                    <option>Study 1</option>
-                  </select>
+                  {{ form.source }}
                 </div>
               </div>
+              {% if opts.model_name == 'trial' %}
+              <input type="hidden" name="{{ form.recurse.html_name }}" value="do_not" />
+              {% else %}
               <div class="modal-choices">
                 <div class="row">
                   <div class="col-xs-1 col-xs-offset-1">
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                    <input type="radio" name="{{ form.recurse.html_name }}" id="recurse_do_not" value="do_not" checked>
                   </div>
                   <div class="col-xs-10">
-                    <label>Clone only {{ opts.object_name.lower}} metadata</label>
+                    <label for="recurse_do_not">
+                      {% if opts.model_name == 'study' %}
+                        Clone study and subjects only
+                      {% elif opts.model_name == 'experiment' %}
+                        Clone experiment, sensors, and channels only
+                      {% elif opts.model_name == 'session' %}
+                        Clone session only
+                      {% endif %}
+                    </label>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-xs-1 col-xs-offset-1">
-                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                    <input type="radio" name="{{ form.recurse.html_name }}" id="recurse_do" value="do">
                   </div>
                   <div class="col-xs-10">
-                    <label>Clone all metadata</label>
+                    <label for="recurse_do">
+                    {% if opts.model_name == 'study' %}
+                      Clone all metadata (including all experiments, sessions, and trials)
+                    {% elif opts.model_name == 'experiment' %}
+                      Clone all metadata (including all sessions and trials)
+                    {% elif opts.model_name == 'session' %}
+                      Clone all metadata (including all trials)
+                    {% else %}
+                      UNSUPPORTED TYPE!
+                    {% endif %}
+                    </label>
                   </div>
                 </div>
               </div>
+              {% endif %}
               <div class="row">
                 <div class="col-xs-11 col-xs-offset-1">
                   <div class="alert alert-info">
@@ -190,18 +211,19 @@
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <div class="row">
-              <div class="col-xs-4 col-xs-offset-2">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-              <div class="col-xs-4">
-                <button type="button" class="btn btn-primary">Save Changes</button>
+            </div>
+            <div class="modal-footer">
+              <div class="row">
+                <div class="col-xs-4 col-xs-offset-2">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                <div class="col-xs-4">
+                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
               </div>
             </div>
-          </div>
+          </form>
+          {% endwith %}
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
