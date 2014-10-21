@@ -6647,6 +6647,15 @@ body.search main {
 body.search h1 {
   text-align: center;
 }
+body.search .records-number h3 {
+  margin-bottom: 0;
+}
+body.search .records-number p {
+  margin: 0 0 10px 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  color: #da5400;
+}
 body.search p {
   margin-top: 30px;
 }
