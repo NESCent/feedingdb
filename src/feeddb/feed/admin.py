@@ -167,12 +167,12 @@ class PressureSensorViewInline(FeedTabularInline):
 class KinematicsSensorInline(SetupTabularInline):
     model = KinematicsSensor
     extra = 3
-    fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
+    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
 
 class KinematicsSensorViewInline(FeedTabularInline):
     model = KinematicsSensor
     extra = 0
-    fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
+    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
     template = 'admin/tabular_view.html'
 
 class OtherSensorInline(SetupTabularInline):
