@@ -59,9 +59,7 @@
                     
                     {% trans 'Change Password' %}</a> /
                     
-                    {% if auth_user_changeform %}
                     <a href="{% url "admin:auth_user_changeform" %}">My Profile</a> /
-                    {% endif %}
                     
                     {% if user.is_superuser %}
                     <a href="{% url "admin:auth_group_changelist" %}">Manage Groups</a> /
