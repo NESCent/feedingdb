@@ -423,12 +423,13 @@ class Experiment(FeedBaseModel):
 
     def typed_setups(self):
         for setup in self.setup_set.all():
-            for setuptype in ('emgsetup', 'strainsetup', 'forcesetup', 'pressuresetup', 'kinematicssetup', 'eventsetup', 'othersetup'):
+            for setuptype in ('emgsetup', 'sonosetup', 'strainsetup', 'forcesetup', 'pressuresetup', 'kinematicssetup', 'eventsetup', 'othersetup'):
                 if hasattr(setup, setuptype):
                     yield getattr(setup, setuptype)
                     break
             else:
                 raise ValueError("Setup %s (pk=%d) is not typed!" % (setup, setup.pk))
+
     def has_setup_type(self, name, freshen=False):
         """
         Determine if the experiment has a setup of the specified type.
@@ -484,7 +485,7 @@ class Setup(FeedBaseModel):
 
     def typed_sensors(self):
         for sensor in self.sensor_set.all():
-            for sensortype in ('emgsensor', 'strainsensor', 'forcesensor', 'pressuresensor', 'kinematicssensor', 'eventsensor', 'othersensor'):
+            for sensortype in ('emgsensor', 'sonosensor', 'strainsensor', 'forcesensor', 'pressuresensor', 'kinematicssensor', 'eventsensor', 'othersensor'):
                 if hasattr(sensor, sensortype):
                     yield getattr(sensor, sensortype)
                     break
@@ -493,7 +494,7 @@ class Setup(FeedBaseModel):
 
     def typed_channels(self):
         for channel in self.channel_set.all():
-            for channeltype in ('emgchannel', 'strainchannel', 'forcechannel', 'pressurechannel', 'kinematicschannel', 'eventchannel', 'otherchannel'):
+            for channeltype in ('emgchannel', 'sonochannel', 'strainchannel', 'forcechannel', 'pressurechannel', 'kinematicschannel', 'eventchannel', 'otherchannel'):
                 if hasattr(channel, channeltype):
                     yield getattr(channel, channeltype)
                     break
