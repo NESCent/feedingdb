@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse, NoReverseMatch
 
+from django.utils.safestring import mark_safe
+
 from django.conf import settings
 import datetime
 from django.db.models.expressions import F
@@ -32,12 +34,21 @@ class FeedBaseModel(models.Model):
     def cloneable(self):
         return self.is_cloneable
 
-    def get_absolute_url(self):
+    def get_absolute_url(self, change=False):
         content_type = ContentType.objects.get_for_model(self.__class__)
-        try:
-            return reverse('admin:%s_%s_view' % (content_type.app_label, content_type.model), args=(self.id,))
-        except NoReverseMatch:
+        def change_url():
             return reverse('admin:%s_%s_change' % (content_type.app_label, content_type.model), args=(self.id,))
+        def view_url():
+            return reverse('admin:%s_%s_view' % (content_type.app_label, content_type.model), args=(self.id,))
+
+        if change:
+            return change_url()
+        else:
+            try:
+                return view_url()
+            except NoReverseMatch:
+                return change_url()
+
 
     def save(self):
         now = datetime.datetime.today()
@@ -337,14 +348,15 @@ class Study(FeedBaseModel):
                              help_text = "The agency that funded the research")
 
     approval_type = models.ForeignKey(AnimalApprovalType, verbose_name="Approval Secured", blank=False, null=True,
-                             help_text =
+                             help_text = mark_safe(
                                 '''
                                 Affirmation that an institutional approval for
                                 Animal Care and Use or for Human Subjects was
                                 secured. Please read each statement very
-                                carefully. Data upload can not continue without
-                                checking the appropriate affirmation.
-                                ''')
+                                carefully. <b>Data upload can not continue
+                                without checking the appropriate
+                                affirmation.</b>
+                                '''))
 
     description = models.TextField("Study Description",
                              help_text = "A brief summary of the Study goals and data")
@@ -412,6 +424,15 @@ class Experiment(FeedBaseModel):
     def __unicode__(self):
         return self.title
 
+    def typed_setups(self):
+        for setup in self.setup_set.all():
+            for setuptype in ('emgsetup', 'sonosetup', 'strainsetup', 'forcesetup', 'pressuresetup', 'kinematicssetup', 'eventsetup', 'othersetup'):
+                if hasattr(setup, setuptype):
+                    yield getattr(setup, setuptype)
+                    break
+            else:
+                raise ValueError("Setup %s (pk=%d) is not typed!" % (setup, setup.pk))
+
     def has_setup_type(self, name, freshen=False):
         """
         Determine if the experiment has a setup of the specified type.
@@ -464,6 +485,24 @@ class Setup(FeedBaseModel):
     def save(self):
         self.study = self.experiment.study
         return super(Setup, self).save()
+
+    def typed_sensors(self):
+        for sensor in self.sensor_set.all():
+            for sensortype in ('emgsensor', 'sonosensor', 'strainsensor', 'forcesensor', 'pressuresensor', 'kinematicssensor', 'eventsensor', 'othersensor'):
+                if hasattr(sensor, sensortype):
+                    yield getattr(sensor, sensortype)
+                    break
+            else:
+                raise ValueError("Sensor %s (pk=%d) is not typed!" % (sensor, sensor.pk))
+
+    def typed_channels(self):
+        for channel in self.channel_set.all():
+            for channeltype in ('emgchannel', 'sonochannel', 'strainchannel', 'forcechannel', 'pressurechannel', 'kinematicschannel', 'eventchannel', 'otherchannel'):
+                if hasattr(channel, channeltype):
+                    yield getattr(channel, channeltype)
+                    break
+            else:
+                raise ValueError("Channel %s (pk=%d) is not typed!" % (channel, channel.pk))
 
 class EmgSetup(Setup):
     preamplifier = models.CharField(max_length=255, blank = True, null=True)
