@@ -530,11 +530,6 @@ class KinematicsSetup(Setup):
     class Meta:
         verbose_name = "Kinematics Setup"
 
-    def save(self):
-        if self.notes in (None, '') and self.id == None:
-            self.notes = 'camera\nmarkers\nmovie film or digital\nlight or x-ray\nanatomical view (lateral/d-v/frontal)\n2D or 3D'
-        super(KinematicsSetup, self).save()
-
 class EventSetup(Setup):
     class Meta:
         verbose_name = "Time/Event Setup"
