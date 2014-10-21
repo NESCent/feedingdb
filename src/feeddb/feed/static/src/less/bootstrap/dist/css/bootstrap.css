@@ -7428,6 +7428,16 @@ body #clone-modal .row {
 body #clone-modal .row .chosen-container {
   width: 100% !important;
 }
+body.change-form .masthead {
+  background: url('../../../../../images/greyzz.png');
+  padding-bottom: 30px;
+  border-bottom: 1px solid #dcdcdc;
+}
+body.change-form.view .masthead {
+  background-image: none;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
 body.change-form main form fieldset .help {
   margin-top: 4px;
 }
