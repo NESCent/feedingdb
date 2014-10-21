@@ -1,18 +1,21 @@
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.db.models.loading import get_model
 from django.utils.http import urlencode
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 from django.conf import settings
-import models
+from models import Study, Experiment, Session, Trial
 
 from django.contrib import messages
 
 from haystack.views import FacetedSearchView
 from haystack.query import SearchQuerySet
-from forms import FeedSearchForm
+from forms import FeedSearchForm, ModelCloneForm
 
 from feeddb.explorer.models import Bucket
+from django.views.generic.edit import FormView
 
 import logging
 logger = logging.getLogger(__name__)
@@ -36,6 +39,76 @@ def filter_key(f):
         index = 0
 
     return (index, f[0], f[1])
+
+class ModelCloneView(FormView):
+    """
+    This view provides a POST endpoint for the ModelCloneForm, which is only
+    accessible on model add pages via a modal form.
+
+    The form should always succeed; it redirects to the new object.
+    """
+
+    form_class = ModelCloneForm
+    template_name = 'clone_form.html'
+    http_method_names = ['post']
+
+    def dispatch(self, request, container_type=None, container_pk=None, clone_subject=False, *args, **kwargs):
+        self.container_type = container_type
+        self.container_pk = container_pk
+        self.clone_subject = clone_subject
+        return super(ModelCloneView, self).dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(ModelCloneView, self).get_form_kwargs()
+        if self.container_type and self.container_pk:
+            pk = long(self.container_pk)
+            kwargs['container'] = get_model('feed', self.container_type).objects.get(pk=pk)
+        elif self.container_type == None:
+            kwargs['container'] = None
+        kwargs['clone_subject'] = self.clone_subject
+        return kwargs
+
+    def _make_message(self, source, recurse):
+        if type(source) == Study:
+            if recurse:
+                return 'New study created. Please edit the study and all its experiments, sessions, and trials.'
+            else:
+                return 'New study created. Please edit the study.'
+        elif type(source) == Experiment:
+            if recurse:
+                return 'New experiment created. Please edit the experiment and all its sessions and trials.'
+            else:
+                return 'New experiment created. Please edit the experiment.'
+        elif type(source) == Session:
+            if recurse:
+                return 'New session created. Please edit the session and all its trials.'
+            else:
+                return 'New session created. Please edit the session.'
+        elif type(source) == Trial:
+            return 'New trial created. Please edit the trial.'
+
+    def form_valid(self, form):
+        from cloning import clone_supported_object
+        source = form.cleaned_data['source']
+        recurse = form.cleaned_data['recurse']
+        clone_supported_object(source, recurse=recurse)
+        self.dest = source
+
+        messages.info(self.request, self._make_message(source, recurse))
+
+        return super(ModelCloneView, self).form_valid(form)
+
+    def get_success_url(self):
+        "Redirect to newly created object's edit form when successful"
+        return self.dest.get_absolute_url(change=True) + '?is_clone'
+
+def clone_view(request, container_type, container_pk):
+    container = get_model('feed', container_type).objects.get(pk=container_pk)
+
+    if request.method == 'POST':
+        form = ModelCloneForm(container, request.POST)
+    else:
+        form = ModelCloneForm(container)
 
 class FeedSearchView(FacetedSearchView):
     def __init__(self):
@@ -86,7 +159,7 @@ class FeedSearchView(FacetedSearchView):
                 url += '?' + urlencode(filters)
 
             return redirect(url)
-        
+
         self.query = self.get_query()
         self.results = self.get_results()
         return self.create_response()

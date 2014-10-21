@@ -26,6 +26,7 @@ from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
 from feeddb.feed.util import FeedUploadStatus
 from feeddb.feed.models import  *
+from feeddb.feed.forms import *
 from feeddb.explorer.models import  *
 from feeddb.feed.extension.forms import *
 from feeddb.feed.extension.formsets import PositionBaseInlineFormSet
@@ -333,6 +334,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         # Get default form values from session
         if add:
             request.feed_upload_status.apply_defaults_to_form(context['adminform'].form)
+            context['clone_form'] = ModelCloneForm.factory(self, request)
 
         # Restrict values available in model select widgets based on session.
         #
@@ -344,6 +346,12 @@ class FeedModelAdmin(admin.ModelAdmin):
         for formset in context['inline_admin_formsets']:
             for form in formset.formset.forms:
                 request.feed_upload_status.apply_restricted_querysets_to_form(form)
+
+        if 'is_clone' in request.GET:
+            if hasattr(obj, 'title'):
+                context['adminform'].form.initial['title'] = ''
+            elif hasattr(obj, 'name'):
+                context['adminform'].form.initial['name'] = ''
 
         return super(FeedModelAdmin, self).render_change_form(request, context, add, change, form_url, obj)
 
@@ -403,24 +411,26 @@ class FeedModelAdmin(admin.ModelAdmin):
         extra_context.update({
             'tabbed': self.tabbed,
             'tab_name': self.tab_name,
+            'is_clone': 'is_clone' in request.GET,
         })
 
         return super(FeedModelAdmin,self).change_view(request, object_id, extra_context=extra_context)
 
     #get context from the url if adding data
     def add_view(self, request, form_url='', extra_context=None):
+        if extra_context == None:
+            extra_context = {}
+
         if not request.method == 'POST':
-            context_object=self.get_context(request)
-            if(context_object !=None):
+            context_object = self.get_context(request)
+            if context_object != None:
                 context = {
                     'context_object': context_object,
                     'object_name': context_object.__class__.__name__,
                     'has_change_permission': self.has_change_permission(request, context_object),
                 }
-                if(extra_context!=None):
-                    extra_context.update(context)
-                else:
-                    extra_context = context
+                extra_context.update(context)
+
         return super(FeedModelAdmin,self).add_view(request, form_url, extra_context)
 
     #get context object from the url parameter
