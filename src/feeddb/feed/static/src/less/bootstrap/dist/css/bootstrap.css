@@ -7059,7 +7059,8 @@ body #emgsetup_form fieldset td.original,
 body #strainsetup_form fieldset td.original,
 body #forcesetup_form fieldset td.original,
 body #pressuresetup_form fieldset td.original,
-body #eventsetup_form fieldset td.original {
+body #eventsetup_form fieldset td.original,
+body #othersetup_form fieldset td.original {
   width: 0;
   padding: 0;
 }
@@ -7069,7 +7070,8 @@ body #emgsetup_form fieldset td.notes textarea,
 body #strainsetup_form fieldset td.notes textarea,
 body #forcesetup_form fieldset td.notes textarea,
 body #pressuresetup_form fieldset td.notes textarea,
-body #eventsetup_form fieldset td.notes textarea {
+body #eventsetup_form fieldset td.notes textarea,
+body #othersetup_form fieldset td.notes textarea {
   width: 120px;
 }
 body #kinematicssetup_form fieldset td.notes textarea.vLargeTextField,
@@ -7078,7 +7080,8 @@ body #emgsetup_form fieldset td.notes textarea.vLargeTextField,
 body #strainsetup_form fieldset td.notes textarea.vLargeTextField,
 body #forcesetup_form fieldset td.notes textarea.vLargeTextField,
 body #pressuresetup_form fieldset td.notes textarea.vLargeTextField,
-body #eventsetup_form fieldset td.notes textarea.vLargeTextField {
+body #eventsetup_form fieldset td.notes textarea.vLargeTextField,
+body #othersetup_form fieldset td.notes textarea.vLargeTextField {
   height: 118px;
   width: 100%;
 }
@@ -7088,7 +7091,8 @@ body #emgsetup_form fieldset td.picture,
 body #strainsetup_form fieldset td.picture,
 body #forcesetup_form fieldset td.picture,
 body #pressuresetup_form fieldset td.picture,
-body #eventsetup_form fieldset td.picture {
+body #eventsetup_form fieldset td.picture,
+body #othersetup_form fieldset td.picture {
   padding-right: 40px;
 }
 body #kinematicssetup_form .inline-group,
@@ -7097,7 +7101,31 @@ body #emgsetup_form .inline-group,
 body #strainsetup_form .inline-group,
 body #forcesetup_form .inline-group,
 body #pressuresetup_form .inline-group,
-body #eventsetup_form .inline-group {
+body #eventsetup_form .inline-group,
+body #othersetup_form .inline-group {
+  margin-bottom: 30px;
+}
+body #othersetup_form fieldset td.original {
+  width: 0;
+  padding: 0;
+}
+body #othersetup_form fieldset td.name input.vTextField {
+  width: 97px !important;
+}
+body #othersetup_form fieldset td.location_text input.vTextField {
+  width: 117px !important;
+}
+body #othersetup_form fieldset td.notes textarea {
+  width: 120px;
+}
+body #othersetup_form fieldset td.notes textarea.vLargeTextField {
+  height: 60px;
+  width: 120px;
+}
+body #othersetup_form fieldset td.picture {
+  padding-right: 40px;
+}
+body #othersetup_form .inline-group {
   margin-bottom: 30px;
 }
 body #session_form fieldset td.original {
