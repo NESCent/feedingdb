@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse, NoReverseMatch
 
+from django.utils.safestring import mark_safe
+
 from django.conf import settings
 import datetime
 from django.db.models.expressions import F
@@ -346,14 +348,15 @@ class Study(FeedBaseModel):
                              help_text = "The agency that funded the research")
 
     approval_type = models.ForeignKey(AnimalApprovalType, verbose_name="Approval Secured", blank=False, null=True,
-                             help_text =
+                             help_text = mark_safe(
                                 '''
                                 Affirmation that an institutional approval for
                                 Animal Care and Use or for Human Subjects was
                                 secured. Please read each statement very
-                                carefully. Data upload can not continue without
-                                checking the appropriate affirmation.
-                                ''')
+                                carefully. <b>Data upload can not continue
+                                without checking the appropriate
+                                affirmation.</b>
+                                '''))
 
     description = models.TextField("Study Description",
                              help_text = "A brief summary of the Study goals and data")
