@@ -526,13 +526,39 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
     }
     .inline-group { margin-bottom: 30px; }
   }
-  #kinematicssetup_form, #sonosetup_form, #emgsetup_form, #strainsetup_form, #forcesetup_form, #pressuresetup_form, #eventsetup_form {
+  #kinematicssetup_form, #sonosetup_form, #emgsetup_form, #strainsetup_form, #forcesetup_form, #pressuresetup_form, #eventsetup_form, #othersetup_form {
     fieldset {
       td {
         &.original { width: 0; padding: 0; }
         &.notes { 
           textarea { width: 120px;
             &.vLargeTextField { height: 118px; width: 100%; }
+          }
+        }
+        &.picture { padding-right: 40px;
+          
+        }
+      }
+    }
+    .inline-group { margin-bottom: 30px; }
+  }
+  #othersetup_form {
+    fieldset {
+      td {
+        &.original { width: 0; padding: 0; }
+        &.name {
+          input {
+            &.vTextField { width: 97px !important; }
+          }
+        }
+        &.location_text {
+          input {
+            &.vTextField { width: 117px !important; }
+          }
+        }
+        &.notes { 
+          textarea { width: 120px;
+            &.vLargeTextField { height: 60px; width: 120px; }
           }
         }
         &.picture { padding-right: 40px;

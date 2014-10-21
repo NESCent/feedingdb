@@ -4,6 +4,9 @@
     {{ inline_admin_formset.formset.management_form }}
       <fieldset class="module">
         <h3>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h3>
+    {% if 'pressuresetup' == opts.model_name or 'othersetup' == opts.model_name or 'forcesetup' == opts.model_name %}
+      <p>Enter a term for the sensor location, e.g., external transducer. Longer descriptions can be provided in Notes.</p>
+    {% endif %}
         {{ inline_admin_formset.formset.non_form_errors }}
         <div class="col-xs-11 large-table">
           <table class="table">
