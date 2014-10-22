@@ -10,7 +10,7 @@ import datetime
 from django.db.models.expressions import F
 
 
-DATETIME_HELP_TEXT = ''
+DATETIME_HELP_TEXT = 'Click the field to choose a date from the calendar or enter the date manually with this format: yyyy-mm-dd (i.e. June 28th, 2014 would be entered as 2014-06-28)'
 # Only used for Trial here; the other containers are are affected through forms.py -- go figure (VG)
 BOOKKEEPING_HELP_TEXT = 'Enter any text required for lab bookkeeping concerning the Study here'
 
@@ -339,8 +339,8 @@ class Study(FeedBaseModel):
     title = models.CharField(max_length=255,
                              help_text = "Enter a short title for the Study here")
     bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
-    start = models.DateField("Start Date", null=False)
-    end = models.DateField("End Date", blank = True, null=True)
+    start = models.DateField("Start Date", null=False, help_text = DATETIME_HELP_TEXT)
+    end = models.DateField("End Date", blank = True, null=True, help_text = DATETIME_HELP_TEXT)
     funding_agency = models.CharField(max_length=255, blank = True, null=True,
                              help_text = "The agency that funded the research")
 
