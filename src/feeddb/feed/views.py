@@ -1,12 +1,13 @@
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.template.response import SimpleTemplateResponse
 from django.db.models.loading import get_model
 from django.utils.http import urlencode
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.conf import settings
-from models import Study, Experiment, Session, Trial
+from models import Study, Experiment, Session, Trial, Taxon
 
 from django.contrib import messages
 
@@ -15,7 +16,7 @@ from haystack.query import SearchQuerySet
 from forms import FeedSearchForm, ModelCloneForm
 
 from feeddb.explorer.models import Bucket
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
 
 import logging
 logger = logging.getLogger(__name__)
@@ -39,6 +40,21 @@ def filter_key(f):
         index = 0
 
     return (index, f[0], f[1])
+
+class TaxonModalAddView(CreateView):
+    model = Taxon
+    template_name_suffix = '_modal_create_form'
+    fields = ['genus', 'species', 'common_name']
+
+    def form_valid(self, form):
+        form.save()
+        context = {
+            'object': form.instance,
+            'model': self.model,
+            'opts': self.model._meta,
+        }
+        template_name = 'feed/' + self.model.__name__.lower() + self.template_name_suffix + '_success.html'
+        return SimpleTemplateResponse(template_name, context)
 
 class ModelCloneView(FormView):
     """
