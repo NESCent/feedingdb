@@ -28,7 +28,7 @@
           <span>
       		  {{ field.field }}
       		</span>
-          {% if field.field.html_name == 'taxon' %}
+          {% if opts.model_name == 'subject' and field.field.html_name == 'taxon' %}
             {% modal_add_link field.field %}
           {% endif %}
         {% if field.field.field.help_text %}<p class="help">{{ field.field.field.help_text|safe }}</p>{% endif %}
