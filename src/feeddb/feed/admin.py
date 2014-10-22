@@ -380,21 +380,6 @@ class SessionAdmin(SessionModelAdmin):
     tabbed = True
     tab_name = "Session"
 
-class EmgSensorAdmin(EmgSensorModelAdmin):
-    form = EmgSensorChannelForm
-
-class SonoSensorAdmin(DefaultModelAdmin):
-    fields = ['name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
-    ordering = ('name', 'muscle',)
-
-class AnatomicalSensorAdmin(DefaultModelAdmin):
-    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
-    ordering = ('name', 'anatomical_location_text')
-
-class NonAnatomicalSensorAdmin(DefaultModelAdmin):
-    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
-    ordering = ('name', 'location_text')
-
 class ChannelLineupAdmin(FeedModelAdmin):
     list_display = ('position', 'session','channel')
     list_filter = ('session',)
@@ -432,16 +417,16 @@ class FeedGroupAdmin(GroupAdmin):
     # disable "fancy" two-select widget for multiple-select fields
     filter_horizontal = ()
 
+# custom user & group admin
 admin.site.unregister(User)
 admin.site.register(User, FeedUserAdmin)
-
 admin.site.unregister(Group)
 admin.site.register(Group, FeedGroupAdmin)
 
+# vocabulary items
 admin.site.register(Taxon, TaxonAdmin)
 admin.site.register(AnatomicalLocation, AnatomicalLocationAdmin)
 admin.site.register(Side,TermAdmin)
-admin.site.register(AnimalApprovalType)
 admin.site.register(DepthAxis,TermAdmin)
 admin.site.register(AnteriorPosteriorAxis,TermAdmin)
 admin.site.register(DorsalVentralAxis,TermAdmin)
@@ -454,12 +439,15 @@ admin.site.register(Behavior,TermAdmin)
 admin.site.register(Restraint,TermAdmin)
 admin.site.register(Unit,UnitAdmin)
 admin.site.register(Emgfiltering,TermAdmin)
-admin.site.register(Experiment, ExperimentAdmin)
-admin.site.register(Subject,SubjectAdmin)
-admin.site.register(Sensor,DefaultModelAdmin)
+
+# container elements
 admin.site.register(Study,StudyAdmin)
+admin.site.register(Subject,SubjectAdmin)
+admin.site.register(Experiment, ExperimentAdmin)
 admin.site.register(Session,SessionAdmin)
 admin.site.register(Trial,TrialAdmin)
+
+# setups (appear as if tabs on experiment)
 admin.site.register(EmgSetup,EmgSetupAdmin)
 admin.site.register(SonoSetup,SonoSetupAdmin)
 admin.site.register(StrainSetup,StrainSetupAdmin)
@@ -468,21 +456,6 @@ admin.site.register(PressureSetup,PressureSetupAdmin)
 admin.site.register(KinematicsSetup,KinematicsSetupAdmin)
 admin.site.register(EventSetup,EventSetupAdmin)
 admin.site.register(OtherSetup,OtherSetupAdmin)
-admin.site.register(EmgSensor, EmgSensorAdmin)
-admin.site.register(SonoSensor, SonoSensorAdmin)
-admin.site.register(ForceSensor, NonAnatomicalSensorAdmin)
-admin.site.register(StrainSensor, AnatomicalSensorAdmin)
-admin.site.register(KinematicsSensor, AnatomicalSensorAdmin)
-admin.site.register(PressureSensor, NonAnatomicalSensorAdmin)
-admin.site.register(OtherSensor, NonAnatomicalSensorAdmin)
-admin.site.register(ChannelLineup, ChannelLineupAdmin)
-admin.site.register(Illustration,IllustrationAdmin)
-#admin.site.register(EmgChannel,EmgChannelAdmin)
-admin.site.register(SonoChannel,SonoChannelAdmin)
-admin.site.register(Channel, DefaultModelAdmin)
-admin.site.register(StrainChannel,DefaultModelAdmin)
-admin.site.register(ForceChannel, DefaultModelAdmin)
-admin.site.register(KinematicsChannel, DefaultModelAdmin)
-admin.site.register(PressureChannel, DefaultModelAdmin)
-admin.site.register(EventChannel, DefaultModelAdmin)
-admin.site.register(OtherChannel, DefaultModelAdmin)
+
+# we omit channels, sensors, and channellineups from regular admin because they
+# should be accessible only as inlines.
