@@ -109,8 +109,8 @@ class EmgSensorViewInline(FeedTabularInline):
 
 class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
-    exclude = ['study', 'location_controlled']
     extra = 5
+    # This is a special combined sensor-channel form for EMG setups.
     form = EmgSensorChannelForm
     formset = OrderedFormset
 

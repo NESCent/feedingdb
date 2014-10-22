@@ -151,7 +151,9 @@ class EmgSensorChannelForm(forms.ModelForm):
     emg_amplification = IntegerField(label = "Amplification",required=False, initial='', widget=forms.TextInput(attrs={'size': 5}))
     name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}))
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    muscle = forms.ModelChoiceField(label="Muscle", required=False, queryset=MuscleOwl.default_qs())
+
+    class Meta:
+        fields = ['name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'electrode_type', 'rate', 'unit', 'emg_filtering', 'emg_amplification',  'notes']
 
     def __init__(self, *args, **kwargs):
         channel=None
