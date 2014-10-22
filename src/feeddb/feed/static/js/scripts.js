@@ -53,22 +53,25 @@ $( document ).ready(function() {
             target: targetselector,
             success: function() {
               var obj = $(modal).find('new-object').get(0);
-              if (obj) {
+              if (obj && addNewTarget) {
                 var pk = $(obj).attr('django-pk');
                 var label = $(obj).attr('django-label');
-                console.log('new object pk, label', pk, label);
                 $(addNewTarget).append($('<option/>', {
                   text: label,
                   value: pk
-                }))
-                .val(pk)
-                .trigger('chosen:updated');
+                })) // add new element
+                .val(pk) // select the new element
+                .trigger('chosen:updated'); // update chosen with new state
                 
-                window.setTimeout(1000, function() {
+                window.setTimeout(function() {
+                  // hide the modal after a second
                   $(modal).modal('hide');
-                });
+                }, 1000);
               }
               else {
+                // This is the case of an error in the form, so the server has
+                // sent us a new <form> tag. We need to re-run ourselves on the
+                // form so that it too will be submitted via AJAX.
                 ajaxify()
               }
             }
