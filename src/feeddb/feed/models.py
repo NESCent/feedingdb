@@ -140,8 +140,6 @@ class BehaviorOwl(OwlTerm):
 
     @staticmethod
     def default_qs_filter_args():
-        # TODO: fix the restrictions below based on feedback from client
-        return dict(rdfs_is_class=True)
         return dict(
             rdfs_subClassOf_ancestors__uri=u'http://purl.obolibrary.org/obo/OPBO_0000012'
 
