@@ -87,5 +87,8 @@ def upload_status_current_containers(context):
     return get_current_containers(context)
 
 @register.simple_tag(takes_context=True)
-def upload_status_clone_url(context):
-    ret = get_current_containers(context)
+def upload_status_model_add_url(context, inline, **kwargs):
+    "`inline` is usually inline_admin_formset.opts, which is, e.g. SubjectViewInline"
+    modelname = inline.model.__name__.lower()
+    request = context['request']
+    return request.feed_upload_status.model_add_url(modelname, **kwargs)
