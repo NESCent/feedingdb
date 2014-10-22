@@ -1,0 +1,15 @@
+{% comment %}
+Available variables:
+
+ - url: reversed url for modal-appropriate form (to be loaded by ajax)
+ - modelname: lowercase model name; e.g. 'taxon'
+ - select_element_id: HTML id for original field; e.g. 'id_taxon'
+ - boundfield: original argument to the templatetag
+ - DEBUG: the value of settings.DEBUG
+
+{% endcomment %}
+<a 
+  data-toggle="modal" 
+  data-addnew-target="#{{ select_element_id }}" 
+  data-target="#ajax-modal" 
+  href="{{ url }}">Add {{ modelname }}</a>
