@@ -129,27 +129,23 @@ class SonoSensorViewInline(FeedTabularInline):
 class StrainSensorInline(SetupTabularInline):
     model = StrainSensor
     extra = 3
-    exclude = ['study']
-    form = StrainSensorForm
+    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
 
 class StrainSensorViewInline(FeedTabularInline):
     model = StrainSensor
     extra = 0
-    exclude = ['study']
-    form = StrainSensorForm
+    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
     template = 'admin/tabular_view.html'
 
 class ForceSensorInline(SetupTabularInline):
     model = ForceSensor
+    fields = ['name', 'location_text', 'notes']
     extra = 3
-    exclude = ['study']
-    form = ForceSensorForm
 
 class ForceSensorViewInline(FeedTabularInline):
     model = ForceSensor
     extra = 0
-    exclude = ['study']
-    form = ForceSensorForm
+    fields = ['name', 'location_text', 'notes']
     template = 'admin/tabular_view.html'
 
 class PressureSensorInline(SetupTabularInline):
@@ -222,12 +218,11 @@ class StrainChannelViewInline(FeedTabularInline):
 class ForceChannelInline(FeedTabularInline):
     model = ForceChannel
     extra =9
-    exclude = ['study']
-    form = ForceChannelForm
+    fields = ['name', 'rate', 'units', 'sensor', 'notes']
 
 class ForceChannelViewInline(FeedTabularInline):
     model = ForceChannel
-    exclude = ['study']
+    fields = ['name', 'rate', 'units', 'sensor', 'notes']
     extra = 0
     template = 'admin/tabular_view.html'
 
