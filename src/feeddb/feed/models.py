@@ -140,10 +140,7 @@ class BehaviorOwl(OwlTerm):
 
     @staticmethod
     def default_qs_filter_args():
-        # TODO: fix the restrictions below based on feedback from client
-        return dict(rdfs_is_class=True)
         return dict(
-            # This is the "behavior" class, which may or may not be an appropriate filter
             rdfs_subClassOf_ancestors__uri=u'http://purl.obolibrary.org/obo/OPBO_0000012'
 
             # Other options include:
@@ -529,11 +526,6 @@ class PressureSetup(Setup):
 class KinematicsSetup(Setup):
     class Meta:
         verbose_name = "Kinematics Setup"
-
-    def save(self):
-        if self.notes in (None, '') and self.id == None:
-            self.notes = 'camera\nmarkers\nmovie film or digital\nlight or x-ray\nanatomical view (lateral/d-v/frontal)\n2D or 3D'
-        super(KinematicsSetup, self).save()
 
 class EventSetup(Setup):
     class Meta:

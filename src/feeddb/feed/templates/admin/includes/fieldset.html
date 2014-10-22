@@ -1,4 +1,4 @@
-{% load display i18n %}
+{% load display i18n modalmodelforms %}
 <fieldset class="module aligned {{ fieldset.classes }}">
   {% if fieldset.name %}<h2>{{ fieldset.name }}</h2>{% endif %}
   {% if fieldset.description %}<div class="description">{{ fieldset.description|safe }}</div>{% endif %}
@@ -28,6 +28,9 @@
           <span>
       		  {{ field.field }}
       		</span>
+          {% if opts.model_name == 'subject' and field.field.html_name == 'taxon' %}
+            {% modal_add_link field.field %}
+          {% endif %}
         {% if field.field.field.help_text %}<p class="help">{{ field.field.field.help_text|safe }}</p>{% endif %}
         </div>
       </div>

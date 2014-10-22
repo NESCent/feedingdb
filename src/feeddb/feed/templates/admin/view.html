@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_modify feedmedia feed_util %}
+{% load i18n admin_modify feedmedia feed_util upload_status %}
 
 {% block extrahead %}{{ block.super }}
 <script type="text/javascript" src="../../../jsi18n/"></script>
@@ -152,13 +152,13 @@
             {% if 'experiment' == inline_admin_formset.opts.verbose_name %}
             <div class="row">
               <div class="col-xs-12">
-                <h3 class="overview-add"><a href="/admin/feed/{{ inline_admin_formset.opts.verbose_name }}/add"><span class='glyphicon glyphicon-plus-sign'></span>Add Another {{ inline_admin_formset.opts.verbose_name }}</a></h3>
+                <h3 class="overview-add"><a href="{% upload_status_model_add_url inline_admin_formset.opts %}"><span class='glyphicon glyphicon-plus-sign'></span>Add Another {{ inline_admin_formset.opts.verbose_name }}</a></h3>
               </div>
             </div>
             {% elif 'subject' == inline_admin_formset.opts.verbose_name %}
             <div class="row">
               <div class="col-xs-12">
-                <h3 class="overview-add"><a href="/admin/feed/{{ inline_admin_formset.opts.verbose_name }}/add"><span class='glyphicon glyphicon-plus-sign'></span>Add Another {{ inline_admin_formset.opts.verbose_name }}</a></h3>
+                <h3 class="overview-add"><a href="{% upload_status_model_add_url inline_admin_formset.opts %}"><span class='glyphicon glyphicon-plus-sign'></span>Add Another {{ inline_admin_formset.opts.verbose_name }}</a></h3>
               </div>
             </div>
             {% endif %}
