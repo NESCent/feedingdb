@@ -208,14 +208,17 @@ class FeedUploadStatus():
 
         return False
 
-    def model_add_url(self, modelname):
+    def model_add_url(self, modelname, **kwargs):
+        data = {}
+        data.update(self._data)
+        data.update(kwargs)
         try:
             if modelname == 'subject' or modelname == 'experiment':
-                return self._model_add_url(modelname, study=self._data['study'])
+                return self._model_add_url(modelname, study=data['study'])
             elif modelname == 'session':
-                return self._model_add_url(modelname, experiment=self._data['experiment'])
+                return self._model_add_url(modelname, experiment=data['experiment'])
             elif modelname == 'trial':
-                return self._model_add_url(modelname, session=self._data['session'])
+                return self._model_add_url(modelname, session=data['session'])
             elif modelname == 'study':
                 return self._model_add_url(modelname)
             else:
