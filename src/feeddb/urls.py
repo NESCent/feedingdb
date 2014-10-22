@@ -34,7 +34,9 @@ urlpatterns = patterns('',
     url(r'^_clone_subject_from_study/(?P<container_pk>\d+)',
         ModelCloneView.as_view(), name='clone_subject_from_study',
         kwargs={ 'container_type': 'study', 'clone_subject': True }),
-    url(r'^_clone_study', ModelCloneView.as_view(), name='clone_study')
+    url(r'^_clone_study', ModelCloneView.as_view(), name='clone_study'),
+
+    url(r'^ajax/add_taxon', TaxonModalAddView.as_view(), name='modal_add_taxon'),
 )
 
 if settings.DEBUG:
