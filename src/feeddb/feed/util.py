@@ -19,6 +19,9 @@ logger = logging.getLogger(__name__)
 # anything.
 FIELDS = ('study', 'subject', 'experiment', 'session')
 
+class FeedStatusInsufficientError(Exception):
+    pass
+
 class FeedUploadStatus():
     # TODO: Make sure we're only pickling IDs by overriding __getstate__ and __setstate__
 
@@ -199,19 +202,29 @@ class FeedUploadStatus():
     def contextualized_model_add_url(cls, modelname, request, form_data, obj):
         try:
             self = request.feed_upload_status
-            if modelname == 'subject' or modelname == 'experiment':
-                return cls.model_add_url(modelname, study=self._data['study'])
-            elif modelname == 'session':
-                return cls.model_add_url(modelname, experiment=self._data['experiment'])
-            elif modelname == 'trial':
-                return cls.model_add_url(modelname, session=self._data['session'])
-        except (AttributeError, KeyError):
+            return self.model_add_url(modelname)
+        except AttributeError:
             pass
 
         return False
 
+    def model_add_url(self, modelname):
+        try:
+            if modelname == 'subject' or modelname == 'experiment':
+                return self._model_add_url(modelname, study=self._data['study'])
+            elif modelname == 'session':
+                return self._model_add_url(modelname, experiment=self._data['experiment'])
+            elif modelname == 'trial':
+                return self._model_add_url(modelname, session=self._data['session'])
+            elif modelname == 'study':
+                return self._model_add_url(modelname)
+            else:
+                raise ValueError('Unknown model "%s"' % modelname)
+        except KeyError:
+            raise FeedStatusInsufficientError('Insufficient context information to generate url for model "%s"' % modelname)
+
     @staticmethod
-    def model_add_url(modelname, **kwargs):
+    def _model_add_url(modelname, **kwargs):
         url = reverse('admin:feed_%s_add' % modelname)
         for key, value in kwargs.iteritems():
             if hasattr(value, 'pk'):

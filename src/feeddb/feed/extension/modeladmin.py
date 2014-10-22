@@ -24,7 +24,7 @@ from django.utils.text import capfirst, get_text_list
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
-from feeddb.feed.util import FeedUploadStatus
+from feeddb.feed.util import FeedUploadStatus, FeedStatusInsufficientError
 from feeddb.feed.models import  *
 from feeddb.feed.forms import *
 from feeddb.explorer.models import  *
@@ -333,6 +333,9 @@ class FeedModelAdmin(admin.ModelAdmin):
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         # Get default form values from session
         if add:
+            modelname = context['adminform'].form._meta.model.__name__.lower()
+            # check to see that we have enough status information
+            add_url = request.feed_upload_status.model_add_url(modelname)
             request.feed_upload_status.apply_defaults_to_form(context['adminform'].form)
             context['clone_form'] = ModelCloneForm.factory(self, request)
 
@@ -431,7 +434,11 @@ class FeedModelAdmin(admin.ModelAdmin):
                 }
                 extra_context.update(context)
 
-        return super(FeedModelAdmin,self).add_view(request, form_url, extra_context)
+        try:
+            return super(FeedModelAdmin,self).add_view(request, form_url, extra_context)
+        except FeedStatusInsufficientError:
+            messages.error(request, "Please select a study to which to add information.")
+            return HttpResponseRedirect('/admin/feed')
 
     #get context object from the url parameter
     def get_context(self, request):
