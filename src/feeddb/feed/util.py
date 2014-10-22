@@ -3,6 +3,7 @@ from django.db.models import ForeignKey
 from django.forms.models import ModelChoiceField
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.http import urlencode
 from UserDict import UserDict
 # import the logging library
 import logging
@@ -22,8 +23,7 @@ class FeedUploadStatus():
     # TODO: Make sure we're only pickling IDs by overriding __getstate__ and __setstate__
 
     def __init__(self, session=None):
-        self._session = session
-        self._data = session.setdefault('feed_upload_status', {})
+        self._data = {}
 
     def update_with_querystring(self, GET):
         """
@@ -87,12 +87,10 @@ class FeedUploadStatus():
                     val = val()
                 self._data[fname] = val
                 logger.info('updated with %s: %s' % (fname, val))
-                self._session.modified = True
             else:
                 try:
                     del self._data[fname]
                     logger.info('deleted %s, not present on %s' % (fname, obj))
-                    self._session.modified = True
                 except KeyError:
                     pass
 
@@ -100,7 +98,6 @@ class FeedUploadStatus():
         name = type(obj).__name__.lower()
         if name in FIELDS:
             self._data[name] = obj
-            self._session.modified = True
             logger.info('updated with %s: %s' % (name, obj))
 
         logger.info(self._data.keys())
@@ -199,6 +196,30 @@ class FeedUploadStatus():
         return False
 
     @classmethod
+    def contextualized_model_add_url(cls, modelname, request, form_data, obj):
+        try:
+            self = request.feed_upload_status
+            if modelname == 'subject' or modelname == 'experiment':
+                return cls.model_add_url(modelname, study=self._data['study'])
+            elif modelname == 'session':
+                return cls.model_add_url(modelname, experiment=self._data['experiment'])
+            elif modelname == 'trial':
+                return cls.model_add_url(modelname, session=self._data['session'])
+        except (AttributeError, KeyError):
+            pass
+
+        return False
+
+    @staticmethod
+    def model_add_url(modelname, **kwargs):
+        url = reverse('admin:feed_%s_add' % modelname)
+        for key, value in kwargs.iteritems():
+            if hasattr(value, 'pk'):
+                kwargs[key] = value.pk
+        url += '?' + urlencode(kwargs)
+        return url
+
+    @classmethod
     def next_setup_or_session_url(cls, request, form_data, obj):
         try:
             self = request.feed_upload_status
@@ -232,7 +253,7 @@ class FeedUploadStatus():
                     if setup.id == obj.id:
                         this_is_next = True
                 else:
-                    return reverse('admin:feed_session_add')
+                    return self.contextualized_model_add_url('session', request, form_data, obj)
             logger.info("didn't send any url")
 
         except (AttributeError, KeyError):

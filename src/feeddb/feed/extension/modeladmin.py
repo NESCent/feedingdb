@@ -16,7 +16,7 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.utils.datastructures import SortedDict
-from functools import update_wrapper
+from functools import update_wrapper, partial
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.functional import curry
@@ -117,10 +117,10 @@ class FeedModelAdmin(admin.ModelAdmin):
     # which are not delivered to popup windows.  See
     # get_redirect_destination(), response_add(), and response_change()
     success_destinations = {
-        'add_experiment': reverse_lazy('admin:feed_experiment_add'),
-        'add_trial': reverse_lazy('admin:feed_trial_add'),
-        'add_session': reverse_lazy('admin:feed_session_add'),
-        'add_subject': reverse_lazy('admin:feed_subject_add'),
+        'add_subject': partial(FeedUploadStatus.contextualized_model_add_url, 'subject'),
+        'add_experiment': partial(FeedUploadStatus.contextualized_model_add_url, 'experiment'),
+        'add_session': partial(FeedUploadStatus.contextualized_model_add_url, 'session'),
+        'add_trial': partial(FeedUploadStatus.contextualized_model_add_url, 'trial'),
         'study_view': FeedUploadStatus.current_study_view_url,
         'setup_or_session': FeedUploadStatus.next_setup_or_session_url,
     }
