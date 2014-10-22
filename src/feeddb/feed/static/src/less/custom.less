@@ -535,9 +535,19 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
     fieldset {
       td {
         &.original { width: 0; padding: 0; }
+        &.name {
+          input {
+            &.vTextField { width: 118px !important; }
+          }
+        }
+        &.location_text {
+          input {
+            &.vTextField { width: 118px !important; }
+          }
+        }
         &.notes { 
           textarea { width: 120px;
-            &.vLargeTextField { height: 118px; width: 100%; }
+            &.vLargeTextField { height: 118px; width: 120px; }
           }
         }
         &.picture { padding-right: 40px;
@@ -546,6 +556,23 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
       }
     }
     .inline-group { margin-bottom: 30px; }
+  }
+  #sonosetup_form {
+    fieldset {
+      td {
+        &.original { width: 0; padding: 0; }
+        &.name {
+          input {
+            &.vTextField { width: 118px !important; }
+          }
+        }
+        &.notes { 
+          textarea { width: 120px;
+            &.vLargeTextField { height: 118px; width: 120px; }
+          }
+        }
+      }
+    }
   }
   #othersetup_form {
     fieldset {

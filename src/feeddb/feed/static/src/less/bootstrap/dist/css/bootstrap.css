@@ -7073,6 +7073,26 @@ body #othersetup_form fieldset td.original {
   width: 0;
   padding: 0;
 }
+body #kinematicssetup_form fieldset td.name input.vTextField,
+body #sonosetup_form fieldset td.name input.vTextField,
+body #emgsetup_form fieldset td.name input.vTextField,
+body #strainsetup_form fieldset td.name input.vTextField,
+body #forcesetup_form fieldset td.name input.vTextField,
+body #pressuresetup_form fieldset td.name input.vTextField,
+body #eventsetup_form fieldset td.name input.vTextField,
+body #othersetup_form fieldset td.name input.vTextField {
+  width: 118px !important;
+}
+body #kinematicssetup_form fieldset td.location_text input.vTextField,
+body #sonosetup_form fieldset td.location_text input.vTextField,
+body #emgsetup_form fieldset td.location_text input.vTextField,
+body #strainsetup_form fieldset td.location_text input.vTextField,
+body #forcesetup_form fieldset td.location_text input.vTextField,
+body #pressuresetup_form fieldset td.location_text input.vTextField,
+body #eventsetup_form fieldset td.location_text input.vTextField,
+body #othersetup_form fieldset td.location_text input.vTextField {
+  width: 118px !important;
+}
 body #kinematicssetup_form fieldset td.notes textarea,
 body #sonosetup_form fieldset td.notes textarea,
 body #emgsetup_form fieldset td.notes textarea,
@@ -7092,7 +7112,7 @@ body #pressuresetup_form fieldset td.notes textarea.vLargeTextField,
 body #eventsetup_form fieldset td.notes textarea.vLargeTextField,
 body #othersetup_form fieldset td.notes textarea.vLargeTextField {
   height: 118px;
-  width: 100%;
+  width: 120px;
 }
 body #kinematicssetup_form fieldset td.picture,
 body #sonosetup_form fieldset td.picture,
@@ -7113,6 +7133,20 @@ body #pressuresetup_form .inline-group,
 body #eventsetup_form .inline-group,
 body #othersetup_form .inline-group {
   margin-bottom: 30px;
+}
+body #sonosetup_form fieldset td.original {
+  width: 0;
+  padding: 0;
+}
+body #sonosetup_form fieldset td.name input.vTextField {
+  width: 118px !important;
+}
+body #sonosetup_form fieldset td.notes textarea {
+  width: 120px;
+}
+body #sonosetup_form fieldset td.notes textarea.vLargeTextField {
+  height: 118px;
+  width: 120px;
 }
 body #othersetup_form fieldset td.original {
   width: 0;
