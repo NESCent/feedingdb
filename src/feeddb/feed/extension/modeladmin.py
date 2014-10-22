@@ -16,7 +16,7 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.utils.datastructures import SortedDict
-from functools import update_wrapper
+from functools import update_wrapper, partial
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.functional import curry
@@ -24,7 +24,7 @@ from django.utils.text import capfirst, get_text_list
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
-from feeddb.feed.util import FeedUploadStatus
+from feeddb.feed.util import FeedUploadStatus, FeedStatusInsufficientError
 from feeddb.feed.models import  *
 from feeddb.feed.forms import *
 from feeddb.explorer.models import  *
@@ -117,10 +117,10 @@ class FeedModelAdmin(admin.ModelAdmin):
     # which are not delivered to popup windows.  See
     # get_redirect_destination(), response_add(), and response_change()
     success_destinations = {
-        'add_experiment': reverse_lazy('admin:feed_experiment_add'),
-        'add_trial': reverse_lazy('admin:feed_trial_add'),
-        'add_session': reverse_lazy('admin:feed_session_add'),
-        'add_subject': reverse_lazy('admin:feed_subject_add'),
+        'add_subject': partial(FeedUploadStatus.contextualized_model_add_url, 'subject'),
+        'add_experiment': partial(FeedUploadStatus.contextualized_model_add_url, 'experiment'),
+        'add_session': partial(FeedUploadStatus.contextualized_model_add_url, 'session'),
+        'add_trial': partial(FeedUploadStatus.contextualized_model_add_url, 'trial'),
         'study_view': FeedUploadStatus.current_study_view_url,
         'setup_or_session': FeedUploadStatus.next_setup_or_session_url,
     }
@@ -333,6 +333,9 @@ class FeedModelAdmin(admin.ModelAdmin):
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         # Get default form values from session
         if add:
+            modelname = context['adminform'].form._meta.model.__name__.lower()
+            # check to see that we have enough status information
+            add_url = request.feed_upload_status.model_add_url(modelname)
             request.feed_upload_status.apply_defaults_to_form(context['adminform'].form)
             context['clone_form'] = ModelCloneForm.factory(self, request)
 
@@ -431,7 +434,11 @@ class FeedModelAdmin(admin.ModelAdmin):
                 }
                 extra_context.update(context)
 
-        return super(FeedModelAdmin,self).add_view(request, form_url, extra_context)
+        try:
+            return super(FeedModelAdmin,self).add_view(request, form_url, extra_context)
+        except FeedStatusInsufficientError:
+            messages.error(request, "Please select a study to which to add information.")
+            return HttpResponseRedirect('/admin/feed')
 
     #get context object from the url parameter
     def get_context(self, request):
