@@ -242,6 +242,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             'save_on_top': self.save_on_top,
             'root_path': reverse('admin:index'),
         })
+        self._alter_view_context(context)
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
         if context.get('tabbed'):
             return render_to_response(self.view_form_template or [
@@ -254,6 +255,43 @@ class FeedModelAdmin(admin.ModelAdmin):
                 "admin/%s/view.html" % app_label,
                 "admin/view.html"
             ], context, context_instance=context_instance)
+
+    def _alter_view_context(self, context):
+        # regroup inline_admin_formsets for study view page
+
+        def _get_first_original_in_formset(formset):
+            for form in inline_admin_formset:
+                return form.original
+
+        def _forms_in_container(formset, fieldname, value):
+            for form in inline_admin_formset:
+                original = form.original
+                if original is not None:
+                    if getattr(original, fieldname) == value:
+                        yield form
+
+        def _by_containers(formset, fieldname, containers):
+            for container in containers:
+                yield {
+                    'grouper': container,
+                    'list': list(_forms_in_container(formset, fieldname, container)),
+                }
+
+        if self.model == Study:
+            for inline_admin_formset in context['inline_admin_formsets']:
+                original = _get_first_original_in_formset(inline_admin_formset)
+                Model = type(original)
+
+                if Model == Session:
+                    fieldname = 'experiment'
+                    containers = original.study.experiment_set.all()
+                elif Model == Trial:
+                    fieldname = 'session'
+                    containers = original.study.session_set.all()
+                else:
+                    continue
+
+                inline_admin_formset.by_container = list(_by_containers(inline_admin_formset, fieldname, containers))
 
     def response_post_save_add(self, request, obj):
         """
