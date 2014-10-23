@@ -6757,6 +6757,9 @@ body.collection-detail #trial_form th:first-child {
 body.collection-detail footer {
   margin-top: 0;
 }
+body.history .upload-steps {
+  border-left: 0;
+}
 body main {
   padding: 0;
 }
