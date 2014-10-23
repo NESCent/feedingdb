@@ -16,6 +16,26 @@ from feeddb.explorer.templatetags.explorer_display import display_file
 
 register = Library()
 
+def _display_readonly_related_field(field, adminform):
+    modelname = field.field.field.widget.rel.to._meta.object_name.lower()
+    value = adminform.form.initial[field.field.name]
+    import collections
+    if isinstance(value, collections.Iterable):
+        raise ValueError("Not implemented yet")
+    else:
+        related_obj = field.field.field.to_python(value)
+        try:
+            url = related_obj.get_absolute_url()
+            if url:
+                return u'<a href="%s">%s</a>' % (url, related_obj)
+        except AttributeError:
+            # We handle missing methods as well as empty urls in the same way
+            # below.
+            pass
+
+        return unicode(related_obj)
+
+@register.inclusion_tag("admin/includes/field.html")
 def display_readonly(field, adminform):
     values =[]
     value=field.field.field.initial
@@ -33,32 +53,7 @@ def display_readonly(field, adminform):
             if real_value!="dead channel":
                 real_value=""
     elif isinstance(field.field.field.widget, RelatedFieldWidgetWrapper):
-        for choice in field.field.field.widget.widget.choices:
-            modelname = field.field.field.widget.rel.to._meta.object_name.lower()
-
-            if modelname=="setup":
-                if isinstance(adminform.form.instance, EmgSensor) or isinstance(adminform.form.instance, EmgChannel):
-                    modelname ="emgsetup"
-                elif isinstance(adminform.form.instance, SonoSensor) or isinstance(adminform.form.instance, SonoChannel):
-                    modelname ="sonosetup"
-                elif isinstance(adminform.form.instance, StrainSensor) or isinstance(adminform.form.instance, StrainChannel):
-                    modelname ="strainsetup"
-                elif isinstance(adminform.form.instance, PressureSensor) or isinstance(adminform.form.instance, PressureChannel):
-                    modelname ="pressuresetup"
-                elif isinstance(adminform.form.instance, ForceSensor) or isinstance(adminform.form.instance, ForceChannel):
-                    modelname ="forcesetup"
-                elif isinstance(adminform.form.instance, KinematicsSensor) or isinstance(adminform.form.instance,KinematicsChannel):
-                    modelname ="kinematicssetup"            
-                elif isinstance(adminform.form.instance,EventChannel):   #recall, there is no EventSensor
-                    modelname ="eventsetup"            
-                else:
-                    modelname=""    
-            for value in values:
-                if value == choice[0]:
-                    if modelname!="" and modelname  != "group" and modelname  != "permission":
-                        real_value += u'<a href="/admin/%s/%s/%s">%s</a><br/>' % ("feed", modelname, value, choice[1])
-                    else:
-                        real_value += u'%s<br/>' % choice[1]
+        real_value = _display_readonly_related_field(field, adminform)
     elif hasattr( field.field.field.widget, "choices"):
         for choice in field.field.field.widget.choices:
             for value in values:
@@ -71,8 +66,6 @@ def display_readonly(field, adminform):
         real_value = value
          
     return {'value': mark_safe(real_value)}
-display_readonly = register.inclusion_tag("admin/includes/field.html")(display_readonly)
-
 
 def display_classname(obj):
     if hasattr(obj, "original"):

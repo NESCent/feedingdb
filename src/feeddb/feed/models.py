@@ -36,19 +36,16 @@ class FeedBaseModel(models.Model):
 
     def get_absolute_url(self, change=False):
         content_type = ContentType.objects.get_for_model(self.__class__)
-        def change_url():
-            return reverse('admin:%s_%s_change' % (content_type.app_label, content_type.model), args=(self.id,))
-        def view_url():
-            return reverse('admin:%s_%s_view' % (content_type.app_label, content_type.model), args=(self.id,))
+        def url(op):
+            try:
+                return reverse('admin:%s_%s_%s' % (content_type.app_label, content_type.model, op), args=(self.id,))
+            except NoReverseMatch:
+                return None
 
         if change:
-            return change_url()
+            return url('change') or None
         else:
-            try:
-                return view_url()
-            except NoReverseMatch:
-                return change_url()
-
+            return url('view') or url('change') or None
 
     def save(self):
         now = datetime.datetime.today()
