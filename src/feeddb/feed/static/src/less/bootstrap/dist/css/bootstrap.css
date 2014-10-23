@@ -6939,16 +6939,22 @@ body main aside .upload-steps ul li {
   font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #005a8b;
 }
+body main aside .upload-steps ul li a {
+  font-size: 17px;
+  line-height: 26px;
+}
 body main aside .upload-steps ul li .review {
   font-size: 17px;
   position: relative;
   display: block;
   width: 82px;
   height: 22px;
+  padding-left: 26px;
 }
 body main aside .upload-steps ul li .review span {
   position: absolute;
-  right: 0;
+  left: 0;
+  top: 4px;
 }
 body.view aside .upload-steps {
   border-left: 0;
@@ -7168,10 +7174,6 @@ body #sonosetup_form fieldset td.name input.vTextField {
   width: 118px !important;
 }
 body #sonosetup_form fieldset td.notes textarea {
-  width: 120px;
-}
-body #sonosetup_form fieldset td.notes textarea.vLargeTextField {
-  height: 118px;
   width: 120px;
 }
 body #othersetup_form fieldset td.original {
