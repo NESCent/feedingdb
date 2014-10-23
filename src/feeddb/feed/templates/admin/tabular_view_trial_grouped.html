@@ -9,8 +9,7 @@
       {% endif %}
        {{ inline_admin_formset.formset.non_form_errors }}
 
-    {% regroup inline_admin_formset by original.session as trials_by_session %}
-    {% for trials in trials_by_session %}
+    {% for trials in inline_admin_formset.by_container %}
       {% ifnotequal trials.grouper None %}
         <div class="row">
           <div class="col-xs-9">
@@ -24,6 +23,10 @@
           {% include "admin/tabular_view_header.html" %}
           {% for inline_admin_form in trials.list %}
             {% include "admin/tabular_view_row.html" %}
+          {% empty %}
+            <tr>
+              <td colspan="999">No {{ inline_admin_formset.opts.verbose_name_plural }}. Use the link above to add a {{ inline_admin_formset.opts.verbose_name }}.</td>
+            </tr>
           {% endfor %}
           </table>
           {% include "admin/tabular_view_after_table.html" %}
