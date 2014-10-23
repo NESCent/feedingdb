@@ -109,14 +109,14 @@ class EmgSensorViewInline(FeedTabularInline):
 
 class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
-    extra = 5
+    extra = 1
     # This is a special combined sensor-channel form for EMG setups.
     form = EmgSensorChannelForm
     formset = OrderedFormset
 
 class SonoSensorInline(SetupTabularInline):
     model = SonoSensor
-    extra = 4
+    extra = 1
     fields = ['name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
 
 class SonoSensorViewInline(FeedTabularInline):
@@ -128,7 +128,7 @@ class SonoSensorViewInline(FeedTabularInline):
 
 class StrainSensorInline(SetupTabularInline):
     model = StrainSensor
-    extra = 3
+    extra = 1
     fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
 
 class StrainSensorViewInline(FeedTabularInline):
@@ -140,7 +140,7 @@ class StrainSensorViewInline(FeedTabularInline):
 class ForceSensorInline(SetupTabularInline):
     model = ForceSensor
     fields = ['name', 'location_text', 'notes']
-    extra = 3
+    extra = 1
 
 class ForceSensorViewInline(FeedTabularInline):
     model = ForceSensor
@@ -150,7 +150,7 @@ class ForceSensorViewInline(FeedTabularInline):
 
 class PressureSensorInline(SetupTabularInline):
     model = PressureSensor
-    extra = 3
+    extra = 1
     form = PressureSensorForm
 
 class PressureSensorViewInline(FeedTabularInline):
@@ -162,7 +162,7 @@ class PressureSensorViewInline(FeedTabularInline):
 
 class KinematicsSensorInline(SetupTabularInline):
     model = KinematicsSensor
-    extra = 3
+    extra = 1
     fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
 
 class KinematicsSensorViewInline(FeedTabularInline):
@@ -173,7 +173,7 @@ class KinematicsSensorViewInline(FeedTabularInline):
 
 class OtherSensorInline(SetupTabularInline):
     model = OtherSensor
-    extra = 3
+    extra = 1
     exclude = ['study']
     fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
 
@@ -193,7 +193,7 @@ class ChannelInline(FeedTabularInline):
 
 class SonoChannelInline(FeedTabularInline):
     model = SonoChannel
-    extra =5
+    extra = 1
     exclude = ['study']
     form = SonoChannelForm
 
@@ -205,7 +205,7 @@ class SonoChannelViewInline(FeedTabularInline):
 
 class StrainChannelInline(FeedTabularInline):
     model = StrainChannel
-    extra =9
+    extra = 1
     exclude = ['study']
     form = StrainChannelForm
 
@@ -217,7 +217,7 @@ class StrainChannelViewInline(FeedTabularInline):
 
 class ForceChannelInline(FeedTabularInline):
     model = ForceChannel
-    extra =9
+    extra = 1
     fields = ['name', 'rate', 'units', 'sensor', 'notes']
 
 class ForceChannelViewInline(FeedTabularInline):
@@ -228,7 +228,7 @@ class ForceChannelViewInline(FeedTabularInline):
 
 class PressureChannelInline(FeedTabularInline):
     model = PressureChannel
-    extra =9
+    extra = 1
     exclude = ['study']
     form = PressureChannelForm
 
@@ -240,7 +240,7 @@ class PressureChannelViewInline(FeedTabularInline):
 
 class KinematicsChannelInline(FeedTabularInline):
     model = KinematicsChannel
-    extra =9
+    extra = 1
     exclude = ['study']
     form = KinematicsChannelForm
 
@@ -252,7 +252,7 @@ class KinematicsChannelViewInline(FeedTabularInline):
 
 class EventChannelInline(FeedTabularInline):
     model = EventChannel
-    extra =9
+    extra = 1
     exclude = ['study']
     form = EventChannelForm
 
@@ -264,7 +264,7 @@ class EventChannelViewInline(FeedTabularInline):
 
 class OtherChannelInline(FeedTabularInline):
     model = OtherChannel
-    extra =9
+    extra = 1
     exclude = ['study']
     form = OtherChannelForm
 
