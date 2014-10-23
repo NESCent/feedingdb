@@ -6831,6 +6831,7 @@ body main table td table {
 }
 body main table.illustration td.notes textarea {
   width: 100% !important;
+  height: 118px !important;
 }
 body main table#change-history th.date {
   width: 20%;
@@ -7117,7 +7118,7 @@ body #forcesetup_form fieldset td.notes textarea.vLargeTextField,
 body #pressuresetup_form fieldset td.notes textarea.vLargeTextField,
 body #eventsetup_form fieldset td.notes textarea.vLargeTextField,
 body #othersetup_form fieldset td.notes textarea.vLargeTextField {
-  height: 118px;
+  height: 60px;
   width: 120px;
 }
 body #kinematicssetup_form fieldset td.picture,
