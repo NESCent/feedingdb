@@ -10,7 +10,7 @@ import datetime
 from django.db.models.expressions import F
 
 
-DATETIME_HELP_TEXT = 'Click the field to choose a date from the calendar or enter the date manually with this format: yyyy-mm-dd (i.e. June 28th, 2014 would be entered as 2014-06-28)'
+DATETIME_HELP_TEXT = 'To manually enter a date use the format yyyy-mm-dd or choose a date from the calendar'
 # Only used for Trial here; the other containers are are affected through forms.py -- go figure (VG)
 BOOKKEEPING_HELP_TEXT = 'Enter any text required for lab bookkeeping concerning the Study here'
 
