@@ -109,13 +109,15 @@
             <td><a  href="{% url "explorer.views.bucket_detail" b.id %}">{{b.title}}</a></td>
             <td>{{b.trials.all|length}}</td>
             <td>{%if b.description%} {{b.description}}{%endif%}</td>
-            <td><a href="javascript: if(confirm('Do you really want to delete this bucket:{{b}}?')==true)window.location.href='{% url "explorer.views.bucket_delete" b.id %}';"><span class="glyphicon glyphicon-remove"</a>&nbsp;&nbsp;<a href="{% url "explorer.views.bucket_download" b.id %}"><span class="glyphicon glyphicon-download-alt"></span></a></td>
+            <td><a href="javascript: if(confirm('Do you really want to delete this collection:{{b}}?')==true)window.location.href='{% url "explorer.views.bucket_delete" b.id %}';" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-remove"></span></a>&nbsp;&nbsp;<a href="{% url "explorer.views.bucket_download" b.id %}" data-toggle="tooltip" data-placement="top" title="Download"><span class="glyphicon glyphicon-download-alt"></span></a></td>
           </tr>
           {% endfor %}
         </table>
+<!--
         <ul class="object-tools">
     <li><a href="{% url "explorer.views.bucket_add" %}" class="addlink"><span class="glyphicon glyphicon-plus-sign"></span>Add New Collection</a></li>
 </ul>
+-->
 
       </div>
     </div>
