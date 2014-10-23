@@ -6955,6 +6955,9 @@ body main aside .upload-steps ul li .review span {
   left: 0;
   top: 4px;
 }
+body main aside .upload-steps ul li .review:hover {
+  color: #da5400;
+}
 body.view aside .upload-steps {
   border-left: 0;
 }
