@@ -6829,6 +6829,9 @@ body main table td.action a:last {
 body main table td table {
   background: transparent;
 }
+body main table.illustration td.notes textarea {
+  width: 100% !important;
+}
 body main table#change-history th.date {
   width: 20%;
 }

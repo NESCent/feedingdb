@@ -9,7 +9,7 @@
     {% endif %}
         {{ inline_admin_formset.formset.non_form_errors }}
         <div class="col-xs-11 large-table">
-          <table class="table">
+          <table class="table {{ inline_admin_formset.opts.verbose_name|cut:" " }}">
             <thead>
               <tr>
                 {% for field in inline_admin_formset.fields %}
