@@ -419,6 +419,13 @@ class FeedModelAdmin(admin.ModelAdmin):
 
         return super(FeedModelAdmin,self).change_view(request, object_id, extra_context=extra_context)
 
+    def history_view(self, request, pk, **kwargs):
+        model = self.model
+        obj = model.objects.get(pk=unquote(pk))
+        if not obj is None:
+            request.feed_upload_status.update_with_object(obj)
+        return super(FeedModelAdmin, self).history_view(request, pk, **kwargs)
+
     #get context from the url if adding data
     def add_view(self, request, form_url='', extra_context=None):
         if extra_context == None:

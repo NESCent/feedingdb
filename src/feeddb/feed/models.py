@@ -544,7 +544,7 @@ class OtherSetup(Setup):
 class Sensor(FeedBaseModel):
     study = models.ForeignKey(Study, null=True)
     setup = models.ForeignKey(Setup)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, help_text="Provide a short name for identifying the data contained in this Sensor.")
 
     # NB: location (anatomical or not) is included in subclasses
     loc_side = models.ForeignKey(Side, verbose_name="Side", null=False)
@@ -628,7 +628,7 @@ class OtherSensor(Sensor):
 class Channel(FeedBaseModel):
     study = models.ForeignKey(Study, null=True)
     setup = models.ForeignKey(Setup)
-    name = models.CharField(max_length = 255)
+    name = models.CharField(max_length = 255, help_text="Provide a short name for identifying the data contained in this Channel.")
     rate = models.IntegerField("Recording Rate (Hz)")
     notes = models.TextField("Notes",  blank = True, null=True)
 

@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n %}
+{% load i18n upload_status %}
 
 {% block bodyclass %}history{% endblock %}
 
@@ -66,5 +66,6 @@
 {% else %}
     <p>{% trans "This object doesn't have a change history. It probably wasn't added via this admin site." %}</p>
 {% endif %}
+{% upload_status_block %}
 </div>
 {% endblock %}
