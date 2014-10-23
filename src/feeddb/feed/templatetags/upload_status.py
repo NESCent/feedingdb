@@ -32,7 +32,7 @@ def should_show_status(context, status):
     try:
         model_name = context['opts'].model_name
         # "original" is the unmodified object, added in ModelAdmin.change_view
-        obj = context.get('original', None)
+        obj = context.get('original', context.get('object', None))
         add = context.get('add', False)
 
     except KeyError as e:
