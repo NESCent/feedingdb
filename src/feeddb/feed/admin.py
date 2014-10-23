@@ -151,13 +151,12 @@ class ForceSensorViewInline(FeedTabularInline):
 class PressureSensorInline(SetupTabularInline):
     model = PressureSensor
     extra = 1
-    form = PressureSensorForm
+    fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
 
 class PressureSensorViewInline(FeedTabularInline):
     model = PressureSensor
     extra = 0
-    exclude = ['study']
-    form = PressureSensorForm
+    fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
     template = 'admin/tabular_view.html'
 
 class KinematicsSensorInline(SetupTabularInline):
@@ -194,84 +193,78 @@ class ChannelInline(FeedTabularInline):
 class SonoChannelInline(FeedTabularInline):
     model = SonoChannel
     extra = 1
-    exclude = ['study']
-    form = SonoChannelForm
+    fields = ['name', 'rate', 'unit', 'crystal1', 'crystal2', 'notes']
 
 class SonoChannelViewInline(FeedTabularInline):
     model = SonoChannel
-    exclude = ['study']
     extra = 0
+    fields = ['name', 'rate', 'unit', 'crystal1', 'crystal2', 'notes']
     template = 'admin/tabular_view.html'
 
 class StrainChannelInline(FeedTabularInline):
     model = StrainChannel
     extra = 1
-    exclude = ['study']
-    form = StrainChannelForm
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
 
 class StrainChannelViewInline(FeedTabularInline):
     model = StrainChannel
-    exclude = ['study']
     extra = 0
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
     template = 'admin/tabular_view.html'
 
 class ForceChannelInline(FeedTabularInline):
     model = ForceChannel
     extra = 1
-    fields = ['name', 'rate', 'units', 'sensor', 'notes']
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
 
 class ForceChannelViewInline(FeedTabularInline):
     model = ForceChannel
-    fields = ['name', 'rate', 'units', 'sensor', 'notes']
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
     extra = 0
     template = 'admin/tabular_view.html'
 
 class PressureChannelInline(FeedTabularInline):
     model = PressureChannel
     extra = 1
-    exclude = ['study']
-    form = PressureChannelForm
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
 
 class PressureChannelViewInline(FeedTabularInline):
     model = PressureChannel
-    exclude = ['study']
     extra = 0
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
     template = 'admin/tabular_view.html'
 
 class KinematicsChannelInline(FeedTabularInline):
     model = KinematicsChannel
     extra = 1
-    exclude = ['study']
-    form = KinematicsChannelForm
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
 
 class KinematicsChannelViewInline(FeedTabularInline):
     model = KinematicsChannel
-    exclude = ['study']
     extra = 0
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
     template = 'admin/tabular_view.html'
 
 class EventChannelInline(FeedTabularInline):
     model = EventChannel
     extra = 1
-    exclude = ['study']
-    form = EventChannelForm
+    fields = ['name', 'rate', 'unit', 'notes']
 
 class EventChannelViewInline(FeedTabularInline):
     model = EventChannel
-    exclude = ['study']
     extra = 0
+    fields = ['name', 'rate', 'unit', 'notes']
     template = 'admin/tabular_view.html'
 
 class OtherChannelInline(FeedTabularInline):
     model = OtherChannel
     extra = 1
-    exclude = ['study']
-    form = OtherChannelForm
+    fields = ['name', 'rate', 'sensor', 'notes']
 
 class OtherChannelViewInline(FeedTabularInline):
     model = OtherChannel
-    exclude = ['study']
     extra = 0
+    fields = ['name', 'rate', 'sensor', 'notes']
     template = 'admin/tabular_view.html'
 
 class EmgSetupAdmin(EmgSetupModelAdmin):

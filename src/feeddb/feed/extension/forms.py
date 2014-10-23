@@ -205,38 +205,6 @@ class SubjectForm(forms.ModelForm):
     class Meta:
         model = Subject
 
-class SonoChannelForm(forms.ModelForm):
-    pass
-
-class StrainChannelForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    class Meta:
-        model = StrainChannel
-
-class PressureSensorForm(forms.ModelForm):
-    class Meta:
-        model = PressureSensor
-        fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
-
-class PressureChannelForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    class Meta:
-        model = PressureChannel
-
-class KinematicsChannelForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    class Meta:
-        model = KinematicsChannel
-
-class EventChannelForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    class Meta:
-        model = EventChannel
-
-class OtherChannelForm(forms.ModelForm):
-    notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    class Meta:
-        model = OtherChannel
 
 class TrialInlineForm(forms.ModelForm):
     bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
