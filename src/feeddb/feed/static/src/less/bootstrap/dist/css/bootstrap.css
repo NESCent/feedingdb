@@ -6268,11 +6268,30 @@ body #accordion .glyphicon.glyphicon-picture {
   display: block;
   text-align: left;
 }
+body .modal-header {
+  background: url('../../../../../images/greyzz.png');
+}
+body .modal-body {
+  background: url('../../../../../images/satinweave.png');
+}
 body .modal-body .alert {
   margin-top: 0;
 }
 body .modal-body .modal-choices {
   margin: 20px 0;
+}
+body .modal-footer {
+  background: url('../../../../../images/greyzz.png');
+}
+body .modal-footer button {
+  margin-bottom: 0;
+}
+body .modal-footer input {
+  margin-bottom: 0;
+}
+body .add-taxon {
+  margin-top: 4px;
+  display: block;
 }
 body a.btn,
 body .btn {
