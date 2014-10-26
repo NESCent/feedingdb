@@ -1,19 +1,19 @@
 - fields: {created_at: !!timestamp '2014-09-23 20:05:52.433328', created_by: null,
-    description: 'By checking the box next to this statement, I confirm that the animal
+    description: 'By checking the button next to this statement, I confirm that the animal
       data available in this Study were collected under an approved animal use registry
       (e.g., an IACUC registry for studies conducted in the United States after the
       1985 Animal Welfare Act)', updated_at: !!timestamp '2014-09-23 20:05:52.433328'}
   model: feed.animalapprovaltype
   pk: 1
 - fields: {created_at: !!timestamp '2014-09-23 20:06:14.553645', created_by: null,
-    description: 'By checking the box next to this statement, I confirm that the animal
+    description: 'By checking the button next to this statement, I confirm that the animal
       data available in this Study were conducted prior to the 1985 Animal Welfare
       Act Animal Review Guidelines, but were collected after institutional review
       of the animal use protocol.', updated_at: !!timestamp '2014-09-23 20:06:14.553645'}
   model: feed.animalapprovaltype
   pk: 2
 - fields: {created_at: !!timestamp '2014-09-23 20:06:25.999900', created_by: null,
-    description: 'By checking the box next to this statement, I confirm that the human
+    description: 'By checking the button next to this statement, I confirm that the human
       data available in this Study were collected under an approved Institutional
       Review Board and confirm that no PHI can be Identified from data or metadata
       stored in this Study.', updated_at: !!timestamp '2014-09-23 20:06:25.999900'}
