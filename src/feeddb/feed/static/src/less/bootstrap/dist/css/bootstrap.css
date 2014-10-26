@@ -7410,6 +7410,7 @@ body footer ul li a:hover {
 body footer p {
   font: 12px/21px 'Roboto', sans-serif, sans-serif;
   color: #ffffff;
+  margin-bottom: 0;
 }
 body footer .partners h5,
 body footer .funding h5 {
