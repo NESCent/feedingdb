@@ -7512,6 +7512,9 @@ body.change-form.view .masthead {
   padding-bottom: 0;
   border-bottom: 0;
 }
+body.change-form.view .large-table {
+  border: 0;
+}
 body.change-form main form fieldset .help {
   margin-top: 4px;
 }

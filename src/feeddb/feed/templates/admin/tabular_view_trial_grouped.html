@@ -22,14 +22,12 @@
           <table class="table table-bordered table-striped overview">
           {% include "admin/tabular_view_header.html" %}
           {% for inline_admin_form in trials.list %}
-            {% include "admin/tabular_view_row.html" %}
           {% empty %}
             <tr>
               <td colspan="999">No {{ inline_admin_formset.opts.verbose_name_plural }}. Use the link above to add a {{ inline_admin_formset.opts.verbose_name }}.</td>
             </tr>
           {% endfor %}
           </table>
-          {% include "admin/tabular_view_after_table.html" %}
       {% endifnotequal %}
     {% endfor %}
 
