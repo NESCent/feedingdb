@@ -6423,6 +6423,9 @@ body header .login {
 body header .login a {
   color: #007ecf;
 }
+body header .login p {
+  margin-bottom: 40px;
+}
 body nav {
   background: #112e4f;
 }
