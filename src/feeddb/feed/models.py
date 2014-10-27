@@ -550,6 +550,8 @@ class Sensor(FeedBaseModel):
     loc_pd = models.ForeignKey(ProximalDistalAxis, verbose_name="PD", blank = True, null=True )
     loc_ml = models.ForeignKey(MedialLateralAxis, verbose_name="ML", blank = True, null=True )
 
+    # NB: help text for strain sensor notes is in extension/forms.py. Other
+    # sensor types will use labels & help text defined here.
     notes = models.TextField( blank = True, null=True)
     def __unicode__(self):
         return self.name
@@ -605,8 +607,18 @@ class SonoSensor(Sensor):
     class Meta:
         verbose_name = "Sono Crystal"
 
+GAGE_CHOICES = (
+    (1, "Delta rosette"),
+    (2, "Rectangular rosette"),
+    (3, "Single element"),
+    (4, "Parallel (multiple single elements)"),
+    (5, "Biaxial"),
+    (6, "Other (describe in notes)"),
+)
+
 class StrainSensor(Sensor):
     anatomical_location_text = models.CharField("Anatomical Location", max_length=255, null=True)
+    gage_type = models.IntegerField("Gage Type", choices=GAGE_CHOICES, blank=True, null=True)
     class Meta:
         verbose_name = "Strain Sensor"
 

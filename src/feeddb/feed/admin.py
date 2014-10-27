@@ -129,12 +129,13 @@ class SonoSensorViewInline(FeedTabularInline):
 class StrainSensorInline(SetupTabularInline):
     model = StrainSensor
     extra = 1
-    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
+    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'gage_type', 'notes']
+    form = StrainSensorForm
 
 class StrainSensorViewInline(FeedTabularInline):
     model = StrainSensor
     extra = 0
-    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
+    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'gage_type', 'notes']
     template = 'admin/tabular_view.html'
 
 class ForceSensorInline(SetupTabularInline):
@@ -268,8 +269,8 @@ class OtherChannelViewInline(FeedTabularInline):
     template = 'admin/tabular_view.html'
 
 class EmgSetupAdmin(EmgSetupModelAdmin):
-    inlines = [ IllustrationInline, EmgSensorInline]
-    view_inlines = [IllustrationViewInline, EmgSensorViewInline]
+    inlines = [ EmgSensorInline, IllustrationInline ]
+    view_inlines = [ EmgSensorViewInline, IllustrationViewInline ]
     list_display = ('preamplifier','experiment')
     list_filter = ('experiment',)
     ordering = ('preamplifier',)
@@ -277,8 +278,8 @@ class EmgSetupAdmin(EmgSetupModelAdmin):
     form = SetupForm
 
 class SonoSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,SonoSensorInline,SonoChannelInline]
-    view_inlines = [IllustrationViewInline, SonoSensorViewInline, SonoChannelViewInline]
+    inlines = [ SonoSensorInline, SonoChannelInline, IllustrationInline]
+    view_inlines = [ SonoSensorViewInline, SonoChannelViewInline, IllustrationViewInline ]
     list_display = ('sonomicrometer','experiment')
     list_filter = ('experiment',)
     ordering = ('sonomicrometer',)
@@ -286,31 +287,31 @@ class SonoSetupAdmin(DefaultModelAdmin):
     form = SetupForm
 
 class StrainSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,StrainSensorInline,StrainChannelInline]
-    view_inlines = [IllustrationViewInline, StrainSensorViewInline, StrainChannelViewInline]
+    inlines = [ StrainSensorInline, StrainChannelInline, IllustrationInline]
+    view_inlines = [ StrainSensorViewInline, StrainChannelViewInline, IllustrationViewInline ]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment', 'technique')
     form = SetupForm
 
 class ForceSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,ForceSensorInline,ForceChannelInline]
-    view_inlines = [IllustrationViewInline, ForceSensorViewInline, ForceChannelViewInline]
+    inlines = [ ForceSensorInline, ForceChannelInline, IllustrationInline]
+    view_inlines = [ ForceSensorViewInline, ForceChannelViewInline, IllustrationViewInline ]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment', 'technique')
     form = SetupForm
 
 class PressureSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,PressureSensorInline,PressureChannelInline]
-    view_inlines = [IllustrationViewInline, PressureSensorViewInline, PressureChannelViewInline]
+    inlines = [ PressureSensorInline,PressureChannelInline, IllustrationInline]
+    view_inlines = [ PressureSensorViewInline, PressureChannelViewInline, IllustrationViewInline ]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment', 'technique')
 
 class KinematicsSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,KinematicsSensorInline,KinematicsChannelInline]
-    view_inlines = [IllustrationViewInline, KinematicsSensorViewInline, KinematicsChannelViewInline]
+    inlines = [ KinematicsSensorInline,KinematicsChannelInline, IllustrationInline]
+    view_inlines = [ KinematicsSensorViewInline, KinematicsChannelViewInline, IllustrationViewInline ]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment')
@@ -318,16 +319,16 @@ class KinematicsSetupAdmin(DefaultModelAdmin):
     form = SetupForm
 
 class EventSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,EventChannelInline]
-    view_inlines = [IllustrationViewInline, EventChannelViewInline]
+    inlines = [ EventChannelInline, IllustrationInline]
+    view_inlines = [ EventChannelViewInline, IllustrationViewInline ]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment', 'technique')
     form = SetupForm
 
 class OtherSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline, OtherSensorInline, OtherChannelInline]
-    view_inlines = [IllustrationViewInline, OtherSensorViewInline, OtherChannelViewInline]
+    inlines = [ OtherSensorInline, OtherChannelInline, IllustrationInline]
+    view_inlines = [ OtherSensorViewInline, OtherChannelViewInline, IllustrationViewInline ]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment', 'technique')
