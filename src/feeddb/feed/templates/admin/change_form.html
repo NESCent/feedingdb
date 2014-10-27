@@ -7,7 +7,7 @@
   {% endblock %}
   {% block coltype %}colM{% endblock %}
   {% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
-  
+
   {% block breadcrumbs %}{% endblock %}
 
 {% block pretitle %}
@@ -77,11 +77,11 @@
           {% if has_change_permission %}
             {% if cloneable %}
               <li><a class="clonelink" href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/clone" data-toggle="tooltip" data-placement="top" title="Clone"><span class='glyphicon glyphicon-plus-sign'></span></a></li>
-            {% endif %}	
-          {% endif %}	
+            {% endif %}
+          {% endif %}
           {% if has_change_permission %}
             {% if not is_popup %}
-              {% if object_id != None %} 
+              {% if object_id != None %}
                 <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/history/" class="historylink" data-toggle="tooltip" data-placement="top" title="History"><span class='glyphicon glyphicon-calendar'></span></a></li>
          <!-- {% if has_absolute_url %}
            <li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>
@@ -121,14 +121,14 @@
         {% include "admin/includes/fieldset.html" %}
       {% endif %}
     {% endfor %}
-    
+
     {% block after_field_sets %}
     {% endblock %}
-    
+
     {% for inline_admin_formset in inline_admin_formsets %}
       {% include inline_admin_formset.opts.template %}
     {% endfor %}
-        
+
     {% block after_related_objects %}
     {% endblock %}
     <div class="row">
@@ -156,6 +156,54 @@
               <h3 class="modal-title">Clone Existing {{ opts.object_name}}</h3>
             </div>
             <div class="modal-body">
+              {% if form.feed_source_count == 0 %}
+              <div class="row">
+                <div class="col-xs-12">
+                  {% if opts.object_name == 'Subject' %}
+                    <p>
+                    There are not yet any subjects in this study. Instead,
+                    please add a new subject from scratch. Once you have at
+                    least one subject, you can clone it here.
+                    </p>
+                    {% comment %}
+                    {# EZH says: not sure this is good instructions or not... #}
+                    <p>
+                    Alternatively, you could <a href="{% url
+                    'admin:feed_study_add' %}">clone an existing study</a>.
+                    The cloned study will contain cloned subjects, which may be
+                    a good starting point for your new study.
+                    </p>
+                    {% endcomment %}
+                  {% elif opts.object_name == 'Experiment' %}
+                    <p>
+                    There are not yet any experiments in this study. Instead,
+                    please add a new experiment from scratch. Once you have at
+                    least one experiment, you can clone it here.
+                    </p>
+                    {% comment %}
+                    <p>
+                    Alternatively, you could <a href="{% url
+                    'admin:feed_study_add' %}">clone an existing study</a>.
+                    The cloned study will contain cloned experiments, which may be
+                    a good starting point for your new study.
+                    </p>
+                    {% endcomment %}
+                  {% elif opts.object_name == 'Session' %}
+                    <p>
+                    There are not yet any sessions in this experiment. Instead,
+                    please add a new session from scratch. Once you have at
+                    least one session, you can clone it here.
+                    </p>
+                  {% elif opts.object_name == 'Trial' %}
+                    <p>
+                    There are not yet any trials in this session. Instead,
+                    please add a new trial from scratch. Once you have at
+                    least one trial, you can clone it here.
+                    </p>
+                  {% endif %}
+                </div>
+              </div>
+              {% else %}
               <div class="row">
                 <div class="col-xs-3 col-xs-offset-1">
                   <label for="{{ form.source.id_for_label }}">Choose {{ opts.object_name }}:</label>
@@ -211,15 +259,22 @@
                   </div>
                 </div>
               </div>
+              {% endif %}
             </div>
             <div class="modal-footer">
               <div class="row">
+                {% if form.feed_source_count == 0 %}
+                <div class="col-xs-4 col-xs-offset-4">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                {% else %}
                 <div class="col-xs-4 col-xs-offset-2">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
                 <div class="col-xs-4">
                   <button type="submit" class="btn btn-primary">Clone &amp; Edit</button>
                 </div>
+                {% endif %}
               </div>
             </div>
           </form>
@@ -227,9 +282,9 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    
+
     <!-- Create new taxon modal -->
-    
+
     <div class="modal ajax fade" id="ajax-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
   {% endblock modal %}
 
