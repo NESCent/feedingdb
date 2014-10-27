@@ -605,8 +605,18 @@ class SonoSensor(Sensor):
     class Meta:
         verbose_name = "Sono Crystal"
 
+GAGE_CHOICES = (
+    (1, "Delta rosette"),
+    (2, "Rectangular rosette"),
+    (3, "Single element"),
+    (4, "Parallel (multiple single elements)"),
+    (5, "Biaxial"),
+    (6, "Other (describe in notes)"),
+)
+
 class StrainSensor(Sensor):
     anatomical_location_text = models.CharField("Anatomical Location", max_length=255, null=True)
+    gage_type = models.IntegerField("Gage Type", choices=GAGE_CHOICES, blank=True, null=True)
     class Meta:
         verbose_name = "Strain Sensor"
 
