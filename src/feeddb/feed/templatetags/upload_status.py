@@ -92,3 +92,16 @@ def upload_status_model_add_url(context, inline, **kwargs):
     modelname = inline.model.__name__.lower()
     request = context['request']
     return request.feed_upload_status.model_add_url(modelname, **kwargs)
+
+@register.simple_tag(takes_context=True)
+def setup_or_add_session_text(context):
+    request = context['request']
+    status = request.feed_upload_status
+    obj = context.get('original', context.get('object', None))
+    if obj:
+        next_url = status.next_setup_or_session_url(request, {}, obj)
+        session_url = status.contextualized_model_add_url('session', request, {}, obj)
+        if next_url == session_url:
+            return 'Save &amp; Add Session'
+        else:
+            return 'Save &amp; Edit Sensors'
