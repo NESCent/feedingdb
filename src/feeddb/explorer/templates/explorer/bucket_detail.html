@@ -79,9 +79,6 @@ function checkbox_clicked(obj){
           <th>Species</th>
           <th>Primary Behavior</th>
           <th>Food Type</th>
-          <th>Techniques</th>
-          <th>Muscle/Bone</th>
-          <th class="bucket_header">My Data Collections</th>
         </tr>
         {% for trial in trials %}
         <tr class="{% cycle 'row1'  'row2' %}">
@@ -90,18 +87,6 @@ function checkbox_clicked(obj){
           <td>{{trial.session.experiment.subject.taxon.genus}} {{trial.session.experiment.subject.taxon.species}}</td>
           <td>{{trial.behaviorowl_primary}}</td>
           <td>{{trial.food_type}}</td>
-          <td>
-          {#% display_technique trial  %#}
-          FIXME
-          </td>
-          <td>FIXME {#% display_muscle trial  %#}</td>
-          <td class="bucket_column">
-          {% for bucket in trial.bucket_set.all %}
-          {%ifequal bucket.created_by.id user.id %}
-          <a href="{% url "explorer.views.bucket_detail" bucket.id %}">{{bucket}}</a><br/>
-          {%endifequal%}
-          {% endfor %}
-          </td>
         </tr>
         {% endfor %}
       </table>
