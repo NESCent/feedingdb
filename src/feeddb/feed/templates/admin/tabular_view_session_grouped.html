@@ -11,9 +11,9 @@
 
     {% for sessions in inline_admin_formset.by_container %}
       {% ifnotequal sessions.grouper None %}
-        <div class="row">
+        <div class="row tight">
           <div class="col-xs-9">
-            <h4>{{ sessions.grouper }}</h4>
+            <h4>Experiment: {{ sessions.grouper }}</h4>
           </div>
           <div class="col-xs-3">
             <h3 class="overview-add"><a class="addlink" href="{% add_new_to_container_url sessions %}" ><span class="glyphicon glyphicon-plus-sign"></span>{% trans "Add Another " %}{{inline_admin_formset.opts.verbose_name}}</a></h3>

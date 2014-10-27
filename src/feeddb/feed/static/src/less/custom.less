@@ -440,11 +440,12 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
       .upload-steps { border-left: 2px solid @muted-blue; border-left: 2px solid @muted-blue-alpha;
         h2 { margin-top: 17px; }
         ul { padding-left: 0;
-          li { list-style-type: none; padding: 0 0 20px 0; font: 17px/26px @rockwell, serif; color: @muted-blue; color: @muted-blue-alpha;
+          li { list-style-type: none; padding: 0 0 12px 20px; font: 17px/26px @rockwell, serif; color: @muted-blue; color: @muted-blue-alpha;
+            &:first-child, &:nth-child(2) { padding: 0 0 12px 0; }
             a { font-size: 17px; line-height: 26px; }
-              .review { font-size: 17px; position: relative; display: block; height: 22px; padding-left: 26px;
+              .review { font-size: 17px; position: relative; display: block; height: 22px; padding-left: 26px; color: @orange; color: @orange-alpha;
               span { position: absolute; left: 0; top: 4px; }
-              &:hover { color: @orange; color: @orange-alpha; }
+              &:hover { color: @lt-blue; color: @lt-blue-alpha; }
             }
           }
         }
@@ -850,6 +851,7 @@ table {
 }
 .addlink.collections { padding-left: 10px; }
 .table { margin-bottom: 0; }
+.tight { margin-bottom: 0 !important; }
 table {
   tr {
     &.clickable {
