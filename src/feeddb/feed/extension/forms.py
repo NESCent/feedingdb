@@ -149,7 +149,7 @@ class EmgSensorChannelForm(forms.ModelForm):
     unit = forms.ModelChoiceField(label = "Emg Units", required=True,queryset=Unit.objects.filter(technique = Techniques.ENUM.emg))
     emg_filtering = forms.ModelChoiceField(label="EMG filtering", queryset=Emgfiltering.objects.all())
     emg_amplification = IntegerField(label = "Amplification",required=False, initial='', widget=forms.TextInput(attrs={'size': 5}))
-    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}))
+    name = CharField(label = "Name", widget=forms.TextInput(attrs={'size': 10}), help_text="Provide a short name for identifying the data contained in this Sensor.")
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
 
     class Meta:
