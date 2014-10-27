@@ -7,13 +7,14 @@
        {{ inline_admin_formset.formset.non_form_errors }}
 
       <div class="col-xs-11 large-table">
-        <p class="channel-tip">Provide a short name for identifying the data contained in this Sensor Channel.</p>
         <table class="table {{ inline_admin_formset.opts.verbose_name|cut:" " }}">
           <thead>
             <tr>
               {% for field in inline_admin_formset.fields %}
                 {% if not field.is_hidden  %}
-                  <th class="{{ field.required|yesno:"required," }}" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}{{ field.required|yesno:" *,"}}</th>
+                <p class="channel-tip">{{ field.help_text }}</p>
+
+                  <th class="{{ field.required|yesno:"required," }}" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}{{ field.required|yesno:" *,"}}</span></th>
                 {% endif %}
               {% endfor %}
               {% for fieldset in inline_admin_form %}
