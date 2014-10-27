@@ -6938,9 +6938,13 @@ body main aside .upload-steps ul {
 }
 body main aside .upload-steps ul li {
   list-style-type: none;
-  padding: 0 0 20px 0;
+  padding: 0 0 12px 20px;
   font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #005a8b;
+}
+body main aside .upload-steps ul li:first-child,
+body main aside .upload-steps ul li:nth-child(2) {
+  padding: 0 0 12px 0;
 }
 body main aside .upload-steps ul li a {
   font-size: 17px;
@@ -6952,6 +6956,7 @@ body main aside .upload-steps ul li .review {
   display: block;
   height: 22px;
   padding-left: 26px;
+  color: #da5400;
 }
 body main aside .upload-steps ul li .review span {
   position: absolute;
@@ -6959,7 +6964,7 @@ body main aside .upload-steps ul li .review span {
   top: 4px;
 }
 body main aside .upload-steps ul li .review:hover {
-  color: #da5400;
+  color: #638ebc;
 }
 body.view aside .upload-steps {
   border-left: 0;
@@ -7662,6 +7667,9 @@ table label {
 }
 .table {
   margin-bottom: 0;
+}
+.tight {
+  margin-bottom: 0 !important;
 }
 table tr.clickable td:first-child {
   width: auto;

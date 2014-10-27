@@ -19,13 +19,14 @@ Some useful variables:
     <h2>Study Overview</h2>
     <ul>
         <li><a href="{{ study.get_absolute_url }}" data-toggle="tooltip" data-placement="top" title="Review study components" class="review"><span class="glyphicon glyphicon-eye-open"></span> {{ study }}</a></li>
-        <li>Subjects: {{ subjects|length }}
+        <li>This study contains:</li>
+        <li><a href="{{ study.get_absolute_url }}#collapse1">Subjects: {{ subjects|length }}</a>
         </li>
-        <li>Experiments: {{ experiments|length }}
+        <li><a href="{{ study.get_absolute_url }}#collapse2">Experiments: {{ experiments|length }}
         </a></li>
-        <li>Sessions: {{ sessions|length }}
+        <li><a href="{{ study.get_absolute_url }}#collapse3">Sessions: {{ sessions|length }}
         </li>
-        <li>Trials: {{ trials|length}}
+        <li><a href="{{ study.get_absolute_url }}#collapse4">Trials: {{ trials|length}}
         </li>
     </ul>
   </div>
