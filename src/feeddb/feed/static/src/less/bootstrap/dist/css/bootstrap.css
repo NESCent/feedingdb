@@ -7391,6 +7391,11 @@ body .channel-tip {
   color: #da5400;
   margin: 20px 0 0 0;
 }
+body .mandatory {
+  color: red;
+  font-weight: bold;
+  margin: 10px 0 0 0;
+}
 body footer {
   background: #09192a;
   clear: left;
