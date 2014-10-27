@@ -550,6 +550,8 @@ class Sensor(FeedBaseModel):
     loc_pd = models.ForeignKey(ProximalDistalAxis, verbose_name="PD", blank = True, null=True )
     loc_ml = models.ForeignKey(MedialLateralAxis, verbose_name="ML", blank = True, null=True )
 
+    # NB: help text for strain sensor notes is in extension/forms.py. Other
+    # sensor types will use labels & help text defined here.
     notes = models.TextField( blank = True, null=True)
     def __unicode__(self):
         return self.name
