@@ -52,6 +52,7 @@ class ModelCloneForm(forms.Form):
             raise ValueError("ModelCloneForm does not support container model type %s" % ContainerModel)
 
         self.fields['source'].queryset = qs
+        self.feed_source_count = len(qs)
         self.container = container
 
     def action_url(self):
@@ -80,12 +81,14 @@ class ModelCloneForm(forms.Form):
 
     @classmethod
     def factory(cls, modeladmin, request):
+        # fake context so I can re-use get_current_containers()
         context = {
             'opts': modeladmin.model._meta,
             'request': request
         }
         from feeddb.feed.templatetags.upload_status import get_current_containers
         containers = get_current_containers(context)
+
         try:
             # move down the tree until they don't exist anymore
             container = None
@@ -95,6 +98,8 @@ class ModelCloneForm(forms.Form):
         except KeyError:
             pass
 
+        # Special case for subject, because its container is the same as when
+        # cloning an experiment.
         if context['opts'].model_name == 'subject':
             return cls(container=container, clone_subject=True)
         else:
