@@ -806,7 +806,7 @@ class Illustration(FeedBaseModel):
 
 class ChannelLineup(FeedBaseModel):
     session = models.ForeignKey(Session)
-    position = models.IntegerField(help_text='The numeric position of the channel within this channel lineup; coincides with the column position in the data file.')
+    position = models.IntegerField("Position (integer)", help_text='The numeric position of the channel within this channel lineup; coincides with the column position in the data file.')
     channel = models.ForeignKey(Channel, null=True, blank=True)
 
     class Meta:
