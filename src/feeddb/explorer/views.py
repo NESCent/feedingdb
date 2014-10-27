@@ -619,7 +619,7 @@ def trial_add(request, id):
         except Trial.DoesNotExist:
             c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
             return render_to_response('explorer/error.html', c)
-        if request.POST['bucket_id']!='Add new bucket':
+        if request.POST['bucket_id'] != u'add new bucket':
             bucket_id = request.POST['bucket_id']
             if bucket_id==None or bucket_id =="":
                 messages.error(request, 'No data collection specified')

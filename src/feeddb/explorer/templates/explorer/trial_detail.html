@@ -369,17 +369,3 @@
 </div>
 
 {%endblock%}
-{% block extra_js %}
-<script>
-// TODO: add spinner graphiczzz!!
-jQuery(document).on('ready', function() {
-
-  $('select[name=bucket_id]').on('change', function() {
-    var show_bucket_name_field = (this.value == 'add new bucket');
-    $('#new_bucket_div').toggle(show_bucket_name_field);
-  }).change();
-
-});
-
-</script>
-{% endblock extra_js %}
