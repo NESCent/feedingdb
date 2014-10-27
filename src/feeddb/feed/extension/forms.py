@@ -231,5 +231,7 @@ class ChannelLineupForm(forms.ModelForm):
     class Meta:
         model = ChannelLineup
 
-
-
+class StrainSensorForm(forms.ModelForm):
+    notes = CharField(label="Notes",
+        widget=forms.Textarea(),
+        help_text="Notes including Gage Element Axial Orientation with specific information on gage placement (e.g., orientation of a gage element relative to a bone axis). Illustrations of gage placement can also be uploaded.")
