@@ -36,10 +36,17 @@ def clone_study(study, recurse=True):
         clone_experiment(experiment)
 
 def clone_subject(subject, recurse=True):
+    illustrations = list(subject.illustration_set.all())
+
     _clone_basic(subject)
+
+    for illustration in illustrations:
+        _clone_basic(illustration, subject=subject)
 
 def clone_experiment(experiment, recurse=True):
     setups = list(experiment.typed_setups())
+    illustrations = list(experiment.illustration_set.all())
+
     if recurse:
         sessions = list(experiment.session_set.all())
 
@@ -49,12 +56,16 @@ def clone_experiment(experiment, recurse=True):
         setup.experiment = experiment
         clone_setup(setup)
 
+    for illustration in illustrations:
+        _clone_basic(illustration, subject=subject)
+
     if not recurse:
         return
 
     for session in sessions:
         session.experiment = experiment
         clone_session(session)
+
 
 def clone_setup(setup):
     # reverse foreign keys
@@ -69,6 +80,7 @@ def clone_setup(setup):
         # This modifies `sensor` in place, so `sensors_by_old_id` will contain
         # the new sensors when this loop finishes.
         _clone_basic(sensor, setup=setup)
+
     for channel in channels:
         # Each channel type has a different type of sensor, but, with the
         # exception of SonoChannels and EventChannels, they are all stored on
@@ -86,6 +98,9 @@ def clone_setup(setup):
             _clone_basic(channel, setup=setup, sensor=new_sensor)
         else:
             raise ValueError("Channel %s (pk=%d) is of unknown type %s" % (channel, channel.pk, type(channel)))
+
+    for illustration in illustrations:
+        _clone_basic(illustration, setup=setup)
 
 def clone_session(session, recurse=True):
     """
@@ -126,6 +141,8 @@ def _clone_basic(thing, **kwargs):
     thing.pk = None
     if hasattr(thing, 'title'):
         thing.title = 'Clone of "%s"' % (thing.title)
+    if hasattr(thing, 'name'):
+        thing.name = 'Clone of "%s"' % (thing.name)
     for key, value in kwargs.iteritems():
         setattr(thing, key, value)
     thing.save()
