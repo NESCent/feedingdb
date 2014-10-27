@@ -626,7 +626,7 @@ def trial_add(request, id):
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
             try:
                 bucket = Bucket.objects.get(pk=bucket_id)
-            except Bukcet.DoesNotExist:
+            except Bucket.DoesNotExist:
                 messages.error(request, 'Data collection with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
             #check if the user is the owner of the bucket. If not return error page
