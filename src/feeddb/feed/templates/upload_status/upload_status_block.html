@@ -20,6 +20,16 @@ Some useful variables:
     <ul>
         <li><a href="{{ study.get_absolute_url }}" data-toggle="tooltip" data-placement="top" title="Review study components" class="review"><span class="glyphicon glyphicon-eye-open"></span> {{ study }}</a></li>
         <li>This study contains:</li>
+        {% if 'study' == opts.object_name %}
+        <li><a href="{{ study.get_absolute_url }}#collapse1" data-toggle="collapse" data-parent="#accordion">Subjects: {{ subjects|length }}</a>
+        </li>
+        <li><a href="{{ study.get_absolute_url }}#collapse2" data-toggle="collapse" data-parent="#accordion">Experiments: {{ experiments|length }}
+        </a></li>
+        <li><a href="{{ study.get_absolute_url }}#collapse3" data-toggle="collapse" data-parent="#accordion">Sessions: {{ sessions|length }}
+        </li>
+        <li><a href="{{ study.get_absolute_url }}#collapse4" data-toggle="collapse" data-parent="#accordion">Trials: {{ trials|length}}
+        </li>
+        {% else %}
         <li><a href="{{ study.get_absolute_url }}#collapse1">Subjects: {{ subjects|length }}</a>
         </li>
         <li><a href="{{ study.get_absolute_url }}#collapse2">Experiments: {{ experiments|length }}
@@ -28,6 +38,7 @@ Some useful variables:
         </li>
         <li><a href="{{ study.get_absolute_url }}#collapse4">Trials: {{ trials|length}}
         </li>
+        {% endif %}
     </ul>
   </div>
 </aside>
