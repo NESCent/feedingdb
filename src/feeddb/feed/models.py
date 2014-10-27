@@ -558,6 +558,14 @@ class Sensor(FeedBaseModel):
         self.study = self.setup.study
         return super(Sensor, self).save()
 
+    def get_location(self):
+        for sensortype in ('emgsensor', 'sonosensor', 'strainsensor', 'forcesensor', 'pressuresensor', 'kinematicssensor', 'eventsensor', 'othersensor'):
+            if hasattr(self, sensortype):
+                typed_self = getattr(self, sensortype)
+                for location_name in ('muscle', 'anatomical_location_text', 'location_text'):
+                    if hasattr(typed_self, location_name):
+                        return getattr(typed_self, location_name)
+
 class EmgSensor(Sensor):
     location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
