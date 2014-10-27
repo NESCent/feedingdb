@@ -122,6 +122,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         'add_session': partial(FeedUploadStatus.contextualized_model_add_url, 'session'),
         'add_trial': partial(FeedUploadStatus.contextualized_model_add_url, 'trial'),
         'study_view': FeedUploadStatus.current_study_view_url,
+        'object_view': (lambda req, data, obj: obj.get_absolute_url()),
         'setup_or_session': FeedUploadStatus.next_setup_or_session_url,
     }
 
