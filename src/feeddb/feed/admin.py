@@ -130,6 +130,7 @@ class StrainSensorInline(SetupTabularInline):
     model = StrainSensor
     extra = 1
     fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'gage_type', 'notes']
+    form = StrainSensorForm
 
 class StrainSensorViewInline(FeedTabularInline):
     model = StrainSensor
