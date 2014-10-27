@@ -252,7 +252,7 @@ class FeedUploadStatus():
                 for setup_name, setup in experiment.get_setups_with_type(freshen=True):
                     return reverse('admin:feed_%s_change' % setup_name, args=(setup.id,))
                 else:
-                    return reverse('admin:feed_session_add')
+                    return self.contextualized_model_add_url('session', request, form_data, obj)
             elif isinstance(obj, Setup):
                 experiment = obj.experiment
 
