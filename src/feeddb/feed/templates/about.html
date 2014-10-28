@@ -18,7 +18,7 @@
       </div>
     </div>
     {% endblock %}
-    
+
     {% block content %}
     <div class="col-xs-10 col-xs-offset-1">
       <p class="intro">The Feeding Experiments End-User Database (FEED) was designed and developed by the <a href="http://nescent.org/science/awards_summary.php?id=150" target="_blank">Mammalian Feeding Apparatus Working Group</a> supported by the <a href="http://www.nescent.org/" target="_blank">National Evolutionary Synthesis Center (NESCent)</a>.</p>
@@ -58,21 +58,20 @@
         <div class="box box3">
           <h3>Technology</h3>
           <ul>
-            <li>Database management system: <a href="http://www.postgresql.org/" target="_blank">PostgreSQL 8.3</a></li>
-            <li>Programming language: <a href="http://python.org/" target="_blank">python</a></li>
-            <li>Web framework: <a href="http://www.djangoproject.com/" target="_blank">Django (1.1.1)</a></li>
-            <li>Other libraries 
+            <li>Database management system: <a href="http://www.postgresql.org/" target="_blank">PostgreSQL 8.4.20</a></li>
+            <li>Programming language: <a href="http://python.org/" target="_blank">python 2.6</a></li>
+            <li>Web framework: <a href="http://www.djangoproject.com/" target="_blank">Django 1.6</a></li>
+            <li>Search backend: <a href="http://lucene.apache.org/solr/" target="_blank">Apache Solr 3.6.2</a></li>
+            <li>Other tools and libraries include:
               <ul>
+                <li><a href="http://haystacksearch.org/" target="_blank">Haystack</a>, a Django search framework</li>
                 <li><a href="http://south.aeracode.org/" target="_blank">South</a> for schema and data migration</li>
-            	<li><a href="http://code.google.com/p/django-pagination/" target="_blank">django-pagination (1.0.5)</a></li>
+                <li><a href="http://code.google.com/p/django-pagination/" target="_blank">django-pagination (1.0.5)</a></li>
                 <li><a href="http://www.jquery.com/" target="_blank">jQuery</a></li>
-            	<li><a href="http://initd.org/psycopg/" target="_blank">psycopg2 (2.0.13)</a>: PostgreSQL adapter for the Python programming language</li>
-            	<!--  Do we use this?  We do use WSGI, though.  VG 2010-12-29 
-            	<li><a href="http://pypi.python.org/pypi/wsgiref">wsgiref</a></li>
-            	 -->
-               </ul>
+                <li><a href="http://initd.org/psycopg/" target="_blank">psycopg2 (2.0.13)</a>: PostgreSQL adapter for the Python programming language</li>
+              </ul>
             </li>
-          </ul>  
+          </ul>
         </div>
       </div>
       <div class="col-xs-6">
@@ -105,7 +104,7 @@
       <div class="col-xs-12">
         <div class="box box2">
           <h3>Source Code</h3>
-          <p>Source code is available at <a href="http://github.com/NESCent/feedingdb/" target="_blank">Github</a> under the <a href="http://www.gnu.org/copyleft/gpl.html" target="_blank">GPL v3 license</a>.</p> 
+          <p>Source code is available at <a href="http://github.com/NESCent/feedingdb/" target="_blank">Github</a> under the <a href="http://www.gnu.org/copyleft/gpl.html" target="_blank">GPL v3 license</a>.</p>
         </div>
       </div>
     </div>
