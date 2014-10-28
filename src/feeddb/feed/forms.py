@@ -6,8 +6,12 @@ from django import forms
 from django.forms.fields import ChoiceField, BooleanField
 from django.forms.widgets import RadioSelect
 from django.core.urlresolvers import reverse
+from django.forms.models import model_to_dict, fields_for_model
+from collections import OrderedDict
 
-from feeddb.feed.models import Trial, Session, Experiment, Subject, Study
+from django.contrib.auth.models import User
+
+from feeddb.feed.models import Trial, Session, Experiment, Subject, Study, FeedUserProfile
 
 from faceted_search.searcher import Searcher
 
@@ -25,6 +29,31 @@ my_facet_config = {
         'techniques': { 'label': 'Sensor Type' },
     }
 }
+
+class UserOwnProfileForm(forms.ModelForm):
+    _user_fields = ('email', 'first_name', 'last_name')
+    _field_order = ('first_name', 'last_name', 'email', 'institutional_affiliation')
+
+    def __init__(self, initial=None, instance=None, *args, **kwargs):
+        _user_initial = model_to_dict(instance.user, self._user_fields) if instance is not None else {}
+        initial.update(_user_initial)
+        super(UserOwnProfileForm, self).__init__(initial=initial, instance=instance, *args, **kwargs)
+        self.fields.update(fields_for_model(User, self._user_fields))
+
+        # reorder fields according to order above
+        self.fields = OrderedDict((k, self.fields[k]) for k in self._field_order)
+
+    class Meta:
+        model = FeedUserProfile
+
+    def save(self, *args, **kwargs):
+        u = self.instance.user
+        for field in self._user_fields:
+            setattr(u, field, self.cleaned_data[field])
+        u.save()
+        profile = super(UserOwnProfileForm, self).save(*args, **kwargs)
+        return profile
+
 
 class ModelCloneForm(forms.Form):
     source = forms.ModelChoiceField(queryset=None)
