@@ -798,6 +798,13 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
         span { padding-right: 4px; }
       }
     }
+    .large-table {
+      th { position: relative;
+        .tooltip { font-weight: normal;
+          .tooltip-arrow { top: 0 !important; }
+        }
+      }
+    }
   }
   &.users {
     main {
@@ -898,7 +905,7 @@ table {
     }
   }
 }
-.large-table { overflow: auto; border: 1px solid #dddddd; background: @white; background: @white-alpha;
+.large-table { overflow: auto; border: 1px solid #dddddd; background: @white; background: @white-alpha; padding: 10px 38px 0 38px;
   table { background: transparent; border-bottom: 2px solid #dddddd;
     tr {
       td {

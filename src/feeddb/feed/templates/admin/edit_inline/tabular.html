@@ -12,9 +12,8 @@
             <tr>
               {% for field in inline_admin_formset.fields %}
                 {% if not field.is_hidden  %}
-                <p class="channel-tip">{{ field.help_text }}</p>
-
-                  <th class="{{ field.required|yesno:"required," }}" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}{{ field.required|yesno:" *,"}}</span></th>
+                  <th class="{{ field.required|yesno:"required," }}" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}{{ field.required|yesno:" *,"}}{% include "admin/includes/tooltips.html" %}
+                  </span></th>
                 {% endif %}
               {% endfor %}
               {% for fieldset in inline_admin_form %}
