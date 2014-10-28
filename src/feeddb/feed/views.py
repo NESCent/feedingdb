@@ -1,4 +1,4 @@
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template.response import SimpleTemplateResponse
@@ -50,6 +50,9 @@ class UserOwnProfileChangeView(UpdateView):
 
     def get_object(self):
         # Get the user's profile, or make a new one.
+        if self.request.user.is_anonymous():
+            raise PermissionDenied("Not logged in")
+
         try:
             return self.request.user.feeduserprofile
         except ObjectDoesNotExist:
