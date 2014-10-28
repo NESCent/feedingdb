@@ -49,7 +49,7 @@ class SetupForm (DisableForeignKeyForm):
         exclude = ('technique',)
 
 class ExperimentChangeForm(DisableForeignKeyForm):
-    setup_types = MultipleChoiceField(label="Sensor Types", choices=TECHNIQUE_CHOICES_NAMED, required=False)
+    setup_types = MultipleChoiceField(label="Sensor Types", choices=TECHNIQUE_CHOICES_NAMED, required=True)
 
     class Meta:
         widgets = {
