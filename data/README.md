@@ -44,8 +44,8 @@ You can have other columns in the file if you wish; they will be ignored. You ma
 Then run one or both of these commands to import the correspondence(s) and update all legacy data in the DB:
 
 ```
-./manage.py loadcorrespondence m al_muscles_correspondence.csv
-./manage.py loadcorrespondence b behavior_correspondence.csv
+./manage.py loadcorrespondence m ../data/al_muscles_correspondence.csv
+./manage.py loadcorrespondence b ../data/behavior_correspondence.csv
 ```
 
 If the FEED2 term cannot be found for any row, a message is printed showing the `pk` and `uri` value (including blank `uri` values). For example, this is a normal import with six unmigrated terms:
@@ -76,6 +76,7 @@ Trials missing OWL behavior:
   325: awefffffff
       behavior_primary: 'None' pk=0
   /admin/feed/trial/325/
+  ...
 Sensors missing muscle:
   1436: EMG Sensor: 1 (Muscle: None, Side: Left) (EMG)
       location_controlled: 'JEZ Muscle' (pk=54)
@@ -86,4 +87,5 @@ Sensors missing muscle:
   1438: EMG Sensor: 3 (Muscle: None, Side: Left) (EMG)
       location_controlled: 'JEZ Muscle' (pk=54)
   /admin/feed/emgsensor/1438/
+  ...
 ```
