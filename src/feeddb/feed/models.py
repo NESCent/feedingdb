@@ -225,7 +225,7 @@ class Techniques(object):
         for n, l in TECHNIQUE_CHOICES_NAMED:
             if n == name:
                return i
-            ++i
+            i += 1
         return None
 
     @classmethod
@@ -478,6 +478,13 @@ class Setup(FeedBaseModel):
 
     def save(self):
         self.study = self.experiment.study
+
+        # Set the technique appropriately so it reflects the type.
+        for name, label in TECHNIQUE_CHOICES_NAMED:
+            if hasattr(self, name):
+                self.technique = Techniques.name2num(name)
+                print "Technique: %d, %s" % (self.technique, name)
+
         return super(Setup, self).save()
 
     def typed_sensors(self):
