@@ -48,48 +48,22 @@ Finally, create a super user with access to edit everything.
 
 `./manage.py createsuperuser`
 
-Correspondence of FEED1 AnatomicalLocation and FEED2 Muscles
+
+Loading data from ontology
 ----
 
-The [canonical correspondence](https://docs.google.com/a/squishymedia.com/spreadsheets/d/1CU8Gw7ukyt0q4AHRAJ6b5HgrNukjALCVTdlQ-7dgABI/edit#gid=0) is a Google Doc accessible by both Squishy and the client representatives. The latest CSV export of that spreadsheet should be kept in `data/al_muscles_correspondence.csv`. After updating that file from the Google Doc, you can load the correspondence into the database with this command:
+See `data/README.md` for information about loading ontology data into Django.
 
-```
-./manage.py loadmusclecorrespondence ../data/al_muscles_correspondence.csv
-```
-
-Then you need to rerun migration 66 by going back to 65 and then forward again.
-
-```
-./manage.py migrate feed 0065
-./manage.py migrate feed
-```
-
-Fixtures for Behavior and Muscle
+Deployment
 ----
 
-Behavior and Muscle terms have been loaded from a pre-reasoned OWL file and saved to the `initial_data.yaml` file. Usually this is fine, but if you want to load new terms from the OWL files, you have to repeat the process below.
-
-Load data from OWL file:
+Cron: The index needs a cron job to stay current. The command to run is:
 
 ```
-./manage.py loadowl m .../muscle-closure.owl
-./manage.py loadowl b .../behavior-closure.owl
+./manage.py update_index --remove --age=X
 ```
 
-If it looks good, save it to the fixtures -- this gets reloaded on every migration.
-
-```
-./manage.py dumpdata --format yaml feed.MuscleOwl feed.BehaviorOwl > feeddb/feed/fixtures/initial_data.yaml
-```
-
-Correspondence Between FEED1 CV terms and FEED2 OWL terms
-----
-
-Currently, we only have a correspondence for Muscle terms.
-
-```
-./manage.py loadmusclecorrespondence ../data/al_muscles_correspondence.csv
-```
+where `X` is a number of hours. Content which has been modified in the last X hours will be re-indexed. Content which has been removed will be removed from the index.
 
 Servers
 ----
