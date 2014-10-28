@@ -7416,6 +7416,10 @@ body .StrainSensor #id_strainsensor_set-0-anatomical_location_text {
 body .StrainSensor #id_strainsensor_set_0_gage_type_chosen {
   width: 170px !important;
 }
+body .BiteForceSensor .vTextField,
+body .BiteForceSensor .vLargeTextField {
+  width: 100% !important;
+}
 body footer {
   background: #09192a;
   clear: left;
