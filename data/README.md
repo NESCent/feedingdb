@@ -59,6 +59,14 @@ No match for 31:
 No match for 29: 
 ```
 
+Save data to fixtures
+----
+
+Once you have loaded the data from the OWL files, you can save it in Django's format with the following command:
+
+```
+./manage.py dumpdata --format yaml feed.MuscleOwl feed.BehaviorOwl > feeddb/feed/fixtures/initial_data.yaml
+```
 
 Looking for FEED1 data which is now missing terms
 ----
