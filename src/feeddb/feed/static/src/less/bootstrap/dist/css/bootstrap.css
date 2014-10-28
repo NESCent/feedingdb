@@ -6951,7 +6951,7 @@ body main aside .upload-steps ul li:nth-child(2) {
 }
 body main aside .upload-steps ul li a {
   font-size: 17px;
-  line-height: 26px;
+  line-height: normal;
 }
 body main aside .upload-steps ul li a:hover {
   color: #da5400;
@@ -6960,14 +6960,13 @@ body main aside .upload-steps ul li a.review {
   font-size: 17px;
   position: relative;
   display: block;
-  height: 22px;
   padding-left: 26px;
   color: #da5400;
 }
 body main aside .upload-steps ul li a.review span {
   position: absolute;
   left: 0;
-  top: 4px;
+  top: 2px;
 }
 body main aside .upload-steps ul li a.review:hover {
   color: #638ebc;
