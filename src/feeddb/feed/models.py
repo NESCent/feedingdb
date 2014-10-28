@@ -551,7 +551,9 @@ class Sensor(FeedBaseModel):
     name = models.CharField(max_length=255, help_text="Provide a short name for identifying the data contained in this Sensor.")
 
     # NB: location (anatomical or not) is included in subclasses
-    loc_side = models.ForeignKey(Side, verbose_name="Side", null=False)
+
+    # This field is required on all except bite force sensors
+    loc_side = models.ForeignKey(Side, verbose_name="Side", null=True)
     loc_ap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="AP", blank = True, null=True )
     loc_dv = models.ForeignKey(DorsalVentralAxis, verbose_name="DV", blank = True, null=True )
     loc_pd = models.ForeignKey(ProximalDistalAxis, verbose_name="PD", blank = True, null=True )
