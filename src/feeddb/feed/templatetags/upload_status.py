@@ -2,12 +2,14 @@ from django import template
 from django.db.models.loading import get_model
 from django.core.exceptions import ImproperlyConfigured
 from feeddb.feed.models import Study, Experiment, Session, Trial
+from copy import copy
 
 
 register = template.Library()
 
 @register.inclusion_tag('upload_status/upload_status_block.html', takes_context=True)
 def upload_status_block(context):
+    context = copy(context)
     ret = {}
     ret['known_status'] = True
     try:
@@ -26,7 +28,8 @@ def upload_status_block(context):
 
     ret['show_status'] = ret['known_status'] and should_show_status(context, status)
 
-    return ret
+    context.update(ret)
+    return context
 
 def should_show_status(context, status):
     try:
