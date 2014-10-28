@@ -6886,6 +6886,9 @@ body main .records-selection a.remove {
   float: left;
   width: 180px;
 }
+body main .records-selection .modal-content input {
+  width: 100%;
+}
 body main .records-selection #new_bucket_div .new-bucket {
   position: absolute;
   left: -38px;
