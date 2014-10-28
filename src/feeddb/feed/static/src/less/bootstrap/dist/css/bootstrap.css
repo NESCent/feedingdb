@@ -6953,7 +6953,10 @@ body main aside .upload-steps ul li a {
   font-size: 17px;
   line-height: 26px;
 }
-body main aside .upload-steps ul li .review {
+body main aside .upload-steps ul li a:hover {
+  color: #da5400;
+}
+body main aside .upload-steps ul li a.review {
   font-size: 17px;
   position: relative;
   display: block;
@@ -6961,12 +6964,12 @@ body main aside .upload-steps ul li .review {
   padding-left: 26px;
   color: #da5400;
 }
-body main aside .upload-steps ul li .review span {
+body main aside .upload-steps ul li a.review span {
   position: absolute;
   left: 0;
   top: 4px;
 }
-body main aside .upload-steps ul li .review:hover {
+body main aside .upload-steps ul li a.review:hover {
   color: #638ebc;
 }
 body.view aside .upload-steps {
