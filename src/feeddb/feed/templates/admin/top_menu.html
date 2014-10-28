@@ -1,33 +1,45 @@
 <ul>
-  <li class="col-xs-2"><a href="/welcome">Home</a></li>
+  {% if user.is_authenticated and user.is_staff %}
+    {% ifnotequal  user.first_name "anonymous" %}
+    <li class="col-xs-2">    
+    {% endifnotequal %}
+    {% else %}
+    <li class="col-xs-2 col-xs-offset-3">
+  {% endif %}
+  <a href="/welcome">Home</a></li>
   <li class="col-xs-2"><a href="/search/">Search</a></li>
   <li class="col-xs-2">{% ifnotequal user.first_name "anonymous" %}<a href="{% url "admin:feed_study_add" %}">{% else %}<a href="/login">{% endifnotequal %}Upload</a></li>
-  <li class="col-xs-2 dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Vocabularies</a>
-    <ul class="dropdown-menu" role="menu">
-      <li><a href="{% url 'admin:feed_taxon_changelist' %}">Species</a></li>
-      <li><a href="{% url 'admin:feed_side_changelist' %}">Side</a></li>
-      <li><a href="{% url 'admin:feed_anteriorposterioraxis_changelist' %}">AP Axis</a></li>
-      <li><a href="{% url 'admin:feed_dorsalventralaxis_changelist' %}">DV Axis</a></li>
-      <li><a href="{% url 'admin:feed_proximaldistalaxis_changelist' %}">PD Axis</a></li>
-      <li><a href="{% url 'admin:feed_mediallateralaxis_changelist' %}">ML Axis</a></li>
-      <li><a href="{% url 'admin:feed_depthaxis_changelist' %}">Depth Axis</a></li>
-      <li><a href="{% url 'admin:feed_electrodetype_changelist' %}">Electrode Types</a></li>
-      <li><a href="{% url 'admin:feed_emgfiltering_changelist' %}">EMG Filtering</a></li>
-      <li><a href="{% url 'admin:feed_unit_changelist' %}">Measurement Units</a></li>
-      <li><a href="{% url 'admin:feed_developmentstage_changelist' %}">Development Stages</a></li>
-      <li><a href="{% url 'admin:feed_ageunit_changelist' %}">Age Units</a></li>
-      <li><a href="{% url 'admin:feed_restraint_changelist' %}">Restraints</a></li>
-    </ul>
-  </li>
-  <li class="col-xs-2 dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Browse Data</a>
-    <ul class="dropdown-menu" role="menu">
-      <li><a href="/admin/feed/study">Studies</a></li>
-      <li><a href="/admin/feed/experiment">Experiments</a></li>
-      <li><a href="/admin/feed/session">Sessions</a></li>
-      <li><a href="/admin/feed/trial">Trials</a></li>
-      <li><a href="/admin/feed/subject">Subjects</a></li>
-    </ul>
-  </li>  
-  {% ifnotequal user.first_name "anonymous" %}<li class="col-xs-2"><a href="/admin/feed">My Data</a></li>{% endifnotequal %}
+  {% if user.is_authenticated and user.is_staff %}
+    {% ifnotequal  user.first_name "anonymous" %}
+    <li class="col-xs-2 dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Vocabularies</a>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="{% url 'admin:feed_taxon_changelist' %}">Species</a></li>
+        <li><a href="{% url 'admin:feed_side_changelist' %}">Side</a></li>
+        <li><a href="{% url 'admin:feed_anteriorposterioraxis_changelist' %}">AP Axis</a></li>
+        <li><a href="{% url 'admin:feed_dorsalventralaxis_changelist' %}">DV Axis</a></li>
+        <li><a href="{% url 'admin:feed_proximaldistalaxis_changelist' %}">PD Axis</a></li>
+        <li><a href="{% url 'admin:feed_mediallateralaxis_changelist' %}">ML Axis</a></li>
+        <li><a href="{% url 'admin:feed_depthaxis_changelist' %}">Depth Axis</a></li>
+        <li><a href="{% url 'admin:feed_electrodetype_changelist' %}">Electrode Types</a></li>
+        <li><a href="{% url 'admin:feed_emgfiltering_changelist' %}">EMG Filtering</a></li>
+        <li><a href="{% url 'admin:feed_unit_changelist' %}">Measurement Units</a></li>
+        <li><a href="{% url 'admin:feed_developmentstage_changelist' %}">Development Stages</a></li>
+        <li><a href="{% url 'admin:feed_ageunit_changelist' %}">Age Units</a></li>
+        <li><a href="{% url 'admin:feed_restraint_changelist' %}">Restraints</a></li>
+      </ul>
+    </li>
+    <li class="col-xs-2 dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Browse Data</a>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="/admin/feed/study">Studies</a></li>
+        <li><a href="/admin/feed/experiment">Experiments</a></li>
+        <li><a href="/admin/feed/session">Sessions</a></li>
+        <li><a href="/admin/feed/trial">Trials</a></li>
+        <li><a href="/admin/feed/subject">Subjects</a></li>
+      </ul>
+    </li>
+    <li class="col-xs-2"><a href="/admin/feed">My Data</a></li>
+    {% else %}
+    {% endifnotequal %}
+  {% endif %}
 </ul>
 
