@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template.response import SimpleTemplateResponse
@@ -7,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.conf import settings
-from models import Study, Experiment, Session, Trial, Taxon
+from models import Study, Experiment, Session, Trial, Taxon, FeedUserProfile
 
 from django.contrib import messages
 
@@ -16,7 +17,8 @@ from haystack.query import SearchQuerySet
 from forms import FeedSearchForm, ModelCloneForm
 
 from feeddb.explorer.models import Bucket
-from django.views.generic.edit import FormView, CreateView
+from feeddb.feed.forms import UserOwnProfileForm
+from django.views.generic.edit import FormView, CreateView, UpdateView
 
 import logging
 logger = logging.getLogger(__name__)
@@ -40,6 +42,22 @@ def filter_key(f):
         index = 0
 
     return (index, f[0], f[1])
+
+class UserOwnProfileChangeView(UpdateView):
+    form_class = UserOwnProfileForm
+    model = FeedUserProfile
+    success_url = '/admin/feed'
+
+    def get_object(self):
+        # Get the user's profile, or make a new one.
+        try:
+            return self.request.user.feeduserprofile
+        except ObjectDoesNotExist:
+            return self.model(user=self.request.user)
+
+    def form_valid(self, form):
+        messages.info(self.request, 'Profile updated successfully')
+        return super(UserOwnProfileChangeView, self).form_valid(form)
 
 class TaxonModalAddView(CreateView):
     model = Taxon
