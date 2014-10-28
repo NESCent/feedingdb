@@ -7396,6 +7396,15 @@ body .mandatory {
   font-weight: bold;
   margin: 10px 0 0 0;
 }
+body .EMGElectrode #id_emgsensor_set_0_axisdepth_chosen {
+  width: 102px !important;
+}
+body .EMGElectrode #id_emgsensor_set-0-rate {
+  width: 136px;
+}
+body .EMGElectrode #id_emgsensor_set_0_emg_filtering_chosen {
+  width: 91px !important;
+}
 body footer {
   background: #09192a;
   clear: left;
