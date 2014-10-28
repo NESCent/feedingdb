@@ -7411,6 +7411,9 @@ body .EMGElectrode #id_emgsensor_set-0-rate {
 body .EMGElectrode #id_emgsensor_set_0_emg_filtering_chosen {
   width: 91px !important;
 }
+body .StrainSensor #id_strainsensor_set-0-anatomical_location_text {
+  width: 118px !important;
+}
 body .StrainSensor #id_strainsensor_set_0_gage_type_chosen {
   width: 170px !important;
 }
