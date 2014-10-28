@@ -7594,6 +7594,15 @@ body.change-form main .overview-add {
 body.change-form main .overview-add span {
   padding-right: 4px;
 }
+body.change-form .large-table th {
+  position: relative;
+}
+body.change-form .large-table th .tooltip {
+  font-weight: normal;
+}
+body.change-form .large-table th .tooltip .tooltip-arrow {
+  top: 0 !important;
+}
 body.users main form .id_user_permissions p,
 body.users main form .id_groups p {
   display: none;
@@ -7741,6 +7750,7 @@ table tr td.position {
   overflow: auto;
   border: 1px solid #dddddd;
   background: #ffffff;
+  padding: 10px 38px 0 38px;
 }
 .large-table table {
   background: transparent;
