@@ -22,6 +22,16 @@ def newRender(self, *args, **kwargs):
     return oldRender(self, *args, **kwargs)
 Select.render = newRender
 
+def validate_start_end(cleaned_data):
+    """
+    Helper method used in Form.clean() methods to check start and end date
+    sanity
+    """
+    start = cleaned_data['start']
+    end = cleaned_data['end']
+    if end is not None and end < start:
+        raise ValidationError('Problem with start and end dates: end must post-date start')
+
 DATE_HELP_TEXT = DATETIME_HELP_TEXT  #imported from feeddb.feed.models
 DISABLE_FIELDS = ['study','experiment','session','setup']
 
@@ -62,6 +72,11 @@ class ExperimentChangeForm(DisableForeignKeyForm):
             initial['setup_types'] = setup_types
             kwargs['initial'] = initial
         return super(ExperimentChangeForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(ExperimentChangeForm, self).clean()
+        validate_start_end(cleaned_data)
+        return cleaned_data
 
     def save(self, commit=True, *args, **kwargs):
         """
@@ -121,12 +136,22 @@ class StudyChangeForm(forms.ModelForm):
         super(StudyChangeForm, self).__init__(*args, **kwargs)
         self.fields['approval_type'].empty_label = 'No approval'
 
+    def clean(self):
+        cleaned_data = super(StudyChangeForm, self).clean()
+        validate_start_end(cleaned_data)
+        return cleaned_data
+
 class SessionChangeForm(forms.ModelForm):
     class Meta:
         widgets = {
             'start': DateInput(attrs={'class':'datepicker'}),
             'end': DateInput(attrs={'class':'datepicker'}),
         }
+
+    def clean(self):
+        cleaned_data = super(SessionChangeForm, self).clean()
+        validate_start_end(cleaned_data)
+        return cleaned_data
 
 class TrialChangeForm(forms.ModelForm):
     def clean(self):
@@ -135,6 +160,8 @@ class TrialChangeForm(forms.ModelForm):
         behavior = cleaned_data['behaviorowl_primary']
         if behavior is None and not is_calibration:
             raise ValidationError('You must either check "Calibration" or choose a behavior')
+
+        validate_start_end(cleaned_data)
 
         return cleaned_data
 
