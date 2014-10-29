@@ -25,11 +25,6 @@ def portal_page(request):
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'content': 'Welcome!'  })
     return render_to_response('explorer/index.html', c, mimetype="text/html")
 
-def bucket_index(request):
-    buckets = get_user_buckets(request)
-    c = RequestContext(request, {'title': 'FeedDB Explorer', 'data buckets': buckets})
-    return render_to_response('explorer/bucket_list.html', c, mimetype="text/html")
-
 def bucket_add(request):
     message=None
 
@@ -59,7 +54,7 @@ def bucket_delete(request, id):
     bucket = get_bucket(request, id)
     bucket.delete()
     messages.success(request, 'Successfully deleted the data collection:%s' % bucket)
-    return HttpResponseRedirect('/explorer/bucket/')
+    return HttpResponseRedirect('/admin/feed/')
 
 def get_bucket(request, id):
     from django.http import Http404
