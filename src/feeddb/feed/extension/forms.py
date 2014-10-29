@@ -141,6 +141,7 @@ class StudyChangeForm(forms.ModelForm):
         validate_start_end(cleaned_data)
         return cleaned_data
 
+
 class SessionChangeForm(forms.ModelForm):
     class Meta:
         widgets = {
@@ -152,6 +153,7 @@ class SessionChangeForm(forms.ModelForm):
         cleaned_data = super(SessionChangeForm, self).clean()
         validate_start_end(cleaned_data)
         return cleaned_data
+
 
 class TrialChangeForm(forms.ModelForm):
     def clean(self):
@@ -170,6 +172,7 @@ class TrialChangeForm(forms.ModelForm):
             'start': DateInput(attrs={'class':'datepicker'}),
             'end': DateInput(attrs={'class':'datepicker'}),
         }
+
 
 class EmgSensorChannelForm(forms.ModelForm):
     rate = forms.IntegerField(label = "Recording Rate (Hz)", required=True, widget=forms.TextInput(attrs={'size': 5}))
@@ -202,53 +205,6 @@ class EmgSensorChannelForm(forms.ModelForm):
             self.base_fields["rate"].initial = None
         super(EmgSensorChannelForm, self).__init__(*args, **kwargs)
 
-class SessionForm(forms.ModelForm):
-    subj_notes = CharField(label = "Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
-    position = IntegerField(label = "Position", help_text='the order of the recording session in the experiment', widget=forms.TextInput(attrs={'size': 3}))
-    start = DateTimeField(required=False)
-    end = DateTimeField(required=False)
-    class Meta:
-        model = Session
-        exclude = ('channels',)
-
-class ExperimentForm(forms.ModelForm):
-    subject_notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    description = CharField(label ="Description",widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    impl_notes = CharField(label ="Implantation Notes",widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
-    subj_tooth = CharField(label = "Subject Tooth", widget=forms.TextInput(attrs={'size': 10}), required=False)
-    subj_age = DecimalField(label = "Subject Age", widget=forms.TextInput(attrs={'size': 5}), required=False)
-    #VG 2010-10-29 not sure correct field type for ageunit, but it appears dead code, anyway
-    subj_ageunit = CharField(label = "Age Units", widget=forms.TextInput(attrs={'size': 10}), required=False)
-    subj_weight = DecimalField(label = "Subject Weight (Kg)", widget=forms.TextInput(attrs={'size': 5}), required=False)
-    title = CharField(label = "Title", widget=forms.TextInput(attrs={'size': 10}))
-    class Meta:
-        model = Experiment
-        exclude = ('setups',)
-
-class SubjectForm(forms.ModelForm):
-    notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    class Meta:
-        model = Subject
-
-
-class TrialInlineForm(forms.ModelForm):
-    bookkeeping = CharField(label = "Book Keeping", widget=forms.TextInput(attrs={'size': 10}) , required=False)
-    position = IntegerField(label = "Position", widget=forms.TextInput(attrs={'size': 3}))
-    subj_notes = CharField(label ="Subject Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    subj_treatment = CharField(label ="Subject Treatment",widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-
-    behavior_notes = CharField(label ="Behavior Notes",widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-    behavior_secondary = CharField(label = "Secondary Behavior", widget=forms.TextInput(attrs={'size': 10}), required=False)
-    behavior_notes = CharField(label = "Behavior Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
-
-    food_property = CharField(label = "Food Property", widget=forms.TextInput(attrs={'size': 5}), required=False)
-    food_size = CharField(label = "Food Size(maximum dimension millimeters)", widget=forms.TextInput(attrs={'size': 5}), required=False)
-    food_type = CharField(label = "Food Type", widget=forms.TextInput(attrs={'size': 5}), required=False)
-
-    class Meta:
-        model = Trial
 
 class ChannelLineupForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -257,6 +213,7 @@ class ChannelLineupForm(forms.ModelForm):
 
     class Meta:
         model = ChannelLineup
+
 
 class StrainSensorForm(forms.ModelForm):
     notes = CharField(label="Notes",
