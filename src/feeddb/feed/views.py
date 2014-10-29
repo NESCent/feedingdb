@@ -34,6 +34,9 @@ def about(request):
 def welcome(request):
     return render(request, "welcome.html",{'user':request.user})
 
+def happybrowser(request):
+    return render(request, "happybrowser.html")
+
 def filter_key(f):
     """ See facet_key() in facets.py """
     try:
