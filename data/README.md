@@ -25,10 +25,23 @@ cd ../src/
 
 As with all management comments, ensure you are in the appropriate python environment for your site. If you installed Django globally, you should be set. Otherwise, you need to activate the right virtualenv before `./manage.py` will work.
 
+Save data to fixtures
+----
+
+Once you have loaded the data from the OWL files, you can save it in Django's format with the following command:
+
+```
+./manage.py dumpdata --format yaml feed.MuscleOwl feed.BehaviorOwl > feeddb/feed/fixtures/initial_data.yaml
+```
+
+This will save just the OWL terms to a YAML file that gets loaded every time `./mange.py migrate` is run. It does not include the correspondence -- see below for how to load the correspondence.
+
 Updates to the "correspondence" spreadsheets
 ----
 
-Download a CSV from Google Docs or export from Excel; the file must have columns titled `pk` (the primary key of the FEED1 term) and `uri` (the URI/IRI of the FEED2 ontology term). Save this in `al_muscles_correspondence.csv` for muscles or `behavior_correspondence.csv` for behaviors. For example:
+The "correspondence" tables are used to migrate data from FEED1 to FEED2. The `loadcorrespondence` command loads a CSV file, updates the correpondence, and then updates all existing data to use the new correspondence. The command should be used with caution after FEED2 launch: although there are some safety checks, it is possible for this command to destroy users' selections in the `muscle` field by copying the information from the `location_controlled` field.
+
+To update the correspondence, download a CSV from Google Docs or export from Excel; the file must have columns titled `pk` (the primary key of the FEED1 term) and `uri` (the URI/IRI of the FEED2 ontology term). Save this in `al_muscles_correspondence.csv` for muscles or `behavior_correspondence.csv` for behaviors. For example:
 
 ```
 pk,uri
@@ -59,14 +72,6 @@ No match for 31:
 No match for 29: 
 ```
 
-Save data to fixtures
-----
-
-Once you have loaded the data from the OWL files, you can save it in Django's format with the following command:
-
-```
-./manage.py dumpdata --format yaml feed.MuscleOwl feed.BehaviorOwl > feeddb/feed/fixtures/initial_data.yaml
-```
 
 Looking for FEED1 data which is now missing terms
 ----
