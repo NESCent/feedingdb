@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     (r'^explorer/', include('feeddb.explorer.urls')),
 
     (r'^about', 'feeddb.feed.views.about'),
+    (r'^happybrowser', 'feeddb.feed.views.happybrowser'),
     (r'^welcome', lambda r: HttpResponseRedirect('/')),
     (r'^login$', login_view),
     (r'^logout$', logout_view),
