@@ -506,12 +506,7 @@ class Setup(FeedBaseModel):
 
     def typed_channels(self):
         for channel in self.channel_set.all():
-            for channeltype in ('emgchannel', 'sonochannel', 'strainchannel', 'forcechannel', 'pressurechannel', 'kinematicschannel', 'eventchannel', 'otherchannel'):
-                if hasattr(channel, channeltype):
-                    yield getattr(channel, channeltype)
-                    break
-            else:
-                raise ValueError("Channel %s (pk=%d) is not typed!" % (channel, channel.pk))
+            yield channel.typed()
 
 class EmgSetup(Setup):
     preamplifier = models.CharField(max_length=255, blank = True, null=True)
@@ -578,12 +573,17 @@ class Sensor(FeedBaseModel):
         return super(Sensor, self).save()
 
     def get_location(self):
-        for sensortype in ('emgsensor', 'sonosensor', 'strainsensor', 'forcesensor', 'pressuresensor', 'kinematicssensor', 'eventsensor', 'othersensor'):
+        for sensortype in ('emgsensor', 'sonosensor', 'strainsensor', 'forcesensor', 'pressuresensor', 'kinematicssensor', 'othersensor'):
             if hasattr(self, sensortype):
                 typed_self = getattr(self, sensortype)
                 for location_name in ('muscle', 'anatomical_location_text', 'location_text'):
                     if hasattr(typed_self, location_name):
                         return getattr(typed_self, location_name)
+
+        if hasattr(self, 'eventsensor'):
+            return None
+
+        raise ValueError("Sensor %d is not typed!" % self.pk)
 
 class EmgSensor(Sensor):
     location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
@@ -672,6 +672,13 @@ class Channel(FeedBaseModel):
     def save(self):
         self.study = self.setup.study
         return super(Channel, self).save()
+
+    def typed(self):
+        for channeltype in ('emgchannel', 'sonochannel', 'strainchannel', 'forcechannel', 'pressurechannel', 'kinematicschannel', 'eventchannel', 'otherchannel'):
+            if hasattr(self, channeltype):
+                return getattr(self, channeltype)
+        else:
+            raise ValueError("Channel %s (pk=%d) is not typed!" % (channel, channel.pk))
 
 class EmgChannel(Channel):
     unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : Techniques.ENUM.emg},
