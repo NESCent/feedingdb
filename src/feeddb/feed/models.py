@@ -427,6 +427,10 @@ class Experiment(FeedBaseModel):
             else:
                 raise ValueError("Setup %s (pk=%d) is not typed!" % (setup, setup.pk))
 
+    def get_setup_by_type(self, setuptype, freshen=False):
+        by_type = dict(self.get_setups_with_type(freshen=freshen))
+        return by_type[setuptype]
+
     def has_setup_type(self, name, freshen=False):
         """
         Determine if the experiment has a setup of the specified type.
@@ -451,6 +455,10 @@ class Experiment(FeedBaseModel):
             self._setup_types = self._get_setup_types(self.get_setups(freshen=freshen))
 
         return zip(self._setup_types, self._setups)
+
+    def get_setup_types(self, freshen=False):
+        self.get_setups_with_type(freshen=freshen)
+        return self._setup_types
 
     @staticmethod
     def _get_setup_types(setups):

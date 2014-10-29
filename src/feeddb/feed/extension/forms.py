@@ -86,17 +86,30 @@ class ExperimentChangeForm(DisableForeignKeyForm):
         from django.db.models.loading import get_model
 
         experiment = super(ExperimentChangeForm, self).save(commit=False, *args, **kwargs)
-        setup_types = self.cleaned_data.get('setup_types', None)
+        new_setup_types = self.cleaned_data.get('setup_types', None)
         self._setups_to_save = []
-        for setup_name in setup_types:
-            if not experiment.has_setup_type(setup_name):
-                TypedSetup = get_model('feed', setup_name)
-                setup = TypedSetup()
-                setup.experiment = experiment
-                setup.technique = Techniques.name2num(setup_name)
-                # FIXME: should use request.user if available
-                setup.created_by = experiment.created_by
-                self._setups_to_save.append(setup)
+        old_setup_types = experiment.get_setup_types(freshen=True)
+        added_setup_types = set(new_setup_types) - set(old_setup_types)
+        deleted_setup_types = set(old_setup_types) - set(new_setup_types)
+        for setup_name in added_setup_types:
+            TypedSetup = get_model('feed', setup_name)
+            setup = TypedSetup()
+            setup.experiment = experiment
+            setup.technique = Techniques.name2num(setup_name)
+            # FIXME: should use request.user if available
+            setup.created_by = experiment.created_by
+            self._setups_to_save.append(setup)
+
+        for setup_name in deleted_setup_types:
+            setup = experiment.get_setup_by_type(setup_name, freshen=True)
+
+            # If the setup has no sensors or channels, we can safely delete.
+            if setup.sensor_set.count() == setup.channel_set.count() == 0:
+                setup.delete()
+            else:
+                # We should show a message, but it is hard to do so from within
+                # the form because we don't have access to the request object.
+                pass
 
         save_m2m = self.save_m2m
         def new_save_m2m():
