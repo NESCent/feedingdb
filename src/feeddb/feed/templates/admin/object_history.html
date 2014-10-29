@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n %}
+{% load i18n upload_status %}
 
 {% block bodyclass %}history{% endblock %}
 
@@ -43,7 +43,7 @@
 
 
 {% block content %}
-<div class="col-xs-12">
+<div class="col-xs-9">
 {% if action_list %}
     <table id="change-history" class="table table-striped table-bordered">
         <thead>
@@ -67,4 +67,5 @@
     <p>{% trans "This object doesn't have a change history. It probably wasn't added via this admin site." %}</p>
 {% endif %}
 </div>
+{% upload_status_block %}
 {% endblock %}

@@ -6268,11 +6268,30 @@ body #accordion .glyphicon.glyphicon-picture {
   display: block;
   text-align: left;
 }
+body .modal-header {
+  background: url('../../../../../images/greyzz.png');
+}
+body .modal-body {
+  background: url('../../../../../images/satinweave.png');
+}
 body .modal-body .alert {
   margin-top: 0;
 }
 body .modal-body .modal-choices {
   margin: 20px 0;
+}
+body .modal-footer {
+  background: url('../../../../../images/greyzz.png');
+}
+body .modal-footer button {
+  margin-bottom: 0;
+}
+body .modal-footer input {
+  margin-bottom: 0;
+}
+body .add-taxon {
+  margin-top: 4px;
+  display: block;
 }
 body a.btn,
 body .btn {
@@ -6403,6 +6422,9 @@ body header .login {
 }
 body header .login a {
   color: #007ecf;
+}
+body header .login p {
+  margin-bottom: 40px;
 }
 body nav {
   background: #112e4f;
@@ -6647,6 +6669,15 @@ body.search main {
 body.search h1 {
   text-align: center;
 }
+body.search .records-number h3 {
+  margin-bottom: 0;
+}
+body.search .records-number p {
+  margin: 0 0 10px 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  color: #da5400;
+}
 body.search p {
   margin-top: 30px;
 }
@@ -6742,8 +6773,14 @@ body.collection form table th {
 body.collection form table td {
   font-size: 14px;
 }
+body.collection-detail #trial_form th:first-child {
+  width: 30px !important;
+}
 body.collection-detail footer {
   margin-top: 0;
+}
+body.history .upload-steps {
+  border-left: 0;
 }
 body main {
   padding: 0;
@@ -6814,6 +6851,10 @@ body main table td.action a:last {
 body main table td table {
   background: transparent;
 }
+body main table.illustration td.notes textarea {
+  width: 100% !important;
+  height: 118px !important;
+}
 body main table#change-history th.date {
   width: 20%;
 }
@@ -6844,6 +6885,9 @@ body main .records-selection a.remove {
   padding: 4px 19px;
   float: left;
   width: 180px;
+}
+body main .records-selection .modal-content input {
+  width: 100%;
 }
 body main .records-selection #new_bucket_div .new-bucket {
   position: absolute;
@@ -6897,20 +6941,35 @@ body main aside .upload-steps ul {
 }
 body main aside .upload-steps ul li {
   list-style-type: none;
-  padding: 0 0 20px 0;
+  padding: 0 0 12px 20px;
   font: 17px/26px 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif, serif;
   color: #005a8b;
 }
-body main aside .upload-steps ul li .review {
+body main aside .upload-steps ul li:first-child,
+body main aside .upload-steps ul li:nth-child(2) {
+  padding: 0 0 12px 0;
+}
+body main aside .upload-steps ul li a {
+  font-size: 17px;
+  line-height: normal;
+}
+body main aside .upload-steps ul li a:hover {
+  color: #da5400;
+}
+body main aside .upload-steps ul li a.review {
   font-size: 17px;
   position: relative;
   display: block;
-  width: 82px;
-  height: 22px;
+  padding-left: 26px;
+  color: #da5400;
 }
-body main aside .upload-steps ul li .review span {
+body main aside .upload-steps ul li a.review span {
   position: absolute;
-  right: 0;
+  left: 0;
+  top: 2px;
+}
+body main aside .upload-steps ul li a.review:hover {
+  color: #638ebc;
 }
 body.view aside .upload-steps {
   border-left: 0;
@@ -7043,6 +7102,10 @@ body #experiment_form fieldset td.notes textarea {
   width: 100%;
   height: 42px;
 }
+body #experiment_form fieldset td.notes textarea.vLargeTextField {
+  height: 118px;
+  width: 100%;
+}
 body #experiment_form .inline-group {
   margin-bottom: 30px;
 }
@@ -7052,9 +7115,30 @@ body #emgsetup_form fieldset td.original,
 body #strainsetup_form fieldset td.original,
 body #forcesetup_form fieldset td.original,
 body #pressuresetup_form fieldset td.original,
-body #eventsetup_form fieldset td.original {
+body #eventsetup_form fieldset td.original,
+body #othersetup_form fieldset td.original {
   width: 0;
   padding: 0;
+}
+body #kinematicssetup_form fieldset td.name input.vTextField,
+body #sonosetup_form fieldset td.name input.vTextField,
+body #emgsetup_form fieldset td.name input.vTextField,
+body #strainsetup_form fieldset td.name input.vTextField,
+body #forcesetup_form fieldset td.name input.vTextField,
+body #pressuresetup_form fieldset td.name input.vTextField,
+body #eventsetup_form fieldset td.name input.vTextField,
+body #othersetup_form fieldset td.name input.vTextField {
+  width: 118px !important;
+}
+body #kinematicssetup_form fieldset td.location_text input.vTextField,
+body #sonosetup_form fieldset td.location_text input.vTextField,
+body #emgsetup_form fieldset td.location_text input.vTextField,
+body #strainsetup_form fieldset td.location_text input.vTextField,
+body #forcesetup_form fieldset td.location_text input.vTextField,
+body #pressuresetup_form fieldset td.location_text input.vTextField,
+body #eventsetup_form fieldset td.location_text input.vTextField,
+body #othersetup_form fieldset td.location_text input.vTextField {
+  width: 118px !important;
 }
 body #kinematicssetup_form fieldset td.notes textarea,
 body #sonosetup_form fieldset td.notes textarea,
@@ -7062,7 +7146,8 @@ body #emgsetup_form fieldset td.notes textarea,
 body #strainsetup_form fieldset td.notes textarea,
 body #forcesetup_form fieldset td.notes textarea,
 body #pressuresetup_form fieldset td.notes textarea,
-body #eventsetup_form fieldset td.notes textarea {
+body #eventsetup_form fieldset td.notes textarea,
+body #othersetup_form fieldset td.notes textarea {
   width: 120px;
 }
 body #kinematicssetup_form fieldset td.notes textarea.vLargeTextField,
@@ -7071,9 +7156,10 @@ body #emgsetup_form fieldset td.notes textarea.vLargeTextField,
 body #strainsetup_form fieldset td.notes textarea.vLargeTextField,
 body #forcesetup_form fieldset td.notes textarea.vLargeTextField,
 body #pressuresetup_form fieldset td.notes textarea.vLargeTextField,
-body #eventsetup_form fieldset td.notes textarea.vLargeTextField {
-  height: 118px;
-  width: 100%;
+body #eventsetup_form fieldset td.notes textarea.vLargeTextField,
+body #othersetup_form fieldset td.notes textarea.vLargeTextField {
+  height: 60px;
+  width: 120px;
 }
 body #kinematicssetup_form fieldset td.picture,
 body #sonosetup_form fieldset td.picture,
@@ -7081,7 +7167,8 @@ body #emgsetup_form fieldset td.picture,
 body #strainsetup_form fieldset td.picture,
 body #forcesetup_form fieldset td.picture,
 body #pressuresetup_form fieldset td.picture,
-body #eventsetup_form fieldset td.picture {
+body #eventsetup_form fieldset td.picture,
+body #othersetup_form fieldset td.picture {
   padding-right: 40px;
 }
 body #kinematicssetup_form .inline-group,
@@ -7090,7 +7177,41 @@ body #emgsetup_form .inline-group,
 body #strainsetup_form .inline-group,
 body #forcesetup_form .inline-group,
 body #pressuresetup_form .inline-group,
-body #eventsetup_form .inline-group {
+body #eventsetup_form .inline-group,
+body #othersetup_form .inline-group {
+  margin-bottom: 30px;
+}
+body #sonosetup_form fieldset td.original {
+  width: 0;
+  padding: 0;
+}
+body #sonosetup_form fieldset td.name input.vTextField {
+  width: 118px !important;
+}
+body #sonosetup_form fieldset td.notes textarea {
+  width: 120px;
+}
+body #othersetup_form fieldset td.original {
+  width: 0;
+  padding: 0;
+}
+body #othersetup_form fieldset td.name input.vTextField {
+  width: 97px !important;
+}
+body #othersetup_form fieldset td.location_text input.vTextField {
+  width: 117px !important;
+}
+body #othersetup_form fieldset td.notes textarea {
+  width: 120px;
+}
+body #othersetup_form fieldset td.notes textarea.vLargeTextField {
+  height: 60px;
+  width: 120px;
+}
+body #othersetup_form fieldset td.picture {
+  padding-right: 40px;
+}
+body #othersetup_form .inline-group {
   margin-bottom: 30px;
 }
 body #session_form fieldset td.original {
@@ -7271,6 +7392,34 @@ body .chosen-container-multi .chosen-choices li.search-field input[type=text] {
   padding: 0 5px;
   height: auto;
 }
+body .channel-tip {
+  color: #da5400;
+  margin: 20px 0 0 0;
+}
+body .mandatory {
+  color: red;
+  font-weight: bold;
+  margin: 10px 0 0 0;
+}
+body .EMGElectrode #id_emgsensor_set_0_axisdepth_chosen {
+  width: 102px !important;
+}
+body .EMGElectrode #id_emgsensor_set-0-rate {
+  width: 136px;
+}
+body .EMGElectrode #id_emgsensor_set_0_emg_filtering_chosen {
+  width: 91px !important;
+}
+body .StrainSensor #id_strainsensor_set-0-anatomical_location_text {
+  width: 118px !important;
+}
+body .StrainSensor #id_strainsensor_set_0_gage_type_chosen {
+  width: 170px !important;
+}
+body .BiteForceSensor .vTextField,
+body .BiteForceSensor .vLargeTextField {
+  width: 100% !important;
+}
 body footer {
   background: #09192a;
   clear: left;
@@ -7302,6 +7451,7 @@ body footer ul li a:hover {
 body footer p {
   font: 12px/21px 'Roboto', sans-serif, sans-serif;
   color: #ffffff;
+  margin-bottom: 0;
 }
 body footer .partners h5,
 body footer .funding h5 {
@@ -7393,6 +7543,19 @@ body #clone-modal .row {
 body #clone-modal .row .chosen-container {
   width: 100% !important;
 }
+body.change-form .masthead {
+  background: url('../../../../../images/greyzz.png');
+  padding-bottom: 30px;
+  border-bottom: 1px solid #dcdcdc;
+}
+body.change-form.view .masthead {
+  background-image: none;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+body.change-form.view .large-table {
+  border: 0;
+}
 body.change-form main form fieldset .help {
   margin-top: 4px;
 }
@@ -7434,6 +7597,15 @@ body.change-form main .overview-add {
 }
 body.change-form main .overview-add span {
   padding-right: 4px;
+}
+body.change-form .large-table th {
+  position: relative;
+}
+body.change-form .large-table th .tooltip {
+  font-weight: normal;
+}
+body.change-form .large-table th .tooltip .tooltip-arrow {
+  top: 0 !important;
 }
 body.users main form .id_user_permissions p,
 body.users main form .id_groups p {
@@ -7534,6 +7706,9 @@ table label {
 .table {
   margin-bottom: 0;
 }
+.tight {
+  margin-bottom: 0 !important;
+}
 table tr.clickable td:first-child {
   width: auto;
 }
@@ -7579,6 +7754,7 @@ table tr td.position {
   overflow: auto;
   border: 1px solid #dddddd;
   background: #ffffff;
+  padding: 10px 38px 0 38px;
 }
 .large-table table {
   background: transparent;
@@ -7630,6 +7806,9 @@ form input[type="radio"] {
   border: 0;
   background-color: transparent;
   height: auto;
+}
+form input[type="checkbox"] {
+  width: 12px;
 }
 textarea {
   resize: vertical;

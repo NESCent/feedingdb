@@ -16,7 +16,7 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.utils.datastructures import SortedDict
-from functools import update_wrapper
+from functools import update_wrapper, partial
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.functional import curry
@@ -24,8 +24,9 @@ from django.utils.text import capfirst, get_text_list
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext, ugettext_lazy
 from django.utils.encoding import force_unicode
-from feeddb.feed.util import FeedUploadStatus
+from feeddb.feed.util import FeedUploadStatus, FeedStatusInsufficientError
 from feeddb.feed.models import  *
+from feeddb.feed.forms import *
 from feeddb.explorer.models import  *
 from feeddb.feed.extension.forms import *
 from feeddb.feed.extension.formsets import PositionBaseInlineFormSet
@@ -116,11 +117,12 @@ class FeedModelAdmin(admin.ModelAdmin):
     # which are not delivered to popup windows.  See
     # get_redirect_destination(), response_add(), and response_change()
     success_destinations = {
-        'add_experiment': reverse_lazy('admin:feed_experiment_add'),
-        'add_trial': reverse_lazy('admin:feed_trial_add'),
-        'add_session': reverse_lazy('admin:feed_session_add'),
-        'add_subject': reverse_lazy('admin:feed_subject_add'),
+        'add_subject': partial(FeedUploadStatus.contextualized_model_add_url, 'subject'),
+        'add_experiment': partial(FeedUploadStatus.contextualized_model_add_url, 'experiment'),
+        'add_session': partial(FeedUploadStatus.contextualized_model_add_url, 'session'),
+        'add_trial': partial(FeedUploadStatus.contextualized_model_add_url, 'trial'),
         'study_view': FeedUploadStatus.current_study_view_url,
+        'object_view': (lambda req, data, obj: obj.get_absolute_url()),
         'setup_or_session': FeedUploadStatus.next_setup_or_session_url,
     }
 
@@ -241,6 +243,7 @@ class FeedModelAdmin(admin.ModelAdmin):
             'save_on_top': self.save_on_top,
             'root_path': reverse('admin:index'),
         })
+        self._alter_view_context(context)
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
         if context.get('tabbed'):
             return render_to_response(self.view_form_template or [
@@ -253,6 +256,43 @@ class FeedModelAdmin(admin.ModelAdmin):
                 "admin/%s/view.html" % app_label,
                 "admin/view.html"
             ], context, context_instance=context_instance)
+
+    def _alter_view_context(self, context):
+        # regroup inline_admin_formsets for study view page
+
+        def _get_first_original_in_formset(formset):
+            for form in inline_admin_formset:
+                return form.original
+
+        def _forms_in_container(formset, fieldname, value):
+            for form in inline_admin_formset:
+                original = form.original
+                if original is not None:
+                    if getattr(original, fieldname) == value:
+                        yield form
+
+        def _by_containers(formset, fieldname, containers):
+            for container in containers:
+                yield {
+                    'grouper': container,
+                    'list': list(_forms_in_container(formset, fieldname, container)),
+                }
+
+        if self.model == Study:
+            for inline_admin_formset in context['inline_admin_formsets']:
+                original = _get_first_original_in_formset(inline_admin_formset)
+                Model = type(original)
+
+                if Model == Session:
+                    fieldname = 'experiment'
+                    containers = original.study.experiment_set.all()
+                elif Model == Trial:
+                    fieldname = 'session'
+                    containers = original.study.session_set.all()
+                else:
+                    continue
+
+                inline_admin_formset.by_container = list(_by_containers(inline_admin_formset, fieldname, containers))
 
     def response_post_save_add(self, request, obj):
         """
@@ -332,7 +372,11 @@ class FeedModelAdmin(admin.ModelAdmin):
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         # Get default form values from session
         if add:
+            modelname = context['adminform'].form._meta.model.__name__.lower()
+            # check to see that we have enough status information
+            add_url = request.feed_upload_status.model_add_url(modelname)
             request.feed_upload_status.apply_defaults_to_form(context['adminform'].form)
+            context['clone_form'] = ModelCloneForm.factory(self, request)
 
         # Restrict values available in model select widgets based on session.
         #
@@ -344,6 +388,12 @@ class FeedModelAdmin(admin.ModelAdmin):
         for formset in context['inline_admin_formsets']:
             for form in formset.formset.forms:
                 request.feed_upload_status.apply_restricted_querysets_to_form(form)
+
+        if 'is_clone' in request.GET:
+            if hasattr(obj, 'title'):
+                context['adminform'].form.initial['title'] = ''
+            elif hasattr(obj, 'name'):
+                context['adminform'].form.initial['name'] = ''
 
         return super(FeedModelAdmin, self).render_change_form(request, context, add, change, form_url, obj)
 
@@ -403,25 +453,38 @@ class FeedModelAdmin(admin.ModelAdmin):
         extra_context.update({
             'tabbed': self.tabbed,
             'tab_name': self.tab_name,
+            'is_clone': 'is_clone' in request.GET,
         })
 
         return super(FeedModelAdmin,self).change_view(request, object_id, extra_context=extra_context)
 
+    def history_view(self, request, pk, **kwargs):
+        model = self.model
+        obj = model.objects.get(pk=unquote(pk))
+        if not obj is None:
+            request.feed_upload_status.update_with_object(obj)
+        return super(FeedModelAdmin, self).history_view(request, pk, **kwargs)
+
     #get context from the url if adding data
     def add_view(self, request, form_url='', extra_context=None):
+        if extra_context == None:
+            extra_context = {}
+
         if not request.method == 'POST':
-            context_object=self.get_context(request)
-            if(context_object !=None):
+            context_object = self.get_context(request)
+            if context_object != None:
                 context = {
                     'context_object': context_object,
                     'object_name': context_object.__class__.__name__,
                     'has_change_permission': self.has_change_permission(request, context_object),
                 }
-                if(extra_context!=None):
-                    extra_context.update(context)
-                else:
-                    extra_context = context
-        return super(FeedModelAdmin,self).add_view(request, form_url, extra_context)
+                extra_context.update(context)
+
+        try:
+            return super(FeedModelAdmin,self).add_view(request, form_url, extra_context)
+        except FeedStatusInsufficientError:
+            messages.error(request, "Please select a study to which to add information.")
+            return HttpResponseRedirect('/admin/feed')
 
     #get context object from the url parameter
     def get_context(self, request):
@@ -683,79 +746,6 @@ class DefaultModelAdmin(FeedModelAdmin):
 class SessionModelAdmin(FeedModelAdmin):
     def __init__(self, model, admin_site):
         super(SessionModelAdmin, self).__init__(model,admin_site)
-
-    def get_urls(self):
-        from django.conf.urls import patterns, url
-        urls = super(SessionModelAdmin, self).get_urls()
-
-        def wrap(view):
-            def wrapper(*args, **kwargs):
-                return self.admin_site.admin_view(view)(*args, **kwargs)
-            return update_wrapper(wrapper, view)
-
-        info = self.model._meta.app_label, self.model._meta.module_name
-
-        urlpatterns = patterns('',
-            url(r'^edit/$',
-                wrap(self.editlist_view),
-                name='%s_%s_editlist' % info),
-        )
-        return urlpatterns+urls
-
-    def editlist_view(self, request, extra_context=None):
-        if request.GET.get("experiment") ==None:
-            raise Http404("No experiment specified")
-
-        model = Experiment
-        object_id = request.GET.get("experiment")
-        opts = model._meta
-
-        try:
-            obj = Experiment.objects.get(pk=unquote(object_id))
-        except model.DoesNotExist:
-            # Don't raise Http404 just yet, because we haven't checked
-            # permissions yet. We don't want an unauthenticated user to be able
-            # to determine whether a given object exists.
-            obj = None
-
-        if not self.has_change_permission(request, obj):
-            raise PermissionDenied
-
-        if obj is None:
-            raise Http404(_('%(name)s object with primary key %(key)r does not exist.') % {'name': force_unicode(opts.verbose_name), 'key': escape(object_id)})
-        messages =[]
-        errors =[]
-        FormSet  = inlineformset_factory(Experiment, Session, SessionForm, PositionBaseInlineFormSet, can_delete=True)
-        if request.method == 'POST':
-            formsets=[]
-            sessionformset = FormSet(request.POST, request.FILES, instance=obj )
-            formsets.append(sessionformset)
-            if all_valid(formsets):
-                for f in sessionformset.forms:
-                    if f.instance:
-                        if not f.instance.id:
-                            f.instance.created_by = request.user
-                sessionformset.save()
-
-                messages.append("Successfully updated the data!")
-            else:
-                errors.append(sessionformset.non_form_errors())
-        else:
-            sessionformset =FormSet(instance=obj)
-
-        context={
-            'experiment': obj,
-            'object_id': object_id,
-            'change': True,
-            'add': False,
-            'view': False,
-            'sessionformset': sessionformset,
-            'app_label': 'feed',
-            'messages': messages,
-        }
-        context_instance = template.RequestContext(request, current_app=self.admin_site.name)
-        return render_to_response("admin/feed/session/edit_sessions.html", context, context_instance=context_instance)
-    editlist_view = transaction.commit_on_success(editlist_view)
 
     def changelist_view(self, request, extra_context=None):
         experiment = None

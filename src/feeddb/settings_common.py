@@ -124,3 +124,7 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 #DEBUG_TOOLBAR_PANELS = (
 #    #'inspector_panel.panels.inspector.InspectorPanel',
 #)
+
+EXPLORER_TEMPORARY_FOLDER = '/tmp'
+
+SOUTH_TESTS_MIGRATE = False

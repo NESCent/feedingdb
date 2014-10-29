@@ -7,19 +7,13 @@
        {{ inline_admin_formset.formset.non_form_errors }}
 
       <div class="col-xs-11 large-table">
-        <table class="table">
+        <table class="table {{ inline_admin_formset.opts.verbose_name|cut:" " }}">
           <thead>
             <tr>
               {% for field in inline_admin_formset.fields %}
                 {% if not field.is_hidden  %}
-
-                  {%if field.label.required %}
-                  <th class="{{ field.label }} required" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
-                  {%else%}
-                  <th class="{{ field.label }}" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}</th>
-                  {%endif%}
-
-
+                  <th class="{{ field.required|yesno:"required," }}" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}{{ field.required|yesno:" *,"}}{% include "admin/includes/tooltips.html" %}
+                  </span></th>
                 {% endif %}
               {% endfor %}
               {% for fieldset in inline_admin_form %}

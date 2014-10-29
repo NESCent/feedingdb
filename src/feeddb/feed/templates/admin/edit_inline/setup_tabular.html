@@ -4,14 +4,17 @@
     {{ inline_admin_formset.formset.management_form }}
       <fieldset class="module">
         <h3>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h3>
+    {% if 'pressuresetup' == opts.model_name or 'othersetup' == opts.model_name or 'forcesetup' == opts.model_name %}
+      <p>Enter a term for the sensor location, e.g., external transducer. Longer descriptions can be provided in Notes.</p>
+    {% endif %}
         {{ inline_admin_formset.formset.non_form_errors }}
         <div class="col-xs-11 large-table">
-          <table class="table">
+          <table class="table {{ inline_admin_formset.opts.verbose_name|cut:" " }}">
             <thead>
               <tr>
                 {% for field in inline_admin_formset.fields %}
                   {% if not field.is_hidden  %}
-                    <th class="{{ field.required|yesno:"required," }}" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}{{ field.required|yesno:" *,"}}</th>
+                    <th class="{{ field.required|yesno:"required," }}" {% if forloop.first %}colspan="2"{% endif %}>{{ field.label|capfirst }}{{ field.required|yesno:" *,"}}{% include "admin/includes/tooltips.html" %}</th>
                   {% endif %}
                 {% endfor %}
                 {% if inline_admin_formset.formset.can_delete %}
@@ -28,7 +31,7 @@
                   <td colspan="{{ inline_admin_form.field_count }}">{{ inline_admin_form.form.non_field_errors }}</td>
                 </tr>
               {% endif %}
-              <tr class="{% cycle row1,row2 %} {% if inline_admin_form.original or inline_admin_form.show_url %}has_original{% endif %}">
+              <tr class="{% cycle row1,row2 %} {% if inline_admin_form.original or inline_admin_form.show_url %}has_original{% endif %} {% if forloop.last %}empty-form hidden{% endif %}">
                 <td class="original">
                   {% if inline_admin_form.original or inline_admin_form.show_url %}
                   {% endif %}
@@ -72,16 +75,14 @@
             {% endfor %}
           </table>
           <div class="row">
+            <div class="col-xs-12">
+              <p class="mandatory">You must save the sensors before they can be used in the channels form below.</p>
+            </div>
             <div class="col-xs-4">
-              <input class="btn btn-default bottom-element" type="submit" value="{% trans 'Add More' %}" name="_save" {{ onclick_attrib }}/>
+              <input class="btn btn-default bottom-element" type="submit" value="{% trans 'Save' %}" name="_save" {{ onclick_attrib }}/>
             </div>
             <div class="col-xs-12">
-            <p>
-              <strong>
-                <div style="color:red;">Please save the sensors before they can be used in the channels form below.</div>
-                  <br/>* If you need to add more records than available empty rows, please click 'Add More' to save the data and additional space will be added following the existing records.
-              </strong>
-            </p>
+            <p style="color:#da5400;">* If you need to add more records than available empty rows, please click 'Save' to save the data and additional space will be added following the existing records.</p>
             </div>
           </div>
         </div>

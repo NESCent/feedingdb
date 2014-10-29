@@ -25,11 +25,6 @@ def portal_page(request):
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'content': 'Welcome!'  })
     return render_to_response('explorer/index.html', c, mimetype="text/html")
 
-def bucket_index(request):
-    buckets = get_user_buckets(request)
-    c = RequestContext(request, {'title': 'FeedDB Explorer', 'data buckets': buckets})
-    return render_to_response('explorer/bucket_list.html', c, mimetype="text/html")
-
 def bucket_add(request):
     message=None
 
@@ -59,7 +54,7 @@ def bucket_delete(request, id):
     bucket = get_bucket(request, id)
     bucket.delete()
     messages.success(request, 'Successfully deleted the data collection:%s' % bucket)
-    return HttpResponseRedirect('/explorer/bucket/')
+    return HttpResponseRedirect('/admin/feed/')
 
 def get_bucket(request, id):
     from django.http import Http404
@@ -619,14 +614,14 @@ def trial_add(request, id):
         except Trial.DoesNotExist:
             c = RequestContext(request, {'title': 'Error | FeedDB Explorer', 'message': 'Trial with primary key %(key)r does not exist.' % {'key': escape(id)}})
             return render_to_response('explorer/error.html', c)
-        if request.POST['bucket_id']!='Add new bucket':
+        if request.POST['bucket_id'] != u'add new bucket':
             bucket_id = request.POST['bucket_id']
             if bucket_id==None or bucket_id =="":
                 messages.error(request, 'No data collection specified')
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
             try:
                 bucket = Bucket.objects.get(pk=bucket_id)
-            except Bukcet.DoesNotExist:
+            except Bucket.DoesNotExist:
                 messages.error(request, 'Data collection with primary key %(key)r does not exist.' % {'key': escape(bucket_id)})
                 return HttpResponseRedirect('/explorer/trial/%s/' % id)
             #check if the user is the owner of the bucket. If not return error page

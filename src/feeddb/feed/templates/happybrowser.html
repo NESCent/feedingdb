@@ -1,0 +1,45 @@
+{% load feedmedia %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <title>Browser Detection</title>
+</head>
+
+<body>
+    <table class="browser ">
+        <tr>
+        </tr>
+        <tr>
+            <td>
+                <h1>This browser is outdated.</h1>
+
+                <h5>For a better experience using this site, please upgrade to one of these standards compliant browsers:</h5>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <table>
+                    <tr id="browser-images">
+                        <td><a href="http://www.google.com/chrome"><img src="{% app_static_prefix %}/img/happybrowser/chrome.jpg" alt="Download the Chrome browser" width="92" height="122" /></a></td>
+
+                        <td><a href="http://www.mozilla.org/en-US/firefox/new"><img src="{% app_static_prefix %}/img/happybrowser/firefox.jpg" alt="Download the Firefox browser" width="92" height="122" /></a></td>
+
+                        <td><a href="http://www.apple.com/safari/download/"><img src=" {% app_static_prefix %}/img/happybrowser/safari.jpg" alt="Download the Safari browser" width="92" height="122" /></a></td>
+
+                        <td><a href="http://windows.microsoft.com/en-US/internet-explorer/downloads/ie"><img src=" {% app_static_prefix %}/img/happybrowser/ie.jpg" alt="Download an updated Internet Explorer browser" width="92" height="122" /></a></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+    </table>
+
+    </body>
+</html>

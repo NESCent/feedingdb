@@ -18,16 +18,27 @@ Some useful variables:
   <div class="col-xs-3 upload-steps">
     <h2>Study Overview</h2>
     <ul>
-        <li><a href="{{ study.get_absolute_url }}">Study: {{ study }}</a></li>
-        <li>Subjects: {{ subjects|length }}
+        <li><a href="{{ study.get_absolute_url }}" data-toggle="tooltip" data-placement="top" title="Review study components" class="review"><span class="glyphicon glyphicon-eye-open"></span> {{ study }}</a></li>
+        <li>This study contains:</li>
+        {% if 'study' == opts.model_name %}
+        <li><a href="{{ study.get_absolute_url }}#collapse1" data-toggle="collapse" data-parent="#accordion">Subjects: {{ subjects|length }}</a>
         </li>
-        <li>Experiments: {{ experiments|length }}
+        <li><a href="{{ study.get_absolute_url }}#collapse2" data-toggle="collapse" data-parent="#accordion">Experiments: {{ experiments|length }}
         </a></li>
-        <li>Sessions: {{ sessions|length }}
+        <li><a href="{{ study.get_absolute_url }}#collapse3" data-toggle="collapse" data-parent="#accordion">Sessions: {{ sessions|length }}
         </li>
-        <li>Trials: {{ trials|length}}
+        <li><a href="{{ study.get_absolute_url }}#collapse4" data-toggle="collapse" data-parent="#accordion">Trials: {{ trials|length}}
         </li>
-        <li><a class="review" href="{{ study.get_absolute_url }}">Review</a></li>
+        {% else %}
+        <li><a href="{{ study.get_absolute_url }}#collapse1">Subjects: {{ subjects|length }}</a>
+        </li>
+        <li><a href="{{ study.get_absolute_url }}#collapse2">Experiments: {{ experiments|length }}
+        </a></li>
+        <li><a href="{{ study.get_absolute_url }}#collapse3">Sessions: {{ sessions|length }}
+        </li>
+        <li><a href="{{ study.get_absolute_url }}#collapse4">Trials: {{ trials|length}}
+        </li>
+        {% endif %}
     </ul>
   </div>
 </aside>

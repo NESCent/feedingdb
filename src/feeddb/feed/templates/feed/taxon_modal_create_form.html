@@ -1,0 +1,48 @@
+{% load i18n %}
+<div class="modal-dialog">
+  <div class="modal-content">
+    <form id="modal-taxon-create-form" method="post" class="form" role="form" action="{% url 'modal_add_taxon' %}">
+      {% csrf_token %}
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h3 class="modal-title">Add New Taxon</h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-3 col-xs-offset-1">
+            <label for="id_genus">Genus:</label>
+          </div>
+          <div class="col-xs-5">
+            <input id="id_genus" name="genus" type="text"></input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3 col-xs-offset-1">
+            <label for="id_species">Species:</label>
+          </div>
+          <div class="col-xs-5">
+            <input id="id_species" name="species" type="text"></input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3 col-xs-offset-1">
+            <label for="id_common_name">Species:</label>
+          </div>
+          <div class="col-xs-5">
+            <input id="id_common_name" name="common_name" type="text"></input>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-xs-4 col-xs-offset-2">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+          <div class="col-xs-4">
+            <input type="submit" value="Add" class="btn btn-primary" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

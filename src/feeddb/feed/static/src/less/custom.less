@@ -44,6 +44,7 @@
     @roboto: 'Roboto', sans-serif;
     @pt-sans: 'PT Sans', sans-serif;
     @rockwell: 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
+    @body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 body { background: url('../../../../../images/satinweave.png'); color: @navy; color: @navy-alpha;
 
@@ -91,11 +92,16 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
   
   /* Modals */
   
-  .modal-body {
+  .modal-header { background: url('../../../../../images/greyzz.png'); }
+  .modal-body { background: url('../../../../../images/satinweave.png');
     .alert { margin-top: 0; }
     .modal-choices { margin: 20px 0; }
   }
-  
+  .modal-footer { background: url('../../../../../images/greyzz.png');
+    button { margin-bottom: 0; }
+    input { margin-bottom: 0; }
+  }
+  .add-taxon { margin-top: 4px; display: block; }
   /* Buttons */
   
   a.btn, .btn { color: @white; color: @white-alpha; font: 17px/26px @rockwell, serif; padding: 8px 23px; -webkit-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); -moz-box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); box-shadow: 1px 0px 3px 0px rgba(4,5,5,0.5); border: 0; width: 100%; border-radius: 0; margin-bottom: 20px;
@@ -159,6 +165,7 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
     .logo { float: left; background: url('../../../../../images/logo.png') no-repeat; background-size: 163px; height: 85px; padding: 63px 0 0 180px; font: 400 21px @pt-sans; color: @dk-orange; color: @dk-orange-alpha; }
     .login { float: right; font: 400 12px @roboto; color: @navy; color: @navy-alpha;
       a { color: @sky-blue; color: @sky-blue-alpha; }
+      p { margin-bottom: 40px; }
     }
   }
 
@@ -276,6 +283,10 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
   &.search {
     main { padding: 30px 0 54px 0; }
     h1 { text-align: center; }
+    .records-number {
+      h3 { margin-bottom: 0; }
+      p { margin: 0 0 10px 0; font-family: @body; font-size: 13px; color: @orange; color: @orange-alpha; }
+    }
     p { margin-top: 30px; }
     form {
       .row { margin-bottom: 0; }
@@ -326,7 +337,15 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
     }
   }
   &.collection-detail {
+    #trial_form {
+      th {
+        &:first-child { width: 30px !important; }
+      }
+    }
     footer { margin-top: 0; }
+  }
+  &.history {
+    .upload-steps { border-left: 0; }
   }
   main { padding: 0;
     .records-number {
@@ -369,6 +388,13 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
         }
         table { background: transparent; }
       }
+      &.illustration {
+        td {
+          &.notes {
+            textarea { width: 100% !important; height: 118px !important; }
+          }
+        }
+      }
       &#change-history {
         th {
           &.date { width: 20%; }
@@ -387,6 +413,9 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
         .chosen-search { min-height: 30px; }
       }
       input, a.remove { padding: 4px 19px; float: left; width: 180px; }
+      .modal-content {
+        input { width: 100%; }
+      }
       #new_bucket_div { 
         .new-bucket { position: absolute; left: -38px;
           input { width: 107%; }
@@ -414,9 +443,14 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
       .upload-steps { border-left: 2px solid @muted-blue; border-left: 2px solid @muted-blue-alpha;
         h2 { margin-top: 17px; }
         ul { padding-left: 0;
-          li { list-style-type: none; padding: 0 0 20px 0; font: 17px/26px @rockwell, serif; color: @muted-blue; color: @muted-blue-alpha;
-            .review { font-size: 17px; position: relative; display: block; width: 82px; height: 22px;
-              span { position: absolute; right: 0; }
+          li { list-style-type: none; padding: 0 0 12px 20px; font: 17px/26px @rockwell, serif; color: @muted-blue; color: @muted-blue-alpha;
+            &:first-child, &:nth-child(2) { padding: 0 0 12px 0; }
+            a { font-size: 17px; line-height: normal;
+              &:hover { color: @orange; color: @orange-alpha; }
+              &.review { font-size: 17px; position: relative; display: block; padding-left: 26px; color: @orange; color: @orange-alpha;
+                span { position: absolute; left: 0; top: 2px; }
+                &:hover { color: @lt-blue; color: @lt-blue-alpha; }
+              }
             }
           }
         }
@@ -513,19 +547,72 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
       td {
         &.original { width: 0; padding: 0; }
         &.notes { height: 42px;
-          textarea { width: 100%; height: 42px; }
+          textarea { width: 100%; height: 42px;
+            &.vLargeTextField { height: 118px; width: 100%; }
+          }
         }
       }
     }
     .inline-group { margin-bottom: 30px; }
   }
-  #kinematicssetup_form, #sonosetup_form, #emgsetup_form, #strainsetup_form, #forcesetup_form, #pressuresetup_form, #eventsetup_form {
+  #kinematicssetup_form, #sonosetup_form, #emgsetup_form, #strainsetup_form, #forcesetup_form, #pressuresetup_form, #eventsetup_form, #othersetup_form {
     fieldset {
       td {
         &.original { width: 0; padding: 0; }
+        &.name {
+          input {
+            &.vTextField { width: 118px !important; }
+          }
+        }
+        &.location_text {
+          input {
+            &.vTextField { width: 118px !important; }
+          }
+        }
         &.notes { 
           textarea { width: 120px;
-            &.vLargeTextField { height: 118px; width: 100%; }
+            &.vLargeTextField { height: 60px; width: 120px; }
+          }
+        }
+        &.picture { padding-right: 40px;
+          
+        }
+      }
+    }
+    .inline-group { margin-bottom: 30px; }
+  }
+  #sonosetup_form {
+    fieldset {
+      td {
+        &.original { width: 0; padding: 0; }
+        &.name {
+          input {
+            &.vTextField { width: 118px !important; }
+          }
+        }
+        &.notes { 
+          textarea { width: 120px; }
+        }
+      }
+    }
+  }
+  #othersetup_form {
+    fieldset {
+      td {
+        &.original { width: 0; padding: 0; }
+        &.name {
+          input {
+            &.vTextField { width: 97px !important; }
+          }
+        }
+        &.location_text {
+          input {
+            &.vTextField { width: 117px !important; }
+          }
+        }
+        &.notes { 
+          textarea { width: 120px;
+            &.vLargeTextField { height: 60px; width: 120px; }
           }
         }
         &.picture { padding-right: 40px;
@@ -633,6 +720,21 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
     main { padding: 30px 0 0 0; }
   }
   .chosen-container-multi .chosen-choices li.search-field input[type=text] { padding: 0 5px; height: auto; }
+  .channel-tip { color: @orange; color: @orange-alpha; margin: 20px 0 0 0; }
+  .mandatory { color: red; font-weight: bold; margin: 10px 0 0 0; }
+  .EMGElectrode {
+    #id_emgsensor_set_0_axisdepth_chosen { width: 102px !important; }
+    #id_emgsensor_set-0-rate { width: 136px; }
+    #id_emgsensor_set_0_emg_filtering_chosen { width: 91px !important; }
+  }
+  .StrainSensor {
+    #id_strainsensor_set-0-anatomical_location_text { width: 118px !important; }
+    #id_strainsensor_set_0_gage_type_chosen { width: 170px !important; }
+  }
+  .BiteForceSensor {
+    .vTextField, .vLargeTextField { width: 100% !important; }
+  }
+  
   /* Footer */
   
   footer { background: @dk-navy; background: @dk-navy-alpha; clear: left; border-bottom: 6px solid @orange; padding: 25px 0 42px 0; margin-top: 20px;
@@ -644,7 +746,7 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
         }
       }
     }
-    p { font: 12px/21px @roboto, sans-serif; color: rgb(255,255,255); color: rgba(255,255,255,1); }
+    p { font: 12px/21px @roboto, sans-serif; color: rgb(255,255,255); color: rgba(255,255,255,1); margin-bottom: 0; }
     .partners, .funding { 
       h5 { font: 100 15px/21px @roboto, sans-serif; color: rgb(255,255,255); color: rgba(255,255,255,1); margin-top: 0; }
       ul { padding-left: 0;
@@ -671,6 +773,11 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
     }
   }
   &.change-form {
+    .masthead { background: url('../../../../../images/greyzz.png'); padding-bottom: 30px; border-bottom: 1px solid rgb(220,220,220); border-bottom: 1px solid rgba(220,220,220,1); }
+    &.view {
+      .masthead { background-image: none; padding-bottom: 0; border-bottom: 0; }
+      .large-table { border: 0; }
+    }
     main {
       form {
         fieldset {
@@ -692,6 +799,13 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
       }
       .overview-add { float: right; margin: 9px 0 0 0; text-transform: capitalize;
         span { padding-right: 4px; }
+      }
+    }
+    .large-table {
+      th { position: relative;
+        .tooltip { font-weight: normal;
+          .tooltip-arrow { top: 0 !important; }
+        }
       }
     }
   }
@@ -762,6 +876,7 @@ table {
 }
 .addlink.collections { padding-left: 10px; }
 .table { margin-bottom: 0; }
+.tight { margin-bottom: 0 !important; }
 table {
   tr {
     &.clickable {
@@ -793,7 +908,7 @@ table {
     }
   }
 }
-.large-table { overflow: auto; border: 1px solid #dddddd; background: @white; background: @white-alpha;
+.large-table { overflow: auto; border: 1px solid #dddddd; background: @white; background: @white-alpha; padding: 10px 38px 0 38px;
   table { background: transparent; border-bottom: 2px solid #dddddd;
     tr {
       td {
@@ -825,6 +940,7 @@ tr {
 .action-checkbox-column { width: 36px; }
 form {
   input[type="checkbox"], input[type="radio"] { border: 0; background-color: transparent; height: auto; }
+  input[type="checkbox"] { width: 12px; }
 }
 textarea { resize: vertical; border: 1px solid @gray; }
 form {
