@@ -49,7 +49,7 @@ class SetupForm (DisableForeignKeyForm):
         exclude = ('technique',)
 
 class ExperimentChangeForm(DisableForeignKeyForm):
-    setup_types = MultipleChoiceField(label="Sensor Types", choices=TECHNIQUE_CHOICES_NAMED, required=True)
+    setup_types = MultipleChoiceField(label="Sensor Types", choices=TECHNIQUE_CHOICES_NAMED, required=True, help_text="You can add a setup by selecting a sensor type here. To delete a setup, use the delete button visible on the setup's page. To get to the page for a setup, use the tabs visible on the experiment view page." )
 
     class Meta:
         widgets = {
