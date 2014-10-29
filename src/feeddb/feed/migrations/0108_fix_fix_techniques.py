@@ -18,13 +18,13 @@ TECHNIQUE_CHOICES_NAMED = (
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        # see models.Setup.save()
+        # see models.Setup.save() and 0106_*.py
         for setup in orm.Setup.objects.all():
             i = 1
             for name, label in TECHNIQUE_CHOICES_NAMED:
-                if hasattr(self, name):
-                    self.technique = i
-                    self.save()
+                if hasattr(setup, name):
+                    setup.technique = i
+                    setup.save()
                 i += 1
 
     def backwards(self, orm):
@@ -356,7 +356,7 @@ class Migration(DataMigration):
             'loc_dv': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['feed.DorsalVentralAxis']", 'null': 'True', 'blank': 'True'}),
             'loc_ml': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['feed.MedialLateralAxis']", 'null': 'True', 'blank': 'True'}),
             'loc_pd': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['feed.ProximalDistalAxis']", 'null': 'True', 'blank': 'True'}),
-            'loc_side': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['feed.Side']"}),
+            'loc_side': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['feed.Side']", 'null': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'setup': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['feed.Setup']"}),

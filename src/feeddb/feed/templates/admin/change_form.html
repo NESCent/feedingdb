@@ -94,7 +94,7 @@
     </div>
 
 {% endblock %}
-    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">
+    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form" class="{% if add %}add{% endif %} {% if change %}change{% endif %}">
     {% csrf_token %}
     {% block form_top %}{% endblock %}
     {% if is_popup %}
