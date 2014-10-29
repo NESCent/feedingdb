@@ -22,9 +22,9 @@ class Migration(DataMigration):
         for setup in orm.Setup.objects.all():
             i = 1
             for name, label in TECHNIQUE_CHOICES_NAMED:
-                if hasattr(self, name):
-                    self.technique = i
-                    self.save()
+                if hasattr(setup, name):
+                    setup.technique = i
+                    setup.save()
                 i += 1
 
     def backwards(self, orm):
