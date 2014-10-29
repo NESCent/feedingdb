@@ -7,7 +7,6 @@ from django.conf import settings
 
 urlpatterns = patterns('',
   url(r'^$', portal_page),
-  url(r'^bucket/$', bucket_index),
   url(r'^bucket/add/$', bucket_add),
   url(r'^bucket/(?P<id>\d+)/$', bucket_detail),
   url(r'^bucket/(?P<id>\d+)/delete/$', bucket_delete),
