@@ -7807,6 +7807,9 @@ form input[type="radio"] {
   background-color: transparent;
   height: auto;
 }
+form input[type="checkbox"] {
+  width: 12px;
+}
 textarea {
   resize: vertical;
   border: 1px solid #7c7c7c;
