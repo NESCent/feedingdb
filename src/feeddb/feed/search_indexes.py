@@ -174,3 +174,47 @@ class TrialIndex(SearchIndex, Indexable):
 
     def get_model(self):
         return Trial
+
+    def build_queryset(self, using=None, start_date=None, end_date=None):
+        qs = super(TrialIndex, self).build_queryset(using=using)
+
+        # We count any modification to the containers containing this trial,
+        # because information from all these containers is included in the
+        # search index.
+        #
+        # We don't include sensors and channels explicitly because, at the time
+        # of writing, it is not possible to edit sensors or channels without
+        # editing the containing setup.
+        #
+        # These could probably be enhanced by including units and other CvTerm
+        # fields, but for now I hope that only Taxon is likely to change.
+        updated_at_fields = (
+            'updated_at',
+            'session__updated_at',
+            'experiment__updated_at',
+            'experiment__setup__updated_at',
+            'experiment__subject__updated_at',
+            'experiment__subject__taxon__updated_at',
+            'study__updated_at',
+        )
+
+        def to_q(fieldname, op, rhs):
+            from django.db.models import Q
+            kwargs = { fieldname + '__' + op: rhs }
+            return Q(**kwargs)
+
+        def build_conditions(op, rhs):
+            fields = iter(updated_at_fields)
+            conditions = to_q(next(fields), op, rhs)
+            for field in fields:
+                conditions |= to_q(field, op, rhs)
+
+            return conditions
+
+        if start_date:
+            qs = qs.filter(build_conditions('gte', start_date))
+
+        if end_date:
+            qs = qs.filter(build_conditions('lte', end_date))
+
+        return qs
