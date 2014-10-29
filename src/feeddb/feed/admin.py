@@ -103,81 +103,86 @@ class IllustrationAdmin(FeedModelAdmin):
 
 class EmgSensorViewInline(FeedTabularInline):
     model = EmgSensor
-    exclude = ['location_freetext']
-    extra = 0
+    extra = 4
     form = EmgSensorChannelForm
     template = 'admin/tabular_view.html'
 
 class EmgSensorInline(FeedTabularInline):
     model = EmgSensor
-    exclude = ['study', 'location_controlled', 'location_freetext']
-    extra = 5
+    extra = 4
+    # This is a special combined sensor-channel form for EMG setups.
     form = EmgSensorChannelForm
     formset = OrderedFormset
 
 class SonoSensorInline(SetupTabularInline):
     model = SonoSensor
     extra = 4
-    exclude = ['study', 'location_controlled', 'location_freetext']
-    form = SonoSensorForm
+    fields = ['name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
 
 class SonoSensorViewInline(FeedTabularInline):
     model = SonoSensor
     extra = 0
-    exclude = ['study', 'location_controlled', 'location_freetext']
-    form = SonoSensorForm
+    exclude = ['study', 'location_controlled']
+    fields = ['name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'notes']
     template = 'admin/tabular_view.html'
 
 class StrainSensorInline(SetupTabularInline):
     model = StrainSensor
-    extra = 3
-    exclude = ['study']
+    extra = 4
+    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'gage_type', 'notes']
     form = StrainSensorForm
 
 class StrainSensorViewInline(FeedTabularInline):
     model = StrainSensor
     extra = 0
-    exclude = ['study']
-    form = StrainSensorForm
+    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'gage_type', 'notes']
     template = 'admin/tabular_view.html'
 
 class ForceSensorInline(SetupTabularInline):
     model = ForceSensor
-    extra = 3
-    exclude = ['study']
-    form = ForceSensorForm
+    fields = ['name', 'location_text', 'notes']
+    extra = 4
 
 class ForceSensorViewInline(FeedTabularInline):
     model = ForceSensor
     extra = 0
-    exclude = ['study']
-    form = ForceSensorForm
+    fields = ['name', 'location_text', 'notes']
     template = 'admin/tabular_view.html'
 
 class PressureSensorInline(SetupTabularInline):
     model = PressureSensor
-    extra = 3
-    form = PressureSensorForm
+    extra = 4
+    fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
 
 class PressureSensorViewInline(FeedTabularInline):
     model = PressureSensor
     extra = 0
-    exclude = ['study']
-    form = PressureSensorForm
+    fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
     template = 'admin/tabular_view.html'
 
 class KinematicsSensorInline(SetupTabularInline):
     model = KinematicsSensor
-    extra = 3
-    exclude = ['study']
-    form = KinematicsSensorForm
+    extra = 4
+    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
 
 class KinematicsSensorViewInline(FeedTabularInline):
     model = KinematicsSensor
     extra = 0
-    exclude = ['study']
-    form = KinematicsSensorForm
+    fields = ['name', 'anatomical_location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
     template = 'admin/tabular_view.html'
+
+class OtherSensorInline(SetupTabularInline):
+    model = OtherSensor
+    extra = 4
+    exclude = ['study']
+    fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
+
+class OtherSensorViewInline(FeedTabularInline):
+    model = OtherSensor
+    extra = 0
+    exclude = ['study']
+    template = 'admin/tabular_view.html'
+    fields = ['name', 'location_text', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes']
 
 class ChannelInline(FeedTabularInline):
     model = Channel
@@ -188,91 +193,84 @@ class ChannelInline(FeedTabularInline):
 
 class SonoChannelInline(FeedTabularInline):
     model = SonoChannel
-    extra =5
-    exclude = ['study']
-    form = SonoChannelForm
+    extra = 4
+    fields = ['name', 'rate', 'unit', 'crystal1', 'crystal2', 'notes']
 
 class SonoChannelViewInline(FeedTabularInline):
     model = SonoChannel
-    exclude = ['study']
     extra = 0
+    fields = ['name', 'rate', 'unit', 'crystal1', 'crystal2', 'notes']
     template = 'admin/tabular_view.html'
 
 class StrainChannelInline(FeedTabularInline):
     model = StrainChannel
-    extra =9
-    exclude = ['study']
-    form = StrainChannelForm
+    extra = 4
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
 
 class StrainChannelViewInline(FeedTabularInline):
     model = StrainChannel
-    exclude = ['study']
     extra = 0
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
     template = 'admin/tabular_view.html'
 
 class ForceChannelInline(FeedTabularInline):
     model = ForceChannel
-    extra =9
-    exclude = ['study']
-    form = ForceChannelForm
+    extra = 4
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
 
 class ForceChannelViewInline(FeedTabularInline):
     model = ForceChannel
-    exclude = ['study']
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
     extra = 0
     template = 'admin/tabular_view.html'
 
 class PressureChannelInline(FeedTabularInline):
     model = PressureChannel
-    extra =9
-    exclude = ['study']
-    form = PressureChannelForm
+    extra = 4
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
 
 class PressureChannelViewInline(FeedTabularInline):
     model = PressureChannel
-    exclude = ['study']
     extra = 0
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
     template = 'admin/tabular_view.html'
 
 class KinematicsChannelInline(FeedTabularInline):
     model = KinematicsChannel
-    extra =9
-    exclude = ['study']
-    form = KinematicsChannelForm
+    extra = 4
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
 
 class KinematicsChannelViewInline(FeedTabularInline):
     model = KinematicsChannel
-    exclude = ['study']
     extra = 0
+    fields = ['name', 'rate', 'unit', 'sensor', 'notes']
     template = 'admin/tabular_view.html'
 
 class EventChannelInline(FeedTabularInline):
     model = EventChannel
-    extra =9
-    exclude = ['study']
-    form = EventChannelForm
+    extra = 4
+    fields = ['name', 'rate', 'unit', 'notes']
 
 class EventChannelViewInline(FeedTabularInline):
     model = EventChannel
-    exclude = ['study']
     extra = 0
+    fields = ['name', 'rate', 'unit', 'notes']
     template = 'admin/tabular_view.html'
 
 class OtherChannelInline(FeedTabularInline):
     model = OtherChannel
-    extra =9
-    exclude = ['study']
-    form = OtherChannelForm
+    extra = 4
+    fields = ['name', 'rate', 'sensor', 'notes']
 
 class OtherChannelViewInline(FeedTabularInline):
     model = OtherChannel
-    exclude = ['study']
     extra = 0
+    fields = ['name', 'rate', 'sensor', 'notes']
     template = 'admin/tabular_view.html'
 
 class EmgSetupAdmin(EmgSetupModelAdmin):
-    inlines = [ IllustrationInline, EmgSensorInline]
-    view_inlines = [IllustrationViewInline, EmgSensorViewInline]
+    inlines = [ EmgSensorInline, IllustrationInline ]
+    view_inlines = [ EmgSensorViewInline, IllustrationViewInline ]
     list_display = ('preamplifier','experiment')
     list_filter = ('experiment',)
     ordering = ('preamplifier',)
@@ -280,8 +278,8 @@ class EmgSetupAdmin(EmgSetupModelAdmin):
     form = SetupForm
 
 class SonoSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,SonoSensorInline,SonoChannelInline]
-    view_inlines = [IllustrationViewInline, SonoSensorViewInline, SonoChannelViewInline]
+    inlines = [ SonoSensorInline, SonoChannelInline, IllustrationInline]
+    view_inlines = [ SonoSensorViewInline, SonoChannelViewInline, IllustrationViewInline ]
     list_display = ('sonomicrometer','experiment')
     list_filter = ('experiment',)
     ordering = ('sonomicrometer',)
@@ -289,31 +287,31 @@ class SonoSetupAdmin(DefaultModelAdmin):
     form = SetupForm
 
 class StrainSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,StrainSensorInline,StrainChannelInline]
-    view_inlines = [IllustrationViewInline, StrainSensorViewInline, StrainChannelViewInline]
+    inlines = [ StrainSensorInline, StrainChannelInline, IllustrationInline]
+    view_inlines = [ StrainSensorViewInline, StrainChannelViewInline, IllustrationViewInline ]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment', 'technique')
     form = SetupForm
 
 class ForceSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,ForceSensorInline,ForceChannelInline]
-    view_inlines = [IllustrationViewInline, ForceSensorViewInline, ForceChannelViewInline]
+    inlines = [ ForceSensorInline, ForceChannelInline, IllustrationInline]
+    view_inlines = [ ForceSensorViewInline, ForceChannelViewInline, IllustrationViewInline ]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment', 'technique')
     form = SetupForm
 
 class PressureSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,PressureSensorInline,PressureChannelInline]
-    view_inlines = [IllustrationViewInline, PressureSensorViewInline, PressureChannelViewInline]
+    inlines = [ PressureSensorInline,PressureChannelInline, IllustrationInline]
+    view_inlines = [ PressureSensorViewInline, PressureChannelViewInline, IllustrationViewInline ]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment', 'technique')
 
 class KinematicsSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,KinematicsSensorInline,KinematicsChannelInline]
-    view_inlines = [IllustrationViewInline, KinematicsSensorViewInline, KinematicsChannelViewInline]
+    inlines = [ KinematicsSensorInline,KinematicsChannelInline, IllustrationInline]
+    view_inlines = [ KinematicsSensorViewInline, KinematicsChannelViewInline, IllustrationViewInline ]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment')
@@ -321,16 +319,16 @@ class KinematicsSetupAdmin(DefaultModelAdmin):
     form = SetupForm
 
 class EventSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,EventChannelInline]
-    view_inlines = [IllustrationViewInline, EventChannelViewInline]
+    inlines = [ EventChannelInline, IllustrationInline]
+    view_inlines = [ EventChannelViewInline, IllustrationViewInline ]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment', 'technique')
     form = SetupForm
 
 class OtherSetupAdmin(DefaultModelAdmin):
-    inlines = [ IllustrationInline,OtherChannelInline]
-    view_inlines = [IllustrationViewInline, OtherChannelViewInline]
+    inlines = [ OtherSensorInline, OtherChannelInline, IllustrationInline]
+    view_inlines = [ OtherSensorViewInline, OtherChannelViewInline, IllustrationViewInline ]
     list_display = ('experiment',)
     list_filter = ('experiment',)
     exclude = ('study', 'experiment', 'technique')
@@ -371,26 +369,6 @@ class SessionAdmin(SessionModelAdmin):
     tabbed = True
     tab_name = "Session"
 
-class EmgSensorAdmin(EmgSensorModelAdmin):
-    form = EmgSensorChannelForm
-
-class SonoSensorAdmin(DefaultModelAdmin):
-    fieldsets = (
-        (None, {
-            'fields': ('setup','name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes')
-        }),
-    )
-    ordering = ('name', 'muscle',)
-
-class CommonSensorAdmin(DefaultModelAdmin):
-    fieldsets = (
-        (None, {
-            'fields': ('setup','name', 'location_freetext', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'notes')
-        }),
-    )
-    ordering = ('name', 'location_freetext',)
-
-
 class ChannelLineupAdmin(FeedModelAdmin):
     list_display = ('position', 'session','channel')
     list_filter = ('session',)
@@ -428,16 +406,15 @@ class FeedGroupAdmin(GroupAdmin):
     # disable "fancy" two-select widget for multiple-select fields
     filter_horizontal = ()
 
+# custom user & group admin
 admin.site.unregister(User)
 admin.site.register(User, FeedUserAdmin)
-
 admin.site.unregister(Group)
 admin.site.register(Group, FeedGroupAdmin)
 
+# vocabulary items
 admin.site.register(Taxon, TaxonAdmin)
-admin.site.register(AnatomicalLocation, AnatomicalLocationAdmin)
 admin.site.register(Side,TermAdmin)
-admin.site.register(AnimalApprovalType)
 admin.site.register(DepthAxis,TermAdmin)
 admin.site.register(AnteriorPosteriorAxis,TermAdmin)
 admin.site.register(DorsalVentralAxis,TermAdmin)
@@ -446,16 +423,18 @@ admin.site.register(MedialLateralAxis,TermAdmin)
 admin.site.register(ElectrodeType,TermAdmin)
 admin.site.register(DevelopmentStage,TermAdmin)
 admin.site.register(AgeUnit,TermAdmin)
-admin.site.register(Behavior,TermAdmin)
 admin.site.register(Restraint,TermAdmin)
 admin.site.register(Unit,UnitAdmin)
 admin.site.register(Emgfiltering,TermAdmin)
-admin.site.register(Experiment, ExperimentAdmin)
-admin.site.register(Subject,SubjectAdmin)
-admin.site.register(Sensor,DefaultModelAdmin)
+
+# container elements
 admin.site.register(Study,StudyAdmin)
+admin.site.register(Subject,SubjectAdmin)
+admin.site.register(Experiment, ExperimentAdmin)
 admin.site.register(Session,SessionAdmin)
 admin.site.register(Trial,TrialAdmin)
+
+# setups (appear as if tabs on experiment)
 admin.site.register(EmgSetup,EmgSetupAdmin)
 admin.site.register(SonoSetup,SonoSetupAdmin)
 admin.site.register(StrainSetup,StrainSetupAdmin)
@@ -464,20 +443,6 @@ admin.site.register(PressureSetup,PressureSetupAdmin)
 admin.site.register(KinematicsSetup,KinematicsSetupAdmin)
 admin.site.register(EventSetup,EventSetupAdmin)
 admin.site.register(OtherSetup,OtherSetupAdmin)
-admin.site.register(EmgSensor, EmgSensorAdmin)
-admin.site.register(SonoSensor, SonoSensorAdmin)
-admin.site.register(ForceSensor, CommonSensorAdmin)
-admin.site.register(StrainSensor, CommonSensorAdmin)
-admin.site.register(KinematicsSensor, CommonSensorAdmin)
-admin.site.register(PressureSensor, CommonSensorAdmin)
-admin.site.register(ChannelLineup, ChannelLineupAdmin)
-admin.site.register(Illustration,IllustrationAdmin)
-#admin.site.register(EmgChannel,EmgChannelAdmin)
-admin.site.register(SonoChannel,SonoChannelAdmin)
-admin.site.register(Channel, DefaultModelAdmin)
-admin.site.register(StrainChannel,DefaultModelAdmin)
-admin.site.register(ForceChannel, DefaultModelAdmin)
-admin.site.register(KinematicsChannel, DefaultModelAdmin)
-admin.site.register(PressureChannel, DefaultModelAdmin)
-admin.site.register(EventChannel, DefaultModelAdmin)
-admin.site.register(OtherChannel, DefaultModelAdmin)
+
+# we omit channels, sensors, and channellineups from regular admin because they
+# should be accessible only as inlines.

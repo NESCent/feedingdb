@@ -29,9 +29,7 @@
       
         <div class="container">
           <div class="row">
-            <div class="col-xs-12">
-            <a href="/" class="logo">Feed Experiments End-user Database</a>
-            
+            <div class="col-xs-12">            
               <div class="login">
               {% if user.is_authenticated and user.is_staff %}
               	{% ifnotequal  user.first_name "anonymous" %}
@@ -59,6 +57,8 @@
                     
                     {% trans 'Change Password' %}</a> /
                     
+                    <a href="/profile">{% trans 'Edit Profile' %}</a> /
+                    
                     {% if user.is_superuser %}
                     <a href="{% url "admin:auth_group_changelist" %}">Manage Groups</a> /
                     <a href="{% url "admin:auth_user_changelist" %}">Manage Users</a> /
@@ -76,6 +76,11 @@
               </div> <!-- /.login -->
             </div>
           </div> <!-- /.row -->
+          <div class="row">
+            <div class="col-xs-12">
+              <a href="/" class="logo">Feed Experiments End-User Database</a>
+            </div>
+          </div>
         </div> <!-- /.container -->
       </header>
       <nav>
@@ -162,6 +167,7 @@
     <!-- Custom js -->
     {% block extra_js %}{% endblock %}
     <!-- Chosen.js -->
+    <script src="{% app_static_prefix %}js/jquery.form.js"></script>
     <script src="{% app_static_prefix %}js/scripts.js"></script> 
     <script src="{% app_static_prefix %}js/jquery-ui-1.10.3.custom.min.js"></script>
     <script src="{% app_static_prefix %}js/jquery.mousewheel.min.js"></script>
@@ -169,6 +175,7 @@
     <script src="{% app_static_prefix %}js/jquery.smoothdivscroll-1.3-min.js"></script>
     <script src="{% app_static_prefix %}js/chosen_v1.1.0/chosen.jquery.min.js"></script>
     <script src="{% app_static_prefix %}js/jquery-ui.min.js"></script>
+    <script src="{% app_static_prefix %}js/happybrowser.js"></script>
 
 
     <script type='text/javascript'>

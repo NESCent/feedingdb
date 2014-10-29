@@ -124,7 +124,7 @@ def feed_results(cl):
             try:
                 view_url = reverse('admin:%s_%s_view' % name_args, args=(res.pk,))
                 view_anchor = "<span class='glyphicon glyphicon-eye-open' alt='%s'></span>" % settings.STATIC_PREFIX
-                view_action = u'<a href="%s">%s</a>' % (view_url, view_anchor)
+                view_action = u'<a href="%s" data-toggle="tooltip" data-placement="top" title="View">%s</a>' % (view_url, view_anchor)
             except NoReverseMatch:
                 view_action = ''
 
@@ -135,7 +135,7 @@ def feed_results(cl):
                         change_url = '%s?%s' % (change_url, cl.request.META['QUERY_STRING'])
 
                 change_anchor = "<span class='glyphicon glyphicon-pencil' alt='%s'></span>" % settings.STATIC_PREFIX
-                change_action = u'<a href="%s">%s</a>' % (change_url, change_anchor)
+                change_action = u'<a href="%s" data-toggle="tooltip" data-placement="top" title="Edit">%s</a>' % (change_url, change_anchor)
             except NoReverseMatch:
                 change_action = ''
 
@@ -151,14 +151,14 @@ def feed_results(cl):
                     delete_url = '%s?%s' % (delete_url, qd.urlencode(safe='/'))
 
                 delete_anchor = "<span class='glyphicon glyphicon-remove' alt='%s'></span>" % settings.STATIC_PREFIX
-                delete_action = u'<a href="%s">%s</a>' % (delete_url, delete_anchor)
+                delete_action = u'<a href="%s" data-toggle="tooltip" data-placement="top" title="Delete">%s</a>' % (delete_url, delete_anchor)
             except NoReverseMatch:
                 delete_action = ''
 
             try:
                 clone_url = reverse('admin:%s_%s_clone' % name_args, args=(res.pk,))
                 clone_anchor = "<span class='glyphicon glyphicon-plus-sign' alt='%s'></span>" % settings.STATIC_PREFIX
-                clone_action = u'<a href="%s">%s</a>' % (clone_url, clone_anchor)
+                clone_action = u'<a href="%s" data-toggle="tooltip" data-placement="top" title="Clone">%s</a>' % (clone_url, clone_anchor)
             except NoReverseMatch:
                 clone_action = ''
 

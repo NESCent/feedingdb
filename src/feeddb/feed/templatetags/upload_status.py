@@ -2,12 +2,14 @@ from django import template
 from django.db.models.loading import get_model
 from django.core.exceptions import ImproperlyConfigured
 from feeddb.feed.models import Study, Experiment, Session, Trial
+from copy import copy
 
 
 register = template.Library()
 
 @register.inclusion_tag('upload_status/upload_status_block.html', takes_context=True)
 def upload_status_block(context):
+    context = copy(context)
     ret = {}
     ret['known_status'] = True
     try:
@@ -26,13 +28,14 @@ def upload_status_block(context):
 
     ret['show_status'] = ret['known_status'] and should_show_status(context, status)
 
-    return ret
+    context.update(ret)
+    return context
 
 def should_show_status(context, status):
     try:
         model_name = context['opts'].model_name
         # "original" is the unmodified object, added in ModelAdmin.change_view
-        obj = context.get('original', None)
+        obj = context.get('original', context.get('object', None))
         add = context.get('add', False)
 
     except KeyError as e:
@@ -62,9 +65,7 @@ def get_status(context):
         status = None
     return status
 
-@register.inclusion_tag('upload_status/upload_status_current_containers.html', takes_context=True)
-def upload_status_current_containers(context):
-    # get the data for the upload status block, then remove the
+def get_current_containers(context):
     try:
         model_name = context['opts'].model_name
     except KeyError as e:
@@ -78,5 +79,32 @@ def upload_status_current_containers(context):
             if hasattr(Model, fname):
                 ret[fname] = value
 
+    ret['model_name'] =  model_name
+    ret['Model'] = Model
+    ret['status'] = status
     ret['status_data'] = status._data
     return ret
+
+@register.inclusion_tag('upload_status/upload_status_current_containers.html', takes_context=True)
+def upload_status_current_containers(context):
+    return get_current_containers(context)
+
+@register.simple_tag(takes_context=True)
+def upload_status_model_add_url(context, inline, **kwargs):
+    "`inline` is usually inline_admin_formset.opts, which is, e.g. SubjectViewInline"
+    modelname = inline.model.__name__.lower()
+    request = context['request']
+    return request.feed_upload_status.model_add_url(modelname, **kwargs)
+
+@register.simple_tag(takes_context=True)
+def setup_or_add_session_text(context):
+    request = context['request']
+    status = request.feed_upload_status
+    obj = context.get('original', context.get('object', None))
+    if obj:
+        next_url = status.next_setup_or_session_url(request, {}, obj)
+        session_url = status.contextualized_model_add_url('session', request, {}, obj)
+        if next_url == session_url:
+            return 'Save &amp; Add Session'
+        else:
+            return 'Save &amp; Edit Sensors'

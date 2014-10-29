@@ -3,12 +3,14 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse, NoReverseMatch
 
+from django.utils.safestring import mark_safe
+
 from django.conf import settings
 import datetime
 from django.db.models.expressions import F
 
 
-DATETIME_HELP_TEXT = ''
+DATETIME_HELP_TEXT = 'To manually enter a date use the format yyyy-mm-dd or choose a date from the calendar'
 # Only used for Trial here; the other containers are are affected through forms.py -- go figure (VG)
 BOOKKEEPING_HELP_TEXT = 'Enter any text required for lab bookkeeping concerning the Study here'
 
@@ -32,12 +34,18 @@ class FeedBaseModel(models.Model):
     def cloneable(self):
         return self.is_cloneable
 
-    def get_absolute_url(self):
+    def get_absolute_url(self, change=False):
         content_type = ContentType.objects.get_for_model(self.__class__)
-        try:
-            return reverse('admin:%s_%s_view' % (content_type.app_label, content_type.model), args=(self.id,))
-        except NoReverseMatch:
-            return reverse('admin:%s_%s_change' % (content_type.app_label, content_type.model), args=(self.id,))
+        def url(op):
+            try:
+                return reverse('admin:%s_%s_%s' % (content_type.app_label, content_type.model, op), args=(self.id,))
+            except NoReverseMatch:
+                return None
+
+        if change:
+            return url('change') or None
+        else:
+            return url('view') or url('change') or None
 
     def save(self):
         now = datetime.datetime.today()
@@ -130,7 +138,6 @@ class BehaviorOwl(OwlTerm):
     @staticmethod
     def default_qs_filter_args():
         return dict(
-            # This is the "behavior" class, which may or may not be an appropriate filter
             rdfs_subClassOf_ancestors__uri=u'http://purl.obolibrary.org/obo/OPBO_0000012'
 
             # Other options include:
@@ -218,7 +225,7 @@ class Techniques(object):
         for n, l in TECHNIQUE_CHOICES_NAMED:
             if n == name:
                return i
-            ++i
+            i += 1
         return None
 
     @classmethod
@@ -304,6 +311,8 @@ class ElectrodeType(CvTerm):
     pass
 
 class Behavior(CvTerm):
+    # equivalent OWL term for migration
+    ontology_term = models.ForeignKey(BehaviorOwl, related_name="+", null=True)
     pass
 
 class Restraint(CvTerm):
@@ -327,20 +336,21 @@ class Study(FeedBaseModel):
     title = models.CharField(max_length=255,
                              help_text = "Enter a short title for the Study here")
     bookkeeping = models.CharField("Bookkeeping",max_length=255, blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
-    start = models.DateField("Start Date", null=False)
-    end = models.DateField("End Date", blank = True, null=True)
+    start = models.DateField("Start Date", null=False, help_text = DATETIME_HELP_TEXT)
+    end = models.DateField("End Date", blank = True, null=True, help_text = DATETIME_HELP_TEXT)
     funding_agency = models.CharField(max_length=255, blank = True, null=True,
                              help_text = "The agency that funded the research")
 
     approval_type = models.ForeignKey(AnimalApprovalType, verbose_name="Approval Secured", blank=False, null=True,
-                             help_text =
+                             help_text = mark_safe(
                                 '''
                                 Affirmation that an institutional approval for
                                 Animal Care and Use or for Human Subjects was
                                 secured. Please read each statement very
-                                carefully. Data upload can not continue without
-                                checking the appropriate affirmation.
-                                ''')
+                                carefully. <b>Data upload can not continue
+                                without checking the appropriate
+                                affirmation.</b>
+                                '''))
 
     description = models.TextField("Study Description",
                              help_text = "A brief summary of the Study goals and data")
@@ -397,16 +407,29 @@ class Experiment(FeedBaseModel):
     end = models.DateField("End Date", blank = True, null=True, help_text=DATETIME_HELP_TEXT)
     description = models.TextField(blank = True, null=True)
     subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="Subject Development Stage")
-    subj_age = models.DecimalField("Subject Age",max_digits=19, decimal_places=5, blank = True, null=True,
+    subj_age = models.DecimalField("Subject Age",max_digits=19, decimal_places=1, blank = True, null=True,
                                    help_text = "As a decimal; use the following field to specify age units.")
     subj_ageunit = models.ForeignKey(AgeUnit, verbose_name='Age Units', blank = True, null = True)
-    subj_weight = models.DecimalField("subject Weight (kg)",max_digits=19, decimal_places=5, blank = True, null=True)
+    subj_weight = models.DecimalField("subject Weight (kg)",max_digits=19, decimal_places=2, blank = True, null=True)
     subj_tooth = models.CharField("Subject Teeth",max_length=255, blank = True, null=True,
                                   help_text = "Stage of teeth development")
     subject_notes = models.TextField("Subject Notes", blank = True, null=True)
     impl_notes = models.TextField("Implantation Notes", blank = True, null=True)
     def __unicode__(self):
         return self.title
+
+    def typed_setups(self):
+        for setup in self.setup_set.all():
+            for setuptype in ('emgsetup', 'sonosetup', 'strainsetup', 'forcesetup', 'pressuresetup', 'kinematicssetup', 'eventsetup', 'othersetup'):
+                if hasattr(setup, setuptype):
+                    yield getattr(setup, setuptype)
+                    break
+            else:
+                raise ValueError("Setup %s (pk=%d) is not typed!" % (setup, setup.pk))
+
+    def get_setup_by_type(self, setuptype, freshen=False):
+        by_type = dict(self.get_setups_with_type(freshen=freshen))
+        return by_type[setuptype]
 
     def has_setup_type(self, name, freshen=False):
         """
@@ -432,6 +455,10 @@ class Experiment(FeedBaseModel):
             self._setup_types = self._get_setup_types(self.get_setups(freshen=freshen))
 
         return zip(self._setup_types, self._setups)
+
+    def get_setup_types(self, freshen=False):
+        self.get_setups_with_type(freshen=freshen)
+        return self._setup_types
 
     @staticmethod
     def _get_setup_types(setups):
@@ -459,7 +486,27 @@ class Setup(FeedBaseModel):
 
     def save(self):
         self.study = self.experiment.study
+
+        # Set the technique appropriately so it reflects the type.
+        for name, label in TECHNIQUE_CHOICES_NAMED:
+            if hasattr(self, name):
+                self.technique = Techniques.name2num(name)
+                print "Technique: %d, %s" % (self.technique, name)
+
         return super(Setup, self).save()
+
+    def typed_sensors(self):
+        for sensor in self.sensor_set.all():
+            for sensortype in ('emgsensor', 'sonosensor', 'strainsensor', 'forcesensor', 'pressuresensor', 'kinematicssensor', 'eventsensor', 'othersensor'):
+                if hasattr(sensor, sensortype):
+                    yield getattr(sensor, sensortype)
+                    break
+            else:
+                raise ValueError("Sensor %s (pk=%d) is not typed!" % (sensor, sensor.pk))
+
+    def typed_channels(self):
+        for channel in self.channel_set.all():
+            yield channel.typed()
 
 class EmgSetup(Setup):
     preamplifier = models.CharField(max_length=255, blank = True, null=True)
@@ -487,11 +534,6 @@ class KinematicsSetup(Setup):
     class Meta:
         verbose_name = "Kinematics Setup"
 
-    def save(self):
-        if self.notes in (None, '') and self.id == None:
-            self.notes = 'camera\nmarkers\nmovie film or digital\nlight or x-ray\nanatomical view (lateral/d-v/frontal)\n2D or 3D'
-        super(KinematicsSetup, self).save()
-
 class EventSetup(Setup):
     class Meta:
         verbose_name = "Time/Event Setup"
@@ -509,17 +551,19 @@ class OtherSetup(Setup):
 class Sensor(FeedBaseModel):
     study = models.ForeignKey(Study, null=True)
     setup = models.ForeignKey(Setup)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, help_text="Provide a short name for identifying the data contained in this Sensor.")
 
-    location_freetext = models.CharField("Anatomical Location (free text)", max_length=255, blank = True, null=True)
-    #location_controlled  -- a companion field in some Sensor subclasses
+    # NB: location (anatomical or not) is included in subclasses
 
-    loc_side = models.ForeignKey(Side, verbose_name="Side", null=False)
+    # This field is required on all except bite force sensors
+    loc_side = models.ForeignKey(Side, verbose_name="Side", null=True)
     loc_ap = models.ForeignKey(AnteriorPosteriorAxis, verbose_name="AP", blank = True, null=True )
     loc_dv = models.ForeignKey(DorsalVentralAxis, verbose_name="DV", blank = True, null=True )
     loc_pd = models.ForeignKey(ProximalDistalAxis, verbose_name="PD", blank = True, null=True )
     loc_ml = models.ForeignKey(MedialLateralAxis, verbose_name="ML", blank = True, null=True )
 
+    # NB: help text for strain sensor notes is in extension/forms.py. Other
+    # sensor types will use labels & help text defined here.
     notes = models.TextField( blank = True, null=True)
     def __unicode__(self):
         return self.name
@@ -528,10 +572,23 @@ class Sensor(FeedBaseModel):
         self.study = self.setup.study
         return super(Sensor, self).save()
 
+    def get_location(self):
+        for sensortype in ('emgsensor', 'sonosensor', 'strainsensor', 'forcesensor', 'pressuresensor', 'kinematicssensor', 'othersensor'):
+            if hasattr(self, sensortype):
+                typed_self = getattr(self, sensortype)
+                for location_name in ('muscle', 'anatomical_location_text', 'location_text'):
+                    if hasattr(typed_self, location_name):
+                        return getattr(typed_self, location_name)
+
+        if hasattr(self, 'eventsensor'):
+            return None
+
+        raise ValueError("Sensor %d is not typed!" % self.pk)
+
 class EmgSensor(Sensor):
     location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
-    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
+    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
 
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="Electrode Depth", blank = True, null=True )
     electrode_type = models.ForeignKey(ElectrodeType,
@@ -558,7 +615,7 @@ class EmgSensor(Sensor):
 class SonoSensor(Sensor):
     location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
-    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle (OWL)", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
+    muscle = models.ForeignKey(MuscleOwl, verbose_name = "Muscle", null=True, limit_choices_to=MuscleOwl.default_qs_filter_args())
 
     axisdepth = models.ForeignKey(DepthAxis, verbose_name="Crystal Depth", blank = True, null=True )
     def __unicode__(self):
@@ -567,27 +624,45 @@ class SonoSensor(Sensor):
     class Meta:
         verbose_name = "Sono Crystal"
 
+GAGE_CHOICES = (
+    (1, "Delta rosette"),
+    (2, "Rectangular rosette"),
+    (3, "Single element"),
+    (4, "Parallel (multiple single elements)"),
+    (5, "Biaxial"),
+    (6, "Other (describe in notes)"),
+)
+
 class StrainSensor(Sensor):
+    anatomical_location_text = models.CharField("Anatomical Location", max_length=255, null=True)
+    gage_type = models.IntegerField("Gage Type", choices=GAGE_CHOICES, blank=True, null=True)
     class Meta:
         verbose_name = "Strain Sensor"
 
 class ForceSensor(Sensor):
+    location_text = models.CharField("Location", max_length=255, null=True)
     class Meta:
         verbose_name = "Bite Force Sensor"
 
 class PressureSensor(Sensor):
+    location_text = models.CharField("Location", max_length=255, null=True)
     class Meta:
         verbose_name = "Pressure Sensor"
 
 class KinematicsSensor(Sensor):
+    anatomical_location_text = models.CharField("Anatomical Location", max_length=255, null=True)
     class Meta:
         verbose_name = "Kinematics Marker"
 
+class OtherSensor(Sensor):
+    location_text = models.CharField("Location", max_length=255, null=True)
+    class Meta:
+        verbose_name = "Other Sensor"
 
 class Channel(FeedBaseModel):
     study = models.ForeignKey(Study, null=True)
     setup = models.ForeignKey(Setup)
-    name = models.CharField(max_length = 255)
+    name = models.CharField(max_length = 255, help_text="Provide a short name for identifying the data contained in this Channel.")
     rate = models.IntegerField("Recording Rate (Hz)")
     notes = models.TextField("Notes",  blank = True, null=True)
 
@@ -597,6 +672,13 @@ class Channel(FeedBaseModel):
     def save(self):
         self.study = self.setup.study
         return super(Channel, self).save()
+
+    def typed(self):
+        for channeltype in ('emgchannel', 'sonochannel', 'strainchannel', 'forcechannel', 'pressurechannel', 'kinematicschannel', 'eventchannel', 'otherchannel'):
+            if hasattr(self, channeltype):
+                return getattr(self, channeltype)
+        else:
+            raise ValueError("Channel %s (pk=%d) is not typed!" % (channel, channel.pk))
 
 class EmgChannel(Channel):
     unit = models.ForeignKey(Unit, limit_choices_to = {'technique__exact' : Techniques.ENUM.emg},
@@ -670,6 +752,7 @@ class EventChannel(Channel):
 
 class OtherChannel(Channel):
     #Note: An OtherChannel is not associated with any Sensor
+    sensor = models.ForeignKey(OtherSensor, verbose_name="Sensor", null=True)
     class Meta:
         verbose_name = "Other Channel"
 
@@ -767,7 +850,7 @@ class Illustration(FeedBaseModel):
 
 class ChannelLineup(FeedBaseModel):
     session = models.ForeignKey(Session)
-    position = models.IntegerField(help_text='The numeric position of the channel within this channel lineup; coincides with the column position in the data file.')
+    position = models.IntegerField("Position (integer)", help_text='The numeric position of the channel within this channel lineup; coincides with the column position in the data file.')
     channel = models.ForeignKey(Channel, null=True, blank=True)
 
     class Meta:

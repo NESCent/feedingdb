@@ -9,12 +9,11 @@
       {% endif %}
        {{ inline_admin_formset.formset.non_form_errors }}
 
-    {% regroup inline_admin_formset by original.experiment as sessions_by_experiment %}
-    {% for sessions in sessions_by_experiment %}
+    {% for sessions in inline_admin_formset.by_container %}
       {% ifnotequal sessions.grouper None %}
-        <div class="row">
+        <div class="row tight">
           <div class="col-xs-9">
-            <h4>{{ sessions.grouper }}</h4>
+            <h4>Experiment: {{ sessions.grouper }}</h4>
           </div>
           <div class="col-xs-3">
             <h3 class="overview-add"><a class="addlink" href="{% add_new_to_container_url sessions %}" ><span class="glyphicon glyphicon-plus-sign"></span>{% trans "Add Another " %}{{inline_admin_formset.opts.verbose_name}}</a></h3>
@@ -24,9 +23,12 @@
         {% include "admin/tabular_view_header.html" %}
         {% for inline_admin_form in sessions.list %}
           {% include "admin/tabular_view_row.html" %}
+        {% empty %}
+          <tr>
+            <td colspan="999">No {{ inline_admin_formset.opts.verbose_name_plural }}. Use the link above to add a {{ inline_admin_formset.opts.verbose_name }}.</td>
+          </tr>
         {% endfor %}
         </table>
-        {% include "admin/tabular_view_after_table.html" %}
       {% endifnotequal %}
     {% endfor %}
 

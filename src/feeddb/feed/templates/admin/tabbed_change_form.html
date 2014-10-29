@@ -69,19 +69,19 @@
 <ul class="object-tools object-tools-top">
 	{% if change %}
                                {% ifequal opts.app_label "feed" %}
-		<li> <a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" ><span class="glyphicon glyphicon-pencil"></span></a></li>
+		<li> <a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/" data-toggle="tooltip" data-placement="top" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></li>
                                {% endifequal %}
 		{% if has_delete_permission %}
-			<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" ><span class='glyphicon glyphicon-remove'></span></a></a></li>
+			<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/delete" data-toggle="tooltip" data-placement="top" title="Delete"><span class='glyphicon glyphicon-remove'></span></a></a></li>
 		{% endif %}
 		{% if has_change_permission %}
 		{% if cloneable %}
-	     <li><a class="clonelink" href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/clone" ><span class='glyphicon glyphicon-plus-sign'></span></a></li>
+	     <li><a class="clonelink" href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/clone" data-toggle="tooltip" data-placement="top" title="Clone"><span class='glyphicon glyphicon-plus-sign'></span></a></li>
         {% endif %}
         {% endif %}
 	{% endif %}	
 	{% if has_change_permission %}{% if not is_popup %}
-  		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/history/" class="historylink"><span class='glyphicon glyphicon-calendar'></span></a></li>
+  		<li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/history/" class="historylink" data-toggle="tooltip" data-placement="top" title="History"><span class='glyphicon glyphicon-calendar'></span></a></li>
   		<!-- {% if has_absolute_url %}
 			<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>
 		{% endif%} -->

@@ -20,12 +20,21 @@ def technique_name(val):
 def formset_length(formset):
     return len(formset.formset.initial_forms) + len(formset.formset.extra_forms)
 
+subtypenames = {
+    'experiment': 'session',
+    'session': 'trial',
+}
+
 @register.simple_tag
 def add_new_to_container_url(regrouped):
     try:
         container = regrouped['grouper']
         containertypename = type(container).__name__.lower()
-        subtypename = type(regrouped['list'][0].original).__name__.lower()
+        try:
+            subtypename = subtypenames[containertypename]
+        except KeyError:
+            raise ValueError('Container type "%s" is not supported.' % containertypename)
+
         return reverse('admin:feed_%s_add' % subtypename) + '?%s=%d' % (containertypename, container.id)
     except KeyError:
         raise ImproperlyConfigured('add_new_to_container_url requires as an argument a "regrouped" item container')
