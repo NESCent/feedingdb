@@ -6426,6 +6426,24 @@ body header .login a {
 body header .login p {
   margin-bottom: 40px;
 }
+body header.logged-out {
+  background: #112e4f;
+}
+body header.logged-out .login a {
+  color: #ceeded;
+}
+body header.logged-out .login a:hover {
+  color: #007ecf;
+}
+body header.logged-out .logo {
+  float: left;
+  background: url('../../../../../images/footer-logo.png') no-repeat;
+  background-size: 163px;
+  height: 85px;
+  padding: 63px 0 0 180px;
+  font: 400 21px 'PT Sans', sans-serif;
+  color: #ffffff;
+}
 body nav {
   background: #112e4f;
 }
@@ -6470,6 +6488,23 @@ body nav ul li .dropdown-menu li a:hover {
 body nav ul li .dropdown-toggle:focus {
   color: #ceeded;
   text-decoration: none;
+}
+body nav.logged-out ul {
+  margin-top: 61px;
+  float: right;
+}
+body nav.logged-out ul li {
+  float: left;
+  margin: 0 0 0 44px;
+}
+body nav.logged-out ul li a {
+  padding: 0;
+}
+body nav.logged-out ul li a:hover {
+  color: #007ecf;
+}
+body nav.logged-out ul li:hover {
+  background: none;
 }
 body .masthead {
   padding: 32px 0 0 0;
