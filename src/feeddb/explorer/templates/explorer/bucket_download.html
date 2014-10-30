@@ -1,26 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load explorer_display %}
 {% block bodyclass %}collection-detail{% endblock %}
-{% block extra_js %}
-<script type="text/javascript" src="/explorer/static/js/jquery.checkboxes.js"></script>
-{% endblock %}
-
-<script language="javascript">
-function checkbox_clicked(obj){
-   if(obj.checked){
-    	$('[INPUT[name^="chk:"]').checkCheckboxes();
-   }else{
-        $('[INPUT[name^="chk:"]').unCheckCheckboxes();
-   }
-}
-function select_allchannels_clicked(obj){
-    if(obj.checked){
-    	$('[INPUT[name^="channel:"]').checkCheckboxes();
-   }else{
-        $('[INPUT[name^="channel:"]').unCheckCheckboxes();
-   }
-}
-</script>
 
 {% block breadcrumbs %}{% endblock %}
 
@@ -104,13 +84,14 @@ function select_allchannels_clicked(obj){
           <th>Field</th>
           <th>Column Header</th>
           <th>
-          <input type="checkbox"  id="select_all" onclick="checkbox_clicked(this)" checked="checked" /></th></tr>
+          <input type="checkbox" class="checkall" value="blank" checked="checked" /></th></tr>
           
           {% for form in meta_forms %}
           
           {%for field in form %}
           {%if forloop.first %}<tr class=" {% cycle 'even'  'odd' %}"><td rowspan="{{form.fields|length}}">{{form.Meta.name}}</td>{%else%}<tr class="{% cycle 'even'  'odd' %}">{%endif%}
-          <td>{{form.Meta.name}}: {{field.name}}</td><td><input size="20" name="{{form.Meta.name}}:{{field.name}}" value="{{form.Meta.name}}:{{field.label}}" /></td><td><input name="chk:{{form.Meta.name}}:{{field.name}}" type="checkbox" checked="checked" /></td>
+          <td>{{form.Meta.name}}: {{field.name}}</td><td><input size="20" name="{{form.Meta.name}}:{{field.name}}" value="{{form.Meta.name}}:{{field.label}}" /></td>
+          <td class="choose"><input type="checkbox" name="chk:{{form.Meta.name}}:{{field.name}}" value="on" checked="checked" /></td>
         </tr>
           {% endfor %}
           {% endfor %}
@@ -138,7 +119,7 @@ function select_allchannels_clicked(obj){
         <tr>
         <th rowspan="2">Trial</th>
         <th colspan="6">Channels</th>
-        <th rowspan="2">Select All <br/><input type="checkbox" id="select_all_channels" onclick ="select_allchannels_clicked(this)" checked="checked"/></th>
+        <th rowspan="2">Select All <br/><input type="checkbox" class="checkall" checked="checked"/></th>
         </tr>
         <tr>				  
         <th>Order</th>
@@ -182,4 +163,19 @@ function select_allchannels_clicked(obj){
 </form>
 </div>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+
+jQuery(document).on('ready', function() {
+
+  $('.checkall').on('change', function() {
+    $(this).parents("table").find(":checkbox").prop('checked', this.checked);
+  });
+  
+  
+  
+});
+</script>
+{% endblock extra_js %}
 
