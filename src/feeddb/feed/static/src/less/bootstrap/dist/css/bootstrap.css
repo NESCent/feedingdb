@@ -6776,6 +6776,9 @@ body.collection form table td {
 body.collection-detail #trial_form th:first-child {
   width: 30px !important;
 }
+body.collection-detail .file-name {
+  word-wrap: break-word;
+}
 body.collection-detail footer {
   margin-top: 0;
 }
