@@ -91,7 +91,7 @@
           {%for field in form %}
           {%if forloop.first %}<tr class=" {% cycle 'even'  'odd' %}"><td rowspan="{{form.fields|length}}">{{form.Meta.name}}</td>{%else%}<tr class="{% cycle 'even'  'odd' %}">{%endif%}
           <td>{{form.Meta.name}}: {{field.name}}</td><td><input size="20" name="{{form.Meta.name}}:{{field.name}}" value="{{form.Meta.name}}:{{field.label}}" /></td>
-          <td class="choose"><input type="checkbox" name="chk:{{form.Meta.name}}:{{field.name}}" value="on" checked="checked" /></td>
+          <td class="choose"><input type="checkbox" name="chk:{{form.Meta.name}}:{{field.name}}" checked="checked" /></td>
         </tr>
           {% endfor %}
           {% endfor %}
