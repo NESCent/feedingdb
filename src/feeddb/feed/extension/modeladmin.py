@@ -261,9 +261,9 @@ class FeedModelAdmin(admin.ModelAdmin):
     def _alter_view_context(self, context):
         # regroup inline_admin_formsets for study view page
 
-        def _get_first_original_in_formset(formset):
-            for form in inline_admin_formset:
-                return form.original
+        def _get_type_of_formset(formset):
+            inline = formset.opts
+            return inline.model
 
         def _forms_in_container(formset, fieldname, value):
             for form in inline_admin_formset:
@@ -280,16 +280,17 @@ class FeedModelAdmin(admin.ModelAdmin):
                 }
 
         if self.model == Study:
+            study = context.get('original', None)
+
             for inline_admin_formset in context['inline_admin_formsets']:
-                original = _get_first_original_in_formset(inline_admin_formset)
-                Model = type(original)
+                Model = _get_type_of_formset(inline_admin_formset)
 
                 if Model == Session:
                     fieldname = 'experiment'
-                    containers = original.study.experiment_set.all()
+                    containers = study.experiment_set.all()
                 elif Model == Trial:
                     fieldname = 'session'
-                    containers = original.study.session_set.all()
+                    containers = study.session_set.all()
                 else:
                     continue
 
