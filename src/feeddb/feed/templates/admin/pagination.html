@@ -1,8 +1,12 @@
 {% load admin_list %}
 {% load i18n %}
 <div class="row">
-  <div class="col-xs-9">
+  <div class="records-number col-xs-5 col-lg-4">
     <h3>{% ifequal cl.result_count 1 %}Result{% else %}Results{% endifequal %} ({{ cl.result_count }})</h3>
+  </div>
+  <div class="records-list col-xs-7 col-lg-6 col-lg-offset-2">
+    <p>Records to display:</p>
+    {{ form.per_page }}
   </div>
   {% if show_all_url %}
   <div class="col-xs-3 records-list">
