@@ -167,6 +167,14 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
       a { color: @sky-blue; color: @sky-blue-alpha; }
       p { margin-bottom: 40px; }
     }
+    &.logged-out { background: @navy; background: @navy-alpha;
+      .login {
+        a { color: @pale-blue; color: @pale-blue-alpha;
+          &:hover { color: @sky-blue; color: @sky-blue-alpha; }
+        }
+      }
+      .logo { float: left; background: url('../../../../../images/footer-logo.png') no-repeat; background-size: 163px; height: 85px; padding: 63px 0 0 180px; font: 400 21px @pt-sans; color: @white; color: @white-alpha; }
+    }
   }
 
 /* Nav */
@@ -187,6 +195,16 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
           }
         }
         .dropdown-toggle:focus { color: @pale-blue; color: @pale-blue-alpha; text-decoration: none; }
+      }
+    }
+    &.logged-out {
+      ul { margin-top: 61px; float: right;
+        li { float: left; margin: 0 0 0 44px;
+          a { padding: 0;
+            &:hover { color: @sky-blue; color: @sky-blue-alpha; }
+          }
+          &:hover { background: none; }
+        }
       }
     }
   }
