@@ -4,7 +4,7 @@ FEED: a database of mammalian feeding behaviors
 Starting with a prod DB dump (for dev use)
 ----
 
-To begin working with a DB dump from prod, there a few things you have to do to bring it into the new world. 
+To begin working with a DB dump from prod, there a few things you have to do to bring it into the new world.
 
 First, load the DB dump. Use `vagrant ssh` to log into the box, then restore database `feeddb`, user `feeddb`, filename `feed`:
 
@@ -26,13 +26,20 @@ WARNING: errors ignored on restore: 75
 
 If instead you see several hundred errors, something else has gone wrong.
 
-Next, you must dance a little jig in order to load muscle terms and run a dumb data migration to get some data to play with. Run these commands after loading a prod database dump:
+Next, run all the migrations and load OWL terms from fixtures:
 
 ```
 ./manage.py migrate feed
-./manage.py migrate feed 0058
-./manage.py migrate feed
 ```
+
+Now you can load correspondence CSVs:
+
+```
+./manage.py loadcorrespondence b ../data/behavior_correspondence.csv
+./manage.py loadcorrespondence m ../data/al_muscles_correspondence.csv
+```
+
+See `data/README.md` for more information about the OWL terms and correspondences.
 
 Next, load approval options.
 
@@ -44,7 +51,7 @@ Then, load the schema and data into Solr:
 
 `sudo feeddb-refresh-solr`
 
-Finally, create a super user with access to edit everything. 
+Finally, create a super user with access to edit everything.
 
 `./manage.py createsuperuser`
 
@@ -69,7 +76,7 @@ Servers
 ----
 
  * Dev: (in office)
-   * http://dev-feed.sqm.private/ 
+   * http://dev-feed.sqm.private/
    * Superuser: `admin` / `admin`
    * Shell: `ssh -p 22421 dev-feed.sqm.private` and `./manage.py ...`
  * Vagrant: 1.2+
