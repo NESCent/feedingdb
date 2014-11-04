@@ -50,7 +50,7 @@
         {% csrf_token %}
         <div class="col-xs-3">
           <input type="hidden" name="post" value="yes" />
-          <input type="hidden" name="next" value="{% next_url %}" />
+          <input type="hidden" name="next" value="{% next_or_study_url %}" />
           <input class="btn btn-primary" type="submit" value="{% trans "Confirm &amp; Delete" %}" />
         </div>
         <div class="col-xs-3">
