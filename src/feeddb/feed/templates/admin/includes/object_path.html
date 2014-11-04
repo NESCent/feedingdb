@@ -504,7 +504,7 @@
           <span>/</span>
         {% endifequal %} <!-- endifequal subject -->
         
-    <li>{{adminform.form.instance|capfirst|escape|truncatewords:"18" }}</li>
+    <li class="test">{{ opts.verbose_name_plural|title }} / {{adminform.form.instance|capfirst|escape|truncatewords:"18" }}</li>
         
   {% endifequal %} <!-- endifequal object_id None -->
 
