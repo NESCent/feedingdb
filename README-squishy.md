@@ -244,8 +244,6 @@ service solr restart
 ./manage.py rebuild_index --noinput
 ```
 
-TODO: uploads directory
-
 Cron
 ----
 
