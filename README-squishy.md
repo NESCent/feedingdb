@@ -254,3 +254,23 @@ The index needs a cron job to stay current. The command to run is:
 ```
 
 where `X` is a number of hours. Content which has been modified in the last X hours will be re-indexed. Content which has been removed will be removed from the index.
+
+
+Hosting & Maintenance Notes
+====
+
+The app is mostly self-sufficient once it's set up. That said, all apps require some maintenance. Here are some things to keep track of during the app's lifetime:
+
+ * Security updates for all packages listed in `feeddb/requirements.txt`.
+ * Security updates for Solr 3.
+ * Security updates for all system packages
+
+For security information, we recommend that you subscribe to the security mailing lists for the projects in question.
+
+It is also worthwhile to keep an eye on system performance through the following metrics:
+
+ * Disk, memory, and CPU usage
+ * Uptime & responsiveness, error rates
+ * Real-life usage data -- a change in usage patterns across all users may indicate some change in the system which you might not detect otherwise.
+
+Monitoring tools such as `monit` or services such as New Relic can help with these needs.

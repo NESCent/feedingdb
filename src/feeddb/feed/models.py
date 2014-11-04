@@ -848,6 +848,17 @@ class Illustration(FeedBaseModel):
     setup  = models.ForeignKey(Setup,  blank = True, null=True)
     experiment  = models.ForeignKey(Experiment,  blank = True, null=True)
 
+    def save(self):
+        ret = super(Illustration, self).save()
+
+        # If there is no picture, no need to keep this Illustration object.
+        # Suprisingly, there are no known problems with deleting the object
+        # during the save() method.
+        if self.picture == '':
+            self.delete()
+
+        return ret
+
 class ChannelLineup(FeedBaseModel):
     session = models.ForeignKey(Session)
     position = models.IntegerField("Position (integer)", help_text='The numeric position of the channel within this channel lineup; coincides with the column position in the data file.')

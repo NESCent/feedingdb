@@ -14,6 +14,7 @@ from django.core.exceptions import PermissionDenied
 from django.db import models, transaction
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.utils.http import is_safe_url
 from django.shortcuts import get_object_or_404, render_to_response
 from django.utils.datastructures import SortedDict
 from functools import update_wrapper, partial
@@ -312,7 +313,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         return self.response_post_save_add(request, obj)
 
     @csrf_protect_m
-    def delete_view(self, *args, **kwargs):
+    def delete_view(self, request, *args, **kwargs):
         """
         Override ModelAdmin.delete_view() to augment template context with list
         of "critical" objects.  These are objects which should cause pause to
@@ -320,33 +321,26 @@ class FeedModelAdmin(admin.ModelAdmin):
         secure.
         """
 
-        res = super(FeedModelAdmin, self).delete_view(*args, **kwargs)
+        res = super(FeedModelAdmin, self).delete_view(request, *args, **kwargs)
 
-        # Add "associated critical objects" to context if possible.
-        try:
-            obj = res.context_data['object']
-            res.context_data['associated_critical_objects'] = get_associated_critical_objects(obj)
-        except AttributeError:
-            # This exception will happen if res is an HttpResponseRedirect or
-            # if context_data['object'] doesn't exist for some reason. In
-            # either case, not much we can do.
-            pass
+        if isinstance(res, HttpResponseRedirect):
+            redirect_to = request.REQUEST.get('next', '')
+            if is_safe_url(url=redirect_to, host=request.get_host()):
+                return HttpResponseRedirect(redirect_to)
+            else:
+                raise "Unsafe"
+        else:
+            # Add "associated critical objects" to context if possible.
+            try:
+                obj = res.context_data['object']
+                res.context_data['associated_critical_objects'] = get_associated_critical_objects(obj)
+            except AttributeError:
+                # This exception will happen if res is an HttpResponseRedirect or
+                # if context_data['object'] doesn't exist for some reason. In
+                # either case, not much we can do.
+                pass
 
         return res
-
-    """
-    get response url after deleting an object
-    """
-    def get_response_url(self,request):
-        post_url = '../../'
-        q_str = request.META['QUERY_STRING']
-        if q_str in (None, ''):
-            return post_url
-        pos = q_str.find('created_by')
-        if pos != -1:
-            return "%s?%s" % (post_url, q_str)
-        q_str= q_str.replace("=","/")
-        return "../../../%s" % q_str
 
     """
     overwrite the function to set the created_by for any associated records before saving
