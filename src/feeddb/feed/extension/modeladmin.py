@@ -90,7 +90,7 @@ class SetupTabularInline(FeedTabularInline):
 class FeedModelAdmin(admin.ModelAdmin):
     view_inlines = []
     list_per_page = 30
-    list_max_show_all = 100
+    list_max_show_all = 200
     # Custom templates (designed to be over-ridden in subclasses)
     view_form_template = None
     #change_form_template = "admin/tabbed_change_form.html"
