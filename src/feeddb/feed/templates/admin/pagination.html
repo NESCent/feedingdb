@@ -1,26 +1,22 @@
 {% load admin_list %}
 {% load i18n %}
 <div class="row">
-  <div class="records-number col-xs-5 col-lg-4">
+  <div class="records-number col-xs-7 col-lg-9">
     <h3>{% ifequal cl.result_count 1 %}Result{% else %}Results{% endifequal %} ({{ cl.result_count }})</h3>
   </div>
-  <div class="records-list col-xs-7 col-lg-6 col-lg-offset-2">
-    <p>Records to display:</p>
-    {{ form.per_page }}
-  </div>
-  {% if show_all_url %}
-  <div class="col-xs-3 records-list">
-    {% if pagination_required %}
-    <div style="float:right;">
-      <p style="float:left; padding-right:10px;">Page: 
-        {% for i in page_range %}
-          {% paginator_number cl i %}
-        {% endfor %}
-      </p>
-      {% endif %}
-      <a href="{{ show_all_url }}" class="showall" style="float:right;">{% trans 'Show all' %}</a>
+  {% if pagination_required %}
+  <div class="col-xs-5 col-lg-3">
+    <div class="records-list browse">
+      {% if show_all_url %}<a href="{{ show_all_url }}" class="showall">{% trans 'Show all' %}</a>{% endif %}
+      <div class="float-right">
+        <p>Page:</p>
+          {% for i in page_range %}
+            {% paginator_number cl i %}
+          {% endfor %}
+      </div>
     </div>
   </div>
   {% endif %}
-  {% if cl.formset and cl.result_count %}<input type="submit" name="_save" class="default" value="{% trans 'Save' %}"/>{% endif %}
 </div>
+
+
