@@ -501,10 +501,12 @@
           <li>
             <a href="/admin/{{ app_label}}/study/{{adminform.form.instance.study.id}}"> {{adminform.form.instance.study|capfirst|escape|truncatewords:"18" }}</a>
           </li>
-          <span>/</span>
+          
         {% endifequal %} <!-- endifequal subject -->
         
-    <li class="test">{{ opts.verbose_name_plural|title }} / {{adminform.form.instance|capfirst|escape|truncatewords:"18" }}</li>
+    <li><a href="/admin/{{ app_label}}/{{ opts.object_name|lower }}/">{{ opts.verbose_name_plural|title }}</a></li>
+    <span>/</span>
+    <li>{{adminform.form.instance|capfirst|escape|truncatewords:"18" }}</li>
         
   {% endifequal %} <!-- endifequal object_id None -->
 
