@@ -6855,6 +6855,26 @@ body main .records-list ul#id_per_page li label input {
   width: 20px;
   margin: 6px 0 0 0;
 }
+body main .records-list.browse a {
+  color: #da5400;
+  margin-right: 5px;
+}
+body main .records-list.browse a.showall {
+  margin-top: 1px;
+  float: right;
+}
+body main .records-list.browse .float-right {
+  margin-right: 15px;
+}
+body main .records-list.browse .float-right p {
+  margin: 1px 5px 0 0;
+}
+body main .records-list.browse .float-right span {
+  font-family: 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
+  font-size: 15px;
+  color: #007ecf;
+  margin-right: 5px;
+}
 body main table {
   width: 100%;
   margin: 0 0 30px 0;
