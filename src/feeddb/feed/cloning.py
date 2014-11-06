@@ -67,7 +67,7 @@ def clone_experiment(experiment, recurse=True):
             experiment.channels_by_old_id.update(setup.channels_by_old_id)
 
     for illustration in illustrations:
-        _clone_basic(illustration, subject=subject)
+        _clone_basic(illustration, experiment=experiment)
 
     if not recurse:
         return
