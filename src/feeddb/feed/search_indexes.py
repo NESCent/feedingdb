@@ -138,13 +138,14 @@ class TrialIndex(SearchIndex, Indexable):
         muscles_part_of = set()
         muscles_direct = set()
         for m in trial_muscles(obj):
-            m_label = m.label_with_synonyms()
-            if m != None and len(m_label):
-                muscles_direct.add(m_label)
-                for m_ancestor in m.ancestor_classes():
-                    muscles_ancestors.add(m_ancestor.label_with_synonyms())
-                for m_part_of in m.part_of_classes():
-                    muscles_part_of.add(m_part_of.label_with_synonyms())
+            if m != None:
+                m_label = m.label_with_synonyms()
+                if len(m_label):
+                    muscles_direct.add(m_label)
+                    for m_ancestor in m.ancestor_classes():
+                        muscles_ancestors.add(m_ancestor.label_with_synonyms())
+                    for m_part_of in m.part_of_classes():
+                        muscles_part_of.add(m_part_of.label_with_synonyms())
 
         muscles_part_of = muscles_part_of.difference(muscles_ancestors)
 
