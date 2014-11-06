@@ -90,7 +90,7 @@ def clone_setup(setup):
     for sensor in sensors:
         # This modifies `sensor` in place, so `sensors_by_old_id` will contain
         # the new sensors when this loop finishes.
-        _clone_basic(sensor, setup=setup)
+        _clone_basic(sensor, rename=False, setup=setup)
 
     for channel in channels:
         # Each channel type has a different type of sensor, but, with the
@@ -99,15 +99,15 @@ def clone_setup(setup):
         if type(channel) == SonoChannel:
             new_crystal1 = sensors_by_old_id[channel.crystal1.id]
             new_crystal2 = sensors_by_old_id[channel.crystal2.id]
-            _clone_basic(channel, setup=setup, crystal1=new_crystal1, crystal2=new_crystal2)
+            _clone_basic(channel, rename=False, setup=setup, crystal1=new_crystal1, crystal2=new_crystal2)
         elif type(channel) == EventChannel:
             # Event channels don't have sensors
-            _clone_basic(channel, setup=setup)
+            _clone_basic(channel, rename=False, setup=setup)
         elif hasattr(channel, 'sensor'):
             # This is for most channel types
             old_sensor = channel.sensor
             new_sensor = sensors_by_old_id[old_sensor.id]
-            _clone_basic(channel, setup=setup, sensor=new_sensor)
+            _clone_basic(channel, rename=False, setup=setup, sensor=new_sensor)
         else:
             raise ValueError("Channel %s (pk=%d) is of unknown type %s" % (channel, channel.pk, type(channel)))
 
@@ -159,16 +159,18 @@ def clone_lineup(lineup):
     if settings.DEBUG:
         print "New lineup: Pos %d, Chan %s (pk=%d)" % (lineup.position, lineup.channel, lineup.channel.pk)
 
-def _clone_basic(thing, **kwargs):
+def _clone_basic(thing, rename=True, **kwargs):
     if settings.DEBUG:
         print "Old %s: %s (%d)" % (type(thing).__name__, thing, thing.pk)
 
     thing.id = None
     thing.pk = None
-    if hasattr(thing, 'title'):
-        thing.title = 'Clone of "%s"' % (thing.title)
-    if hasattr(thing, 'name'):
-        thing.name = 'Clone of "%s"' % (thing.name)
+    if rename:
+        if hasattr(thing, 'title'):
+            thing.title = 'Clone of "%s"' % (thing.title)
+        if hasattr(thing, 'name'):
+            thing.name = 'Clone of "%s"' % (thing.name)
+
     for key, value in kwargs.iteritems():
         setattr(thing, key, value)
     thing.save()
