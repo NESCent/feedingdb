@@ -6347,7 +6347,7 @@ body form tr td.notes textarea {
   height: 60px;
 }
 body form tr td.muscle .chosen-container {
-  width: 300px !important;
+  width: 180px !important;
 }
 body form tr td.axisdepth .chosen-container {
   width: 89px !important;
@@ -7463,7 +7463,7 @@ body .EMGElectrode #id_emgsensor_set_0_axisdepth_chosen {
   width: 102px !important;
 }
 body .EMGElectrode #id_emgsensor_set-0-rate {
-  width: 136px;
+  width: 66px;
 }
 body .EMGElectrode #id_emgsensor_set_0_emg_filtering_chosen {
   width: 91px !important;
