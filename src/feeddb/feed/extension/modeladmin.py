@@ -327,9 +327,10 @@ class FeedModelAdmin(admin.ModelAdmin):
         if isinstance(res, HttpResponseRedirect):
             redirect_to = request.REQUEST.get('next', '')
             if is_safe_url(url=redirect_to, host=request.get_host()):
-                return HttpResponseRedirect(redirect_to)
+                res = HttpResponseRedirect(redirect_to)
             else:
-                raise "Unsafe"
+                # TODO: log to debug?
+                pass
         else:
             # Add "associated critical objects" to context if possible.
             try:
