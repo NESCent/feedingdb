@@ -43,7 +43,7 @@
   {% for sensor in setup.sensor_set.all %}
     {{ sensor.name }}
     {{ sensor.notes }}
-    {{ sensor.get_location }}
+    {{ sensor.get_location_for_search }}
 
     {{ sensor.emgsensor.electrode_type }}
 
@@ -76,13 +76,10 @@
 {{ object.food_size }}
 {{ object.food_property }}
 {{ object.behaviorowl_primary.label }}
+{{ object.behaviorowl_primary.synonyms_comma_separated }}
 {{ object.behaviorowl_primary.obo_definition }}
 {{ object.behaviorowl_primary.rdfs_comment }}
 {{ object.behaviorowl_primary.uri }}
 {{ object.behaviorowl_primary.rdfs_is_class }}
-{{ object.behaviorowl_secondary.label }}
-{{ object.behaviorowl_secondary.obo_definition }}
-{{ object.behaviorowl_secondary.rdfs_comment }}
-{{ object.behaviorowl_secondary.uri }}
-{{ object.behaviorowl_secondary.rdfs_is_class }}
+{# omitting behaviorowl_secondary because it is deprecated in FEED2 #}
 {{ object.behavior_notes }}
