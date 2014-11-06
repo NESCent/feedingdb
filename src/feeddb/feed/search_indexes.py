@@ -101,6 +101,7 @@ class TrialIndex(SearchIndex, Indexable):
             print "Techniques: %s" % sorted(techniques)
         return sorted(techniques)
 
+    @fail_with_return_value(None)
     def prepare_behaviorowl_primary(self, obj):
         return obj.behaviorowl_primary.label_with_synonyms()
 
