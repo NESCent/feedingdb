@@ -101,17 +101,20 @@ class TrialIndex(SearchIndex, Indexable):
             print "Techniques: %s" % sorted(techniques)
         return sorted(techniques)
 
-    @fail_with_return_value([])
-    #@unicodeify_list
-    def prepare_behaviorowl_primary_ancestors(self, obj):
-        # TODO: should we be including the original behaviorowl here?
-        return obj.behaviorowl_primary.ancestor_classes_inclusive()
+    def prepare_behaviorowl_primary(self, obj):
+        return obj.behaviorowl_primary.label_with_synonyms()
 
     @fail_with_return_value([])
-    #@unicodeify_list
+    def prepare_behaviorowl_primary_ancestors(self, obj):
+        # TODO: should we be including the original behaviorowl here?
+        ancestors = obj.behaviorowl_primary.ancestor_classes_inclusive()
+        return [b.label_with_synonyms() for b in ancestors]
+
+    @fail_with_return_value([])
     def prepare_behaviorowl_primary_part_of(self, obj):
         # TODO: should we be including the original behaviorowl here?
-        return obj.behaviorowl_primary.part_of_classes_inclusive()
+        part_ofs = obj.behaviorowl_primary.part_of_classes_inclusive()
+        return [b.label_with_synonyms() for b in part_ofs]
 
     def prepare(self, obj):
         """
@@ -135,12 +138,13 @@ class TrialIndex(SearchIndex, Indexable):
         muscles_part_of = set()
         muscles_direct = set()
         for m in trial_muscles(obj):
-            if m != None and len(unicode(m)):
-                muscles_direct.add(unicode(m))
+            m_label = m.label_with_synonyms()
+            if m != None and len(m_label):
+                muscles_direct.add(m_label)
                 for m_ancestor in m.ancestor_classes():
-                    muscles_ancestors.add(unicode(m_ancestor))
+                    muscles_ancestors.add(m_ancestor.label_with_synonyms())
                 for m_part_of in m.part_of_classes():
-                    muscles_part_of.add(unicode(m_part_of))
+                    muscles_part_of.add(m_part_of.label_with_synonyms())
 
         muscles_part_of = muscles_part_of.difference(muscles_ancestors)
 
