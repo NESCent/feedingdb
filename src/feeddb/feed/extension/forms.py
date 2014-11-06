@@ -196,7 +196,7 @@ class EmgSensorChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
 
     class Meta:
-        fields = ['name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'electrode_type', 'rate', 'unit', 'emg_filtering', 'emg_amplification',  'notes']
+        fields = ('name', 'muscle', 'loc_side', 'rate', 'unit', 'emg_filtering', 'emg_amplification', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'electrode_type', 'notes')
 
     def __init__(self, *args, **kwargs):
         channel=None

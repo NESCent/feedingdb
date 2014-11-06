@@ -38,3 +38,15 @@ def add_new_to_container_url(regrouped):
         return reverse('admin:feed_%s_add' % subtypename) + '?%s=%d' % (containertypename, container.id)
     except KeyError:
         raise ImproperlyConfigured('add_new_to_container_url requires as an argument a "regrouped" item container')
+
+@register.simple_tag
+def delete_object_and_redirect_to_study_url(original):
+    typename = type(original).__name__.lower()
+    delete_url = reverse('admin:feed_%s_delete' % typename, args=(original.pk,))
+    try:
+        study = original.study
+        delete_url += '?%s=%d' % ('study', study.pk)
+    except AttributeError:
+        pass
+
+    return delete_url

@@ -83,8 +83,11 @@ class OwlTerm(models.Model):
         abstract = True
 
     def __unicode__(self):
+        return self.label
+
+    def label_with_synonyms(self):
         if self.synonyms_comma_separated:
-            return "%s; aka %s" % (self.label, self.synonyms_comma_separated)
+            return u"%s; aka %s" % (self.label, self.synonyms_comma_separated)
         else:
             return self.label
 
@@ -584,6 +587,13 @@ class Sensor(FeedBaseModel):
             return None
 
         raise ValueError("Sensor %d is not typed!" % self.pk)
+
+    def get_location_for_search(self):
+        loc = self.get_location()
+        if isinstance(loc, OwlTerm):
+            return loc.label_with_synonyms()
+        else:
+            return unicode(loc)
 
 class EmgSensor(Sensor):
     location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
