@@ -25,7 +25,7 @@
             {% include "admin/tabular_view_row.html" %}
           {% empty %}
             <tr>
-              <td colspan="999">No {{ inline_admin_formset.opts.verbose_name_plural }}. Use the Add {{ inline_admin_formset.opts.verbose_name }} link to the right.</td>
+              <td colspan="999">No {{ inline_admin_formset.opts.verbose_name_plural }}. Use the Add {{ inline_admin_formset.opts.verbose_name|capfirst }} link to the right.</td>
             </tr>
           {% endfor %}
           </table>
