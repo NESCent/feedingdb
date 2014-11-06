@@ -314,7 +314,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         return self.response_post_save_add(request, obj)
 
     @csrf_protect_m
-    def delete_view(self, request, *args, **kwargs):
+    def delete_view(self, request, object_id, *args, **kwargs):
         """
         Override ModelAdmin.delete_view() to augment template context with list
         of "critical" objects.  These are objects which should cause pause to
@@ -322,7 +322,11 @@ class FeedModelAdmin(admin.ModelAdmin):
         secure.
         """
 
-        res = super(FeedModelAdmin, self).delete_view(request, *args, **kwargs)
+        obj = self.get_object(request, unquote(object_id))
+        if obj is not None and self.has_change_permission(request, obj):
+            request.feed_upload_status.update_with_object(obj, fail_silently=True)
+
+        res = super(FeedModelAdmin, self).delete_view(request, object_id, *args, **kwargs)
 
         if isinstance(res, HttpResponseRedirect):
             redirect_to = request.REQUEST.get('next', '')
