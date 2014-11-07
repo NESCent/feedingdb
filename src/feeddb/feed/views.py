@@ -106,6 +106,7 @@ class ModelCloneView(FormView):
         elif self.container_type == None:
             kwargs['container'] = None
         kwargs['clone_subject'] = self.clone_subject
+        kwargs['prefix'] = 'clone'
         return kwargs
 
     def _make_message(self, source, recurse):
