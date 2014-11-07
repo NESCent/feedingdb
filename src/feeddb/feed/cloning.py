@@ -142,7 +142,11 @@ def clone_session(session, recurse=True, created_by=None):
     # we have to make new relationships manually.
     for lineup in channellineups:
         if settings.DEBUG:
-            print "Old lineup: Pos %d, Chan %s (pk=%d)" % (lineup.position, lineup.channel, lineup.channel.pk)
+            try:
+                channel_pk = lineup.channel.pk
+            except AttributeError:
+                channel_pk = -1
+            print "Old lineup: Pos %d, Chan %s (pk=%d)" % (lineup.position, lineup.channel, channel_pk)
         lineup.session = session
 
         # If we're in an experiment clone (or study clone), there will be new
