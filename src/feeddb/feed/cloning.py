@@ -152,6 +152,8 @@ def clone_session(session, recurse=True):
         clone_lineup(lineup)
 
 def clone_trial(trial, recurse=True):
+    trial.data_file = None
+    trial.waveform_picture = None
     _clone_basic(trial)
 
 def clone_lineup(lineup):
