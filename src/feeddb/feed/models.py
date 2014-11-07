@@ -83,8 +83,11 @@ class OwlTerm(models.Model):
         abstract = True
 
     def __unicode__(self):
+        return self.label
+
+    def label_with_synonyms(self):
         if self.synonyms_comma_separated:
-            return "%s; aka %s" % (self.label, self.synonyms_comma_separated)
+            return u"%s; aka %s" % (self.label, self.synonyms_comma_separated)
         else:
             return self.label
 
@@ -585,6 +588,13 @@ class Sensor(FeedBaseModel):
 
         raise ValueError("Sensor %d is not typed!" % self.pk)
 
+    def get_location_for_search(self):
+        loc = self.get_location()
+        if isinstance(loc, OwlTerm):
+            return loc.label_with_synonyms()
+        else:
+            return unicode(loc)
+
 class EmgSensor(Sensor):
     location_controlled = models.ForeignKey(AnatomicalLocation, verbose_name = "Muscle", null=True,
                                             limit_choices_to = {'category__exact' : AnatomicalCategories.muscle})
@@ -847,6 +857,17 @@ class Illustration(FeedBaseModel):
     subject  = models.ForeignKey(Subject,  blank = True, null=True)
     setup  = models.ForeignKey(Setup,  blank = True, null=True)
     experiment  = models.ForeignKey(Experiment,  blank = True, null=True)
+
+    def save(self):
+        ret = super(Illustration, self).save()
+
+        # If there is no picture, no need to keep this Illustration object.
+        # Suprisingly, there are no known problems with deleting the object
+        # during the save() method.
+        if self.picture == '':
+            self.delete()
+
+        return ret
 
 class ChannelLineup(FeedBaseModel):
     session = models.ForeignKey(Session)

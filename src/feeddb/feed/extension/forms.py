@@ -49,7 +49,7 @@ class SetupForm (DisableForeignKeyForm):
         exclude = ('technique',)
 
 class ExperimentChangeForm(DisableForeignKeyForm):
-    setup_types = MultipleChoiceField(label="Sensor Types", choices=TECHNIQUE_CHOICES_NAMED, required=True, help_text="You can add a setup by selecting a sensor type here. To delete a setup, use the delete button visible on the setup's page. To get to the page for a setup, use the tabs visible on the experiment view page." )
+    setup_types = MultipleChoiceField(label="Sensor Types", choices=TECHNIQUE_CHOICES_NAMED, required=True, help_text="Add setups by selecting sensor types here. To delete a setup, visit the experiment's view page and click on the setup's tab." )
 
     class Meta:
         widgets = {
@@ -196,7 +196,7 @@ class EmgSensorChannelForm(forms.ModelForm):
     notes = CharField(label ="Notes", widget=forms.Textarea(attrs={'cols': 8, 'rows': 2}), required=False)
 
     class Meta:
-        fields = ['name', 'muscle', 'loc_side', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'electrode_type', 'rate', 'unit', 'emg_filtering', 'emg_amplification',  'notes']
+        fields = ('name', 'muscle', 'loc_side', 'rate', 'unit', 'emg_filtering', 'emg_amplification', 'loc_ap', 'loc_dv', 'loc_pd', 'loc_ml', 'axisdepth', 'electrode_type', 'notes')
 
     def __init__(self, *args, **kwargs):
         channel=None

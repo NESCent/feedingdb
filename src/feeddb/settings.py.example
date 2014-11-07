@@ -1,18 +1,20 @@
 # Example settings file for FeedDB django installation
-# To use by default with manage.py, as in './manage.py runserver', 
+# To use by default with manage.py, as in './manage.py runserver',
 # copy this file to settings.py and provide values for the variables below
-# that are suitable in your local setting. 
-# 
-# It is possible to have alternative settings files, e.g. mysettings.py, 
-# and use them as 
-#   ./manage.py runserver --settings=feeddb.mysettings 
+# that are suitable in your local setting.
+#
+# It is possible to have alternative settings files, e.g. mysettings.py,
+# and use them as
+#   ./manage.py runserver --settings=feeddb.mysettings
 
-### For installing Feeding DB, supply appropriate values for metavariables $FEEDDB_XXXX$ mentioned below, 
-###   as described in README-INSTALL
+# Import variables from settings_common.py
+from settings_common import *
 
-
-from settings_common import * 
-
+# Whether to enable certain debugging features of Django.
+#
+#   Production value: False
+#   Development value: True
+#
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -22,27 +24,44 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'postgresql_psycopg2'        # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-### Use $FEEDDB_RDB$ for these: 
-DATABASE_NAME = ''             # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASE_ENGINE = 'postgresql_psycopg2'
 
-# Make this unique, and don't share it with anybody.
+# Enter the database credentials used to connect to the Postgres server. The
+# user must be a user with an actual password; Postgres's `ident`
+# authentication doesn't work here.
+DATABASE_NAME = ''
+DATABASE_USER = ''
+DATABASE_PASSWORD = ''
+DATABASE_HOST = ''             # Leave as empty string for localhost.
+DATABASE_PORT = ''             # Leave as empty string for default.
+
+# Django encryption key
+#
+# Make this unique, and don't share it with anybody. Any random text will work.
+# This value is used to sign cookies and other crypto-related stuff in Django.
+# Good values include a line of output from `pwgen 40`, any online password
+# generator, or good old-fashioned key-mashing.
 SECRET_KEY = ''
-### An easy way to obtain a key: 
-###   - Create a fresh Django project. 
-###   - Copy SECRETE_KEY from this project's settings.py to your $FEEDDB_INSTALL$/feeddb/settings.py
-###   - Discard the newly-created project. 
 
-
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
-### Feeding DB: we use this for user-uploaded files only
+# Path to user-uploaded files.
+#
+#   Example value: '/path/to/bigdisk/feeddb-uploads'
+#
+# This directory must be accessible and writable by the web server user. If you
+# are deploying with mod_wsgi on Apache on CentOS, the user is called `apache`
+# and so this command would set the permissions correctly:
+#
+#   chown -R apache:apache /path/to/bigdisk/feeddb-uploads
+#   chmod -R ug+rw /path/to/bigdisk/feeddb-uploads
+#
 MEDIA_ROOT = '$FEEDDB_UPLOADS$'
 
 # Absolute path to the directory that holds temporary files for download
 # Note: do not put the "/" at the end of the path
+#
+#   Recommended value: '/tmp'
+#
+# This directory must be accessible and writable by the web server user. See
+# the documentation for MEDIA_ROOT, above.
+#
 EXPLORER_TEMPORARY_FOLDER = '$FEEDDB_TEMP$'

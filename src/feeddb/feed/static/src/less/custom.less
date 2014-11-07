@@ -137,7 +137,7 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
           textarea { width: 200px; height: 60px; }
         }
         &.muscle {
-          .chosen-container { width: 300px !important; }
+          .chosen-container { width: 180px !important; }
         }
         &.axisdepth {
           .chosen-container { width: 89px !important; }
@@ -167,6 +167,14 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
       a { color: @sky-blue; color: @sky-blue-alpha; }
       p { margin-bottom: 40px; }
     }
+    &.logged-out { background: @navy; background: @navy-alpha;
+      .login {
+        a { color: @pale-blue; color: @pale-blue-alpha;
+          &:hover { color: @sky-blue; color: @sky-blue-alpha; }
+        }
+      }
+      .logo { float: left; background: url('../../../../../images/footer-logo.png') no-repeat; background-size: 163px; height: 85px; padding: 63px 0 0 180px; font: 400 21px @pt-sans; color: @white; color: @white-alpha; }
+    }
   }
 
 /* Nav */
@@ -187,6 +195,16 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
           }
         }
         .dropdown-toggle:focus { color: @pale-blue; color: @pale-blue-alpha; text-decoration: none; }
+      }
+    }
+    &.logged-out {
+      ul { margin-top: 61px; float: right;
+        li { float: left; margin: 0 0 0 44px;
+          a { padding: 0;
+            &:hover { color: @sky-blue; color: @sky-blue-alpha; }
+          }
+          &:hover { background: none; }
+        }
       }
     }
   }
@@ -271,7 +289,7 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
       }
     }
     hr { margin: 0 0 30px 0; }
-    .box { background: @white; background: @white-alpha; border: 1px solid @lt-tan; border: 1px solid @lt-tan-alpha; padding: 10px 30px; margin-bottom: 30px; min-height: 366px;
+    .box { background: @white; background: @white-alpha; border: 1px solid @lt-tan; border: 1px solid @lt-tan-alpha; padding: 10px 30px; margin-bottom: 30px; min-height: 422px;
       &.box2 { min-height: inherit; }
       ul { padding-left: 20px; padding-top: 8px;
         li { padding-bottom: 10px; font: 15px/19px @rockwell, serif; color: @navy; color: @navy-alpha;
@@ -342,6 +360,7 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
         &:first-child { width: 30px !important; }
       }
     }
+    .file-name { word-wrap: break-word; }
     footer { margin-top: 0; }
   }
   &.history {
@@ -363,6 +382,15 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
               input { position: absolute; left: 0; width: 20px; margin: 6px 0 0 0; }
             }
           }
+        }
+      }
+      &.browse {
+        a { color: @orange; color: @orange-alpha; margin-right: 5px;
+          &.showall { margin-top: 1px; float: right; }
+        }
+        .float-right { margin-right: 15px;
+          p { margin: 1px 5px 0 0; }
+          span { font-family: @rockwell; font-size: 15px; color: @sky-blue; color: @sky-blue-alpha; margin-right: 5px; }
         }
       }
     }
@@ -724,7 +752,7 @@ body { background: url('../../../../../images/satinweave.png'); color: @navy; co
   .mandatory { color: red; font-weight: bold; margin: 10px 0 0 0; }
   .EMGElectrode {
     #id_emgsensor_set_0_axisdepth_chosen { width: 102px !important; }
-    #id_emgsensor_set-0-rate { width: 136px; }
+    #id_emgsensor_set-0-rate { width: 66px; }
     #id_emgsensor_set_0_emg_filtering_chosen { width: 91px !important; }
   }
   .StrainSensor {

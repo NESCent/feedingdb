@@ -25,7 +25,13 @@
   <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
 
     {% if not is_popup %}
-      <header>
+      {% if user.is_authenticated and user.is_staff %}
+        {% ifnotequal  user.first_name "anonymous" %}
+        <header>
+        {% endifnotequal %}
+      {% else %}
+        <header class="logged-out">
+      {% endif %}
       
         <div class="container">
           <div class="row">
@@ -72,24 +78,30 @@
                   {% endif %}
                 {% endblock %}
                 /
-                <a href="">Help</a>
+                <a href="">Help</a> <!-- Add link to help document between the "" after href= -->
               </div> <!-- /.login -->
             </div>
           </div> <!-- /.row -->
           <div class="row">
+              {% if user.is_authenticated and user.is_staff %}
+                {% ifnotequal  user.first_name "anonymous" %}
             <div class="col-xs-12">
+                {% endifnotequal %}
+              {% else %}
+            <div class="col-xs-6">
+              {% endif %}
               <a href="/" class="logo">Feed Experiments End-User Database</a>
             </div>
-          </div>
-        </div> <!-- /.container -->
-      </header>
-      <nav>
-        <div class="container">
-          <div class="row">
-            {% block top_menu %}{% include "admin/top_menu.html" %}{% endblock %}
-          </div>
-        </div>
-      </nav>
+            {% block top_menu %}
+              {% if user.is_authenticated and user.is_staff %}
+                {% ifnotequal  user.first_name "anonymous" %}
+                  {% include "admin/top_menu.html" %}
+                {% endifnotequal %}
+              {% else %}
+                {% include "admin/top_menu_logged_out.html" %}
+              {% endif %}
+            {% endblock %}
+
         {% block nav-global %}{% endblock %}
       
       <!-- <div class="menu_div"></div> Old site content -->
