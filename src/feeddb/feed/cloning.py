@@ -1,4 +1,5 @@
 from feeddb.feed.models import SonoChannel, EventChannel
+from feeddb.feed.admin import feed_get_admin
 from django.conf import settings
 
 def clone_supported_object(obj, recurse=True, created_by=None):
@@ -165,6 +166,7 @@ def _clone_basic(thing, rename=True, created_by=None, **kwargs):
     if settings.DEBUG:
         print "Old %s: %s (%d)" % (type(thing).__name__, thing, thing.pk)
 
+    oldpk = thing.pk
     thing.id = None
     thing.pk = None
     if rename:
@@ -179,6 +181,15 @@ def _clone_basic(thing, rename=True, created_by=None, **kwargs):
     for key, value in kwargs.iteritems():
         setattr(thing, key, value)
     thing.save()
+
+    modeladmin = feed_get_admin(type(thing))
+    if modeladmin is not None:
+        try:
+            mock_request = lambda: None
+            mock_request.user = created_by
+            modeladmin.log_change(mock_request, thing, 'Cloned from %s %d' % (type(thing).__name__, oldpk))
+        except AttributeError:
+            pass
 
     if settings.DEBUG:
         print "New %s: %s (%d)" % (type(thing).__name__, thing, thing.pk)
