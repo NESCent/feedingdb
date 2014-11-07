@@ -132,7 +132,7 @@ class ModelCloneView(FormView):
         from cloning import clone_supported_object
         source = form.cleaned_data['source']
         recurse = form.cleaned_data['recurse']
-        clone_supported_object(source, recurse=recurse)
+        clone_supported_object(source, recurse=recurse, created_by=self.request.user)
         self.dest = source
 
         messages.info(self.request, self._make_message(source, recurse))
