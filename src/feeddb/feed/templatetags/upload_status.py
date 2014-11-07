@@ -94,7 +94,11 @@ def upload_status_model_add_url(context, inline, **kwargs):
     "`inline` is usually inline_admin_formset.opts, which is, e.g. SubjectViewInline"
     modelname = inline.model.__name__.lower()
     request = context['request']
-    return request.feed_upload_status.model_add_url(modelname, **kwargs)
+    try:
+        return request.feed_upload_status.model_add_url(modelname, **kwargs)
+    except ValueError:
+        raise
+        return ''
 
 @register.simple_tag(takes_context=True)
 def setup_or_add_session_text(context):

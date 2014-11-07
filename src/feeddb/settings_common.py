@@ -40,6 +40,7 @@ SITE_ROOT = relpath2abspath('');
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 # FEED: We use MEDIA_XXX only to store & server the user-uploaded files. 
 #   The MEDIA_ROOT var should be defined in the local settings.py
+#   In deployment, ensure that Apache is serving this directory directly.
 MEDIA_URL = '/uploads/'
 
 # Absolute path to [project root]/explorer/static, which holds
@@ -112,8 +113,9 @@ EXPLORER_TEMPORARY_FOLDER='/tmp'
 
 ### Debug toolbar configuration
 def custom_toolbar_show(request):
+    # Uncomment this line to enable the debug toolbar always
     #return True
-    return 'show_debug_toolbar' in request.session and request.session['show_debug_toolbar']
+    return False
 
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': 'feeddb.settings.custom_toolbar_show',

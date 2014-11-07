@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_modify feedmedia %}
+{% load i18n admin_modify feedmedia upload_status %}
 {% load explorer_display %}
 
 {% block extrahead %}{{ block.super }}
@@ -127,10 +127,11 @@
             {% elif 'strainsetup' == opts.model_name %}
             {% elif 'forcesetup' == opts.model_name %}
             {% elif 'pressuresetup' == opts.model_name %}
+            {% elif 'channellineup' == inline_admin_formset.opts.opts.model_name %}
             {% else %}
             <div class="row">
               <div class="col-xs-12">
-                <h3 class="overview-add"><a href="/admin/feed/{{ inline_admin_formset.opts.verbose_name }}/add"><span class='glyphicon glyphicon-plus-sign'></span>Add Another {{ inline_admin_formset.opts.verbose_name }}</a></h3>
+                <h3 class="overview-add"><a href="{% upload_status_model_add_url inline_admin_formset.opts %}"><span class='glyphicon glyphicon-plus-sign'></span>Add Another {{ inline_admin_formset.opts.verbose_name }}</a></h3>
               </div>
             </div>
             {% endif %}

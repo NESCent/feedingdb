@@ -50,14 +50,24 @@ def clone_experiment(experiment, recurse=True):
     if recurse:
         sessions = list(experiment.session_set.all())
 
+        # temp storage of channel map for use in session clone
+        experiment.channels_by_old_id = dict()
+
     _clone_basic(experiment)
+
 
     for setup in setups:
         setup.experiment = experiment
         clone_setup(setup)
 
+        # If we'll be cloning sessions later, we need to keep track of the
+        # correspondence between old and new channels. See clone_session() and
+        # clone_setup().
+        if recurse:
+            experiment.channels_by_old_id.update(setup.channels_by_old_id)
+
     for illustration in illustrations:
-        _clone_basic(illustration, subject=subject)
+        _clone_basic(illustration, experiment=experiment)
 
     if not recurse:
         return
@@ -71,7 +81,8 @@ def clone_setup(setup):
     # reverse foreign keys
     channels = list(setup.typed_channels())
     sensors = list(setup.typed_sensors())
-    sensors_by_old_id  = dict([(s.id, s) for s in sensors])
+    sensors_by_old_id = dict([(s.id, s) for s in sensors])
+    channels_by_old_id = dict([(c.id, c) for c in channels])
     illustrations = list(setup.illustration_set.all())
 
     _clone_basic(setup)
@@ -79,7 +90,7 @@ def clone_setup(setup):
     for sensor in sensors:
         # This modifies `sensor` in place, so `sensors_by_old_id` will contain
         # the new sensors when this loop finishes.
-        _clone_basic(sensor, setup=setup)
+        _clone_basic(sensor, rename=False, setup=setup)
 
     for channel in channels:
         # Each channel type has a different type of sensor, but, with the
@@ -88,19 +99,24 @@ def clone_setup(setup):
         if type(channel) == SonoChannel:
             new_crystal1 = sensors_by_old_id[channel.crystal1.id]
             new_crystal2 = sensors_by_old_id[channel.crystal2.id]
-            _clone_basic(channel, setup=setup, crystal1=new_crystal1, crystal2=new_crystal2)
+            _clone_basic(channel, rename=False, setup=setup, crystal1=new_crystal1, crystal2=new_crystal2)
         elif type(channel) == EventChannel:
-            _clone_basic(channel, setup=setup)
+            # Event channels don't have sensors
+            _clone_basic(channel, rename=False, setup=setup)
         elif hasattr(channel, 'sensor'):
             # This is for most channel types
             old_sensor = channel.sensor
             new_sensor = sensors_by_old_id[old_sensor.id]
-            _clone_basic(channel, setup=setup, sensor=new_sensor)
+            _clone_basic(channel, rename=False, setup=setup, sensor=new_sensor)
         else:
             raise ValueError("Channel %s (pk=%d) is of unknown type %s" % (channel, channel.pk, type(channel)))
 
     for illustration in illustrations:
         _clone_basic(illustration, setup=setup)
+
+    # save these dicts to the setup so clone_experiment() can use it later.
+    setup.sensors_by_old_id = sensors_by_old_id
+    setup.channels_by_old_id = channels_by_old_id
 
 def clone_session(session, recurse=True):
     """
@@ -124,7 +140,15 @@ def clone_session(session, recurse=True):
     # of channels to the new m2m field, but we have a `through` table, so
     # we have to make new relationships manually.
     for lineup in channellineups:
+        if settings.DEBUG:
+            print "Old lineup: Pos %d, Chan %s (pk=%d)" % (lineup.position, lineup.channel, lineup.channel.pk)
         lineup.session = session
+
+        # If we're in an experiment clone (or study clone), there will be new
+        # channels and we need to update the lineup to refer to the new
+        # channels. See clone_experiment() and clone_setup().
+        if hasattr(session.experiment, 'channels_by_old_id'):
+            lineup.channel = session.experiment.channels_by_old_id[lineup.channel.id]
         clone_lineup(lineup)
 
 def clone_trial(trial, recurse=True):
@@ -132,17 +156,21 @@ def clone_trial(trial, recurse=True):
 
 def clone_lineup(lineup):
     _clone_basic(lineup)
+    if settings.DEBUG:
+        print "New lineup: Pos %d, Chan %s (pk=%d)" % (lineup.position, lineup.channel, lineup.channel.pk)
 
-def _clone_basic(thing, **kwargs):
+def _clone_basic(thing, rename=True, **kwargs):
     if settings.DEBUG:
         print "Old %s: %s (%d)" % (type(thing).__name__, thing, thing.pk)
 
     thing.id = None
     thing.pk = None
-    if hasattr(thing, 'title'):
-        thing.title = 'Clone of "%s"' % (thing.title)
-    if hasattr(thing, 'name'):
-        thing.name = 'Clone of "%s"' % (thing.name)
+    if rename:
+        if hasattr(thing, 'title'):
+            thing.title = 'Clone of "%s"' % (thing.title)
+        if hasattr(thing, 'name'):
+            thing.name = 'Clone of "%s"' % (thing.name)
+
     for key, value in kwargs.iteritems():
         setattr(thing, key, value)
     thing.save()

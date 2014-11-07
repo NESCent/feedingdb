@@ -1,12 +1,8 @@
 {% load feed_util %}
 {{ object.title }}
-{{ object.bookkeeping }}
 {{ object.session.title }}
-{{ object.session.bookkeeping }}
 {{ object.session.experiment.title }}
-{{ object.session.experiment.bookkeeping }}
 {{ object.session.experiment.study.title }}
-{{ object.session.experiment.study.bookkeeping }}
 {{ object.session.experiment.study.start }}
 {{ object.session.experiment.study.end }}
 {{ object.session.experiment.study.funding_agency }}
@@ -23,7 +19,6 @@
 {{ object.session.experiment.subject.taxon.common_name }}
 {{ object.session.experiment.subject.name }}
 {{ object.session.experiment.subject.breed }}
-{{ object.session.experiment.subject.sex }}
 {{ object.session.experiment.subject.source }}
 {{ object.session.experiment.subject.notes }}
 
@@ -35,9 +30,6 @@
 {{ object.session.experiment.end }}
 {{ object.session.experiment.description }}
 {{ object.session.experiment.subj_devstage.label }}
-{{ object.session.experiment.subj_age }}
-{{ object.session.experiment.subj_ageunit.label }}
-{{ object.session.experiment.subj_weight }}
 {{ object.session.experiment.subj_tooth }}
 {{ object.session.experiment.subject_notes }}
 {{ object.session.experiment.impl_notes }}
@@ -50,15 +42,12 @@
   {% endfor %}
   {% for sensor in setup.sensor_set.all %}
     {{ sensor.name }}
-    {{ sensor.location_freetext }}
     {{ sensor.notes }}
-    {{ sensor.emgsensor.muscle }}
-    {{ sensor.sonosensor.muscle }}
+    {{ sensor.get_location_for_search }}
 
-    {% comment %}
-      Question: should I include other sensor fields that come from controlled
-      vocabularies? For example: axes? electrode type?
-    {% endcomment %}
+    {{ sensor.emgsensor.electrode_type }}
+
+    {{ sensor.strainsensor.gage_type }}
   {% endfor %}
 {% endfor %}
 
@@ -87,13 +76,10 @@
 {{ object.food_size }}
 {{ object.food_property }}
 {{ object.behaviorowl_primary.label }}
+{{ object.behaviorowl_primary.synonyms_comma_separated }}
 {{ object.behaviorowl_primary.obo_definition }}
 {{ object.behaviorowl_primary.rdfs_comment }}
 {{ object.behaviorowl_primary.uri }}
 {{ object.behaviorowl_primary.rdfs_is_class }}
-{{ object.behaviorowl_secondary.label }}
-{{ object.behaviorowl_secondary.obo_definition }}
-{{ object.behaviorowl_secondary.rdfs_comment }}
-{{ object.behaviorowl_secondary.uri }}
-{{ object.behaviorowl_secondary.rdfs_is_class }}
+{# omitting behaviorowl_secondary because it is deprecated in FEED2 #}
 {{ object.behavior_notes }}

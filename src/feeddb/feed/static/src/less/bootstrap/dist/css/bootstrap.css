@@ -6347,7 +6347,7 @@ body form tr td.notes textarea {
   height: 60px;
 }
 body form tr td.muscle .chosen-container {
-  width: 300px !important;
+  width: 180px !important;
 }
 body form tr td.axisdepth .chosen-container {
   width: 89px !important;
@@ -6426,6 +6426,24 @@ body header .login a {
 body header .login p {
   margin-bottom: 40px;
 }
+body header.logged-out {
+  background: #112e4f;
+}
+body header.logged-out .login a {
+  color: #ceeded;
+}
+body header.logged-out .login a:hover {
+  color: #007ecf;
+}
+body header.logged-out .logo {
+  float: left;
+  background: url('../../../../../images/footer-logo.png') no-repeat;
+  background-size: 163px;
+  height: 85px;
+  padding: 63px 0 0 180px;
+  font: 400 21px 'PT Sans', sans-serif;
+  color: #ffffff;
+}
 body nav {
   background: #112e4f;
 }
@@ -6470,6 +6488,23 @@ body nav ul li .dropdown-menu li a:hover {
 body nav ul li .dropdown-toggle:focus {
   color: #ceeded;
   text-decoration: none;
+}
+body nav.logged-out ul {
+  margin-top: 61px;
+  float: right;
+}
+body nav.logged-out ul li {
+  float: left;
+  margin: 0 0 0 44px;
+}
+body nav.logged-out ul li a {
+  padding: 0;
+}
+body nav.logged-out ul li a:hover {
+  color: #007ecf;
+}
+body nav.logged-out ul li:hover {
+  background: none;
 }
 body .masthead {
   padding: 32px 0 0 0;
@@ -6646,7 +6681,7 @@ body.about .box {
   border: 1px solid #e8e5e2;
   padding: 10px 30px;
   margin-bottom: 30px;
-  min-height: 366px;
+  min-height: 422px;
 }
 body.about .box.box2 {
   min-height: inherit;
@@ -6776,6 +6811,9 @@ body.collection form table td {
 body.collection-detail #trial_form th:first-child {
   width: 30px !important;
 }
+body.collection-detail .file-name {
+  word-wrap: break-word;
+}
 body.collection-detail footer {
   margin-top: 0;
 }
@@ -6816,6 +6854,26 @@ body main .records-list ul#id_per_page li label input {
   left: 0;
   width: 20px;
   margin: 6px 0 0 0;
+}
+body main .records-list.browse a {
+  color: #da5400;
+  margin-right: 5px;
+}
+body main .records-list.browse a.showall {
+  margin-top: 1px;
+  float: right;
+}
+body main .records-list.browse .float-right {
+  margin-right: 15px;
+}
+body main .records-list.browse .float-right p {
+  margin: 1px 5px 0 0;
+}
+body main .records-list.browse .float-right span {
+  font-family: 'Kameron', "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
+  font-size: 15px;
+  color: #007ecf;
+  margin-right: 5px;
 }
 body main table {
   width: 100%;
@@ -7405,7 +7463,7 @@ body .EMGElectrode #id_emgsensor_set_0_axisdepth_chosen {
   width: 102px !important;
 }
 body .EMGElectrode #id_emgsensor_set-0-rate {
-  width: 136px;
+  width: 66px;
 }
 body .EMGElectrode #id_emgsensor_set_0_emg_filtering_chosen {
   width: 91px !important;

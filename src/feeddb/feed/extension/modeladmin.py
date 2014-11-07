@@ -14,6 +14,7 @@ from django.core.exceptions import PermissionDenied
 from django.db import models, transaction
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.utils.http import is_safe_url
 from django.shortcuts import get_object_or_404, render_to_response
 from django.utils.datastructures import SortedDict
 from functools import update_wrapper, partial
@@ -89,7 +90,7 @@ class SetupTabularInline(FeedTabularInline):
 class FeedModelAdmin(admin.ModelAdmin):
     view_inlines = []
     list_per_page = 30
-    list_max_show_all = 100
+    list_max_show_all = 200
     # Custom templates (designed to be over-ridden in subclasses)
     view_form_template = None
     #change_form_template = "admin/tabbed_change_form.html"
@@ -260,9 +261,9 @@ class FeedModelAdmin(admin.ModelAdmin):
     def _alter_view_context(self, context):
         # regroup inline_admin_formsets for study view page
 
-        def _get_first_original_in_formset(formset):
-            for form in inline_admin_formset:
-                return form.original
+        def _get_type_of_formset(formset):
+            inline = formset.opts
+            return inline.model
 
         def _forms_in_container(formset, fieldname, value):
             for form in inline_admin_formset:
@@ -279,16 +280,17 @@ class FeedModelAdmin(admin.ModelAdmin):
                 }
 
         if self.model == Study:
+            study = context.get('original', None)
+
             for inline_admin_formset in context['inline_admin_formsets']:
-                original = _get_first_original_in_formset(inline_admin_formset)
-                Model = type(original)
+                Model = _get_type_of_formset(inline_admin_formset)
 
                 if Model == Session:
                     fieldname = 'experiment'
-                    containers = original.study.experiment_set.all()
+                    containers = study.experiment_set.all()
                 elif Model == Trial:
                     fieldname = 'session'
-                    containers = original.study.session_set.all()
+                    containers = study.session_set.all()
                 else:
                     continue
 
@@ -312,7 +314,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         return self.response_post_save_add(request, obj)
 
     @csrf_protect_m
-    def delete_view(self, *args, **kwargs):
+    def delete_view(self, request, object_id, *args, **kwargs):
         """
         Override ModelAdmin.delete_view() to augment template context with list
         of "critical" objects.  These are objects which should cause pause to
@@ -320,33 +322,31 @@ class FeedModelAdmin(admin.ModelAdmin):
         secure.
         """
 
-        res = super(FeedModelAdmin, self).delete_view(*args, **kwargs)
+        obj = self.get_object(request, unquote(object_id))
+        if obj is not None and self.has_change_permission(request, obj):
+            request.feed_upload_status.update_with_object(obj, fail_silently=True)
 
-        # Add "associated critical objects" to context if possible.
-        try:
-            obj = res.context_data['object']
-            res.context_data['associated_critical_objects'] = get_associated_critical_objects(obj)
-        except AttributeError:
-            # This exception will happen if res is an HttpResponseRedirect or
-            # if context_data['object'] doesn't exist for some reason. In
-            # either case, not much we can do.
-            pass
+        res = super(FeedModelAdmin, self).delete_view(request, object_id, *args, **kwargs)
+
+        if isinstance(res, HttpResponseRedirect):
+            redirect_to = request.REQUEST.get('next', '')
+            if is_safe_url(url=redirect_to, host=request.get_host()):
+                res = HttpResponseRedirect(redirect_to)
+            else:
+                # TODO: log to debug?
+                pass
+        else:
+            # Add "associated critical objects" to context if possible.
+            try:
+                obj = res.context_data['object']
+                res.context_data['associated_critical_objects'] = get_associated_critical_objects(obj)
+            except AttributeError:
+                # This exception will happen if res is an HttpResponseRedirect or
+                # if context_data['object'] doesn't exist for some reason. In
+                # either case, not much we can do.
+                pass
 
         return res
-
-    """
-    get response url after deleting an object
-    """
-    def get_response_url(self,request):
-        post_url = '../../'
-        q_str = request.META['QUERY_STRING']
-        if q_str in (None, ''):
-            return post_url
-        pos = q_str.find('created_by')
-        if pos != -1:
-            return "%s?%s" % (post_url, q_str)
-        q_str= q_str.replace("=","/")
-        return "../../../%s" % q_str
 
     """
     overwrite the function to set the created_by for any associated records before saving
