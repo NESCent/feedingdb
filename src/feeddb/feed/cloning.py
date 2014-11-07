@@ -153,7 +153,20 @@ def clone_session(session, recurse=True, created_by=None):
         # channels and we need to update the lineup to refer to the new
         # channels. See clone_experiment() and clone_setup().
         if hasattr(session.experiment, 'channels_by_old_id'):
-            lineup.channel = session.experiment.channels_by_old_id[lineup.channel.id]
+            if lineup.channel is not None:
+                try:
+                    lineup.channel = session.experiment.channels_by_old_id[lineup.channel.id]
+                except KeyError:
+                    import textwrap
+                    raise ValueError(textwrap.dedent("""
+                        On Lineup %d, session %d, channel %d is invalid.
+
+                        No setup on experiment %d has this channel. Available channels: [%s]
+
+                        This usually indicates an error in a previous cloning operation.""" %
+                        (lineup.pk, session.old_pk, lineup.channel.pk, session.experiment.old_pk,
+                            ", ".join(session.experiment.channels_by_old_id.keys()))))
+
         clone_lineup(lineup, created_by=created_by)
 
 def clone_trial(trial, recurse=True, created_by=None):
@@ -170,8 +183,8 @@ def _clone_basic(thing, rename=True, created_by=None, **kwargs):
     if settings.DEBUG:
         print "Old %s: %s (%d)" % (type(thing).__name__, thing, thing.pk)
 
-    oldpk = thing.pk
-    thing.id = None
+    thing.old_id = thing.id
+    thing.old_pk = thing.pk
     thing.pk = None
     if rename:
         if hasattr(thing, 'title'):
@@ -191,7 +204,7 @@ def _clone_basic(thing, rename=True, created_by=None, **kwargs):
         try:
             mock_request = lambda: None
             mock_request.user = created_by
-            modeladmin.log_change(mock_request, thing, 'Cloned from %s %d' % (type(thing).__name__, oldpk))
+            modeladmin.log_change(mock_request, thing, 'Cloned from %s %d' % (type(thing).__name__, thing.old_pk))
         except AttributeError:
             pass
 
