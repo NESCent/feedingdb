@@ -130,3 +130,9 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 EXPLORER_TEMPORARY_FOLDER = '/tmp'
 
 SOUTH_TESTS_MIGRATE = False
+
+# List file extensions allowed for data files attached to Trials.
+#
+# Include the leading dot "." -- we simply check that the filename ends with
+# one of these strings.
+FEED_ALLOWED_DATA_FILE_EXTENSIONS = ('.txt', '.dat', '.csv', '.tsv')
