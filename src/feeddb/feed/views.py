@@ -106,6 +106,7 @@ class ModelCloneView(FormView):
         elif self.container_type == None:
             kwargs['container'] = None
         kwargs['clone_subject'] = self.clone_subject
+        kwargs['prefix'] = 'clone'
         return kwargs
 
     def _make_message(self, source, recurse):
@@ -131,8 +132,11 @@ class ModelCloneView(FormView):
         from cloning import clone_supported_object
         source = form.cleaned_data['source']
         recurse = form.cleaned_data['recurse']
-        clone_supported_object(source, recurse=recurse)
-        self.dest = source
+        if self.request.user.has_perm('feed.add_%s' % type(source).__name__.lower()):
+            clone_supported_object(source, recurse=recurse, created_by=self.request.user)
+            self.dest = source
+        else:
+            raise PermissionDenied("Insufficient permission to clone object")
 
         messages.info(self.request, self._make_message(source, recurse))
 

@@ -9,6 +9,9 @@ from feeddb.feed.extension.formsets import *
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.contrib.auth.models import User, Group
 
+def feed_get_admin(model):
+    return admin.site._registry.get(model, None)
+
 class StudyPrivateInline(admin.StackedInline):
     model = StudyPrivate
     extra = 1
