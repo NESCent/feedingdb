@@ -27,9 +27,9 @@ def validate_start_end(cleaned_data):
     Helper method used in Form.clean() methods to check start and end date
     sanity
     """
-    start = cleaned_data['start']
-    end = cleaned_data['end']
-    if end is not None and end < start:
+    start = cleaned_data.get('start', None)
+    end = cleaned_data.get('end', None)
+    if start is not None and end is not None and end < start:
         raise ValidationError('Problem with start and end dates: end must post-date start')
 
 DATE_HELP_TEXT = DATETIME_HELP_TEXT  #imported from feeddb.feed.models
