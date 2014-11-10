@@ -177,7 +177,11 @@ def clone_trial(trial, recurse=True, created_by=None):
 def clone_lineup(lineup, created_by=None):
     _clone_basic(lineup, created_by=created_by)
     if settings.DEBUG:
-        print "New lineup: Pos %d, Chan %s (pk=%d)" % (lineup.position, lineup.channel, lineup.channel.pk)
+        try:
+            channel_pk = lineup.channel.pk
+        except AttributeError:
+            channel_pk = -1
+        print "New lineup: Pos %d, Chan %s (pk=%d)" % (lineup.position, lineup.channel, channel_pk)
 
 def _clone_basic(thing, rename=True, created_by=None, **kwargs):
     if settings.DEBUG:
