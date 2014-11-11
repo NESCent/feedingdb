@@ -29,11 +29,26 @@ DATABASE_ENGINE = 'postgresql_psycopg2'
 # Enter the database credentials used to connect to the Postgres server. The
 # user must be a user with an actual password; Postgres's `ident`
 # authentication doesn't work here.
-DATABASE_NAME = ''
-DATABASE_USER = ''
-DATABASE_PASSWORD = ''
-DATABASE_HOST = ''             # Leave as empty string for localhost.
-DATABASE_PORT = ''             # Leave as empty string for default.
+DATABASES = {
+    'default': {
+        'NAME': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+    }
+}
+
+# Specify the solr connection information here. The default URL
+# for a local solr instance is http://127.0.0.1:8983/solr
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr'
+        # ...or for multicore...
+        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
+    },
+}
 
 # Django encryption key
 #
