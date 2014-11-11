@@ -2,6 +2,7 @@ from django.contrib.admin.views.main import ALL_VAR, EMPTY_CHANGELIST_VALUE
 from django.contrib.admin.views.main import ORDER_VAR, ORDER_TYPE_VAR, PAGE_VAR, SEARCH_VAR
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django import forms
 from django.utils import dateformat
 from django.utils.html import escape, conditional_escape
 from django.utils.text import capfirst
@@ -63,6 +64,8 @@ def display_readonly(field, adminform):
     elif isinstance(field.field.field.widget, AdminFileWidget):
         if value!=None and value!="":
             real_value=display_file(value)
+    elif isinstance(field.field.field, forms.BooleanField):
+        real_value = "Yes" if value else "No"
     else:
         real_value = value
 
