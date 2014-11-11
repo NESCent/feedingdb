@@ -38,10 +38,11 @@ def _display_readonly_related_field(field, adminform):
 @register.inclusion_tag("admin/includes/field.html")
 def display_readonly(field, adminform):
     values =[]
-    value=field.field.field.initial
+    value = field.field.value()
+
     if value==None:
         value = adminform.form.initial.get(field.field.name)
-    
+
     if hasattr(value, "append"):
         values =value
     else:
@@ -62,9 +63,9 @@ def display_readonly(field, adminform):
     elif isinstance(field.field.field.widget, AdminFileWidget):
         if value!=None and value!="":
             real_value=display_file(value)
-    else:     
+    else:
         real_value = value
-         
+
     return {'value': mark_safe(real_value)}
 
 def display_classname(obj):
@@ -74,6 +75,6 @@ def display_classname(obj):
         classname = obj.formset.model.__name__.lower()
     else:
         classname = obj.__class__.__name__.lower()
-    
+
     return classname
 display_classname = register.simple_tag(display_classname)
