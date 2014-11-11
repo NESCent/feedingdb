@@ -187,9 +187,15 @@ def _clone_basic(thing, rename=True, created_by=None, **kwargs):
     if settings.DEBUG:
         print "Old %s: %s (%d)" % (type(thing).__name__, thing, thing.pk)
 
-    thing.old_id = thing.id
     thing.old_pk = thing.pk
+
+    # In case this is an instance of a subclass of a non-abstract model, we
+    # have to explicitly set both id and pk to None.
+    #
+    # @see https://docs.djangoproject.com/en/1.7/topics/db/queries/#copying-model-instances
     thing.pk = None
+    thing.id = None
+
     if rename:
         if hasattr(thing, 'title'):
             thing.title = 'Clone of "%s"' % (thing.title)
