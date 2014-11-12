@@ -1,6 +1,16 @@
 FEED: a database of mammalian feeding behaviors
 ====
 
+Getting started with Vagrant
+----
+
+Ensure you have `vagrant` and `vagrant-triggers` installed.
+
+1. Download and install `vagrant`: https://www.vagrantup.com/downloads.html
+2. Run: `vagrant plugin install vagrant-triggers`
+
+Now you can bring up the vagrant box for FEED: Anywhere in this repository, run: `vagrant up`.
+
 Starting with a prod DB dump (for dev use)
 ----
 
