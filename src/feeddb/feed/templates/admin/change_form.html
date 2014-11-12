@@ -220,12 +220,12 @@
                 </div>
               </div>
               {% if opts.model_name == 'trial' or opts.model_name == 'subject' %}
-              <input type="hidden" name="{{ form.recurse.html_name }}" value="do_not" />
+              <input type="hidden" name="{{ form.recurse.html_name }}" value="" />
               {% else %}
               <div class="modal-choices">
                 <div class="row">
                   <div class="col-xs-1 col-xs-offset-1">
-                    <input type="radio" name="{{ form.recurse.html_name }}" id="recurse_do_not" value="do_not" checked>
+                    <input type="radio" name="{{ form.recurse.html_name }}" id="recurse_do_not" value="" checked>
                   </div>
                   <div class="col-xs-10">
                     <label for="recurse_do_not">
@@ -241,7 +241,7 @@
                 </div>
                 <div class="row">
                   <div class="col-xs-1 col-xs-offset-1">
-                    <input type="radio" name="{{ form.recurse.html_name }}" id="recurse_do" value="do">
+                    <input type="radio" name="{{ form.recurse.html_name }}" id="recurse_do" value="on">
                   </div>
                   <div class="col-xs-10">
                     <label for="recurse_do">
@@ -307,7 +307,7 @@ jQuery(document).on('ready', function() {
 
   var $empty_error_div = $('#source-empty-error');
   var $clone_form = $('#clone-form');
-  var $source_select = $('#id_source');
+  var $source_select = $('#id_clone-source');
 
   $clone_form.on('submit', function(ev) {
     var source = 0|$source_select.val();
