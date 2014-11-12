@@ -4,8 +4,9 @@ FEED: a database of mammalian feeding behaviors
 Getting started with Vagrant
 ----
 
-Ensure you have `vagrant` and `vagrant-triggers` installed.
+Ensure you have VirtualBox, `vagrant` and `vagrant-triggers` installed.
 
+0. Download and install VirtualBox: https://www.virtualbox.org/wiki/Downloads
 1. Download and install `vagrant`: https://www.vagrantup.com/downloads.html
 2. Run: `vagrant plugin install vagrant-triggers`
 
