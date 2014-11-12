@@ -127,7 +127,7 @@ The deployment process should be very similar to the setup for a dev environment
 7. Load correspondences for behavior and muscles. See above for details.
 8. Populate the `solr` search index. See below for details.
 9. Configure a `cron` job to keep the search index up to date. See below for details.
-9. Configure permissions on the upload directory to allow the Django app to write to the directory.
+9. Configure permissions on the upload directory to allow the Django app to write to the directory. On CentOS, this looks like: `chown -R apache <dir>` or `chgrp -R apache <dir> && find <dir> -type d | xargs chmod g+ws`
 9. Check that all features are working as expected. Test thoroughly before opening up access to general users.
 
 *Note*: It is assumed you are in the `src` directory for all commands described in this file.
