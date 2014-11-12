@@ -121,12 +121,26 @@ The deployment process should be very similar to the setup for a dev environment
 
 *Note*: It is assumed you are in the `src` directory for all commands described in this file.
 
+Prerequisite packages
+----
+
+On CentOS 6 or RHEL 6, the following command will install the requisite packages for the deployment on Apache 2 using python virtualenv:
+
+```
+yum install -y postgresql-devel python-virtualenv python-pip python httpd
+```
+
+This document was prepared using python 2.6, Apache 2, and Postgres 8.4.20. Other versions may or may not work, but we do recommend using the versions maintained by your chosen distribution.
+
 Python environment
 ----
 
-If deploying on a server with other web apps, it is recommended to use Python's `virtualenv` feature to isolate the environment of this application. If you don't use `virtualenv`, you can omit the first two lines of this recipe:
+It is generally recommended to use Python's `virtualenv` feature to isolate the environment of this application. The `virtualenv` utility creates an isolated python environment specific to FEED. If you are not using more than one python application on the server, you may safely omit use of `virtualenv`; packages will then be installed globally and the installation process will likely require superuser privileges.
+
+The following commands will install the Python prerequisites for `feeddb`. If you don't use `virtualenv`, you can omit the first two lines of this recipe:
 
 ```
+cd .../path/to/this/repo/src
 virtualenv ~/feed-virtualenv
 source ~/feed-virtualenv/bin/activate
 pip install -r feeddb/requirements.txt
@@ -135,7 +149,7 @@ pip install -r feeddb/requirements.txt
 Web server (WSGI on Apache2)
 ----
 
-Configure your web server to server the FEED app. At Squishymedia, we use Apache2 with `mod_wsgi`. This is the VirtualHost configuration used for our development boxes:
+Configure your web server to serve the FEED app. At Squishymedia, we use Apache2 with `mod_wsgi`. This is the VirtualHost configuration used for our development boxes: (the repo is checked out at `/server`; your checkout directory will likely differ)
 
 ```
 <VirtualHost *:80>
@@ -164,12 +178,17 @@ Configure your web server to server the FEED app. At Squishymedia, we use Apache
 </VirtualHost>
 ```
 
-If you are using `virtualenv`, you must also specify the appropriate WSGIPythonHome configuration. For example:
+If you are using `virtualenv`, you must also specify the appropriate WSGIPythonHome configuration. At Squishymedia, we use the following snippet to configure `mod_wsgi`:
 
 ```
 <IfModule mod_wsgi.c>
+  # This is the path to the UNIX-domain socket for the WSGI server. This
+  # differs between distributions; on CentOS the path is `/var/run/wsgi`.
   WSGISocketPrefix /var/run/wsgi
-  WSGIPythonHome "/virtualenv/feeddb/"
+  
+  # This path should match the argument given to `virtualenv` when creating the
+  # virtual environment.
+  WSGIPythonHome "/path/to/your/feeddb/virtualenv/"
 </IfModule>
 ```
 
