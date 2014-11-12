@@ -157,6 +157,12 @@ source ~/feed-virtualenv/bin/activate
 pip install -r feeddb/requirements.txt
 ```
 
+If you are using `virtualenv`, you will need to "activate" the environment before Django's `manage.py` will work. This only needs to be done once per terminal session:
+
+```
+source .../path/to/virtualenv/bin/activate
+```
+
 Web server (WSGI on Apache2)
 ----
 
