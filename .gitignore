@@ -4,3 +4,4 @@
 .pydevproject
 whoosh_index/
 .vagrant*
+uploads

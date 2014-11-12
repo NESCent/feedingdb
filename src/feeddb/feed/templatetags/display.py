@@ -2,6 +2,7 @@ from django.contrib.admin.views.main import ALL_VAR, EMPTY_CHANGELIST_VALUE
 from django.contrib.admin.views.main import ORDER_VAR, ORDER_TYPE_VAR, PAGE_VAR, SEARCH_VAR
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django import forms
 from django.utils import dateformat
 from django.utils.html import escape, conditional_escape
 from django.utils.text import capfirst
@@ -38,10 +39,11 @@ def _display_readonly_related_field(field, adminform):
 @register.inclusion_tag("admin/includes/field.html")
 def display_readonly(field, adminform):
     values =[]
-    value=field.field.field.initial
+    value = field.field.value()
+
     if value==None:
         value = adminform.form.initial.get(field.field.name)
-    
+
     if hasattr(value, "append"):
         values =value
     else:
@@ -62,9 +64,11 @@ def display_readonly(field, adminform):
     elif isinstance(field.field.field.widget, AdminFileWidget):
         if value!=None and value!="":
             real_value=display_file(value)
-    else:     
+    elif isinstance(field.field.field, forms.BooleanField):
+        real_value = "Yes" if value else "No"
+    else:
         real_value = value
-         
+
     return {'value': mark_safe(real_value)}
 
 def display_classname(obj):
@@ -74,6 +78,6 @@ def display_classname(obj):
         classname = obj.formset.model.__name__.lower()
     else:
         classname = obj.__class__.__name__.lower()
-    
+
     return classname
 display_classname = register.simple_tag(display_classname)

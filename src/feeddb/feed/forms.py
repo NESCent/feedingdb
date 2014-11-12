@@ -57,7 +57,7 @@ class UserOwnProfileForm(forms.ModelForm):
 
 class ModelCloneForm(forms.Form):
     source = forms.ModelChoiceField(queryset=None)
-    recurse = forms.BooleanField()
+    recurse = forms.BooleanField(required=False)
 
     def __init__(self, container=None, *args, **kwargs):
         self.clone_subject = kwargs.pop('clone_subject', False)
@@ -100,14 +100,6 @@ class ModelCloneForm(forms.Form):
             }
             return reverse('clone_from_container', kwargs=kwargs)
 
-    def clean(self):
-        cleaned_data = super(ModelCloneForm, self).clean()
-        if self.data['recurse'] == 'do_not':
-            cleaned_data['recurse'] = False
-        elif self.data['recurse'] == 'do':
-            cleaned_data['recurse'] = True
-        return cleaned_data
-
     @classmethod
     def factory(cls, modeladmin, request):
         # fake context so I can re-use get_current_containers()
@@ -130,9 +122,9 @@ class ModelCloneForm(forms.Form):
         # Special case for subject, because its container is the same as when
         # cloning an experiment.
         if context['opts'].model_name == 'subject':
-            return cls(container=container, clone_subject=True)
+            return cls(container=container, clone_subject=True, prefix='clone')
         else:
-            return cls(container=container)
+            return cls(container=container, prefix='clone')
 
 class FeedSearchForm(FacetedSearchForm):
     per_page = ChoiceField(
