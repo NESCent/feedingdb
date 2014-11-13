@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse, NoReverseMatch
+from django.core.exceptions import ValidationError
 
 from django.utils.safestring import mark_safe
 
@@ -9,6 +10,16 @@ from django.conf import settings
 import datetime
 from django.db.models.expressions import F
 
+def validate_data_file_extension(fieldfile):
+    allowed_exts = settings.FEED_ALLOWED_DATA_FILE_EXTENSIONS
+    valid = False
+    for ext in allowed_exts:
+        if fieldfile.name.endswith(ext):
+            valid = True
+            break
+
+    if not valid:
+        raise ValidationError(u'File type not supported. Valid extensions are: %s' % ", ".join(allowed_exts))
 
 DATETIME_HELP_TEXT = 'To manually enter a date use the format yyyy-mm-dd or choose a date from the calendar'
 # Only used for Trial here; the other containers are are affected through forms.py -- go figure (VG)
@@ -834,6 +845,7 @@ class Trial(FeedBaseModel):
     behavior_notes = models.TextField("Behavior Notes", blank = True, null=True)
 
     data_file  = models.FileField(verbose_name="Data File",upload_to=get_data_upload_to ,  blank = True, null=True,
+                                  validators=[validate_data_file_extension],
                                   help_text="A tab-delimited file with columns corresponding to the channel lineup specified in the Recording Session.")
     waveform_picture = models.FileField(verbose_name="Illustration", upload_to="pictures",  blank = True, null=True,
                                         help_text="A picture (jpeg, pdf, etc.) as a graphical overview of data in the data file.")
