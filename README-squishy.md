@@ -138,7 +138,7 @@ Prerequisite packages
 On CentOS 6 or RHEL 6, the following command will install the requisite packages for the deployment on Apache 2 using python virtualenv:
 
 ```
-yum install -y postgresql-devel python-virtualenv python-pip python httpd
+yum install -y postgresql-devel python-virtualenv python-pip python python-devel httpd
 ```
 
 This document was prepared using python 2.6, Apache 2, and Postgres 8.4.20. Other versions may or may not work, but we do recommend using the versions maintained by your chosen distribution.
