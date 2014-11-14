@@ -82,6 +82,8 @@ def display_unit(lineup):
         return silent_if_none(lineup.channel.strainchannel.unit)
     elif lineup.channel.setup.technique == Techniques.ENUM.event:
         return silent_if_none(lineup.channel.eventchannel.unit)
+    elif lineup.channel.setup.technique == Techniques.ENUM.other:
+        return "Unknown or N/A"
     else:
         return "ERROR: unknown technique in display_unit()"
 
@@ -102,6 +104,8 @@ def display_sensor1(lineup):
         return silent_if_none(lineup.channel.strainchannel.sensor.id)
     elif lineup.channel.setup.technique == Techniques.ENUM.event:
         return ""
+    elif lineup.channel.setup.technique == Techniques.ENUM.other:
+        return silent_if_none(lineup.channel.otherchannel.sensor.id)
     else:
         return "ERROR: unknown technique in display_sensor1()"
 
