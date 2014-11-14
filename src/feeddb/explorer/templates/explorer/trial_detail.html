@@ -35,7 +35,7 @@
             <tr><td class='TdField'>Name</td><td class='TdValue'>{{trial.session.experiment.study.title}}</td></tr>
             <tr><td class='TdField'>Start Date</td><td class='TdValue'>{{trial.session.experiment.study.start}}</td></tr>
             <tr><td class='TdField'>End Date</td><td class='TdValue'>{{trial.session.experiment.study.end}}</td></tr>
-            <tr><td class='TdField'>Approval</td><td class='TdValue'>{{trial.session.experiment.study.approval_secured}}</td></tr>
+            <tr><td class='TdField'>Approval</td><td class='TdValue'>{{trial.session.experiment.study.approval_type |default:'No Approval'}}</td></tr>
             <tr><td class='TdField'>Funding Acknowledgement</td><td class='TdValue'>{{trial.session.experiment.study.funding_agency}}</td></tr>
             <tr><td class='TdField'>Description</td><td class='TdValue'>{{trial.session.experiment.study.description}}</td></tr>
           </table>
