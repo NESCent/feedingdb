@@ -2,6 +2,10 @@ import os.path
 def relpath2abspath(relpath):
     return os.path.join(os.path.dirname(__file__), relpath).replace('\\','/')
 
+# List of Host headers where Django will allow the app to be served. We assume
+# that you're doing this at the Apache or Nginx level, so we use a wildcard.
+ALLOWED_HOSTS = ['*']
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
