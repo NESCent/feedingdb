@@ -120,7 +120,7 @@ The deployment process should be very similar to the setup for a dev environment
 
 1. Ensure your server has an appropriate Python environment and is able to serve Django applications. These requirements are mostly similar to FEED1's requirements. See below for details.
 2. Install and configure `solr`. See below for details.
-3. Configure `settings.py` to match your preferences and environment. Follow the instructions within those files. You may also want to read & revise `settings_common.py`.
+3. Copy `settings.py.example` to `settings.py` and modify it to match your preferences and environment. Follow the instructions within those files. You may also want to read & revise `settings_common.py`. The former is specific to your deployment and is not tracked in git; the latter is tracked and contains configuration that should be common to all instances of FEED.
 4. Load a FEED1 database into the location specified by `settings.py`. See above.
 5. Run the migrations to update the database schema: `./manage.py migrate feed`
 6. Load approval options. See above for details.
@@ -272,13 +272,15 @@ chkconfig solr on
 Solr (configuration)
 ----
 
-This repository includes a script that will generate a solr schema based on the index model defined in `feeddb/feed/search_indexes.py` and rebuild the index. In brief, it just does these things:
+The vagrant environment defined in this repo includes a script called `feeddb-refresh-solr` that will generate a solr schema based on the index model defined in `feeddb/feed/search_indexes.py` and rebuild the index. The script is simply a convenience wrapper around these three commands: (the first two must be run as root)
 
 ```
 ./manage.py build_solr_schema > /etc/solr/conf/schema.xml
 service solr restart
 ./manage.py rebuild_index --noinput
 ```
+
+As with all `./manage.py` commands, be sure you are using an appropriate Python environment (i.e. activate your virtualenv if you are using virtualenv).
 
 Cron
 ----
@@ -290,6 +292,12 @@ The index needs a cron job to stay current. The command to run is:
 ```
 
 where `X` is a number of hours. Content which has been modified in the last X hours will be re-indexed. Content which has been removed will be removed from the index.
+
+The cronjob must specify all paths absolutely. If you are using a virtualenv, be sure to use the python binary in that virtualenv. For example, this job will update the index every half hour by re-indexing changes from the last hour:
+
+```
+0,30 * * * * /virtualenv/feeddb/bin/python /server/feed-django/src/manage.py update_index --remove --age 1
+```
 
 
 Hosting & Maintenance Notes
