@@ -61,17 +61,19 @@ Then run one or both of these commands to import the correspondence(s) and updat
 ./manage.py loadcorrespondence b ../data/behavior_correspondence.csv
 ```
 
-If the FEED2 term cannot be found for any row, a message is printed showing the `pk` and `uri` value (including blank `uri` values). For example, this is a normal import with six unmigrated terms:
+If the FEED2 term cannot be found for any row, a message is printed showing the `pk` and `uri` value (including blank `uri` values). If the FEED1 term cannot be found for any row, a message is printed showing the `pk` and `uri` vlue. For example, this is an import with six unmigrated 7 unmigrated terms: six don't have a FEED2 equivalent and one FEED1 term can't be found.
 
 ```
-No match for 44: 
-No match for 54: 
-No match for 38: 
-No match for 4: 
-No match for 31: 
-No match for 29: 
+No match for uri ''; would have migrated from pk=44
+Cannot find CvTerm with pk=30; would migrate to uri: ''
+No match for uri ''; would have migrated from pk=54
+No match for uri ''; would have migrated from pk=38
+No match for uri ''; would have migrated from pk=4
+No match for uri ''; would have migrated from pk=31
+No match for uri ''; would have migrated from pk=29
 ```
 
+It is usually OK for these messages to appear, but a large number of failed matches might indicate a problem with the database or correspondence.
 
 Looking for FEED1 data which is now missing terms
 ----

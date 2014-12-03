@@ -32,16 +32,21 @@ class Command(BaseCommand):
                     # this row.
                     continue
 
-                cvterm = CvTerm.objects.get(id=cv_pk)
-                if cvterm:
-                    try:
-                        match = qs.get(uri__iexact=owl_uri)
-                    except ObjectDoesNotExist:
-                        print "No match for %d: %s" % (cv_pk, owl_uri)
-                        match = None
+                try:
+                    cvterm = CvTerm.objects.get(id=cv_pk)
+                except CvTerm.DoesNotExist:
+                    print "Cannot find CvTerm with pk=%d; would migrate to uri: '%s'" % (cv_pk, owl_uri)
+                    continue
 
-                    cvterm.ontology_term = match
-                    cvterm.save()
+                try:
+                    match = qs.get(uri__iexact=owl_uri)
+                except ObjectDoesNotExist:
+                    print "No match for uri '%s'; would have migrated from pk=%d" % (owl_uri, cv_pk)
+                    match = None
+
+                cvterm.ontology_term = match
+                cvterm.save()
+
 
         if Owl == MuscleOwl:
             # Now we can update the actual sensors. We assume that the
