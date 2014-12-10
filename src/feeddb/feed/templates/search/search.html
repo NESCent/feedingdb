@@ -201,13 +201,8 @@
 // TODO: add spinner graphiczzz!!
 jQuery(document).on('ready', function() {
   // Submit the form whenever a change is made to the form
-  $('form').find('.facet-group :input, #id_per_page :input').on('change', function() {
-    // But do it in a subsequent event loop so all other handlers have a chance
-    // to run first.
-    self = this;
-    setTimeout(function() {
-      self.form.submit();
-    }, 0);
+  $('form').find('.facet-group select, #id_per_page :input').on('change', function() {
+    this.form.submit();
   });
 
   $('select[name=bucket]').on('change', function() {
