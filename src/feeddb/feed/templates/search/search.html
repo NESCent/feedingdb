@@ -200,7 +200,10 @@
 <script>
 // TODO: add spinner graphiczzz!!
 jQuery(document).on('ready', function() {
-  $('form').find('.facet-group :input, #id_per_page :input').on('change', function() { this.form.submit(); });
+  // Submit the form whenever a change is made to the form
+  $('form').find('.facet-group select, #id_per_page :input').on('change', function() {
+    this.form.submit();
+  });
 
   $('select[name=bucket]').on('change', function() {
     var show_bucket_name_field = (this.value == 'add new bucket');
