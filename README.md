@@ -25,4 +25,4 @@ Copyright 2010 National Evolutionary Synthesis Center (NESCent).
 	Durham, NC 27705-4667
 	Tel: (919) 668-4551
 	Fax: (919) 668-9198
-	feeding-bugs@nescent.org
+	feeddb-contact@duke.edu
