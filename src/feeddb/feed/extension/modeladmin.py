@@ -374,7 +374,11 @@ class FeedModelAdmin(admin.ModelAdmin):
         if add:
             modelname = context['adminform'].form._meta.model.__name__.lower()
             # check to see that we have enough status information
-            add_url = request.feed_upload_status.model_add_url(modelname)
+            try:
+                add_url = request.feed_upload_status.model_add_url(modelname)
+            except ValueError:
+                add_url = False
+            #if add_url:
             request.feed_upload_status.apply_defaults_to_form(context['adminform'].form)
             context['clone_form'] = ModelCloneForm.factory(self, request)
 
@@ -462,7 +466,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         model = self.model
         obj = model.objects.get(pk=unquote(pk))
         if not obj is None:
-            request.feed_upload_status.update_with_object(obj)
+            request.feed_upload_status.update_with_object(obj, fail_silently=True)
         return super(FeedModelAdmin, self).history_view(request, pk, **kwargs)
 
     #get context from the url if adding data
