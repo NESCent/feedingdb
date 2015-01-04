@@ -420,13 +420,13 @@ class Experiment(FeedBaseModel):
     start = models.DateField("Start Date", null=True, help_text=DATETIME_HELP_TEXT)
     end = models.DateField("End Date", blank = True, null=True, help_text=DATETIME_HELP_TEXT)
     description = models.TextField(blank = True, null=True)
-    subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="Subject Development Stage")
+    subj_devstage = models.ForeignKey(DevelopmentStage,verbose_name="Subject Developmental Stage")
     subj_age = models.DecimalField("Subject Age",max_digits=19, decimal_places=1, blank = True, null=True,
                                    help_text = "As a decimal; use the following field to specify age units.")
     subj_ageunit = models.ForeignKey(AgeUnit, verbose_name='Age Units', blank = True, null = True)
-    subj_weight = models.DecimalField("subject Weight (kg)",max_digits=19, decimal_places=2, blank = True, null=True)
-    subj_tooth = models.CharField("Subject Teeth",max_length=255, blank = True, null=True,
-                                  help_text = "Stage of teeth development")
+    subj_weight = models.DecimalField("Subject Weight (kg)",max_digits=19, decimal_places=2, blank = True, null=True)
+    subj_tooth = models.CharField("Dental Developmental Stage",max_length=255, blank = True, null=True,
+                                  help_text = "Dental development and/or eruption status of the subject at the time of the experiment")
     subject_notes = models.TextField("Subject Notes", blank = True, null=True)
     impl_notes = models.TextField("Implantation Notes", blank = True, null=True)
     def __unicode__(self):
