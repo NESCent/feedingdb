@@ -385,7 +385,7 @@ class StudyPrivate(FeedBaseModel):
     study = models.OneToOneField(Study)
 
     pi = models.CharField("Lab PI", max_length=255, null=True,
-                             help_text = "The name of the PI of the lab where the data were collected and/or the grant that funded the research")
+                             help_text = "The name of the PI of the lab where the data were collected and/or of the grant that funded the research.")
     notes = models.TextField("Private Notes", blank=True, null=True)
 
     class Meta:
