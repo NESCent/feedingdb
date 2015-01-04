@@ -408,7 +408,7 @@ class Subject(FeedBaseModel):
     sex = models.CharField(max_length=2, choices = GENDER_CHOICES, blank = True, null=True, help_text="'-----' means sex is not known.")
     source = models.CharField(max_length=255, blank = True, null=True,
                               help_text = "E.g. wild-caught, zoo, laboratory raised, etc.")
-    notes = models.TextField(blank = True, null=True, help_text="E.g., any relevant morphological data, such as muscle weights, muscle fiber angles, fiber types, CT scan images, anatomical drawings.")
+    notes = models.TextField(blank = True, null=True, help_text="Citations for, e.g., any relevant morphological data, such as muscle weights, muscle fiber angles, fiber types, CT scan images, anatomical drawings.")
     def __unicode__(self):
         return self.name
 
