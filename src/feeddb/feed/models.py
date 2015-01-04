@@ -404,7 +404,7 @@ class Subject(FeedBaseModel):
     study = models.ForeignKey(Study)
     taxon = models.ForeignKey(Taxon)
     name = models.CharField(max_length=255)
-    breed = models.CharField(max_length=255, blank = True, null=True)
+    breed = models.CharField("Sub-species, Strain, or Breed", max_length=255, blank = True, null=True)
     sex = models.CharField(max_length=2, choices = GENDER_CHOICES, blank = True, null=True)
     source = models.CharField(max_length=255, blank = True, null=True,
                               help_text = "E.g. wild-caught, zoo, laboratory raised, etc.")
