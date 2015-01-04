@@ -494,7 +494,7 @@ class Setup(FeedBaseModel):
     experiment = models.ForeignKey(Experiment)
     technique = models.IntegerField(choices=Techniques.CHOICES)
     notes = models.TextField("Notes about all sensors and channels in this setup", blank = True, null=True)
-    sampling_rate = models.IntegerField("Sampling Rate (Hz)", blank=True, null=True)
+    sampling_rate = models.IntegerField("Sampling Rate (Hz)", blank=True, null=True, help_text = "Recording rate is required for each sensor channel. If data are sampled at a rate different from the recording rate for individual channels, it is noted here.")
     class Meta:
         verbose_name = "Setup"
 
