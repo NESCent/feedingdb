@@ -523,7 +523,7 @@ class Setup(FeedBaseModel):
             yield channel.typed()
 
 class EmgSetup(Setup):
-    preamplifier = models.CharField(max_length=255, blank = True, null=True)
+    preamplifier = models.CharField(max_length=255, blank = True, null=True, help_text = "The make and model of the (pre-)amplifier.")
     class Meta:
         verbose_name = "EMG Setup"
 
