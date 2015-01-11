@@ -1,6 +1,22 @@
 # Feeding Experiments End-user Database (FEED)
 
-The [Feeding Experiments End-user Database](http://www.feedexp.org/) (FEED) was developed by the [Mammalian Feeding Working Group at NESCent](http://nescent.org/science/awards_summary.php?id=150) to permit synthetic, evolutionary analyses of the physiology of mammalian feeding. FEED manages raw physiologic data linked to extensive metadata, including EMG, kinematic, and bone strain recordings.
+The [Feeding Experiments End-user Database](http://www.feedexp.org/)
+(FEED) was first developed by the [Mammalian Feeding Working Group] at
+NESCent to permit synthetic, evolutionary analyses of the physiology
+of mammalian feeding. FEED manages raw physiologic data linked to
+extensive metadata, including EMG, kinematic, and bone strain
+recordings.
+
+The successor version (FEED v2) was developed with support by NSF awards
+DBI-1062333 and DBI-1444582 to Christine Wall (Duke University). Full
+credits are available from the database website (click "About").
+
+## How to cite
+
+If you use the FEED data, ontologies, or application, or publish
+results attained from it, please cite as follows:
+
+> Wall, C. E., Vinyard, C. J., Williams, S. H., Gapeyev, V., Liu, X., Lapp, H., and German, R. Z. 2011. Overview of FEED, the Feeding Experiments End-User Database. Integrative and Comparative Biology 51(2):215-223. http://dx.doi.org/10.1093/icb/icr047
 
 ## Copyright and License
 
@@ -26,3 +42,5 @@ Copyright 2010 National Evolutionary Synthesis Center (NESCent).
 	Tel: (919) 668-4551
 	Fax: (919) 668-9198
 	feeddb-contact@duke.edu
+
+[Mammalian Feeding Working Group]: http://nescent.org/science/awards_summary.php?id=150
