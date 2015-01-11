@@ -36,11 +36,10 @@ Copyright 2010 National Evolutionary Synthesis Center (NESCent).
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## Contact: 
-    National Evolutionary Synthesis Center
-	2024 W. Main Street, Suite A200
-	Durham, NC 27705-4667
-	Tel: (919) 668-4551
-	Fax: (919) 668-9198
-	feeddb-contact@duke.edu
+
+To request permission to register as a data contributor, to provide
+feedback, or to report bugs, please email feeddb-contact@duke.edu.
+Chris Wall, the Principal Investigator, can be reached at
+christine.wall@duke.edu.
 
 [Mammalian Feeding Working Group]: http://nescent.org/science/awards_summary.php?id=150
