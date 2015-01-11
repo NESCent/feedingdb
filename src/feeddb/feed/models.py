@@ -413,7 +413,7 @@ class Subject(FeedBaseModel):
         return self.name
 
 class Experiment(FeedBaseModel):
-    title = models.CharField(max_length=255)
+    title = models.CharField("Experiment title", max_length=255)
     bookkeeping = models.CharField("Bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     study = models.ForeignKey(Study)
     subject = models.ForeignKey(Subject)
@@ -782,7 +782,7 @@ class OtherChannel(Channel):
         verbose_name = "Other Channel"
 
 class Session(FeedBaseModel):
-    title = models.CharField(max_length=255)
+    title = models.CharField("Session title", max_length=255)
     bookkeeping = models.CharField("Bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     study = models.ForeignKey(Study)
     experiment = models.ForeignKey(Experiment)
@@ -815,7 +815,7 @@ def get_data_upload_to(instance, filename):
     return 'data/study_%d/experiment_%d/session_%d/%s' % (study.id, experiment.id,session.id, filename)
 
 class Trial(FeedBaseModel):
-    title = models.CharField(max_length=255)
+    title = models.CharField("Trial title", max_length=255)
     bookkeeping = models.CharField("Bookkeeping", max_length=255,blank = True, null=True, help_text = BOOKKEEPING_HELP_TEXT)
     session = models.ForeignKey(Session)
     experiment = models.ForeignKey(Experiment)
