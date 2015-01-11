@@ -20,7 +20,7 @@ results attained from it, please cite as follows:
 
 ## Copyright and License
 
-Copyright 2010 National Evolutionary Synthesis Center (NESCent). 
+Copyright 2010-2015 National Evolutionary Synthesis Center (NESCent). 
 
 >    This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
