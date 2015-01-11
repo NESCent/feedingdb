@@ -532,6 +532,11 @@ class SonoSetup(Setup):
     class Meta:
         verbose_name = "Sono Setup"
 
+    class FeedMeta:
+        help_text = """
+        If using sonomicrometry on non-muscle tissue, please stop with Sono Setup and use the Other Setup.
+        """
+
 class StrainSetup(Setup):
     class Meta:
         verbose_name = "Strain Setup"
@@ -558,8 +563,7 @@ class OtherSetup(Setup):
 
     class FeedMeta:
         help_text = """
-        This sensor type should be used only if your sensors don't fit into any
-        of the other categories.
+        This sensor type is for sonomicrometry on non-muscle tissue, and otherwise to be used only if your sensors don't fit into any of the other categories.
         """
 
 class Sensor(FeedBaseModel):
