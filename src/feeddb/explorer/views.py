@@ -21,6 +21,9 @@ from django.contrib import messages
 
 import os.path
 
+from unicodecsv import UnicodeWriter
+
+
 def portal_page(request):
     c = RequestContext(request, {'title': 'FeedDB Explorer', 'content': 'Welcome!'  })
     return render_to_response('explorer/index.html', c, mimetype="text/html")
@@ -212,7 +215,7 @@ def bucket_download(request, id):
             full_filename = "%s/trials.csv" % tempdir
             filenames["trials.csv"]=full_filename
 
-            metaWriter = csv.writer(open(full_filename,"w"), delimiter=delimiter_char,  doublequote='false' , escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
+            metaWriter = UnicodeWriter(open(full_filename,"w"), delimiter=delimiter_char,  doublequote='false' , escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
 
             #output trials
             #output headers
@@ -271,7 +274,7 @@ def bucket_download(request, id):
                 filenames[filename]=full_filename
 
                 f = open(full_filename,"w")
-                metaWriter = csv.writer(f, delimiter=delimiter_char, doublequote='false', escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
+                metaWriter = UnicodeWriter(f, delimiter=delimiter_char, doublequote='false', escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
                 metaWriter.writerow(headers)
                 objects={}
                 for lineup in trial.session.channellineup_set.all():
@@ -362,7 +365,7 @@ def bucket_download(request, id):
                 full_filename = "%s/channels.dat" % tempdir
                 filenames[filename]=full_filename
                 f = open(full_filename,"w")
-                metaWriter = csv.writer(f, delimiter=delimiter_char, doublequote='false', escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
+                metaWriter = UnicodeWriter(f, delimiter=delimiter_char, doublequote='false', escapechar ='\\', quotechar=quotechar_char, quoting=csv.QUOTE_MINIMAL)
                 metaWriter.writerow(channel_headers)
                 trial_readers={}
                 total_trial_number=0
