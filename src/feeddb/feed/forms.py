@@ -45,6 +45,7 @@ class UserOwnProfileForm(forms.ModelForm):
 
     class Meta:
         model = FeedUserProfile
+        fields = '__all__'
 
     def save(self, *args, **kwargs):
         u = self.instance.user

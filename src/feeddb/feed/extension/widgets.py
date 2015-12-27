@@ -1,18 +1,21 @@
-import copy
-
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
 from django.core.urlresolvers import reverse, NoReverseMatch
-from django import forms
-from django.forms.widgets import RadioFieldRenderer
 from django.forms.util import flatatt
-from django.utils.translation import ugettext as _
 from django.utils.safestring import mark_safe
+from django.utils.html import conditional_escape
 from django.utils.encoding import force_unicode
-from django.conf import settings
-from django.utils.html import escape, conditional_escape
-from django.utils.translation import ugettext
-from django.utils.encoding import StrAndUnicode, force_unicode
-from django.forms.widgets import Textarea, HiddenInput
+from django.forms.widgets import Textarea
+
+try:
+    from django.utils.encoding import StrAndUnicode
+except ImportError:
+    from django.utils.encoding import python_2_unicode_compatible
+
+    @python_2_unicode_compatible
+    class StrAndUnicode:
+        def __str__(self):
+            return self.code
+
 
 class FeedRelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
     def __init__(self, widget, rel, admin_site):
