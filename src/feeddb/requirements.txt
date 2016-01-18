@@ -1,5 +1,4 @@
 Django==1.8.7
-South==1.0
 django-pagination==1.0.5
 psycopg2==2.6.1
 wsgiref==0.1.2
