@@ -138,10 +138,16 @@ Prerequisite packages
 On CentOS 6 or RHEL 6, the following command will install the requisite packages for the deployment on Apache 2 using python virtualenv:
 
 ```
-yum install -y postgresql-devel python-virtualenv python-pip python python-devel httpd
+yum install -y postgresql-devel httpd
+yum install httpd-devel
+sudo yum install python27  # for this to work on RHEL 6, a repo for SCL needs to be added to `/etc/yum.repos.d/scl.repo`
+scl enable python27 bash  # will get you a python 2.7 bash session
+sudo LD_LIBRARY_PATH=$LD_LIBRARY_PATH easy_install pip
+sudo LD_LIBRARY_PATH=$LD_LIBRARY_PATH /opt/rh/python27/root/usr/bin/pip2.7 install mod_wsgi
+
 ```
 
-This document was prepared using python 2.6, Apache 2, and Postgres 8.4.20. Other versions may or may not work, but we do recommend using the versions maintained by your chosen distribution.
+This document was prepared using python 2.7, Apache 2, and Postgres 8.4.20. Other versions may or may not work, but we do recommend using the versions maintained by your chosen distribution.
 
 Python environment
 ----
@@ -153,13 +159,15 @@ The following commands will install the Python prerequisites for `feeddb`. If yo
 ```
 cd .../path/to/this/repo/src
 virtualenv ~/feed-virtualenv
+scl enable python27 bash
 source ~/feed-virtualenv/bin/activate
 pip install -r feeddb/requirements.txt
 ```
 
-If you are using `virtualenv`, you will need to "activate" the environment before Django's `manage.py` will work. This only needs to be done once per terminal session:
+If you are using `virtualenv` and enable python27, you will need to "activate" the environment before Django's `manage.py` will work. This only needs to be done once per terminal session:
 
 ```
+scl enable python27 bash
 source .../path/to/virtualenv/bin/activate
 ```
 
@@ -202,12 +210,15 @@ If you are using `virtualenv`, you must also specify the appropriate WSGIPythonH
   # This is the path to the UNIX-domain socket for the WSGI server. This
   # differs between distributions; on CentOS the path is `/var/run/wsgi`.
   WSGISocketPrefix /var/run/wsgi
-  
+
   # This path should match the argument given to `virtualenv` when creating the
   # virtual environment.
   WSGIPythonHome "/path/to/your/feeddb/virtualenv/"
 </IfModule>
 ```
+
+Make sure that HTTPD is pointing to the correct python27 module when the module is loaded.
+
 
 Note that this is merely an example; there are many other ways to deploy Django applications. See these links for starters:
 
@@ -296,7 +307,7 @@ where `X` is a number of hours. Content which has been modified in the last X ho
 The cronjob must specify all paths absolutely. If you are using a virtualenv, be sure to use the python binary in that virtualenv. For example, this job will update the index every half hour by re-indexing changes from the last hour:
 
 ```
-0,30 * * * * /virtualenv/feeddb/bin/python /server/feed-django/src/manage.py update_index --remove --age 1
+0,30 * * * * scl enable python27 "/virtualenv/feeddb/bin/python /server/feed-django/src/manage.py update_index --remove --age 1"  # make sure that the path is correct for your configuration
 ```
 
 
