@@ -33,7 +33,7 @@ ADMIN_MEDIA_PREFIX = '/adminstatic/'
 
 # FEED: STATIC_XXX are home-grown variables.
 # They point to the store for static files (CSS, JS, images) of feeddb.feed app.
-STATIC_ROOT = relpath2abspath('../../public/static/')
+STATIC_ROOT = relpath2abspath('../../../public/static/')
 STATIC_PREFIX='/static/'
 STATIC_URL=STATIC_PREFIX
 
