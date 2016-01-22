@@ -33,9 +33,21 @@ ADMIN_MEDIA_PREFIX = '/adminstatic/'
 
 # FEED: STATIC_XXX are home-grown variables.
 # They point to the store for static files (CSS, JS, images) of feeddb.feed app.
-STATIC_ROOT = relpath2abspath('feed/static')
+STATIC_ROOT = relpath2abspath('../../public/static/')
 STATIC_PREFIX='/static/'
 STATIC_URL=STATIC_PREFIX
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    relpath2abspath('feed/static'),
+)
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 
 SITE_ROOT = relpath2abspath('');
 

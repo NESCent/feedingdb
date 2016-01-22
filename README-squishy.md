@@ -123,12 +123,13 @@ The deployment process should be very similar to the setup for a dev environment
 3. Copy `settings.py.example` to `settings.py` and modify it to match your preferences and environment. Follow the instructions within those files. You may also want to read & revise `settings_common.py`. The former is specific to your deployment and is not tracked in git; the latter is tracked and contains configuration that should be common to all instances of FEED.
 4. Load a FEED1 database into the location specified by `settings.py`. See above.
 5. Run the migrations to update the database schema: `./manage.py migrate feed`
-6. Load approval options. See above for details.
-7. Load correspondences for behavior and muscles. See above for details.
-8. Populate the `solr` search index. See below for details.
-9. Configure a `cron` job to keep the search index up to date. See below for details.
-9. Configure permissions on the upload directory to allow the Django app to write to the directory. On CentOS, this looks like: `chown -R apache <dir>` or `chgrp -R apache <dir> && find <dir> -type d | xargs chmod g+ws`
-9. Check that all features are working as expected. Test thoroughly before opening up access to general users.
+6. Collect static files: `scl enable python27: `/virtualenv/feeddb/bin/python /server/feed-django/src/manage.py collectstatic`
+7. Load approval options. See above for details.
+8. Load correspondences for behavior and muscles. See above for details.
+9. Populate the `solr` search index. See below for details.
+10. Configure a `cron` job to keep the search index up to date. See below for details.
+11. Configure permissions on the upload directory to allow the Django app to write to the directory. On CentOS, this looks like: `chown -R apache <dir>` or `chgrp -R apache <dir> && find <dir> -type d | xargs chmod g+ws`
+12. Check that all features are working as expected. Test thoroughly before opening up access to general users.
 
 *Note*: It is assumed you are in the `src` directory for all commands described in this file.
 
