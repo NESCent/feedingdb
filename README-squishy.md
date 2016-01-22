@@ -123,7 +123,7 @@ The deployment process should be very similar to the setup for a dev environment
 3. Copy `settings.py.example` to `settings.py` and modify it to match your preferences and environment. Follow the instructions within those files. You may also want to read & revise `settings_common.py`. The former is specific to your deployment and is not tracked in git; the latter is tracked and contains configuration that should be common to all instances of FEED.
 4. Load a FEED1 database into the location specified by `settings.py`. See above.
 5. Run the migrations to update the database schema: `./manage.py migrate feed`
-6. Collect static files: `scl enable python27 "/virtualenv/feeddb/bin/python /server/feed-django/src/manage.py collectstatic"`
+6. Collect static files: `scl enable python27 "/data/feed-virtualenv/bin/python /data/feed-django/src/manage.py collectstatic"` (as feeddb user)
 7. Load approval options. See above for details.
 8. Load correspondences for behavior and muscles. See above for details.
 9. Populate the `solr` search index. See below for details.
