@@ -115,7 +115,6 @@ def bucket_detail(request, id):
     trials = bucket.trials.all().select_related(
         'session__experiment__subject__taxon',
         'behaviorowl_primary',
-        'food_type'
         ).prefetch_related('bucket_set')
 
     c = RequestContext(request, {
