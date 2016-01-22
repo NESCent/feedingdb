@@ -193,6 +193,10 @@ Configure your web server to serve the FEED app. At Squishymedia, we use Apache2
     Allow from all
   </Directory>
 
+  # serving static/media
+  Alias /uploads/ /data/uploads/
+  Alias /static/ /data/public/static/
+
   ## Logging
   ErrorLog "/var/log/httpd/feeddb_error.log"
   ServerSignature Off
