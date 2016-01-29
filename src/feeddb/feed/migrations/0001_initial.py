@@ -1,902 +1,1033 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-from south.db import db
-from django.db import models
-from feeddb.feed.models import *
+from django.db import migrations, models
+import feeddb.feed.models
+from django.conf import settings
 
-class Migration:
-    
-    def forwards(self, orm):
-        
-        # Adding model 'Session'
-        db.create_table('feed_session', (
-            ('id', orm['feed.Session:id']),
-            ('created_by', orm['feed.Session:created_by']),
-            ('created_at', orm['feed.Session:created_at']),
-            ('updated_at', orm['feed.Session:updated_at']),
-            ('experiment', orm['feed.Session:experiment']),
-            ('accession', orm['feed.Session:accession']),
-            ('start', orm['feed.Session:start']),
-            ('end', orm['feed.Session:end']),
-            ('position', orm['feed.Session:position']),
-            ('bookkeeping', orm['feed.Session:bookkeeping']),
-            ('subj_notes', orm['feed.Session:subj_notes']),
-            ('subj_restraint', orm['feed.Session:subj_restraint']),
-            ('subj_anesthesia_sedation', orm['feed.Session:subj_anesthesia_sedation']),
-        ))
-        db.send_create_signal('feed', ['Session'])
-        
-        # Adding model 'Emgunit'
-        db.create_table('feed_emgunit', (
-            ('id', orm['feed.Emgunit:id']),
-            ('created_by', orm['feed.Emgunit:created_by']),
-            ('created_at', orm['feed.Emgunit:created_at']),
-            ('updated_at', orm['feed.Emgunit:updated_at']),
-            ('label', orm['feed.Emgunit:label']),
-            ('controlled', orm['feed.Emgunit:controlled']),
-            ('deprecated', orm['feed.Emgunit:deprecated']),
-        ))
-        db.send_create_signal('feed', ['Emgunit'])
-        
-        # Adding model 'Channel'
-        db.create_table('feed_channel', (
-            ('id', orm['feed.Channel:id']),
-            ('created_by', orm['feed.Channel:created_by']),
-            ('created_at', orm['feed.Channel:created_at']),
-            ('updated_at', orm['feed.Channel:updated_at']),
-            ('setup', orm['feed.Channel:setup']),
-            ('name', orm['feed.Channel:name']),
-            ('rate', orm['feed.Channel:rate']),
-            ('notes', orm['feed.Channel:notes']),
-        ))
-        db.send_create_signal('feed', ['Channel'])
-        
-        # Adding model 'Trial'
-        db.create_table('feed_trial', (
-            ('id', orm['feed.Trial:id']),
-            ('created_by', orm['feed.Trial:created_by']),
-            ('created_at', orm['feed.Trial:created_at']),
-            ('updated_at', orm['feed.Trial:updated_at']),
-            ('session', orm['feed.Trial:session']),
-            ('accession', orm['feed.Trial:accession']),
-            ('position', orm['feed.Trial:position']),
-            ('start', orm['feed.Trial:start']),
-            ('end', orm['feed.Trial:end']),
-            ('claimed_duration', orm['feed.Trial:claimed_duration']),
-            ('bookkeeping', orm['feed.Trial:bookkeeping']),
-            ('subj_treatment', orm['feed.Trial:subj_treatment']),
-            ('subj_notes', orm['feed.Trial:subj_notes']),
-            ('behavior_primary', orm['feed.Trial:behavior_primary']),
-            ('behavior_secondary', orm['feed.Trial:behavior_secondary']),
-            ('behavior_notes', orm['feed.Trial:behavior_notes']),
-            ('food_type', orm['feed.Trial:food_type']),
-            ('food_size', orm['feed.Trial:food_size']),
-            ('food_property', orm['feed.Trial:food_property']),
-            ('waveform_picture', orm['feed.Trial:waveform_picture']),
-        ))
-        db.send_create_signal('feed', ['Trial'])
-        
-        # Adding model 'SonoChannel'
-        db.create_table('feed_sonochannel', (
-            ('channel_ptr', orm['feed.SonoChannel:channel_ptr']),
-            ('sono_unit', orm['feed.SonoChannel:sono_unit']),
-            ('crystal1', orm['feed.SonoChannel:crystal1']),
-            ('crystal2', orm['feed.SonoChannel:crystal2']),
-        ))
-        db.send_create_signal('feed', ['SonoChannel'])
-        
-        # Adding model 'EmgSetup'
-        db.create_table('feed_emgsetup', (
-            ('setup_ptr', orm['feed.EmgSetup:setup_ptr']),
-            ('preamplifier', orm['feed.EmgSetup:preamplifier']),
-        ))
-        db.send_create_signal('feed', ['EmgSetup'])
-        
-        # Adding model 'Sonounit'
-        db.create_table('feed_sonounit', (
-            ('id', orm['feed.Sonounit:id']),
-            ('created_by', orm['feed.Sonounit:created_by']),
-            ('created_at', orm['feed.Sonounit:created_at']),
-            ('updated_at', orm['feed.Sonounit:updated_at']),
-            ('label', orm['feed.Sonounit:label']),
-            ('controlled', orm['feed.Sonounit:controlled']),
-            ('deprecated', orm['feed.Sonounit:deprecated']),
-        ))
-        db.send_create_signal('feed', ['Sonounit'])
-        
-        # Adding model 'ElectrodeType'
-        db.create_table('feed_electrodetype', (
-            ('id', orm['feed.ElectrodeType:id']),
-            ('created_by', orm['feed.ElectrodeType:created_by']),
-            ('created_at', orm['feed.ElectrodeType:created_at']),
-            ('updated_at', orm['feed.ElectrodeType:updated_at']),
-            ('label', orm['feed.ElectrodeType:label']),
-            ('controlled', orm['feed.ElectrodeType:controlled']),
-            ('deprecated', orm['feed.ElectrodeType:deprecated']),
-        ))
-        db.send_create_signal('feed', ['ElectrodeType'])
-        
-        # Adding model 'Study'
-        db.create_table('feed_study', (
-            ('id', orm['feed.Study:id']),
-            ('created_by', orm['feed.Study:created_by']),
-            ('created_at', orm['feed.Study:created_at']),
-            ('updated_at', orm['feed.Study:updated_at']),
-            ('accession', orm['feed.Study:accession']),
-            ('name', orm['feed.Study:name']),
-            ('bookkeeping', orm['feed.Study:bookkeeping']),
-            ('start', orm['feed.Study:start']),
-            ('end', orm['feed.Study:end']),
-            ('funding_agency', orm['feed.Study:funding_agency']),
-            ('approval_secured', orm['feed.Study:approval_secured']),
-            ('description', orm['feed.Study:description']),
-        ))
-        db.send_create_signal('feed', ['Study'])
-        
-        # Adding model 'Muscle'
-        db.create_table('feed_muscle', (
-            ('id', orm['feed.Muscle:id']),
-            ('created_by', orm['feed.Muscle:created_by']),
-            ('created_at', orm['feed.Muscle:created_at']),
-            ('updated_at', orm['feed.Muscle:updated_at']),
-            ('label', orm['feed.Muscle:label']),
-            ('controlled', orm['feed.Muscle:controlled']),
-            ('deprecated', orm['feed.Muscle:deprecated']),
-        ))
-        db.send_create_signal('feed', ['Muscle'])
-        
-        # Adding model 'Behavior'
-        db.create_table('feed_behavior', (
-            ('id', orm['feed.Behavior:id']),
-            ('created_by', orm['feed.Behavior:created_by']),
-            ('created_at', orm['feed.Behavior:created_at']),
-            ('updated_at', orm['feed.Behavior:updated_at']),
-            ('label', orm['feed.Behavior:label']),
-            ('controlled', orm['feed.Behavior:controlled']),
-            ('deprecated', orm['feed.Behavior:deprecated']),
-        ))
-        db.send_create_signal('feed', ['Behavior'])
-        
-        # Adding model 'EmgSensor'
-        db.create_table('feed_emgsensor', (
-            ('sensor_ptr', orm['feed.EmgSensor:sensor_ptr']),
-            ('muscle', orm['feed.EmgSensor:muscle']),
-            ('side', orm['feed.EmgSensor:side']),
-            ('axisdepth', orm['feed.EmgSensor:axisdepth']),
-            ('axisap', orm['feed.EmgSensor:axisap']),
-            ('axisdv', orm['feed.EmgSensor:axisdv']),
-            ('electrode_type', orm['feed.EmgSensor:electrode_type']),
-        ))
-        db.send_create_signal('feed', ['EmgSensor'])
-        
-        # Adding model 'ChannelLineup'
-        db.create_table('feed_channellineup', (
-            ('id', orm['feed.ChannelLineup:id']),
-            ('created_by', orm['feed.ChannelLineup:created_by']),
-            ('created_at', orm['feed.ChannelLineup:created_at']),
-            ('updated_at', orm['feed.ChannelLineup:updated_at']),
-            ('session', orm['feed.ChannelLineup:session']),
-            ('position', orm['feed.ChannelLineup:position']),
-            ('channel', orm['feed.ChannelLineup:channel']),
-        ))
-        db.send_create_signal('feed', ['ChannelLineup'])
-        
-        # Adding model 'EmgChannel'
-        db.create_table('feed_emgchannel', (
-            ('channel_ptr', orm['feed.EmgChannel:channel_ptr']),
-            ('sensor', orm['feed.EmgChannel:sensor']),
-            ('emg_unit', orm['feed.EmgChannel:emg_unit']),
-            ('emg_filtering', orm['feed.EmgChannel:emg_filtering']),
-        ))
-        db.send_create_signal('feed', ['EmgChannel'])
-        
-        # Adding model 'DevelopmentStage'
-        db.create_table('feed_developmentstage', (
-            ('id', orm['feed.DevelopmentStage:id']),
-            ('created_by', orm['feed.DevelopmentStage:created_by']),
-            ('created_at', orm['feed.DevelopmentStage:created_at']),
-            ('updated_at', orm['feed.DevelopmentStage:updated_at']),
-            ('label', orm['feed.DevelopmentStage:label']),
-            ('controlled', orm['feed.DevelopmentStage:controlled']),
-            ('deprecated', orm['feed.DevelopmentStage:deprecated']),
-        ))
-        db.send_create_signal('feed', ['DevelopmentStage'])
-        
-        # Adding model 'SonoSetup'
-        db.create_table('feed_sonosetup', (
-            ('setup_ptr', orm['feed.SonoSetup:setup_ptr']),
-            ('sonomicrometer', orm['feed.SonoSetup:sonomicrometer']),
-        ))
-        db.send_create_signal('feed', ['SonoSetup'])
-        
-        # Adding model 'EmgElectrode'
-        db.create_table('feed_emgelectrode', (
-            ('id', orm['feed.EmgElectrode:id']),
-            ('created_by', orm['feed.EmgElectrode:created_by']),
-            ('created_at', orm['feed.EmgElectrode:created_at']),
-            ('updated_at', orm['feed.EmgElectrode:updated_at']),
-            ('setup', orm['feed.EmgElectrode:setup']),
-            ('name', orm['feed.EmgElectrode:name']),
-            ('notes', orm['feed.EmgElectrode:notes']),
-            ('muscle', orm['feed.EmgElectrode:muscle']),
-            ('side', orm['feed.EmgElectrode:side']),
-            ('axisdepth', orm['feed.EmgElectrode:axisdepth']),
-            ('axisap', orm['feed.EmgElectrode:axisap']),
-            ('axisdv', orm['feed.EmgElectrode:axisdv']),
-            ('electrode_type', orm['feed.EmgElectrode:electrode_type']),
-            ('rate', orm['feed.EmgElectrode:rate']),
-            ('emg_unit', orm['feed.EmgElectrode:emg_unit']),
-            ('emg_filtering', orm['feed.EmgElectrode:emg_filtering']),
-        ))
-        db.send_create_signal('feed', ['EmgElectrode'])
-        
-        # Adding model 'Experiment'
-        db.create_table('feed_experiment', (
-            ('id', orm['feed.Experiment:id']),
-            ('created_by', orm['feed.Experiment:created_by']),
-            ('created_at', orm['feed.Experiment:created_at']),
-            ('updated_at', orm['feed.Experiment:updated_at']),
-            ('study', orm['feed.Experiment:study']),
-            ('subject', orm['feed.Experiment:subject']),
-            ('accession', orm['feed.Experiment:accession']),
-            ('start', orm['feed.Experiment:start']),
-            ('end', orm['feed.Experiment:end']),
-            ('bookkeeping', orm['feed.Experiment:bookkeeping']),
-            ('description', orm['feed.Experiment:description']),
-            ('subj_devstage', orm['feed.Experiment:subj_devstage']),
-            ('subj_age', orm['feed.Experiment:subj_age']),
-            ('subj_weight', orm['feed.Experiment:subj_weight']),
-            ('subj_tooth', orm['feed.Experiment:subj_tooth']),
-            ('subject_notes', orm['feed.Experiment:subject_notes']),
-            ('impl_notes', orm['feed.Experiment:impl_notes']),
-        ))
-        db.send_create_signal('feed', ['Experiment'])
-        
-        # Adding model 'Side'
-        db.create_table('feed_side', (
-            ('id', orm['feed.Side:id']),
-            ('created_by', orm['feed.Side:created_by']),
-            ('created_at', orm['feed.Side:created_at']),
-            ('updated_at', orm['feed.Side:updated_at']),
-            ('label', orm['feed.Side:label']),
-            ('controlled', orm['feed.Side:controlled']),
-            ('deprecated', orm['feed.Side:deprecated']),
-        ))
-        db.send_create_signal('feed', ['Side'])
-        
-        # Adding model 'Restraint'
-        db.create_table('feed_restraint', (
-            ('id', orm['feed.Restraint:id']),
-            ('created_by', orm['feed.Restraint:created_by']),
-            ('created_at', orm['feed.Restraint:created_at']),
-            ('updated_at', orm['feed.Restraint:updated_at']),
-            ('label', orm['feed.Restraint:label']),
-            ('controlled', orm['feed.Restraint:controlled']),
-            ('deprecated', orm['feed.Restraint:deprecated']),
-        ))
-        db.send_create_signal('feed', ['Restraint'])
-        
-        # Adding model 'Subject'
-        db.create_table('feed_subject', (
-            ('id', orm['feed.Subject:id']),
-            ('created_by', orm['feed.Subject:created_by']),
-            ('created_at', orm['feed.Subject:created_at']),
-            ('updated_at', orm['feed.Subject:updated_at']),
-            ('study', orm['feed.Subject:study']),
-            ('taxon', orm['feed.Subject:taxon']),
-            ('name', orm['feed.Subject:name']),
-            ('breed', orm['feed.Subject:breed']),
-            ('sex', orm['feed.Subject:sex']),
-            ('source', orm['feed.Subject:source']),
-            ('notes', orm['feed.Subject:notes']),
-        ))
-        db.send_create_signal('feed', ['Subject'])
-        
-        # Adding model 'SonoSensor'
-        db.create_table('feed_sonosensor', (
-            ('sensor_ptr', orm['feed.SonoSensor:sensor_ptr']),
-            ('muscle', orm['feed.SonoSensor:muscle']),
-            ('side', orm['feed.SonoSensor:side']),
-            ('axisdepth', orm['feed.SonoSensor:axisdepth']),
-            ('axisap', orm['feed.SonoSensor:axisap']),
-            ('axisdv', orm['feed.SonoSensor:axisdv']),
-        ))
-        db.send_create_signal('feed', ['SonoSensor'])
-        
-        # Adding model 'AnteriorPosteriorAxis'
-        db.create_table('feed_anteriorposterioraxis', (
-            ('id', orm['feed.AnteriorPosteriorAxis:id']),
-            ('created_by', orm['feed.AnteriorPosteriorAxis:created_by']),
-            ('created_at', orm['feed.AnteriorPosteriorAxis:created_at']),
-            ('updated_at', orm['feed.AnteriorPosteriorAxis:updated_at']),
-            ('label', orm['feed.AnteriorPosteriorAxis:label']),
-            ('controlled', orm['feed.AnteriorPosteriorAxis:controlled']),
-            ('deprecated', orm['feed.AnteriorPosteriorAxis:deprecated']),
-        ))
-        db.send_create_signal('feed', ['AnteriorPosteriorAxis'])
-        
-        # Adding model 'Setup'
-        db.create_table('feed_setup', (
-            ('id', orm['feed.Setup:id']),
-            ('created_by', orm['feed.Setup:created_by']),
-            ('created_at', orm['feed.Setup:created_at']),
-            ('updated_at', orm['feed.Setup:updated_at']),
-            ('experiment', orm['feed.Setup:experiment']),
-            ('technique', orm['feed.Setup:technique']),
-            ('notes', orm['feed.Setup:notes']),
-        ))
-        db.send_create_signal('feed', ['Setup'])
-        
-        # Adding model 'Taxon'
-        db.create_table('feed_taxon', (
-            ('id', orm['feed.Taxon:id']),
-            ('created_by', orm['feed.Taxon:created_by']),
-            ('created_at', orm['feed.Taxon:created_at']),
-            ('updated_at', orm['feed.Taxon:updated_at']),
-            ('label', orm['feed.Taxon:label']),
-            ('controlled', orm['feed.Taxon:controlled']),
-            ('deprecated', orm['feed.Taxon:deprecated']),
-            ('genus', orm['feed.Taxon:genus']),
-            ('species', orm['feed.Taxon:species']),
-            ('common_name', orm['feed.Taxon:common_name']),
-        ))
-        db.send_create_signal('feed', ['Taxon'])
-        
-        # Adding model 'DepthAxis'
-        db.create_table('feed_depthaxis', (
-            ('id', orm['feed.DepthAxis:id']),
-            ('created_by', orm['feed.DepthAxis:created_by']),
-            ('created_at', orm['feed.DepthAxis:created_at']),
-            ('updated_at', orm['feed.DepthAxis:updated_at']),
-            ('label', orm['feed.DepthAxis:label']),
-            ('controlled', orm['feed.DepthAxis:controlled']),
-            ('deprecated', orm['feed.DepthAxis:deprecated']),
-        ))
-        db.send_create_signal('feed', ['DepthAxis'])
-        
-        # Adding model 'Illustration'
-        db.create_table('feed_illustration', (
-            ('id', orm['feed.Illustration:id']),
-            ('created_by', orm['feed.Illustration:created_by']),
-            ('created_at', orm['feed.Illustration:created_at']),
-            ('updated_at', orm['feed.Illustration:updated_at']),
-            ('picture', orm['feed.Illustration:picture']),
-            ('notes', orm['feed.Illustration:notes']),
-            ('subject', orm['feed.Illustration:subject']),
-            ('setup', orm['feed.Illustration:setup']),
-            ('experiment', orm['feed.Illustration:experiment']),
-        ))
-        db.send_create_signal('feed', ['Illustration'])
-        
-        # Adding model 'Sensor'
-        db.create_table('feed_sensor', (
-            ('id', orm['feed.Sensor:id']),
-            ('created_by', orm['feed.Sensor:created_by']),
-            ('created_at', orm['feed.Sensor:created_at']),
-            ('updated_at', orm['feed.Sensor:updated_at']),
-            ('setup', orm['feed.Sensor:setup']),
-            ('name', orm['feed.Sensor:name']),
-            ('notes', orm['feed.Sensor:notes']),
-        ))
-        db.send_create_signal('feed', ['Sensor'])
-        
-        # Adding model 'Emgfiltering'
-        db.create_table('feed_emgfiltering', (
-            ('id', orm['feed.Emgfiltering:id']),
-            ('created_by', orm['feed.Emgfiltering:created_by']),
-            ('created_at', orm['feed.Emgfiltering:created_at']),
-            ('updated_at', orm['feed.Emgfiltering:updated_at']),
-            ('label', orm['feed.Emgfiltering:label']),
-            ('controlled', orm['feed.Emgfiltering:controlled']),
-            ('deprecated', orm['feed.Emgfiltering:deprecated']),
-        ))
-        db.send_create_signal('feed', ['Emgfiltering'])
-        
-        # Adding model 'DorsalVentralAxis'
-        db.create_table('feed_dorsalventralaxis', (
-            ('id', orm['feed.DorsalVentralAxis:id']),
-            ('created_by', orm['feed.DorsalVentralAxis:created_by']),
-            ('created_at', orm['feed.DorsalVentralAxis:created_at']),
-            ('updated_at', orm['feed.DorsalVentralAxis:updated_at']),
-            ('label', orm['feed.DorsalVentralAxis:label']),
-            ('controlled', orm['feed.DorsalVentralAxis:controlled']),
-            ('deprecated', orm['feed.DorsalVentralAxis:deprecated']),
-        ))
-        db.send_create_signal('feed', ['DorsalVentralAxis'])
-        
-        # Adding model 'StudyPrivate'
-        db.create_table('feed_studyprivate', (
-            ('id', orm['feed.StudyPrivate:id']),
-            ('created_by', orm['feed.StudyPrivate:created_by']),
-            ('created_at', orm['feed.StudyPrivate:created_at']),
-            ('updated_at', orm['feed.StudyPrivate:updated_at']),
-            ('study', orm['feed.StudyPrivate:study']),
-            ('pi', orm['feed.StudyPrivate:pi']),
-            ('organization', orm['feed.StudyPrivate:organization']),
-            ('lab', orm['feed.StudyPrivate:lab']),
-            ('funding', orm['feed.StudyPrivate:funding']),
-            ('approval', orm['feed.StudyPrivate:approval']),
-            ('notes', orm['feed.StudyPrivate:notes']),
-        ))
-        db.send_create_signal('feed', ['StudyPrivate'])
-        
-        # Adding model 'Technique'
-        db.create_table('feed_technique', (
-            ('id', orm['feed.Technique:id']),
-            ('created_by', orm['feed.Technique:created_by']),
-            ('created_at', orm['feed.Technique:created_at']),
-            ('updated_at', orm['feed.Technique:updated_at']),
-            ('label', orm['feed.Technique:label']),
-            ('controlled', orm['feed.Technique:controlled']),
-            ('deprecated', orm['feed.Technique:deprecated']),
-        ))
-        db.send_create_signal('feed', ['Technique'])
-        
-    
-    
-    def backwards(self, orm):
-        
-        # Deleting model 'Session'
-        db.delete_table('feed_session')
-        
-        # Deleting model 'Emgunit'
-        db.delete_table('feed_emgunit')
-        
-        # Deleting model 'Channel'
-        db.delete_table('feed_channel')
-        
-        # Deleting model 'Trial'
-        db.delete_table('feed_trial')
-        
-        # Deleting model 'SonoChannel'
-        db.delete_table('feed_sonochannel')
-        
-        # Deleting model 'EmgSetup'
-        db.delete_table('feed_emgsetup')
-        
-        # Deleting model 'Sonounit'
-        db.delete_table('feed_sonounit')
-        
-        # Deleting model 'ElectrodeType'
-        db.delete_table('feed_electrodetype')
-        
-        # Deleting model 'Study'
-        db.delete_table('feed_study')
-        
-        # Deleting model 'Muscle'
-        db.delete_table('feed_muscle')
-        
-        # Deleting model 'Behavior'
-        db.delete_table('feed_behavior')
-        
-        # Deleting model 'EmgSensor'
-        db.delete_table('feed_emgsensor')
-        
-        # Deleting model 'ChannelLineup'
-        db.delete_table('feed_channellineup')
-        
-        # Deleting model 'EmgChannel'
-        db.delete_table('feed_emgchannel')
-        
-        # Deleting model 'DevelopmentStage'
-        db.delete_table('feed_developmentstage')
-        
-        # Deleting model 'SonoSetup'
-        db.delete_table('feed_sonosetup')
-        
-        # Deleting model 'EmgElectrode'
-        db.delete_table('feed_emgelectrode')
-        
-        # Deleting model 'Experiment'
-        db.delete_table('feed_experiment')
-        
-        # Deleting model 'Side'
-        db.delete_table('feed_side')
-        
-        # Deleting model 'Restraint'
-        db.delete_table('feed_restraint')
-        
-        # Deleting model 'Subject'
-        db.delete_table('feed_subject')
-        
-        # Deleting model 'SonoSensor'
-        db.delete_table('feed_sonosensor')
-        
-        # Deleting model 'AnteriorPosteriorAxis'
-        db.delete_table('feed_anteriorposterioraxis')
-        
-        # Deleting model 'Setup'
-        db.delete_table('feed_setup')
-        
-        # Deleting model 'Taxon'
-        db.delete_table('feed_taxon')
-        
-        # Deleting model 'DepthAxis'
-        db.delete_table('feed_depthaxis')
-        
-        # Deleting model 'Illustration'
-        db.delete_table('feed_illustration')
-        
-        # Deleting model 'Sensor'
-        db.delete_table('feed_sensor')
-        
-        # Deleting model 'Emgfiltering'
-        db.delete_table('feed_emgfiltering')
-        
-        # Deleting model 'DorsalVentralAxis'
-        db.delete_table('feed_dorsalventralaxis')
-        
-        # Deleting model 'StudyPrivate'
-        db.delete_table('feed_studyprivate')
-        
-        # Deleting model 'Technique'
-        db.delete_table('feed_technique')
-        
-    
-    
-    models = {
-        'auth.group': {
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '80', 'unique': 'True'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'blank': 'True'})
-        },
-        'auth.permission': {
-            'Meta': {'unique_together': "(('content_type', 'codename'),)"},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        'auth.user': {
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'blank': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'max_length': '30', 'unique': 'True'})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'unique_together': "(('app_label', 'model'),)", 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        'feed.anteriorposterioraxis': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'anteriorposterioraxis_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.behavior': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'behavior_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.channel': {
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'channel_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'rate': ('django.db.models.fields.IntegerField', [], {}),
-            'setup': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Setup']"}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.channellineup': {
-            'channel': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Channel']"}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'channellineup_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'position': ('django.db.models.fields.IntegerField', [], {}),
-            'session': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Session']"}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.depthaxis': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'depthaxis_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.developmentstage': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'developmentstage_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.dorsalventralaxis': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'dorsalventralaxis_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.electrodetype': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'electrodetype_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.emgchannel': {
-            'channel_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['feed.Channel']", 'unique': 'True', 'primary_key': 'True'}),
-            'emg_filtering': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Emgfiltering']"}),
-            'emg_unit': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Emgunit']"}),
-            'sensor': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.EmgSensor']"})
-        },
-        'feed.emgelectrode': {
-            'axisap': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.AnteriorPosteriorAxis']", 'null': 'True', 'blank': 'True'}),
-            'axisdepth': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.DepthAxis']", 'null': 'True', 'blank': 'True'}),
-            'axisdv': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.DorsalVentralAxis']", 'null': 'True', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'emgelectrode_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'electrode_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.ElectrodeType']", 'null': 'True', 'blank': 'True'}),
-            'emg_filtering': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Emgfiltering']"}),
-            'emg_unit': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Emgunit']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'muscle': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Muscle']"}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'rate': ('django.db.models.fields.IntegerField', [], {}),
-            'setup': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Setup']"}),
-            'side': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Side']"}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.emgfiltering': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'emgfiltering_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.emgsensor': {
-            'axisap': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.AnteriorPosteriorAxis']", 'null': 'True', 'blank': 'True'}),
-            'axisdepth': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.DepthAxis']", 'null': 'True', 'blank': 'True'}),
-            'axisdv': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.DorsalVentralAxis']", 'null': 'True', 'blank': 'True'}),
-            'electrode_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.ElectrodeType']", 'null': 'True', 'blank': 'True'}),
-            'muscle': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Muscle']"}),
-            'sensor_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['feed.Sensor']", 'unique': 'True', 'primary_key': 'True'}),
-            'side': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Side']"})
-        },
-        'feed.emgsetup': {
-            'preamplifier': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'setup_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['feed.Setup']", 'unique': 'True', 'primary_key': 'True'})
-        },
-        'feed.emgunit': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'emgunit_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.experiment': {
-            'accession': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'bookkeeping': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'experiment_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'end': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'impl_notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'start': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'study': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Study']"}),
-            'subj_age': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '19', 'decimal_places': '5', 'blank': 'True'}),
-            'subj_devstage': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.DevelopmentStage']"}),
-            'subj_tooth': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'subj_weight': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '19', 'decimal_places': '5', 'blank': 'True'}),
-            'subject': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Subject']"}),
-            'subject_notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.illustration': {
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'illustration_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'experiment': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Experiment']", 'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'picture': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'setup': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Setup']", 'null': 'True', 'blank': 'True'}),
-            'subject': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Subject']", 'null': 'True', 'blank': 'True'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.muscle': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'muscle_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.restraint': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'restraint_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.sensor': {
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'sensor_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'setup': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Setup']"}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.session': {
-            'accession': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'bookkeeping': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'channels': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['feed.Channel']"}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'session_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'end': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'experiment': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Experiment']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'position': ('django.db.models.fields.IntegerField', [], {}),
-            'start': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'subj_anesthesia_sedation': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'subj_notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'subj_restraint': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Restraint']"}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.setup': {
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'setup_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'experiment': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Experiment']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'technique': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Technique']"}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.side': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'side_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.sonochannel': {
-            'channel_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['feed.Channel']", 'unique': 'True', 'primary_key': 'True'}),
-            'crystal1': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'crystals1_related'", 'to': "orm['feed.SonoSensor']"}),
-            'crystal2': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'crystals2_related'", 'to': "orm['feed.SonoSensor']"}),
-            'sono_unit': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Sonounit']"})
-        },
-        'feed.sonosensor': {
-            'axisap': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.AnteriorPosteriorAxis']", 'null': 'True', 'blank': 'True'}),
-            'axisdepth': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.DepthAxis']", 'null': 'True', 'blank': 'True'}),
-            'axisdv': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.DorsalVentralAxis']", 'null': 'True', 'blank': 'True'}),
-            'muscle': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Muscle']"}),
-            'sensor_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['feed.Sensor']", 'unique': 'True', 'primary_key': 'True'}),
-            'side': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Side']"})
-        },
-        'feed.sonosetup': {
-            'setup_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['feed.Setup']", 'unique': 'True', 'primary_key': 'True'}),
-            'sonomicrometer': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'})
-        },
-        'feed.sonounit': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'sonounit_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.study': {
-            'accession': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'approval_secured': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'bookkeeping': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'study_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'end': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'funding_agency': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'start': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.studyprivate': {
-            'approval': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'studyprivate_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'funding': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'lab': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'organization': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'pi': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'study': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Study']"}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.subject': {
-            'breed': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'subject_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'sex': ('django.db.models.fields.CharField', [], {'max_length': '2', 'null': 'True', 'blank': 'True'}),
-            'source': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'study': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Study']"}),
-            'taxon': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Taxon']"}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.taxon': {
-            'common_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'taxon_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'genus': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'species': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.technique': {
-            'controlled': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'technique_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'deprecated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'label': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {})
-        },
-        'feed.trial': {
-            'accession': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'behavior_notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'behavior_primary': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Behavior']"}),
-            'behavior_secondary': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'bookkeeping': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'claimed_duration': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '8', 'decimal_places': '4', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'trial_related'", 'blank': 'True', 'null': 'True', 'to': "orm['auth.User']"}),
-            'end': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'food_property': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'food_size': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'food_type': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'position': ('django.db.models.fields.IntegerField', [], {}),
-            'session': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.Session']"}),
-            'start': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'subj_notes': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'subj_treatment': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {}),
-            'waveform_picture': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'})
-        }
-    }
-    
-    complete_apps = ['feed']
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('auth', '0006_require_contenttypes_0002'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='AgeUnit',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+            ],
+            options={
+                'ordering': ['label'],
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='AnatomicalLocation',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+                ('category', models.IntegerField(choices=[(1, 'Muscle'), (2, 'Bone')])),
+            ],
+            options={
+                'verbose_name': 'Anatomical Location',
+                'verbose_name_plural': 'Anatomical Locations',
+            },
+        ),
+        migrations.CreateModel(
+            name='AnimalApprovalType',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('description', models.TextField()),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='AnteriorPosteriorAxis',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+            ],
+            options={
+                'verbose_name': 'Anterior-posterior Point',
+                'verbose_name_plural': 'Anterior-posterior Axis',
+            },
+        ),
+        migrations.CreateModel(
+            name='Behavior',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+            ],
+            options={
+                'ordering': ['label'],
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='BehaviorOwl',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('label', models.CharField(max_length=1000)),
+                ('obo_definition', models.TextField()),
+                ('rdfs_comment', models.TextField()),
+                ('uri', models.CharField(max_length=1500)),
+                ('rdfs_is_class', models.BooleanField(default=False)),
+                ('synonyms_comma_separated', models.CharField(max_length=1500, null=True)),
+                ('bfo_part_of_some', models.ManyToManyField(related_name='has_parts', to='feed.BehaviorOwl')),
+                ('rdfs_subClassOf_ancestors', models.ManyToManyField(related_name='has_subClass_descendants', to='feed.BehaviorOwl')),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Channel',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('name', models.CharField(help_text=b'Provide a short name for identifying the data contained in this Channel.', max_length=255)),
+                ('rate', models.IntegerField(verbose_name=b'Recording Rate (Hz)')),
+                ('notes', models.TextField(null=True, verbose_name=b'Notes', blank=True)),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='ChannelLineup',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('position', models.IntegerField(help_text=b'The numeric position of the channel within this channel lineup; coincides with the column position in the data file.', verbose_name=b'Position (integer)')),
+            ],
+            options={
+                'ordering': ['position'],
+                'verbose_name': 'Channel Position',
+                'verbose_name_plural': 'Channel Lineup',
+            },
+        ),
+        migrations.CreateModel(
+            name='DepthAxis',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+            ],
+            options={
+                'verbose_name': 'Depth Point',
+                'verbose_name_plural': 'Depth Axis',
+            },
+        ),
+        migrations.CreateModel(
+            name='DevelopmentStage',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+            ],
+            options={
+                'ordering': ['label'],
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='DorsalVentralAxis',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+            ],
+            options={
+                'verbose_name': 'Dorsal-ventral Point',
+                'verbose_name_plural': 'Dorsal-ventral Axis',
+            },
+        ),
+        migrations.CreateModel(
+            name='ElectrodeType',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+            ],
+            options={
+                'ordering': ['label'],
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Emgfiltering',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+            ],
+            options={
+                'verbose_name': 'EMG Filtering',
+                'verbose_name_plural': 'EMG Filterings',
+            },
+        ),
+        migrations.CreateModel(
+            name='Experiment',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('title', models.CharField(max_length=255, verbose_name=b'Experiment title')),
+                ('bookkeeping', models.CharField(help_text=b'Enter any text required for lab bookkeeping concerning the Study here', max_length=255, null=True, verbose_name=b'Bookkeeping', blank=True)),
+                ('start', models.DateField(help_text=b'To manually enter a date use the format yyyy-mm-dd or choose a date from the calendar', null=True, verbose_name=b'Start Date')),
+                ('end', models.DateField(help_text=b'To manually enter a date use the format yyyy-mm-dd or choose a date from the calendar', null=True, verbose_name=b'End Date', blank=True)),
+                ('description', models.TextField(null=True, blank=True)),
+                ('subj_age', models.DecimalField(decimal_places=1, max_digits=19, blank=True, help_text=b'As a decimal; use the following field to specify age units.', null=True, verbose_name=b'Subject Age')),
+                ('subj_weight', models.DecimalField(null=True, verbose_name=b'Subject Weight (kg)', max_digits=19, decimal_places=2, blank=True)),
+                ('subj_tooth', models.CharField(help_text=b'Dental development and/or eruption status of the subject at the time of the experiment', max_length=255, null=True, verbose_name=b'Dental Developmental Stage', blank=True)),
+                ('subject_notes', models.TextField(null=True, verbose_name=b'Subject Notes', blank=True)),
+                ('impl_notes', models.TextField(null=True, verbose_name=b'Implantation Notes', blank=True)),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='FeedUserProfile',
+            fields=[
+                ('user', models.OneToOneField(primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
+                ('institutional_affiliation', models.CharField(max_length=255, blank=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Illustration',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('picture', models.FileField(upload_to=b'illustrations', null=True, verbose_name=b'Picture', blank=True)),
+                ('notes', models.TextField(null=True, blank=True)),
+                ('created_by', models.ForeignKey(related_name='illustration_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
+                ('experiment', models.ForeignKey(blank=True, to='feed.Experiment', null=True)),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='MedialLateralAxis',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+                ('created_by', models.ForeignKey(related_name='mediallateralaxis_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'verbose_name': 'Medial-lateral Point',
+                'verbose_name_plural': 'Medial-lateral Axis',
+            },
+        ),
+        migrations.CreateModel(
+            name='MuscleOwl',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('label', models.CharField(max_length=1000)),
+                ('obo_definition', models.TextField()),
+                ('rdfs_comment', models.TextField()),
+                ('uri', models.CharField(max_length=1500)),
+                ('rdfs_is_class', models.BooleanField(default=False)),
+                ('synonyms_comma_separated', models.CharField(max_length=1500, null=True)),
+                ('bfo_part_of_some', models.ManyToManyField(related_name='has_parts', to='feed.MuscleOwl')),
+                ('rdfs_subClassOf_ancestors', models.ManyToManyField(related_name='has_subClass_descendants', to='feed.MuscleOwl')),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='ProximalDistalAxis',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+                ('created_by', models.ForeignKey(related_name='proximaldistalaxis_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'verbose_name': 'Proximal-distal Point',
+                'verbose_name_plural': 'Proximal-distal Axis',
+            },
+        ),
+        migrations.CreateModel(
+            name='Restraint',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+                ('created_by', models.ForeignKey(related_name='restraint_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'ordering': ['label'],
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Sensor',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('name', models.CharField(help_text=b'Provide a short name for identifying the data contained in this Sensor.', max_length=255)),
+                ('notes', models.TextField(null=True, blank=True)),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Session',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('title', models.CharField(max_length=255, verbose_name=b'Session title')),
+                ('bookkeeping', models.CharField(help_text=b'Enter any text required for lab bookkeeping concerning the Study here', max_length=255, null=True, verbose_name=b'Bookkeeping', blank=True)),
+                ('position', models.IntegerField(help_text=b'The numeric position of this recording session among the other sessions within the current experiment.')),
+                ('start', models.DateField(help_text=b'To manually enter a date use the format yyyy-mm-dd or choose a date from the calendar', null=True, verbose_name=b'Start Date')),
+                ('end', models.DateField(help_text=b'To manually enter a date use the format yyyy-mm-dd or choose a date from the calendar', null=True, verbose_name=b'End Date', blank=True)),
+                ('subj_notes', models.TextField(null=True, verbose_name=b'Subject Notes', blank=True)),
+                ('subj_anesthesia_sedation', models.CharField(max_length=255, null=True, verbose_name=b'Subject Anesthesia / Sedation', blank=True)),
+            ],
+            options={
+                'ordering': ['position'],
+            },
+        ),
+        migrations.CreateModel(
+            name='Setup',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('technique', models.IntegerField(choices=[(1, 'EMG'), (2, 'Sono'), (3, 'Strain'), (4, 'Bite force'), (5, 'Pressure'), (6, 'Kinematics'), (7, 'Time/Event'), (8, 'Other')])),
+                ('notes', models.TextField(help_text=b'Please provide detailed information on the bandpass filtering used.', null=True, verbose_name=b'Notes about all sensors and channels in this setup', blank=True)),
+                ('sampling_rate', models.IntegerField(help_text=b'Recording rate is required for each sensor channel. If data are sampled at a rate different from the recording rate for individual channels, it is noted here.', null=True, verbose_name=b'Sampling Rate (Hz)', blank=True)),
+            ],
+            options={
+                'verbose_name': 'Setup',
+            },
+        ),
+        migrations.CreateModel(
+            name='Side',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+                ('created_by', models.ForeignKey(related_name='side_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'ordering': ['label'],
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Study',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('title', models.CharField(help_text=b'Enter a short title for the Study here', max_length=255)),
+                ('bookkeeping', models.CharField(help_text=b'Enter any text required for lab bookkeeping concerning the Study here', max_length=255, null=True, verbose_name=b'Bookkeeping', blank=True)),
+                ('start', models.DateField(help_text=b'To manually enter a date use the format yyyy-mm-dd or choose a date from the calendar', verbose_name=b'Start Date')),
+                ('end', models.DateField(help_text=b'To manually enter a date use the format yyyy-mm-dd or choose a date from the calendar', null=True, verbose_name=b'End Date', blank=True)),
+                ('funding_agency', models.CharField(help_text=b'The agency that funded the research', max_length=255, null=True, blank=True)),
+                ('description', models.TextField(help_text=b'A brief summary of the Study goals and data', verbose_name=b'Study Description')),
+                ('resources', models.TextField(help_text=b'Published or other types of information relevant to interpreting the physiologic data can be cited here', null=True, verbose_name=b'External Resources', blank=True)),
+                ('approval', models.CharField(help_text=b'A reference to approval documentation for Animal Care and Use or for Human Subjects, if it was secured.', max_length=255, null=True, verbose_name=b'Animal Use Approval (if applicable)', blank=True)),
+                ('approval_type', models.ForeignKey(verbose_name=b'Approval Secured', to='feed.AnimalApprovalType', help_text=b'\n                                Affirmation that an institutional approval for\n                                Animal Care and Use or for Human Subjects was\n                                secured. Please read each statement very\n                                carefully. <b>Data upload can not continue\n                                without checking the appropriate\n                                affirmation.</b>\n                                ', null=True)),
+                ('created_by', models.ForeignKey(related_name='study_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'ordering': ['title'],
+                'verbose_name_plural': 'Studies',
+            },
+        ),
+        migrations.CreateModel(
+            name='StudyPrivate',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('pi', models.CharField(help_text=b'The name of the PI of the lab where the data were collected and/or of the grant that funded the research.', max_length=255, null=True, verbose_name=b'Lab PI')),
+                ('notes', models.TextField(null=True, verbose_name=b'Private Notes', blank=True)),
+                ('created_by', models.ForeignKey(related_name='studyprivate_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
+                ('study', models.OneToOneField(to='feed.Study')),
+            ],
+            options={
+                'verbose_name': 'Study - Private Information',
+                'verbose_name_plural': 'Study - Private Information',
+            },
+        ),
+        migrations.CreateModel(
+            name='Subject',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('name', models.CharField(max_length=255)),
+                ('breed', models.CharField(max_length=255, null=True, verbose_name=b'Sub-species, Strain, or Breed', blank=True)),
+                ('sex', models.CharField(blank=True, max_length=2, null=True, help_text=b"'-----' means sex is not known.", choices=[('M', 'Male'), ('F', 'Female')])),
+                ('source', models.CharField(help_text=b'E.g. wild-caught, zoo, laboratory raised, etc.', max_length=255, null=True, blank=True)),
+                ('notes', models.TextField(help_text=b'Citations for, e.g., any relevant morphological data, such as muscle weights, muscle fiber angles, fiber types, CT scan images, anatomical drawings.', null=True, blank=True)),
+                ('created_by', models.ForeignKey(related_name='subject_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
+                ('study', models.ForeignKey(to='feed.Study')),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Taxon',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+                ('genus', models.CharField(max_length=255)),
+                ('species', models.CharField(max_length=255)),
+                ('common_name', models.CharField(max_length=255, null=True, blank=True)),
+                ('created_by', models.ForeignKey(related_name='taxon_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'ordering': ['genus'],
+                'verbose_name_plural': 'Taxa',
+            },
+        ),
+        migrations.CreateModel(
+            name='Trial',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('title', models.CharField(max_length=255, verbose_name=b'Trial title')),
+                ('bookkeeping', models.CharField(help_text=b'Enter any text required for lab bookkeeping concerning the Study here', max_length=255, null=True, verbose_name=b'Bookkeeping', blank=True)),
+                ('position', models.IntegerField(help_text=b'The numeric position of this trial among the other trials within the current recording session.')),
+                ('start', models.DateField(help_text=b'To manually enter a date use the format yyyy-mm-dd or choose a date from the calendar', null=True, verbose_name=b'Start Date')),
+                ('end', models.DateField(help_text=b'To manually enter a date use the format yyyy-mm-dd or choose a date from the calendar', null=True, verbose_name=b'End Date', blank=True)),
+                ('subj_treatment', models.TextField(null=True, verbose_name=b'Subject Treatment', blank=True)),
+                ('subj_notes', models.TextField(null=True, verbose_name=b'Subject Notes', blank=True)),
+                ('food_type', models.CharField(max_length=255, null=True, verbose_name=b'Food Type', blank=True)),
+                ('food_size', models.CharField(max_length=255, null=True, verbose_name=b'Food Size (maximum dimension millimeters)', blank=True)),
+                ('food_property', models.CharField(max_length=255, null=True, verbose_name=b'Food Property', blank=True)),
+                ('is_calibration', models.BooleanField(default=False, help_text=b'Clicking Calibration means that the trial data you upload will be for a calibration file that does not contain any feeding behavior.', verbose_name=b'Calibration:')),
+                ('behavior_secondary', models.CharField(max_length=255, null=True, verbose_name=b'Secondary Behavior', blank=True)),
+                ('behavior_notes', models.TextField(null=True, verbose_name=b'Behavior Notes', blank=True)),
+                ('data_file', models.FileField(validators=[feeddb.feed.models.validate_data_file_extension], upload_to=feeddb.feed.models.get_data_upload_to, blank=True, help_text=b'A tab-delimited file with columns corresponding to the channel lineup specified in the Recording Session.', null=True, verbose_name=b'Data File')),
+                ('waveform_picture', models.FileField(help_text=b'A picture (jpeg, pdf, etc.) as a graphical overview of data in the data file.', upload_to=b'pictures', null=True, verbose_name=b'Illustration', blank=True)),
+                ('behavior_primary', models.ForeignKey(verbose_name=b'Primary Behavior', blank=True, to='feed.Behavior', null=True)),
+                ('behaviorowl_primary', models.ForeignKey(related_name='primary_in_trials', blank=True, to='feed.BehaviorOwl', help_text=b'You must choose a Feeding Behavior unless you have checked that this is a Calibration Trial.', null=True, verbose_name=b'Feeding Behavior')),
+                ('created_by', models.ForeignKey(related_name='trial_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
+                ('experiment', models.ForeignKey(to='feed.Experiment')),
+                ('session', models.ForeignKey(to='feed.Session')),
+                ('study', models.ForeignKey(to='feed.Study')),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Unit',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(editable=False)),
+                ('updated_at', models.DateTimeField(editable=False)),
+                ('label', models.CharField(max_length=255)),
+                ('technique', models.IntegerField(choices=[(1, 'EMG'), (2, 'Sono'), (3, 'Strain'), (4, 'Bite force'), (5, 'Pressure'), (6, 'Kinematics'), (7, 'Time/Event'), (8, 'Other')])),
+                ('created_by', models.ForeignKey(related_name='unit_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'ordering': ['technique', 'label'],
+            },
+        ),
+        migrations.CreateModel(
+            name='EmgChannel',
+            fields=[
+                ('channel_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Channel')),
+                ('emg_amplification', models.IntegerField(null=True, verbose_name=b'Amplification', blank=True)),
+            ],
+            options={
+                'verbose_name': 'EMG Channel',
+            },
+            bases=('feed.channel',),
+        ),
+        migrations.CreateModel(
+            name='EmgSensor',
+            fields=[
+                ('sensor_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Sensor')),
+            ],
+            options={
+                'ordering': ['id'],
+                'verbose_name': 'EMG Electrode',
+            },
+            bases=('feed.sensor',),
+        ),
+        migrations.CreateModel(
+            name='EmgSetup',
+            fields=[
+                ('setup_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Setup')),
+                ('preamplifier', models.CharField(help_text=b'The make and model of the (pre-)amplifier.', max_length=255, null=True, blank=True)),
+            ],
+            options={
+                'verbose_name': 'EMG Setup',
+            },
+            bases=('feed.setup',),
+        ),
+        migrations.CreateModel(
+            name='EventChannel',
+            fields=[
+                ('channel_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Channel')),
+                ('unit', models.CharField(max_length=255, null=True, blank=True)),
+            ],
+            options={
+                'verbose_name': 'Time/Event Channel',
+            },
+            bases=('feed.channel',),
+        ),
+        migrations.CreateModel(
+            name='EventSetup',
+            fields=[
+                ('setup_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Setup')),
+            ],
+            options={
+                'verbose_name': 'Time/Event Setup',
+            },
+            bases=('feed.setup',),
+        ),
+        migrations.CreateModel(
+            name='ForceChannel',
+            fields=[
+                ('channel_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Channel')),
+            ],
+            options={
+                'verbose_name': 'Bite Force Channel',
+            },
+            bases=('feed.channel',),
+        ),
+        migrations.CreateModel(
+            name='ForceSensor',
+            fields=[
+                ('sensor_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Sensor')),
+                ('location_text', models.CharField(max_length=255, null=True, verbose_name=b'Location')),
+            ],
+            options={
+                'verbose_name': 'Bite Force Sensor',
+            },
+            bases=('feed.sensor',),
+        ),
+        migrations.CreateModel(
+            name='ForceSetup',
+            fields=[
+                ('setup_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Setup')),
+            ],
+            options={
+                'verbose_name': 'Bite Force Setup',
+            },
+            bases=('feed.setup',),
+        ),
+        migrations.CreateModel(
+            name='KinematicsChannel',
+            fields=[
+                ('channel_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Channel')),
+            ],
+            options={
+                'verbose_name': 'Kinematics Channel',
+            },
+            bases=('feed.channel',),
+        ),
+        migrations.CreateModel(
+            name='KinematicsSensor',
+            fields=[
+                ('sensor_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Sensor')),
+                ('anatomical_location_text', models.CharField(max_length=255, null=True, verbose_name=b'Anatomical Location')),
+            ],
+            options={
+                'verbose_name': 'Kinematics Marker',
+            },
+            bases=('feed.sensor',),
+        ),
+        migrations.CreateModel(
+            name='KinematicsSetup',
+            fields=[
+                ('setup_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Setup')),
+            ],
+            options={
+                'verbose_name': 'Kinematics Setup',
+            },
+            bases=('feed.setup',),
+        ),
+        migrations.CreateModel(
+            name='OtherChannel',
+            fields=[
+                ('channel_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Channel')),
+            ],
+            options={
+                'verbose_name': 'Other Channel',
+            },
+            bases=('feed.channel',),
+        ),
+        migrations.CreateModel(
+            name='OtherSensor',
+            fields=[
+                ('sensor_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Sensor')),
+                ('location_text', models.CharField(max_length=255, null=True, verbose_name=b'Location')),
+            ],
+            options={
+                'verbose_name': 'Other Sensor',
+            },
+            bases=('feed.sensor',),
+        ),
+        migrations.CreateModel(
+            name='OtherSetup',
+            fields=[
+                ('setup_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Setup')),
+            ],
+            options={
+                'verbose_name': 'Other Setup',
+            },
+            bases=('feed.setup',),
+        ),
+        migrations.CreateModel(
+            name='PressureChannel',
+            fields=[
+                ('channel_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Channel')),
+            ],
+            options={
+                'verbose_name': 'Pressure Channel',
+            },
+            bases=('feed.channel',),
+        ),
+        migrations.CreateModel(
+            name='PressureSensor',
+            fields=[
+                ('sensor_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Sensor')),
+                ('location_text', models.CharField(max_length=255, null=True, verbose_name=b'Location')),
+            ],
+            options={
+                'verbose_name': 'Pressure Sensor',
+            },
+            bases=('feed.sensor',),
+        ),
+        migrations.CreateModel(
+            name='PressureSetup',
+            fields=[
+                ('setup_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Setup')),
+            ],
+            options={
+                'verbose_name': 'Pressure Setup',
+            },
+            bases=('feed.setup',),
+        ),
+        migrations.CreateModel(
+            name='SonoChannel',
+            fields=[
+                ('channel_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Channel')),
+            ],
+            options={
+                'verbose_name': 'Sono Channel',
+            },
+            bases=('feed.channel',),
+        ),
+        migrations.CreateModel(
+            name='SonoSensor',
+            fields=[
+                ('sensor_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Sensor')),
+            ],
+            options={
+                'verbose_name': 'Sono Crystal',
+            },
+            bases=('feed.sensor',),
+        ),
+        migrations.CreateModel(
+            name='SonoSetup',
+            fields=[
+                ('setup_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Setup')),
+                ('sonomicrometer', models.CharField(max_length=255, null=True, blank=True)),
+            ],
+            options={
+                'verbose_name': 'Sono Setup',
+            },
+            bases=('feed.setup',),
+        ),
+        migrations.CreateModel(
+            name='StrainChannel',
+            fields=[
+                ('channel_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Channel')),
+            ],
+            options={
+                'verbose_name': 'Strain Channel',
+            },
+            bases=('feed.channel',),
+        ),
+        migrations.CreateModel(
+            name='StrainSensor',
+            fields=[
+                ('sensor_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Sensor')),
+                ('anatomical_location_text', models.CharField(max_length=255, null=True, verbose_name=b'Anatomical Location')),
+                ('gage_type', models.IntegerField(blank=True, null=True, verbose_name=b'Gage Type', choices=[(1, b'Delta rosette'), (2, b'Rectangular rosette'), (3, b'Single element'), (4, b'Parallel (multiple single elements)'), (5, b'Biaxial'), (6, b'Other (describe in notes)')])),
+            ],
+            options={
+                'verbose_name': 'Strain Sensor',
+            },
+            bases=('feed.sensor',),
+        ),
+        migrations.CreateModel(
+            name='StrainSetup',
+            fields=[
+                ('setup_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='feed.Setup')),
+            ],
+            options={
+                'verbose_name': 'Strain Setup',
+            },
+            bases=('feed.setup',),
+        ),
+        migrations.AddField(
+            model_name='subject',
+            name='taxon',
+            field=models.ForeignKey(to='feed.Taxon'),
+        ),
+        migrations.AddField(
+            model_name='setup',
+            name='created_by',
+            field=models.ForeignKey(related_name='setup_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='setup',
+            name='experiment',
+            field=models.ForeignKey(to='feed.Experiment'),
+        ),
+        migrations.AddField(
+            model_name='setup',
+            name='study',
+            field=models.ForeignKey(to='feed.Study'),
+        ),
+        migrations.AddField(
+            model_name='session',
+            name='channels',
+            field=models.ManyToManyField(to='feed.Channel', through='feed.ChannelLineup'),
+        ),
+        migrations.AddField(
+            model_name='session',
+            name='created_by',
+            field=models.ForeignKey(related_name='session_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='session',
+            name='experiment',
+            field=models.ForeignKey(to='feed.Experiment'),
+        ),
+        migrations.AddField(
+            model_name='session',
+            name='study',
+            field=models.ForeignKey(to='feed.Study'),
+        ),
+        migrations.AddField(
+            model_name='session',
+            name='subj_restraint',
+            field=models.ForeignKey(verbose_name=b'Subject Restraint', to='feed.Restraint'),
+        ),
+        migrations.AddField(
+            model_name='sensor',
+            name='created_by',
+            field=models.ForeignKey(related_name='sensor_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='sensor',
+            name='loc_ap',
+            field=models.ForeignKey(verbose_name=b'AP', blank=True, to='feed.AnteriorPosteriorAxis', null=True),
+        ),
+        migrations.AddField(
+            model_name='sensor',
+            name='loc_dv',
+            field=models.ForeignKey(verbose_name=b'DV', blank=True, to='feed.DorsalVentralAxis', null=True),
+        ),
+        migrations.AddField(
+            model_name='sensor',
+            name='loc_ml',
+            field=models.ForeignKey(verbose_name=b'ML', blank=True, to='feed.MedialLateralAxis', null=True),
+        ),
+        migrations.AddField(
+            model_name='sensor',
+            name='loc_pd',
+            field=models.ForeignKey(verbose_name=b'PD', blank=True, to='feed.ProximalDistalAxis', null=True),
+        ),
+        migrations.AddField(
+            model_name='sensor',
+            name='loc_side',
+            field=models.ForeignKey(verbose_name=b'Side', to='feed.Side', null=True),
+        ),
+        migrations.AddField(
+            model_name='sensor',
+            name='setup',
+            field=models.ForeignKey(to='feed.Setup'),
+        ),
+        migrations.AddField(
+            model_name='sensor',
+            name='study',
+            field=models.ForeignKey(to='feed.Study', null=True),
+        ),
+        migrations.AddField(
+            model_name='illustration',
+            name='setup',
+            field=models.ForeignKey(blank=True, to='feed.Setup', null=True),
+        ),
+        migrations.AddField(
+            model_name='illustration',
+            name='subject',
+            field=models.ForeignKey(blank=True, to='feed.Subject', null=True),
+        ),
+        migrations.AddField(
+            model_name='experiment',
+            name='created_by',
+            field=models.ForeignKey(related_name='experiment_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='experiment',
+            name='study',
+            field=models.ForeignKey(to='feed.Study'),
+        ),
+        migrations.AddField(
+            model_name='experiment',
+            name='subj_ageunit',
+            field=models.ForeignKey(verbose_name=b'Age Units', blank=True, to='feed.AgeUnit', null=True),
+        ),
+        migrations.AddField(
+            model_name='experiment',
+            name='subj_devstage',
+            field=models.ForeignKey(verbose_name=b'Subject Developmental Stage', to='feed.DevelopmentStage'),
+        ),
+        migrations.AddField(
+            model_name='experiment',
+            name='subject',
+            field=models.ForeignKey(to='feed.Subject'),
+        ),
+        migrations.AddField(
+            model_name='emgfiltering',
+            name='created_by',
+            field=models.ForeignKey(related_name='emgfiltering_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='electrodetype',
+            name='created_by',
+            field=models.ForeignKey(related_name='electrodetype_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='dorsalventralaxis',
+            name='created_by',
+            field=models.ForeignKey(related_name='dorsalventralaxis_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='developmentstage',
+            name='created_by',
+            field=models.ForeignKey(related_name='developmentstage_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='depthaxis',
+            name='created_by',
+            field=models.ForeignKey(related_name='depthaxis_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='channellineup',
+            name='channel',
+            field=models.ForeignKey(blank=True, to='feed.Channel', null=True),
+        ),
+        migrations.AddField(
+            model_name='channellineup',
+            name='created_by',
+            field=models.ForeignKey(related_name='channellineup_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='channellineup',
+            name='session',
+            field=models.ForeignKey(to='feed.Session'),
+        ),
+        migrations.AddField(
+            model_name='channel',
+            name='created_by',
+            field=models.ForeignKey(related_name='channel_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='channel',
+            name='setup',
+            field=models.ForeignKey(to='feed.Setup'),
+        ),
+        migrations.AddField(
+            model_name='channel',
+            name='study',
+            field=models.ForeignKey(to='feed.Study', null=True),
+        ),
+        migrations.AddField(
+            model_name='behavior',
+            name='created_by',
+            field=models.ForeignKey(related_name='behavior_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='behavior',
+            name='ontology_term',
+            field=models.ForeignKey(related_name='+', to='feed.BehaviorOwl', null=True),
+        ),
+        migrations.AddField(
+            model_name='anteriorposterioraxis',
+            name='created_by',
+            field=models.ForeignKey(related_name='anteriorposterioraxis_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='animalapprovaltype',
+            name='created_by',
+            field=models.ForeignKey(related_name='animalapprovaltype_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='anatomicallocation',
+            name='created_by',
+            field=models.ForeignKey(related_name='anatomicallocation_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='anatomicallocation',
+            name='ontology_term',
+            field=models.ForeignKey(related_name='+', to='feed.MuscleOwl', null=True),
+        ),
+        migrations.AddField(
+            model_name='ageunit',
+            name='created_by',
+            field=models.ForeignKey(related_name='ageunit_related', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+        migrations.AddField(
+            model_name='strainchannel',
+            name='sensor',
+            field=models.ForeignKey(to='feed.StrainSensor'),
+        ),
+        migrations.AddField(
+            model_name='strainchannel',
+            name='unit',
+            field=models.ForeignKey(verbose_name=b'Strain Units', to='feed.Unit', null=True),
+        ),
+        migrations.AddField(
+            model_name='sonosensor',
+            name='axisdepth',
+            field=models.ForeignKey(verbose_name=b'Crystal Depth', blank=True, to='feed.DepthAxis', null=True),
+        ),
+        migrations.AddField(
+            model_name='sonosensor',
+            name='location_controlled',
+            field=models.ForeignKey(verbose_name=b'Muscle', to='feed.AnatomicalLocation', null=True),
+        ),
+        migrations.AddField(
+            model_name='sonosensor',
+            name='muscle',
+            field=models.ForeignKey(verbose_name=b'Muscle', to='feed.MuscleOwl', null=True),
+        ),
+        migrations.AddField(
+            model_name='sonochannel',
+            name='crystal1',
+            field=models.ForeignKey(related_name='crystals1_related', to='feed.SonoSensor'),
+        ),
+        migrations.AddField(
+            model_name='sonochannel',
+            name='crystal2',
+            field=models.ForeignKey(related_name='crystals2_related', to='feed.SonoSensor'),
+        ),
+        migrations.AddField(
+            model_name='sonochannel',
+            name='unit',
+            field=models.ForeignKey(verbose_name=b'Sono Units', to='feed.Unit'),
+        ),
+        migrations.AddField(
+            model_name='pressurechannel',
+            name='sensor',
+            field=models.ForeignKey(to='feed.PressureSensor'),
+        ),
+        migrations.AddField(
+            model_name='pressurechannel',
+            name='unit',
+            field=models.ForeignKey(verbose_name=b'Pressure Units', to='feed.Unit', null=True),
+        ),
+        migrations.AddField(
+            model_name='otherchannel',
+            name='sensor',
+            field=models.ForeignKey(verbose_name=b'Sensor', to='feed.OtherSensor', null=True),
+        ),
+        migrations.AddField(
+            model_name='kinematicschannel',
+            name='sensor',
+            field=models.ForeignKey(verbose_name=b'Marker', to='feed.KinematicsSensor'),
+        ),
+        migrations.AddField(
+            model_name='kinematicschannel',
+            name='unit',
+            field=models.ForeignKey(verbose_name=b'Kinematics Units', to='feed.Unit', null=True),
+        ),
+        migrations.AddField(
+            model_name='forcechannel',
+            name='sensor',
+            field=models.ForeignKey(to='feed.ForceSensor'),
+        ),
+        migrations.AddField(
+            model_name='forcechannel',
+            name='unit',
+            field=models.ForeignKey(verbose_name=b'Bite Force Units', to='feed.Unit', null=True),
+        ),
+        migrations.AddField(
+            model_name='emgsensor',
+            name='axisdepth',
+            field=models.ForeignKey(verbose_name=b'Electrode Depth', blank=True, to='feed.DepthAxis', null=True),
+        ),
+        migrations.AddField(
+            model_name='emgsensor',
+            name='electrode_type',
+            field=models.ForeignKey(verbose_name=b'Electrode Type', blank=True, to='feed.ElectrodeType', null=True),
+        ),
+        migrations.AddField(
+            model_name='emgsensor',
+            name='location_controlled',
+            field=models.ForeignKey(verbose_name=b'Muscle', to='feed.AnatomicalLocation', null=True),
+        ),
+        migrations.AddField(
+            model_name='emgsensor',
+            name='muscle',
+            field=models.ForeignKey(verbose_name=b'Muscle', to='feed.MuscleOwl', null=True),
+        ),
+        migrations.AddField(
+            model_name='emgchannel',
+            name='emg_filtering',
+            field=models.ForeignKey(verbose_name=b'EMG Filtering', to='feed.Emgfiltering'),
+        ),
+        migrations.AddField(
+            model_name='emgchannel',
+            name='sensor',
+            field=models.ForeignKey(to='feed.EmgSensor'),
+        ),
+        migrations.AddField(
+            model_name='emgchannel',
+            name='unit',
+            field=models.ForeignKey(verbose_name=b'EMG Units [from models.py]', to='feed.Unit'),
+        ),
+    ]

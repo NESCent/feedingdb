@@ -7,7 +7,7 @@
   {% endblock %}
   {% block coltype %}colM{% endblock %}
   {% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form users{% endblock %}
-  
+
   {% block breadcrumbs %}{% endblock %}
 
 {% block pretitle %}
@@ -44,11 +44,11 @@
           {% if has_change_permission %}
             {% if cloneable %}
               <li><a class="clonelink" href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/clone" data-toggle="tooltip" data-placement="top" title="Clone"><span class='glyphicon glyphicon-plus-sign'></span></a></li>
-            {% endif %}	
-          {% endif %}	
+            {% endif %}
+          {% endif %}
           {% if has_change_permission %}
             {% if not is_popup %}
-              {% if object_id != None %} 
+              {% if object_id != None %}
                 <li><a href="/admin/{{opts.app_label}}/{{ opts.object_name.lower}}/{{object_id}}/history/" class="historylink" data-toggle="tooltip" data-placement="top" title="History"><span class='glyphicon glyphicon-calendar'></span></a></li>
          <!-- {% if has_absolute_url %}
            <li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>
@@ -61,7 +61,7 @@
     </div>
   {% endblock %}
 
-  <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">
+  <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form">
     {% csrf_token %}
     {% block form_top %}{% endblock %}
     {% if is_popup %}
@@ -90,7 +90,7 @@
           {% include inline_admin_formset.opts.template %}
         {% endfor %}
       {% endif %}
-    {% endfor %}    
+    {% endfor %}
     {% block after_related_objects %}
     {% endblock %}
     <div class="row">

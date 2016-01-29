@@ -18,6 +18,7 @@ class Bucket(feedmodels.FeedBaseModel):
     class Meta:
         verbose_name = "Collection"
 
+
 class TrialInBucket(models.Model):
     trial = models.ForeignKey(feedmodels.Trial)
     bin = models.ForeignKey(Bucket)

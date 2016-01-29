@@ -165,7 +165,7 @@ class FeedModelAdmin(admin.ModelAdmin):
                 return self.admin_site.admin_view(view)(*args, **kwargs)
             return update_wrapper(wrapper, view)
 
-        info = self.model._meta.app_label, self.model._meta.module_name
+        info = self.model._meta.app_label, self.model._meta.model_name
 
         urlpatterns = patterns('',
             url(r'^$',
@@ -410,7 +410,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         app_label = opts.app_label
 
         try:
-            obj = self.queryset(request).get(pk=unquote(object_id))
+            obj = self.get_queryset(request).get(pk=unquote(object_id))
         except model.DoesNotExist:
             # Don't raise Http404 just yet, because we haven't checked
             # permissions yet. We don't want an unauthenticated user to be able
@@ -538,7 +538,7 @@ class FeedModelAdmin(admin.ModelAdmin):
         opts = model._meta
 
         try:
-            obj = self.queryset(request).get(pk=unquote(object_id))
+            obj = self.get_queryset(request).get(pk=unquote(object_id))
         except model.DoesNotExist:
             # Don't raise Http404 just yet, because we haven't checked
             # permissions yet. We don't want an unauthenticated user to be able
