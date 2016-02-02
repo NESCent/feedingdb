@@ -29,7 +29,8 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 echo "BEGIN building solr schema and restarting solr ..."
 
-scl enable python27 "/virtualenv/feeddb/bin/python /server/feed-django/src/manage.py > /etc/solr/conf/schema.xml 2> /dev/null"
+source /virtualenv/feeddb/bin/activate
+$DIR/../src/manage.py build_solr_schema > /etc/solr/conf/schema.xml 2> /dev/null
 service solr restart &> /dev/null
 
 NEXT_WAIT_TIME=0
@@ -40,6 +41,6 @@ done
 echo "END building solr schema and restarting solr"
 echo "BEGIN rebuilding solr index ..."
 
-scl enable python27 "/virtualenv/feeddb/bin/python /server/feed-django/src/manage.py rebuild_index --noinput"
+$DIR/../src/manage.py rebuild_index --noinput
 
 echo "END rebuilding solr index"
