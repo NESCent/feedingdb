@@ -29,7 +29,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 echo "BEGIN building solr schema and restarting solr ..."
 
-source /virtualenv/feeddb/bin/activate
+source /data/feed-virtualenv/bin/activate
 $DIR/../src/manage.py build_solr_schema > /etc/solr/conf/schema.xml 2> /dev/null
 service solr restart &> /dev/null
 
