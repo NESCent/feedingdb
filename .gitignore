@@ -6,3 +6,5 @@
 whoosh_index/
 .vagrant*
 uploads
+src/feeddb/local.py
+public/

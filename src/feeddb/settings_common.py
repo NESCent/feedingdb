@@ -11,7 +11,7 @@ ALLOWED_HOSTS = ['*']
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/New_York' 
+TIME_ZONE = 'America/New_York'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -24,31 +24,43 @@ SITE_ID = 1
 USE_I18N = True
 
 
-# URL prefix for admin static files -- CSS, JavaScript and images. 
+# URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-# FEED: In development, Admin serves this URL magically from site-packages. 
-#          In deployment, Apache must be configured to serve them directly. 
-ADMIN_MEDIA_PREFIX = '/adminstatic/' 
+# FEED: In development, Admin serves this URL magically from site-packages.
+#          In deployment, Apache must be configured to serve them directly.
+ADMIN_MEDIA_PREFIX = '/adminstatic/'
 
-# FEED: STATIC_XXX are home-grown variables. 
+# FEED: STATIC_XXX are home-grown variables.
 # They point to the store for static files (CSS, JS, images) of feeddb.feed app.
-STATIC_ROOT = relpath2abspath('feed/static')
+STATIC_ROOT = relpath2abspath('../../../public/static/')
 STATIC_PREFIX='/static/'
 STATIC_URL=STATIC_PREFIX
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    relpath2abspath('feed/static'),
+)
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 
 SITE_ROOT = relpath2abspath('');
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-# FEED: We use MEDIA_XXX only to store & server the user-uploaded files. 
+# FEED: We use MEDIA_XXX only to store & server the user-uploaded files.
 #   The MEDIA_ROOT var should be defined in the local settings.py
 #   In deployment, ensure that Apache is serving this directory directly.
 MEDIA_URL = '/uploads/'
 
 # Absolute path to [project root]/explorer/static, which holds
-# web-related files of the explorer app, like css stylesheets or images. 
+# web-related files of the explorer app, like css stylesheets or images.
 EXPLORER_STATIC_ROOT = relpath2abspath('explorer/static')
 
 
@@ -76,7 +88,7 @@ MIDDLEWARE_CLASSES = (
    'feeddb.feed.extension.middleware.AnonymousAccessMiddleware',
    'feeddb.feed.middleware.FeedUploadStatusMiddleware',
    'pagination.middleware.PaginationMiddleware',
-   
+
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -98,7 +110,6 @@ INSTALLED_APPS = (
    'django.contrib.sites',
    'django.contrib.admin',
    'django.contrib.staticfiles',
-   'south',
    'feeddb.feed',
    'feeddb.explorer',
    'pagination',
@@ -132,8 +143,6 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 #)
 
 EXPLORER_TEMPORARY_FOLDER = '/tmp'
-
-SOUTH_TESTS_MIGRATE = False
 
 # List file extensions allowed for data files attached to Trials.
 #

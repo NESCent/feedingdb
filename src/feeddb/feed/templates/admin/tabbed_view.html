@@ -32,7 +32,7 @@
     </div>
   {% endblock %}
 {% endif %}
-    
+
 <!-- Title block -->
 {% block pretitle %}
   <div class="masthead">
@@ -46,7 +46,7 @@
           <ul class="object-tools object-tools-top float-right">
             {% if has_change_permission %}
               <li><a class="changelink" href="edit/" data-toggle="tooltip" data-placement="top" title="Edit"><span class='glyphicon glyphicon-pencil'></span></a></li>
-            {% endif %}	
+            {% endif %}
             {% if has_delete_permission %}
               <li><a class="deletelink" href="delete/" data-toggle="tooltip" data-placement="top" title="Delete"><span class='glyphicon glyphicon-remove'></span></a></li>
             {% endif %}
@@ -81,7 +81,7 @@
 {% endblock %}
 
   <div class="col-xs-9">
-    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% block form_top %}{% endblock %}
+    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form">{% block form_top %}{% endblock %}
 
       {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
       {% if save_on_top %}{% submit_row %}{% endif %}

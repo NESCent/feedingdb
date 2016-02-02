@@ -9,7 +9,7 @@ from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import RequestContext, Template
 from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, StreamingHttpResponse
 from django.contrib.auth import authenticate, login,logout
 from django.db.models import Q
 from django.utils.html import escape
@@ -115,7 +115,6 @@ def bucket_detail(request, id):
     trials = bucket.trials.all().select_related(
         'session__experiment__subject__taxon',
         'behaviorowl_primary',
-        'food_type'
         ).prefetch_related('bucket_set')
 
     c = RequestContext(request, {
@@ -663,7 +662,7 @@ def send_file(request, filename):
     iterator for chunks of 8KB.
     """
     wrapper = FileWrapper(file(filename))
-    response = HttpResponse(wrapper, content_type='text/plain')
+    response = StreamingHttpResponse(wrapper, content_type='text/plain')
     response['Content-Length'] = os.path.getsize(filename)
     response['Content-Disposition'] = 'attachment; filename="%s"' % os.path.basename(filename)
 
@@ -690,7 +689,7 @@ def send_zipfile(request, files, data_files, zipfilename):
         archive.write(realpath(filename), file)
     archive.close()
     wrapper = FileWrapper(temp)
-    response = HttpResponse(wrapper, content_type='application/zip')
+    response = StreamingHttpResponse(wrapper, content_type='application/zip')
     response['Content-Length'] = temp.tell()
     response['Content-Disposition'] = 'attachment; filename="%s"' % os.path.basename(zipfilename)
     temp.seek(0)

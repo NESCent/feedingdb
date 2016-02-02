@@ -65,14 +65,20 @@ def get_status(context):
         status = None
     return status
 
+
 def get_current_containers(context):
     try:
         model_name = context['opts'].model_name
     except KeyError as e:
         raise ImproperlyConfigured('upload_status_block can only be used on admin view, change, or add pages; missing needed context variable: %s' % e)
 
+    try:
+        app_label = context['opts'].app_label
+    except:
+        raise ImproperlyConfigured('upload_status_block can only be used on admin view, change, or add pages; missing needed context variable: %s' % e)
+
     status = get_status(context)
-    Model = get_model('feed', model_name)
+    Model = get_model(app_label, model_name)
     ret = {}
     if Model:
         for fname, value in status._data.items():

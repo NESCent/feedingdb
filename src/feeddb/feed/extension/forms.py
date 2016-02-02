@@ -144,6 +144,7 @@ class StudyChangeForm(forms.ModelForm):
             'end': DateInput(attrs={'class':'datepicker'}),
             'approval_type': RadioSelect(),
         }
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super(StudyChangeForm, self).__init__(*args, **kwargs)
@@ -226,6 +227,7 @@ class ChannelLineupForm(forms.ModelForm):
 
     class Meta:
         model = ChannelLineup
+        fields = '__all__'
 
 
 class StrainSensorForm(forms.ModelForm):

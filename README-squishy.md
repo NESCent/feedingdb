@@ -123,12 +123,13 @@ The deployment process should be very similar to the setup for a dev environment
 3. Copy `settings.py.example` to `settings.py` and modify it to match your preferences and environment. Follow the instructions within those files. You may also want to read & revise `settings_common.py`. The former is specific to your deployment and is not tracked in git; the latter is tracked and contains configuration that should be common to all instances of FEED.
 4. Load a FEED1 database into the location specified by `settings.py`. See above.
 5. Run the migrations to update the database schema: `./manage.py migrate feed`
-6. Load approval options. See above for details.
-7. Load correspondences for behavior and muscles. See above for details.
-8. Populate the `solr` search index. See below for details.
-9. Configure a `cron` job to keep the search index up to date. See below for details.
-9. Configure permissions on the upload directory to allow the Django app to write to the directory. On CentOS, this looks like: `chown -R apache <dir>` or `chgrp -R apache <dir> && find <dir> -type d | xargs chmod g+ws`
-9. Check that all features are working as expected. Test thoroughly before opening up access to general users.
+6. Collect static files: `scl enable python27 "/data/feed-virtualenv/bin/python /data/feed-django/src/manage.py collectstatic"` (as feeddb user)
+7. Load approval options. See above for details.
+8. Load correspondences for behavior and muscles. See above for details.
+9. Populate the `solr` search index. See below for details.
+10. Configure a `cron` job to keep the search index up to date. See below for details.
+11. Configure permissions on the upload directory to allow the Django app to write to the directory. On CentOS, this looks like: `chown -R apache <dir>` or `chgrp -R apache <dir> && find <dir> -type d | xargs chmod g+ws`
+12. Check that all features are working as expected. Test thoroughly before opening up access to general users.
 
 *Note*: It is assumed you are in the `src` directory for all commands described in this file.
 
@@ -138,10 +139,16 @@ Prerequisite packages
 On CentOS 6 or RHEL 6, the following command will install the requisite packages for the deployment on Apache 2 using python virtualenv:
 
 ```
-yum install -y postgresql-devel python-virtualenv python-pip python python-devel httpd
+yum install -y postgresql-devel httpd
+yum install httpd-devel
+sudo yum install python27  # for this to work on RHEL 6, a repo for SCL needs to be added to `/etc/yum.repos.d/scl.repo`
+scl enable python27 bash  # will get you a python 2.7 bash session
+sudo LD_LIBRARY_PATH=$LD_LIBRARY_PATH easy_install pip
+sudo LD_LIBRARY_PATH=$LD_LIBRARY_PATH /opt/rh/python27/root/usr/bin/pip2.7 install mod_wsgi
+
 ```
 
-This document was prepared using python 2.6, Apache 2, and Postgres 8.4.20. Other versions may or may not work, but we do recommend using the versions maintained by your chosen distribution.
+This document was prepared using python 2.7, Apache 2, and Postgres 8.4.20. Other versions may or may not work, but we do recommend using the versions maintained by your chosen distribution.
 
 Python environment
 ----
@@ -153,13 +160,15 @@ The following commands will install the Python prerequisites for `feeddb`. If yo
 ```
 cd .../path/to/this/repo/src
 virtualenv ~/feed-virtualenv
+scl enable python27 bash
 source ~/feed-virtualenv/bin/activate
 pip install -r feeddb/requirements.txt
 ```
 
-If you are using `virtualenv`, you will need to "activate" the environment before Django's `manage.py` will work. This only needs to be done once per terminal session:
+If you are using `virtualenv` and enable python27, you will need to "activate" the environment before Django's `manage.py` will work. This only needs to be done once per terminal session:
 
 ```
+scl enable python27 bash
 source .../path/to/virtualenv/bin/activate
 ```
 
@@ -184,6 +193,10 @@ Configure your web server to serve the FEED app. At Squishymedia, we use Apache2
     Allow from all
   </Directory>
 
+  # serving static/media
+  Alias /uploads/ /data/uploads/
+  Alias /static/ /data/public/static/
+
   ## Logging
   ErrorLog "/var/log/httpd/feeddb_error.log"
   ServerSignature Off
@@ -202,12 +215,15 @@ If you are using `virtualenv`, you must also specify the appropriate WSGIPythonH
   # This is the path to the UNIX-domain socket for the WSGI server. This
   # differs between distributions; on CentOS the path is `/var/run/wsgi`.
   WSGISocketPrefix /var/run/wsgi
-  
+
   # This path should match the argument given to `virtualenv` when creating the
   # virtual environment.
   WSGIPythonHome "/path/to/your/feeddb/virtualenv/"
 </IfModule>
 ```
+
+Make sure that HTTPD is pointing to the correct python27 module when the module is loaded.
+
 
 Note that this is merely an example; there are many other ways to deploy Django applications. See these links for starters:
 
@@ -296,7 +312,7 @@ where `X` is a number of hours. Content which has been modified in the last X ho
 The cronjob must specify all paths absolutely. If you are using a virtualenv, be sure to use the python binary in that virtualenv. For example, this job will update the index every half hour by re-indexing changes from the last hour:
 
 ```
-0,30 * * * * /virtualenv/feeddb/bin/python /server/feed-django/src/manage.py update_index --remove --age 1
+0,30 * * * * scl enable python27 "/virtualenv/feeddb/bin/python /server/feed-django/src/manage.py update_index --remove --age 1"  # make sure that the path is correct for your configuration
 ```
 
 
